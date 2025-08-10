@@ -264,7 +264,7 @@
   // Load JSON for current week and render
   async function loadWeek(weekNum) {
     try {
-      const response = await fetch(`/weeks/week${weekNum}.json`);
+      const response = await fetch(`./weeks/week${weekNum}.json`);
       if(!response.ok) throw new Error(`Week data not found: week${weekNum}.json`);
       const data = await response.json();
       data.week = weekNum; // fallback if missing
