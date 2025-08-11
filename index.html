@@ -230,6 +230,22 @@
     margin: 0;
     background-color: #fff;
   }
+@media (max-width: 600px) {
+  table, tbody, tr, td {
+    display: block;
+    width: 100% !important;
+  }
+  td {
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding-left: 0;
+  }
+  tr {
+    margin-bottom: 1rem;
+  }
+}
+
 </style>
 
 <details>
@@ -242,13 +258,13 @@
 
 <script>
 const psalmsData = [
-  { day: 'Sunday', url: 'http://audio.esvbible.org/hw/19001001-19029011.mp3', passage: '1-29', link: 'https://www.biblegateway.com/passage/?search=psalm+1-29&version=TLV' },
-  { day: 'Monday', url: 'http://audio.esvbible.org/hw/19030001-19050023.mp3', passage: '30-50', link: 'https://www.biblegateway.com/passage/?search=psalm+30-50&version=TLV' },
-  { day: 'Tuesday', url: 'http://audio.esvbible.org/hw/19051001-19072020.mp3', passage: '51-72', link: 'https://www.biblegateway.com/passage/?search=psalm+51-72&version=TLV' },
-  { day: 'Wednesday', url: 'http://audio.esvbible.org/hw/19063001-19089052.mp3', passage: '73-89', link: 'https://www.biblegateway.com/passage/?search=psalm+73-89&version=TLV' },
-  { day: 'Thursday', url: 'http://audio.esvbible.org/hw/19090001-19106048.mp3', passage: '90-106', link: 'https://www.biblegateway.com/passage/?search=psalm+90-106&version=TLV' },
-  { day: 'Friday', url: 'http://audio.esvbible.org/hw/19107001-19119176.mp3', passage: '107-119', link: 'https://www.biblegateway.com/passage/?search=psalm+107-119&version=TLV' },
-  { day: 'Saturday', url: 'http://audio.esvbible.org/hw/19120001-19150006.mp3', passage: '120-150', link: 'https://www.biblegateway.com/passage/?search=psalm+120-150&version=TLV' }
+  { day: 'Sunday', url: 'http://audio.esvbible.org/hw/19001001-19029011.mp3', passage: 'Chapters 1-29', link: 'https://www.biblegateway.com/passage/?search=psalm+1-29&version=TLV' },
+  { day: 'Monday', url: 'http://audio.esvbible.org/hw/19030001-19050023.mp3', passage: 'Chapters 30-50', link: 'https://www.biblegateway.com/passage/?search=psalm+30-50&version=TLV' },
+  { day: 'Tuesday', url: 'http://audio.esvbible.org/hw/19051001-19072020.mp3', passage: 'Chapters 51-72', link: 'https://www.biblegateway.com/passage/?search=psalm+51-72&version=TLV' },
+  { day: 'Wednesday', url: 'http://audio.esvbible.org/hw/19063001-19089052.mp3', passage: 'Chapters 73-89', link: 'https://www.biblegateway.com/passage/?search=psalm+73-89&version=TLV' },
+  { day: 'Thursday', url: 'http://audio.esvbible.org/hw/19090001-19106048.mp3', passage: 'Chapters 90-106', link: 'https://www.biblegateway.com/passage/?search=psalm+90-106&version=TLV' },
+  { day: 'Friday', url: 'http://audio.esvbible.org/hw/19107001-19119176.mp3', passage: 'Chapters 107-119', link: 'https://www.biblegateway.com/passage/?search=psalm+107-119&version=TLV' },
+  { day: 'Saturday', url: 'http://audio.esvbible.org/hw/19120001-19150006.mp3', passage: 'Chapters 120-150', link: 'https://www.biblegateway.com/passage/?search=psalm+120-150&version=TLV' }
 ];
 
 function buildPsalmsTable() {
