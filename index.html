@@ -73,11 +73,54 @@
 <!-- Test update: [current date/time] -->
 
 </header>
+<style>
+  details {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-<section id="bibleAppIntro" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
-  <h2 style="text-align: center; margin-bottom: 1rem;">BibleApp Intro</h2>
-  
-  <p>Welcome to the BibleApp! Here’s how it works: Study and Test the Entire Bible in a Year, Every Year—One week at a time. Listen to and read this week's Bible study below. You will also find study guides by chapter and advanced study of the original languages following the Bible study outline.</p>
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  /* Remove default arrow */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+
+  /* Add custom arrow */
+  summary::after {
+    content: "▸";
+    float: right;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 1rem;
+    margin: 0;
+    background-color: #fff;
+  }
+</style>
+
+<details>
+  <summary>BibleApp Intro</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">BibleApp Intro</h2>
+    <p>Welcome to the BibleApp! Here’s how it works: Study and Test the Entire Bible in a Year, Every Year—One week at a time. Listen to and read this week's Bible study below. You will also find study guides by chapter and advanced study of the original languages following the Bible study outline.</p>
   
   <p>Continue the Scripture study below. You will find study guides by chapter and advanced study of the original languages (including from ancient Jewish and Christian writings) following the Bible study outlines and Biblical texts. While it is our belief that many of the letters of the New Testament were originally written in Aramaic and/or Hebrew, the Greek texts are used for study even when there are known Hebrew manuscripts (e.g., Matthew and Hebrews).</p>
   
@@ -90,7 +133,8 @@
   <p>You will also find our study guides by chapter and advanced study of the original languages following the Bible audio/text and study outline then commentary. While it is our belief that many of the letters of the New Testament were originally written in Aramaic and/or Hebrew, the Greek texts are used for study even when there are known Hebrew manuscripts (e.g., Matthew and Hebrews).</p>
   
   <p><strong>Let's get going!</strong></p>
-</section>
+  </section>
+</details>
 
 
   <section id="studyIntro" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
@@ -145,11 +189,54 @@
     <h2>Words of the Week</h2>
     <div id="wordsOfTheWeekContent">Loading...</div>
   </section>
+<style>
+  details {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-  <section id="psalmsInAWeek" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
 
-    <div id="psalms-section">
-  <h2 style="text-align:center;">Psalms in a Week</h2>
+  /* Remove default arrow */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+
+  /* Add custom arrow */
+  summary::after {
+    content: "▸";
+    float: right;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 1rem;
+    margin: 0;
+    background-color: #fff;
+  }
+</style>
+
+<details>
+  <summary>Psalms in a Week</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Psalms in a Week</h2>
+<div id="psalms-section">
   <table id="psalms-table" style="width:100%; border-collapse: collapse;"></table>
 </div>
 
@@ -212,11 +299,56 @@ buildPsalmsTable();
 </script>
 
   </section>
+</details>
 
-  <section id="communityMap" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  
+<style>
+  details {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-    <h2>Community Map</h2>
-    <div style="position: relative; width: 100%; height: 400px; overflow: hidden;">
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  /* Remove default arrow */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+
+  /* Add custom arrow */
+  summary::after {
+    content: "▸";
+    float: right;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 1rem;
+    margin: 0;
+    background-color: #fff;
+  }
+</style>
+
+<details>
+  <summary>Community Map</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Community Map</h2>
   <iframe
     src="https://www.google.com/maps/d/embed?mid=1VwhwTcggPdBn_Fc-t2HcWZCVYuA&hl=en"
     width="100%"
@@ -226,16 +358,61 @@ buildPsalmsTable();
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade">
   </iframe>
-</div>
-
   </section>
+</details>
+<style>
+  details {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-  <section id="store" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
 
-    <h2>Store</h2>
+  /* Remove default arrow */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+
+  /* Add custom arrow */
+  summary::after {
+    content: "▸";
+    float: right;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 1rem;
+    margin: 0;
+    background-color: #fff;
+  }
+</style>
+
+<details>
+  <summary>Store & Donations</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Store & Donations</h2>
     <p>Support us by purchasing resources or donating.</p>
+
   </section>
-</main>
+</details>
+
+  </main>
 
 <script>
   // Set your start date for week 1 here:
