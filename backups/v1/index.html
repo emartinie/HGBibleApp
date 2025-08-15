@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tailwind Sections</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- Section 1: Gradient Hero with Glass Card -->
+  <section class="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 p-6">
+    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+    <div class="relative max-w-3xl text-center bg-white/10 backdrop-blur-md rounded-2xl p-10 shadow-2xl animate-fadeIn">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Welcome to Something Awesome</h1>
+      <p class="text-lg text-gray-200 mb-6">Using Tailwind's utility-first magic, glassmorphism, and smooth fade animations for a modern touch.</p>
+      <button class="px-6 py-3 bg-purple-500 hover:bg-purple-700 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110">
+        Get Started
+      </button>
+    </div>
+  </section>
+
+  <!-- Section 2: Responsive Card Grid with Hover Effects -->
+  <section class="py-20 px-6 bg-gray-800">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Our Features</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="feature-card">
+        <h3 class="text-xl font-semibold mb-3">Fast & Responsive</h3>
+        <p class="text-gray-300">Optimized layouts for every screen size with minimal effort using Tailwind’s grid and responsive utilities.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="text-xl font-semibold mb-3">Modern Animations</h3>
+        <p class="text-gray-300">Subtle motion and hover states make your site feel alive without being distracting.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="text-xl font-semibold mb-3">Customizable</h3>
+        <p class="text-gray-300">Adjust everything from spacing to colors right in your HTML using utility classes.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

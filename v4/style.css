@@ -1,0 +1,8 @@
+/* Glass cards, shadow, hover effects */
+section {
+  transition: all 0.3s ease;
+}
+section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}

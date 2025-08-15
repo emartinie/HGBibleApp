@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bible Study App</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">BibleApp</div>
+  <button id="prevWeekBtn" aria-label="Previous Week">Previous</button>
+  <div class="week-info" id="weekInfo">Loading Week...</div>
+  <button id="nextWeekBtn" aria-label="Next Week">Next</button>
+</header>
+
+<main>
+  <section class="dynamic-bg bg-rotating" id="hebrew-section">
+    <details>
+      <summary>BibleApp Intro</summary>
+      <section id="BibleAppIntro">
+        <h2>BibleApp Intro</h2>
+        <p>Welcome to the BibleApp! Study and Test the Entire Bible in a Year, Every Year…</p>
+        <!-- rest of your intro content -->
+      </section>
+    </details>
+  </section>
+
+  <section class="dynamic-bg bg-rotating" id="greek-section">
+    <section id="studyIntro">
+      <h2>This Week's Study Intro</h2>
+      <div id="studyIntroContent">Loading...</div>
+    </section>
+  </section>
+
+  <section class="dynamic-bg bg-rotating" id="other-section">
+    <section id="audioPlayers">
+      <h2>Audio Scriptures</h2>
+      <div id="audioContent">Loading...</div>
+    </section>
+
+    <section id="scripturesList">
+      <h2>Scriptures & Theme Verses</h2>
+      <div id="scripturesContent">Loading...</div>
+    </section>
+
+    <section id="commentary">
+      <h2>Commentary</h2>
+      <div id="commentaryContent">Loading...</div>
+    </section>
+
+    <section id="deeperLearning">
+      <h2>Advanced Deeper Learning</h2>
+      <div id="deeperLearningContent">Loading...</div>
+    </section>
+
+    <section id="alephTavs">
+      <h2>Hidden Aleph Tav’s</h2>
+      <div id="alephTavsContent">Loading...</div>
+    </section>
+
+    <section id="Printouts">
+      <h2>Printouts & Studies</h2>
+      <div id="printoutsContent">Loading...</div>
+    </section>
+
+    <section id="kidsCorner">
+      <h2>Bible for Kids</h2>
+      <div id="kidsCornerContent">Loading...</div>
+    </section>
+
+    <section id="wordsOfTheWeek">
+      <h2>Words of the Week</h2>
+      <div id="wordsOfTheWeekContent">Loading...</div>
+    </section>
+
+    <details>
+      <summary>Psalms in a Week</summary>
+      <section id="psalmsSection">
+        <h2>Psalms in a Week</h2>
+        <table id="psalms-table"></table>
+      </section>
+    </details>
+
+    <details>
+      <summary>Community Map</summary>
+      <section id="map">
+        <h2>Community Map</h2>
+        <iframe
+          src="https://www.google.com/maps/d/embed?mid=1VwhwTcggPdBn_Fc-t2HcWZCVYuA&hl=en"
+          width="100%" height="400" style="border:0; pointer-events: none;"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </section>
+    </details>
+
+    <details>
+      <summary>Store & Donations</summary>
+      <section id="store">
+        <h2>Store & Donations</h2>
+        <p>Support us by purchasing resources or donating.</p>
+      </section>
+    </details>
+</main>
+
+<script src="js/weekLoader.js"></script>
+<script src="js/backgroundRotator.js"></script>
+
+</body>
+</html>

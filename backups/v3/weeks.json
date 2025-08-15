@@ -1,0 +1,17 @@
+{
+  "1": {
+    "intro": "Welcome to Week 1! Study the beginning...",
+    "study": "This week's study focuses on...",
+    "audio": "Audio files: ...",
+    "scriptures": "Scriptures: Genesis 1-5 ...",
+    "commentary": "Commentary for Week 1..."
+  },
+  "2": {
+    "intro": "Welcome to Week 2! Study the early patriarchs...",
+    "study": "This week's study focuses on Abraham...",
+    "audio": "Audio files: ...",
+    "scriptures": "Scriptures: Genesis 6-10 ...",
+    "commentary": "Commentary for Week 2..."
+  }
+  // Add more weeks...
+}

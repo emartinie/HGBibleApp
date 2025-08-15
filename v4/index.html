@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BibleApp - Week 32</title>
+  
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gradient-to-b from-purple-50 to-blue-50 min-h-screen font-sans">
+
+  <!-- Header / Logo -->
+  <header class="sticky top-0 bg-white shadow-md z-50">
+    <div class="max-w-3xl mx-auto flex justify-between items-center p-4">
+      <img src="images/HGHouses.png" alt="HGBibleApp Logo" class="h-12">
+      <select id="weekSelect" class="border rounded px-2 py-1">
+        <option value="32">Week 32</option>
+        <option value="33">Week 33</option>
+        <option value="34">Week 34</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto p-4 space-y-8">
+
+    <!-- BibleApp Intro -->
+    <section id="BibleAppIntro" class="bg-white bg-opacity-60 backdrop-blur-md rounded-xl p-6 shadow-lg space-y-4">
+      <h2 class="text-2xl font-bold text-center text-purple-700">BibleApp Intro</h2>
+      <p>Welcome to the BibleApp! Study and Test the Entire Bible in a Year, One Week at a Time.</p>
+      <p>All study guides, audio, and advanced content are provided following the weekly outline.</p>
+    </section>
+
+    <!-- Study Intro -->
+    <section id="studyIntro" class="bg-white bg-opacity-60 backdrop-blur-md rounded-xl p-6 shadow-lg space-y-4">
+      <h2 class="text-xl font-semibold text-center text-blue-700">This Week's Study Intro</h2>
+      <div id="studyIntroContent" class="text-gray-800">Loading...</div>
+    </section>
+
+    <!-- Audio Scriptures -->
+    <section id="audioPlayers" class="bg-white bg-opacity-60 backdrop-blur-md rounded-xl p-6 shadow-lg space-y-4">
+      <h2 class="text-xl font-semibold text-center text-green-700">Audio Scriptures</h2>
+      <div id="audioContent" class="space-y-2">Loading...</div>
+    </section>
+
+    <!-- Scriptures & Theme Verses -->
+    <section id="scripturesList" class="bg-white bg-opacity-60 backdrop-blur-md rounded-xl p-6 shadow-lg space-y-4">
+      <h2 class="text-xl font-semibold text-center text-indigo-700">Scriptures & Theme Verses</h2>
+      <div id="scripturesContent">Loading...</div>
+    </section>
+
+    <!-- Psalms in a Week -->
+    <section id="psalmsSection" class="bg-white bg-opacity-60 backdrop-blur-md rounded-xl p-6 shadow-lg space-y-4">
+      <h2 class="text-xl font-semibold text-center text-red-700">Psalms in a Week</h2>
+      <div id="psalmsContent"></div>
+    </section>
+
+    <!-- Kids Corner -->
+    <section id="kidsCorner" class="bg-white bg-opacity-60 backdrop-blur-md rounded-xl p-6 shadow-lg space-y-4">
+      <h2 class="text-xl font-semibold text-center text-pink-700">Bible for Kids</h2>
+      <div id="kidsCornerContent">Loading...</div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/psalms.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

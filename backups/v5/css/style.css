@@ -1,0 +1,11 @@
+.tab-button {
+  @apply px-4 py-2 font-semibold cursor-pointer border-b-2 border-transparent hover:border-indigo-500 transition;
+}
+
+.tab-button.active {
+  @apply border-indigo-500 text-indigo-600;
+}
+
+.panel {
+  @apply transition-all duration-300 ease-in-out;
+}

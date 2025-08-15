@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bible Study App</title>
+<style>
+  /* Reset & body */
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    color: #222;
+  }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    background: #004080;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+  }
+  header .logo { font-weight: bold; font-size: 1.5rem; }
+  header .week-info { flex: 1; text-align: center; font-size: 1.1rem; }
+  header button {
+    background: #007acc;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+    min-width: 80px;
+  }
+  header button:disabled {
+    background: #555;
+    cursor: default;
+  }
+
+  /* Sections */
+  main { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+  section { background: white; padding: 15px 20px; margin-bottom: 20px; border-radius: 6px; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
+  section h2 { margin-top: 0; border-bottom: 2px solid #004080; padding-bottom: 6px; }
+
+  /* Rotating backgrounds */
+  .bg-rotating {
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+  }
+
+  /* Details / summary */
+  details { margin: 1rem 0; border: 1px solid #ccc; border-radius: 8px; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker,
+  summary::marker { display: none; }
+  summary::after { content: "▸"; float: right; transition: transform 0.3s; }
+  details[open] summary::after { transform: rotate(90deg); }
+  details p { padding: 1rem; margin: 0; background-color: #fff; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">BibleApp</div>
+  <button id="prevWeekBtn" aria-label="Previous Week">Previous</button>
+  <div class="week-info" id="weekInfo">Loading Week...</div>
+  <button id="nextWeekBtn" aria-label="Next Week">Next</button>
+</header>
+
+<main>
+  <!-- BibleApp Intro -->
+  <section class="bg-rotating" id="BibleAppIntro">
+    <h2>BibleApp Intro</h2>
+    <p>Welcome to the BibleApp! Study and Test the Entire Bible in a Year, Every Year—One week at a time.</p>
+    <p>Continue the Scripture study below with guides, original languages study, and commentary.</p>
+    <p><strong>Let's get going!</strong></p>
+  </section>
+
+  <!-- Weekly Sections -->
+  <section class="bg-rotating" id="studyIntro">
+    <h2>This Week's Study Intro</h2>
+    <div id="studyIntroContent">Loading...</div>
+  </section>
+
+  <section class="bg-rotating" id="audioPlayers">
+    <h2>Audio Scriptures</h2>
+    <div id="audioContent">Loading...</div>
+  </section>
+
+  <section class="bg-rotating" id="scripturesList">
+    <h2>Scriptures & Theme Verses</h2>
+    <div id="scripturesContent">Loading...</div>
+  </section>
+
+  <section class="bg-rotating" id="commentary">
+    <h2>Commentary</h2>
+    <div id="commentaryContent">Loading...</div>
+  </section>
+
+  <section class="bg-rotating" id="deeperLearning">
+    <h2>Advanced Deeper Learning</h2>
+    <div id="deeperLearningContent">Loading...</div>
+  </section>
+
+  <section class="bg-rotating" id="alephTavs">
+    <h2>Hidden Aleph Tav’s</h2>
+    <div id="alephTavsContent">Loading...</div>
+  </section>
+
+  <section class="bg-rotating" id="printouts">
+    <h2>Printouts & Studies</h2>
+    <div id="printoutsContent">Loading...</div>
+  </section>
+
+  <section class="bg-rotating" id="kidsCorner">
+    <h2>Bible for Kids</h2>
+    <div id="kidsCornerContent">Loading...</div>
+  </section>
+
+  <section class="bg-rotating" id="wordsOfTheWeek">
+    <h2>Words of the Week</h2>
+    <div id="wordsOfTheWeekContent">Loading...</div>
+  </section>
+
+  <!-- Collapsible sections -->
+  <details>
+    <summary>Psalms in a Week</summary>
+    <section id="psalmsSection">
+      <h2>Psalms in a Week</h2>
+      <table id="psalms-table" style="width:100%; border-collapse: collapse;"></table>
+    </section>
+  </details>
+
+  <details>
+    <summary>Community Map</summary>
+    <section id="map">
+      <h2>Community Map</h2>
+      <iframe src="https://www.google.com/maps/d/embed?mid=1VwhwTcggPdBn_Fc-t2HcWZCVYuA&hl=en"
+              width="100%" height="400" style="border:0; pointer-events:none;" allowfullscreen loading="lazy"></iframe>
+    </section>
+  </details>
+
+  <details>
+    <summary>Store & Donations</summary>
+    <section id="store">
+      <h2>Store & Donations</h2>
+      <p>Support us by purchasing resources or donating.</p>
+    </section>
+  </details>
+</main>
+
+<script>
+  // Start date for week 1
+  const START_DATE = new Date("2025-01-05T00:00:00Z");
+  let currentWeek = getCurrentWeekNumber();
+
+  const weekInfoEl = document.getElementById("weekInfo");
+  const prevWeekBtn = document.getElementById("prevWeekBtn");
+  const nextWeekBtn = document.getElementById("nextWeekBtn");
+
+  function getCurrentWeekNumber() {
+    const today = new Date();
+    const diffWeeks = Math.floor((today - START_DATE) / (1000*60*60*24*7)) + 1;
+    return diffWeeks > 0 ? diffWeeks : 1;
+  }
+
+  function updateButtons() {
+    prevWeekBtn.disabled = currentWeek <= 1;
+    nextWeekBtn.disabled = currentWeek >= 52;
+  }
+
+  async function loadWeek(weekNum) {
+    try {
+      const res = await fetch(`./weeks/week${weekNum}.json`);
+      if(!res.ok) throw new Error('Week JSON not found');
+      const data = await res.json();
+      renderWeek({...data, week: weekNum});
+    } catch(err) {
+      weekInfoEl.textContent = `Error loading week ${weekNum}: ${err.message}`;
+      console.error(err);
+    }
+  }
+
+  function renderWeek(data) {
+    weekInfoEl.textContent = `Week ${data.week}: ${data.english || ''} (${data.transliteration || ''})`;
+    document.getElementById("studyIntroContent").innerHTML = data.intro || "(No intro available)";
+
+    // Audio
+    const audioContainer = document.getElementById("audioContent");
+    audioContainer.innerHTML = "";
+    (data.audio||[]).forEach(a=>{
+      const audioEl=document.createElement("audio");
+      audioEl.controls=true; audioEl.src=a.url; audioEl.title=a.title;
+      audioContainer.appendChild(audioEl);
+      audioContainer.appendChild(document.createElement("br"));
+    });
+
+    // Scriptures
+    const scriptures = data.scriptures || {};
+    let html = "";
+    if(scriptures.themeVerse) html += `<p><strong>Theme Verse:</strong> ${scriptures.themeVerse}</p>`;
+    if(scriptures.memoryVerse) html += `<p><strong>Memory Verse:</strong> ${scriptures.memoryVerse}</p>`;
+    ['torah','prophets','gospels','letters'].forEach(cat=>{
+      if(scriptures[cat]?.length){
+        html += `<h4>${cat.charAt(0).toUpperCase()+cat.slice(1)}</h4><ul>`;
+        scriptures[cat].forEach(ref=>html+=`<li><a href="${ref.link||'#'}">${ref.ref}</a></li>`);
+        html += "</ul>";
+      }
+    });
+    document.getElementById("scripturesContent").innerHTML = html || "(No scriptures available)";
+
+    // Other sections
+    ['commentary','deeperLearning','alephTavs','printouts','kidsCorner','wordsOfTheWeek'].forEach(id=>{
+      const el = document.getElementById(id+'Content');
+      if(el) el.innerHTML = data[id] || `(No ${id} available)`;
+    });
+  }
+
+  prevWeekBtn.addEventListener("click",()=>{ if(currentWeek>1){currentWeek--; updateButtons(); loadWeek(currentWeek); } });
+  nextWeekBtn.addEventListener("click",()=>{ if(currentWeek<52){currentWeek++; updateButtons(); loadWeek(currentWeek); } });
+
+  updateButtons();
+  loadWeek(currentWeek);
+
+  // Rotating backgrounds
+  const bibleBackgrounds = [
+    "images/Elohim-God-Name-in-Hebrew-Torah-and-Bible.jpg",
+    "images/biblescroll.jpg",
+    "images/ThanksgivingPsalm118.jpg",
+    "images/ALI-Web-Greek-Header_Greek-Header.png"
+  ];
+
+  const rotatingSections = document.querySelectorAll('section.bg-rotating');
+  let indices = Array(rotatingSections.length).fill(0);
+
+  function updateBackgrounds() {
+    rotat

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bible Study App</title>
+<style>
+  /* Basic reset and fonts */
+  body, html {
+    margin: 0; padding: 0; font-family: Arial, sans-serif; background: #f9f9f9; color: #222;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    background: #004080;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+  }
+  header .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  header .week-info {
+    flex: 1;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  header button {
+    background: #007acc;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+    min-width: 80px;
+  }
+  header button:disabled {
+    background: #555;
+    cursor: default;
+  }
+  main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+  section {
+    background: white;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  }
+  section h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #004080;
+    padding-bottom: 6px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">BibleApp</div>
+  <button id="prevWeekBtn" aria-label="Previous Week">Previous</button>
+  <div class="week-info" id="weekInfo">Loading Week...</div>
+  <button id="nextWeekBtn" aria-label="Next Week">Next</button>
+<!-- Test update: [current date/time] -->
+
+</header>
+<style>
+  details {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  /* Remove default arrow */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+
+  /* Add custom arrow */
+  summary::after {
+    content: "▸";
+    float: right;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 1rem;
+    margin: 0;
+    background-color: #fff;
+  }
+</style>
+
+<details>
+  <summary>BibleApp Intro</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">BibleApp Intro</h2>
+    <p>Welcome to the BibleApp! Here’s how it works: Study and Test the Entire Bible in a Year, Every Year—One week at a time. Listen to and read this week's Bible study below. You will also find study guides by chapter and advanced study of the original languages following the Bible study outline.</p>
+  
+  <p>Continue the Scripture study below. You will find study guides by chapter and advanced study of the original languages (including from ancient Jewish and Christian writings) following the Bible study outlines and Biblical texts. While it is our belief that many of the letters of the New Testament were originally written in Aramaic and/or Hebrew, the Greek texts are used for study even when there are known Hebrew manuscripts (e.g., Matthew and Hebrews).</p>
+  
+  <p>The books or scroll of the Torah/Pentateuch is the oldest (other than Job) and most sacred of all our Scriptures. It is made up of the "five books of Moses." The Hebrew name for the first book is <em>B’reisheet</em> (בראשית), which is also the first word of the book in the Hebrew text, as well as the name for the first Bible Study (the first week’s reading). B’reisheet means “in the beginning.” It is important to understand that this IS the BEGINNING! We are introduced to the first humans, the first sins, the first Sabbath, etc.</p>
+  
+  <p>It's the first book of the Bible, after all. The Writer of the book sets the stage for the entire Bible; laying the foundation. It can also be thought of as the book of origins... of the world, mankind, the nations, the covenants, instructions, and more!</p>
+  
+  <p>On the first day of every week (Sunday), we release the next week's Bible study. It will take you all week to get through it if you even do. All of our subscribers gather on different days to discuss the Bible studies, so after the majority of our subscribers have finished their Sunday services, we update for the next week. All of the resources you need are available in the mobile app for free.</p>
+  
+  <p>You will also find our study guides by chapter and advanced study of the original languages following the Bible audio/text and study outline then commentary. While it is our belief that many of the letters of the New Testament were originally written in Aramaic and/or Hebrew, the Greek texts are used for study even when there are known Hebrew manuscripts (e.g., Matthew and Hebrews).</p>
+  
+  <p><strong>Let's get going!</strong></p>
+  </section>
+</details>
+
+
+  <section id="studyIntro" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+    <h2>This Week's Study Intro</h2>
+    <div id="studyIntroContent">Loading...</div>
+  </section>
+
+  <section id="audioPlayers" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+
+    <h2>Audio Scriptures</h2>
+    <div id="audioContent">Loading...</div>
+  </section>
+
+  <section id="scripturesList" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+
+    <h2>Scriptures & Theme Verses</h2>
+    <div id="scripturesContent">Loading...</div>
+  </section>
+
+  <section id="commentary" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+
+    <h2>Commentary</h2>
+    <div id="commentaryContent">Loading...</div>
+  </section>
+
+  <section id="deeperLearning" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+
+    <h2>Advanced Deeper Learning</h2>
+    <div id="deeperLearningContent">Loading...</div>
+  </section>
+
+  <section id="alephTavs" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+
+    <h2>Hidden Aleph Tav’s</h2>
+    <div id="alephTavsContent">Loading...</div>
+  </section>
+
+  <section id="printouts" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+
+    <h2>Printouts & Studies</h2>
+    <div id="printoutsContent">Loading...</div>
+  </section>
+
+  <section id="kidsCorner" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+
+    <h2>Bible for Kids</h2>
+    <div id="kidsCornerContent">Loading...</div>
+  </section>
+
+  <section id="wordsOfTheWeek" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+
+    <h2>Words of the Week</h2>
+    <div id="wordsOfTheWeekContent">Loading...</div>
+  </section>
+<style>
+  details {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  /* Remove default arrow */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+
+  /* Add custom arrow */
+  summary::after {
+    content: "▸";
+    float: right;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 1rem;
+    margin: 0;
+    background-color: #fff;
+  }
+@media (max-width: 600px) {
+  table, tbody, tr, td {
+    display: block;
+    width: 100% !important;
+  }
+  td {
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding-left: 0;
+  }
+  tr {
+    margin-bottom: 1rem;
+  }
+}
+
+</style>
+
+<details>
+  <summary>Psalms in a Week</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Psalms in a Week</h2>
+<div id="psalms-section">
+  <table id="psalms-table" style="width:100%; border-collapse: collapse;"></table>
+</div>
+
+<script>
+const psalmsData = [
+  { day: 'Sunday', url: 'http://audio.esvbible.org/hw/19001001-19029011.mp3', passage: 'Chapters 1-29', link: 'https://www.biblegateway.com/passage/?search=psalm+1-29&version=TLV' },
+  { day: 'Monday', url: 'http://audio.esvbible.org/hw/19030001-19050023.mp3', passage: 'Chapters 30-50', link: 'https://www.biblegateway.com/passage/?search=psalm+30-50&version=TLV' },
+  { day: 'Tuesday', url: 'http://audio.esvbible.org/hw/19051001-19072020.mp3', passage: 'Chapters 51-72', link: 'https://www.biblegateway.com/passage/?search=psalm+51-72&version=TLV' },
+  { day: 'Wednesday', url: 'http://audio.esvbible.org/hw/19063001-19089052.mp3', passage: 'Chapters 73-89', link: 'https://www.biblegateway.com/passage/?search=psalm+73-89&version=TLV' },
+  { day: 'Thursday', url: 'http://audio.esvbible.org/hw/19090001-19106048.mp3', passage: 'Chapters 90-106', link: 'https://www.biblegateway.com/passage/?search=psalm+90-106&version=TLV' },
+  { day: 'Friday', url: 'http://audio.esvbible.org/hw/19107001-19119176.mp3', passage: 'Chapters 107-119', link: 'https://www.biblegateway.com/passage/?search=psalm+107-119&version=TLV' },
+  { day: 'Saturday', url: 'http://audio.esvbible.org/hw/19120001-19150006.mp3', passage: 'Chapters 120-150', link: 'https://www.biblegateway.com/passage/?search=psalm+120-150&version=TLV' }
+];
+
+function buildPsalmsTable() {
+  const table = document.getElementById('psalms-table');
+  table.innerHTML = '';
+
+  // We'll make rows with 2 cells each
+  for (let i = 0; i < psalmsData.length; i += 2) {
+    const row = document.createElement('tr');
+
+    // First cell
+    const cell1 = document.createElement('td');
+    cell1.style.padding = '10px';
+    cell1.style.border = '1px solid #ccc';
+    cell1.innerHTML = createPsalmCellHTML(psalmsData[i]);
+    row.appendChild(cell1);
+
+    // Second cell
+    const cell2 = document.createElement('td');
+    cell2.style.padding = '10px';
+    cell2.style.border = '1px solid #ccc';
+
+    if (i + 1 < psalmsData.length) {
+      cell2.innerHTML = createPsalmCellHTML(psalmsData[i + 1]);
+    } else {
+      // If uneven, last cell = "All"
+      cell2.innerHTML = '<strong>All</strong>';
+    }
+
+    row.appendChild(cell2);
+    table.appendChild(row);
+  }
+}
+
+function createPsalmCellHTML(psalm) {
+  return `
+    <strong>${psalm.day} - </strong>
+    <audio controls preload="none" style="vertical-align: middle;">
+      <source src="${psalm.url}" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    &nbsp;
+    <a href="${psalm.link}" target="_blank" rel="noopener noreferrer">${psalm.passage}</a>
+  `;
+}
+
+buildPsalmsTable();
+</script>
+
+  </section>
+</details>
+
+  
+<style>
+  details {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  /* Remove default arrow */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+
+  /* Add custom arrow */
+  summary::after {
+    content: "▸";
+    float: right;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 1rem;
+    margin: 0;
+    background-color: #fff;
+  }
+</style>
+
+<details>
+  <summary>Community Map</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Community Map</h2>
+  <iframe
+    src="https://www.google.com/maps/d/embed?mid=1VwhwTcggPdBn_Fc-t2HcWZCVYuA&hl=en"
+    width="100%"
+    height="400"
+    style="border:0; pointer-events: none;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+  </section>
+</details>
+<style>
+  details {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  /* Remove default arrow */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+
+  /* Add custom arrow */
+  summary::after {
+    content: "▸";
+    float: right;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 1rem;
+    margin: 0;
+    background-color: #fff;
+  }
+</style>
+
+<details>
+  <summary>Store & Donations</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Store & Donations</h2>
+    <p>Support us by purchasing resources or donating.</p>
+
+  </section>
+</details>
+
+  </main>
+
+<script>
+  // Set your start date for week 1 here:
+  const START_DATE = new Date("2025-01-05T00:00:00Z");
+
+  // Calculate current week number based on today's date
+  function getCurrentWeekNumber() {
+    const today = new Date();
+    const diffMs = today - START_DATE;
+    if(diffMs < 0) return 1; // before start date, default to week 1
+    const diffWeeks = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7)) + 1;
+    return diffWeeks;
+  }
+
+  // Global current week state
+  let currentWeek = getCurrentWeekNumber();
+
+  // UI Elements
+  const weekInfoEl = document.getElementById("weekInfo");
+  const prevWeekBtn = document.getElementById("prevWeekBtn");
+  const nextWeekBtn = document.getElementById("nextWeekBtn");
+
+  // Disable Prev if week 1; disable Next if week 52 (or max)
+  function updateButtons() {
+    prevWeekBtn.disabled = currentWeek <= 1;
+    nextWeekBtn.disabled = currentWeek >= 52;
+  }
+
+  // Render dynamic sections from JSON data
+  function renderWeek(data) {
+    weekInfoEl.textContent = `Week ${data.week}: ${data.english || ''} (${data.transliteration || ''})`;
+
+    document.getElementById("studyIntroContent").innerHTML = data.intro || "(No intro available)";
+    
+    // Audio Scriptures
+    const audioContainer = document.getElementById("audioContent");
+    audioContainer.innerHTML = "";
+    if(data.audio && data.audio.length) {
+      data.audio.forEach(a => {
+        const audioEl = document.createElement("audio");
+        audioEl.controls = true;
+        audioEl.src = a.url;
+        audioEl.title = a.title;
+        audioContainer.appendChild(audioEl);
+        audioContainer.appendChild(document.createElement("br"));
+      });
+    } else {
+      audioContainer.textContent = "(No audio available)";
+    }
+
+    // Scriptures & Verses
+    const scriptures = data.scriptures || {};
+    let scripturesHtml = "";
+    if(scriptures.themeVerse) scripturesHtml += `<p><strong>Theme Verse:</strong> ${scriptures.themeVerse}</p>`;
+    if(scriptures.memoryVerse) scripturesHtml += `<p><strong>Memory Verse:</strong> ${scriptures.memoryVerse}</p>`;
+    ['torah','prophets','gospels','letters'].forEach(cat => {
+      if(scriptures[cat] && scriptures[cat].length) {
+        scripturesHtml += `<h4>${cat.charAt(0).toUpperCase()+cat.slice(1)}</h4><ul>`;
+        scriptures[cat].forEach(ref => {
+          scripturesHtml += `<li><a href="${ref.link || '#'}">${ref.ref}</a></li>`;
+        });
+        scripturesHtml += "</ul>";
+      }
+    });
+    document.getElementById("scripturesContent").innerHTML = scripturesHtml || "(No scriptures available)";
+
+    // Commentary
+    document.getElementById("commentaryContent").innerHTML = data.commentary || "(No commentary available)";
+
+    // Deeper Learning
+    document.getElementById("deeperLearningContent").innerHTML = data.deeperLearning || "(No deeper learning available)";
+
+    // Hidden Aleph Tavs
+    document.getElementById("alephTavsContent").innerHTML = data.hiddenAlephTavs || "(No Aleph Tav notes available)";
+
+    // Printouts & Studies
+    const printoutsContainer = document.getElementById("printoutsContent");
+    printoutsContainer.innerHTML = "";
+    if(data.printouts && data.printouts.length) {
+      data.printouts.forEach(item => {
+        const link = document.createElement("a");
+        link.href = item.url;
+        link.textContent = item.title;
+        link.target = "_blank";
+        printoutsContainer.appendChild(link);
+        printoutsContainer.appendChild(document.createElement("br"));
+      });
+    } else {
+      printoutsContainer.textContent = "(No printouts available)";
+    }
+
+    // Kids Corner
+    const kidsContainer = document.getElementById("kidsCornerContent");
+    kidsContainer.innerHTML = "";
+    if(data.kidsCorner && data.kidsCorner.length) {
+      data.kidsCorner.forEach(item => {
+        const link = document.createElement("a");
+        link.href = item.url;
+        link.textContent = item.title;
+        link.target = "_blank";
+        kidsContainer.appendChild(link);
+        kidsContainer.appendChild(document.createElement("br"));
+      });
+    } else {
+      kidsContainer.textContent = "(No kids corner content)";
+    }
+
+    // Words of the Week
+    const wordsContainer = document.getElementById("wordsOfTheWeekContent");
+    wordsContainer.innerHTML = "";
+    if(data.wordsOfTheWeek && data.wordsOfTheWeek.length) {
+      data.wordsOfTheWeek.forEach(word => {
+        const p = document.createElement("p");
+        p.textContent = `${word.hebrew || ''} / ${word.greek || ''} — ${word.meaning || ''}`;
+        wordsContainer.appendChild(p);
+      });
+    } else {
+      wordsContainer.textContent = "(No words of the week)";
+    }
+  }
+
+  // Load JSON for current week and render
+  async function loadWeek(weekNum) {
+    try {
+      const response = await fetch(`./weeks/week${weekNum}.json`);
+      if(!response.ok) throw new Error(`Week data not found: week${weekNum}.json`);
+      const data = await response.json();
+      data.week = weekNum; // fallback if missing
+      renderWeek(data);
+    } catch (err) {
+      weekInfoEl.textContent = `Error loading week ${weekNum}: ${err.message}`;
+      console.error(err);
+    }
+  }
+
+  // Button handlers
+  prevWeekBtn.addEventListener("click", () => {
+    if(currentWeek > 1) {
+      currentWeek--;
+      updateButtons();
+      loadWeek(currentWeek);
+    }
+  });
+
+  nextWeekBtn.addEventListener("click", () => {
+    if(currentWeek < 52) {
+      currentWeek++;
+      updateButtons();
+      loadWeek(currentWeek);
+    }
+  });
+
+  // Initial load
+  updateButtons();
+  loadWeek(currentWeek);
+</script>
+
+</body>
+</html>

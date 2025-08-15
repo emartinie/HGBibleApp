@@ -1,0 +1,47 @@
+<style>
+  /* Background container for each section */
+  .section-bg {
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+    color: white;
+    padding: 2rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  }
+  /* Dark overlay so text stands out */
+  .section-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    border-radius: 6px;
+    z-index: 0;
+  }
+  /* Content inside section */
+  .section-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+</style>
+
+<details>
+  <summary>BibleApp Intro</summary>
+  <section id="bibleAppIntro" class="section-bg" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/95/Dead_Sea_Scroll_-_Isaiah_53-4-6.jpg'); max-width: 700px; margin: 0 auto; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">BibleApp Intro</h2>
+    <p>Welcome to the BibleApp! Here’s how it works: Study and Test the Entire Bible in a Year, Every Year—One week at a time. Listen to and read this week's Bible study below. You will also find study guides by chapter and advanced study of the original languages following the Bible study outline.</p>
+    <!-- ... rest of your text ... -->
+  </section>
+</details>
+
+<details>
+  <summary>Psalms in a Week</summary>
+  <section id="psalmsSection" class="section-bg" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/21/Greek_New_Testament_papyrus_P46.jpg'); max-width: 700px; margin: 0 auto; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Psalms in a Week</h2>
+    <div id="psalms-section">
+      <table id="psalms-table" style="width:100%; border-collapse: collapse; background: rgba(255,255,255,0.85); color: black;"></table>
+    </div>
+    <!-- your psalms table script here -->
+  </section>
+</details>

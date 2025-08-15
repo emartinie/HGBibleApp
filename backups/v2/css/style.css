@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar for mobile feel */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.5);
+  border-radius: 4px;
+}
+
+/* Gradient background for sections can be extended as needed */
+.bg-rotating {
+  background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+  animation: gradientRotate 15s ease infinite;
+}
+@keyframes gradientRotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

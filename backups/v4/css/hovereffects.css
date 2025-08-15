@@ -1,0 +1,6 @@
+.tab-button:hover {
+  @apply text-indigo-600 border-indigo-400;
+}
+.tab-button.active {
+  @apply text-white bg-indigo-600 rounded shadow;
+}

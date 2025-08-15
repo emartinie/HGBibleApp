@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bible Study App</title>
+<style>
+  /* Basic reset and fonts */
+  body, html {
+    margin: 0; padding: 0; font-family: Arial, sans-serif; background: #f9f9f9; color: #222;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    background: #004080;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+  }
+  header .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  header .week-info {
+    flex: 1;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  header button {
+    background: #007acc;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+    min-width: 80px;
+  }
+  header button:disabled {
+    background: #555;
+    cursor: default;
+  }
+  main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+  section {
+    background: white; /* fallback */
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    position: relative;
+    color: #222;
+    overflow: hidden;
+    transition: background-image 1s ease-in-out;
+  }
+  section h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #004080;
+    padding-bottom: 6px;
+    position: relative;
+    z-index: 2;
+  }
+  /* Overlay to darken background for readability */
+  section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255 255 255 / 0.85);
+    pointer-events: none;
+    z-index: 1;
+  }
+  /* The actual background image goes behind overlay */
+  section.bg-rotating {
+    background-size: cover;
+    background-position: center center;
+  }
+  /* Content inside section above overlay */
+  section > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  details {
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  summary {
+    background-color: #f5f5f5;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  /* Remove default arrow */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+
+  /* Add custom arrow */
+  summary::after {
+    content: "▸";
+    float: right;
+    transition: transform 0.3s;
+  }
+  details[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    padding: 1rem;
+    margin: 0;
+    background-color: #fff;
+  }
+  @media (max-width: 600px) {
+    table, tbody, tr, td {
+      display: block;
+      width: 100% !important;
+    }
+    td {
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      padding-left: 0;
+    }
+    tr {
+      margin-bottom: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">BibleApp</div>
+  <button id="prevWeekBtn" aria-label="Previous Week">Previous</button>
+  <div class="week-info" id="weekInfo">Loading Week...</div>
+  <button id="nextWeekBtn" aria-label="Next Week">Next</button>
+<!-- Test update: [current date/time] -->
+</header>
+
+<main>
+
+<details>
+  <summary>BibleApp Intro</summary>
+  <section id="bibleAppIntro" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">BibleApp Intro</h2>
+    <p>Welcome to the BibleApp! Here’s how it works: Study and Test the Entire Bible in a Year, Every Year—One week at a time. Listen to and read this week's Bible study below. You will also find study guides by chapter and advanced study of the original languages following the Bible study outline.</p>
+  
+    <p>Continue the Scripture study below. You will find study guides by chapter and advanced study of the original languages (including from ancient Jewish and Christian writings) following the Bible study outlines and Biblical texts. While it is our belief that many of the letters of the New Testament were originally written in Aramaic and/or Hebrew, the Greek texts are used for study even when there are known Hebrew manuscripts (e.g., Matthew and Hebrews).</p>
+  
+    <p>The books or scroll of the Torah/Pentateuch is the oldest (other than Job) and most sacred of all our Scriptures. It is made up of the "five books of Moses." The Hebrew name for the first book is <em>B’reisheet</em> (בראשית), which is also the first word of the book in the Hebrew text, as well as the name for the first Bible Study (the first week’s reading). B’reisheet means “in the beginning.” It is important to understand that this IS the BEGINNING! We are introduced to the first humans, the first sins, the first Sabbath, etc.</p>
+  
+    <p>It's the first book of the Bible, after all. The Writer of the book sets the stage for the entire Bible; laying the foundation. It can also be thought of as the book of origins... of the world, mankind, the nations, the covenants, instructions, and more!</p>
+  
+    <p>On the first day of every week (Sunday), we release the next week's Bible study. It will take you all week to get through it if you even do. All of our subscribers gather on different days to discuss the Bible studies, so after the majority of our subscribers have finished their Sunday services, we update for the next week. All of the resources you need are available in the mobile app for free.</p>
+  
+    <p>You will also find our study guides by chapter and advanced study of the original languages following the Bible audio/text and study outline then commentary. While it is our belief that many of the letters of the New Testament were originally written in Aramaic and/or Hebrew, the Greek texts are used for study even when there are known Hebrew manuscripts (e.g., Matthew and Hebrews).</p>
+  
+    <p><strong>Let's get going!</strong></p>
+  </section>
+</details>
+
+<section id="studyIntro" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <h2>This Week's Study Intro</h2>
+  <div id="studyIntroContent">Loading...</div>
+</section>
+
+<section id="audioPlayers" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <h2>Audio Scriptures</h2>
+  <div id="audioContent">Loading...</div>
+</section>
+
+<section id="scripturesList" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <h2>Scriptures & Theme Verses</h2>
+  <div id="scripturesContent">Loading...</div>
+</section>
+
+<section id="commentary" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <h2>Commentary</h2>
+  <div id="commentaryContent">Loading...</div>
+</section>
+
+<section id="deeperLearning" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <h2>Advanced Deeper Learning</h2>
+  <div id="deeperLearningContent">Loading...</div>
+</section>
+
+<section id="alephTavs" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <h2>Hidden Aleph Tav’s</h2>
+  <div id="alephTavsContent">Loading...</div>
+</section>
+
+<section id="printouts" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <h2>Printouts & Studies</h2>
+  <div id="printoutsContent">Loading...</div>
+</section>
+
+<section id="kidsCorner" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <h2>Bible for Kids</h2>
+  <div id="kidsCornerContent">Loading...</div>
+</section>
+
+<section id="wordsOfTheWeek" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <h2>Words of the Week</h2>
+  <div id="wordsOfTheWeekContent">Loading...</div>
+</section>
+
+<details>
+  <summary>Psalms in a Week</summary>
+  <section id="psalmsSection" class="bg-rotating" style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Psalms in a Week</h2>
+    <div id="psalms-section">
+      <table id="psalms-table" style="width:100%; border-collapse: collapse;"></table>
+    </div>
+  </section>
+</details>
+
+<details>
+  <summary>Community Map</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Community Map</h2>
+    <iframe
+      src="https://www.google.com/maps/d/embed?mid=1VwhwTcggPdBn_Fc-t2HcWZCVYuA&hl=en"
+      width="100%"
+      height="400"
+      style="border:0; pointer-events: none;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </section>
+</details>
+
+<details>
+  <summary>Store & Donations</summary>
+  <section style="max-width: 700px; margin: 0 auto; padding: 1rem; line-height: 1.6; color: #333;">
+    <h2 style="text-align: center; margin-bottom: 1rem;">Store & Donations</h2>
+    <p>Support us by purchasing resources or donating.</p>
+  </section>
+</details>
+
+</main>
+
+<script>
+  // Bible-themed backgrounds URLs
+  const bibleBackgrounds = [
+    "https://upload.wikimedia.org/wikipedia/commons/4/43/Dead_Sea_Scroll_-_Isaiah_1_-_University_of_Leiden.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/7/70/Biblia_Hebraica_Softcover.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/2/23/Greek_New_Testament_4th_century.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/9/98/Aramaic_Inscription.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/5/5d/English_Bible_1611_-_King_James_Version.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/d/d0/Codex_Sinaiticus_folio_48r_-_John_1.jpg"
+  ];
+
+  // Select all sections with rotating backgrounds
+  const rotatingSections = document.querySelectorAll('section.bg-rotating');
+
+  // Initialize indices for each section
+  const indices = Array(rotatingSections.length).fill(0);
+
+  function updateBackgrounds() {
+    rotatingSections.forEach((section, i) => {
+      indices[i] = (indices[i] + 1) % bibleBackgrounds.length;
+      section.style.backgroundImage = `url(${bibleBackgrounds[indices[i]]})`;
+    });
+  }
+
+  // Initial set
+  rotatingSections.forEach((section, i) => {
+    section.style.backgroundImage = `url(${bibleBackgrounds[i % bibleBackgrounds.length]})`;
+  });
+
+  // Change backgrounds every 10 seconds
+  setInterval(updateBackgrounds, 10000);
+
+  // Psalms table generation script
+  const psalmsData = [
+    { day: 'Sunday', url: 'http://audio.esvbible.org/hw/19001001-19029011.mp3', passage: 'Chapters 1-29', link: 'https://www.biblegateway.com/passage/?search=psalm+1-29&version=TLV' },
+    { day: 'Monday', url: 'http://audio.esvbible.org/hw/19030001-19050023.mp3', passage: 'Chapters 30-50', link: 'https://www.biblegateway.com/passage/?search=psalm+30-50&version=TLV' },
+    { day: 'Tuesday', url: 'http://audio.esvbible.org/hw/19051001-19072020.mp3', passage: 'Chapters 51-72', link: 'https://www.biblegateway.com/passage/?search=psalm+51-72&version=TLV' },
+    { day: 'Wednesday', url: 'http://audio.esvbible.org/hw/19063001-19089052.mp3', passage: 'Chapters 73-89', link: 'https://www.biblegateway.com/passage/?search=psalm+73-89&version=TLV' },
+    { day: 'Thursday', url: 'http://audio.esvbible.org/hw/19090001-19106048.mp3', passage: 'Chapters 90-106', link: 'https://www.biblegateway.com/passage/?search=psalm+90-106&version=TLV' },
+    { day: 'Friday', url: 'http://audio.esvbible.org/hw/19107001-19119176.mp3', passage: 'Chapters 107-119', link: 'https://www.biblegateway.com/passage/?search=psalm+107-119&version=TLV' },
+    { day: 'Saturday', url: 'http://audio.esvbible.org/hw/19120001-19150006.mp3', passage: 'Chapters 120-150', link: 'https://www.biblegateway.com/passage/?search=psalm+120-150&version=TLV' }
+  ];
+
+  function buildPsalmsTable() {
+    const table = document.getElementById('psalms-table');
+    let html = `<thead><tr><th>Day</th><th>Audio Link</th><th>Chapters</th><th>Bible Gateway</th></tr></thead><tbody>`;
+    psalmsData.forEach(({ day, url, passage, link }) => {
+      html += `<tr>
+        <td>${day}</td>
+        <td><audio controls preload="none" src="${url}"></audio></td>
+        <td>${passage}</td>
+        <td><a href="${link}" target="_blank" rel="noopener noreferrer">Read</a></td>
+      </tr>`;
+    });
+    html += "</tbody>";
+    table.innerHTML = html;
+  }
+
+  // On DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    buildPsalmsTable();
+
+    // Set initial week info
+    const weekInfo = document.getElementById('weekInfo');
+    const today = new Date();
+    const firstJan = new Date(today.getFullYear(), 0, 1);
+    const weekNumber = Math.ceil((((today - firstJan) / 86400000) + firstJan.getDay() + 1) / 7);
+    weekInfo.textContent = `Week ${weekNumber} - ${today.getFullYear()}`;
+  });
+
+</script>
+
+</body>
+</html>

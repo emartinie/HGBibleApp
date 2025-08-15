@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BibleApp v2</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Header / App Bar -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto flex justify-between items-center p-4">
+      <img src="images/HGHouses.png" alt="BibleApp Logo" class="h-10 w-auto">
+      <nav>
+        <select id="weekSelector" class="border rounded p-2">
+          <option value="week1">Week 1</option>
+          <option value="week2">Week 2</option>
+          <option value="week3">Week 3</option>
+          <!-- Add more weeks dynamically via JS -->
+        </select>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto p-4 space-y-6">
+
+    <!-- BibleApp Intro -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">BibleApp Intro</h2>
+      <p>Welcome to the BibleApp! Study and Test the Entire Bible in a Year, Every Year—One week at a time. Listen to and read this week's Bible study below. Study guides by chapter and advanced study of the original languages follow the outline.</p>
+      <p class="mt-2">The Torah/Pentateuch is the oldest and most sacred of our Scriptures. B’reisheet means “in the beginning.” It is important to understand that this IS the BEGINNING!</p>
+      <p class="mt-2 font-bold text-center">Let's get going!</p>
+    </section>
+
+    <!-- This Week's Study -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">This Week's Study Intro</h2>
+      <div id="studyIntroContent" class="space-y-2">Loading...</div>
+    </section>
+
+    <!-- Audio Scriptures -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">Audio Scriptures</h2>
+      <div id="audioContent">Loading...</div>
+    </section>
+
+    <!-- Scriptures & Theme Verses -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">Scriptures & Theme Verses</h2>
+      <div id="scripturesContent">Loading...</div>
+    </section>
+
+    <!-- Commentary -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">Commentary</h2>
+      <div id="commentaryContent">Loading...</div>
+    </section>
+
+    <!-- Advanced Deeper Learning -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">Advanced Deeper Learning</h2>
+      <div id="deeperLearningContent">Loading...</div>
+    </section>
+
+    <!-- Hidden Aleph Tav’s -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">Hidden Aleph Tav’s</h2>
+      <div id="alephTavsContent">Loading...</div>
+    </section>
+
+    <!-- Printouts & Studies -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">Printouts & Studies</h2>
+      <div id="printoutsContent">Loading...</div>
+    </section>
+
+    <!-- Bible for Kids -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">Bible for Kids</h2>
+      <div id="kidsCornerContent">Loading...</div>
+    </section>
+
+    <!-- Words of the Week -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">Words of the Week</h2>
+      <div id="wordsOfTheWeekContent">Loading...</div>
+    </section>
+
+    <!-- Psalms in a Week -->
+    <section class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+      <h2 class="text-2xl font-bold mb-4 text-center">Psalms in a Week</h2>
+      <div id="psalmsContent">Loading...</div>
+    </section>
+
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

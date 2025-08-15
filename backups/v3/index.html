@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BibleApp - Slick App UI</title>
+  <link href="css/style.css" rel="stylesheet">
+  <script src="js/app.js" defer></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans transition-colors duration-500">
+
+  <!-- Header with dark mode toggle -->
+  <header class="sticky top-0 bg-white dark:bg-gray-900 shadow-md p-4 flex justify-between items-center z-50">
+    <h1 class="text-xl font-bold">BibleApp</h1>
+    <div class="flex items-center space-x-3">
+      <select id="weekSelector" class="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800">
+        <option value="1">Week 1</option>
+        <option value="2">Week 2</option>
+        <option value="3">Week 3</option>
+      </select>
+      <button id="themeToggle" class="px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded">🌓</button>
+    </div>
+  </header>
+
+  <!-- Tabs for sections -->
+  <div class="max-w-3xl mx-auto mt-6 p-4">
+    <ul id="tabs" class="flex border-b border-gray-300 dark:border-gray-700 space-x-1">
+      <li class="tab-item px-4 py-2 cursor-pointer font-semibold text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-gray-800 rounded-t-lg" data-tab="intro">Intro</li>
+      <li class="tab-item px-4 py-2 cursor-pointer font-semibold text-gray-700 dark:text-gray-200" data-tab="study">Study Intro</li>
+      <li class="tab-item px-4 py-2 cursor-pointer font-semibold text-gray-700 dark:text-gray-200" data-tab="audio">Audio</li>
+      <li class="tab-item px-4 py-2 cursor-pointer font-semibold text-gray-700 dark:text-gray-200" data-tab="scriptures">Scriptures</li>
+      <li class="tab-item px-4 py-2 cursor-pointer font-semibold text-gray-700 dark:text-gray-200" data-tab="commentary">Commentary</li>
+    </ul>
+
+    <div id="tabContent" class="bg-white dark:bg-gray-800 rounded-b-lg shadow-lg p-6 space-y-4">
+      <div id="intro" class="tab-panel">Loading Intro...</div>
+      <div id="study" class="tab-panel hidden">Loading Study Intro...</div>
+      <div id="audio" class="tab-panel hidden">Loading Audio...</div>
+      <div id="scriptures" class="tab-panel hidden">Loading Scriptures...</div>
+      <div id="commentary" class="tab-panel hidden">Loading Commentary...</div>
+    </div>
+  </div>
+
+</body>
+</html>

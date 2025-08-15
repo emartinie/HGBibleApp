@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BibleApp</title>
+  <link href="css/style.css" rel="css/stylesheet">
+  <script src="js/app.js" defer></script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+
+  <!-- Sticky header with dropdown -->
+  <header class="sticky top-0 z-50 bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">BibleApp</h1>
+    <select id="weekSelector" class="border border-gray-300 rounded px-3 py-2 text-gray-700">
+      <option value="1">Week 1</option>
+      <option value="2">Week 2</option>
+      <option value="3">Week 3</option>
+      <!-- add more weeks -->
+    </select>
+  </header>
+
+  <main class="max-w-3xl mx-auto p-4 space-y-6">
+
+    <!-- BibleApp Intro -->
+    <section id="BibleAppIntro" class="bg-gradient-to-r from-indigo-200 via-purple-200 to-pink-200 rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-2xl font-bold text-center">BibleApp Intro</h2>
+      <div id="introContent" class="text-gray-800">
+        Loading intro...
+      </div>
+    </section>
+
+    <!-- This Week's Study Intro -->
+    <section id="studyIntro" class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-xl font-semibold">This Week's Study Intro</h2>
+      <div id="studyIntroContent" class="text-gray-700">
+        Loading study intro...
+      </div>
+    </section>
+
+    <!-- Audio Scriptures -->
+    <section id="audioPlayers" class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Audio Scriptures</h2>
+      <div id="audioContent" class="text-gray-700">
+        Loading audio...
+      </div>
+    </section>
+
+    <!-- Scriptures & Theme Verses -->
+    <section id="scripturesList" class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Scriptures & Theme Verses</h2>
+      <div id="scripturesContent" class="text-gray-700">
+        Loading scriptures...
+      </div>
+    </section>
+
+    <!-- Commentary -->
+    <section id="commentary" class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Commentary</h2>
+      <div id="commentaryContent" class="text-gray-700">
+        Loading commentary...
+      </div>
+    </section>
+
+    <!-- Deeper Learning -->
+    <section id="deeperLearning" class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Advanced Deeper Learning</h2>
+      <div id="deeperLearningContent" class="text-gray-700">
+        Loading deeper learning...
+      </div>
+    </section>
+
+    <!-- Aleph Tavs -->
+    <section id="alephTavs" class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Hidden Aleph Tav’s</h2>
+      <div id="alephTavsContent" class="text-gray-700">
+        Loading Aleph Tavs...
+      </div>
+    </section>
+
+    <!-- Printouts -->
+    <section id="Printouts" class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Printouts & Studies</h2>
+      <div id="printoutsContent" class="text-gray-700">
+        Loading printouts...
+      </div>
+    </section>
+
+    <!-- Kids Corner -->
+    <section id="kidsCorner" class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Bible for Kids</h2>
+      <div id="kidsCornerContent" class="text-gray-700">
+        Loading kids corner...
+      </div>
+    </section>
+
+    <!-- Words of the Week -->
+    <section id="wordsOfTheWeek" class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Words of the Week</h2>
+      <div id="wordsOfTheWeekContent" class="text-gray-700">
+        Loading words...
+      </div>
+    </section>
+
+    <!-- Psalms in a Week (details dropdown) -->
+    <details class="bg-white rounded-xl shadow-lg p-6">
+      <summary class="cursor-pointer text-lg font-semibold">Psalms in a Week</summary>
+      <div id="psalmsContent" class="mt-4 text-gray-700">
+        Loading psalms...
+      </div>
+    </details>
+
+  </main>
+
+</body>
+</html>

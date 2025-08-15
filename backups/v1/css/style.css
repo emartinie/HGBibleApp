@@ -1,0 +1,20 @@
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+/* Card hover styles */
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.feature-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px) scale(1.03);
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BibleApp - Week 32 (Slick App)</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style2.css">
+</head>
+<body class="bg-gradient-to-tr from-purple-100 via-blue-50 to-green-100 min-h-screen">
+
+  <!-- App Header -->
+  <header class="sticky top-0 backdrop-blur-md bg-white/60 shadow-lg z-50">
+    <div class="max-w-3xl mx-auto flex justify-between items-center p-4">
+      <img src="images/HGHouses.png" alt="HGBibleApp Logo" class="h-14 animate-bounce-slow">
+      <select id="weekSelect" class="border rounded-lg px-3 py-1 shadow-sm hover:shadow-md transition">
+        <option value="32">Week 32</option>
+        <option value="33">Week 33</option>
+        <option value="34">Week 34</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto p-4 space-y-6">
+
+    <!-- BibleApp Intro -->
+    <section class="card-float">
+      <h2 class="text-3xl font-bold text-center text-gradient">BibleApp Intro</h2>
+      <p>Welcome to the BibleApp! Study and Test the Entire Bible in a Year, One Week at a Time. All resources follow the weekly outline.</p>
+    </section>
+
+    <!-- Study Intro -->
+    <section id="studyIntro" class="card-float">
+      <h2 class="text-2xl font-semibold text-center text-gradient">This Week's Study Intro</h2>
+      <div id="studyIntroContent" class="text-gray-800">Loading...</div>
+    </section>
+
+    <!-- Audio Scriptures -->
+    <section id="audioPlayers" class="card-float">
+      <h2 class="text-2xl font-semibold text-center text-gradient">Audio Scriptures</h2>
+      <div id="audioContent" class="space-y-3">Loading...</div>
+    </section>
+
+    <!-- Scriptures & Theme Verses -->
+    <section id="scripturesList" class="card-float">
+      <h2 class="text-2xl font-semibold text-center text-gradient">Scriptures & Theme Verses</h2>
+      <div id="scripturesContent">Loading...</div>
+    </section>
+
+    <!-- Psalms -->
+    <section id="psalmsSection" class="card-float">
+      <h2 class="text-2xl font-semibold text-center text-gradient">Psalms in a Week</h2>
+      <div id="psalmsContent"></div>
+    </section>
+
+    <!-- Kids Corner -->
+    <section id="kidsCorner" class="card-float">
+      <h2 class="text-2xl font-semibold text-center text-gradient">Bible for Kids</h2>
+      <div id="kidsCornerContent">Loading...</div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/psalms2.js"></script>
+  <script src="js/main2.js"></script>
+</body>
+</html>
