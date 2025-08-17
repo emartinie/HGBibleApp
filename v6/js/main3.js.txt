@@ -1,0 +1,38 @@
+// main3.js
+
+const weekSelect = document.getElementById('week-select'); // your dropdown
+const weekContainer = document.getElementById('week-content'); // where week renders
+
+async function loadWeekData(weekNumber) {
+  try {
+    const res = await fetch(`weeks/week${weekNumber}.json`);
+    if (!res.ok) throw new Error(`Week ${weekNumber} not found`);
+    
+    const data = await res.json();
+
+    // Minimal render to verify menu works
+    weekContainer.innerHTML = `
+      <h2>${data.title || 'Week ' + weekNumber}</h2>
+      <p>${data.intro?.summary || 'No summary yet.'}</p>
+    `;
+  } catch (err) {
+    console.error(err);
+    weekContainer.innerHTML = `<p>Week ${weekNumber} data unavailable.</p>`;
+  }
+}
+
+// Populate dropdown dynamically (52 weeks)
+for (let i = 1; i <= 52; i++) {
+  const option = document.createElement('option');
+  option.value = i;
+  option.textContent = `Week ${i}`;
+  weekSelect.appendChild(option);
+}
+
+// Handle dropdown change
+weekSelect.addEventListener('change', (e) => {
+  loadWeekData(e.target.value);
+});
+
+// Optional: load first week on page load
+loadWeekData(1);

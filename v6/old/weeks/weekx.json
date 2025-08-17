@@ -1,0 +1,45 @@
+{
+  "week": 1,
+  "title": "Title of This Week",
+  "theme_verse": {
+    "text": "Scripture text here...",
+    "reference": "Book Chapter:Verse"
+  },
+  "intro": {
+    "summary": "One or two sentences introducing this week's study.",
+    "instructions": "How it works: Read daily, listen to audio, meet weekly..."
+  },
+  "sections": {
+    "audio_playlist": [
+      { "label": "Torah", "src": "audio-url.mp3" },
+      { "label": "Prophets", "src": "audio-url.mp3" }
+    ],
+    "chapter_outlines": {
+      "Torah": ["28:10 – Jacob’s Dream at Bethel", "29:1 – Jacob Meets Rachel"],
+      "Prophets": ["12:12 – Ephraim’s Rebellion", "14:4 – Assurance of Forgiveness"],
+      "Writings": []
+    },
+    "commentary": {
+      "quote": "There are few ideal families in the Bible. Jacob’s certainly wasn’t…",
+      "content": "Jacob’s story reveals the struggle between flesh and spirit..."
+    },
+    "deeper_learning": "Explore prophetic connections between Jacob’s ladder and the Temple Mount...",
+    "aleph_tav": "Key occurrences of את reveal divine fingerprints...",
+    "kids_study": {
+      "videos": [
+        "https://www.youtube.com/embed/lre-LLz-UzE",
+        "https://www.youtube.com/embed/YzjHjXe-2XU"
+      ],
+      "pdf": "COLORING_PAGES.pdf"
+    },
+    "language_learning": {
+      "hebrew": { "word": "Makom", "text": "מקום", "meaning": "The Place" },
+      "greek": { "word": "Pistis", "text": "πίστις", "meaning": "Faith" },
+      "audio": "YOUR-TEACHING-LINK.mp3"
+    },
+    "psalms_plan": [
+      { "day": "Sunday", "audio": "psalm-sunday.mp3" },
+      { "day": "Monday", "audio": "psalm-monday.mp3" }
+    ]
+  }
+}

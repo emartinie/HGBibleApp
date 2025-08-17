@@ -1,33 +1,38 @@
-// Load JSON weekly content
-async function loadWeekData(weekNumber) {
-  const res = await fetch(`json/week${weekNumber}.json`);
-  const data = await res.json();
+// main3.js
 
-  document.getElementById('studyIntroContent').innerHTML = data.studyIntro;
-  document.getElementById('audioContent').innerHTML = data.audio.map(a => `
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-      <strong>${a.title}</strong>
-      <audio controls src="${a.url}" class="mt-1 md:mt-0 md:mx-2"></audio>
-    </div>
-  `).join('');
-  document.getElementById('scripturesContent').innerHTML = data.scriptures.map(s => `<p>${s.text}</p>`).join('');
-  document.getElementById('kidsCornerContent').innerHTML = data.kids.map(k => `<p>${k.text}</p>`).join('');
+const weekSelect = document.getElementById('week-select'); // your dropdown
+const weekContainer = document.getElementById('week-content'); // where week renders
+
+async function loadWeekData(weekNumber) {
+  try {
+    const res = await fetch(`weeks/week${weekNumber}.json`);
+    if (!res.ok) throw new Error(`Week ${weekNumber} not found`);
+    
+    const data = await res.json();
+
+    // Minimal render to verify menu works
+    weekContainer.innerHTML = `
+      <h2>${data.title || 'Week ' + weekNumber}</h2>
+      <p>${data.intro?.summary || 'No summary yet.'}</p>
+    `;
+  } catch (err) {
+    console.error(err);
+    weekContainer.innerHTML = `<p>Week ${weekNumber} data unavailable.</p>`;
+  }
 }
 
-// Week dropdown
-document.getElementById('weekSelect').addEventListener('change', e => loadWeekData(e.target.value));
-loadWeekData(32);
+// Populate dropdown dynamically (52 weeks)
+for (let i = 1; i <= 52; i++) {
+  const option = document.createElement('option');
+  option.value = i;
+  option.textContent = `Week ${i}`;
+  weekSelect.appendChild(option);
+}
 
-// Sticky nav buttons
-document.querySelectorAll('.nav-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = document.getElementById(btn.dataset.target);
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+// Handle dropdown change
+weekSelect.addEventListener('change', (e) => {
+  loadWeekData(e.target.value);
 });
 
-// Dark/light toggle
-const toggle = document.getElementById('toggleDark');
-toggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-});
+// Optional: load first week on page load
+//loadWeekData(1);

@@ -1,0 +1,58 @@
+{"english":"Words","sections":[],"hebrew":"דברים","themeVerse":"","week":44,"transliteration":"Devarim | דברים",
+  "week": 44,
+  "title": "Placeholder Title for Week 44",
+  "theme_verse": {
+    "text": "And Jacob went out from Beersheba…",
+    "reference": "Genesis 28:10"
+  },
+  "intro": {
+    "summary": "Learn the Bible in 52 weeks. This study covers Jacob’s journey, his vision at Bethel, and the covenant events shaping Israel’s future...",
+    "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
+  },
+  "sections": {
+    "audio_playlist": [
+      { "label": "Torah", "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3" },
+      { "label": "Prophets", "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3" },
+      { "label": "Gospels", "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3" },
+      { "label": "Letters", "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3" }
+    ],
+    "chapter_outlines": {
+      "Torah": [
+        "28:10 – Jacob’s Dream at Bethel",
+        "29:1 – Jacob Meets Rachel",
+        "31:43 – Laban and Jacob Make a Covenant"
+      ],
+      "Prophets": [
+        "12:12 – Ephraim’s Rebellion",
+        "14:4 – Assurance of Forgiveness"
+      ],
+      "Writings": [],
+      "Gospels": ["3 – Baptism Begins the Mission"],
+      "Letters": ["James 2 – Faith and Works"],
+      "Revelation": []
+    },
+    "commentary": {
+      "quote": "There are few ideal families in the Bible. Jacob’s certainly wasn’t…",
+      "content": "Jacob’s story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "deeper_learning": "Explore the prophetic connections between Jacob’s ladder and the Temple Mount. This passage unveils YHVH’s sovereignty beyond time and space...",
+    "aleph_tav": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
+    "kids_study": {
+      "videos": [
+        "https://www.youtube.com/embed/lre-LLz-UzE",
+        "https://www.youtube.com/embed/YzjHjXe-2XU"
+      ],
+      "pdf": "COLORING_PAGES.pdf"
+    },
+    "language_learning": {
+      "hebrew": { "word": "Makom", "text": "מקום", "meaning": "The Place" },
+      "greek": { "word": "Pistis", "text": "πίστις", "meaning": "Faith" },
+      "audio": "YOUR-TEACHING-LINK.mp3"
+    },
+    "psalms_plan": [
+      { "day": "Sunday", "audio": "https://audio.esv.org/hw/mq/19001001-19029011.mp3" },
+      { "day": "Monday", "audio": "https://audio.esv.org/hw/mq/19030001-19050023.mp3" },
+      { "day": "Tuesday", "audio": "https://audio.esv.org/hw/mq/19051001-19072020.mp3" }
+    ]
+  }
+}

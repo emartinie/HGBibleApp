@@ -1,0 +1,52 @@
+--gradient-navy-blue: linear-gradient(90deg, #001f4d, #004080);
+--gradient-green: linear-gradient(90deg, #006400, #00cc66);
+
+/* Card style for swipeable PWA feel */
+.card-slide {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-slide:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 50px rgba(0,0,0,0.15);
+}
+
+/* Gradient text */
+.text-gradient-navy {
+  background: var(--gradient-navy-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.03); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s infinite;
+}
+
+/* Bottom nav buttons hover */
+.nav-btn {
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  transition: background 0.3s, transform 0.2s;
+}
+.nav-btn:hover {
+  background: rgba(0,31,77,0.15);
+}
+
+/* Dark mode support */
+body.dark .card-slide {
+  background: rgba(30,30,30,0.85);
+  color: #eee;
+}
+body.dark .nav-btn:hover {
+  background: rgba(0, 31, 77, 0.8);
+}

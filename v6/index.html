@@ -10,6 +10,47 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style3.css">
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    background-size: cover;
+    color: navy; /* Set the text color to navy blue */
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+  }
+  header .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  header .week-info {
+    flex: 1;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  header button {
+    background: #007acc;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 4px;
+    min-width: 80px;
+  }
+  header button:disabled {
+    background: #555;
+    cursor: default;
+  }
+  /* Target the select element by its ID */
+    Select {
+    color: navy; /* Set the text color to navy blue */
+  }
+</style>
 </head>
 <body class="bg-gradient-to-br from-green-50 via-blue-50 to-blue-50 dark:bg-gray-900 transition-colors duration-500">
 
@@ -17,29 +58,27 @@
   <header class="sticky top-0 z-50 bg-white/70 dark:bg-gray-800/80 backdrop-blur-md shadow-md">
     <div class="max-w-3xl mx-auto flex justify-between items-center p-4">
       <img src="images/HGHouses.png" alt="HGBibleApp Logo" class="h-14 animate-bounce-slow">
-      <select id="weekSelect" class="border rounded-lg px-3 py-1 shadow-sm hover:shadow-md transition">
-        <option value="32">Week 32</option>
-        <option value="33">Week 33</option>
-        <option value="34">Week 34</option>
-      </select>
+    <!-- Navigation Buttons -->
+    <button id="toggleDark" class="ml-2 px-2 py-1 rounded shadow-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition">🌙</button>
+    <button id="prevWeek" class="bg-navy text-white px-3 py-1 rounded hover:bg-navy/80">Prev</button>
+      <select id="weekSelect" class="border rounded-lg px-3 py-1 shadow-sm hover:shadow-md transition"></select>
+    <button id="nextWeek" class="bg-navy text-white px-3 py-1 rounded hover:bg-navy/80">Next</button>
+    <div class="week-info" id="weekInfo">Loading Week...</div>
 
-<div class="max-w-3xl mx-auto mb-4">
+  </header>
+<main>
+  <!-- Main swipeable container -->
+  <main class="max-w-3xl mx-auto p-4 space-y-6 overflow-x-hidden">
+
+<!-- Search Bar -->
+<div class="max-w-3xl mx-auto mb-4 p-2">
   <input
     id="searchInput"
     type="text"
-    placeholder="Search study content..."
-    class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+    placeholder="Search weeks by title or number..."
+    class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-navy"
   />
 </div>
-    <!-- Navigation Buttons -->
-    <button id="prevWeek" class="bg-navy text-white px-3 py-1 rounded hover:bg-navy/80">Prev</button>
-    <button id="nextWeek" class="bg-navy text-white px-3 py-1 rounded hover:bg-navy/80">Next</button>
-      <button id="toggleDark" class="ml-2 px-2 py-1 rounded shadow-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition">🌙</button>
-    </div>
-  </header>
-
-  <!-- Main swipeable container -->
-  <main class="max-w-3xl mx-auto p-4 space-y-6 overflow-x-hidden">
 
     <!-- Cards Container -->
     <div id="cardsContainer" class="flex flex-col gap-6">
@@ -50,17 +89,17 @@
         <p>Welcome to the BibleApp! Study the Bible in a Year—One Week at a Time.</p>
       </section>
 
-      <section class="card-slide" id="studyIntro">
+      <section class="card-slide" id="studyIntroContent">
         <h2 class="text-2xl font-semibold text-gradient text-center">This Week's Study Intro</h2>
         <div id="studyIntroContent">Loading...</div>
       </section>
 
-      <section class="card-slide" id="audioPlayers">
+      <section class="card-slide" id="audioContent">
         <h2 class="text-2xl font-semibold text-gradient text-center">Audio Scriptures</h2>
         <div id="audioContent" class="space-y-3">Loading...</div>
       </section>
 
-      <section class="card-slide" id="scripturesList">
+      <section class="card-slide" id="scripturesContent">
         <h2 class="text-2xl font-semibold text-gradient text-center">Scriptures & Theme Verses</h2>
         <div id="scripturesContent">Loading...</div>
       </section>
@@ -95,6 +134,8 @@
 
   <!-- Scripts -->
   <script src="js/psalms3.js"></script>
-  <script src="js/main3.js"></script>
+  <script src="js/mainweekloader.js" defer></script>
+
+</main>
 </body>
 </html>

@@ -1,5 +1,3 @@
-let currentWeek = 1;
-
 const sections = [
   "introContent",
   "studyIntroContent",

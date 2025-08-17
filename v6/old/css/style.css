@@ -1,0 +1,20 @@
+/* Tailwind custom colors */
+.text-navy {
+  color: #001f4d; /* Navy Blue */
+}
+
+.bg-navy {
+  background-color: #001f4d;
+}
+
+.bg-navy\/5 {
+  background-color: rgba(0, 31, 77, 0.05);
+}
+
+.hover\:bg-navy\/80:hover {
+  background-color: rgba(0, 31, 77, 0.8);
+}
+
+.border-navy {
+  border-color: #001f4d;
+}
