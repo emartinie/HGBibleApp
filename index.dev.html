@@ -1,0 +1,4166 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="manifest" href="manifest.json">
+  <!-- Social Media Preview Meta Tags -->
+  <meta property="og:title" content="MainStage Bible Study App" />
+  <meta property="og:description"
+    content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://emartinie.github.io/MainStage/sandbox/savedindex.html" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Map.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Player.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar2.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MainStage Bible Study App" />
+  <meta name="twitter:description"
+    content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+  <meta name="twitter:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <!-- Extra (SEO + universal) -->
+  <meta name="description"
+    content="An interactive Bible study app with an orbital floating player, weekly calendar, and prophecy map." />
+  <meta name="author" content="Eddie Martinie" />
+  <meta name="theme-color" content="#4a5568">
+  <title>MainStage Bible Study App</title>
+  <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
+  <!-- Links CSS files -->
+  <link rel="stylesheet" href="css/core/core.css">
+  <link rel="stylesheet" href="css/core/debugger.css">
+  <!--<link rel="stylesheet" href="/css/porchPanel.css">
+  <link rel="stylesheet" href="/css/journeyPanel.css">-->
+
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- MarkerCluster JS -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+
+</head>
+
+<style>
+  :root {
+    color-scheme: dark;
+  }
+
+  /* Popup container */
+  .leaflet-popup-content-wrapper {
+    background: #0f172a;
+    /* deep slate */
+    color: #e5e7eb;
+    /* light text */
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  }
+
+  .page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  position: relative;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #EAF6FF;
+}
+
+.page-subtitle {
+  margin-top: 0.75rem;
+  color: rgba(234,246,255,0.6);
+  font-size: 1rem;
+}
+
+.page-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-footer {
+  margin-top: 3rem;
+  text-align: center;
+  opacity: 0.7;
+}
+</style>
+
+<body>
+  <!-- ============================= -->
+  <!-- Splash / Week Image        -->
+  <!-- ============================= -->
+  <!--<div id="splashScreen">
+  <img src="./images/bible-sunlight-fire.png" alt="Loading…" /><div id="splashScreen">
+  <div class="splash-bg"></div>
+  <img src="./images/bible-sunlight-fire.png" alt="Loading…" class="splash-main" />
+</div>
+</div>
+<script>
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splashScreen");
+  if (!splash) return;
+
+  setTimeout(() => {
+    splash.classList.add("fade-out");
+    setTimeout(() => splash.remove(), 400);
+  }, 400); // slight pause feels intentional
+});
+</script>-->
+  <!-- ============================= -->
+  <!-- Header / Week Selector        -->
+  <!-- ============================= -->
+  <!-- TODAY Overlay -->
+  <div id="todayOverlay" class="hidden fixed inset-0 bg-black/40 z-50">
+    <div>
+      <h2 class="text-xl font-semibold">Today</h2>
+
+    </div>
+    <div id="todayPanel" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+           w-[90%] max-w-md
+           bg-white dark:bg-slate-900
+           rounded-xl shadow-xl
+           p-6
+           opacity-0 scale-95 transition-all duration-300">
+      <h2 class="text-xl font-semibold mb-4">Today Only (relax)</h2>
+      <p id="todayDate" class="text-slate-400 text-sm mt-1"></p>
+      <p id="todaySabbath" class="text-slate-300 text-sm mb-4"></p>
+
+
+      <!-- Gentle Devotional (placeholder) -->
+      <div class="mt-5">
+        <h3 class="text-slate-200 font-semibold mb-2">A quiet word</h3>
+        <p class="text-slate-300 leading-relaxed">
+          Ask God for light for the next step — not the whole staircase.
+          Let the Word be enough for today.
+        </p>
+
+        <!-- Scripture Block -->
+        <div class="rounded-lg border border-slate-700 bg-slate-950/40 p-4">
+          <p class="text-slate-300 text-sm mb-2">Today’s One Psalm</p>
+
+          <p class="text-slate-200 font-medium">Psalm 119:105</p>
+          <p class="mt-2 italic text-slate-100 leading-relaxed">
+            “Your word is a lamp to my feet and a light to my path.”
+          </p>
+        </div>
+        <p class="mt-2 text-sm text-slate-400">Genesis Chapter 1 (Bereshit- בְּרֵאשִׁית)</p>
+
+        <!-- Primary Action (placeholder only) -->
+        <div class="mt-4">
+          <button id="todayListenBtn" type="button"
+            class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium"
+            onclick="alert('You are bout to listen to Geneis 1 recorded by a real human.')">
+            ▶ Listen
+          </button>
+
+          <p class="text-xs text-slate-500 mt-2 text-center">
+            Simple. Holy. No pressure.
+          </p>
+        </div>
+
+
+      </div>
+
+
+      <!-- Go Deeper Toggle -->
+      <div class="mt-5 pt-4 border-t border-slate-700">
+        <button id="todayDeeperBtn" type="button" class="text-slate-300 hover:text-white text-sm underline"
+          onclick="document.getElementById('todayDeeper').classList.toggle('hidden')">
+          Go deeper →
+        </button>
+
+        <div id="todayDeeper" class="hidden mt-3 text-sm text-slate-300">
+          <ul class="space-y-2">
+            <li>
+              • <a class="text-blue-400 hover:text-blue-300 underline" href="nt.html" target="_blank">
+                NT Reader
+              </a>
+            </li>
+            <li>
+              • <a class="text-blue-400 hover:text-blue-300 underline" href="sources.html" target="_blank">
+                Ancient Sources
+              </a>
+            </li>
+            <li>
+              • <a class="text-blue-400 hover:text-blue-300 underline" href="intertext-quotes.html" target="_blank">
+                Intertext Quotes
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <button id="todayCloseBtn" class="mt-6 text-sm text-blue-600 underline">
+        Close
+      </button>
+    </div>
+  </div>
+  <header class="sticky top-0 z-20 bg-slate-900/80 backdrop-blur border-b border-slate-800">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between px-3 py-2 gap-2">
+
+      <!-- Left -->
+      <div class="flex items-center gap-2 min-w-0">
+        <img src="images/HGHouses.png" alt="HG" class="w-8 h-8 shrink-0" />
+        <div class="min-w-0">
+          <div class="text-[10px] sm:text-xs text-slate-400 truncate">
+            HomeGroups • MainStage
+          </div>
+          <div class="text-base sm:text-lg font-bold text-cyan-300 tracking-wide truncate">
+            MainStage
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle -->
+      <div class="flex items-center justify-center gap-2 flex-wrap">
+        <button id="prevWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+          &laquo;
+        </button>
+
+        <select id="weekSelect"
+          class="px-2 py-1 text-xs sm:text-sm rounded-md border bg-slate-900 text-cyan-300 w-[120px] sm:w-auto">
+        </select>
+
+        <button id="nextWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+          &raquo;
+        </button>
+
+        <button id="todayBtn"
+          class="px-3 py-1 text-xs sm:text-sm rounded-full bg-slate-800 border border-cyan-500 text-cyan-300 hover:bg-slate-700">
+          TODAY
+        </button>
+        <button id="companionToggle" style="position:fixed;top:60px;left:10px;z-index:9999;">
+          Companion: OFF
+        </button>
+      </div>
+
+      <!-- Right -->
+      <div class="flex items-center justify-end gap-2">
+        <button id="openScriptureHeaderBtn" class="p-2 rounded-full bg-slate-800 border border-cyan-500 text-cyan-300"
+          onclick="openDockCModal()">
+          📖
+        </button>
+
+        <button id="installButton" class="p-2 rounded-full bg-cyan-700 hover:bg-cyan-600 shadow">
+          ⬇
+        </button>
+      </div>
+
+    </div>
+
+  </header>
+
+  <div id="weekInfo"></div>
+
+  <div class="app">
+
+    <!--<div id="tabBar" aria-hidden="false"></div>-->
+    <div class="nav-hint">Tip: swipe left/right, use arrow keys, or click a tab to change cards. There are more than you
+      know!</div>
+
+    <div class="jesus-tile mb-6">
+
+
+      <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus mb-6">-->
+
+      <button class="jesus-btn mx-auto" onclick="getResource('htmlPanel')?.open('jesus.html', 'To Know')">✝️ Who is
+        Jesus?</button>
+      <div class="jesus-label">Do you know the Father and the Son? I want to make sure you KNOW Them!</div>
+    </div>
+    <!-- Companion Text Input -->
+    <!--<div id="companionUI" style="position:fixed;top:80px;left:9px;z-index:9999;background:#222;color:#fff;padding:10px;border-radius:8px;">
+  <input id="companionInput" type="text" placeholder="Ask your AI Textcompanion..." style="width:300px;padding:5px;border-radius:4px;border:none;">
+  <button id="companionRun" style="margin-left:5px;padding:5px 10px;border-radius:4px;border:none;background:#4ade80;color:#111;">Send</button>
+</div>-->
+
+    <div id="viewport" role="region" aria-label="Main Stage viewport">
+      <div id="cardsRow" class="cards-row">
+
+        <!-- ============================= -->
+        <!-- Card 0: FrontPorch           -->
+        <!-- ============================= -->
+
+
+        
+        <section id="frontPorchCard" class="card active">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 0</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Front Porch • Get Comfy
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Card body -->
+            <div class="p-5 space-y-5">
+
+
+              <!-- Hero video / floating player slot -->
+              <div id="frontPorch" class="relative w-full max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
+                <!--<video autoplay muted loop playsinline
+                     class="absolute inset-0 w-full h-full object-cover opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4" />
+              </video>-->
+
+                <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">
+                  <!-- Welcome -->
+                  <header class="space-y-2">
+                    <h1 class="text-2xl font-semibold text-white">Welcome, friends.</h1>
+                    <p class="text-slate-400 text-sm">Sit. Listen. Breathe.</p>
+                  </header>
+
+
+                  <button onclick="getResource('journey')?.openJourney()"
+                    class="mt-4 px-5 py-3 rounded-xl bg-cyan-700/90 text-white font-medium shadow-lg text-center">
+                    🌿 Want a Guided Journey?
+                  </button>
+                  <p class="label-pill text-sky-300/90">
+                    <marquee behavior="scroll" direction="right">
+                      <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+                    </marquee>
+
+                    <button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: center;">Show
+                      Verses</button> <button id="openVideoBtn" class="px-2 py-1 border rounded"
+                      style="float: center;">Show Video</button>
+                  </p>
+                  <div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+                    <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
+                    <video controls class="max-w-[90%] max-h-[90%]">
+                      <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
+                    </video>
+                  </div>
+
+
+
+                  <!-- Video -->
+                  <!-- <div class="aspect-video w-full max-w-xs mx-auto rounded-xl overflow-hidden border border-slate-700/50 shadow-lg">
+      <iframe
+        class="w-full h-full"
+        src="https://www.youtube.com/embed/Q95FO1e1HGU"
+        title="Welcome"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    </div>-->
+
+                  <!-- Gentle Text -->
+                  <p class="text-xs text-slate-500">
+                    No rush. No pressure.
+                    Stay as long as you like.
+                  </p>
+
+                  <!-- Porch Orbit -->
+                  <div class="orbit mt-6 relative">
+
+                    <!-- Center Player -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <div
+                        class="w-[40%] aspect-square max-w-[140px] rounded-full bg-slate-900/90 border border-slate-700/60 flex items-center justify-center shadow-inner text-center text-sm text-slate-200">
+                        <p>
+                          🎧 5. Listen<br>
+                          <button onclick="openPlayerPanel()" class="mt-1 text-cyan-400 hover:text-cyan-300">
+                            ▶
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Orbit Buttons -->
+                    <button class="orbit-btn top" onclick="openToday()">
+                      🪑 1. Rest
+                    </button>
+
+                    <button class="roundorbit-btn top-right"
+                      onclick="getResource('htmlPanel')?.open('https://emartinie.github.io/MainStage/scripture/english/week1.html')">
+                      Scripture
+                    </button>
+
+                    <button class="orbit-btn right" onclick="goToCard('mapCard')">
+                      🤝 2. Join
+                    </button>
+
+                    <button class="roundorbit-btn bottom-right" onclick="goToCard('hostCard')">
+                      Games
+                    </button>
+
+                    <button class="orbit-btn bottom"
+                      onclick="getResource('porchPanel')?.openPorchPanel('Public/private Communication', '<p>Messaging coming soon 🌱</p>')">
+                      🗣️ 3. Speak
+                    </button>
+
+                    <button class="roundorbit-btn bottom-left" onclick="goToCard('calendarCard')">
+                      Calendar
+                    </button>
+
+                    <button class="orbit-btn left" onclick="goToCard('studyContent')">
+                      📖 4. Learn
+                    </button>
+
+                    <button class="roundorbit-btn top-left" onclick="
+  getResource('porchPanel')?.openPorchPanel(
+    'Sharing Information',
+    '<p>2-way forms coming soon 🌱</p>'
+  )
+">
+                      Panel
+                    </button>
+                  </div>
+
+
+
+                  <div class="mobile-doors md:hidden space-y-3">
+
+                    <button class="door-btn" onclick="openToday()">🪑 Rest</button>
+                    <button class="door-btn" onclick="goToCard('mapCard')">🤝 Join</button>
+                    <button class="door-btn" onclick="getResource('porchPanel')?.openPorchPanel(...)">🗣️ Speak</button>
+                    <button class="door-btn" onclick="goToCard('studyContent')">📖 Learn</button>
+                    <button class="door-btn" onclick="openPlayerPanel()">🎧 Listen</button>
+
+                  </div>
+
+                  <!-- Scripture -->
+                  <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
+                    <h1 class="text-2xl font-semibold">My Vision for the App</h1>
+                    <p class="mt-2 text-lg font-medium">"People Don't Care How Much You Know, Until They Know How Much
+                      You Care"</p>
+                    <p class="mt-3 italic text-slate-200">
+                      “ 🌿 Pastoral first
+                      • 🪑 Porch before library
+                      • 🕊️ Peace before precision
+                      • 🔥 Warmth before wisdom”
+
+                    </p>
+                    <p>
+                      -The 5 Doors That Cover 90% of Needs (things I have built to meet them)-</p>
+
+
+                    <p class="text-slate-400 text-sm">
+                      🪑 1. Sit & Rest
+
+                      (Today / Porch / Fireside / Calm content)</p>
+                    <p class="text-slate-400 text-sm">
+                      🤝 2. Join
+
+                      (Map participation, visible community, easy entry, group prayer and games)</p>
+                    <p class="text-slate-400 text-sm">
+                      🗣️ 3. Speak
+
+                      (Feedback, stories, voice, contributions)</p>
+                    <p class="text-slate-400 text-sm">
+                      📖 4. Learn
+
+                      (Study, scripture, deeper tools)</p>
+                    <p class="text-slate-400 text-sm">
+                      🎧 5. Listen
+
+                      (Audio, video, simple explanations)</p>
+                    <p class="text-slate-400 text-sm">
+                      If each of these feels warm, clear, and accessible,
+                      people will say:
+
+                      “This App has everything I need.”</p>
+                  </section>
+
+                  <!-- Quiet Word -->
+                  <section class="bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 space-y-3 text-center">
+                    <h2 class="text-lg font-medium text-cyan-300">A quiet word</h2>
+                    <p class="text-slate-300 leading-relaxed">
+                      Ask God for light for the next step — not the whole staircase.
+                      Let the Word be enough for today.
+                    </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </section>
+
+
+
+
+
+
+        <!-- ============================= -->
+        <!-- Card 1: Main Stage           -->
+        <!-- ============================= -->
+        <section id="mainStageCard" class="card active">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 1</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Main Stage • Weekly Study
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Card body -->
+            <div class="p-5 space-y-5">
+
+
+              <!-- Hero video / floating player slot -->
+              <div class="relative w-full max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
+                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-30">
+                  <source src="videos/bg-motion.mp4" type="video/mp4" />
+                </video>
+
+                <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">
+                  <p class="label-pill text-sky-300/90">
+                    <marquee behavior="scroll" direction="right">
+                      <p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+                    </marquee>
+                    <span id="headerWeekLabel">Weekly</span> • Torah / Prophets / New Covenant
+                  </p>
+                  <h3 id="mainStageTitle" class="text-3xl font-bold drop-shadow">
+                    Weekly Bible Study
+                  </h3>
+                  <p id="mainStageSub" class="text-sm text-slate-200">
+                    English • Hebrew • Greek (Phase 2) – Audio + Visual
+                  </p>
+                  <p> <button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: left;">Show
+                      Verses</button> <button id="openVideoBtn" class="px-2 py-1 border rounded"
+                      style="float: right;">Show Video</button></p>
+                  <div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+                    <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
+                    <video controls class="max-w-[90%] max-h-[90%]">
+                      <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
+                    </video>
+                  </div>
+
+                  <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4">
+
+
+                  </div>
+                  <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />AudioVisual Scriptures<img
+                      src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                </div>
+              </div>
+
+              <!-- Open announcements and  controls -->
+              <div class="flex flex-wrap items-center justify-center gap-3">
+                <button id="openAnnouncementsBtn"
+                  class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
+                  🔁 Open Announcements
+                </button>
+                <button id="openPrayersBtn"
+                  class="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-sm font-semibold shadow-lg shadow-cyan-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
+                  📖 Open Prayers
+                </button>
+                <!-- Floating player root (existing JS can attach here) -->
+                <div id="">
+                  <!-- player mounts here -->
+                </div>
+
+
+
+
+                <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
+                </div>
+                </p>
+                <div class="muted"></div>
+                <p><!-- MainStage Hero Card -->
+                <section id="mainStageCard"
+                  class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+                  <!-- Background video -->
+                  <video autoplay muted loop playsinline
+                    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                    <source src="videos/bg-motion.mp4" type="video/mp4">
+                  </video>
+
+                  <div class="mb-4">
+
+                  </div>
+                  <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />This Week's Chapter Outlines<img
+                      src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                  </h2>
+
+                  <p>
+                  <div id="mainStageChapters"
+                    class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+                  </div>
+
+              </div>
+
+              <div class="jesus-tile">
+                <div class="jesus-label">Open Scriptural Sources & Witnesses
+                </div>
+                <button id="open.SourcesBtn" class="sources-btn">
+                  Open Sources →
+                </button>
+              </div>
+
+              <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
+            </div>
+
+            <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
+            </div>
+            <div class="muted"></div>
+            <p><!-- MainStage Hero Card -->
+            <div id="mainStageCard"
+              class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+              <!-- Background video -->
+              <video autoplay muted loop playsinline
+                class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4">
+              </video>
+
+              <div class="mb-4">
+
+              </div>
+              <h2 class="text-2xl font-bold flex text-center gap-2">
+                <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />This Week's Updates<img
+                  src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+              </h2>
+
+              <div id="mainStageUpdates"
+                class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+                <p>
+                <div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">
+                  </p>
+                </div>
+
+              </div>
+
+        </section>
+
+        <!-- ============================= -->
+        <!-- Card 2: NEWMap (Connecting Map)   -->
+        <!-- ============================= -->
+        <section id="mapCard" class="card overflow-visible">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 2</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Community Map • Family Explorer
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+            </div>
+            <!-- Card body -->
+            <div class="p-5 space-y-5">
+
+              <div class="relative bg-slate-900/90 border border-slate-700 rounded-3xl shadow-2xl">
+                <div id="mapWrapper" class="relative w-full h-full">
+                  <div id="cardinalPad" class="absolute top-20 left-4 z-50
+            grid grid-cols-3 grid-rows-3 gap-1">
+
+                    <!-- North -->
+                    <button data-dir="north" class="campPad col-start-2 row-start-1">↑</button>
+
+                    <!-- West -->
+                    <button data-dir="west" class="campPad col-start-1 row-start-2">←</button>
+
+                    <!-- East -->
+                    <button data-dir="east" class="campPad col-start-3 row-start-2">→</button>
+
+                    <!-- South -->
+                    <button data-dir="south" class="campPad col-start-2 row-start-3">↓</button>
+
+                  </div>
+
+                  <!-- 🔥 Fireside Prayer Map Card -->
+                  <div class="relative rounded-3xl overflow-hidden border border-slate-700 shadow-2xl">
+
+                    <!-- Warm ambient overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-black"></div>
+
+                    <!-- Subtle ember glow -->
+                    <div class="absolute inset-0 pointer-events-none">
+                      <div
+                        class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,140,0,0.15),transparent_60%)]">
+                      </div>
+                    </div>
+
+                    <!-- Map Container -->
+                    <div id="mapContainer" class="relative h-[480px] w-full z-10">
+                    </div>
+                    <!-- 🔎 Universal Search Bar -->
+                    <div class="absolute top-4 left-1/2 -translate-x-1/2 z-50 w-[30%] max-w-md">
+                      <input id="mapSearch" type="text"
+                        placeholder="Search prayers, hellos, people, communities, or... " class="w-full px-4 py-3 rounded-full
+             bg-slate-900/80 backdrop-blur-md
+             border border-slate-700
+             text-slate-200 text-sm
+             placeholder:text-slate-400
+             focus:outline-none focus:ring-2 focus:ring-amber-500/40" />
+                    </div>
+
+                    <!-- 📜 Dropdown Results Drawer -->
+                    <div id="resultsDrawer" class="absolute top-0 left-0 right-0
+              translate-y-[-100%]
+              transition-transform duration-300 ease-out
+              z-40">
+
+                      <div class="mt-20 mx-auto w-[92%] max-w-md
+                bg-slate-900/95 backdrop-blur-md
+                border border-slate-700
+                rounded-2xl shadow-2xl
+                overflow-hidden">
+
+                        <div class="max-h-[300px] overflow-y-auto p-3 space-y-2 text-sm text-slate-200"
+                          id="resultsList">
+                          <!-- Dynamic search results render here -->
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="mainArea">
+                    <aside id="communityAside">
+                      <!-- Community Panel -->
+                      <div id="communityPanel" class="absolute bottom-4 right-4 w-60 max-h-[43vh]
+         bg-slate-900/70 backdrop-blur-md
+         border border-slate-700/60
+         rounded-2xl shadow-2xl
+         flex flex-col
+           overflow-hidden
+              transform translate-x-full
+              transition-transform duration-300 ease-out
+              z-40" <!-- Community List -->
+                        <div id="communityList"
+                          class="flex-1 overflow-y-auto p-2 space-y-2 text-sm rounded scrollbar-track-transparent">
+                        </div>
+                      </div>
+                  </div>
+
+                </div>
+                </aside>
+
+
+                <!-- Center Glow Ring -->
+                <div class="pointer-events-none absolute inset-0 flex items-center justify-center z-20">
+                  <div class="w-72 h-72 rounded-full 
+                bg-[radial-gradient(circle,rgba(255,120,0,0.25),transparent_70%)] 
+                blur-2xl opacity-60">
+                  </div>
+                </div>
+
+                <!-- Floating Controls -->
+
+
+                <div class="absolute top-4 right-4 flex gap-2 z-30">
+                  <button id="fullscreenMapBtn"
+                    class="px-4 py-2 rounded-xl bg-black/60 backdrop-blur-md text-white text-sm border border-slate-600 hover:bg-black/80 transition">
+                    🗺️ Expand
+                  </button>
+
+                  <button id="prayerButton"
+                    class="px-4 py-2 rounded-xl bg-orange-600/90 hover:bg-orange-600 text-white text-sm font-medium transition shadow-lg">
+                    ✚ Add Prayer
+                  </button>
+                </div>
+
+                <!-- Bottom Campfire Bar -->
+                <div class="absolute bottom-0 inset-x-0 z-30 
+              bg-gradient-to-t from-black via-black/80 to-transparent 
+              p-6 text-center">
+
+                  <p class="text-slate-300 text-sm mb-3">
+                    We gather here to lift one another up.
+                  </p>
+
+                  <div class="flex justify-center gap-4">
+                    <button id="prayTogetherBtn"
+                      class="px-6 py-2 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-medium transition">
+                      🙏 Pray Together
+                    </button>
+
+                    <button id="joinButton"
+                      class="px-6 py-2 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 transition">
+                      🤝 Join Community
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+              <script>
+                //setTimeout(() => {
+                // document.getElementById('communityAside').classList.remove('translate-x-full');
+                //}, 500);
+                const panel = document.getElementById('communityPanel');
+                const list = document.getElementById('communityList');
+
+                function updateResults(results) {
+                  list.innerHTML = "";
+
+                  if (results.length === 0) {
+                    panel.classList.add('translate-x-full');
+                    return;
+                  }
+
+                  results.forEach(r => {
+                    const item = document.createElement("div");
+                    item.textContent = r.name;
+                    list.appendChild(item);
+                  });
+
+                  panel.classList.remove('translate-x-full');
+                }
+              </script>
+              <div id="porchPanel" class="hidden fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+                <div
+                  class="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-[90%] max-w-md text-center shadow-2xl">
+
+                  <h2 id="porchTitle" class="text-xl font-semibold text-cyan-300 mb-2">
+                    Welcome
+                  </h2>
+
+                  <p id="porchMessage" class="text-slate-300 leading-relaxed mb-4">
+                    You're not alone here.
+                  </p>
+
+                  <button onclick="closePorch()" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white">
+                    Close
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <script src>document.getElementById('prayViewBtn').addEventListener('click', () => {
+            PrayView.open();
+          });</script>
+
+        <script type="module">
+          import { getResource } from "/js/core/resourceManager.js";
+          window.getResource = getResource;
+
+          function openJoin() {
+            openPorch(
+              "Join the Movement",
+              "Soon you'll be able to add yourself to the map and connect with others who walk the same path."
+            );
+          }
+
+          function openPorch(title, message) {
+            document.getElementById("porchTitle").innerText = title;
+            document.getElementById("porchMessage").innerText = message;
+            document.getElementById("porchPanel").classList.remove("hidden");
+          }
+
+          function closePorch() {
+            document.getElementById("porchPanel").classList.add("hidden");
+          }
+        </script>
+
+
+        <!-- ============================= -->
+        <!-- Card 3: Study / Placeholder   -->
+        <!-- ============================= -->
+
+        <section id="studyContent" class="card">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 3</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Study Hub- Study Content Area
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+            </div>
+
+            <!-- Card body -->
+            <div class="p-6 text-center text-slate-300 text-sm">
+
+              <div class="card-inner">
+                <div class="space-y-4">
+                  <h3 class="text-xl font-semibold">Study Content</h3>
+
+                  <p class="text-slate-400 text-sm">
+                    Access study tools and reference material. You can enable or disable sections later.
+                  </p>
+                  <div class="grid gap-3">
+                    <button id="studyButton"
+                      class="px-6 py-2 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-medium transition shadow-lg">
+                      📖 ✚ Add Study Rqst
+                    </button>
+                  </div>
+                  <div class="flex justify-center gap-4">
+                    <button id="studyTogetherBtn"
+                      class="px-6 py-2 rounded-full bg-amber-600 hover:bg-amber-500 text-white font-medium transition">
+                      📖 Study Together
+                    </button>
+
+
+
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Intro -->
+              <div>
+                <h3 class="text-xl font-semibold text-cyan-300">More</h3>
+                <p class="text-slate-400 text-sm mt-1">
+                  Scripture. Context. Understanding. No noise.
+                </p>
+              </div>
+
+              <!-- Scripture Focus -->
+              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+                <h4 class="text-slate-200 font-semibold mb-2">📖 Read the Word</h4>
+                <p class="text-slate-400 text-sm mb-3">
+                  Start with the text itself — clear, structured, distraction-free.
+                </p>
+                <a href="nt.html" class="study-link">Open NT Reader</a>
+              </div>
+
+              <!-- Context & Cross-References -->
+              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+                <h4 class="text-slate-200 font-semibold mb-2">🔗 Scripture Connections</h4>
+                <p class="text-slate-400 text-sm mb-3">
+                  See how the New Testament quotes and reflects the Hebrew Scriptures.
+                </p>
+                <a href="intertext-quotes.html" class="study-link">View Intertext Quotations</a>
+              </div>
+
+              <!-- Commentary -->
+              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+                <h4 class="text-slate-200 font-semibold mb-2">📝 Commentary</h4>
+                <p class="text-slate-400 text-sm mb-3">
+                  Deeper insights and teaching material (when you're ready).
+                </p>
+                <a href="#" class="study-link opacity-50 cursor-not-allowed">
+                  Commentary (Coming Soon)
+                </a>
+              </div>
+
+              <!-- Sources -->
+              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+                <h4 class="text-slate-200 font-semibold mb-2">📚 Sources</h4>
+                <p class="text-slate-400 text-sm mb-3">
+                  Ancient witnesses, textual references, and historical sources.
+                </p>
+                <a href="sources.html" class="study-link">Open Sources</a>
+              </div>
+
+              <!-- Gentle Footer -->
+              <div class="text-xs text-slate-500 italic">
+                “Let the Word speak first.”
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <script>
+          function getStudyContext() {
+            const week = typeof getSelectedWeekNumber === "function"
+              ? getSelectedWeekNumber()
+              : 1;
+
+            return {
+              week,
+              // future:
+              // book,
+              // chapter,
+              // cardId
+            };
+          }
+        </script>
+
+        <!-- ============================= -->
+        <!-- Card 4: Prophecy Calendar     -->
+        <!-- ============================= -->
+        <section id="calendarCard" class="card">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 4</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Prophecy Calendar
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+            </div>
+
+            <!-- Card body -->
+            <div class="p-5">
+              <div class="card-inner">
+
+                <p><!-- Cosmic Badass Calendar Card -->
+                <section id="calendarCard"
+                  class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+                  <!-- Background video -->
+                  <video autoplay muted loop playsinline
+                    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                    <source src="videos/firevideos.mp4" type="video/mp4">
+                  </video>
+
+                  <!-- Calendar: Today (read-only) -->
+                  <div id="calendarToday" class="mb-6">
+                    <p class="text-slate-400 text-sm mt-1">
+                      Next Sabbath begins Friday at sunset.
+                    </p>
+                  </div>
+                  <h3 class="text-xl font-bold mb-2 flex items-center">Next Holy Day: Pesach/ Passover (פֶּסַח) : Begins
+                    April 1, 2026 at sundown; ends at nightfall on April 9, 2026. Activity is light on April 2–3 and
+                    April 8–9.. </h3>
+                  <h2>Begins In</h2>
+                  <!--<button id="downloadBtn" style="
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center;  
+  margin-top: 2.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(56,189,248,0.2);
+  border: 1px solid rgba(56,189,248,0.6);
+  color: #f8fafc;
+  font-size: 0.9rem;
+  cursor: pointer;
+  hover:drop-shadow-[0_0_8px_#0ff];
+">
+📸 Download and Share Image
+</button>-->
+                  <h3></h3>
+                  <div class="countdown-group">
+                    <div class="countdown" id="startCountdown">
+                      <div class="time"><span id="startPDays">0</span><label>Days</label></div>
+                      <div class="time"><span id="startPHours">0</span><label>Hours</label></div>
+                      <div class="time"><span id="startPMinutes">0</span><label>Minutes</label></div>
+                      <div class="time"><span id="startPSeconds">0</span><label>Seconds</label></div>
+                    </div>
+                  </div>
+
+                  <div class="countdown-group">
+                    <h2>Ends In</h2>
+                    <div class="countdown" id="endCountdown">
+                      <div class="time"><span id="endPDays">0</span><label>Days</label></div>
+                      <div class="time"><span id="endPHours">0</span><label>Hours</label></div>
+                      <div class="time"><span id="endPMinutes">0</span><label>Minutes</label></div>
+                      <div class="time"><span id="endPSeconds">0</span><label>Seconds</label></div>
+                    </div>
+
+                  </div>
+
+
+                  <script>
+                    // Adjust year if needed
+                    const passoverStart = new Date("April 1, 2026 18:00:00").getTime();
+                    const passoverEnd = new Date("April 9, 2026 18:00:00").getTime();
+
+                    function updateCountdown(targetTime, prefix) {
+                      const now = Date.now();
+                      const distance = targetTime - now;
+
+                      if (distance <= 0) {
+                        ["PDays", "PHours", "PMinutes", "PSeconds"].forEach(unit => {
+                          const el = document.getElementById(prefix + unit);
+                          if (el) el.textContent = "0";
+                        });
+                        return;
+                      }
+
+                      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+                      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+                      const seconds = Math.floor((distance / 1000) % 60);
+
+                      document.getElementById(prefix + "PDays").textContent = days;
+                      document.getElementById(prefix + "PHours").textContent = hours;
+                      document.getElementById(prefix + "PMinutes").textContent = minutes;
+                      document.getElementById(prefix + "PSeconds").textContent = seconds;
+                    }
+
+                    function tick() {
+                      updateCountdown(passoverStart, "start");
+                      updateCountdown(passoverEnd, "end");
+                    }
+
+                    tick();
+                    setInterval(tick, 1000);
+                  </script>
+
+
+                  <div
+                    class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
+                    <!-- Hero Header -->
+                    <header class="flex flex-col items-center gap-2 text-center">
+                      <h2 class="text-3xl font-extrabold flex items-center gap-3">
+                        <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
+                        Prophecy Calendar
+                        <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
+                      </h2>
+
+                    </header>
+
+
+
+                  </div>
+
+                  <!-- Placeholder / In Progress -->
+                  <section class="placeholders bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+                    <h2 class="text-2xl font-bold flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                      </svg>
+                      <!-- Calendar Filters -->
+                      <div class="calendar-filters flex flex-wrap gap-2 justify-center">
+                        <button
+                          class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+                          </svg>
+                          Hillel
+                        </button>
+                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
+                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
+                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Eastern
+                          Orthodox</button>
+                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Western Orthodox /
+                          Catholic</button>
+                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
+                        <h3 class="text-xl font-semibold text-blue-400">
+                          Current Calculation:
+                        </h3><button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
+                          onclick="setCalendarType('Hillel')">
+                          <h3 style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
+                            Hillel
+                          </h3>
+                          <!--</h2>
+    <p>🎵 Placeholder: Music / voice interaction panel</p>
+    <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
+    <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>-->
+                  </section>
+                  <div class="calendar-filters flex flex-wrap gap-2 justify-center">
+
+                    <!-- Horizontal Section Example -->
+                    <section class="horizontal-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                      <!-- Astronomical Info Card -->
+                      <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                        <h2 class="text-2xl font-bold flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364-6.364l-2.121 2.121M7.757 16.243l-2.121 2.121m12.728 0l-2.121-2.121M7.757 7.757L5.636 5.636" />
+                          </svg>
+                          Astronomical Info/ The Mazzaroth
+                        </h2>
+                        <p>🌞 Sun Rise / Set: 06:23</p>
+                        <p>🌙 Moon Phase: Waxing Crescent</p>
+                        <p>⭐ Visible Stars / Constellations: Orion, Cassiopeia</p>
+                        <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+
+
+                        <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ 12 Tribes</h3>
+                        <p>-Judah: Often associated with Leo, the royal lion, based on Genesis 49:9.
+                        <p></p>
+                        <p>-Issachar: Associated with Cancer, the Crab, possibly because Jacob referred to him as an
+                          "ass," and the Cancer constellation contains the "ass" stars.
+                        <p></p>
+                        <p>-Reuben: Often linked to Taurus, the Bull, while other systems place him with Cancer.
+                        <p></p>
+                        <p>-Zebulun: Associated with Gemini or Pisces, depending on the system.
+                        <p></p>
+                        <p>-Benjamin: Linked to Sagittarius, the Archer, or Gemini.
+                        <p></p>
+                        <p>-Dan: Often linked to Scorpio or Capricorn.
+                        <p></p>
+                        <p>-Naphtali: Frequently associated with Virgo, the Virgin.
+                        <p></p>
+                        <p>-Gad: Associated with Sagittarius or Pisces.
+                        <p></p>
+                        <p>-Asher: Linked to Libra or Aquarius.
+                        <p></p>
+                        <p>-Naphtali: Associated also with Virgo.
+                        <p></p>
+
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
+                        <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                      </div>
+
+                      <!-- Calendar Dates Card -->
+                      <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                        <h2 class="text-2xl font-bold flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+                          </svg>
+                          Calendar Dates
+                        </h2>
+
+                        <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Fulfillment</h3>
+                        <ul class="list-disc pl-5 space-y-1">
+                          <li>
+                            Passover: Jesus' death on the cross is seen as the fulfillment (happened
+                            on the
+                            same-day, anniversary) of the Passover
+                            lamb, where his blood provides redemption.
+                          </li>
+                          <p></p>
+                          <p></p>
+                          <p></p>
+                          <li>
+                            Feast of Unleavened Bread: Jesus' burial is fulfilled (happened on the
+                            same-day,
+                            anniversary) during this feast, which
+                            symbolizes his sinless life being buried with him as the "bread of
+                            life".
+                          </li>
+                          <li>
+                            Feast of First Fruits: His resurrection on this day marked him (happened
+                            on the
+                            same-day, anniversary) as the
+                            firstfruits of those who will be resurrected.
+                          </li>
+                          <li>Pentecost: The Holy Spirit was given to believers 50 days after the
+                            resurrection, fulfilling (happened on the same-day, anniversary) the
+                            promise of
+                            the new covenant sealed in Jesus' blood. This was/ is also the
+                            anniversary of
+                            the first Covenant at Mt. Sinai.
+                          </li>
+                          <li>
+                            Feasts fulfilled by Jesus' second coming:
+                          </li>
+                          <li>Feast of Trumpets: This is seen as a signal for his return, potentially
+                            marking
+                            the rapture of believers.
+                          </li>
+                          <li>
+                            Day of Atonement: This feast is associated with the final judgment and
+                            his
+                            second coming as king.
+                          </li>
+                          <li>
+                            Feast of Tabernacles: This represents the 1,000-year Messianic kingdom
+                            on earth,
+                            which will be established when he returns as king
+                          </li>
+                        </ul>
+
+                      </div>
+
+                      <!-- Holy Days / Feasts Card -->
+                      <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                        <h2 class="text-2xl font-bold flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                          Holy Days / Feasts Explained
+                        </h2>
+                        <ul class="list-disc pl-5 space-y-1">
+                          <li>Evening of Wed, Oct 1, 2025 – Thu, Oct 2, 2025 <button
+                              class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                              onclick="alert('Yom Kippur means Day of Atonement in English and is the holiest day on the Biblical calendar, observed by fasting and intensive prayer to atone for sins and seal judgment for the year. The holiday marks the end of the Days of Awe (the Ten Days of Repentance) that begin with Rosh Hashanah, focusing on self-reflection, seeking forgiveness, and making amends')">Info</button>
+                          </li>
+                          <li>Sukkot (Feast of Tabernacles): Starts the evening of Monday, October 6, 2025, and
+                            concludes at nightfall on Monday, October 13, 2025<button
+                              class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                              onclick="alert('Sukkot lasts for seven days. The two days following the festival, Shemini Atzeret and Simchat Torah, are separate holidays but are related to Sukkot and are commonly thought of as part of Sukkot.')">Info</button>
+                          </li>
+
+                          <li>Shemini Atzeret: Follows Sukkot, beginning the evening of Monday, October 13, 2025, and
+                            ending at nightfall on Tuesday, October 14, 2025<button
+                              class="px-2 py-1 ml-2 rounded bg-indigo-600 hover:bg-indigo-500"
+                              onclick="alert('It is celebrated on the 22nd day of the Hebrew month of Tishrei, usually coinciding with late-September or early-October. It is the eighth day of Sukkot, a sacred occasion, where one stores up gratitude and devotion, and is not quite its own holiday.')">Info</button>
+                          </li>
+
+                        </ul>
+
+                        <ul class="list-disc pl-5 space-y-1">
+                          <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Spring Feasts</h3>
+                          <li>
+                            Pesach (Passover): The first spring feast, commemorating the liberation
+                            of the
+                            Israelites from Egyptian slavery.:
+                          <li>
+                            Matzot (Unleavened Bread): Follows Passover and celebrates the hasty
+                            departure
+                            from Egypt, with no time for bread to rise.
+                          </li>
+                          <li>
+                            Bikkurim (First Fruits): Celebrates the first harvest and the
+                            resurrection of
+                            the Messiah as the first fruits from the dead.
+
+                          </li>
+                          <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Summer Feast</h3>
+                          <li>
+                            Pentecost:
+                            Shavuot (Pentecost): Also known as the Feast of Weeks, it celebrates the
+                            second
+                            grain harvest and commemorates the giving of the Torah to Moses.
+                          </li>
+                          <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Fall Feasts</h3>
+                          <li>
+                            Yom Teruah (Trumpets): Also called Rosh Hashanah, it marks the Jewish
+                            New Year
+                            and is a time of sounding trumpets.
+
+                          </li>
+                          <li>
+                            Yom Kippur (Day of Atonement): A day of fasting, repentance, and
+                            atonement for
+                            sins.
+
+                          </li>
+                          <li>
+                            Sukkot (Feast of Tabernacles/Booths): A week-long festival commemorating
+                            the
+                            Israelites' 40 years of wandering in the desert, living in temporary
+                            shelters.
+                          </li>
+                        </ul>
+
+
+                        <section>
+
+
+                      </div>
+
+                      <!-- Calendar Dates Card -->
+                      <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                        <h2 class="text-2xl font-bold flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+                          </svg>
+                          2026 Calendar Dates
+                        </h2>
+
+                        <p>April 1: Passover Sundown</p>
+                        <p>April 2–8: Feast of Unleavened Bread</p>
+                        <p>September 12: Feast of Trumpets</p>
+                        <p>September 22–24: Rosh Hashanah</p>
+                        <p>October 1–2: Yom Kippur</p>
+                        <p>October 6–13: Sukkot</p>
+                        <p>December 14–22: Hanukkah</p>
+                        <p>Last Great Day - 10/14/2025</p>
+                        <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
+                        <button class="px-3 py-1 rounded bg-indigo-600 hover:bg-indigo-500">Learn More</button>
+                      </div>
+
+                      <!-- Calendar Dates Card -->
+                      <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                        <h2 class="text-2xl font-bold flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+                          </svg>
+                          <h2>Christian Holidays</24>
+
+                            <p>January 1: Solemnity of Mary, the Mother of God</p>
+                            <p>January 6: Epiphany</p>
+                            <p>February 18: Ash Wednesday</p>
+                            <p>May 14: Ascension of the Lord</p>
+                            <p>January 7: Orthodox Christmas Day</p>
+                            <p>May 24: Pentecost</p>
+                            <p>August 15: Assumption of the Blessed Virgin Mary</p>
+                            <p>November 1: All Saints' Day</p>
+                            <p>November 29: First Sunday of Advent</p>
+                            <p>December 8: Immaculate Conception of the Blessed Virgin Mary</p>
+                            <p>December 25: Christmas</p>
+                            <p>June 16–17: Islamic New Year (Hijri)</p>
+                            <p>Pagan Christmas - 12/25/2026</p>
+                      </div>
+                      <!-- Calendar Dates Card -->
+                      <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
+                        <h2 class="text-2xl font-bold flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+                          </svg>
+                          Other Religious Observances
+                        </h2>
+
+                        <p>February 17–March 18: Ramadan</p>
+                        <p>May 26–27: Eid al-Adha</p>
+                        <p>June 16–17: Islamic New Year (Hijri)</p>
+                        <p>January 3: Mahayana New Year (Buddhist)</p>
+                        <p>June 18: Martyrdom of Guru Arjan Dev (Sikhism)</p>
+                        <p>June 16–17: Islamic New Year (Hijri)</p>
+                        <p>August 16: Krishna Janmashtami (Hinduism)</p>
+                        <p>October 20: Diwali (Hindu, Jain, Sikh)</p>
+                        <p>November 5: Guru Nanak Gurpurab (Sikhism)</p>
+                        <p>February 17–March 18: Ramadan</p>
+                        <p>May 26–27: Eid al-Adha</p>
+                        <p>June 16–17: Islamic New Year (Hijri)</p>
+                        <p>Christmas - 12/25/2025</p>
+
+                      </div>
+
+                  </div>
+                  </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Card 5: AB  -->
+        <!-- ============================= -->
+        <section id="alephbetCard" class="card">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Header (can clip) -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 5</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Language • Learning to Read & Write Biblical Hebrew
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+
+            </div> <!-- ✅ header CLOSED -->
+
+            <!-- Body (must breathe) -->
+            <div class="card-inner text-center">
+
+              <h2 class="text-lg font-semibold text-amber-200 mb-4">
+                The Alephbet
+              </h2>
+              <div class="flex justify-center mt-4">
+                <button id="alephAudioBtn" class="px-4 py-2 rounded-full text-sm
+                 bg-amber-500/20 border border-amber-400/40
+                 text-amber-200 hover:bg-amber-500/30 transition">
+                  ▶ Play Alephbet Song
+                </button>
+              </div>
+
+
+              <p></p>
+              <div id="alephbetViewer" class="flex items-center justify-center gap-6">
+                <button id="alephPrev" class="text-2xl text-slate-400 hover:text-white">‹</button>
+
+                <div id="alephCard" class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
+                  <div id="alephLetter" class="aleph-letter mb-1">א</div>
+                  <div id="alephName" class="text-lg text-amber-100">Aleph</div>
+                  <div id="alephSound" class="text-xs text-amber-300 mt-1">
+                    Silent / Ah
+                  </div>
+                </div>
+
+                <button id="alephNext" class="text-2xl text-slate-400 hover:text-white">›</button>
+              </div>
+
+              <button id="alephPlay" class="mt-4 text-xs text-amber-300 hover:text-white">
+                🔊 Hear pronunciation
+              </button>
+
+              <div class="text-xs text-slate-500 mt-3 italic">
+                Take your time. Let it settle.
+              </div>
+
+              <div class="text-center mb-4">
+                <div class="label-pill text-slate-400">Practice writing">
+
+                  </h2>
+                  <p class="text-sm text-slate-400 mt-1">
+                    No rush. No pressure. Just familiarity.
+                  </p>
+                </div>
+
+                <!-- Horizontal pager -->
+                <div class="alephbet-strip">
+
+                  <!-- Page 1 -->
+                  <div class="alephbet-page">
+                    <div class="letter-card">
+                      <div class="hebrew">א</div>
+                      <div class="name">Aleph</div>
+                      <div class="sound">silent / breath</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ב</div>
+                      <div class="name">Bet</div>
+                      <div class="sound">b / v</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ג</div>
+                      <div class="name">Gimel</div>
+                      <div class="sound">g</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ד</div>
+                      <div class="name">Dalet</div>
+                      <div class="sound">d</div>
+                    </div>
+                  </div>
+
+                  <!-- Page 2 -->
+                  <div class="alephbet-page">
+                    <div class="letter-card">
+                      <div class="hebrew">ה</div>
+                      <div class="name">He</div>
+                      <div class="sound">h</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ו</div>
+                      <div class="name">Vav</div>
+                      <div class="sound">v / o / u</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ז</div>
+                      <div class="name">Zayin</div>
+                      <div class="sound">z</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ח</div>
+                      <div class="name">Chet</div>
+                      <div class="sound">kh</div>
+                    </div>
+                  </div>
+                  <!-- Page 3 -->
+                  <div class="alephbet-page">
+                    <div class="letter-card">
+                      <div class="hebrew">ט</div>
+                      <div class="name">Tet</div>
+                      <div class="sound">T</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">י</div>
+                      <div class="name">Yod</div>
+                      <div class="sound">Y</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">כ/ך</div>
+                      <div class="name">Kaph</div>
+                      <div class="sound">K / Kh</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ל</div>
+                      <div class="name">Lamed</div>
+                      <div class="sound">L</div>
+                    </div>
+                  </div>
+
+                  <!-- Page 4 -->
+                  <div class="alephbet-page">
+                    <div class="letter-card">
+                      <div class="hebrew">מ/ם</div>
+                      <div class="name">Mem</div>
+                      <div class="sound">M</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">נ/ן</div>
+                      <div class="name">Nun</div>
+                      <div class="sound">N/ן</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ס</div>
+                      <div class="name">Samekh</div>
+                      <div class="sound">S</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ע</div>
+                      <div class="name">Aiyin</div>
+                      <div class="sound">Silent / NG</div>
+                    </div>
+                  </div>
+
+                  <!-- Page 5 -->
+                  <div class="alephbet-page">
+                    <div class="letter-card">
+                      <div class="hebrew">פ/ף</div>
+                      <div class="name">Pe</div>
+                      <div class="sound">P / F</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">צ/ץ</div>
+                      <div class="name">Tsadi</div>
+                      <div class="sound">Ts</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ק</div>
+                      <div class="name">Qof</div>
+                      <div class="sound">K</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ר</div>
+                      <div class="name">Resh</div>
+                      <div class="sound">R</div>
+                    </div>
+                  </div>
+
+                  <!-- Page 6 -->
+                  <div class="alephbet-page">
+                    <div class="letter-card">
+                      <div class="hebrew">ש</div>
+                      <div class="name">Shin</div>
+                      <div class="sound">Sh / S</div>
+                    </div>
+                    <div class="letter-card">
+                      <div class="hebrew">ת</div>
+                      <div class="name">Tav</div>
+                      <div class="sound">T</div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <p class="text-xs text-slate-500 text-center mt-4 italic">
+                  You are not required to learn anything.
+                  Familiarity comes naturally.
+                </p>
+              </div>
+
+              <div class="text-center text-xs text-slate-500 mt-4">
+                Swipe slowly. Let it settle.
+
+              </div>
+            </div>
+
+          </div>
+        </section>
+        <!-- ============================= -->
+        <!-- Card 6: Podcast / D-Cast      -->
+        <!-- ============================= -->
+        <section id="podcast-card" class="card">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 6</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Bible Teaching • D-Cast
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+            </div>
+
+            <!-- Card body -->
+            <div class="p-5">
+              <div
+                class="podcast-card relative bg-gray-900/80 backdrop-blur-lg rounded-3xl shadow-2xl p-4 max-w-xl mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+
+                <!-- Background video -->
+                <video autoplay muted loop playsinline
+                  class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                  <source src="videos/bg-motion.mp4" type="video/mp4">
+                </video>
+
+                <!-- Header: Podcast Title + Icon -->
+                <div class="flex items-center justify-between mb-4">
+                  <h2 class="text-xl font-bold flex items-center gap-2 text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none"
+                      viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z" />
+                    </svg>
+                    Bible Teaching
+                  </h2>
+                  <span class="text-sm text-gray-400">Episode 12</span>
+                </div>
+
+                <!-- Cover Art -->
+                <div class="relative mb-4">
+                  <img src="images/HGHouses.png" class="w-full h-48 object-cover rounded-xl shadow-lg"
+                    alt="Podcast Cover">
+                  <!-- Floating Play Button -->
+                  <button
+                    class="absolute bottom-3 right-3 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M14.752 11.168l-6.518-3.759A1 1 0 007 8.32v7.36a1 1 0 001.234.972l6.518-1.944a1 1 0 00.75-.972v-1.74a1 1 0 00-.75-.972z" />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Description -->
+                <p class="text-gray-300 mb-3 text-sm">
+                  Dive into cosmic mysteries, ancient scriptures, and audio-visual meditations.
+                  This episode explores the prophecies of Passover.
+                </p>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-700 rounded-full h-2 mb-3 overflow-hidden">
+                  <div class="bg-blue-500 h-2 w-1/3"></div> <!-- Example: 33% played -->
+                </div>
+
+                <!-- Actions / Tags -->
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                  <button
+                    class="px-3 py-1 border rounded bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Favorite
+                  </button>
+                  <button
+                    class="px-3 py-1 border rounded bg-green-600 hover:bg-green-500 text-white flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 10l4.553-4.553a2 2 0 012.828 0l.172.172a2 2 0 010 2.828L18 14" />
+                    </svg>
+                    Share
+                  </button>
+                  <span class="text-gray-400 text-xs mt-1">45 min</span>
+
+                  <div class="space-y-6 text-slate-300">
+
+                    <h3 class="text-xl font-semibold text-cyan-300">
+                      Fireside Teaching
+                    </h3>
+
+                    <p class="text-slate-400 text-sm">
+                      A quiet space for Scripture-centered reflection. No rush. No pressure.
+                    </p>
+
+                    <div class="bg-slate-950/50 border border-slate-700 rounded-xl p-5 space-y-3">
+                      <p class="text-sm text-slate-400">Featured Teaching</p>
+
+                      <h4 class="text-lg font-medium text-white">
+                        Walking in the Light
+                      </h4>
+
+                      <p class="text-slate-300 text-sm leading-relaxed">
+                        A short reflection on Psalm 119:105 and learning to take the next step with God.
+                      </p>
+
+                      <button
+                        class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium">
+                        ▶ Listen by the Fire
+                      </button>
+                    </div>
+
+                    <p class="text-xs text-slate-500 text-center italic">
+                      “Come, let us reason together.”
+                    </p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- Card 7: HostCard                -->
+        <!-- ============================= -->
+        <section id="hostCard" class="card">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+            <!-- ============================= -->
+            <!-- Trivia Card + Bingo                -->
+            <!-- ============================= -->
+            <section id="bingoCard" class="card">
+              <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+                <!-- Card header -->
+                <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+                  <button
+                    class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                    title="Prev card">
+                    <!-- Heroicon: Chevron Left -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+
+                  <div class="text-center">
+                    <div class="label-pill text-slate-400">hostCard 7- Bingo</div>
+                    <h2 class="text-xl font-bold text-cyan-300">
+                      Trivia & Bingo Challenge to Play together • Discuss • Learn
+                    </h2>
+                  </div>
+
+                  <button
+                    class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                    title="Next card">
+                    <!-- Heroicon: Chevron Right -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+
+                </div>
+
+
+                <!-- SCOREBOARD MANAGER -->
+                <!-- SCOREBOARD STATUS BAR -->
+                <div id="scoreStatus" class="sticky top-0 z-20 flex justify-between items-center
+         px-3 py-2 bg-slate-900/80 border-b border-slate-700 text-sm">
+
+                  <div class="text-cyan-300 font-semibold">
+                    🏆 <span id="scoreTop">0</span> pts
+                  </div>
+
+                  <div class="text-slate-300">
+                    Team: <span id="topTeam">Zack</span>
+                  </div>
+
+                  <div class="text-slate-400">
+                    Q <span id="qNum">1</span>/<span id="qTotal">10</span>
+                  </div>
+                </div>
+                <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 w-full">
+
+                  <h3 class="text-lg font-semibold text-cyan-300 mb-3 text-center">
+                    Teams & Scores
+                  </h3>
+
+
+                  <div class="flex justify-between items-center mb-3 text-center">
+                    <h3 class="text-sm text-slate-400">
+                      Add unlimited teams or players
+                    </h3>
+
+                    <button onclick="playSound('assets/sounds/score-up.mp3')">
+                      Test Sound
+                    </button>
+
+                    <button id="sb-add-team"
+                      class="px-3 py-1 rounded bg-emerald-600 text-white font-semibold hover:bg-emerald-700">
+                      + Add Team
+                    </button>
+                  </div>
+
+                  <div id="sb-board" class="flex flex-wrap gap-4 justify-center"></div>
+                </div>
+
+                <!-- Card body -->
+                <div class="p-6 relative">
+
+
+                  <!-- Background video -->
+                  <video autoplay muted loop playsinline
+                    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                    <source src="videos/bg-motion.mp4" type="video/mp4">
+                  </video>
+                  <div class="text-4xl font-extrabold text-cyan-300 text-center">
+                    🅱️🅸🅱️🅻🅴 Trivia </div>
+                  <p class="text-sm text-slate-400 text-center mt-4">
+                    Want to host this with friends? Share this page.</p>
+
+
+                  <!-- Question Card -->
+                  <div id="questionsCard"
+                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-blue-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl">
+                    <!-- Background video -->
+                    <video autoplay muted loop playsinline
+                      class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                      <source src="videos/bg-motion.mp4" type="video/mp4">
+                    </video>
+                    <div id="choices" class="grid gap-3 mt-4"></div <span class="relative z-10">Loading
+                    question...</span>
+                  </div>
+
+
+                  <!-- Hint -->
+                  <div id="hintCard"
+                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">
+                    Hint:
+                    <em id="hintText" class="relative z-10"></em>
+                  </div>
+
+                  <!-- Answer -->
+                  <div id="answerCard"
+                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">
+                    Answer:
+                    <em id="answerText" class="relative z-10"></em>
+                  </div>
+
+                  <!-- Controls -->
+                  <div class="flex justify-between mt-6">
+                    <button id="prevBtn"
+                      class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-500">◀
+                      Previous</button>
+                    <button id="hintBtn"
+                      class="px-4 py-2 rounded-lg bg-yellow-500 text-slate-900 font-bold shadow hover:bg-yellow-400">✨
+                      Reveal Hint ✨</button>
+                    <button id="revealBtn"
+                      class="px-4 py-2 rounded-lg bg-yellow-500 text-slate-900 font-bold shadow hover:bg-yellow-400">✨
+                      Reveal Answer ✨</button>
+                    <button id="nextBtn"
+                      class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-500">Next
+                      ▶</button>
+                  </div>
+
+                </div>
+              </div>
+              <button class="px-2 py-1 border rounded" style="float: center;"
+                onclick="getResource('porchPanel')?.openPorchPanel('How It Works', '<p>Answer correctly <strong>without a hint</strong> → +2 points<br>Use the Scripture hint → +1 point<br>Reveal the answer → no points, but you still learn<br>    For Hints: give a Bible reference only. Then open the Scriptures and search it out.</p>')">
+                🗣️ How This Works
+              </button>
+          </div>
+
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">hostCard 7- Trivia</div>
+                <h2 class="text-xl font-bold text-cyan-300 text-center">
+                  Bingo
+                </h2>
+
+              </div>
+            </div>
+
+            <div class="p-6 relative">
+
+
+              <div class="text-4xl font-extrabold text-cyan-300 text-center">
+                🅱️🅸🅱️🅻🅴 Bingo </div>
+              <div class="text-sm text-slate-400 text-center mt-4">
+                Want to host this with friends? Share this page.</div>
+              <div id="bingoHistory" class="flex flex-wrap gap-2 text-lg">
+              </div>
+              <!-- Card body -->
+              <div class="p-6 relative">
+                <div id="bingoCaller" class="text-center space-y-4">
+                  <div id="bingoDisplay" class="text-4xl font-extrabold text-cyan-300">
+                    Ready ?
+                  </div>
+                  <div id="bingoCurrent" class="text-6xl font-bold text-cyan-300 mb-4">
+                    —<br>
+                  </div>
+
+
+                </div>
+              </div>
+
+
+
+
+              <!-- Background video -->
+              <video autoplay muted loop playsinline
+                class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4">
+              </video>
+              <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 flex justify-center gap-4">
+
+                <div class="flex justify-center gap-4">
+                  <button id="callNextBtn" class="px-4 py-2 bg-blue-600 text-white rounded">
+                    Call Next
+                  </button>
+
+
+                  <button id="autoCallBtn" class="px-4 py-2 bg-emerald-600 text-white rounded">
+                    Auto Call
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 flex justify-center gap-4">
+
+            <p class="text-slate-400 text-sm mb-3">
+              🖨️ Printable Cards (non-negotiable)<br>
+              • 1 card
+              • 3 cards
+              • 6 cards
+              • 12 cards (serious players)
+              Use any standard 1–75 Bingo card.
+              Printable cards are available below if you need them. Bring your own Bingo cards or print ours — standard
+              75-ball BINGO rules apply. Cards are designed for standard bingo dobbers.
+            </p>
+            <div class="flex justify-center gap-4">
+
+              <a href="https://emartinie.github.io/MainStage/assets/pdf/BingoCard.pdf" target="_blank"
+                class="px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-500">
+                Card A (PDF)
+              </a>
+
+              <a href="/bingo/cards/Bible-Bingo-Card-2.pdf" target="_blank"
+                class="px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-500">
+                Card B (PDF)
+              </a>
+
+              <a href="/bingo/cards/Bible-Bingo-Card-Set.pdf" target="_blank"
+                class="px-4 py-2 rounded bg-emerald-600 text-white font-semibold hover:bg-emerald-500">
+                6-Card Print Sheet
+              </a>
+            </div>
+          </div>
+
+
+          <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700">
+
+            <div class="flex justify-center gap-4">
+
+              <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 flex justify-center gap-4">
+
+                <div class="flex flex-wrap gap-3">
+
+
+
+
+                </div>
+
+                <!-- SCOREBOARD MODULE -->
+                <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 w-full">
+                  <div class="flex justify-between items-center mb-3">
+
+                  </div>
+
+                  <div id="sb-board" class="flex flex-wrap gap-4 justify-center"></div>
+                  <div id="triviaRules"
+                    class="mt-4 p-4 rounded-2xl bg-slate-900/70 border border-slate-700/70 text-slate-300 text-sm leading-relaxed">
+
+                  </div>
+                </div>
+              </div>
+        </section>
+        <!-- ============================= -->
+        <!-- Card 8: Quiz Cards Container  -->
+        <!-- ============================= -->
+        <section id="quizCard" class="card">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Header (can clip) -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 8</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Quizzes • ~20 Thousand NT Quiz Questions
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+
+            </div> <!-- ✅ header CLOSED -->
+
+            <!-- Body (must breathe) -->
+
+            <div class="card-inner">
+
+              <div class="card-inner">
+                📘 Study Check
+                </h2>
+
+                <p class="text-sm text-slate-300 text-center mb-4 max-w-xl mx-auto">
+                  Thoughtful questions designed to test understanding, not speed.
+                  These are for reflection, discussion, and honest self-assessment. There are also hundreds of questions
+                  divided by every chapter in the New Testament.
+                </p>
+
+                <div class="quiz-stack">
+                  <div class="quiz-item">
+                    <div class="quiz-question">
+                      What is the biblical meaning of “repentance,” and how does it differ from regret?
+                    </div>
+                    <div class="quiz-meta">Doctrine • Foundations</div>
+                  </div>
+
+                  <div class="quiz-item">
+                    <div class="quiz-question">
+                      In Scripture, is faith presented as belief alone, or belief expressed through action?
+                    </div>
+                    <div class="quiz-meta">Faith & Works • Theology</div>
+                  </div>
+
+                  <div class="quiz-item">
+                    <div class="quiz-question">
+                      How did the early ekklesia understand community, authority, and accountability?
+                    </div>
+                    <div class="quiz-meta">Church History • Ekklesia</div>
+                  </div>
+
+                  <div class="quiz-item">
+                    <div class="quiz-question">
+                      What is the difference between commandments given to Israel and instructions given to believers?
+                    </div>
+                    <div class="quiz-meta">Law • Covenant</div>
+                  </div>
+                </div>
+
+                <div class="text-xs text-slate-400 text-center mt-4 italic">
+                  Interactive quizzes coming soon…
+                </div>
+              </div>
+        </section>
+
+        <!-- ============================= -->
+        <!-- Card 9: JSON Cards Container  -->
+        <!-- ============================= -->
+        <section id="jsonContainer" class="card">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Header (can clip) -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 9</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Other Teachers Card • Chuck Missler, KHouse
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+
+            </div> <!-- ✅ header CLOSED -->
+
+            <!-- Body (must breathe) -->
+
+            <div class="card-inner">
+
+              <!-- Chuck Missler Card -->
+              <div id="misslerCard" class="card-inner">
+                <h3 class="text-lg font-semibold mb-2">Learn the Bible in 24 Hours- the best whole overview ever taught
+                </h3>
+                <p class="text-xs opacity-70 mt-3">
+                  Teaching by Chuck Missler – Koinonia House; A complete overview of Scripture from Genesis to
+                  Revelation in 24 hours.
+                </p>
+                <p class="text-xs mt-1 opacity-60">
+                  Chuck is one of my most beloved and respected teachers of my entire life. Find out why...<br>
+                </p>
+                <div>
+
+                  <!-- YouTube iframe player -->
+                  <iframe id="misslerPlayer" width="100%" height="300" src=""
+                    title="Chuck Missler – Learn the Bible in 24 Hours" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen class="rounded mb-3"></iframe>
+
+                  <!-- Carousel container -->
+                  <div id="misslerCarousel" class="flex overflow-x-auto gap-2 mt-3 pb-2"></div>
+                </div>
+              </div>
+
+              <!-- Source Toggles -->
+              <section class="mb-10">
+                <h2 class="text-xl font-medium mb-4">
+                  Other Available Teachers
+                </h2>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <button id="toggleJewish" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                    Messianic<br> Whole Bible
+                  </button>
+
+                  <button id="toggleNT" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                    New Testament Teachers
+                  </button>
+
+                  <button id="toggleFathers" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                    Early Christian
+                  </button>
+
+                  <button id="toggleDSS" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                    Cutting Edge
+                  </button>
+
+                  <button id="togglePeople" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                    Prophetic
+                  </button>
+
+              </section>
+              <p class="text-xs text-slate-400 mt-3">
+                Each source may be explored independently. Nothing is shown unless you choose it.
+              </p>
+              <!-- Jewish Sources -->
+              <section id="jewishSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">
+                  Jewish Sources
+                </h3>
+
+                <div class="bg-slate-800 rounded-lg p-4 text-sm leading-relaxed">
+                  <p class="text-slate-300 mb-2">
+                    Jewish tradition preserves centuries of reflection on the Hebrew Scriptures.
+                    When available, select passages from these sources will appear here.
+                  </p>
+
+
+                  <div id="sefariaBox" class="text-slate-200">
+                    <p class="italic text-slate-400">
+                      This source is being carefully integrated and will appear here once stable.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- NT Usage -->
+              <section id="ntSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">
+                  New Testament Usage of the Hebrew Scriptures
+                </h3>
+
+                <div class="bg-slate-800 rounded-lg p-4 text-sm">
+                  <p class="text-slate-300 mb-2">
+                    The New Testament frequently quotes and alludes to the Hebrew Scriptures,
+                    sometimes following the Masoretic Text and sometimes the Septuagint.
+                  </p>
+
+                  <div id="ntQuoteBox">
+                    <p class="italic text-slate-400">
+                      References will appear here as they are added.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Church Fathers -->
+              <section id="fathersSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">
+                  Early Christian Witness
+                </h3>
+
+                <div class="bg-slate-800 rounded-lg p-4 text-sm">
+                  <p class="text-slate-300 mb-2">
+                    Early Christian writers often reflect on Scripture in ways shaped by
+                    both Jewish tradition and the apostolic writings.
+                  </p>
+
+                  <p class="italic text-slate-400">
+                    This section is under careful development.
+                  </p>
+                </div>
+              </section>
+
+              <section id="dssSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">
+                  Dead Sea Scrolls Witness
+                </h3>
+
+                <div class="bg-slate-800 rounded-lg p-4 text-sm">
+                  <p class="text-slate-300 mb-2">
+                    The Dead Sea Scrolls preserve some of the earliest known manuscripts
+                    of the Hebrew Scriptures, copied centuries before the New Testament.
+                  </p>
+
+                  <div id="dssBox">
+                    <p class="italic text-slate-400">
+                      References from the Dead Sea Scrolls will appear here as they are
+                      carefully compiled.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section id="peopleSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">
+                  Witness of the People of God
+                </h3>
+
+                <div class="bg-slate-800 rounded-lg p-4 text-sm leading-relaxed">
+
+                  <p class="text-slate-300 mb-4">
+                    Scripture has been recognized, confessed, prayed, translated,
+                    and preserved within the life of God’s people across generations.
+                    This witness reflects lived faithfulness rather than scholarly analysis.
+                  </p>
+
+                  <ul class="space-y-3 text-slate-200">
+                    <li>
+                      <span class="font-medium">Canon</span> — These writings were received
+                      as Scripture through use and trust, not imposed by force.
+                    </li>
+
+                    <li>
+                      <span class="font-medium">Creeds</span> — Core truths were confessed
+                      publicly, often under persecution, as a summary of shared faith.
+                    </li>
+
+                    <li>
+                      <span class="font-medium">Prayer & Liturgy</span> — Scripture shaped
+                      daily prayer, worship, and communal life.
+                    </li>
+
+                    <li>
+                      <span class="font-medium">Translation</span> — God’s Word crossed
+                      languages so that people might hear and understand.
+                    </li>
+
+                    <li>
+                      <span class="font-medium">Preservation</span> — The text endured because
+                      it mattered enough to be copied, protected, and suffered for.
+                    </li>
+                  </ul>
+
+                  <p class="mt-4 italic text-slate-400">
+                    This witness reflects how Scripture was lived before it was analyzed.
+                  </p>
+
+                </div>
+              </section>
+
+            </div>
+
+
+          </div>
+        </section>
+
+        <!-- ============================= -->
+        <!--      Card 10: Be Ready         -->
+        <!-- ============================= -->
+        <section id="prepperCard" class="card">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 10</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Be Ready- Emergency Preparedness
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+            </div>
+
+            <!-- Card body -->
+            <div class="p-5 space-y-5">
+
+
+              <div class="card-inner">
+
+                <h2 class="text-xl font-semibold text-cyan-300 text-center">
+                  🧭 Prepper Library- The largest one on the internet!
+                </h2>
+
+                <p class="text-sm text-slate-300 text-center">
+                  Field manuals, emergency guides, and survival references
+                </p>
+
+                <!-- Category Shelf -->
+                <div class="grid grid-cols-2 gap-3">
+
+                  <button class="prepper-card">💧 Water</button>
+                  <button class="prepper-card">🩺 Medical</button>
+                  <button class="prepper-card">🔥 Heating</button>
+                  <button class="prepper-card">📻 Comms</button>
+                </div>
+                <!-- Scripture -->
+                <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
+                  <h1 class="text-2xl font-semibold">Two is one, and one is none.</h1>
+                  <p class="mt-2 text-lg font-medium">"By failing to prepare, you are preparing to fail"</p>
+                  <p class="mt-3 italic text-slate-200">
+                    “ Food & Water
+                    • Healthy Excercise
+                    • Herbal Remedies
+                    • Home Canning, Food Storage, etc.
+                    • Homesteading
+                    • Natural Disaster & Environment Survival
+                    • Off-Grid Living
+                    • Survival Retreats and Shelters
+                    • Ultimate Survival Information
+                    • Link to Preparedness Google Docs
+                    • Personal Documents (that I have prepared for my own family and you should too)”
+
+                  </p>
+                  <p>
+                    .
+              </div>
+
+              <div class="space-y-3">
+                <button class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700"
+                  onclick="getResource('htmlPanel')?.open('https://emartinie.github.io/MainStage/2-prepper/index.html')">
+                  📂 Browse Full Library
+                </button>
+              </div>
+
+              <!-- Featured PDFs -->
+              <div class="space-y-3">
+
+                <div class="prepper-item">
+                  <span>💧</span>
+                  <div>
+                    <div class="font-medium">Water Storage</div>
+                    <div class="text-xs text-slate-400">PDF • Essentials</div>
+                  </div>
+                </div>
+
+                <div class="prepper-item">
+                  <span>🩺</span>
+                  <div>
+                    <div class="font-medium">First Aid Manual</div>
+                    <div class="text-xs text-slate-400">PDF • Medical</div>
+                  </div>
+                </div>
+
+                <p class="text-sm text-slate-300 text-center mb-4">
+                  Field manuals, emergency guides, and survival references- EVERYTHING you need
+                </p>
+
+                <div class="prepper-shelf">
+                  <div class="prepper-item">
+                    <span class="prepper-icon">💧</span>
+                    <div>
+                      <div class="prepper-title">Water Storage & Purification</div>
+                      <div class="prepper-meta">PDF • Water • Essentials</div>
+                    </div>
+                  </div>
+
+                  <div class="prepper-item">
+                    <span class="prepper-icon">🩺</span>
+                    <div>
+                      <div class="prepper-title">Field First Aid Manual</div>
+                      <div class="prepper-meta">PDF • Medical • Trauma</div>
+                    </div>
+                  </div>
+
+                  <div class="prepper-item">
+                    <span class="prepper-icon">🔥</span>
+                    <div>
+                      <div class="prepper-title">Off-Grid Heating & Cooking</div>
+                      <div class="prepper-meta">PDF • Shelter • Energy</div>
+                    </div>
+                  </div>
+
+                  <div class="prepper-item">
+                    <span class="prepper-icon">📻</span>
+                    <div>
+                      <div class="prepper-title">Emergency Communications</div>
+                      <div class="prepper-meta">PDF • Radio • Signals</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-xs text-slate-400 text-center mt-4 italic">
+
+                </div>
+              </div>
+
+              <button class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700">
+                📂 Browse Full Library
+              </button>
+              <div class="p-5 space-y-4">
+
+                <h2 class="text-xl font-semibold text-cyan-300 text-center">
+                  🧭 Prepper Library
+                </h2>
+
+                <p class="text-sm text-slate-300 text-center">
+                  Emergency manuals and survival references
+                </p>
+
+                <!-- MAIN VIEW -->
+                <div class="flex h-[65vh] overflow-hidden rounded-xl border border-slate-700">
+
+                  <!-- ASIDE METADATA -->
+                  <aside class="w-56 bg-slate-800 text-slate-200 overflow-y-auto">
+                    <div class="p-3 text-sm font-bold border-b border-slate-700">
+                      Library Info
+                    </div>
+                    <ul class="p-2 space-y-2 text-xs text-slate-400">
+                      <li>📦 Terabytes of PDFs</li>
+                      <li>🗂 Survival categories</li>
+                      <li>📜 Field manuals</li>
+                      <li>🔥 Off-grid guides</li>
+                      <li>💊 Medical</li>
+                    </ul>
+                  </aside>
+
+                  <!-- PDF / DRIVE VIEW -->
+                  <main class="flex-1 overflow-hidden bg-black">
+                    <iframe src="https://drive.google.com/embeddedfolderview?id=0ByBj5IHFJFzvUVk4U1pGenczLUE#grid"
+                      class="w-full h-full border-0" loading="lazy"></iframe>
+                  </main>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- ============================= -->
+        <!-- Card 11: Prezi / Placeholder   -->
+        <!-- ============================= -->
+        <section id="preziCard" class="card">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 11</div>
+                <h2 class="text-xl font-bold text-cyan-300">
+                  Presentations- ALL the Prezis here <select id="preziCategorySelect"></select>
+
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+            </div>
+
+            <!-- Card body -->
+            <div class="p-6 text-center text-slate-300 text-sm">
+
+              <p>
+              <div class="prezi-container w-full max-w-3xl mx-auto my-4">
+                <header class="card-header">
+
+                </header>
+
+                <div class="prezi-player">
+                  <div id="preziFrameHost"></div>
+                </div>
+
+                <footer class="prezi-controls">
+                  <button id="preziPrevBtn">◀ Prev</button>
+                  <div id="preziTitle"></div>
+                  <button id="preziNextBtn">Next ▶</button>
+                </footer>
+                <div>
+        </section>
+
+
+
+
+      </div><!-- cardsRow -->
+    </div><!-- viewport -->
+
+
+
+    <script>
+
+      const ALEPHBET = [
+        { letter: "א", name: "Aleph", sound: "Silent / A" },
+        { letter: "ב", name: "Bet", sound: "B / V" },
+        { letter: "ג", name: "Gimel", sound: "G" },
+        { letter: "ד", name: "Dalet", sound: "D" },
+        { letter: "ה", name: "He", sound: "H" },
+        { letter: "ו", name: "Vav", sound: "V / O / U" },
+        { letter: "ז", name: "Zayin", sound: "Z" },
+        { letter: "ח", name: "Chet", sound: "Kh" },
+        { letter: "ט", name: "Tet", sound: "T" },
+        { letter: "י", name: "Yod", sound: "Y" },
+        { letter: "כ/ך‎", name: "Kaf", sound: "K / Kh" },
+        { letter: "ל", name: "Lamed", sound: "L" },
+        { letter: "מ/ם‎", name: "Mem", sound: "M" },
+        { letter: "נ/ן", name: "Nun", sound: "N" },
+        { letter: "ס", name: "Samekh", sound: "S" },
+        { letter: "ע", name: "Ayin", sound: "Silent / NG" },
+        { letter: "פ/ף", name: "Pe", sound: "P / F" },
+        { letter: "צ/ץ", name: "Tsadi", sound: "Ts" },
+        { letter: "ק", name: "Qof", sound: "K" },
+        { letter: "ר", name: "Resh", sound: "R" },
+        { letter: "ש", name: "Shin", sound: "Sh / S" },
+        { letter: "ת", name: "Tav", sound: "T" }
+      ];
+
+      (function () {
+        let index = 0;
+        let audio = null;
+
+        const letterEl = document.getElementById("alephLetter");
+        const nameEl = document.getElementById("alephName");
+        const soundEl = document.getElementById("alephSound");
+
+        function render() {
+          const l = ALEPHBET[index];
+          letterEl.textContent = l.letter;
+          nameEl.textContent = l.name;
+          soundEl.textContent = l.sound;
+          if (audio) globalAudio.pause(audio);
+          audio = new Audio(l.audio);
+        }
+
+        document.getElementById("alephPrev").onclick = () => {
+          index = (index - 1 + ALEPHBET.length) % ALEPHBET.length;
+          render();
+        };
+
+        document.getElementById("alephNext").onclick = () => {
+          index = (index + 1) % ALEPHBET.length;
+          render();
+        };
+
+        document.getElementById("alephPlay").onclick = () => {
+          if (audio) globalAudio.play(audio);
+        };
+
+        render();
+      })();
+    </script>
+
+
+    <script>
+      const videoBtn = document.getElementById("openVideoBtn");
+      const overlay = document.getElementById("videoOverlay");
+      const closeBtn = document.getElementById("closeVideo");
+
+      videoBtn?.addEventListener("click", () => overlay.classList.remove("hidden"));
+      closeBtn?.addEventListener("click", () => overlay.classList.add("hidden"));
+    </script>
+    <script>
+      document.getElementById("openScriptureBtn")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        window.open(
+          "./scripture/english/week1.html",
+          "ScriptureReader",
+          "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
+        );
+      });
+    </script>
+    <script>
+      document.getElementById("openAnnouncementsBtn")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        window.open(
+          "listen.html",
+          "ScriptureReader",
+          "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
+        );
+      });
+    </script>
+    <script>
+      document.getElementById("openJesusBtn")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        window.open(
+          "jesus.html",
+          "ScriptureReader",
+          "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
+        );
+      });
+    </script>
+
+    <script>
+      document.getElementById("open.SourcesBtn")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        window.open(
+          "sources.html",
+          "ScriptureReader",
+          "width=500,height=500,scrollbars=yes,resizable=yes,menubar=no,location=no,status=no"
+        );
+      });
+    </script>
+
+
+
+
+    <script>
+      let audioUnlocked = false;
+
+      document.addEventListener("pointerdown", () => {
+        audioUnlocked = true;
+      }, { once: true });
+
+      function playSound(src) {
+        if (!audioUnlocked) return;
+
+        const a = new Audio(src);
+        a.play().catch(e => console.warn("Audio blocked:", e));
+      }
+    </script>
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        let questions = [];
+        let currentIndex = 0;
+
+        // Load questions from JSON
+        async function loadQuestions() {
+          try {
+            const res = await fetch("./bible_questions_with_hints.json");
+            questions = await res.json();
+            if (!questions.length) {
+              document.getElementById("questionsCard").innerText = "No questions found.";
+              return;
+            }
+            showQuestion();
+          } catch (err) {
+            console.error(err);
+            document.getElementById("questionsCard").innerText = "Failed to load questions.";
+          }
+        }
+
+        function showQuestion() {
+          currentIndex = Math.floor(Math.random() * questions.length);
+          const q = questions[currentIndex];
+          const card = document.getElementById("questionsCard");
+          const hintCard = document.getElementById("hintCard");
+          const answerCard = document.getElementById("answerCard");
+          const answerText = document.getElementById("answerText");
+
+          // Animate
+          card.style.transform = "scale(0.95)";
+          card.style.opacity = 0;
+          setTimeout(() => {
+            card.innerHTML = `<div class="drop-shadow-2xl animate-pulse"><strong>Q${q.id}:</strong> ${q.question}</div>`;
+            card.style.transform = "scale(1)";
+            card.style.opacity = 1;
+            hintText.innerText = q.hint;
+            hintCard.classList.add("hidden");
+            answerText.innerText = q.answer;
+            answerCard.classList.add("hidden");
+          }, 150);
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          if (currentIndex < questions.length - 1) currentIndex++;
+          showQuestion();
+        });
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          if (currentIndex > 0) currentIndex--;
+          showQuestion();
+        });
+        document.getElementById("revealBtn").addEventListener("click", () => {
+          const answerCard = document.getElementById("answerCard");
+          answerCard.classList.toggle("hidden");
+        });
+        document.getElementById("hintBtn").addEventListener("click", () => {
+          const hintCard = document.getElementById("hintCard");
+          hintCard.classList.toggle("hidden");
+        });
+
+
+        loadQuestions();
+      });
+
+      (function () {
+        // ---------- CONFIG: change paths if needed ----------
+        const audioFiles = {
+          up: 'assets/sounds/score-down.mp3',    // replace with your real path
+          down: 'assets/sounds/score-up.mp3' // replace with your real path
+        };
+
+        // ---------- Load audio objects safely ----------
+        const sounds = {};
+        for (const k of Object.keys(audioFiles)) {
+          try {
+            const a = new Audio();
+            a.src = audioFiles[k];
+            a.preload = 'auto';
+            a.load();
+            sounds[k] = a;
+          } catch (e) {
+            console.warn('Audio load failed for', k, e);
+          }
+        }
+
+
+        // ---------- playSound: try file then fallback ----------
+        function playSound(name) {
+          const a = sounds[name];
+          if (a && a.src) {
+            const p = a.play();
+            if (p && typeof p.then === 'function') {
+              p.catch(err => {
+                // autoplay blocked or file problem -> fallback beep
+                console.warn('Audio play failed, fallback to beep:', err);
+                beepFallback(name === 'up' ? 880 : 440, 0.12);
+              });
+            }
+            return;
+          }
+          // no audio file -> fallback
+          beepFallback(name === 'up' ? 880 : 440, 0.12);
+        }
+
+        // ---------- unlock audio on first user gesture (mobile) ----------
+        function unlockAudio() {
+          // resume WebAudio context if created
+          if (window.__beepAudioCtx && window.__beepAudioCtx.state === 'suspended') {
+            window.__beepAudioCtx.resume().catch(() => { });
+          }
+          // try to play & pause each HTMLAudio to unlock
+          Object.values(sounds).forEach(a => {
+            if (!a) return;
+            a.muted = true;
+            a.play().then(() => { a.pause(); a.muted = false; }).catch(() => { a.muted = false; });
+          });
+          document.removeEventListener('pointerdown', unlockAudio);
+          document.removeEventListener('touchstart', unlockAudio);
+        }
+        document.addEventListener('pointerdown', unlockAudio, { once: true });
+        document.addEventListener('touchstart', unlockAudio, { once: true });
+
+
+
+
+        // ---------- Attach handlers safely (no crash if element missing) ----------
+        function button(id, cb) {
+          const el = document.getElementById(id);
+          if (!el) {
+            console.warn('Button not found:', id);
+            return;
+          }
+          el.addEventListener('click', cb);
+          // also support keyboard activation for accessibility
+          el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cb(e); } });
+        }
+
+
+
+        // initial render
+      })();
+    </script>
+
+    <script>
+      (function () {
+        const board = document.getElementById("sb-board");
+        const addBtn = document.getElementById("sb-add-team");
+        if (!board || !addBtn) return;
+
+        let teams = [
+          { name: "Team A", score: 0 },
+          { name: "Team B", score: 0 }
+        ];
+
+        function render() {
+          board.innerHTML = "";
+
+          teams.forEach((team, index) => {
+            const card = document.createElement("div");
+            card.className =
+              "bg-slate-800 p-4 rounded-xl shadow-md w-40 text-center";
+
+            card.innerHTML = `
+        <input
+          class="w-full mb-2 bg-slate-900 text-white text-center rounded px-2 py-1 font-bold"
+          value="${team.name}"
+        />
+        <div class="text-3xl font-extrabold text-white mb-2">${team.score}</div>
+        <div class="flex justify-center gap-2 mb-2">
+          <button class="btn-up px-2 py-1 rounded bg-emerald-600 text-white">+1</button>
+          <button class="btn-down px-2 py-1 rounded bg-red-600 text-white">-1</button>
+        </div>
+        <button class="text-xs text-red-400 hover:text-red-300">Remove</button>
+      `;
+
+            card.querySelector("input").oninput = e => team.name = e.target.value;
+            card.querySelector(".btn-up").onclick = () => { team.score++; render(); };
+            card.querySelector(".btn-down").onclick = () => { team.score--; render(); };
+            card.querySelector("button.text-red-400").onclick = () => {
+              teams.splice(index, 1);
+              render();
+            };
+
+            board.appendChild(card);
+          });
+        }
+
+        addBtn.onclick = () => {
+          teams.push({
+            name: `Team ${String.fromCharCode(65 + teams.length)}`,
+            score: 0
+          });
+          render();
+        };
+
+        render();
+      })();
+    </script>
+
+
+
+
+    <!-- ============================= -->
+    <!--  Modal Script    -->
+    <!-- ============================= -->
+    <!-- 🎧 DOCK C — Scripture Modal -->
+    <!-- ============================= -->
+    <div id="dockC-modal"
+      class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] items-center justify-center hidden">
+
+      <div id="dockC-inner" class="relative">
+        <!-- FLIP WRAPPER -->
+        <div id="dockC-flipWrapper">
+
+          <!-- FRONT: Scripture + Commentary -->
+          <div class="flip-face front">
+            <div class="flex items-center justify-between mb-1 text-align:center">
+              <h2 class="text-cyan-300 text-lg font-semibold">
+                Scripture & Commentary
+              </h2>
+              <div class="flex gap-3 items-center text-sm text-slate-300">
+                <span id="modalWeekLabel"></span> ___
+              </div>
+            </div>
+
+            <div class="face-scroll">
+              <div id="scriptureBox"></div>
+              <div id="commentaryBox"></div>
+            </div>
+          </div>
+
+          <!-- BACK: Articles -->
+          <div class="flip-face back">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-cyan-300 text-lg font-semibold">
+                Articles & Reader
+              </h2>
+              <span class="text-xs text-slate-400">
+                (Click An Article to Load It Below the List)
+              </span>
+            </div>
+
+            <div class="face-scroll">
+              <div id="articleListBox">
+
+                <div id="articlelist"></div>
+              </div>
+
+              <div id="articleViewer">
+                <p class="text-sm text-slate-300">
+                  When you click an article title, you can load its HTML here.
+                </p>
+                <div id="articleModal">
+                  <h2 id="articleTitle"></h2>
+                  <div id="articleContent"></div>
+                </div>
+
+
+                <!-- <div id="articlePager" class="pager hidden">
+          <button id="articlePrevBtn">◀</button>
+          <span id="articlePagerStatus"></span>
+          <button id="articleNextBtn">▶</button>
+          </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLOSE BUTTON -->
+        <button type="button" onclick="closeDockCModal()"
+          class="absolute top-2 right-3 text-2xl text-slate-400 hover:text-white">
+          ✕
+        </button>
+
+        <button type="button" id="flipModalBtn" class="absolute top-2 left-1/2 -translate-x-1/2
+         px-3 py-1 rounded-full
+         text-sm font-semibold
+         text-cyan-200 hover:text-white
+         bg-cyan-500/10 hover:bg-cyan-500/20
+         border border-cyan-400/40
+         backdrop-blur
+         shadow-md hover:shadow-cyan-500/30
+         transition-all">
+          🔁 FlipOver
+        </button>
+      </div>
+    </div>
+    <script>
+      function getSelectedWeekNumber() {
+        const sel = document.getElementById("weekSelect");
+        if (!sel) return 1;
+        return parseInt(sel.value, 10) || 1;
+      }
+      window.getSelectedWeekNumber = getSelectedWeekNumber;
+    </script>
+    <script>
+      // ---------------------------------
+      // MODAL OPEN/CLOSE + FLIP
+      // ---------------------------------
+      function openDockCModal() {
+        const modal = document.getElementById("dockC-modal");
+        if (!modal) return;
+        modal.classList.remove("hidden");          // ✅ show (Tailwind)
+        document.body.style.overflow = "hidden";   // lock background scroll
+      }
+      window.openDockCModal = openDockCModal;
+
+      function closeDockCModal() {
+        const modal = document.getElementById("dockC-modal");
+        if (!modal) return;
+        modal.classList.add("hidden");             // ✅ hide
+        document.body.style.overflow = "";         // restore scroll
+
+        // reset to front when closing
+        const flip = document.getElementById("dockC-flipWrapper");
+        if (flip) flip.classList.remove("is-flipped");
+      }
+
+      function toggleDockCFace() {
+        const flip = document.getElementById("dockC-flipWrapper");
+        if (!flip) return;
+        flip.classList.toggle("is-flipped");
+      }
+
+      // Make sure the flip button calls the toggle
+      document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFace);
+
+      // ---------------------------------
+      // SCRIPTURE + COMMENTARY LOADER
+      // ---------------------------------
+      const SCRIPTURE_DIR = "scripture/english";
+      const COMMENTARY_DIR = "commentary";
+
+      async function loadScriptureForCurrentWeek() {
+        const week = getSelectedWeekNumber();
+        const scripturePath = `${SCRIPTURE_DIR}/week${week}.html`;
+        const commentaryPath = `${COMMENTARY_DIR}/week${week}.html`;
+
+        const scriptureBox = document.getElementById("scriptureBox");
+        const commentaryBox = document.getElementById("commentaryBox");
+        const weekLabel = document.getElementById("modalWeekLabel");
+
+        if (weekLabel) weekLabel.textContent = `Week ${week}`;
+
+        if (scriptureBox) {
+          scriptureBox.innerHTML = `<p class="text-cyan-300 text-sm">Loading scripture from <code>${scripturePath}</code>...</p>`;
+        }
+        if (commentaryBox) {
+          commentaryBox.innerHTML = `<p class="text-emerald-300 text-sm">Loading commentary from <code>${commentaryPath}</code>...</p>`;
+        }
+
+        // Scripture
+        if (scriptureBox) {
+          try {
+            const res = await fetch(scripturePath);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const html = await res.text();
+            scriptureBox.innerHTML = html;
+          } catch (err) {
+            c
+            console.error("Scripture load failed:", err);
+            scriptureBox.innerHTML = `<p class="text-red-400 text-sm">Unable to load scripture file:<br>${scripturePath}</p>`;
+          }
+        }
+
+        // Commentary (optional – don't fail hard)
+        if (commentaryBox) {
+          try {
+            const res = await fetch(commentaryPath);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const html = await res.text();
+            commentaryBox.innerHTML = html;
+          } catch (err) {
+            console.warn("Commentary load failed (this is ok if you don't have files yet):", err);
+            commentaryBox.innerHTML = `<p class="text-slate-300 text-sm italic">
+            No commentary file found for Week ${week} yet.
+          </p>`;
+          }
+        }
+      }
+
+      function loadAndOpenScripture() {
+        loadScriptureForCurrentWeek()
+          .then(openDockCModal)
+          .catch(err => {
+            console.error(err);
+            openDockCModal();
+          });
+      }
+
+      document.getElementById("openScriptureBtn")?.addEventListener("click", loadAndOpenScripture);
+      document.getElementById("openScriptureHeaderBtn")?.addEventListener("click", loadAndOpenScripture);
+
+
+      // Auto-refetch scripture when weekSelect changes
+      document.getElementById("weekSelect")?.addEventListener("change", () => {
+        // If modal is open, update its content when week changes
+        const modal = document.getElementById("dockC-modal");
+        if (modal && modal.classList.contains("hidden")) {
+          loadScriptureForCurrentWeek();
+        }
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const scriptureBox = document.getElementById("scriptureBox");
+        if (scriptureBox) {
+          scriptureBox.style.minHeight = "45vh";
+          scriptureBox.style.overflowY = "auto";
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Select both the front and back h2 elements
+        const frontLabel = document.querySelector('.flip-face.front h2');
+        const backLabel = document.querySelector('.flip-face.back h2');
+
+        // Apply the centering style
+        [frontLabel, backLabel].forEach(label => {
+          if (label) {
+            label.style.textAlign = "center";
+          }
+        });
+      });
+    </script>
+    <script>
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          const nav = performance.getEntriesByType("navigation")[0];
+          const resources = performance.getEntriesByType("resource");
+
+          console.group("PWA Load Metrics");
+          console.log("DOM Content Loaded:", nav.domContentLoadedEventEnd.toFixed(1), "ms");
+          console.log("Total Load Time:", nav.loadEventEnd.toFixed(1), "ms");
+          console.log(" Loaded:", resources.length);
+
+          const totalKB = resources.reduce((sum, r) => sum + (r.transferSize || 0), 0) / 1024;
+          console.log("Transfer Size:", totalKB.toFixed(1), "KB");
+
+          console.groupEnd();
+        }, 0);
+      });
+    </script>
+
+
+    <!-- Scripts -->
+    <!--<script>
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const nav = performance.getEntriesByType("navigation")[0];
+    const  = performance.getEntriesByType("resource");
+
+    console.group("📊 Decision Support — Load Snapshot");
+
+    // --- Core timings ---
+    console.table([{
+      "DOM Ready (ms)": nav.domContentLoadedEventEnd.toFixed(1),
+      "Total Load (ms)": nav.loadEventEnd.toFixed(1),
+      "Total ": .length,
+      "Total Transfer (KB)": (
+        .reduce((sum, r) => sum + (r.transferSize || 0), 0) / 1024
+      ).toFixed(1)
+    }]);
+
+    // --- Top 10 largest  (by transfer size) ---
+    const topBySize = [...]
+      .filter(r => r.transferSize > 0)
+      .sort((a, b) => b.transferSize - a.transferSize)
+      .slice(0, 10)
+      .map(r => ({
+        name: r.name.split("/").pop(),
+        type: r.initiatorType,
+        "size (KB)": (r.transferSize / 1024).toFixed(1),
+        "duration (ms)": r.duration.toFixed(1)
+      }));
+
+    console.group("📦 Top 10  by Size");
+    console.table(topBySize);
+    console.groupEnd();
+
+    // --- Top 10 slowest  ---
+    const topByTime = [...]
+      .sort((a, b) => b.duration - a.duration)
+      .slice(0, 10)
+      .map(r => ({
+        name: r.name.split("/").pop(),
+        type: r.initiatorType,
+        "duration (ms)": r.duration.toFixed(1),
+        "size (KB)": (r.transferSize / 1024).toFixed(1)
+      }));
+
+    console.group("🐢 Top 10 Slowest ");
+    console.table(topByTime);
+    console.groupEnd();
+
+    // --- Resource type counts ---
+    const byType = {};
+    .forEach(r => {
+      byType[r.initiatorType] = (byType[r.initiatorType] || 0) + 1;
+    });
+
+    console.group("🧩 Resource Count by Type");
+    console.table(byType);
+    console.groupEnd();
+
+    console.groupEnd();
+  }, 0);
+});
+</script>-->
+    <script type="module" src="js/SAVEorbitFloatingPlayer.js" defer></script>
+    <!--<script src="js/loadCommentary.js" defer></script> -->
+    <script src="js/core/mainstageManager.js" defer></script>
+    <script src="js/globalAudioManager.js" defer></script>
+    <script type="module" src="./app.js" defer></script>
+    <script src="js/bullseyeMedia.js" defer></script>
+    <script src="js/mainStageLoaderTEST3.js" defer></script>
+    <!--<script src="studyContentManager.js" defer></script>  -->
+    <script src="js/articles.js" defer></script>
+    <script src="js/preziPlaylist.js" defer></script>
+    <script src="js/bibleBingo.js" defer></script>
+    <script src="js/hostMode.js" defer></script>
+    <script src="js/today.js" defer></script>
+    <!--<script src="js/scriptureModal.js" defer></script>-->
+
+
+    <!--core + resource scripts -->
+    <script type="module" src="/js/core/resourceManager.js"></script>
+    <script type="module" src="/js/core/focusManager.js"></script>
+    <!--<script type="module" src="/js/core/debugger.js"></script>-->
+    <!--<script type="module" src="/js/core/decisionSupportResource.js"></script>-->
+    <!--<script type="module" src="/js/core/porchPanelResource.js"></script>
+    <script type="module" src="/js/core/playerResource.js"></script>
+    <script type="module" src="/js/core/journeyResource.js"></script>-->
+    <!--<script type="module" src="/js/core/playerCourtesyResource.js"></script>-->
+    <!--<script type="module" src="/js/core/htmlPanelResource.js"></script>
+    <script type="module" src="/js/core/studyHubResource.js"></script>
+    <script type="module" src="/js/core/calendarResource.js"></script>-->
+    <script type="module" src="/js/core/misslerPlaylist.js"></script>
+
+    <!-- Firebase core -->
+    <script type="module" src="./js/core/firebase-init.dev.js"></script>
+    <!--<script type="module" src="./js/core/prayerStore.dev.js"></script>-->
+    <script type="module" src="./js/core/map.js"></script>
+    <script>
+      console.log("Leaflet loaded:", typeof L);
+      console.log("MarkerCluster loaded:", typeof L?.markerClusterGroup);
+    </script>
+    <script type="module" src="./js/core/map.dev.js"></script>
+    <script type="module" src="./js/core/prayerMap.dev.js"></script>
+
+    <script type="module" src="./js/core/requestStore.dev.js"></script>
+    <script type="module" src="./js/core/prayerButton.dev.js"></script>
+    <script type="module" src="./js/core/studyButton.dev.js"></script>
+    <script type="module" src="./js/core/joinButton.dev.js"></script>
+    <script type="module" src="./js/core/prayTogetherButton.dev.js"></script>
+    <script type="module" src="./js/core/studyTogetherButton.dev.js"></script>
+
+    <!-- Prayer Map core -->
+    <!-- <script type="module" src="./js/core/prayerModal.dev.js"></script>-->
+    <script type="module" src="./js/core/prayerTicker.dev.js"></script>
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <!--<script>
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  html2canvas(document.getElementById("countdownWrapper"), {
+    scale: 2,
+    backgroundColor: null
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "homegroups-countdown.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+});
+</script>-->
+
+    <div id="hostOverlay" style="display:none">
+      <button id="exitHostOverlay">Exit</button>
+    </div>
+
+    <div id="hostOverlay"
+      style="display:none; position:fixed; inset:0; background:#000; color:#fff; z-index:9999; display:none; align-items:center; justify-content:center;">
+      <div style="text-align:center;">
+        <h1>Bible Ready</h1>
+        <button id="exitHostOverlay">Exit</button>
+      </div>
+    </div>
+    <script>
+      function present(html) {
+        const screen = document.getElementById("presentationScreen");
+        const content = document.getElementById("presentationContent");
+        if (!screen || !content) return;
+
+        content.innerHTML = html;
+        screen.style.display = "flex";
+      }
+    </script>
+    <div id="presentationScreen" style="
+  position: fixed;
+  inset: 0;
+  background: black;
+  color: white;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+">
+      <div id="presentationContent"></div>
+    </div>
+    <audio id="todayAudioPlayer" preload="none"></audio>
+    <audio id="alephAudio" preload="none">
+      <source src="./assets/sounds/heart-and-soul.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const calendarToday = document.getElementById("calendarToday");
+        if (calendarToday && window.Today) {
+          Today.render(calendarToday);
+        }
+      });
+    </script>
+    <script>
+      function goToCard(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }
+    </script>
+    <div id="panelRoot">
+      <!-- panels go under here -->
+      <!-- PrayerMap Modal Overlay -->
+
+      <!-- PrayTogether Modal -->
+
+      <div id="prayTogetherModal"
+        class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] items-center justify-center hidden">
+
+        <div id="prayTogether-inner" class="relative">
+          <!-- FLIP WRAPPER -->
+          <div id="prayTogether-flipWrapper">
+
+            <!-- FRONT:  -->
+            <div class="prayTogether-face front">
+              <div class="flex items-center justify-between mb-1 text-align:center">
+                <h2 class="text-cyan-300 text-lg font-semibold">
+                  Pray Together
+                </h2>
+                <div class="flex gap-3 items-center text-sm text-slate-300">
+                  <span id="prayTogetherWeekLabel"></span> ___
+                </div>
+              </div>
+
+              <div class="prayTogetherface-scroll">
+                <div id="prayerMapBox" class="flex-1 min-h-[400px]">
+                  <div id="prayTogetherMap" class="w-full h-full rounded-lg"></div>
+                </div>
+                <div id="prayTogetherBox"></div>
+              </div>
+            </div>
+
+            <!-- BACK:  -->
+            <div class="prayTogether-face back">
+              <div class="flex items-center justify-between mb-1">
+                <h2 class="text-cyan-300 text-lg font-semibold">
+                  PrayTogether Section
+                </h2>
+                <span class="text-xs text-slate-400">
+                  (Welcome to prayTogether)
+                </span>
+              </div>
+
+              <div class="prayTogetherface-scroll">
+                <div id="prayTogetherListBox">
+
+                  <div id="prayTogetherlist"></div>
+                </div>
+
+                <div id="prayTogetherViewer">
+                  <p class="text-sm text-slate-300">
+                    When you click a title, you can load its content here.
+                  </p>
+                  <div id="prayTogetherModal">
+                    <h2 id="prayTogetherTitle"></h2>
+                    <div id="prayTogetherContent"></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CLOSE BUTTON -->
+          <button type="button" id="closePrayTogether"
+            class="absolute top-2 right-3 text-2xl text-slate-400 hover:text-white">
+            ✕
+          </button>
+
+          <button type="button" id="flipPrayTogetherBtn" class="absolute top-2 left-1/2 -translate-x-1/2
+         px-3 py-1 rounded-full
+         text-sm font-semibold
+         text-cyan-200 hover:text-white
+         bg-cyan-500/10 hover:bg-cyan-500/20
+         border border-cyan-400/40
+         backdrop-blur
+         shadow-md hover:shadow-cyan-500/30
+         transition-all">
+            🔁 FlipOver
+          </button>
+        </div>
+      </div>
+
+      <!-- StudyTogether Modal -->
+
+      <div id="studyTogetherModal"
+        class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] items-center justify-center hidden">
+
+        <div id="studyTogether-inner" class="relative">
+          <!-- FLIP WRAPPER -->
+          <div id="studyTogether-flipWrapper">
+
+            <!-- FRONT:  -->
+            <div class="studyTogether-face front">
+              <div class="flex items-center justify-between mb-1 text-align:center">
+                <h2 class="text-cyan-300 text-lg font-semibold">
+                  Study Together Room Syncing, [waiting for others to join]
+                </h2>
+                <div class="flex gap-3 items-center text-sm text-slate-300">
+                  <span id="studyTogetherWeekLabel"></span> ___
+                </div>
+              </div>
+
+              <div class="studyTogetherface-scroll">
+                <div id="studySurface">
+
+                  <!-- Room Status -->
+                  <div id="studyRoomBar">
+                    <div class="room-title">John 3:16–21</div>
+
+                    <div class="room-people">
+                      <div class="avatar-stack">
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                      </div>
+                      <span class="people-label">You, David, Maria</span>
+                    </div>
+
+                    <div class="room-meta">
+                      <span id="studyParticipants">3 gathered right now</span>
+                      <span class="room-sync">Room Synced</span>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+
+              <!-- Core Widget Area -->
+              <div id="studyWidgetArea">
+
+                <!-- Primary Scripture -->
+                <div class="widget scripture-widget">
+                  <h3>Scripture</h3>
+                  <div id="sharedScripture">
+                    For God so loved the world...
+                  </div>
+                </div>
+
+                <!-- Supporting Widget -->
+                <div class="widget commentary-widget">
+                  <h3>Insights</h3>
+                  <div id="sharedInsights">
+                    Commentary or word study appears here.
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Shared Notes -->
+              <div id="studyInteractionBar">
+                <textarea placeholder="Add a shared thought..."></textarea>
+                <button id="sendSharedNote">Share</button>
+              </div>
+
+            </div>
+
+            <!-- BACK:  -->
+            <div class="studyTogether-face back">
+              <div class="flex items-center justify-between mb-1">
+                <h2 class="text-cyan-300 text-lg font-semibold">
+                  studyTogether Section
+                </h2>
+                <span class="text-xs text-slate-400">
+                  (Welcome to studyTogether)
+                </span>
+              </div>
+
+              <div id="studyDiscovery">
+
+                <div id="studyMapBox">
+                  <div id="studyTogetherMap"></div>
+                </div>
+
+                <div id="studyRoomList">
+                  <!-- active rooms populate here -->
+                </div>
+
+              </div>
+
+              <div class="studyTogetherface-scroll">
+                <div id="studyTogetherListBox">
+
+                  <div id="studyTogetherlist"></div>
+                </div>
+
+                <div id="studyTogetherViewer">
+                  <p class="text-sm text-slate-300">
+                    When you click a title, you can load its content here.
+                  </p>
+                  <div id="studyTogetherModal">
+                    <h2 id="studyTogetherTitle"></h2>
+                    <div id="studyTogetherContent"></div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CLOSE BUTTON -->
+          <button type="button" id="closeStudyTogether"
+            class="absolute top-2 right-3 text-2xl text-slate-400 hover:text-white">
+            ✕
+          </button>
+
+          <button type="button" id="flipStudyTogetherBtn" class="absolute top-2 left-1/2 -translate-x-1/2
+         px-3 py-1 rounded-full
+         text-sm font-semibold
+         text-cyan-200 hover:text-white
+         bg-cyan-500/10 hover:bg-cyan-500/20
+         border border-cyan-400/40
+         backdrop-blur
+         shadow-md hover:shadow-cyan-500/30
+         transition-all">
+            🔁 FlipOver
+          </button>
+        </div>
+      </div>
+
+
+
+      <!-- Say Hello Overlay -->
+      <div id="helloOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+        <div
+          class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
+          <h2 class="text-xl font-semibold text-cyan-300">Say Hello</h2>
+          <form class="space-y-3">
+            <input type="text" name="helloName" placeholder="Your nickname"
+              class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none" />
+            <textarea name="helloMessage" rows="3" placeholder="Say hello (optional)"
+              class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"></textarea>
+            <button type="button" id="helloSubmitBtn"
+              class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition">
+              👋 Send Hello
+            </button>
+          </form>
+          <button class="text-sm text-blue-400 underline mt-2" onclick="closeHelloForm()">
+            Close
+          </button>
+        </div>
+      </div>
+
+
+      <div id="porchPanelOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
+        <div
+          class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-[90%] text-center space-y-4 shadow-xl">
+
+          <h2 id="porchPanelTitle" class="text-xl font-semibold text-cyan-300"></h2>
+
+          <div id="porchPanelContent" class="text-slate-300"></div>
+
+          <button onclick="closePorchPanel()" class="mt-4 px-4 py-2 rounded-lg bg-cyan-600 text-white">
+            Close
+          </button>
+
+        </div>
+      </div>
+
+
+
+      <!-- Journey Overlay -->
+      <div id="journeyPanel"
+        class="fixed inset-0 z-50 bg-black/70 backdrop-blur flex items-center justify-center hidden">
+        <div class="bg-slate-900 rounded-lg p-6 w-full max-w-lg text-white">
+          <h2 class="text-lg font-semibold mb-4">Journey Panel</h2>
+          <div id="journeyContent" class="mb-4"></div>
+          <div class="flex justify-between gap-2">
+            <button id="journeyPrevBtn" class="px-4 py-2 bg-slate-700 rounded hover:bg-slate-600">Previous</button>
+            <button id="journeyNextBtn" class="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500">Next</button>
+          </div>
+          <div class="flex justify-end gap-2 mt-4">
+            <button id="journeyMinimizeBtn" class="px-4 py-2 bg-cyan-600 rounded hover:bg-cyan-500">Minimize</button>
+            <button id="journeyCloseBtn" class="px-4 py-2 bg-slate-700 rounded hover:bg-slate-600">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!--mini guided journey-->
+      <div id="journeyMini" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2
+  bg-slate-900/90 border border-slate-700 rounded-full px-4 py-2
+  shadow-xl flex items-center gap-3 z-50">
+
+        <span class="text-slate-300 text-sm">🌿 Guided Journey</span>
+
+        <button onclick="resumeJourney()" class="text-cyan-400 underline text-sm">
+          Resume →
+        </button>
+      </div>
+
+
+
+      <!-- Player Overlay -->
+      <div id="playerPanel"
+        class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur flex items-center justify-center">
+
+        <div
+          class="relative w-[92%] max-w-md h-[70vh] bg-slate-900/90 rounded-2xl shadow-2xl border border-slate-700 flex flex-col">
+
+          <!-- Close Button -->
+          <button onclick="closePlayerPanel()" class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl"
+            aria-label="Close player">
+            ✕
+          </button>
+
+          <!-- Player Mount Point -->
+          <div id="playerHost" class="flex-1 flex items-center justify-center">
+            <!-- Player will be injected here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- html loader -->
+
+      <div id="htmlPanel" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur flex items-center justify-center">
+
+        <div
+          class="relative w-[95%] max-w-4xl h-[85vh] bg-slate-900/90 rounded-2xl shadow-2xl border border-slate-700 flex flex-col">
+
+          <button onclick="closeHtmlPanel()" class="absolute top-3 right-3 text-slate-400 hover:text-white text-xl"
+            aria-label="Close">✕</button>
+
+          <iframe id="htmlPanelFrame" class="w-full h-full rounded-b-2xl" src="" frameborder="0"
+            allow="autoplay; fullscreen"></iframe>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!---Courtesy Popup-->
+  <div id="courtesyPopup" class="popup hidden">
+    <p id="courtesyQuestion">Do you want to keep listening?</p>
+
+    <div class="popup-actions">
+      <button id="courtesyYes">Keep Playing</button>
+      <button id="courtesyNo">Hide Player</button>
+    </div>
+  </div>
+
+  <!---Courtesy old panel-->
+
+  <div id="playerCourtesyPanel"
+    class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur flex items-center justify-center">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-[90%] max-w-md text-center space-y-4 shadow-2xl">
+
+      <h2 class="text-xl font-semibold text-cyan-300">
+        A Quick Heads-Up 🌿
+      </h2>
+
+      <p class="text-slate-300 text-sm leading-relaxed">
+        We can gently move the media player out of the way so you can explore the app without distraction.
+      </p>
+
+      <div class="flex gap-3 justify-center pt-2">
+        <button onclick="confirmDockPlayer()" class="px-4 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white">
+          Yes, please
+        </button>
+
+        <button onclick="cancelDockPlayer()" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white">
+          Keep it visible
+        </button>
+
+        <button onclick="hidePlayerWithPause()">
+          OK
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  </div><!-- root end div -->
+  <script>
+    function showCourtesyPopup({
+      question,
+      onYes,
+      onNo
+    }) {
+      const popup = document.getElementById("courtesyPopup");
+      const q = document.getElementById("courtesyQuestion");
+
+      q.textContent = question;
+
+      document.getElementById("courtesyYes").onclick = () => {
+        onYes?.();
+        popup.remove();
+      };
+
+      document.getElementById("courtesyNo").onclick = () => {
+        onNo?.();
+        popup.remove();
+      };
+
+      popup.classList.remove("hidden");
+    }
+  </script>
+  <script>
+    function openPlayerPanel() {
+      const panel = document.getElementById("playerPanel");
+      const host = document.getElementById("playerHost");
+      const player = document.getElementById("floatingPlayer");
+
+      panel.classList.remove("hidden");
+
+      if (player && host) {
+        host.appendChild(player);
+
+        // Optional: adjust styling for panel mode
+        Object.assign(player.style, {
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          maxWidth: "420px",
+          maxHeight: "420px",
+          borderRadius: "16px",
+          bottom: "auto",
+          right: "auto",
+          left: "auto",
+          top: "auto"
+        });
+      }
+    }
+
+    function closePlayerPanel() {
+      const panel = document.getElementById("playerPanel");
+      const player = document.getElementById("floatingPlayer");
+
+      panel.classList.add("hidden");
+
+      // Move it back to the page (or body)
+      if (player) {
+        document.body.appendChild(player);
+
+        // Restore floating style
+        Object.assign(player.style, {
+          position: "fixed",
+          width: "190px",
+          height: "190px",
+          bottom: "1rem",
+          right: "1rem",
+          borderRadius: "50%"
+        });
+      }
+    }
+  </script>
+
+
+  </div>
+
+  <div id="communityList" class="overflow-y-auto p-2 space-y-2 text-sm">
+    <!-- injected -->
+  </div>
+
+  </div>
+
+  <!-- Prayer Overlay -->
+  <div id="prayerOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+    <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
+
+      <h2 class="text-xl font-semibold text-cyan-300">Prayer Requests</h2>
+      <p class="text-slate-400 text-sm">Share a short prayer request. Anyone can pray, no account needed.</p>
+
+      <form id="prayerForm" class="space-y-3">
+        <input type="text" id="prayerName" placeholder="Your name (optional)"
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none" />
+        <input type="text" id="prayerCity" placeholder="City or region (optional)"
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none" />
+        <textarea id="prayerMessage" rows="3" placeholder="Your prayer request..."
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"></textarea>
+
+        <button type="submit"
+          class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition">
+          🌱 Submit
+        </button>
+      </form>
+
+      <button type="button" id="closePrayerBtn" class="text-sm text-blue-400 underline mt-2">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Study Overlay -->
+  <div id="studyOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+    <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
+
+      <h2 class="text-xl font-semibold text-cyan-300">study Requests</h2>
+      <p class="text-slate-400 text-sm">Share a short study request. Anyone can pray, no account needed.</p>
+
+      <form id="studyForm" class="space-y-3">
+        <input type="text" id="studyName" placeholder="Your name (optional)"
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none" />
+        <input type="text" id="studyCity" placeholder="City or region (optional)"
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none" />
+        <textarea id="studyMessage" rows="3" placeholder="Your study request..."
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"></textarea>
+
+        <button type="submit"
+          class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition">
+          🌱 Submit
+        </button>
+      </form>
+
+      <button type="button" id="closestudyBtn" class="text-sm text-blue-400 underline mt-2">
+        Close
+      </button>
+    </div>
+  </div>
+
+
+
+  <!-- Join Map Overlay -->
+  <div id="joinOverlay" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+
+    <div class="bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-700 text-center space-y-4">
+
+      <h2 class="text-xl font-semibold text-cyan-300">Join the Community</h2>
+
+      <p class="text-slate-400 text-sm">
+        You don’t have to share everything.
+        Just enough to say hello.
+      </p>
+
+      <form class="space-y-3">
+
+        <input type="text" placeholder="Your name (or nickname)"
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none" />
+
+        <input type="text" placeholder="City or region"
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none" />
+
+        <textarea rows="3" placeholder="A short note (optional)"
+          class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 focus:outline-none"></textarea>
+
+        <!--<button type="button"
+          class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition"
+          onclick="submitJoin()">
+           Submit
+        </button>-->
+        <button type="submit"
+          class="w-full py-2 rounded-lg bg-blue-600/90 hover:bg-blue-600 text-white font-medium transition">
+          🌱 Submit
+        </button>
+      </form>
+
+      <button type="button" class="text-sm text-blue-400 underline mt-2" onclick="closeJoin()">
+        Close
+      </button>
+    </div>
+  </div>
+
+
+
+  <!--temporary-->
+  <script>
+    function openJoin() {
+      document.getElementById("joinOverlay").classList.remove("hidden");
+    }
+
+    function closeJoin() {
+      document.getElementById("joinOverlay").classList.add("hidden");
+    }
+  </script>
+  <script type="module">
+    import { Companion } from './js/core/appCompanion.dev.js';
+
+    //document.getElementById("companionRun").onclick = () => {
+    // const input = document.getElementById("companionInput").value;
+    // Companion.runCommand(input);
+    //};
+
+    //document.getElementById("companionInput").addEventListener("keydown", e => {
+    //if (e.key === "Enter") {
+    // Companion.runCommand(e.target.value);
+    /// }
+    //});
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("companionToggle");
+      let active = false;
+
+      toggle.addEventListener("click", () => {
+        active = !active;
+
+        toggle.innerText = active ? "Companion: ON" : "Companion: OFF";
+
+        // Just visual for now — no heavy logic
+        document.body.classList.toggle("companion-active", active);
+
+        console.log("Companion state:", active);
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>

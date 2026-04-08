@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="manifest" href="manifest.json">
+  <!-- Social Media Preview Meta Tags -->
+  <meta property="og:title" content="MainStage Bible Study App" />
+  <meta property="og:description"
+    content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://emartinie.github.io/MainStage/sandbox/savedindex.html" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Map.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Player.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar2.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MainStage Bible Study App" />
+  <meta name="twitter:description"
+    content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+  <meta name="twitter:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <!-- Extra (SEO + universal) -->
+  <meta name="description"
+    content="An interactive Bible study app with an orbital floating player, weekly calendar, and prophecy map." />
+  <meta name="author" content="Eddie Martinie" />
+  <meta name="theme-color" content="#4a5568">
+  <title>MainStage Bible Study App</title>
+  <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
+
+<link rel="manifest" href="./manifest.json" />
+<link rel="icon" href="./favicon.ico" />
+  <!-- Links CSS files/styles -->
+
+<link rel="stylesheet" href="./css/style.css" />
+<link rel="stylesheet" href="./style/main.css" />
+<link rel="stylesheet" href="./style/global.css" />
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shalom — Living Prototype</title>
+<style>
+/* -----------------------------
+   Base / Body
+------------------------------ */
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background: #0f1418;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Light layers */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(circle at 30% 40%, rgba(59,80,106,0.25), transparent 60%),
+              radial-gradient(circle at 70% 60%, rgba(200,140,79,0.18), transparent 65%);
+  animation: drift 40s ease-in-out infinite alternate;
+}
+
+body::after {
+  background: radial-gradient(circle at 50% 50%, rgba(175,202,210,0.08), transparent 70%);
+  animation-duration: 60s;
+}
+
+@keyframes drift {
+  0% { transform: translate3d(-2%, -2%, 0) scale(1); }
+  100% { transform: translate3d(2%, 2%, 0) scale(1.05); }
+}
+
+/* -----------------------------
+   Hero
+------------------------------ */
+.hero {
+  text-align: center;
+  padding: 4rem 1.5rem 2rem;
+}
+
+.logo {
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  animation: glowBreath 4s ease-in-out infinite alternate;
+}
+
+@keyframes glowBreath {
+  0% { text-shadow: 0 0 10px rgba(175,202,210,0.2); }
+  100% { text-shadow: 0 0 25px rgba(175,202,210,0.6); }
+}
+
+
+.hero p {
+  color: #CFCFCF;
+}
+
+/* -----------------------------
+   Card Grid
+------------------------------ */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* -----------------------------
+   Cards
+------------------------------ */
+.card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(175,202,210,0.15);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.45,0,0.25,1);
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+.card h3 {
+  margin-top: 0;
+  color: #C88C4F; /* Fire accent */
+}
+.card p {
+  color: #D0D0D0;
+}
+
+/* -----------------------------
+   Modal Overlay
+------------------------------ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-content {
+  position: relative;
+  width: min(92vw, 700px);
+  max-height: 90vh;
+  background: rgba(0,0,20,0.96);
+  border-radius: 1.25rem;
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* -----------------------------
+   Flip Wrapper
+------------------------------ */
+.flip-wrapper {
+  perspective: 1500px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.flip-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.45,0,0.25,1);
+  transform-style: preserve-3d;
+  position: relative;
+}
+.flip-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+}
+.flip-face.back {
+  transform: rotateY(180deg);
+}
+
+/* -----------------------------
+   Companion / Orbit Player
+------------------------------ */
+.companion {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(59,80,106,0.6); /* Sapphire */
+  box-shadow: 0 0 15px rgba(200,140,79,0.25); /* Ember glow */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+.companion.pulse {
+  animation: companionPulse 1.5s ease-in-out infinite;
+}
+@keyframes companionPulse {
+  0%,100% { transform: scale(1); box-shadow: 0 0 0px rgba(200,140,79,0); }
+  50% { transform: scale(1.08); box-shadow: 0 0 15px rgba(200,140,79,0.7); }
+}
+
+.companion {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(200,140,79,0.4), transparent 60%),
+    rgba(59,80,106,0.8);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 30px rgba(200,140,79,0.4),
+    inset 0 0 20px rgba(255,255,255,0.2);
+}
+
+/* -----------------------------
+   Buttons
+------------------------------ */
+button {
+  cursor: pointer;
+  background: rgba(175,202,210,0.1);
+  border: 1px solid rgba(175,202,210,0.3);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: #AFCAD2;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+button:hover {
+  background: rgba(175,202,210,0.3);
+  box-shadow: 0 0 15px rgba(175,202,210,0.2);
+}
+
+* Container tile */
+.jesus-tile {
+  text-align: center;
+  position: relative;
+}
+
+/* Sacred Button */
+.jesus-btn {
+  position: relative;
+  padding: 16px 28px;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  border-radius: 28px;
+  border: 1px solid rgba(175,202,210,0.25);
+  color: #EAF6FF;
+  cursor: pointer;
+  backdrop-filter: blur(18px);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(200,140,79,0.35), transparent 60%),
+    rgba(59,80,106,0.55);
+  box-shadow:
+    0 0 30px rgba(200,140,79,0.25),
+    inset 0 0 20px rgba(255,255,255,0.15);
+  transition: all 0.5s cubic-bezier(0.45,0,0.25,1);
+  overflow: hidden;
+}
+
+/* Light shimmer sweep */
+.jesus-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255,255,255,0.4) 45%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 1.2s ease;
+}
+
+.jesus-btn:hover::before {
+  transform: translateX(120%);
+}
+
+/* Hover Presence */
+.jesus-btn:hover {
+  box-shadow:
+    0 0 50px rgba(200,140,79,0.5),
+    0 0 80px rgba(175,202,210,0.25),
+    inset 0 0 30px rgba(255,255,255,0.25);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Active press */
+.jesus-btn:active {
+  transform: scale(0.98);
+}
+
+/* Label below */
+.jesus-label {
+  margin-top: 14px;
+  font-size: 0.95rem;
+  color: rgba(234,246,255,0.7);
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background: radial-gradient(circle at 30% 30%, rgba(59,80,106,0.25), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(200,140,79,0.15), transparent 60%),
+              #1E2124;
+  animation: ambientShift 20s ease-in-out infinite alternate;
+}
+
+body::before {
+  mix-blend-mode: screen;
+}
+
+body::after {
+  mix-blend-mode: overlay;
+}
+
+html::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.03;
+}
+
+@keyframes ambientShift {
+  0% { background-position: 30% 30%, 70% 70%; }
+  100% { background-position: 40% 40%, 60% 60%; }
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg,
+    rgba(255,255,255,0.08),
+    transparent 40%,
+    transparent 60%,
+    rgba(255,255,255,0.08));
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+* Container tile */
+.jesus-tile {
+  text-align: center;
+  position: relative;
+}
+
+/* Sacred Button */
+.jesus-btn {
+  position: relative;
+  padding: 16px 28px;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  border-radius: 28px;
+  border: 1px solid rgba(175,202,210,0.25);
+  color: #EAF6FF;
+  cursor: pointer;
+  backdrop-filter: blur(18px);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(200,140,79,0.35), transparent 60%),
+    rgba(59,80,106,0.55);
+  box-shadow:
+    0 0 30px rgba(200,140,79,0.25),
+    inset 0 0 20px rgba(255,255,255,0.15);
+  transition: all 0.5s cubic-bezier(0.45,0,0.25,1);
+  overflow: hidden;
+}
+
+/* Light shimmer sweep */
+.jesus-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255,255,255,0.4) 45%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 1.2s ease;
+}
+
+.jesus-btn:hover::before {
+  transform: translateX(120%);
+}
+
+/* Hover Presence */
+.jesus-btn:hover {
+  box-shadow:
+    0 0 50px rgba(200,140,79,0.5),
+    0 0 80px rgba(175,202,210,0.25),
+    inset 0 0 30px rgba(255,255,255,0.25);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Active press */
+.jesus-btn:active {
+  transform: scale(0.98);
+}
+
+/* Label below */
+.jesus-label {
+  
+  margin-top: 14px;
+  font-size: 0.95rem;
+  color: rgba(234,246,255,0.7);
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+  
+}
+
+.jesus-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+/* Header */
+.main-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Logo */
+.logo {
+  font-size: 18px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  gap: 12px;
+}
+
+.nav button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav button:hover {
+  background: white;
+  color: black;
+}
+
+  
+
+</style>
+</head>
+<body>
+
+    <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- MarkerCluster JS -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <header class="main-header">
+  <div class="logo">MAINSTAGE</div>      <!-- Middle -->
+      <div class="flex items-center justify-center gap-2 flex-wrap">
+        <button id="prevWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+          &laquo;
+        </button>
+
+        <select id="weekSelect"
+          class="px-2 py-1 text-xs sm:text-sm rounded-md border bg-slate-900 text-cyan-300 w-[120px] sm:w-auto">
+        </select>
+
+        <button id="nextWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+          &raquo;
+        </button>
+
+
+        <button id="companionToggle" style="position:fixed;top:60px;left:10px;z-index:9999;">
+          Companion: OFF
+        </button>
+
+
+  <nav class="nav">
+    <button data-card="card1">Home</button>
+    <button data-card="card2">Cards</button>
+    <button>Profile</button>
+  </nav>
+</header>
+
+<div id="app"></div>
+
+  <div class="jesus-tile mb-6 mx-auto">
+
+        <div class="hero">
+
+      <p class="text-s text-slate-500 mt- text-center">Do you know the Father and the Son?<br> I want to make sure you KNOW Them!<br><button class="jesus-btn mx-auto align-center;" onclick="getResource('htmlPanel')?.open('./public/jesus.html', 'To Know')">✝️ Who is
+        Jesus?</button>
+      </p>
+<!-- Hero -->
+  <div class="logo">שלום
+  <img src="images/HGHouses.png" class="mx-auto w-20 h-20 shrink-0"</img></div>
+  
+  <p>Augmented Redemption — 1st century meets 21st century</p>
+</div>                <button id="todayBtn"
+          class="px-3 py-1 text-xs sm:text-sm rounded-full bg-slate-800 border border-cyan-500 text-cyan-300 hover:bg-slate-700">
+          TODAY
+        </button>
+      <div class="flex items-center justify-end gap-2">
+        <button id="openScriptureHeaderBtn" class="p-2 rounded-full bg-slate-800 border border-cyan-500 text-cyan-300"
+          onclick="openDockCModal()">
+          📖
+        </button>
+
+        <button id="installButton" class="p-2 rounded-full bg-cyan-700 hover:bg-cyan-600 shadow">
+          ⬇
+        </button>
+      </div>
+
+  
+
+
+      </div>
+    </div>
+
+  </header>
+
+  <div id="weekInfo"></div>
+
+  <div class="app">
+
+
+<!-- Card Grid -->
+<div class="card-grid">
+  <div class="card" data-modal="study">
+    <h3>Study Together</h3>
+    <p>Connect with others, share scripture insights, and experience presence.</p>
+  </div>
+  <div class="card" data-modal="prayer">
+    <h3>Prayer Map</h3>
+    <p>See who is praying nearby, and join them in shared intention.</p>
+  </div>
+</div>
+
+<p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
+                    </marquee>
+                    <span id="headerWeekLabel">Weekly</span> • Torah / Prophets / New Covenant
+                  </p>
+                  <h3 id="mainStageTitle" class="text-3xl font-bold drop-shadow">
+                    Weekly Bible Study
+                  </h3>
+                  <p id="mainStageSub" class="text-sm text-slate-200">
+                    English • Hebrew • Greek (Phase 2) – Audio + Visual
+                  </p>
+                  <p> <button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: left;">Show
+                      Verses</button> <button id="openVideoBtn" class="px-2 py-1 border rounded"
+                      style="float: right;">Show Video</button></p>
+                  <div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+                    <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
+                    <video controls class="max-w-[90%] max-h-[90%]">
+                      <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
+                    </video>
+                  </div>
+
+                  <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4">
+
+
+                  </div>
+                  <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />AudioVisual Scriptures<img
+                      src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                </div>
+              </div>
+
+              <!-- Open announcements and  controls -->
+              <div class="flex flex-wrap items-center justify-center gap-3">
+                <button id="openAnnouncementsBtn"
+                  class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
+                  🔁 Open Announcements
+                </button>
+                <button id="openPrayersBtn"
+                  class="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-sm font-semibold shadow-lg shadow-cyan-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
+                  📖 Open Prayers
+                </button>
+                <!-- Floating player root (existing JS can attach here) -->
+                <div id="">
+                  <!-- player mounts here -->
+                </div>
+
+
+
+
+                <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
+                </div>
+                </p>
+                <div class="muted"></div>
+                <p><!-- MainStage Hero Card -->
+                <section id="mainStageCard"
+                  class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+                  <!-- Background video -->
+                  <video autoplay muted loop playsinline
+                    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                    <source src="videos/bg-motion.mp4" type="video/mp4">
+                  </video>
+
+                  <div class="mb-4">
+
+                  </div>
+                  <h2 class="text-2xl font-bold flex items-center gap-2">
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />This Week's Chapter Outlines<img
+                      src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                  </h2>
+
+                  <p>
+                  <div id="mainStageChapters"
+                    class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+                  </div>
+
+              </div>
+
+              <div class="jesus-tile">
+                <div class="jesus-label">Open Scriptural Sources & Witnesses
+                </div>
+                <button id="open.SourcesBtn" class="sources-btn">
+                  Open Sources →
+                </button>
+              </div>
+
+              <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
+            </div>
+
+            <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
+            </div>
+            <div class="muted"></div>
+            <p><!-- MainStage Hero Card -->
+            <div id="mainStageCard"
+              class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
+              <!-- Background video -->
+              <video autoplay muted loop playsinline
+                class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4">
+              </video>
+
+              <div class="mb-4">
+
+              </div>
+              <h2 class="text-2xl font-bold flex text-center gap-2">
+                <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />This Week's Updates<img
+                  src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+              </h2>
+
+              <div id="mainStageUpdates"
+                class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
+                <p>
+                <div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">
+                  </p>
+                </div>
+
+              </div>
+
+        </section>
+
+        <script src="mainStageLoaderTEST3.js">
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <div class="flip-wrapper">
+      <div class="flip-inner" id="flipInner">
+        <div class="flip-face front">
+          <h3>Front Face</h3>
+          <p>Content goes here. Replace with study/prayer widgets.</p>
+        </div>
+        <div class="flip-face back">
+          <h3>Back Face</h3>
+          <p>Additional content, notes, or shared insights.</p>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:1rem;margin-top:1rem;">
+      <button id="flipBtn">Flip</button>
+      <button id="closeBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Companion -->
+<div class="companion pulse" id="companion"></div>
+
+<script>
+// ----------------------------
+// Modal toggle
+// ----------------------------
+const modalOverlay = document.getElementById('modalOverlay');
+const flipInner = document.getElementById('flipInner');
+
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', () => {
+    modalOverlay.classList.add('active');
+    // Here you could load dynamic content per card
+    if (card.dataset.modal === 'study') {
+      flipInner.querySelector('.front h3').textContent = "Study Together";
+      flipInner.querySelector('.front p').textContent = "Gather, share scripture insights, and experience presence.";
+      flipInner.querySelector('.back h3').textContent = "Shared Notes";
+      flipInner.querySelector('.back p').textContent = "Add thoughts or reflections here.";
+    }
+    if (card.dataset.modal === 'prayer') {
+      flipInner.querySelector('.front h3').textContent = "Prayer Map";
+      flipInner.querySelector('.front p').textContent = "See who is praying nearby and join them.";
+      flipInner.querySelector('.back h3').textContent = "Prayer Notes";
+      flipInner.querySelector('.back p').textContent = "Record intentions and responses.";
+    }
+  });
+});
+
+document.getElementById('closeBtn').addEventListener('click', () => {
+  modalOverlay.classList.remove('active');
+});
+
+document.getElementById('flipBtn').addEventListener('click', () => {
+  flipInner.classList.toggle('is-flipped');
+});
+</script>
+
+<script>
+  const canvas = document.getElementById('atmosphere');
+const ctx = canvas.getContext('2d');
+
+let particles = [];
+const count = 40;
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+for (let i = 0; i < count; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.5,
+    vx: (Math.random() - 0.5) * 0.2,
+    vy: (Math.random() - 0.5) * 0.2
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgba(175,202,210,0.15)";
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+</script>
+
+<script>
+  document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 8;
+  const y = (e.clientY / window.innerHeight - 0.5) * 8;
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.transform = rotateY(${x}deg) rotateX(${-y}deg);
+  });
+});
+</script>
+
+<div id="app"></div>
+<script type="module" src="app.js"></script>
+
+</body>
+</html>
