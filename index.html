@@ -297,10 +297,495 @@
   .radio-marker.simplex  { background: rgba(249,115,22,0.92); }
   .radio-marker.family   { background: rgba(168,85,247,0.92); }
   .radio-marker.default  { background: rgba(100,116,139,0.92); }
-</style>
-<link rel="stylesheet" href="css/spark.css">
-<link rel="stylesheet" href="css/core.css">
-<!--<link rel="stylesheet" href="css/styles.css">-->
+
+    :root{
+      --bg-0:#06070b;
+      --bg-1:#0d111b;
+      --bg-2:#141b2a;
+      --panel:rgba(14,18,28,.82);
+      --panel-2:rgba(22,29,43,.78);
+      --line:rgba(255,255,255,.10);
+      --soft:rgba(255,255,255,.06);
+      --text:#eef3ff;
+      --muted:#a8b2c7;
+      --gold:#f3c878;
+      --gold-2:#ffdf9c;
+      --accent:#7cc7ff;
+      --shadow:0 18px 50px rgba(0,0,0,.42);
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:14px;
+      --header-h:64px;
+    }
+
+    * { box-sizing:border-box; }
+
+    html, body {
+      margin:0;
+      padding:0;
+      width:100%;
+      min-height:100%;
+      background:
+        radial-gradient(circle at top, rgba(243,200,120,.10), transparent 28%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-0));
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    body {
+      overflow:hidden;
+    }
+
+    button, select {
+      font:inherit;
+    }
+
+    a {
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    .hidden {
+      display:none !important;
+    }
+
+    #appShell {
+      width:100%;
+      height:100vh;
+      padding:
+        max(12px, env(safe-area-inset-top))
+        12px
+        max(12px, env(safe-area-inset-bottom))
+        12px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    #topBar {
+      min-height:var(--header-h);
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      gap:10px;
+      align-items:center;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:10px 12px;
+      backdrop-filter:blur(14px);
+      box-shadow:var(--shadow);
+    }
+
+    .brand-wrap {
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+      min-width:0;
+    }
+
+    .brand-kicker {
+      font-size:.70rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    .brand-title {
+      font-size:1rem;
+      font-weight:800;
+      color:var(--gold-2);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .toolbar {
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .ui-btn,
+    .ui-select {
+      appearance:none;
+      border:none;
+      outline:none;
+      background:var(--panel-2);
+      color:var(--text);
+      border:1px solid var(--line);
+      border-radius:999px;
+      min-height:42px;
+      padding:0 14px;
+      box-shadow:0 8px 24px rgba(0,0,0,.22);
+    }
+
+    .ui-btn {
+      cursor:pointer;
+      min-width:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+    }
+
+    .ui-select {
+      width:100%;
+      min-width:0;
+    }
+
+    #frontPorch {
+      background:
+        linear-gradient(180deg, rgba(255,231,178,.07), rgba(255,255,255,.03)),
+        var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      padding:18px 16px;
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+    }
+
+    .fp-kicker {
+      font-size:.73rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:var(--gold);
+      margin-bottom:8px;
+    }
+
+    .fp-title {
+      font-size:1.35rem;
+      line-height:1.06;
+      margin:0 0 8px;
+      font-weight:800;
+      color:#fff6de;
+    }
+
+    .fp-sub {
+      color:var(--muted);
+      margin:0;
+      font-size:.96rem;
+      line-height:1.45;
+    }
+
+    #viewport {
+      position:relative;
+      flex:1;
+      min-height:0;
+      overflow:hidden;
+      border-radius:var(--radius-xl);
+      border:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)),
+        rgba(7,10,17,.72);
+      box-shadow:var(--shadow);
+    }
+
+    #cardsRow {
+      width:100%;
+      height:100%;
+      display:flex;
+      overflow-x:auto;
+      overflow-y:hidden;
+      scroll-snap-type:x mandatory;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    #cardsRow::-webkit-scrollbar {
+      display:none;
+    }
+
+    .card {
+      width:100%;
+      min-width:100%;
+      height:100%;
+      scroll-snap-align:start;
+      padding:12px;
+      overflow-y:auto;
+      overflow-x:hidden;
+    }
+
+    .card-shell {
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02)),
+        rgba(13,17,27,.92);
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      padding:14px;
+    }
+
+    .card-header {
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      gap:10px;
+    }
+
+    .card-nav-btn {
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      border:1px solid var(--line);
+      cursor:pointer;
+      font-size:1.1rem;
+      font-weight:700;
+    }
+
+    .card-heading {
+      text-align:center;
+      min-width:0;
+    }
+
+    .card-kicker {
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+
+    .card-title {
+      margin:0;
+      font-size:1.05rem;
+      color:#ffe7b0;
+      font-weight:800;
+    }
+
+    .card-body {
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      min-height:0;
+    }
+
+    .hero-panel,
+    .content-panel {
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius:var(--radius-lg);
+      padding:14px;
+    }
+
+    .hero-title {
+      margin:0 0 6px;
+      font-size:1.15rem;
+      color:#fff4d7;
+    }
+
+    .hero-sub {
+      margin:0;
+      color:var(--muted);
+      line-height:1.45;
+    }
+
+    .section-label {
+      font-size:.74rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--gold);
+      margin-bottom:8px;
+    }
+
+    #nowPlaying {
+      font-size:.88rem;
+      color:#dbe8ff;
+      background:rgba(124,199,255,.08);
+      border:1px solid rgba(124,199,255,.18);
+      border-radius:14px;
+      padding:10px 12px;
+      min-height:42px;
+      display:flex;
+      align-items:center;
+    }
+
+    #mainStagePlaylist,
+    #mainStageChapters,
+    #cardsContainer {
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height:0;
+    }
+
+    .chip-row {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .chip {
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:.82rem;
+      color:var(--muted);
+    }
+
+    #mainStageVideo {
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .empty-state {
+      color:var(--muted);
+      font-size:.92rem;
+      text-align:center;
+      padding:22px 14px;
+      border:1px dashed rgba(255,255,255,.12);
+      border-radius:16px;
+    }
+
+    #floating-player-root {
+      position:fixed;
+      left:12px;
+      right:12px;
+      bottom:max(12px, env(safe-area-inset-bottom));
+      pointer-events:none;
+      z-index:60;
+    }
+
+    #floating-player-root > * {
+      pointer-events:auto;
+    }
+
+    @media (min-width: 720px) {
+      #appShell {
+        max-width:520px;
+        margin:0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="appShell">
+
+    <header id="topBar">
+      <div class="brand-wrap">
+        <div class="brand-kicker">homegroups.org</div>
+        <div class="brand-title">HG Bible App</div>
+      </div>
+
+      <select id="weekSelect" class="ui-select" aria-label="Select week">
+        <option>Week 1</option>
+      </select>
+
+      <div class="toolbar">
+        <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
+        <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
+      </div>
+    </header>
+
+    <section id="frontPorch">
+      <div class="fp-kicker">Front Porch</div>
+      <h1 class="fp-title">A simple place to begin.</h1>
+      <p class="fp-sub">
+        Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
+      </p>
+    </section>
+
+    <main id="viewport">
+      <div id="cardsRow">
+
+        <!-- Card 1: Main Stage -->
+        <section id="mainStageCard" class="card">
+          <div class="card-shell">
+            <div class="card-header">
+              <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
+
+              <div class="card-heading">
+                <div class="card-kicker">Main Stage</div>
+                <h2 class="card-title">Weekly Study</h2>
+              </div>
+
+              <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
+            </div>
+
+            <div class="card-body">
+              <section class="hero-panel">
+                <h3 id="mainStageTitle" class="hero-title">Loading week...</h3>
+                <p id="mainStageSub" class="hero-sub">Please wait while the weekly study loads.</p>
+              </section>
+
+              <div id="nowPlaying">Now Playing: —</div>
+
+              <section class="content-panel">
+                <div class="section-label">Audio Playlist</div>
+                <div id="mainStagePlaylist">
+                  <div class="empty-state">Playlist will appear here.</div>
+                </div>
+              </section>
+
+              <section class="content-panel">
+                <div class="section-label">Chapter Outlines</div>
+                <div id="mainStageChapters">
+                  <div class="empty-state">Outlines will appear here.</div>
+                </div>
+              </section>
+
+              <section class="content-panel">
+                <div class="section-label">Video / Media</div>
+                <div id="mainStageVideo" class="hidden">
+                  <div class="empty-state">Media will appear here.</div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <!-- Card 2: Dynamic Loader Target -->
+        <section id="dynamicCard" class="card">
+          <div class="card-shell">
+            <div class="card-header">
+              <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
+
+              <div class="card-heading">
+                <div class="card-kicker">Loaded Content</div>
+                <h2 class="card-title">Additional Cards</h2>
+              </div>
+
+              <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
+            </div>
+
+            <div class="card-body">
+              <section class="content-panel">
+                <div class="section-label">Week Cards</div>
+                <div id="cardsContainer">
+                  <div class="empty-state">Your loader can drop extra card content here.</div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- floating player mount -->
+  <div id="floating-player-root"></div>
+
+  <!-- add your scripts below in order -->
+  <!--
+  <script src="js/app.js"></script>
+  <script src="js/mainStageLoader.js"></script>
+  <script src="js/loadCommentary.js"></script>
+  <script src="js/orbitFloatingPlayer.js"></script>
+  -->
+</body>
+</html>
 </head>
 
 <body>
