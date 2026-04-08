@@ -32,507 +32,14 @@
   <meta name="theme-color" content="#4a5568">
   <title>MainStage Bible Study App</title>
   <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
-
-<link rel="manifest" href="./manifest.json" />
-<link rel="icon" href="./favicon.ico" />
-  <!-- Links CSS files/styles -->
-
-<link rel="stylesheet" href="./css/style.css" />
-<link rel="stylesheet" href="./style/main.css" />
-<link rel="stylesheet" href="./style/global.css" />
+  <!-- Links CSS files -->
+  <!--<link rel="stylesheet" href="css/core/core.css">-->
+  <!--<link rel="stylesheet" href="css/core/debugger.css">-->
+  <!--<link rel="stylesheet" href="/css/porchPanel.css">
+  <link rel="stylesheet" href="/css/journeyPanel.css">-->
 
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shalom — Living Prototype</title>
-<style>
-/* -----------------------------
-   Base / Body
------------------------------- */
-body {
-  margin: 0;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  background: #0f1418;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* Light layers */
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  inset: -20%;
-  pointer-events: none;
-  z-index: -1;
-  background: radial-gradient(circle at 30% 40%, rgba(59,80,106,0.25), transparent 60%),
-              radial-gradient(circle at 70% 60%, rgba(200,140,79,0.18), transparent 65%);
-  animation: drift 40s ease-in-out infinite alternate;
-}
-
-body::after {
-  background: radial-gradient(circle at 50% 50%, rgba(175,202,210,0.08), transparent 70%);
-  animation-duration: 60s;
-}
-
-@keyframes drift {
-  0% { transform: translate3d(-2%, -2%, 0) scale(1); }
-  100% { transform: translate3d(2%, 2%, 0) scale(1.05); }
-}
-
-/* -----------------------------
-   Hero
------------------------------- */
-.hero {
-  text-align: center;
-  padding: 4rem 1.5rem 2rem;
-}
-
-.logo {
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  animation: glowBreath 4s ease-in-out infinite alternate;
-}
-
-@keyframes glowBreath {
-  0% { text-shadow: 0 0 10px rgba(175,202,210,0.2); }
-  100% { text-shadow: 0 0 25px rgba(175,202,210,0.6); }
-}
-
-
-.hero p {
-  color: #CFCFCF;
-}
-
-/* -----------------------------
-   Card Grid
------------------------------- */
-.card-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  padding: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-
-/* -----------------------------
-   Cards
------------------------------- */
-.card {
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(175,202,210,0.15);
-  border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.45,0,0.25,1);
-}
-
-.card:active {
-  transform: scale(0.98);
-}
-.card h3 {
-  margin-top: 0;
-  color: #C88C4F; /* Fire accent */
-}
-.card p {
-  color: #D0D0D0;
-}
-
-/* -----------------------------
-   Modal Overlay
------------------------------- */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(8px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 9999;
-}
-.modal-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-.modal-content {
-  position: relative;
-  width: min(92vw, 700px);
-  max-height: 90vh;
-  background: rgba(0,0,20,0.96);
-  border-radius: 1.25rem;
-  padding: 2rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* -----------------------------
-   Flip Wrapper
------------------------------- */
-.flip-wrapper {
-  perspective: 1500px;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-.flip-inner {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.7s cubic-bezier(0.45,0,0.25,1);
-  transform-style: preserve-3d;
-  position: relative;
-}
-.flip-inner.is-flipped {
-  transform: rotateY(180deg);
-}
-.flip-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-}
-.flip-face.back {
-  transform: rotateY(180deg);
-}
-
-/* -----------------------------
-   Companion / Orbit Player
------------------------------- */
-.companion {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: rgba(59,80,106,0.6); /* Sapphire */
-  box-shadow: 0 0 15px rgba(200,140,79,0.25); /* Ember glow */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-}
-.companion.pulse {
-  animation: companionPulse 1.5s ease-in-out infinite;
-}
-@keyframes companionPulse {
-  0%,100% { transform: scale(1); box-shadow: 0 0 0px rgba(200,140,79,0); }
-  50% { transform: scale(1.08); box-shadow: 0 0 15px rgba(200,140,79,0.7); }
-}
-
-.companion {
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent 40%),
-    radial-gradient(circle at 70% 70%, rgba(200,140,79,0.4), transparent 60%),
-    rgba(59,80,106,0.8);
-  backdrop-filter: blur(10px);
-  box-shadow:
-    0 0 30px rgba(200,140,79,0.4),
-    inset 0 0 20px rgba(255,255,255,0.2);
-}
-
-/* -----------------------------
-   Buttons
------------------------------- */
-button {
-  cursor: pointer;
-  background: rgba(175,202,210,0.1);
-  border: 1px solid rgba(175,202,210,0.3);
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  color: #AFCAD2;
-  transition: background 0.3s, box-shadow 0.3s;
-}
-button:hover {
-  background: rgba(175,202,210,0.3);
-  box-shadow: 0 0 15px rgba(175,202,210,0.2);
-}
-
-* Container tile */
-.jesus-tile {
-  text-align: center;
-  position: relative;
-}
-
-/* Sacred Button */
-.jesus-btn {
-  position: relative;
-  padding: 16px 28px;
-  font-size: 1.1rem;
-  letter-spacing: 0.08em;
-  border-radius: 28px;
-  border: 1px solid rgba(175,202,210,0.25);
-  color: #EAF6FF;
-  cursor: pointer;
-  backdrop-filter: blur(18px);
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 40%),
-    radial-gradient(circle at 70% 70%, rgba(200,140,79,0.35), transparent 60%),
-    rgba(59,80,106,0.55);
-  box-shadow:
-    0 0 30px rgba(200,140,79,0.25),
-    inset 0 0 20px rgba(255,255,255,0.15);
-  transition: all 0.5s cubic-bezier(0.45,0,0.25,1);
-  overflow: hidden;
-}
-
-/* Light shimmer sweep */
-.jesus-btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    120deg,
-    transparent 20%,
-    rgba(255,255,255,0.4) 45%,
-    transparent 70%
-  );
-  transform: translateX(-120%);
-  transition: transform 1.2s ease;
-}
-
-.jesus-btn:hover::before {
-  transform: translateX(120%);
-}
-
-/* Hover Presence */
-.jesus-btn:hover {
-  box-shadow:
-    0 0 50px rgba(200,140,79,0.5),
-    0 0 80px rgba(175,202,210,0.25),
-    inset 0 0 30px rgba(255,255,255,0.25);
-  transform: translateY(-2px) scale(1.02);
-}
-
-/* Active press */
-.jesus-btn:active {
-  transform: scale(0.98);
-}
-
-/* Label below */
-.jesus-label {
-  margin-top: 14px;
-  font-size: 0.95rem;
-  color: rgba(234,246,255,0.7);
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.5;
-}
-
-body {
-  margin: 0;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  background: radial-gradient(circle at 30% 30%, rgba(59,80,106,0.25), transparent 60%),
-              radial-gradient(circle at 70% 70%, rgba(200,140,79,0.15), transparent 60%),
-              #1E2124;
-  animation: ambientShift 20s ease-in-out infinite alternate;
-}
-
-body::before {
-  mix-blend-mode: screen;
-}
-
-body::after {
-  mix-blend-mode: overlay;
-}
-
-html::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.03;
-}
-
-@keyframes ambientShift {
-  0% { background-position: 30% 30%, 70% 70%; }
-  100% { background-position: 40% 40%, 60% 60%; }
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(120deg,
-    rgba(255,255,255,0.08),
-    transparent 40%,
-    transparent 60%,
-    rgba(255,255,255,0.08));
-  opacity: 0;
-  transition: opacity 0.6s;
-}
-
-.card:hover::before {
-  opacity: 1;
-}
-
-* Container tile */
-.jesus-tile {
-  text-align: center;
-  position: relative;
-}
-
-/* Sacred Button */
-.jesus-btn {
-  position: relative;
-  padding: 16px 28px;
-  font-size: 1.1rem;
-  letter-spacing: 0.08em;
-  border-radius: 28px;
-  border: 1px solid rgba(175,202,210,0.25);
-  color: #EAF6FF;
-  cursor: pointer;
-  backdrop-filter: blur(18px);
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 40%),
-    radial-gradient(circle at 70% 70%, rgba(200,140,79,0.35), transparent 60%),
-    rgba(59,80,106,0.55);
-  box-shadow:
-    0 0 30px rgba(200,140,79,0.25),
-    inset 0 0 20px rgba(255,255,255,0.15);
-  transition: all 0.5s cubic-bezier(0.45,0,0.25,1);
-  overflow: hidden;
-}
-
-/* Light shimmer sweep */
-.jesus-btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  
-  background: linear-gradient(
-    120deg,
-    transparent 20%,
-    rgba(255,255,255,0.4) 45%,
-    transparent 70%
-  );
-  transform: translateX(-120%);
-  transition: transform 1.2s ease;
-}
-
-.jesus-btn:hover::before {
-  transform: translateX(120%);
-}
-
-/* Hover Presence */
-.jesus-btn:hover {
-  box-shadow:
-    0 0 50px rgba(200,140,79,0.5),
-    0 0 80px rgba(175,202,210,0.25),
-    inset 0 0 30px rgba(255,255,255,0.25);
-  transform: translateY(-2px) scale(1.02);
-}
-
-/* Active press */
-.jesus-btn:active {
-  transform: scale(0.98);
-}
-
-/* Label below */
-.jesus-label {
-  
-  margin-top: 14px;
-  font-size: 0.95rem;
-  color: rgba(234,246,255,0.7);
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.5;
-  
-}
-
-.jesus-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-    display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-}
-
-body {
-  background: #0a0a0a;
-  color: #ffffff;
-}
-
-/* Header */
-.main-header {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 16px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* Logo */
-.logo {
-  font-size: 18px;
-  letter-spacing: 3px;
-  font-weight: 600;
-  opacity: 0.9;
-}
-
-/* Nav */
-.nav {
-  display: flex;
-  gap: 12px;
-}
-
-.nav button {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.nav button:hover {
-  background: white;
-  color: black;
-}
-
-  
-
-</style>
-</head>
-<body>
-
-    <!-- Leaflet CSS -->
+  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <!-- MarkerCluster CSS -->
@@ -546,324 +53,650 @@ body {
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <header class="main-header">
-  <div class="logo">MAINSTAGE</div>      <!-- Middle -->
-      <div class="flex items-center justify-center gap-2 flex-wrap">
-        <button id="prevWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
-          &laquo;
-        </button>
 
-        <select id="weekSelect"
-          class="px-2 py-1 text-xs sm:text-sm rounded-md border bg-slate-900 text-cyan-300 w-[120px] sm:w-auto">
-        </select>
+</head>
 
-        <button id="nextWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
-          &raquo;
-        </button>
+<style>
+  :root {
+    color-scheme: dark;
+  }
 
+  /* Popup container */
+  .leaflet-popup-content-wrapper {
+    background: #0f172a;
+    /* deep slate */
+    color: #e5e7eb;
+    /* light text */
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  }
 
-        <button id="companionToggle" style="position:fixed;top:60px;left:10px;z-index:9999;">
-          Companion: OFF
-        </button>
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    position: relative;
+  }
 
+  .page-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
 
-  <nav class="nav">
-    <button data-card="card1">Home</button>
-    <button data-card="card2">Cards</button>
-    <button>Profile</button>
-  </nav>
-</header>
+  .page-title {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #EAF6FF;
+  }
 
-<div id="app"></div>
+  .page-subtitle {
+    margin-top: 0.75rem;
+    color: rgba(234, 246, 255, 0.6);
+    font-size: 1rem;
+  }
 
-  <div class="jesus-tile mb-6 mx-auto">
+  .page-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 
-        <div class="hero">
+  .page-footer {
+    margin-top: 3rem;
+    text-align: center;
+    opacity: 0.7;
+  }
 
-      <p class="text-s text-slate-500 mt- text-center">Do you know the Father and the Son?<br> I want to make sure you KNOW Them!<br><button class="jesus-btn mx-auto align-center;" onclick="getResource('htmlPanel')?.open('./public/jesus.html', 'To Know')">✝️ Who is
-        Jesus?</button>
-      </p>
-<!-- Hero -->
-  <div class="logo">שלום
-  <img src="images/HGHouses.png" class="mx-auto w-20 h-20 shrink-0"</img></div>
-  
-  <p>Augmented Redemption — 1st century meets 21st century</p>
-</div>                <button id="todayBtn"
-          class="px-3 py-1 text-xs sm:text-sm rounded-full bg-slate-800 border border-cyan-500 text-cyan-300 hover:bg-slate-700">
-          TODAY
-        </button>
-      <div class="flex items-center justify-end gap-2">
-        <button id="openScriptureHeaderBtn" class="p-2 rounded-full bg-slate-800 border border-cyan-500 text-cyan-300"
+  .flame {
+
+    font-size: 10px;
+    font-weight: 900;
+
+    background: linear-gradient(180deg, #fff5cc, #ffae00, #ff3d00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+  }
+
+  .ignite-button {
+    padding: 4px 14px;
+    font-size: 14px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(90deg, #fff5cc, #ffae00, #ff3d00);
+    color: white;
+    font-weight: bold;
+    transition: all 0.4s ease;
+  }
+
+  .ignite-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 150, 0, 0.6);
+  }
+
+  /* Ignite Active State */
+  body.ignited {
+    background: radial-gradient(circle at center, #3b0000 0%, #000000 80%);
+    z-index: 99999;
+  }
+
+  body.ignited .background-glow {
+    animation: burst 2s forwards;
+    z-index: 99999;
+  }
+
+  body.ignited .flame-s {
+    transform: scale(1.2);
+    text-shadow:
+      0 0 20px rgba(255, 255, 200, 1),
+      0 0 60px rgba(255, 100, 0, 0.9);
+    z-index: 99999;
+  }
+
+  /* Animations */
+  @keyframes flicker {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.85;
+    }
+  }
+
+  @keyframes pulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes burst {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  @keyframes divineFlicker {
+    0% {
+      transform: scale(1);
+      text-shadow:
+        0 0 10px rgba(255, 180, 0, 0.6),
+        0 0 20px rgba(255, 80, 0, 0.4);
+    }
+
+    50% {
+      transform: scale(1.03);
+      text-shadow:
+        0 0 25px rgba(255, 220, 120, 1),
+        0 0 60px rgba(255, 80, 0, 0.9);
+    }
+
+    100% {
+      transform: scale(1);
+      text-shadow:
+        0 0 10px rgba(255, 180, 0, 0.6),
+        0 0 20px rgba(255, 80, 0, 0.4);
+    }
+  }
+
+  /* Spark styling */
+  .sparks-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 9999;
+  }
+
+  .spark {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: orange;
+    animation: spark-float 1s forwards;
+    z-index: 9999;
+  }
+
+  @keyframes spark-float {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateY(-120px);
+    }
+  }
+
+  .radio-div-icon-wrap {
+  background: transparent;
+  border: none;
+}
+
+.map-shell button,
+  .map-shell input {
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.08);
+    color: #e5e7eb;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .map-shell button:hover {
+    background: rgba(255,255,255,0.14);
+  }
+
+  .map-popup {
+    line-height: 1.4;
+    min-width: 180px;
+  }
+
+  .radio-div-icon-wrap {
+    background: transparent;
+    border: none;
+  }
+
+  .radio-marker {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 12px;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.35);
+    box-shadow: 0 0 12px rgba(0,0,0,0.35);
+    backdrop-filter: blur(4px);
+  }
+
+  .radio-marker.repeater { background: rgba(59,130,246,0.92); }
+  .radio-marker.simplex  { background: rgba(249,115,22,0.92); }
+  .radio-marker.family   { background: rgba(168,85,247,0.92); }
+  .radio-marker.default  { background: rgba(100,116,139,0.92); }
+</style>
+<link rel="stylesheet" href="css/spark.css">
+<link rel="stylesheet" href="css/core.css">
+<!--<link rel="stylesheet" href="css/styles.css">-->
+</head>
+
+<body>
+  <div class="spark-stage">
+    <header class="spark-header">                  
+      <!-- Background video -->
+                  <video autoplay muted loop playsinline
+                    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                    <source src="videos/firevideos.mp4" type="video/mp4">
+                  </video>
+      <div class="flame">Spark</div>
+              <button id="openScriptureHeaderBtn" class="p-2 rounded-full bg-yellow-800 border border-orange-500 text-red-300"
           onclick="openDockCModal()">
           📖
         </button>
+      <!-- Middle -->
+      <div class="flex items-center justify-center gap-2 flex-wrap">
+        <!--<button id="prevWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+          &laquo;
+        </button>-->
 
-        <button id="installButton" class="p-2 rounded-full bg-cyan-700 hover:bg-cyan-600 shadow">
-          ⬇
+        <select id="weekSelect"
+          class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"">
+        </select>
+
+        <!--<button id=" nextWeek" class="px-2 py-1 border rounded text-xs sm:text-sm">
+          &raquo;
+          </button>-->
+    </header>
+    <!-- <button id="igniteBtn" class="ignite-button">Ignite [נִיצוֹץ]</button>-->
+    <!-- Sparks container -->
+    <div class="sparks-container"></div>
+    <!-- Overlay for ignition effect -->
+    <div class="ignite-overlay"></div>
+
+    <!--<div class="spark-controlbar">
+  <div class="spark-controlbar-left">
+    <span class="spark-control-label">Open</span>
+  </div>
+
+  <div class="spark-controlbar-center">-->
+   <select id="cardSelect" class="spark-card-select">
+      <option value="">Pick a card, any card...</option>
+      <option value="frontporch">Front Porch</option>
+      <option value="prayermap">Prayer Map</option>
+      <option value="studyhub">Study Hub</option>
+      <option value="calendar">Calendar</option>
+      <option value="podcast">Podcast</option>
+      <option value="quizzes">Quizzes</option>
+      <option value="alephbet">Alephbet</option>
+      <option value="beready">Be-Ready</option>
+      <option value="missler">Chuck Missler</option>
+      <option value="mainstage">MainStage</option>
+      <option value="prezi">Prezis</option>
+      <option value="test">TEST</option>
+      <option value="nt">NT Page</option>
+      <option value="jesus">"jesus"</option>
+      <option value="games">Trivia & Bingo</option>
+      <option value="amateurRadio">Amateur Radio</option>
+      <option value="radioMapCard">Radio Map</option>
+    </select>
+ <!-- </div>
+
+  <div class="spark-controlbar-right">
+    <button class="spark-mini-btn" onclick="openCard('calendar')">Calendar</button>
+    <button class="spark-mini-btn" onclick="loadCard('prayermap')">Map</button>
+    <button class="spark-mini-btn" onclick="openCard('today')">Today</button>
+  </div>
+</div>-->
+
+    <script>
+      document.getElementById("cardSelect").addEventListener("change", function () {
+        const card = this.value
+        if (card) {
+          openCard(card)
+        }
+      })
+    </script>
+
+    <!--<button onclick="openCard('frontporch')">
+Open Porch
+</button>-->
+
+    <!-- Buttons -->
+    <!--<button class="" onclick="loadCard('prayermap')">Open Prayer Map</button>-->
+
+
+    <!-- Container -->
+    <section id="viewport"></section>
+
+<script>
+  let currentDataset = "homegroups";
+
+  async function loadCard(name) {
+    const viewport = document.getElementById("viewport"); 30741
+    viewport.innerHTML = "";
+
+    if (name === "prayermap" || name === "radioMapCard") {
+      currentDataset = name ===       <!--<footer class="spark-footer">-->
+    </div>
+    <!-- Companion orb -->
+    <div id="companion" class="companion-orb"></div>
+    <!--<div class="ticker">--> <!--<button id="igniteBtn" class="ignite-button mx-auto">Ignite [נִיצוֹץ]</button> -->
+    <div class="flex justify-center items-center w-full mt-4">
+      <button id="igniteBtn" class="ignite-button">
+        Ignite [נִיצוֹץ]
+      </button>
+
+      <nav class="spark-nav">
+        <button
+          class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"
+          onclick="loadCard('prayermap')">Map</button>
+        <!--<button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6" onclick="openCard('test')">Test</button>-->
+      </nav>
+    </div>
+    <div class="ticker-track">
+      🙏 Pray for Nashville
+      ✝️ Pray for families
+      🌎 Pray for peace
+      ❤️ Pray for the lost
+      🔥 Pray for revival
+
+    </div>
+    <p>
+    <div id="fp-hero-glass-root"></div>
+    </p>
+    <!--<div id="floating-player-root"></div>-->
+  </div>
+
+  </footer>
+  <!--<footer id=""tickerFooter>
+</footer>-->
+  </div>
+  <!-- Main Application Scripts -->
+  <!-- <script type="module" src="./js/core/map.js"></script>-->
+  <!--<script src="js/core/mainstageManager.js" defer></script>-->
+  <!--<script src="js/hostMode.js" defer></script>
+    <script src="js/today.js" defer></script>
+  
+      <!-- Firebase Core -->
+  <script src="js/app.js" defer></script>
+  <script type="module" src="./js/core/firebase-init.dev.js"></script>
+  <!--<script type="module" src="js/SAVEorbitFloatingPlayer.js" defer></script>-->
+  <script type="module" src="./js/core/prayerTicker.dev.js"></script>
+  <script src="js/bullseyeMedia.js" defer></script>
+  <script src="js/mainStageLoaderTEST3.js" defer></script>
+
+
+
+  <!-- <script src="js/globalAudioManager.js" defer></script>-->
+    <script src="js/articles.js" defer></script>
+
+  <!-- Core Resource Scripts -->
+  <!--  <script type="module" src="/js/core/resourceManager.js"></script>
+    <script type="module" src="/js/core/focusManager.js"></script>
+    <script type="module" src="/js/core/misslerPlaylist.js"></script>-->
+
+  <!--<script type="module" src="./js/core/map.dev.js"></script>
+    <script type="module" src="./js/core/prayerMap.dev.js"></script>-->
+
+  <!-- Feature Scripts -->
+  <!--<script type="module" src="./js/core/requestStore.dev.js"></script>
+    <script type="module" src="./js/core/prayerButton.dev.js"></script>
+    <script type="module" src="./js/core/studyButton.dev.js"></script>
+    <script type="module" src="./js/core/joinButton.dev.js"></script>
+    <script type="module" src="./js/core/prayTogetherButton.dev.js"></script>
+    <script type="module" src="./js/core/studyTogetherButton.dev.js"></script>
+    <script>
+        console.log("Leaflet loaded:", typeof L);
+        console.log("MarkerCluster loaded:", typeof L?.markerClusterGroup);
+    </script>-->
+
+      <!-- ============================= -->
+    <!--  Modal Script    -->
+    <!-- ============================= -->
+    <!-- 🎧 DOCK C — Scripture Modal -->
+    <!-- ============================= -->
+    <div id="dockC-modal"
+      class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] items-center justify-center hidden">
+
+      <div id="dockC-inner" class="relative">
+        <!-- FLIP WRAPPER -->
+        <div id="dockC-flipWrapper">
+
+          <!-- FRONT: Scripture + Commentary -->
+          <div class="flip-face front">
+            <div class="flex items-center justify-between mb-1 text-align:center">
+              <h2 class="text-orange-300 text-lg font-semibold">
+                Scripture & Commentary
+              </h2>
+              <div class="flex gap-3 items-center text-sm text-slate-300">
+                <span id="modalWeekLabel"></span> ___
+              </div>
+            </div>
+
+            <div class="face-scroll">
+              <div id="scriptureBox"></div>
+              <div id="commentaryBox"></div>
+            </div>
+          </div>
+
+          <!-- BACK: Articles -->
+          <div class="flip-face back">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-orange-300 text-lg font-semibold">
+                Articles & Reader
+              </h2>
+              <span class="text-xs text-slate-400">
+                (Click An Article to Load It Below the List)
+              </span>
+            </div>
+
+            <div class="face-scroll">
+              <div id="articleListBox">
+
+                <div id="articlelist"></div>
+              </div>
+
+              <div id="articleViewer">
+                <p class="text-sm text-slate-300">
+                  When you click an article title, you can load its HTML here.
+                </p>
+                <div id="articleModal">
+                  <h2 id="articleTitle"></h2>
+                  <div id="articleContent"></div>
+                </div>
+
+
+                <!-- <div id="articlePager" class="pager hidden">
+          <button id="articlePrevBtn">◀</button>
+          <span id="articlePagerStatus"></span>
+          <button id="articleNextBtn">▶</button>
+          </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLOSE BUTTON -->
+        <button type="button" onclick="closeDockCModal()"
+          class="absolute top-2 right-3 text-2xl text-slate-400 hover:text-white">
+          ✕
+        </button>
+
+        <button type="button" id="flipModalBtn" class="absolute top-2 left-1/2 -translate-x-1/2
+         px-3 py-1 rounded-full
+         text-sm font-semibold
+         text-orange-200 hover:text-white
+         bg-cyan-500/10 hover:bg-cyan-500/20
+         border border-orange-400/40
+         backdrop-blur
+         shadow-md hover:shadow-orange-500/30
+         transition-all">
+          🔁 FlipOver
         </button>
       </div>
-
-  
-
-
-      </div>
     </div>
+    <script>
+      function getSelectedWeekNumber() {
+        const sel = document.getElementById("weekSelect");
+        if (!sel) return 1;
+        return parseInt(sel.value, 10) || 1;
+      }
+      window.getSelectedWeekNumber = getSelectedWeekNumber;
+    </script>
+    <script>
+      // ---------------------------------
+      // MODAL OPEN/CLOSE + FLIP
+      // ---------------------------------
+      function openDockCModal() {
+        const modal = document.getElementById("dockC-modal");
+        if (!modal) return;
+        modal.classList.remove("hidden");          // ✅ show (Tailwind)
+        document.body.style.overflow = "hidden";   // lock background scroll
+      }
+      window.openDockCModal = openDockCModal;
 
-  </header>
+      function closeDockCModal() {
+        const modal = document.getElementById("dockC-modal");
+        if (!modal) return;
+        modal.classList.add("hidden");             // ✅ hide
+        document.body.style.overflow = "";         // restore scroll
 
-  <div id="weekInfo"></div>
+        // reset to front when closing
+        const flip = document.getElementById("dockC-flipWrapper");
+        if (flip) flip.classList.remove("is-flipped");
+      }
 
-  <div class="app">
+      function toggleDockCFace() {
+        const flip = document.getElementById("dockC-flipWrapper");
+        if (!flip) return;
+        flip.classList.toggle("is-flipped");
+      }
+
+      // Make sure the flip button calls the toggle
+      document.getElementById("flipModalBtn")?.addEventListener("click", toggleDockCFace);
+
+      // ---------------------------------
+      // SCRIPTURE + COMMENTARY LOADER
+      // ---------------------------------
+      const SCRIPTURE_DIR = "scripture/english";
+      const COMMENTARY_DIR = "commentary";
+
+      async function loadScriptureForCurrentWeek() {
+        const week = getSelectedWeekNumber();
+        const scripturePath = `${SCRIPTURE_DIR}/week${week}.html`;
+        const commentaryPath = `${COMMENTARY_DIR}/week${week}.html`;
+
+        const scriptureBox = document.getElementById("scriptureBox");
+        const commentaryBox = document.getElementById("commentaryBox");
+        const weekLabel = document.getElementById("modalWeekLabel");
+
+        if (weekLabel) weekLabel.textContent = `Week ${week}`;
+
+        if (scriptureBox) {
+          scriptureBox.innerHTML = `<p class="text-orange-300 text-sm">Loading scripture from <code>${scripturePath}</code>...</p>`;
+        }
+        if (commentaryBox) {
+          commentaryBox.innerHTML = `<p class="text-yellow-300 text-sm">Loading commentary from <code>${commentaryPath}</code>...</p>`;
+        }
+
+        // Scripture
+        if (scriptureBox) {
+          try {
+            const res = await fetch(scripturePath);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const html = await res.text();
+            scriptureBox.innerHTML = html;
+          } catch (err) {
+            console.error("Scripture load failed:", err);
+            scriptureBox.innerHTML = `<p class="text-red-400 text-sm">Unable to load scripture file:<br>${scripturePath}</p>`;
+          }
+        }
+
+        // Commentary (optional – don't fail hard)
+        if (commentaryBox) {
+          try {
+            const res = await fetch(commentaryPath);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const html = await res.text();
+            commentaryBox.innerHTML = html;
+          } catch (err) {
+            console.warn("Commentary load failed (this is ok if you don't have files yet):", err);
+            commentaryBox.innerHTML = `<p class="text-slate-300 text-sm italic">
+            No commentary file found for Week ${week} yet.
+          </p>`;
+          }
+        }
+      }
+
+      function loadAndOpenScripture() {
+        loadScriptureForCurrentWeek()
+          .then(openDockCModal)
+          .catch(err => {
+            console.error(err);
+            openDockCModal();
+          });
+      }
+
+      document.getElementById("openScriptureBtn")?.addEventListener("click", loadAndOpenScripture);
+      document.getElementById("openScriptureHeaderBtn")?.addEventListener("click", loadAndOpenScripture);
 
 
-<!-- Card Grid -->
-<div class="card-grid">
-  <div class="card" data-modal="study">
-    <h3>Study Together</h3>
-    <p>Connect with others, share scripture insights, and experience presence.</p>
-  </div>
-  <div class="card" data-modal="prayer">
-    <h3>Prayer Map</h3>
-    <p>See who is praying nearby, and join them in shared intention.</p>
-  </div>
-</div>
+      // Auto-refetch scripture when weekSelect changes
+      document.getElementById("weekSelect")?.addEventListener("change", () => {
+        // If modal is open, update its content when week changes
+        const modal = document.getElementById("dockC-modal");
+        if (modal && modal.classList.contains("hidden")) {
+          loadScriptureForCurrentWeek();
+        }
+      });
+    </script>
 
-<p id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></p>
-                    </marquee>
-                    <span id="headerWeekLabel">Weekly</span> • Torah / Prophets / New Covenant
-                  </p>
-                  <h3 id="mainStageTitle" class="text-3xl font-bold drop-shadow">
-                    Weekly Bible Study
-                  </h3>
-                  <p id="mainStageSub" class="text-sm text-slate-200">
-                    English • Hebrew • Greek (Phase 2) – Audio + Visual
-                  </p>
-                  <p> <button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: left;">Show
-                      Verses</button> <button id="openVideoBtn" class="px-2 py-1 border rounded"
-                      style="float: right;">Show Video</button></p>
-                  <div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
-                    <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
-                    <video controls class="max-w-[90%] max-h-[90%]">
-                      <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
-                    </video>
-                  </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const scriptureBox = document.getElementById("scriptureBox");
+        if (scriptureBox) {
+          scriptureBox.style.minHeight = "45vh";
+          scriptureBox.style.overflowY = "auto";
+        }
+      });
 
-                  <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4">
+      document.addEventListener("DOMContentLoaded", () => {
+        // Select both the front and back h2 elements
+        const frontLabel = document.querySelector('.flip-face.front h2');
+        const backLabel = document.querySelector('.flip-face.back h2');
 
-
-                  </div>
-                  <h2 class="text-2xl font-bold flex items-center gap-2">
-                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />AudioVisual Scriptures<img
-                      src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
-                </div>
-              </div>
-
-              <!-- Open announcements and  controls -->
-              <div class="flex flex-wrap items-center justify-center gap-3">
-                <button id="openAnnouncementsBtn"
-                  class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
-                  🔁 Open Announcements
-                </button>
-                <button id="openPrayersBtn"
-                  class="px-4 py-2 rounded-full bg-cyan-600 hover:bg-cyan-500 text-sm font-semibold shadow-lg shadow-cyan-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
-                  📖 Open Prayers
-                </button>
-                <!-- Floating player root (existing JS can attach here) -->
-                <div id="">
-                  <!-- player mounts here -->
-                </div>
-
-
-
-
-                <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
-                </div>
-                </p>
-                <div class="muted"></div>
-                <p><!-- MainStage Hero Card -->
-                <section id="mainStageCard"
-                  class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-                  <!-- Background video -->
-                  <video autoplay muted loop playsinline
-                    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                    <source src="videos/bg-motion.mp4" type="video/mp4">
-                  </video>
-
-                  <div class="mb-4">
-
-                  </div>
-                  <h2 class="text-2xl font-bold flex items-center gap-2">
-                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />This Week's Chapter Outlines<img
-                      src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
-                  </h2>
-
-                  <p>
-                  <div id="mainStageChapters"
-                    class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
-                  </div>
-
-              </div>
-
-              <div class="jesus-tile">
-                <div class="jesus-label">Open Scriptural Sources & Witnesses
-                </div>
-                <button id="open.SourcesBtn" class="sources-btn">
-                  Open Sources →
-                </button>
-              </div>
-
-              <!--<div class="jesus-content"> <div class="tile-icon">✝️</div> <div class="jesus-day"></div> <div class="jesus-focus">-->
-            </div>
-
-            <div id="mainStageVideo" class="w-full aspect-video hidden mb-4 max-w-100%">
-            </div>
-            <div class="muted"></div>
-            <p><!-- MainStage Hero Card -->
-            <div id="mainStageCard"
-              class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-              <!-- Background video -->
-              <video autoplay muted loop playsinline
-                class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                <source src="videos/bg-motion.mp4" type="video/mp4">
-              </video>
-
-              <div class="mb-4">
-
-              </div>
-              <h2 class="text-2xl font-bold flex text-center gap-2">
-                <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />This Week's Updates<img
-                  src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
-              </h2>
-
-              <div id="mainStageUpdates"
-                class="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300 max-w-100%">
-                <p>
-                <div id="cardsContainer" class="space-y-6 mt-6 margin-bottom: 20px;">
-                  </p>
-                </div>
-
-              </div>
-
-        </section>
-
-        <script src="mainStageLoaderTEST3.js">
-
-<!-- Modal Overlay -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal-content">
-    <div class="flip-wrapper">
-      <div class="flip-inner" id="flipInner">
-        <div class="flip-face front">
-          <h3>Front Face</h3>
-          <p>Content goes here. Replace with study/prayer widgets.</p>
-        </div>
-        <div class="flip-face back">
-          <h3>Back Face</h3>
-          <p>Additional content, notes, or shared insights.</p>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;gap:1rem;margin-top:1rem;">
-      <button id="flipBtn">Flip</button>
-      <button id="closeBtn">Close</button>
-    </div>
-  </div>
-</div>
-
-<!-- Companion -->
-<div class="companion pulse" id="companion"></div>
-
-<script>
-// ----------------------------
-// Modal toggle
-// ----------------------------
-const modalOverlay = document.getElementById('modalOverlay');
-const flipInner = document.getElementById('flipInner');
-
-document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('click', () => {
-    modalOverlay.classList.add('active');
-    // Here you could load dynamic content per card
-    if (card.dataset.modal === 'study') {
-      flipInner.querySelector('.front h3').textContent = "Study Together";
-      flipInner.querySelector('.front p').textContent = "Gather, share scripture insights, and experience presence.";
-      flipInner.querySelector('.back h3').textContent = "Shared Notes";
-      flipInner.querySelector('.back p').textContent = "Add thoughts or reflections here.";
-    }
-    if (card.dataset.modal === 'prayer') {
-      flipInner.querySelector('.front h3').textContent = "Prayer Map";
-      flipInner.querySelector('.front p').textContent = "See who is praying nearby and join them.";
-      flipInner.querySelector('.back h3').textContent = "Prayer Notes";
-      flipInner.querySelector('.back p').textContent = "Record intentions and responses.";
-    }
-  });
-});
-
-document.getElementById('closeBtn').addEventListener('click', () => {
-  modalOverlay.classList.remove('active');
-});
-
-document.getElementById('flipBtn').addEventListener('click', () => {
-  flipInner.classList.toggle('is-flipped');
-});
-</script>
-
-<script>
-  const canvas = document.getElementById('atmosphere');
-const ctx = canvas.getContext('2d');
-
-let particles = [];
-const count = 40;
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resize);
-resize();
-
-for (let i = 0; i < count; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 1.5 + 0.5,
-    vx: (Math.random() - 0.5) * 0.2,
-    vy: (Math.random() - 0.5) * 0.2
-  });
-}
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "rgba(175,202,210,0.15)";
-  particles.forEach(p => {
-    p.x += p.vx;
-    p.y += p.vy;
-
-    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fill();
-  });
-
-  requestAnimationFrame(animate);
-}
-</script>
-
-<script>
-  document.addEventListener('mousemove', (e) => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 8;
-  const y = (e.clientY / window.innerHeight - 0.5) * 8;
-
-  document.querySelectorAll('.card').forEach(card => {
-    card.style.transform = rotateY(${x}deg) rotateX(${-y}deg);
-  });
-});
-</script>
-
-<div id="app"></div>
-<script type="module" src="app.js"></script>
-
+        // Apply the centering   style
+        [frontLabel, backLabel].forEach(label => {
+          if (label) {
+            label.style.textAlign = "center";
+          }
+        });
+      });
+    </script>
 </body>
+<div class="spark-logo">🔥</div>
+
 </html>
