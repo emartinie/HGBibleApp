@@ -178,7 +178,7 @@ async function loadMainStageWeek(weekData) {
         card.className = "p-2 border rounded shadow-sm bg-gray-100 dark:bg-gray-700 flex items-center justify-between mb-2";
 
         const playBtn = document.createElement('button');
-        playBtn.className = "px-2 py-1 bg-blue-600 dark:bg-blue-400 text-white rounded mr-2";
+        playBtn.className = "px-2 py-1 bg-red-600 dark:bg-blue-400 text-white rounded mr-2";
         playBtn.textContent = "▶";
 
         const label = document.createElement('span');
