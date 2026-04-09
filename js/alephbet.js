@@ -57,13 +57,3 @@
 
         render();
       })();
-    </script>
-
-
-    <script>
-      const videoBtn = document.getElementById("openVideoBtn");
-      const overlay = document.getElementById("videoOverlay");
-      const closeBtn = document.getElementById("closeVideo");
-
-      videoBtn?.addEventListener("click", () => overlay.classList.remove("hidden"));
-      closeBtn?.addEventListener("click", () => overlay.classList.add("hidden"));
