@@ -82,7 +82,7 @@
       }
 
       const script = document.createElement("script");
-      script.src = `cards/${cardName}.js?v=${Date.now()}`;
+      script.src = `js/${cardName}.js?v=${Date.now()}`;
       script.defer = true;
       document.body.appendChild(script);
       loadedScript = script;
