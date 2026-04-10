@@ -399,6 +399,18 @@ function init() {
   if (typeof setupAdvancedSearch === "function") setupAdvancedSearch();
   if (typeof addSearchResetButton === "function") addSearchResetButton();
 
+  function toggleSection(label) {
+  const content = label.nextElementSibling;
+  if (!content) return;
+
+  const isHidden = content.style.display === "none";
+
+  content.style.display = isHidden ? "" : "none";
+  label.textContent = label.textContent.replace(
+    isHidden ? "▶" : "▼",
+    isHidden ? "▼" : "▶"
+  );
+}
 
 // --- Start ---
 document.addEventListener("DOMContentLoaded", init);
