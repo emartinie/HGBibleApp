@@ -685,10 +685,13 @@
       <div class="toolbar">
         <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
         <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
+        <div class="flame">Spark</div><div class="spark-logo">🔥</div>
       </div>
     </header>
-        <div style="margin-top:12px;">
+
+    <div style="margin-top:12px;">
       <select id="cardSelector" class="ui-select" aria-label="Select card">
+      <option value="mainstage">MainStage</option>        
       <option value="frontporch">Front Porch</option>
       <option value="prayermap">Prayer Map</option>
       <option value="studyhub">Study Hub</option>
@@ -699,7 +702,6 @@
       <option value="alephbet">Alephbet</option>
       <option value="beready">Be-Ready</option>
       <option value="missler">Chuck Missler</option>
-      <option value="mainstage">MainStage</option>
       <option value="prezi">Prezis</option>
       <option value="trivia">Trivia</option>
       <option value="bingo">Bingo</option>
@@ -772,6 +774,21 @@
                   <div class="empty-state">Media will appear here.</div>
                 </div>
               </section>
+
+                            <div class="card-body">
+              <section class="content-panel">
+                <div class="section-label">Week Cards</div>
+                <div id="cardsContainer">
+                  <div class="empty-state">Your loader can drop extra card content here.</div>
+                </div>
+                           <!-- <div class="card-body">
+              <section class="content-panel">
+                <div class="section-label">Week Cards</div>
+                <div id="cardsContainer">
+                  <div class="empty-state">Your loader can drop extra card content here.</div>
+                </div>-->
+                
+              </section>
             </div>
           </div>
         </section>
@@ -796,6 +813,13 @@
                 <div id="cardsContainer">
                   <div class="empty-state">Your loader can drop extra card content here.</div>
                 </div>
+            
+            <!--   <div class="card-body">
+              <section class="content-panel">
+                <div class="section-label">Week Cards</div>
+                <div id="loadedCardHost">
+                  <div class="empty-state">Select a card to load.</div>-->
+                </div>
               </section>
             </div>
           </div>
@@ -813,6 +837,6 @@
   <script src="js/mainstage.js"></script>
    <!--
  <script src="js/loadCommentary.js"></script>  -->
-  <script src="js/orbitFloatingPlayer.js"></script>
+  <!--<script src="js/orbitFloatingPlayer.js"></script>-->
 </body>
 </html>
