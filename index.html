@@ -747,19 +747,22 @@
             </div>
 
             <div class="card-body">
-              <section class="hero-panel">
+              <!--<section class="hero-panel">
                 <h3 id="mainStageTitle" class="hero-title">Loading week...</h3>
-                <p id="mainStageSub" class="hero-sub">Please wait while the weekly study loads.</p>
+                <p id="mainStageSub" class="hero-sub">Please wait while the weekly study loads.</p>-->
               </section>
 
               <div id="nowPlaying">Now Playing: —</div>
 
               <section class="content-panel">
-                <div class="section-label">Audio Playlist</div>
-                <div id="mainStagePlaylist">
-                  <div class="empty-state">Playlist will appear here.</div>
-                </div>
-              </section>
+              <div class="section-label" onclick="toggleSection(this)">
+              Audio Playlist ▼
+              </div>
+
+              <div id="mainStagePlaylist">
+              <div class="empty-state">Playlist will appear here.</div>
+              </div>
+            </section>
 
               <section class="content-panel">
               <div class="section-label" onclick="toggleSection(this)">
@@ -769,14 +772,24 @@
               <div id="mainStageChapters">
               <div class="empty-state">Outlines will appear here.</div>
               </div>
-              </section>
+            </section>
 
               <section class="content-panel">
-                <div class="section-label">Video / Media</div>
-                <div id="mainStageVideo" class="hidden">
+              <div class="section-label" onclick="toggleSection(this)">
+              Video / Media ▼
+              </div>
+
+              <div id="mainStageVideo">
+              <div class="empty-state">Media will appear here.</div>
+              </div>
+            </section>
+
+              <!--<section class="content-panel">
+                <div class="section-label"></div>
+                <div id="" class="hidden">
                   <div class="empty-state">Media will appear here.</div>
                 </div>
-              </section>
+              </section>-->
 
                             <div class="card-body">
               <section class="content-panel">
