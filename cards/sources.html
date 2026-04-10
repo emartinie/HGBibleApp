@@ -1,0 +1,362 @@
+<section class="hg-card-module">
+  <style>
+    .hg-card-module{
+      color:#eef3ff;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .hg-card-head{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .hg-card-kicker{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#a8b2c7;
+    }
+
+    .hg-card-title{
+      margin:0;
+      font-size:1.15rem;
+      font-weight:800;
+      color:#ffe7b0;
+      line-height:1.1;
+    }
+
+    .hg-card-sub{
+      margin:0;
+      color:#a8b2c7;
+      font-size:.92rem;
+      line-height:1.45;
+    }
+
+    .hg-panel{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .hg-section-label{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#f3c878;
+      margin-bottom:8px;
+    }
+
+    .hg-empty{
+      color:#a8b2c7;
+      font-size:.92rem;
+      padding:14px;
+      border:1px dashed rgba(255,255,255,.12);
+      border-radius:14px;
+      text-align:center;
+    }
+
+    .hg-btn-row{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .hg-btn{
+      border:none;
+      border-radius:999px;
+      min-height:40px;
+      padding:0 14px;
+      background:rgba(255,255,255,.07);
+      color:#eef3ff;
+      border:1px solid rgba(255,255,255,.10);
+      font:inherit;
+    }
+  </style>
+
+  <header class="hg-card-head">
+    <div class="hg-card-kicker">Loaded Card</div>
+    <h2 class="hg-card-title">Card Title</h2>
+    <p class="hg-card-sub">Short description goes here.</p>
+  </header>
+
+  <section class="hg-panel">
+    <div class="hg-section-label">Section</div>
+    <div class="hg-empty">
+<body class="bg-slate-900 text-slate-100">
+
+  <main class="max-w-4xl mx-auto px-4 py-8">
+
+    <!-- Header -->
+    <header class="mb-10">
+      <h1 class="text-3xl font-semibold mb-3">
+        Scriptural Sources & Witnesses
+      </h1>
+
+      <p class="text-slate-400 leading-relaxed">
+        This space gathers Jewish, Christian, and textual witnesses that
+        illuminate how Scripture has been read, quoted, and preserved
+        across time. These sources are offered as companions to Scripture,
+        not replacements for it. Sources presented here are intended to support study and reflection.
+        Scripture remains primary.
+      </p>
+    </header>
+    <div><section class="mb-10">
+<a href="intertext-quotes.html" target="_blank"
+   class="block rounded-lg border border-slate-700 p-4 hover:bg-slate-800">
+  <h3 class="text-lg font-semibold">Intertextual Quotations- Click Here</h3>
+  <p class="text-slate-400 text-sm">
+    Explicit New Testament quotations of the Hebrew Scriptures,
+    with Masoretic and Septuagint witnesses.
+  </p>
+</a>
+</div></section>
+
+    <!-- Reference Context -->
+    <section class="mb-8">
+      <div class="bg-slate-800 rounded-lg p-4">
+        <p class="text-sm text-slate-300">
+          Select a passage to explore how it appears across traditions.
+        </p>
+
+        <select
+          id="referenceSelect"
+          class="mt-3 w-full sm:w-auto bg-slate-700 text-slate-100 px-3 py-2 rounded"
+        >
+          <option value="Genesis 1:1">Genesis 1:1</option>
+          <option value="Exodus 1:1">Exodus 1:1</option>
+          <option value="Leviticus 1:1">Leviticus 1:1</option>
+          <option value="Numbers 1:1">Numbers 1:1</option>
+          <option value="Deuteronomy 1:1">Deuteronomy 1:1</option>
+          <!-- future options -->
+        </select>
+            <button
+      id="loadBtn"
+      class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+    >
+      Load Text
+    </button>
+  </div>
+      </div>
+    </section>
+
+    <!-- Source Toggles -->
+    <section class="mb-10">
+      <h2 class="text-xl font-medium mb-4">
+        Available Sources
+      </h2>
+      
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button
+          id="toggleJewish"
+          class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+        >
+          Jewish
+        </button>
+
+        <button
+          id="toggleNT"
+          class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+        >
+          New Testament Usage
+        </button>
+
+        <button
+          id="toggleFathers"
+          class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+        >
+          Early Christian
+        </button>
+
+        <button id="toggleDSS"
+        class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+        >
+         Dead Sea Scrolls
+        </button>
+
+        <button id="togglePeople"
+        class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left"
+         >
+        His Peoples' Witness
+         </button>
+
+
+
+      </div>
+
+      <p class="text-xs text-slate-400 mt-3">
+        Each source may be explored independently. Nothing is shown unless you choose it.
+      </p>
+    </section>
+
+    <!-- Jewish Sources -->
+    <section id="jewishSection" class="mb-12 hidden">
+      <h3 class="text-lg font-medium mb-3">
+        Jewish Sources
+      </h3>
+
+      <div class="bg-slate-800 rounded-lg p-4 text-sm leading-relaxed">
+        <p class="text-slate-300 mb-2">
+          Jewish tradition preserves centuries of reflection on the Hebrew Scriptures.
+          When available, select passages from these sources will appear here.
+        </p>
+
+        <div id="sefariaBox" class="text-slate-200">
+          <p class="italic text-slate-400">
+            This source is being carefully integrated and will appear here once stable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NT Usage -->
+    <section id="ntSection" class="mb-12 hidden">
+      <h3 class="text-lg font-medium mb-3">
+        New Testament Usage of the Hebrew Scriptures
+      </h3>
+
+      <div class="bg-slate-800 rounded-lg p-4 text-sm">
+        <p class="text-slate-300 mb-2">
+          The New Testament frequently quotes and alludes to the Hebrew Scriptures,
+          sometimes following the Masoretic Text and sometimes the Septuagint.
+        </p>
+
+        <div id="ntQuoteBox">
+          <p class="italic text-slate-400">
+            References will appear here as they are added.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Church Fathers -->
+    <section id="fathersSection" class="mb-12 hidden">
+      <h3 class="text-lg font-medium mb-3">
+        Early Christian Witness
+      </h3>
+
+      <div class="bg-slate-800 rounded-lg p-4 text-sm">
+        <p class="text-slate-300 mb-2">
+          Early Christian writers often reflect on Scripture in ways shaped by
+          both Jewish tradition and the apostolic writings.
+        </p>
+
+        <p class="italic text-slate-400">
+          This section is under careful development.
+        </p>
+      </div>
+    </section>
+
+<section id="dssSection" class="mb-12 hidden">
+  <h3 class="text-lg font-medium mb-3">
+    Dead Sea Scrolls Witness
+  </h3>
+
+  <div class="bg-slate-800 rounded-lg p-4 text-sm">
+    <p class="text-slate-300 mb-2">
+      The Dead Sea Scrolls preserve some of the earliest known manuscripts
+      of the Hebrew Scriptures, copied centuries before the New Testament.
+    </p>
+
+    <div id="dssBox">
+      <p class="italic text-slate-400">
+        References from the Dead Sea Scrolls will appear here as they are
+        carefully compiled.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="peopleSection" class="mb-12 hidden">
+  <h3 class="text-lg font-medium mb-3">
+    Witness of the People of God
+  </h3>
+
+  <div class="bg-slate-800 rounded-lg p-4 text-sm leading-relaxed">
+
+    <p class="text-slate-300 mb-4">
+      Scripture has been recognized, confessed, prayed, translated,
+      and preserved within the life of God’s people across generations.
+      This witness reflects lived faithfulness rather than scholarly analysis.
+    </p>
+
+    <ul class="space-y-3 text-slate-200">
+      <li>
+        <span class="font-medium">Canon</span> — These writings were received
+        as Scripture through use and trust, not imposed by force.
+      </li>
+
+      <li>
+        <span class="font-medium">Creeds</span> — Core truths were confessed
+        publicly, often under persecution, as a summary of shared faith.
+      </li>
+
+      <li>
+        <span class="font-medium">Prayer & Liturgy</span> — Scripture shaped
+        daily prayer, worship, and communal life.
+      </li>
+
+      <li>
+        <span class="font-medium">Translation</span> — God’s Word crossed
+        languages so that people might hear and understand.
+      </li>
+
+      <li>
+        <span class="font-medium">Preservation</span> — The text endured because
+        it mattered enough to be copied, protected, and suffered for.
+      </li>
+    </ul>
+
+    <p class="mt-4 italic text-slate-400">
+      This witness reflects how Scripture was lived before it was analyzed.
+    </p>
+
+  </div>
+</section>
+
+
+  <p class="text-sm text-slate-400 mb-4">
+    
+  </p>
+
+
+    </div>
+
+
+
+<body class="bg-slate-900 text-slate-100 p-6">
+
+  <header class="mb-6">
+    <p class="text-slate-400 max-w-3xl">
+      
+    </p>
+  </header>
+
+
+  </section>
+
+ 
+
+    <!-- Footer Note -->
+    <footer class="border-t border-slate-700 pt-6 mt-12">
+          <h1 class="text-1xl">Scriptural Sources & Witnesses</h1>
+      <p class="text-xs text-slate-500">
+        Sources presented here are intended to support study and reflection.
+        Scripture remains primary. These are Jewish, Christian, and textual sources that illuminate how Scripture
+      was transmitted, quoted, and understood. This page is isolated from the main app. Safe to experiment.
+      </p>
+    </footer>
+
+
+</body>
+
+
+  <script src="js/sources.js"></script>
+</body>
+</html>
+</div>
+  </section>
+</section>
