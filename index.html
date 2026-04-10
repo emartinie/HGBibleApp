@@ -693,29 +693,22 @@
         <div class="brand-title">HG Bible App</div>-->
       </div>
 
-      <select id="weekSelect" class="ui-select" aria-label="Select week">
-        <option>Week 1</option>
-      </select>
 
-      <div class="toolbar">
-        <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
-        <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
-      </div>
     </header>
 
-    <!--<section id="frontPorch">
+    <section id="frontPorch">
       <div class="fp-kicker">Front Porch</div>
       <h1 class="fp-title">A simple place to begin.</h1>
       <p class="fp-sub">
         Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
       </p>
-    </section>-->
+    </section>
 
     <main id="viewport">
       <div id="cardsRow">
 
         <!-- Card 1: Main Stage -->
-       <!-- <section id="mainStageCard" class="card">
+        <section id="mainStageCard" class="card">
           <div class="card-shell">
             <div class="card-header">
               <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
@@ -727,7 +720,14 @@
 
               <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
             </div>
+      <select id="weekSelect" class="ui-select" aria-label="Select week">
+        <option>Week 1</option>
+      </select>
 
+      <div class="toolbar">
+        <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
+        <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
+      </div>
             <div class="card-body">
               <section class="hero-panel">
                 <h3 id="mainStageTitle" class="hero-title">Loading week...</h3>
@@ -758,11 +758,11 @@
               </section>
             </div>
           </div>
-        </section>-->
+        </section>
 
         <!-- Card 2: Dynamic Loader Target -->
-       <!-- <section id="dynamicCard" class="card">
-          <div class="card-shell">-->
+        <section id="dynamicCard" class="card">
+          <div class="card-shell">
             <div class="card-header">
               <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
 
@@ -778,7 +778,6 @@
                 <select id="cardSelector" class="ui-select" aria-label="Select card">
                   <option value="">Open a card...</option>
                   <option value="template">Template</option>
-                  <option value="mainstage">Mainstage</option>
                   <option value="alephbet">AlephBet</option>
                   <option value="omercount">Omer Counter</option>
                   <option value="calendar">Calendar</option>
