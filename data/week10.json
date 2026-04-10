@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "At the End",
+  "hebrew": "מקץ",
+  "transliteration": "Miketz | מקץ",
+  "week": 10,
+  "title": "Bible Study for Week 10",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,49 +12,50 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/01041001-01044017.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/38002014-38004007.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/42004001-42004044.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "http://audio.esvbible.org/hw/45009001-45011036.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Genesis 41:1 | Joseph Interprets Pharaoh's Dream",
+        "Genesis 41:37 | Joseph's Rise to Power",
+        "Genesis 43:1 | The Brothers Come Again, Bringing Benjamin"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
+        "Zec 2:14 | Interlude: An Appeal to the Exiles",
+        "Zec 4:1 | Fifth Vision: The Lampstand and Two Olive Trees and the Capstone"
+      ],
       "Writings": [
         ""
       ],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "Luke 4 | Yeshua (Jesus) the High Priest and Satan / Isaiah's Prophecy"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "JRo 9:25-31 | The calling of the Gentiles and rejecting of the Jews, foretold."
       ],
       "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
+        
       ]
     },
     "commentary": {
@@ -102,5 +103,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Miketz | מקץ"
 }

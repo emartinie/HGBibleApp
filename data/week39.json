@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "Statute",
+  "hebrew": "חקת",
+  "transliteration": "Chukat | חקת",
+  "week": 39,
+  "title": "Bible Study for Week 39",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,50 +12,54 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/04019001-04022001.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/07011001-07011033.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/44019001-44019042.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "http://audio.esvbible.org/hw/59013001-59013025.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Numbers 8:1 | The Seven Lamps",
+        "Numbers 8:5 | Consecration and Service of the Levites",
+        "Numbers 9:1 | The Passover at Sinai",
+        "Numbers 9:15 | The Cloud and the Fire",
+        "Numbers 10:1 | The Silver Trumpets",
+        "Numbers 10:11 | Departure from Sinai",
+        "Numbers 11:1 | Complaining in the Desert",
+        "Numbers 11:16 | The Seventy Elders",
+        "Numbers 11:31 | The Quails",
+        "Numbers 12:1 | Aaron and Miriam Jealous of Moses"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
-      "Writings": [
-        ""
+        "12:12 – Ephraim's Rebellion",
+        "14:4 – Assurance of Forgiveness"
       ],
+      "Writings": [],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "3 – Baptism Begins the Mission"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "James 2 – Faith and Works"
       ],
-      "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
-      ]
+      "Revelation": []
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
@@ -102,5 +106,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Chukat | חקת"
 }

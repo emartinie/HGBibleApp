@@ -1,0 +1,142 @@
+{
+  "english": "Standing",
+  "hebrew": "נצבים",
+  "transliteration": "Nitzavim | נצבים",
+  "week": 51,
+  "title": "Bible Study for Week 51",
+  "intro": {
+    "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
+    "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
+  },
+  "sections": {
+    "audio_playlist": [
+      {
+        "label": "Torah",
+        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Prophets",
+        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Writings",
+        "src": "http://audio.esvbible.org/hw/11011001-11011043.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Gospels",
+        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "https://drive.google.com/file/d/0B_lI56V6nAYOc0xLd1VFTldPa1k/view?resourcekey=0-RB2ZnBJm7V2nita4GtgPcg"
+      },
+      {
+        "label": "Letters",
+        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "http://www.helding.net/greeklatinaudio/greek/colossians/eph02g.mp3"
+      },
+    {
+       "label": "Revelation",
+        "src": "https://audio.esv.org/hw/66007001-66007017.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "http://www.helding.net/greeklatinaudio/greek/revelation/rev07g.mp3"
+     }
+    ],
+    "chapter_outlines": {
+      "Torah": [
+        "Deuteronomy 26:1 | First Fruits and Tithes",
+        "Deuteronomy 26:16 | Concluding Exhortation",
+        "Deuteronomy 27:1 | The Inscribed Stones and Altar on Mount Ebal",
+        "Deuteronomy 27:11 | Twelve Curses",
+        "Deuteronomy 28:1 | Blessings for Obedience",
+        "Deuteronomy 28:15 | Warnings against Disobedience",
+        "Deuteronomy 29:2 | The Covenant Renewed in Moab"
+      ],
+      "Prophets": [
+        "Isaiah 60:19 | God the Glory of Zion",
+        "Isaiah 60:1 | The Ingathering of the Dispersed of Israel"
+      ],
+      "Writings": [
+        "1 Kings 11 | Prophecy of Israel and Judah's Division"
+      ],
+      "Gospels": [
+        "Luke 24 | Jesus/ Y'shua Rises on the Sabbath (Saturday)"
+      ],
+      "Letters": [
+        "Ephesians 2 | From Children of Disobedience into the Commonwealth of Israel",
+        "Colossians 2 | Beware of Traditions and Doctrines of Men"
+      ],
+      "Revelation": [
+        "Revelation 7 | Sealing the Commonwealth of Israel in the Last Days",
+        "Revelation 14 | Beware of Traditions and Doctrines of Men"
+      ]
+    },
+    "scripture_text": {
+      "english": "English ScriptureText didn't dynamically parse/ render",
+      "hebrew": "Hebrew ScriptureText didn't dynamically parse/ render",
+      "greek": "Greek ScriptureText didn't dynamically parse/ render",
+      "interlinear": "Interlinear ScriptureText didn't dynamically parse/ render"
+    },
+    "commentary": {
+      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "commentary2": {
+      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "deeper_learning": {
+      "quote": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+
+    "aleph_tav": {
+      "quote": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "kids_study": {
+      "videos": [
+        "https://www.youtube.com/embed/lre-LLz-UzE",
+        "https://www.youtube.com/embed/YzjHjXe-2XU"
+      ],
+      "pdf": "COLORING_PAGES.pdf"
+    },
+    "language_learning": {
+      "hebrew": {
+        "word": "Makom",
+        "text": "מקום",
+        "meaning": "The Place"
+      },
+      "greek": {
+        "word": "Pistis",
+        "text": "πίστις",
+        "meaning": "Faith"
+      },
+      "audio": "YOUR-TEACHING-LINK.mp3"
+    },
+    "psalms_plan": [
+      {
+        "day": "Sunday",
+        "audio": "https://audio.esv.org/hw/mq/19001001-19029011.mp3"
+      },
+      {
+        "day": "Monday",
+        "audio": "https://audio.esv.org/hw/mq/19030001-19050023.mp3"
+      },
+      {
+        "day": "Tuesday",
+        "audio": "https://audio.esv.org/hw/mq/19051001-19072020.mp3"
+      }
+    ]
+  },
+  "first_verse": {
+    "text": "Insert first verse text here...",
+    "reference": "Book Chapter:Verse"
+  },
+  "subtitle": "Nitzavim | נצבים"
+}

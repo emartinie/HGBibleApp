@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "He Sent",
+  "hebrew": "וישלח",
+  "transliteration": "Vayishlach | וישלח",
+  "week": 8,
+  "title": "Bible Study for Week 8",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,49 +12,50 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "https://audio.esv.org/hw/mq/01032003-01036043.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "https://audio.esv.org/hw/mq/28011007-28012012,31001001-31001021.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "https://audio.esv.org/hw/mq/40002001-40002023.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "https://audio.esv.org/hw/mq/60001001-60001025.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Genesis 32:3 | Jacob Sends Presents to Appease Esau",
+        "Genesis 32:22 | Jacob Wrestles at Peniel",
+        "Genesis 34:1 | The Rape of Dinah"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
+        "Hos 11:1 | God's Compassion Despite Israel's Ingratitude",
+        "Hos 12:2 | The Long History of Rebellion"
+      ],
       "Writings": [
-        ""
+        "Oba 1:10 | Edom Mistreated His Brother"
       ],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        " Mathew 2 | Many Wise Men (Not 3) Follow His Star"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "1 Peter 1:13 | A Call to Be Holy"
       ],
       "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
+        "Revelation 11:19 | Temple of God in heaven was opened"
       ]
     },
     "commentary": {
@@ -102,5 +103,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Vayishlach | וישלח"
 }

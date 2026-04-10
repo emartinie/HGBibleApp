@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "Life of Sarah",
+  "hebrew": "חיי שרה",
+  "transliteration": "Chayei Sarah | חיי שרה",
+  "week": 5,
+  "title": "Bible Study for Week 5",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,49 +12,56 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/01023001-01025018.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/24031001-24031039.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/41002001-41002028.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "https://audio.esv.org/hw/60003001-60003022.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Genesis 18:1| A Son Promised to Abraham and Sarah",
+        "Genesis 18:16| Judgment Pronounced on Sodom",
+        "Genesis 19:12| Sodom and Gomorrah Destroyed"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
+        "Jeremiah 23 | THE BRANCH of David Regathers the House of Israel",
+        "Jeremiah 23:5 | The Messiah shall rule and save them."
+      ],
       "Writings": [
-        ""
+        "2Ki 4:1 | Elisha and the Widow's Oil"
       ],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "Mathew 1:1|The genealogy of Jesus/ Yeshua from Abraham to Joseph",
+        "Mathew 1:18|He is miraculously conceived of the Holy Spirit by the Virgin Mary."
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "1 Peter 4 | Suffering of THE BRANCH of David (and Ours)",
+        "1 Peter 4:1 | He exhorts them to cease from sin (trangression of the law) and live for God",
+        "Ephesians 2:1 | By comparing what we were by nature, with what we are by grace,",
+        "Ephesians 2:10 | he declares that we are made for good works: and being brought near by Messiah",
+        "Ephesians 2:19 | We should not live as Gentiles and foreigners, but as citizens of the commmonwealth of Israel with the saints, and the family of God.",
+        "Hebrews 2-3 | THE BRANCH of David Superior to Moses"
       ],
       "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
+        "Revelation 2-3 | Overcoming the Trial by Fire- A Focus on Ephesus"
       ]
     },
     "commentary": {
@@ -102,5 +109,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Chayei Sarah | חיי שרה"
 }

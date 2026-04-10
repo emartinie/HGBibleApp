@@ -1,67 +1,67 @@
 {
-  "english": "Command",
+  "english": "By My Decrees",
   "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "transliteration": "Bechukotai / בחוקותי",
+  "week": 33,
+  "title": "Bible Study for Week 33",
   "intro": {
-    "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
-    "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
+    "summary": "The last reading from the book of Leviticus is called \"In My Statutes\", or Bechukotai (בחקותי). The name comes from the first verse of the reading, which begins with the words \"If you walk in My statutes …\" (Leviticus 26:3). This thirty-third reading of the \"Bible in a year\" promises blessings and rewards for Israel if they will keep the Instructions, but punishment and curses if they break the commandments of Instructions. The last chapter discusses laws pertaining to vows, valuations and tithes. Listen/ Read below:",
+    "instructions": ""
   },
   "sections": {
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/03026003-03027034.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/24016019-24017014.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/42014001-42014001,42015032-42015032,40021033-40021046.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "http://audio.esvbible.org/hw/42014001-42015032.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Leviticus 26:14 | Penalties for Disobedience",
+        "Leviticus 26:14 | Penalties for Disobedience"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
+        "Jer 17:1 | Judah's Sin and Punishment",
+        "Jer 17:19 | Hallow the Sabbath Day"
+      ],
       "Writings": [
-        ""
+        "Jer 16:14 | God Will Restore Israel"
       ],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "Luke 14:1-15:32, Mathew 21:33-46 | Teaching on Sabbath and Parables"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "Romans 6-7 | The instructions are Holy and our flesh wars with the Holiness"
       ],
       "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
+        "Revelations 7, 14 | Commandments of God + Faith in Jesus"
       ]
     },
     "commentary": {
-      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
-      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+      "quote": "There are few ideal families in the Bible. Jacob’s certainly wasn’t…",
+      "content": "Jacob’s story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
     },
-    "deeper_learning": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
+    "deeper_learning": "Explore the prophetic connections between Jacob’s ladder and the Temple Mount. This passage unveils YHVH’s sovereignty beyond time and space...",
     "aleph_tav": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
     "kids_study": {
       "videos": [
@@ -102,5 +102,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Bechukotai / בחוקותי"
 }

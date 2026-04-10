@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "She Will Conceive",
+  "hebrew": "תזריע",
+  "transliteration": "Tazria | תזריע",
+  "week": 27,
+  "title": "Bible Study for Week 27",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,49 +12,48 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/03012001-03015033.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/28001001-28001011.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/40008001-40008001,40004001-40004025,43006008-43006013.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "http://audio.esvbible.org/hw/66012001-66012017.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
-    ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Leviticus 12:1 | Purification of Women after Childbirth",
+        "Leviticus 13:1 | Leprosy, Varieties and Symptoms",
+        "Leviticus 15:1 | Concerning Bodily Discharges"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
+        "Hosea 1:1 | The Unfaithful Mother",
+      ],
       "Writings": [
-        ""
+        
       ],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "3 – Baptism Begins the Mission"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "James 2 – Faith and Works"
       ],
       "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
+        ""
       ]
     },
     "commentary": {
@@ -102,5 +101,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Tazria | תזריע"
 }

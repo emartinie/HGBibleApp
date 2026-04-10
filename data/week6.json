@@ -1,0 +1,207 @@
+{
+  "english": "Generations",
+  "hebrew": "תּוֹלְדֹת",
+  "transliteration": "Toledot | תּוֹלְדֹת",
+  "week": 6,
+  "title": "Bible Study for Week 6",
+  "intro": {
+    "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
+    "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
+  },
+  "sections": {
+    "audio_playlist": [
+        {
+        "label": "Torah",
+        "src": "http://audio.esvbible.org/hw/01025019-01028009.mp3",
+        "heb": "http://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "http://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "http://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "http://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Prophets1",
+        "src": "http://audio.esvbible.org/hw/39001001-39002007.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "http://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Prophets2",
+        "src": "https://audio.esvbible.org/hw/24003001-24003025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Prophets3",
+        "src": "http://audio.esvbible.org/hw/23040001-23041001.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {     
+        "label": "Writings",
+        "src": "http://audio.esvbible.org/hw/13016001-13016043.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV"
+      },
+      {
+        "label": "Gospels",
+        "src": "http://audio.esvbible.org/hw/41003001-41003035.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Letters",
+        "src": "https://audio.esv.org/hw/45010001-45010021.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Letters",
+        "src": "http://audio.esvbible.org/hw/59001001-59001027.mp3", 
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Revelation",
+        "src": "http://audio.esvbible.org/hw/66007001-66007017.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      }
+    ],
+    "scripture_text": {
+      "english": "English ScriptureText didn't dynamically parse/ render",
+      "hebrew": "Hebrew ScriptureText didn't dynamically parse/ render",
+      "greek": "Greek ScriptureText didn't dynamically parse/ render",
+      "interlinear": "Interlinear ScriptureText didn't dynamically parse/ render"
+    },
+    "chapter_outlines": {
+      "Torah": [
+      "Genesis 25:19 | The Birth and Youth of Esau and Jacob",
+      "Genesis 25:29 | Esau Sells His Birthright",
+      "Genesis 26:1 | Isaac and Abimelech",
+      "Genesis 26:34 | Esau's Hittite Wives",
+      "Genesis 27:1 | Isaac Blesses Jacob",
+      "Genesis 27:30 | Esau's Lost Blessing",
+      "Genesis 28:6 | Esau Marries Ishmael's Daughter"
+      ],
+      "Prophets": [
+      "Mal 1:1 | Introduction",
+      "Mal 1:2 | Israel Preferred to Edom",
+      "Mal 1:6 | Corruption of the Priesthood"
+      ],
+      "Writings": [
+      "1Ch 16:1 | Ark of God"
+       ],
+      "Gospels": [
+      "Mark 3:1 | Jesus/Yeshua entered the synagogue on Sabbath (as was His practice).",
+      "Mark 3:13 | Appointing the Twelve Apostles who will judge the 12 Tribes (Mt 19, Rev)"
+      ],
+      "Letters": [
+        "1 Corinthians 7 | Counsel About Marriage",
+        "Hebrews 13 | Brotherly Love in the Community of the Bride",
+        "1 John 3 | The Definition of Sin in the “New” Testament is the same as the Old"
+
+      ],
+      "Revelation": [
+       "Revelation 19 | Victory Songs and the wedding feast"
+      ]
+    },
+
+    "audio_playlist": [
+      {
+        "label": "Torah",
+        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Prophets",
+        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+      },
+      {
+        "label": "Gospels",
+        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+      },
+      {
+        "label": "Letters",
+        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+      }
+    ],
+    "chapter_outlines": {
+      "Torah": [
+        "28:10 – Jacob's Dream at Bethel",
+        "29:1 – Jacob Meets Rachel",
+        "31:43 – Laban and Jacob Make a Covenant"
+      ],
+      "Prophets": [
+        "12:12 – Ephraim's Rebellion",
+        "14:4 – Assurance of Forgiveness"
+      ],
+      "Writings": [],
+      "Gospels": [
+        "3 – Baptism Begins the Mission"
+      ],
+      "Letters": [
+        "James 2 – Faith and Works"
+      ],
+      "Revelation": []
+    },
+    "commentary": {
+      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "deeper_learning": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
+    "aleph_tav": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
+    "kids_study": {
+      "videos": [
+        "https://www.youtube.com/embed/lre-LLz-UzE",
+        "https://www.youtube.com/embed/YzjHjXe-2XU"
+      ],
+      "pdf": "COLORING_PAGES.pdf"
+    },
+    "language_learning": {
+      "hebrew": {
+        "word": "Makom",
+        "text": "מקום",
+        "meaning": "The Place"
+      },
+      "greek": {
+        "word": "Pistis",
+        "text": "πίστις",
+        "meaning": "Faith"
+      },
+      "audio": "YOUR-TEACHING-LINK.mp3"
+    },
+    "psalms_plan": [
+      {
+        "day": "Sunday",
+        "audio": "https://audio.esv.org/hw/mq/19001001-19029011.mp3"
+      },
+      {
+        "day": "Monday",
+        "audio": "https://audio.esv.org/hw/mq/19030001-19050023.mp3"
+      },
+      {
+        "day": "Tuesday",
+        "audio": "https://audio.esv.org/hw/mq/19051001-19072020.mp3"
+      }
+    ]
+  },
+  "first_verse": {
+    "text": "Insert first verse text here...",
+    "reference": "Book Chapter:Verse"
+  },
+  "subtitle": "Chayei Sarah | חיי שרה"
+}

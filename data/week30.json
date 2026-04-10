@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "Holy Ones",
+  "hebrew": "קדושים",
+  "transliteration": "Kedoshim | קדושים",
+  "week": 30,
+  "title": "Bible Study for Week 30",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,50 +12,50 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/03019001-03020027.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/30009007-30009007,30009001-30009015,26002002-26002010.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/43007053-43010021,43010001-43010001,60001013-60001016,60006001-60001020.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "http://audio.esvbible.org/hw/58007001-58007028.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Leviticus 19:1 | Ritual and Moral Holiness",
+        "Leviticus 20:1 | Penalties for Violations of Holiness"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
+        "Amos 9:1 | The Destruction of Israel",
+        "Amos 9:11 | The Restoration of David's Kingdom",
+        "Ezekiel 20:2-20 | The house of Israel's Rebellion"
+      ],
       "Writings": [
         ""
       ],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "John 7:53-10:21 | The Destruction of Israel"
+
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
-      ],
-      "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
-      ]
+        "1 Peter 1:13-16 | The Restoration of David's Kingdom",
+        "1 Corinthians 6:9-20 | The Restoration of David's Kingdom"      ],
+      "Revelation": []
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
@@ -102,5 +102,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Kedoshim | קדושים"
 }

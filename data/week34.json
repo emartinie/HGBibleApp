@@ -1,9 +1,13 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "In the Wilderness",
+  "hebrew": "במדבר",
+  "transliteration": "Bamidbar | במדבר",
+  "week": 34,
+  "title": "Bible Study for Week 34",
+  "theme_verse": {
+    "text": "And Jacob went out from Beersheba…",
+    "reference": "Genesis 28:10"
+  },
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,49 +16,50 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/04001001-04004020.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/28002001-28002022.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/42016001-42016001,42017010-42017010,40003001-40003001,40002001-40002023,41001008-41001008.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "http://audio.esvbible.org/hw/46012012-46012012,46016001-46016024,45009001-45011036.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Numbers 1:1 | The First Census of Israel",
+        "Numbers 3:1 | The Sons of Aaron",
+        "Numbers 4:1 | The Kohathites"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
+        "Hos 2:2 | Israel's Infidelity, Punishment, and Redemption",
        ],
       "Writings": [
-        ""
+        "2 Kings 17 | The 12 Tribes are divided and dispersed"
       ],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "Luke 16:1-17:10, Matthew 3:1-2, Mark 1:8| Baptism in the wilderness, Yeshua teaching"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "Romans 9-11 | The instructions are also for those grafted in to the 12 Tribes",
+        "Acts 26 | Paul discusses with Agrippa regarding the 12 Tribes' promises"
       ],
       "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
+        "Revelation 7, 12, 14 | Commandments of God + Faith in Jesus"
       ]
     },
     "commentary": {
@@ -97,10 +102,5 @@
         "audio": "https://audio.esv.org/hw/mq/19051001-19072020.mp3"
       }
     ]
-  },
-  "first_verse": {
-    "text": "Insert first verse text here...",
-    "reference": "Book Chapter:Verse"
-  },
-  "subtitle": "Tzav | צו"
+  }
 }

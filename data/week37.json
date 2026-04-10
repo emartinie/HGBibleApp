@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "Send",
+  "hebrew": "שלח",
+  "transliteration": "Shlach | שלח",
+  "week": 37,
+  "title": "Bible Study for Week 37",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,50 +12,39 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
-        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
-        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
+        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
-        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
-        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
+        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
-        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
-        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
+        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
-        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
-        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
+        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "28:10 – Jacob's Dream at Bethel",
+        "29:1 – Jacob Meets Rachel",
+        "31:43 – Laban and Jacob Make a Covenant"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
-      "Writings": [
-        ""
+        "12:12 – Ephraim's Rebellion",
+        "14:4 – Assurance of Forgiveness"
       ],
+      "Writings": [],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "3 – Baptism Begins the Mission"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "James 2 – Faith and Works"
       ],
-      "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
-      ]
+      "Revelation": []
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
@@ -102,5 +91,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Shlach | שלח"
 }

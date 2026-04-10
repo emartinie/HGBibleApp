@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "When You Lift",
+  "hebrew": "כי תשא",
+  "transliteration": "Ki Tisa | כי תשא",
+  "week": 21,
+  "title": "Bible Study for Week 21",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,50 +12,63 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/02030011-02034035.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/11018001-11018039.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/40009001-40011030.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "http://audio.esvbible.org/hw/66019001-66019021.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Exodus 30:11 | The Half Shekel for the Sanctuary",
+        "Exodus 30:17 | The Bronze Basin",
+        "Exodus 30:22 | The Anointing Oil and Incense",
+        "Exodus 31:1 | Bezalel and Oholiab"
+        "Exodus 31:12 | The Sabbath Law",
+        "Exodus 31:18 | The Two Tablets of the Covenant",
+        "Exodus 30:22 | The Anointing Oil and Incense",
+        "Exodus 32:1 | The Golden Calf" ,    
+        "Exodus 33:1 | The Command to Leave Sinai",
+        "Exodus 30:22 | The Anointing Oil and Incense",
+        "Exodus 33:12 | Moses' Intercession",
+        "Exodus 34:1 | Moses Makes New Tablets",   
+        "Exodus 34:10 | The Covenant Renewed",
+        "Exodus 34:29 | The Shining Face of Moses"           
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
+        "1Ki 18:1 | Elijah's Message to Ahab",
+        "1Ki 18:20 | Elijah's Triumph over the Priests of Baal"
+      ],
       "Writings": [
-        ""
+        "1Ki 18:1 | Elijah's Message to Ahab",
+        "1Ki 18:20 | Elijah's Triumph over the Priests of Baal"
       ],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "Mathew `10-11 | Instructions to the Twelve, Jesus/ Yeshua Teaches the ways of His Father",
+        "John 14 | The Way to the Father’s House and the Helper
+"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "James 2 – Faith and Works"
       ],
-      "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
-      ]
+      "Revelation": []
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
@@ -102,5 +115,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Ki Tisa | כי תשא"
 }

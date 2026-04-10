@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "Eighth",
+  "hebrew": "שמיני",
+  "transliteration": "Shemini | שמיני",
+  "week": 26,
+  "title": "Bible Study for Week 26",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,50 +12,48 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/03009001-03011047.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/40017001-40017027.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/41009001-41009013.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "http://audio.esvbible.org/hw/59001001-59001027.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Leviticus 9:1 | Aaron's Priesthood Inaugurated",
+        "Leviticus 10:1 | Nadab and Abihu",
+        "Leviticus 11:1 | Clean and Unclean Foods"
+        "Leviticus 11:24 | Unclean Animals"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
-      "Writings": [
-        ""
+        "2 Samuel 7:1 | God's Covenant with David",
+        "Ezekiel 36:1-38 | Comfort to the Land of Israel, and restoring the house of Israel (all 10 tribes, not the house of Judah)"
       ],
+      "Writings": [],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "Mark 9:1-13| The resurrection of Jesus prophesied by His own words"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "Acts 15:1 | Some said you cannot be saved without circumsision."
       ],
-      "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
-      ]
+      "Revelation": []
     },
     "commentary": {
       "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
@@ -102,5 +100,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Shemini | שמיני"
 }

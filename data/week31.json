@@ -1,9 +1,9 @@
 {
-  "english": "Command",
-  "hebrew": "בחוקותי",
-  "transliteration": "Tzav | צו",
-  "week": 25,
-  "title": "Bible Study for Week 25",
+  "english": "Say",
+  "hebrew": "אמר",
+  "transliteration": "Emor | אמר",
+  "week": 31,
+  "title": "Bible Study for Week 31",
   "intro": {
     "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
@@ -12,49 +12,54 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03006001-03008036.mp3",
+        "src": "http://audio.esvbible.org/hw/03021001-03024023.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/24007021-24008003.mp3",
+        "src": "http://audio.esvbible.org/hw/26044015-26044031.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "http://audio.esvbible.org/hw/41007031-41008038.mp3",
+        "src": "http://audio.esvbible.org/hw/40026002-40026075,40009001-40009038,41014012-41014072,41006001-41006056,42002041-42002052,42002001-42002052,42022001-42022071,42001001-42001080,43002013-43002025,43003001-43003036,43006004-43006004,43013001-43013030.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "http://audio.esvbible.org/hw/58006020-58008006.mp3",
+        "src": "http://audio.esvbible.org/hw/44002001-44002047,44007001-44007060,44012003-44012025.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "Leviticus 6:8 | Instructions concerning Sacrifices",
-        "Leviticus 7:11 | Further Instructions",
-        "Leviticus 8:1 | The Rites of Ordination"
+        "Leviticus 21:1 | The Holiness of Priests",
+        "Leviticus 23:1 | God's Appointed Festivals",
+        "Leviticus 24:10 | Blasphemy and Its Punishment"
       ],
       "Prophets": [
-        "Jer 7:16 | The People's Disobedience",
-       ],
+        "Eze 44:15-31 | The Levitical Priests",
+        "14:4 – Assurance of Forgiveness"
+      ],
       "Writings": [
         ""
       ],
       "Gospels": [
-        "http://audio.esvbible.org/hw/41007031-41008038"
+        "Matthew 26:2-19 | Jesus killed on Passover as the Passover Lamb",
+        "Mark 14:12-16 | Jesus prepares for Passover with His disciples",
+        "Luke 2:41-42; Luke 22:1-20 | Judas (Judah) betrays Jesus the day before Passover, Jesus observes Passover in the upper room",
+        "John 2:13-23; John 6:4; John 13:1-30 | Jesus'/ Yeshua's last activities just before Passover"
       ],
       "Letters": [
-        "Hebrews 7:23-8:6 | Melchizedek priesthood and the Superiority of the renewed covenant"
+        "Acts 2:1-47; Acts 12:3-4; Acts 18:21; Acts 20:16; Acts 27:9 | The Spirit comes at Pentecost (Shavuot). Examples of the apostles observing the feasts after Jesus ascended",
+        "1 Corinthians 5:7-8; 1 Corinthians 11:1 | Paul exhorts both Jewish and Gentile members of the churches and synagogues at Corinth"
       ],
       "Revelation": [
-        "Revelation | Seven Bowls of God’s Wrath"
+        "Appointed times and seasons | Image of past and future feast fulfillment"
       ]
     },
     "commentary": {
@@ -102,5 +107,5 @@
     "text": "Insert first verse text here...",
     "reference": "Book Chapter:Verse"
   },
-  "subtitle": "Tzav | צו"
+  "subtitle": "Emor | אמר"
 }

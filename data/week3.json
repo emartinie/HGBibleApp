@@ -1,0 +1,173 @@
+{
+  "english": "Go Forth",
+  "hebrew": "לך לך",
+  "transliteration": "Lech Lecha | לך לך",
+  "week": 3,
+  "title": "Bible Study for Week 3",
+  "intro": {
+    "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's past, present & future... more important learn WHO Israel is.",
+    "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
+  },
+  "sections": {
+    "audio_playlist": [
+        {
+        "label": "Torah",
+        "src": "http://audio.esvbible.org/hw/01012001-01017027.mp3",
+        "heb": "http://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "http://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "http://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "http://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Prophets1",
+        "src": "http://audio.esvbible.org/hw/10019001-10019044.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "http://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Prophets2",
+        "src": "https://audio.esvbible.org/hw/24003001-24003025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Prophets3",
+        "src": "http://audio.esvbible.org/hw/23040001-23041001.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {     
+        "label": "Writings",
+        "src": "https://audio.esvbible.org/hw/10019001-10019044.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV"
+      },
+      {
+        "label": "Gospels",
+        "src": "https://audio.esvbible.org/hw/40022001-40022045.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Letters",
+        "src": "https://audio.esvbible.org/hw/45007001-45007025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Letters",
+        "src": "http://audio.esvbible.org/hw/45007001-45007025.mp3", 
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Revelation",
+        "src": "https://audio.esvbible.org/hw/66019001-66019021.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      }
+    ],
+    "scripture_text": {
+      "english": "English ScriptureText didn't dynamically parse/ render",
+      "hebrew": "Hebrew ScriptureText didn't dynamically parse/ render",
+      "greek": "Greek ScriptureText didn't dynamically parse/ render",
+      "interlinear": "Interlinear ScriptureText didn't dynamically parse/ render"
+    },
+    "chapter_outlines": {
+      "Torah": [
+	"Genesis 12:1 | The Call of Abram",
+	"Genesis 12:10 | Abram and Sarai in Egypt",
+	"Genesis 13:1 | Abram and Lot Separate",
+	"Genesis 14:1 | Lot’s Captivity and Rescue",
+	"Genesis 14:17 | Abram Blessed by Melchizedek",
+	"Genesis 15:1 | God’s Covenant with Abram",
+	"Genesis 16:1 | The Birth of Ishmael",
+	"Genesis 17:1 | The Sign of the Covenant"
+      ],
+      "Prophets": [
+	"Isaiah 40:1 | God’s People Are Comforted with the gospel",
+	"Isaiah 41:1 | Israel Assured of God’s Help",
+	"Jeremiah 3 | Unfaithful Judah and Divorced Israel Prophecy"
+      ],
+      "Writings": [
+	"2 Samuel 19 | The House of Joseph’s 10 Parts in the King"
+       ],
+      "Gospels": [
+	"Mathew 22 | Invitation to the Wedding Feast"
+      ],
+      "Letters": [
+        "1 Corinthians 7 | Counsel About Marriage",
+        "Hebrews 13 | Brotherly Love in the Community of the Bride",
+        "1 John 3 | The Definition of Sin in the “New” Testament is the same as the Old"
+
+      ],
+      "Revelation": [
+       "Revelation 19 | Victory Songs and the wedding feast"
+      ]
+    },
+     "commentary": ""
+    },
+    "commentary2": {
+      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "deeper_learning": {
+      "quote": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+
+    "aleph_tav": {
+      "quote": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "kids_study": {
+      "videos": [
+        "https://www.youtube.com/embed/lre-LLz-UzE",
+        "https://www.youtube.com/embed/YzjHjXe-2XU"
+      ],
+      "pdf": "COLORING_PAGES.pdf"
+    },
+    "language_learning": {
+      "hebrew": {
+        "word": "Makom",
+        "text": "מקום",
+        "meaning": "The Place"
+      },
+      "greek": {
+        "word": "Pistis",
+        "text": "πίστις",
+        "meaning": "Faith"
+      },
+      "audio": "YOUR-TEACHING-LINK.mp3"
+    },
+    "psalms_plan": [
+      {
+        "day": "Sunday",
+        "audio": "psalm-sunday.mp3"
+      },
+      {
+        "day": "Monday",
+        "audio": "psalm-monday.mp3"
+      }
+    ],
+  "first_verse": {
+    "text": "Insert first verse text here...",
+    "reference": "Book Chapter:Verse"
+  },
+  "subtitle": ""
+}

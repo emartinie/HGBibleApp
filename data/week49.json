@@ -1,0 +1,132 @@
+{
+  "english": "When You Go Out,",
+  "hebrew": "כי תצא",
+  "transliteration": "Ki Teitzei",
+  "week": 49,
+  "title": "Bible Study for Week 49",
+  "intro": {
+    "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
+    "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
+  },
+  "sections": {
+    "audio_playlist": [
+      {
+        "label": "Torah",
+        "src": "https://audio.esv.org/hw/mq/05021010-05025019.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Prophets",
+        "src": "https://audio.esv.org/hw/mq/23054001-23054010.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Writings",
+        "src": "https://audio.esv.org/hw/mq/30003001-30004025.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Gospels",
+        "src": "https://audio.esv.org/hw/mq/42023001-42023056.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://drive.google.com/file/d/0B_lI56V6nAYOc0xLd1VFTldPa1k/view?resourcekey=0-RB2ZnBJm7V2nita4GtgPcg"
+      },
+      {
+        "label": "Letters",
+        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+    {
+       "label": "Revelation",
+        "src": "https://audio.esv.org/hw/mq/66001001-66002026.mp3",
+        "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+     }
+    ],
+    "chapter_outlines": {
+      "Torah": [
+        "Deuteronomy 21:10 | Female Captives",
+        "Deuteronomy 21:15 | The Right of the Firstborn",
+        "Deuteronomy 21:18 | Rebellious Children",
+        "Deuteronomy 21:22 | Miscellaneous Laws",
+        "Deuteronomy 22:13 | Laws concerning Sexual Relations",
+        "Deuteronomy 23:1 | Those Excluded from the Assembly",
+        "Deuteronomy 23:9 | Sanitary, Ritual, and Humanitarian Precepts",
+        "Deuteronomy 24:1 | Laws concerning Marriage and Divorce",
+        "Deuteronomy 24:5 | Miscellaneous Laws",
+        "Deuteronomy 25:5 | Levirate Marriage",
+        "Deuteronomy 25:11 | Various Commands"
+      ],
+      "Prophets": [
+        "Isaiah 54:1 | Our Husband is Our Maker",
+        "14:4 – Assurance of Forgiveness"
+      ],
+      "Writings": [
+        "1Sa 16:1 | Saul is rejected and Samuel is sent to the new king over Israel"
+      ],
+      "Gospels": [
+        "Luke 23 | Jesus/ Yeshua Delivered to Pilate"
+      ],
+      "Letters": [
+        "Hebrews 1 | Jesus/ Yeshua as Creator",
+        "James (Jacob) 5 | The example of the prophets"
+      ],
+      "Revelation": []
+    },
+    "bible_text": {
+      "first_verse": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "commentary": {
+      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "deeper_learning": {
+      "quote": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space..."
+    },
+    "aleph_tav": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
+    "kids_study": {
+      "videos": [
+        "https://www.youtube.com/embed/lre-LLz-UzE",
+        "https://www.youtube.com/embed/YzjHjXe-2XU"
+      ],
+      "pdf": "COLORING_PAGES.pdf"
+    },
+    "language_learning": {
+      "hebrew": {
+        "word": "Makom",
+        "text": "מקום",
+        "meaning": "The Place"
+      },
+      "greek": {
+        "word": "Pistis",
+        "text": "πίστις",
+        "meaning": "Faith"
+      },
+      "audio": "YOUR-TEACHING-LINK.mp3"
+    },
+    "psalms_plan": [
+      {
+        "day": "Sunday",
+        "audio": "https://audio.esv.org/hw/mq/19001001-19029011.mp3"
+      },
+      {
+        "day": "Monday",
+        "audio": "https://audio.esv.org/hw/mq/19030001-19050023.mp3"
+      },
+      {
+        "day": "Tuesday",
+        "audio": "https://audio.esv.org/hw/mq/19051001-19072020.mp3"
+      }
+    ]
+  },
+  "first_verse": {
+    "text": "Insert first verse text here...",
+    "reference": "Book Chapter:Verse"
+  },
+  "subtitle": "Ki Teitzei | כי תצא"
+}

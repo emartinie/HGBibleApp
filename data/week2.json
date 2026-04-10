@@ -1,0 +1,145 @@
+{
+  "english": "Noah",
+  "hebrew": "נח",
+  "transliteration": "Noach | נח",
+  "week": 2,
+  "title": "Bible Study for Week 2",
+  "intro": {
+    "summary": "Learn the Bible in 52 weeks. This study covers Jacob's journey, his vision at Bethel, and the covenant events shaping Israel's future...",
+    "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
+  },
+   "sections": {
+    "audio_playlist": [
+      {
+        "label": "Torah",
+        "src": "https://audio.esvbible.org/hw/01006009-01011032.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
+        "scr": "https://www.biblegateway.com/passage/?search=Genesis+6%3A9-11%3A32&version=TLV",
+        "inter": "https://biblehub.com/interlinear/genesis/6.htm"
+      },
+      {
+        "label": "Prophets",
+        "src": "http://audio.esvbible.org/hw/23054001-23055005.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp3",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Writings",
+        "src": "http://audio.esvbible.org/hw/11011001-11011043.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+      },
+      {
+        "label": "Gospels",
+        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "https://drive.google.com/file/d/0B_lI56V6nAYOc0xLd1VFTldPa1k/view?resourcekey=0-RB2ZnBJm7V2nita4GtgPcg"
+      },
+      {
+        "label": "Letters",
+        "src": "https://audio.esvbible.org/hw/51002001-51002023.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "http://www.helding.net/greeklatinaudio/greek/colossians/eph02g.mp3"
+      },
+    {
+       "label": "Revelation",
+        "src": "https://audio.esvbible.org/hw/66021001-66021015.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t1054.mp",
+        "grk": "http://www.helding.net/greeklatinaudio/greek/revelation/rev07g.mp3"
+     }
+    ],
+    "chapter_outlines": {
+      "Torah": [
+	"Genesis 6:1 | The Wickedness of Humankind",
+	"Genesis 6:9 | Noah Pleases God",
+	"Genesis 7:1 | The Great Flood",
+	"Genesis 8:1 | The Flood Subsides",
+	"Genesis 8:20 | God’s Promise to Noah",
+	"Genesis 9:1 | The Covenant with Noah",
+	"Genesis 9:18 | Noah and His Sons",
+	"Genesis 10:1 | Nations Descended from Noah",
+	"Genesis 11:1 | The Tower of Babel",
+	"Genesis 11:10 | Descendants of Shem",
+	"Genesis 11:27 | Descendants of Terah"
+      ],
+      "Prophets": [
+	"Isaiah 54:1 | The Eternal Covenant of Peace",
+	"Isaiah 55:1 | An Invitation to Abundant Life"
+      ],
+      "Writings": [
+        "1 Kings 11 | Prophecy of Israel and Judah's Division"
+      ],
+      "Gospels": [
+        "Luke 17 | One will be taken and the other left"
+      ],
+      "Letters": [
+        "Ephesians 2 | From Children of Disobedience into the Commonwealth of Israel",
+        "Colossians 2 | Beware of Traditions and Doctrines of Men"
+      ],
+      "Revelation": [
+        "Revelation 21:1 | New Heaven & Earth.",
+        "Revelation 14 | Beware of Traditions and Doctrines of Men"
+      ]
+    },
+    "scripture_text": {
+      "english": "English ScriptureText didn't dynamically parse/ render",
+      "hebrew": "Hebrew ScriptureText didn't dynamically parse/ render",
+      "greek": "Greek ScriptureText didn't dynamically parse/ render",
+      "interlinear": "Interlinear ScriptureText didn't dynamically parse/ render"
+    },
+    "commentary": {
+      "content": ""
+    },
+    "commentary2": {
+      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "deeper_learning": {
+      "quote": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
+      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+    },
+    "aleph_tav": {
+      "quote": "" 
+    },
+    "kids_study": {
+      "videos": [
+        "https://www.youtube.com/embed/lre-LLz-UzE",
+        "https://www.youtube.com/embed/YzjHjXe-2XU"
+      ],
+      "pdf": "COLORING_PAGES.pdf"
+    },
+    "language_learning": {
+      "hebrew": {
+        "word": "Makom",
+        "text": "מקום",
+        "meaning": "The Place"
+      },
+      "greek": {
+        "word": "Pistis",
+        "text": "πίστις",
+        "meaning": "Faith"
+      },
+      "audio": "YOUR-TEACHING-LINK.mp3"
+    },
+    "psalms_plan": [
+      {
+        "day": "Sunday",
+        "audio": "https://audio.esv.org/hw/mq/19001001-19029011.mp3"
+      },
+      {
+        "day": "Monday",
+        "audio": "https://audio.esv.org/hw/mq/19030001-19050023.mp3"
+      },
+      {
+        "day": "Tuesday",
+        "audio": "https://audio.esv.org/hw/mq/19051001-19072020.mp3"
+      }
+    ]
+  },
+  "first_verse": {
+    "text": "Insert first verse text here...",
+    "reference": "Book Chapter:Verse"
+  },
+  "subtitle": "Noach | נח"
+}
