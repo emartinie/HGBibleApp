@@ -76,7 +76,17 @@
       font:inherit;
     }
   </style>
-                  <!-- SCOREBOARD MANAGER -->
+
+ <!-- <header class="hg-card-head">
+    <div class="hg-card-kicker">Loaded Card</div>
+    <h2 class="hg-card-title">Card Title</h2>
+    <p class="hg-card-sub">Short description goes here.</p>
+  </header>-->
+
+  <section class="hg-panel">
+    <!--<div class="hg-section-label">Section</div>
+    <div class="hg-empty">Your content goes here.</div>-->
+    <p>                <!-- SCOREBOARD MANAGER -->
                 <!-- SCOREBOARD STATUS BAR -->
                     <h3 class="text-lg font-semibold text-orange-300 mb-3 text-center">
                     LeaderBoard
@@ -96,24 +106,110 @@
                   <div class="text-slate-400">
                     Q <span id="qNum">1</span>/<span id="qTotal">10</span>
                   </div>
-  <header class="hg-card-head">
-  <!--  <div class="hg-card-kicker">Loaded Card</div>
-    <h2 class="hg-card-title">Card Title</h2>
-    <p class="hg-card-sub">Short description goes here.</p>-->
-                     <div class="text-slate-300 font-semibold">
-                    🏆 <span id="scoreTop">5000</span> pts
+                </div>
+                <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 w-full">
+                        <button id="prevBtn"
+                      class="px-4 py-2 rounded-lg p-6 mb-4 bg-gradient-to-r from-yellow-900 via-orange-800 to-slate-900 text-white text-2xl font-semibold shadow-2xl hover:bg-orange-500">◀
+                      Previous</button><button id="nextBtn"
+                      class="px-4 py-2 rounded-lg p-6 mb-4 bg-gradient-to-r from-yellow-900 via-orange-800 to-slate-900 text-white text-2xl font-semibold shadow-2xl hover:bg-orange-500">Next
+                      ▶</button>
+                 <!-- Question Card -->
+                  <div id="questionsCard"
+                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-yellow-900 via-orange-800 to-slate-900 text-white text-2xl font-bold shadow-2xl">
+                          
+                    <!-- Background video -->
+                    <video autoplay muted loop playsinline
+                      class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
+                      <source src="videos/bg-motion.mp4" type="video/mp4">
+                    </video>
+                    <div id="choices" class="grid gap-3 mt-4"></div <span class="relative z-10">Loading
+                    question...</span>                  
+                          </div>
+                        <!-- Hint -->
+                  <div id="hintCard"
+                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">
+                    Hint:
+                    <em id="hintText" class="relative z-10"></em>
                   </div>
 
-                  <div class="text-slate-300">
-                    Team: <span id="topTeam">Zack</span>
+                  <!-- Answer -->
+                  <div id="answerCard"
+                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">
+                    Answer:
+                    <em id="answerText" class="relative z-10"></em>
+                  </div>
+                                            <button id="hintBtn"
+                      class="px-4 py-2 rounded-lg bg-yellow-500 text-slate-900 font-bold shadow hover:bg-yellow-400">✨
+                      Reveal Hint ✨</button>
+                    <button id="revealBtn"
+                      class="px-4 py-2 rounded-lg bg-yellow-500 text-slate-900 font-bold shadow hover:bg-yellow-400">✨
+                      Reveal Answer ✨</button>
                   </div>
 
-                  <div class="text-slate-400">
-                    Q <span id="qNum">1</span>/<span id="qTotal">10</span>
-                  </div>
-  </header>
+                 <!-- <div class="flex justify-between items-center mb-3 text-center">
+                    <h3 class="text-sm text-slate-400">
+                      Add unlimited teams or players
+                    </h3>
 
-  <section class="hg-panel">
-    <div class="hg-section-label">Section</div>
-    <div class="hg-empty">Your content goes here.</div>
+                    <!--<button onclick="playSound('assets/sounds/score-up.mp3')">
+                      Test Sound
+                    </button>-->
+
+                  </div>
+
+                  <h3 class="text-lg font-semibold text-orange-300 mb-3 text-center">
+                    Teams & Scores
+                  </h3>
+                    <button id="sb-add-team"
+                      class="x-4 py-2 rounded-lg p-6 mb-4 bg-gradient-to-r from-yellow-900 via-orange-800 to-slate-900 text-white text-2xl font-semibold shadow-2xl hover:bg-orange-500 mx-auto">
+                      + Add Team
+                    </button>
+                                          <button class="px-2 py-1 border rounded" style="float: right;"
+                onclick="getResource('porchPanel')?.openPorchPanel('How It Works', '<p>Answer correctly <strong>without a hint</strong> → +2 points<br>Use the Scripture hint → +1 point<br>Reveal the answer → no points, but you still learn<br>    For Hints: give a Bible reference only. Then open the Scriptures and search it out.</p>')">
+                🗣️ How This Works
+              </button>
+                   <p class="text-sm text-slate-400 text-center mt-4">
+                    Add unlimited teams or players.</p>
+
+                  <div id="sb-board" class="flex flex-wrap gap-4 justify-center"></div>
+                </div>
+
+                <!-- Card body -->
+                <div class="p-6 relative">
+
+                  <!-- Hint 
+                  <div id="hintCard"
+                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">
+                    Hint:
+                    <em id="hintText" class="relative z-10"></em>
+                  </div>
+
+                  <!-- Answer -->
+                  <!--<div id="answerCard"
+                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">
+                    Answer:
+                    <em id="answerText" class="relative z-10"></em>
+                  </div>
+
+                  <!-- Controls -->
+                 <!-- <div class="flex justify-between mt-6">-->
+                   <!-- <button id="prevBtn"
+                      class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-500">◀
+                      Previous</button>-->
+
+                   <!-- <button id="nextBtn"
+                      class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-500">Next
+                      ▶</button>-->
+                  </div>
+
+                </div>
+              </div>
+
+          </div>
+
+         
+                  </div>
+                </div>
+              </div></p>
   </section>
+</section>
