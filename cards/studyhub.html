@@ -1,0 +1,194 @@
+<section class="hg-card-module">
+  <style>
+    .hg-card-module{
+      color:#eef3ff;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .hg-card-head{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .hg-card-kicker{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#a8b2c7;
+    }
+
+    .hg-card-title{
+      margin:0;
+      font-size:1.15rem;
+      font-weight:800;
+      color:#ffe7b0;
+      line-height:1.1;
+    }
+
+    .hg-card-sub{
+      margin:0;
+      color:#a8b2c7;
+      font-size:.92rem;
+      line-height:1.45;
+    }
+
+    .hg-panel{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .hg-section-label{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#f3c878;
+      margin-bottom:8px;
+    }
+
+    .hg-empty{
+      color:#a8b2c7;
+      font-size:.92rem;
+      padding:14px;
+      border:1px dashed rgba(255,255,255,.12);
+      border-radius:14px;
+      text-align:center;
+    }
+
+    .hg-btn-row{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .hg-btn{
+      border:none;
+      border-radius:999px;
+      min-height:40px;
+      padding:0 14px;
+      background:rgba(255,255,255,.07);
+      color:#eef3ff;
+      border:1px solid rgba(255,255,255,.10);
+      font:inherit;
+    }
+  </style>
+
+  <header class="hg-card-head">
+    <div class="hg-card-kicker">Loaded Card</div>
+    <h2 class="hg-card-title">Card Title</h2>
+    <p class="hg-card-sub">Short description goes here.</p>
+  </header>
+
+  <section class="hg-panel">
+    <div class="hg-section-label">Section</div>
+    <div class="hg-empty">
+                  <div class="p-6 text-center text-slate-300 text-sm">
+
+              <div class="card-inner">
+                <div class="space-y-4">
+                  <h3 class="text-xl font-semibold">Study Content</h3>
+
+                  <p class="text-slate-400 text-sm">
+                    Access study tools and reference material. You can enable or disable sections later.
+                  </p>
+                  <div class="grid gap-3">
+
+
+                    <button onclick="
+  getResource('porchPanel')?.openPorchPanel(
+    'Test',
+    '<p>Hello from PorchPanel</p>'
+          <button class='mt-4 w-full py-2 bg-orange-600 rounded text-white'
+        onclick='getResource('htmlPanel')?.open('https://example.com', 'Scripture')'
+      >
+        Open Sources
+      </button>
+  )
+">
+                      Open Panel
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Intro -->
+              <div>
+                <h3 class="text-xl font-semibold text-orange-300">More</h3>
+                <p class="text-slate-400 text-sm mt-1">
+                  Scripture. Context. Understanding. No noise.
+                </p>
+              </div>
+
+              <!-- Scripture Focus -->
+              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+                <h4 class="text-slate-200 font-semibold mb-2">📖 Read the Word</h4>
+                <p class="text-slate-400 text-sm mb-3">
+                  Start with the text itself — clear, structured, distraction-free.
+                </p>
+                <a href="nt.html" class="study-link">Open NT Reader</a>
+              </div>
+
+              <!-- Context & Cross-References -->
+              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+                <h4 class="text-slate-200 font-semibold mb-2">🔗 Scripture Connections</h4>
+                <p class="text-slate-400 text-sm mb-3">
+                  See how the New Testament quotes and reflects the Hebrew Scriptures.
+                </p>
+                <a href="intertext-quotes.html" class="study-link">View Intertext Quotations</a>
+              </div>
+
+              <!-- Commentary -->
+              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+                <h4 class="text-slate-200 font-semibold mb-2">📝 Commentary</h4>
+                <p class="text-slate-400 text-sm mb-3">
+                  Deeper insights and teaching material (when you're ready).
+                </p>
+                <a href="#" class="study-link opacity-50 cursor-not-allowed">
+                  Commentary (Coming Soon)
+                </a>
+              </div>
+
+              <!-- Sources -->
+              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+                <h4 class="text-slate-200 font-semibold mb-2">📚 Sources</h4>
+                <p class="text-slate-400 text-sm mb-3">
+                  Ancient witnesses, textual references, and historical sources.
+                </p>
+                <a href="sources.html" class="study-link">Open Sources</a>
+              </div>
+
+              <!-- Gentle Footer -->
+              <div class="text-xs text-slate-500 italic">
+                “Let the Word speak first.”
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <script>
+          function getStudyContext() {
+            const week = typeof getSelectedWeekNumber === "function"
+              ? getSelectedWeekNumber()
+              : 1;
+
+            return {
+              week,
+              // future:
+              // book,
+              // chapter,
+              // cardId
+            };
+          }
+        </script>
+        
+    </div>
+  </section>
+</section>
