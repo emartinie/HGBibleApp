@@ -73,6 +73,8 @@
       let validCount = 0;
       let skippedCount = 0;
 
+      console.log("FIRST FEATURE:", data.features?.[0]);
+
       features.forEach((feature, i) => {
         const latlng = getLatLngFromFeature(feature);
 
