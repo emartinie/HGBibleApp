@@ -63,7 +63,7 @@
     );
   }
 
-  fetch("data/maps/HomeGroupsMap.geojson")
+  fetch("HomeGroupsMap.geojson")
     .then(res => {
       if (!res.ok) throw new Error(`Failed to load GeoJSON: ${res.status}`);
       return res.json();
