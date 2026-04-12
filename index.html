@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="manifest" href="manifest.json">
-  <!-- Social Media Preview Meta Tags -->
+
   <meta property="og:title" content="MainStage Bible Study App" />
-  <meta property="og:description"
-    content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+  <meta property="og:description" content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://emartinie.github.io/MainStage/sandbox/savedindex.html" />
   <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
@@ -17,284 +15,30 @@
   <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar.png" />
   <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Calendar2.png" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="MainStage Bible Study App" />
-  <meta name="twitter:description"
-    content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
+  <meta name="twitter:description" content="An interactive Bible study app with an orbital floating player, weekly study calendar, and prophecy map." />
   <meta name="twitter:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <!-- Extra (SEO + universal) -->
-  <meta name="description"
-    content="An interactive Bible study app with an orbital floating player, weekly calendar, and prophecy map." />
+
+  <meta name="description" content="An interactive Bible study app with an orbital floating player, weekly calendar, and prophecy map." />
   <meta name="author" content="Eddie Martinie" />
   <meta name="theme-color" content="#4a5568">
+
   <title>HG Spark App</title>
   <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
-  <!-- Links CSS files -->
-  <!--<link rel="stylesheet" href="css/core/core.css">-->
-  <!--<link rel="stylesheet" href="css/core/debugger.css">-->
-  <!--<link rel="stylesheet" href="/css/porchPanel.css">
-  <link rel="stylesheet" href="/css/journeyPanel.css">-->
 
-
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-  <!-- MarkerCluster CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 
-
   <script src="https://cdn.tailwindcss.com"></script>
 
-
-</head>
-
-<style>
-  :root {
-    color-scheme: dark;
-  }
-
-  /* Popup container */
-  .leaflet-popup-content-wrapper {
-    background: #0f172a;
-    /* deep slate */
-    color: #e5e7eb;
-    /* light text */
-    border-radius: 14px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-  }
-
-  .page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem;
-    position: relative;
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .page-title {
-    font-size: 2rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    color: #EAF6FF;
-  }
-
-  .page-subtitle {
-    margin-top: 0.75rem;
-    color: rgba(234, 246, 255, 0.6);
-    font-size: 1rem;
-  }
-
-  .page-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .page-footer {
-    margin-top: 3rem;
-    text-align: center;
-    opacity: 0.7;
-  }
-
-  .flame {
-
-    font-size: 14px;
-    font-weight: 900;
-
-    background: linear-gradient(180deg, #fff5cc, #ffae00, #ff3d00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-  }
-
-  .ignite-button {
-    padding: 4px 14px;
-    font-size: 14px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    background: linear-gradient(90deg, #fff5cc, #ffae00, #ff3d00);
-    color: white;
-    font-weight: bold;
-    transition: all 0.4s ease;
-  }
-
-  .ignite-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 150, 0, 0.6);
-  }
-
-  /* Ignite Active State */
-  body.ignited {
-    background: radial-gradient(circle at center, #3b0000 0%, #000000 80%);
-    z-index: 99999;
-  }
-
-  body.ignited .background-glow {
-    animation: burst 2s forwards;
-    z-index: 99999;
-  }
-
-  body.ignited .flame-s {
-    transform: scale(1.2);
-    text-shadow:
-      0 0 20px rgba(255, 255, 200, 1),
-      0 0 60px rgba(255, 100, 0, 0.9);
-    z-index: 99999;
-  }
-
-  /* Animations */
-  @keyframes flicker {
-
-    0%,
-    100% {
-      opacity: 1;
-    }
-
-    50% {
-      opacity: 0.85;
-    }
-  }
-
-  @keyframes pulse {
-
-    0%,
-    100% {
-      transform: scale(1);
-    }
-
-    50% {
-      transform: scale(1.1);
-    }
-  }
-
-  @keyframes burst {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-
-    100% {
-      transform: scale(1.6);
-      opacity: 0;
-    }
-  }
-
-  @keyframes divineFlicker {
-    0% {
-      transform: scale(1);
-      text-shadow:
-        0 0 10px rgba(255, 180, 0, 0.6),
-        0 0 20px rgba(255, 80, 0, 0.4);
-    }
-
-    50% {
-      transform: scale(1.03);
-      text-shadow:
-        0 0 25px rgba(255, 220, 120, 1),
-        0 0 60px rgba(255, 80, 0, 0.9);
-    }
-
-    100% {
-      transform: scale(1);
-      text-shadow:
-        0 0 10px rgba(255, 180, 0, 0.6),
-        0 0 20px rgba(255, 80, 0, 0.4);
-    }
-  }
-
-  /* Spark styling */
-  .sparks-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: visible;
-    z-index: 9999;
-  }
-
-  .spark {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: orange;
-    animation: spark-float 1s forwards;
-    z-index: 9999;
-  }
-
-  @keyframes spark-float {
-    0% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    100% {
-      opacity: 0;
-      transform: translateY(-120px);
-    }
-  }
-
-  .radio-div-icon-wrap {
-  background: transparent;
-  border: none;
-}
-
-.map-shell button,
-  .map-shell input {
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.08);
-    color: #e5e7eb;
-    padding: 8px 12px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
-  .map-shell button:hover {
-    background: rgba(255,255,255,0.14);
-  }
-
-  .map-popup {
-    line-height: 1.4;
-    min-width: 180px;
-  }
-
-  .radio-div-icon-wrap {
-    background: transparent;
-    border: none;
-  }
-
-  .radio-marker {
-    width: 34px;
-    height: 34px;
-    border-radius: 999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 12px;
-    color: white;
-    border: 2px solid rgba(255,255,255,0.35);
-    box-shadow: 0 0 12px rgba(0,0,0,0.35);
-    backdrop-filter: blur(4px);
-  }
-
-  .radio-marker.repeater { background: rgba(59,130,246,0.92); }
-  .radio-marker.simplex  { background: rgba(249,115,22,0.92); }
-  .radio-marker.family   { background: rgba(168,85,247,0.92); }
-  .radio-marker.default  { background: rgba(100,116,139,0.92); }
-
-    :root{
+  <style>
+    :root {
+      color-scheme: dark;
       --bg-0:#06070b;
       --bg-1:#0d111b;
       --bg-2:#141b2a;
@@ -314,508 +58,662 @@
       --header-h:64px;
     }
 
-    * { box-sizing:border-box; }
+    * { box-sizing: border-box; }
 
     html, body {
-      margin:0;
-      padding:0;
-      width:100%;
-      min-height:100%;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
       background:
         radial-gradient(circle at top, rgba(243,200,120,.10), transparent 28%),
         linear-gradient(180deg, var(--bg-1), var(--bg-0));
-      color:var(--text);
+      color: var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
     body {
-      overflow:hidden;
+      overflow: hidden;
     }
 
     button, select {
-      font:inherit;
+      font: inherit;
     }
 
     a {
-      color:var(--accent);
-      text-decoration:none;
+      color: var(--accent);
+      text-decoration: none;
     }
 
     .hidden {
-      display:none !important;
+      display: none !important;
     }
 
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      position: relative;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #EAF6FF;
+    }
+
+    .page-subtitle {
+      margin-top: 0.75rem;
+      color: rgba(234, 246, 255, 0.6);
+      font-size: 1rem;
+    }
+
+    .page-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .page-footer {
+      margin-top: 3rem;
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    .flame {
+      font-size: 14px;
+      font-weight: 900;
+      background: linear-gradient(180deg, #fff5cc, #ffae00, #ff3d00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ignite-button {
+      padding: 4px 14px;
+      font-size: 14px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(90deg, #fff5cc, #ffae00, #ff3d00);
+      color: white;
+      font-weight: bold;
+      transition: all 0.4s ease;
+    }
+
+    .ignite-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 150, 0, 0.6);
+    }
+
+    body.ignited {
+      background: radial-gradient(circle at center, #3b0000 0%, #000000 80%);
+      z-index: 99999;
+    }
+
+    body.ignited .background-glow {
+      animation: burst 2s forwards;
+      z-index: 99999;
+    }
+
+    body.ignited .flame-s {
+      transform: scale(1.2);
+      text-shadow:
+        0 0 20px rgba(255, 255, 200, 1),
+        0 0 60px rgba(255, 100, 0, 0.9);
+      z-index: 99999;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes burst {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    @keyframes divineFlicker {
+      0% {
+        transform: scale(1);
+        text-shadow:
+          0 0 10px rgba(255, 180, 0, 0.6),
+          0 0 20px rgba(255, 80, 0, 0.4);
+      }
+      50% {
+        transform: scale(1.03);
+        text-shadow:
+          0 0 25px rgba(255, 220, 120, 1),
+          0 0 60px rgba(255, 80, 0, 0.9);
+      }
+      100% {
+        transform: scale(1);
+        text-shadow:
+          0 0 10px rgba(255, 180, 0, 0.6),
+          0 0 20px rgba(255, 80, 0, 0.4);
+      }
+    }
+
+    .sparks-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 9999;
+    }
+
+    .spark {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: orange;
+      animation: spark-float 1s forwards;
+      z-index: 9999;
+    }
+
+    @keyframes spark-float {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-120px);
+      }
+    }
+
+    .leaflet-popup-content-wrapper {
+      background: #0f172a;
+      color: #e5e7eb;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .radio-div-icon-wrap {
+      background: transparent;
+      border: none;
+    }
+
+    .map-shell button,
+    .map-shell input {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: #e5e7eb;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .map-shell button:hover {
+      background: rgba(255,255,255,0.14);
+    }
+
+    .map-popup {
+      line-height: 1.4;
+      min-width: 180px;
+    }
+
+    .radio-marker {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 12px;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.35);
+      box-shadow: 0 0 12px rgba(0,0,0,0.35);
+      backdrop-filter: blur(4px);
+    }
+
+    .radio-marker.repeater { background: rgba(59,130,246,0.92); }
+    .radio-marker.simplex  { background: rgba(249,115,22,0.92); }
+    .radio-marker.family   { background: rgba(168,85,247,0.92); }
+    .radio-marker.default  { background: rgba(100,116,139,0.92); }
+
     #appShell {
-      width:100%;
-      height:100vh;
+      width: 100%;
+      height: 100vh;
       padding:
         max(12px, env(safe-area-inset-top))
         12px
         max(12px, env(safe-area-inset-bottom))
         12px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     #topBar {
-      min-height:var(--header-h);
-      display:grid;
-      grid-template-columns:auto 1fr auto;
-      gap:10px;
-      align-items:center;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--line);
-      border-radius:22px;
-      padding:10px 12px;
-      backdrop-filter:blur(14px);
-      box-shadow:var(--shadow);
-    }
-
-    .brand-wrap {
-      display:flex;
-      flex-direction:column;
-      line-height:1.05;
-      min-width:0;
-    }
-
-    .brand-kicker {
-      font-size:.70rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-
-    .brand-title {
-      font-size:1rem;
-      font-weight:800;
-      color:var(--gold-2);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      min-height: var(--header-h);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 10px 12px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
     }
 
     .toolbar {
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      gap:8px;
-      flex-wrap:wrap;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      width: 100%;
     }
 
     .ui-btn,
     .ui-select {
-      appearance:none;
-      border:none;
-      outline:none;
-      background:var(--panel-2);
-      color:var(--text);
-      border:1px solid var(--line);
-      border-radius:999px;
-      min-height:42px;
-      padding:0 14px;
-      box-shadow:0 8px 24px rgba(0,0,0,.22);
+      appearance: none;
+      border: none;
+      outline: none;
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      min-height: 42px;
+      padding: 0 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.22);
     }
 
     .ui-btn {
-      cursor:pointer;
-      min-width:42px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
+      cursor: pointer;
+      min-width: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex: 0 0 auto;
     }
 
     .ui-select {
-      width:100%;
-      min-width:0;
+      min-width: 0;
+    }
+
+    #weekSelect {
+      width: auto;
+      max-width: 140px;
+      flex: 0 1 auto;
+    }
+
+    .card-picker {
+      width: auto;
+      min-width: 0;
+      max-width: calc(100vw - 120px);
+      flex: 0 1 auto;
     }
 
     #frontPorch {
       background:
         linear-gradient(180deg, rgba(255,231,178,.07), rgba(255,255,255,.03)),
         var(--panel);
-      border:1px solid var(--line);
-      border-radius:var(--radius-xl);
-      padding:18px 16px;
-      backdrop-filter:blur(16px);
-      box-shadow:var(--shadow);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 18px 16px;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
     }
 
     .fp-kicker {
-      font-size:.73rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      color:var(--gold);
-      margin-bottom:8px;
+      font-size: .73rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--gold);
+      margin-bottom: 8px;
     }
 
     .fp-title {
-      font-size:1.35rem;
-      line-height:1.06;
-      margin:0 0 8px;
-      font-weight:800;
-      color:#fff6de;
+      font-size: 1.35rem;
+      line-height: 1.06;
+      margin: 0 0 8px;
+      font-weight: 800;
+      color: #fff6de;
     }
 
     .fp-sub {
-      color:var(--muted);
-      margin:0;
-      font-size:.96rem;
-      line-height:1.45;
+      color: var(--muted);
+      margin: 0;
+      font-size: .96rem;
+      line-height: 1.45;
     }
 
     #viewport {
-      position:relative;
-      flex:1;
-      min-height:0;
-      overflow:hidden;
-      border-radius:var(--radius-xl);
-      border:1px solid var(--line);
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
       background:
         linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)),
         rgba(7,10,17,.72);
-      box-shadow:var(--shadow);
+      box-shadow: var(--shadow);
     }
 
     #cardsRow {
-      width:100%;
-      height:100%;
-      display:flex;
-      overflow-x:auto;
-      overflow-y:hidden;
-      scroll-snap-type:x mandatory;
-      scroll-behavior:smooth;
-      -webkit-overflow-scrolling:touch;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
     }
 
     #cardsRow::-webkit-scrollbar {
-      display:none;
+      display: none;
     }
 
     .card {
-      width:100%;
-      min-width:100%;
-      height:100%;
-      scroll-snap-align:start;
-      padding:12px;
-      overflow-y:auto;
-      overflow-x:hidden;
+      width: 100%;
+      min-width: 100%;
+      height: 100%;
+      scroll-snap-align: start;
+      padding: 12px;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .card-shell {
-      min-height:100%;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       background:
         linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02)),
         rgba(13,17,27,.92);
-      border:1px solid var(--line);
-      border-radius:var(--radius-xl);
-      padding:14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 14px;
     }
 
     .card-header {
-      display:grid;
-      grid-template-columns:auto 1fr auto;
-      align-items:center;
-      gap:10px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 10px;
     }
 
     .card-nav-btn {
-      width:42px;
-      height:42px;
-      border:none;
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      color:#fff;
-      border:1px solid var(--line);
-      cursor:pointer;
-      font-size:1.1rem;
-      font-weight:700;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700;
     }
 
     .card-heading {
-      text-align:center;
-      min-width:0;
+      text-align: center;
+      min-width: 0;
     }
 
     .card-kicker {
-      font-size:.72rem;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      color:var(--muted);
-      margin-bottom:4px;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--muted);
+      margin-bottom: 4px;
     }
 
     .card-title {
-      margin:0;
-      font-size:1.05rem;
-      color:#ffe7b0;
-      font-weight:800;
+      margin: 0;
+      font-size: 1.05rem;
+      color: #ffe7b0;
+      font-weight: 800;
     }
 
     .card-body {
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      min-height:0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 0;
     }
 
     .hero-panel,
     .content-panel {
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--line);
-      border-radius:var(--radius-lg);
-      padding:14px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 14px;
     }
 
     .hero-title {
-      margin:0 0 6px;
-      font-size:1.15rem;
-      color:#fff4d7;
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+      color: #fff4d7;
     }
 
     .hero-sub {
-      margin:0;
-      color:var(--muted);
-      line-height:1.45;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
     }
 
     .section-label {
-      font-size:.74rem;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      color:var(--gold);
-      margin-bottom:8px;
+      font-size: .74rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--gold);
+      margin-bottom: 8px;
+      cursor: pointer;
     }
 
     #nowPlaying {
-      font-size:.88rem;
-      color:#dbe8ff;
-      background:rgba(124,199,255,.08);
-      border:1px solid rgba(124,199,255,.18);
-      border-radius:14px;
-      padding:10px 12px;
-      min-height:42px;
-      display:flex;
-      align-items:center;
+      font-size: .88rem;
+      color: #dbe8ff;
+      background: rgba(124,199,255,.08);
+      border: 1px solid rgba(124,199,255,.18);
+      border-radius: 14px;
+      padding: 10px 12px;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
     }
 
     #mainStagePlaylist,
     #mainStageChapters,
     #cardsContainer {
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      min-height:0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
     }
 
     .chip-row {
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .chip {
-      background:rgba(255,255,255,.05);
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:7px 10px;
-      font-size:.82rem;
-      color:var(--muted);
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: .82rem;
+      color: var(--muted);
     }
 
     #mainStageVideo {
-      min-height:72px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .empty-state {
-      color:var(--muted);
-      font-size:.92rem;
-      text-align:center;
-      padding:22px 14px;
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:16px;
+      color: var(--muted);
+      font-size: .92rem;
+      text-align: center;
+      padding: 22px 14px;
+      border: 1px dashed rgba(255,255,255,.12);
+      border-radius: 16px;
     }
 
     #floating-player-root {
-      position:fixed;
-      left:12px;
-      right:12px;
-      bottom:max(12px, env(safe-area-inset-bottom));
-      pointer-events:none;
-      z-index:60;
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: max(12px, env(safe-area-inset-bottom));
+      pointer-events: none;
+      z-index: 60;
     }
 
     #floating-player-root > * {
-      pointer-events:auto;
+      pointer-events: auto;
     }
 
     @media (min-width: 720px) {
       #appShell {
-        max-width:520px;
-        margin:0 auto;
+        max-width: 520px;
+        margin: 0 auto;
       }
     }
   </style>
 </head>
+
 <body>
   <div id="appShell">
 
     <header id="topBar">
-      <div class="brand-wrap">
-        <!--<div class="brand-kicker">homegroups.org</div>
-        <div class="brand-title flame">Spark Bible App</div>-->
-      </div>
-
-      <!--<select id="weekSelect" class="ui-select" aria-label="Select week">
-        <option>Week 1</option>
-      </select>-->
-
-          <!--<div class="flex justify-center items-center w-full mt-4">
-      <button id="igniteBtn" class="ignite-button prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6" onclick="loadCard('prayermap')">
-        Map Ignition [נִיצוֹץ]
-      </button>-->
-
       <div class="toolbar">
-                <select id="weekSelect" class="ui-select" aria-label="Select week">
-        <option>Week 1</option>
-      </select>
+        <select id="weekSelect" class="ui-select" aria-label="Select week">
+          <option>Week 1</option>
+        </select>
+
         <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
         <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
-        <div class="flame">HGSpark©</div><div class="spark-logo">🔥</div>
+
+        <div class="flame">HGSpark©</div>
+        <div class="spark-logo">🔥</div>
       </div>
     </header>
- 
-    <div style="margin-top:12px;">
-      <select id="cardSelector" class="ui-select" aria-label="Select card">
-      <option value="mainstage">Select Card</option>        
-      <option value="frontporch">Front Porch</option>
-      <option value="prayermap">Prayer Map</option>
-      <option value="studyhub">Study Hub</option>
-      <option value="calendar">Calendar</option>
-      <option value="omercount">Omer Count</option>
-      <option value="lastomercount">Last Omer Count</option>
-      <option value="oldomercount">Old Omer Count</option>
-      <option value="alephbet">Alephbet</option>
-      <option value="beready">Be-Ready</option>
-      <option value="missler">Chuck Missler</option>
-      <option value="prezi">Prezis</option>
-      <option value="trivia">Trivia</option>
-      <option value="bingo">Bingo</option>
-      <option value="origins">Origins</option>     
-      <option value="amateurRadio">Amateur Radio</option>
-      <option value="podcast">Podcast</option>
-      <option value="quizzes">Quizzes</option>
-      <option value="nt">NT Page</option>
-      <option value="jesus">"jesus"</option>
-      <option value="test">TEST</option>
-      <option value="radioMapCard">Radio Map</option>
-      <option value="intertext-quotes">Quotes Page</option>
-      <option value="listen">"Listen"</option>
-      <option value="sources">Sources</option>
-      <option value="stewardship-Card">Stewardship</option>
-      <option value="map">Map</option>
+
+    <div style="margin-top:12px; display:flex; justify-content:center; gap:8px; align-items:center; flex-wrap:wrap;">
+      <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
+
+      <select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
+        <option value="">Select Card</option>
+        <option value="frontporch">Front Porch</option>
+        <option value="prayermap">Prayer Map</option>
+        <option value="studyhub">Study Hub</option>
+        <option value="calendar">Calendar</option>
+        <option value="omercount">Omer Count</option>
+        <option value="lastomercount">Last Omer Count</option>
+        <option value="oldomercount">Old Omer Count</option>
+        <option value="alephbet">Alephbet</option>
+        <option value="beready">Be-Ready</option>
+        <option value="missler">Chuck Missler</option>
+        <option value="prezi">Prezis</option>
+        <option value="trivia">Trivia</option>
+        <option value="bingo">Bingo</option>
+        <option value="origins">Origins</option>
+        <option value="amateurRadio">Amateur Radio</option>
+        <option value="podcast">Podcast</option>
+        <option value="quizzes">Quizzes</option>
+        <option value="nt">NT Page</option>
+        <option value="jesus">"jesus"</option>
+        <option value="test">TEST</option>
+        <option value="radioMapCard">Radio Map</option>
+        <option value="intertext-quotes">Quotes Page</option>
+        <option value="listen">"Listen"</option>
+        <option value="sources">Sources</option>
+        <option value="stewardship-Card">Stewardship</option>
+        <option value="map">Map</option>
       </select>
+
+      <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
     </div>
 
     <main id="viewport">
       <div id="cardsRow">
 
-        <!-- Card 1: Main Stage -->
         <section id="mainStageCard" class="card">
           <div class="card-shell">
             <div class="card-header">
               <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
 
               <div class="card-heading">
-                <div class="card-kicker"><p id="mainStageSub" class="hero-sub">Please wait while the weekly data loads.</p></div>
-                <h2 class="card-title"><h3 id="mainStageTitle" class="hero-title">Loading week data...</h3></h2>
+                <div class="card-kicker">
+                  <p id="mainStageSub" class="hero-sub">Please wait while the weekly data loads.</p>
+                </div>
+                <h2 id="mainStageTitle" class="card-title">Loading week data...</h2>
               </div>
 
               <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
             </div>
 
             <div class="card-body">
-              <section class="hero-panel">
-                    <section id="frontPorch">
-                <div class="fp-kicker" onclick="toggleSection(this)">
-              Front Porch ▼                  
-                </div>
-                      
-              <h1 class="fp-title">A simple place to begin.</h1>
-            <p class="fp-sub">
-              Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
-            </p>
-          </section>
-                <!--<h3 id="mainStageTitle" class="hero-title">Loading week...</h3>
-                <p id="mainStageSub" class="hero-sub">Please wait while the weekly study loads.</p>-->
+              <section id="frontPorch" class="hero-panel">
+                <div class="fp-kicker" onclick="toggleSection(this)">Front Porch ▼</div>
+                <h1 class="fp-title">A simple place to begin.</h1>
+                <p class="fp-sub">
+                  Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
+                </p>
               </section>
 
               <div id="nowPlaying">Now Playing: —</div>
 
               <section class="content-panel">
-              <div class="section-label" onclick="toggleSection(this)">
-              Audio Playlist ▼
-              </div>
-
-              <div id="mainStagePlaylist">
-              <div class="empty-state">Playlist will appear here.</div>
-              </div>
-            </section>
+                <div class="section-label" onclick="toggleSection(this)">Audio Playlist ▼</div>
+                <div id="mainStagePlaylist">
+                  <div class="empty-state">Playlist will appear here.</div>
+                </div>
+              </section>
 
               <section class="content-panel">
-              <div class="section-label" onclick="toggleSection(this)">
-              Chapter Outlines ▼
-              </div>
-
-              <div id="mainStageChapters">
-              <div class="empty-state">Outlines will appear here.</div>
-              </div>
-            </section>
+                <div class="section-label" onclick="toggleSection(this)">Chapter Outlines ▼</div>
+                <div id="mainStageChapters">
+                  <div class="empty-state">Outlines will appear here.</div>
+                </div>
+              </section>
 
               <section class="content-panel">
-              <div class="section-label" onclick="toggleSection(this)">
-              Video / Media ▼
-              </div>
-
-              <div id="mainStageVideo">
-              <div class="empty-state">Media will appear here.</div>
-              </div>
-            </section>
-
-              <!--<section class="content-panel">
-                <div class="section-label"></div>
-                <div id="" class="hidden">
+                <div class="section-label" onclick="toggleSection(this)">Video / Media ▼</div>
+                <div id="mainStageVideo">
                   <div class="empty-state">Media will appear here.</div>
                 </div>
-              </section>-->
+              </section>
 
-                            <div class="card-body">
               <section class="content-panel">
                 <div class="section-label">More Cards</div>
                 <div id="cardsContainer">
                   <div class="empty-state">Your loader can drop extra card content here.</div>
                 </div>
-                           <!-- <div class="card-body">
-              <section class="content-panel">
-                <div class="section-label">Week Cards</div>
-                <div id="cardsContainer">
-                  <div class="empty-state">Your loader can drop extra card content here.</div>
-                </div>-->
-                
               </section>
             </div>
           </div>
         </section>
 
-        <!-- Card 2: Dynamic Loader Target -->
         <section id="dynamicCard" class="card">
           <div class="card-shell">
             <div class="card-header">
@@ -835,13 +733,6 @@
                 <div id="loadedCardHost">
                   <div class="empty-state">Your loader can drop extra card content here.</div>
                 </div>
-            
-            <!--   <div class="card-body">
-              <section class="content-panel">
-                <div class="section-label">Week Cards</div>
-                <div id="loadedCardHost">
-                  <div class="empty-state">Select a card to load.</div>-->
-                </div>
               </section>
             </div>
           </div>
@@ -851,20 +742,48 @@
     </main>
   </div>
 
-  <!-- floating player mount -->
   <div id="floating-player-root"></div>
 
-  <!-- add your scripts below in order -->
   <script src="js/app.js"></script>
   <script src="js/mainstage.js"></script>
-   <!--
- <script src="js/loadCommentary.js"></script>  -->
+  <!--<script src="js/loadCommentary.js"></script>-->
   <!--<script src="js/orbitFloatingPlayer.js"></script>-->
 
-    <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    (function () {
+      const cardSelector = document.getElementById("cardSelector");
+      const prevCardSelect = document.getElementById("prevCardSelect");
+      const nextCardSelect = document.getElementById("nextCardSelect");
 
-  <!-- MarkerCluster JS -->
+      if (!cardSelector || !prevCardSelect || !nextCardSelect) return;
+
+      function getSelectableOptions() {
+        return Array.from(cardSelector.options).filter(opt => opt.value);
+      }
+
+      function stepCardSelector(direction) {
+        const options = getSelectableOptions();
+        if (!options.length) return;
+
+        const currentValue = cardSelector.value;
+        let index = options.findIndex(opt => opt.value === currentValue);
+
+        if (index === -1) {
+          index = direction > 0 ? 0 : options.length - 1;
+        } else {
+          index = (index + direction + options.length) % options.length;
+        }
+
+        cardSelector.value = options[index].value;
+        cardSelector.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+      prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
+      nextCardSelect.addEventListener("click", () => stepCardSelector(1));
+    })();
+  </script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 </body>
 </html>
