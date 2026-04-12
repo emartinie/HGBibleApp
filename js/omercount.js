@@ -1,5 +1,4 @@
-
- (function () {
+(function () {
   const OMER_START = new Date(2026, 3, 2); // Apr 2, 2026
   const OMER_END = new Date(2026, 4, 21);  // May 21, 2026
   const SUNDOWN_HOUR = 19;
@@ -20,9 +19,17 @@
   const meditationPrayerEl = document.getElementById("omerMeditationPrayer");
   const meditationScriptureEl = document.getElementById("omerMeditationScripture");
 
-  //const sefirotEn = ["Chesed (Kindness)","Gevurah (Severity)","Tiferet (Harmony)","Netzach (Endurance)","Hod (Splendor)","Yesod (Foundation)","Malchut (Kingdom)"];
-  const sefirotEn = ["Chesed","Gevurah","Tiferet","Netzach","Hod","Yesod","Malchut"];
-  const sefirotHe = ["חסד","גבורה","תפארת","נצח","הוד","יסוד","מלכות"];
+  if (
+    !dayNumberEl || !titleEl || !hebrewEl || !progressBarEl ||
+    !weekDayEl || !sefirahEl || !detailEl || !constellationEl || !linesEl ||
+    !meditationTitleEl || !meditationTextEl || !meditationPrayerEl || !meditationScriptureEl
+  ) {
+    console.warn("Omer card elements missing.");
+    return;
+  }
+
+  const sefirotEn = ["Chesed", "Gevurah", "Tiferet", "Netzach", "Hod", "Yesod", "Malchut"];
+  const sefirotHe = ["חסד", "גבורה", "תפארת", "נצח", "הוד", "יסוד", "מלכות"];
 
   const nodePositions = [
     [10,12],[24,9],[39,13],[55,10],[70,14],[84,11],[91,18],
@@ -78,6 +85,9 @@
       scripture: "Your kingdom come. Your will be done."
     }
   };
+
+  let currentDisplayDay = 0;
+  let currentActualDay = 0;
 
   function startOfLocalDay(d) {
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -143,7 +153,38 @@
     return (value / 100) * 700;
   }
 
-  function buildConstellation(currentDay) {
+  function updateMeditation(dayNumber) {
+    if (dayNumber < 1) {
+      meditationTitleEl.textContent = "Prepare Your Heart";
+      meditationTextEl.textContent = "The count has not yet begun. Use this time to quiet your heart, make room, and prepare for the journey.";
+      meditationPrayerEl.textContent = "Prayer: Ready me for the discipline, beauty, and transformation of these coming days.";
+      meditationScriptureEl.textContent = "Watch and be ready.";
+      return;
+    }
+
+    if (dayNumber > 49) {
+      meditationTitleEl.textContent = "Completion";
+      meditationTextEl.textContent = "The Omer journey is complete. Look back over the path, remember what was purified, strengthened, and revealed.";
+      meditationPrayerEl.textContent = "Prayer: Seal in me what You have grown during these days, and let it bear fruit beyond this season.";
+      meditationScriptureEl.textContent = "He who began a good work in you will carry it on to completion.";
+      return;
+    }
+
+    const s = getSefirah(dayNumber);
+    const inner = sefirahThemes[s.inner];
+    const outer = sefirahThemes[s.outer];
+
+    meditationTitleEl.textContent = `${s.en} — ${inner.title} within ${outer.title}`;
+    meditationTextEl.textContent =
+      `${inner.meditation} How should ${inner.title.toLowerCase()} be shaped by ${outer.title.toLowerCase()} today?`;
+
+    meditationPrayerEl.textContent =
+      `Prayer: ${inner.prayer} Let ${s.inner.toLowerCase()} be rightly formed within ${s.outer.toLowerCase()}.`;
+
+    meditationScriptureEl.textContent = `Scripture thought: ${inner.scripture}`;
+  }
+
+  function buildConstellation(currentDay, selectedDay) {
     constellationEl.innerHTML = "";
     linesEl.innerHTML = "";
 
@@ -176,9 +217,7 @@
       node.style.top = y1p + "%";
       node.textContent = currentIndex;
 
-      if ((currentIndex - 1) % 7 === 0) {
-        node.classList.add("week-start");
-      }
+      if ((currentIndex - 1) % 7 === 0) node.classList.add("week-start");
 
       if (currentDay > 49 || currentIndex < currentDay) {
         node.classList.add("done");
@@ -186,6 +225,10 @@
         node.classList.add("today");
       } else {
         node.classList.add("future");
+      }
+
+      if (currentIndex === selectedDay) {
+        node.style.boxShadow = "0 0 0 2px rgba(124,199,255,.30), 0 0 18px rgba(124,199,255,.28)";
       }
 
       const s = getSefirah(currentIndex);
@@ -200,94 +243,95 @@
       node.appendChild(tooltip);
       node.title = `Day ${currentIndex} — ${s.en}`;
 
+      node.addEventListener("click", () => {
+        currentDisplayDay = currentIndex;
+        renderDisplayedDay(currentDisplayDay, currentActualDay);
+      });
+
       constellationEl.appendChild(node);
     }
   }
 
-  function updateMeditation(dayNumber) {
-    if (dayNumber < 1) {
-      meditationTitleEl.textContent = "Prepare Your Heart";
-      meditationTextEl.textContent = "The count has not yet begun. Use this time to quiet your heart, make room, and prepare for the journey.";
-      meditationPrayerEl.textContent = "Prayer: Ready me for the discipline, beauty, and transformation of these coming days.";
-      meditationScriptureEl.textContent = "Watch and be ready.";
+  function renderDisplayedDay(displayDay, actualDay) {
+    if (displayDay < 1) {
+      dayNumberEl.textContent = "0";
+      titleEl.textContent = "Omer has not started yet";
+      hebrewEl.textContent = "ספירת העומר טרם התחילה";
+      weekDayEl.innerHTML = "<strong>Week / Day:</strong> --";
+      sefirahEl.innerHTML = "<strong>Sefirah:</strong> --";
+      progressBarEl.style.width = "0%";
+      detailEl.innerHTML = "<strong>Detail:</strong> Counting begins after sundown.";
+      buildConstellation(0, 0);
+      updateMeditation(0);
       return;
     }
 
-    if (dayNumber > 49) {
-      meditationTitleEl.textContent = "Completion";
-      meditationTextEl.textContent = "The Omer journey is complete. Look back over the path, remember what was purified, strengthened, and revealed.";
-      meditationPrayerEl.textContent = "Prayer: Seal in me what You have grown during these days, and let it bear fruit beyond this season.";
-      meditationScriptureEl.textContent = "He who began a good work in you will carry it on to completion.";
+    if (displayDay > 49 || actualDay > 49) {
+      dayNumberEl.textContent = "49";
+      titleEl.textContent = "The Omer count is complete";
+      hebrewEl.textContent = "נשלמה ספירת העומר";
+      weekDayEl.innerHTML = "<strong>Week / Day:</strong> 7 full weeks";
+      sefirahEl.innerHTML = `<strong>Sefirah:</strong> Malchut within Malchut<br><span style="opacity:.78;font-weight:500;">מלכות שבמלכות</span>`;
+      progressBarEl.style.width = "100%";
+      detailEl.innerHTML = "<strong>Detail:</strong> Shavuot has arrived or is beginning.";
+      buildConstellation(50, 49);
+      updateMeditation(50);
       return;
     }
 
-    const s = getSefirah(dayNumber);
-    const inner = sefirahThemes[s.inner];
-    const outer = sefirahThemes[s.outer];
+    const sefirah = getSefirah(displayDay);
+    const percent = (displayDay / 49) * 100;
 
-    meditationTitleEl.textContent = `${s.en} — ${inner.title} within ${outer.title}`;
-    meditationTextEl.textContent =
-      `${inner.meditation} ` +
-      `How should ${inner.title.toLowerCase()} be shaped by ${outer.title.toLowerCase()} today?`;
+    dayNumberEl.textContent = displayDay;
+    titleEl.textContent = `Today is ${formatWeeksDays(displayDay)} of the Omer`;
+    hebrewEl.textContent = simpleHebrewDay(displayDay);
+    weekDayEl.innerHTML = `<strong>Week / Day:</strong> ${getWeekDayLabel(displayDay)}`;
+    sefirahEl.innerHTML = `<strong>Sefirah:</strong> ${sefirah.en}<br><span style="opacity:.78;font-weight:500;">${sefirah.he}</span>`;
+    progressBarEl.style.width = percent + "%";
 
-    meditationPrayerEl.textContent =
-      `Prayer: ${inner.prayer} ` +
-      `Let ${s.inner.toLowerCase()} be rightly formed within ${s.outer.toLowerCase()}.`;
+    if (displayDay !== actualDay) {
+      detailEl.innerHTML = `<strong>Detail:</strong> Viewing day ${displayDay}. Tap today's constellation node to return to the current count.`;
+    } else {
+      const now = new Date();
+      detailEl.innerHTML =
+        `<strong>Detail:</strong> ` +
+        (
+          now.getHours() > SUNDOWN_HOUR ||
+          (now.getHours() === SUNDOWN_HOUR && now.getMinutes() >= SUNDOWN_MIN)
+            ? "The count has advanced for the evening."
+            : "This count advances after sundown."
+        );
+    }
 
-    meditationScriptureEl.textContent =
-      `Scripture thought: ${inner.scripture}`;
+    buildConstellation(actualDay, displayDay);
+    updateMeditation(displayDay);
   }
 
   function updateOmerCounter() {
     const now = new Date();
     const effectiveDate = getEffectiveDate(now);
-    const dayNumber = getOmerDay(effectiveDate);
+    const actualDay = getOmerDay(effectiveDate);
+    currentActualDay = actualDay;
 
     if (effectiveDate < OMER_START) {
-      dayNumberEl.textContent = "0";
-      titleEl.textContent = "Omer has not started yet";
-      hebrewEl.textContent = "ספירת העומר טרם התחילה";
-      weekDayEl.textContent = "--";
-      sefirahEl.textContent = "--";
-      progressBarEl.style.width = "0%";
-      detailEl.textContent = "Counting begins after sundown.";
-      buildConstellation(0);
-      updateMeditation(0);
+      currentDisplayDay = 0;
+      renderDisplayedDay(0, 0);
       return;
     }
 
-    if (effectiveDate > OMER_END || dayNumber > 49) {
-      dayNumberEl.textContent = "49";
-      titleEl.textContent = "The Omer count is complete";
-      hebrewEl.textContent = "נשלמה ספירת העומר";
-      weekDayEl.textContent = "7 full weeks";
-      sefirahEl.innerHTML = `Malchut within Malchut<br><span style="opacity:.78;font-weight:500;">מלכות שבמלכות</span>`;
-      progressBarEl.style.width = "100%";
-      detailEl.textContent = "Shavuot has arrived or is beginning.";
-      buildConstellation(50);
-      updateMeditation(50);
+    if (effectiveDate > OMER_END || actualDay > 49) {
+      currentDisplayDay = 50;
+      renderDisplayedDay(50, 50);
       return;
     }
 
-    const sefirah = getSefirah(dayNumber);
-    const percent = (dayNumber / 49) * 100;
+    if (currentDisplayDay < 1 || currentDisplayDay > 49 || currentDisplayDay === currentActualDay - 1 || currentDisplayDay > currentActualDay) {
+      currentDisplayDay = actualDay;
+    }
 
-    dayNumberEl.textContent = dayNumber;
-    titleEl.textContent = `Today is ${formatWeeksDays(dayNumber)} of the Omer`;
-    hebrewEl.textContent = simpleHebrewDay(dayNumber);
-    weekDayEl.textContent = getWeekDayLabel(dayNumber);
-    sefirahEl.innerHTML = `${sefirah.en}<br><span style="opacity:.78;font-weight:500;">${sefirah.he}</span>`;
-    progressBarEl.style.width = percent + "%";
-    detailEl.textContent =
-      now.getHours() > SUNDOWN_HOUR || (now.getHours() === SUNDOWN_HOUR && now.getMinutes() >= SUNDOWN_MIN)
-        ? "The count has advanced for the evening."
-        : "This count advances after sundown.";
-
-    buildConstellation(dayNumber);
-    updateMeditation(dayNumber);
+    renderDisplayedDay(currentDisplayDay, currentActualDay);
   }
 
   updateOmerCounter();
   setInterval(updateOmerCounter, 60000);
 })();
- 
