@@ -7,16 +7,27 @@
     return;
   }
 
-  if (mapEl._leaflet_id) return;
+  // destroy old map if this card reloads into same container
+  if (mapEl._hgMapInstance) {
+    mapEl._hgMapInstance.remove();
+    mapEl._hgMapInstance = null;
+  }
 
   const map = L.map(mapEl).setView([36.1659, -86.7844], 6);
+  mapEl._hgMapInstance = map;
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: "&copy; OpenStreetMap"
   }).addTo(map);
 
-  const markers = L.featureGroup().addTo(map);
+  // use cluster if plugin is loaded, otherwise fall back
+  const markers =
+    typeof L.markerClusterGroup === "function"
+      ? L.markerClusterGroup()
+      : L.featureGroup();
+
+  map.addLayer(markers);
 
   function getLatLngFromFeature(feature) {
     if (!feature || !feature.properties) return null;
@@ -24,19 +35,16 @@
     const raw = feature.properties.Coordinates;
     if (!raw) return null;
 
-    // already an array like [lat,lng] or [lng,lat]
     if (Array.isArray(raw) && raw.length >= 2) {
       const a = Number(raw[0]);
       const b = Number(raw[1]);
+
       if (Number.isFinite(a) && Number.isFinite(b)) {
-        // assume [lat,lng] if first looks like latitude
         if (Math.abs(a) <= 90 && Math.abs(b) <= 180) return [a, b];
-        // otherwise try [lng,lat]
         if (Math.abs(b) <= 90 && Math.abs(a) <= 180) return [b, a];
       }
     }
 
-    // string like "36.1,-86.7"
     if (typeof raw === "string") {
       const parts = raw.split(",").map(s => Number(s.trim()));
       if (parts.length >= 2 && Number.isFinite(parts[0]) && Number.isFinite(parts[1])) {
@@ -63,6 +71,23 @@
     );
   }
 
+  function popupFor(feature, i) {
+    const p = feature?.properties || {};
+    const name = labelFor(feature, i);
+    const desc = p.description || p.Description || "";
+    const visibility = p.visibility ?? p.Visibility ?? "";
+    const coords = p.Coordinates || "";
+
+    return `
+      <div class="map-popup">
+        <strong>${name}</strong>
+        ${desc ? `<div style="margin-top:6px;">${desc}</div>` : ""}
+        ${visibility !== "" ? `<div style="margin-top:6px;opacity:.8;"><strong>Visibility:</strong> ${visibility}</div>` : ""}
+        ${coords ? `<div style="margin-top:6px;opacity:.7;font-size:.8rem;"><strong>Coordinates:</strong> ${coords}</div>` : ""}
+      </div>
+    `;
+  }
+
   fetch("HomeGroupsMap.geojson")
     .then(res => {
       if (!res.ok) throw new Error(`Failed to load GeoJSON: ${res.status}`);
@@ -84,15 +109,19 @@
           return;
         }
 
-        const marker = L.marker(latlng).addTo(markers);
-        marker.bindPopup(labelFor(feature, i));
+        const marker = L.marker(latlng);
+        marker.bindPopup(popupFor(feature, i));
+        markers.addLayer(marker);
         validCount++;
       });
 
       console.log(`GeoJSON loaded: ${validCount} markers, ${skippedCount} skipped`);
 
       if (validCount > 0) {
-        map.fitBounds(markers.getBounds(), { padding: [20, 20] });
+        const bounds = markers.getBounds?.();
+        if (bounds && bounds.isValid && bounds.isValid()) {
+          map.fitBounds(bounds, { padding: [20, 20] });
+        }
       } else {
         L.marker([36.1659, -86.7844])
           .addTo(map)
@@ -101,6 +130,7 @@
       }
 
       setTimeout(() => map.invalidateSize(), 200);
+      setTimeout(() => map.invalidateSize(), 600);
     })
     .catch(err => {
       console.error("GeoJSON load error:", err);
@@ -108,5 +138,7 @@
         .addTo(map)
         .bindPopup("GeoJSON failed to load")
         .openPopup();
+
+      setTimeout(() => map.invalidateSize(), 200);
     });
 })();
