@@ -257,10 +257,10 @@
       dayNumberEl.textContent = "0";
       titleEl.textContent = "Omer has not started yet";
       hebrewEl.textContent = "ספירת העומר טרם התחילה";
-      weekDayEl.innerHTML = "<strong>Week / Day:</strong> --";
-      sefirahEl.innerHTML = "<strong>Sefirah:</strong> --";
+      weekDayEl.innerHTML = "<strong>Week / Day of counting:</strong> --";
+      sefirahEl.innerHTML = "<strong>Sefirah/ Attribute:</strong> --";
       progressBarEl.style.width = "0%";
-      detailEl.innerHTML = "<strong>Detail:</strong> Counting begins after sundown.";
+      detailEl.innerHTML = "<strong>Details:</strong> Counting begins after sundown.";
       buildConstellation(0, 0);
       updateMeditation(0);
       return;
@@ -271,9 +271,9 @@
       titleEl.textContent = "The Omer count is complete";
       hebrewEl.textContent = "נשלמה ספירת העומר";
       weekDayEl.innerHTML = "<strong>Week / Day:</strong> 7 full weeks";
-      sefirahEl.innerHTML = `<strong>Sefirah:</strong> Malchut within Malchut<br><span style="opacity:.78;font-weight:500;">מלכות שבמלכות</span>`;
+      sefirahEl.innerHTML = `<strong>Sefirah/ Attribute:</strong> Malchut within Malchut<br><span style="opacity:.78;font-weight:500;">מלכות שבמלכות</span>`;
       progressBarEl.style.width = "100%";
-      detailEl.innerHTML = "<strong>Detail:</strong> Shavuot has arrived or is beginning.";
+      detailEl.innerHTML = "<strong>Details:</strong> Shavuot has arrived or is beginning.";
       buildConstellation(50, 49);
       updateMeditation(50);
       return;
@@ -286,20 +286,20 @@
     titleEl.textContent = `Today is ${formatWeeksDays(displayDay)} of the Omer`;
     hebrewEl.textContent = simpleHebrewDay(displayDay);
     weekDayEl.innerHTML = `<strong>Week / Day:</strong> ${getWeekDayLabel(displayDay)}`;
-    sefirahEl.innerHTML = `<strong>Sefirah:</strong> ${sefirah.en}<br><span style="opacity:.78;font-weight:500;">${sefirah.he}</span>`;
+    sefirahEl.innerHTML = `<strong>Sefirah/ Attribute:</strong> ${sefirah.en}<br><span style="opacity:.78;font-weight:500;">${sefirah.he}</span>`;
     progressBarEl.style.width = percent + "%";
 
     if (displayDay !== actualDay) {
-      detailEl.innerHTML = `<strong>Detail:</strong> Viewing day ${displayDay}. Tap today's constellation node to return to the current count.`;
+      detailEl.innerHTML = `<strong>Details:</strong> Viewing day ${displayDay}. Tap today's constellation node to return to the current count.`;
     } else {
       const now = new Date();
       detailEl.innerHTML =
-        `<strong>Detail:</strong> ` +
+        `<strong>Details:</strong> ` +
         (
           now.getHours() > SUNDOWN_HOUR ||
           (now.getHours() === SUNDOWN_HOUR && now.getMinutes() >= SUNDOWN_MIN)
             ? "The count has advanced for the evening."
-            : "This count advances after sundown."
+            : "This counter automatically advances after sundown."
         );
     }
 
