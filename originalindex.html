@@ -30,7 +30,7 @@
     content="An interactive Bible study app with an orbital floating player, weekly calendar, and prophecy map." />
   <meta name="author" content="Eddie Martinie" />
   <meta name="theme-color" content="#4a5568">
-  <title>MainStage Bible Study App</title>
+  <title>HG Spark App</title>
   <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
   <!-- Links CSS files -->
   <!--<link rel="stylesheet" href="css/core/core.css">-->
@@ -46,11 +46,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!-- MarkerCluster JS -->
-  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 
 
@@ -110,7 +106,7 @@
 
   .flame {
 
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 900;
 
     background: linear-gradient(180deg, #fff5cc, #ffae00, #ff3d00);
@@ -674,24 +670,32 @@
 
     <header id="topBar">
       <div class="brand-wrap">
-        <div class="brand-kicker">homegroups.org</div>
-        <div class="brand-title">HG Bible App</div>
+        <!--<div class="brand-kicker">homegroups.org</div>
+        <div class="brand-title flame">Spark Bible App</div>-->
       </div>
 
-      <select id="weekSelect" class="ui-select" aria-label="Select week">
+      <!--<select id="weekSelect" class="ui-select" aria-label="Select week">
         <option>Week 1</option>
-      </select>
+      </select>-->
+
+          <!--<div class="flex justify-center items-center w-full mt-4">
+      <button id="igniteBtn" class="ignite-button prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6" onclick="loadCard('prayermap')">
+        Map Ignition [נִיצוֹץ]
+      </button>-->
 
       <div class="toolbar">
+                <select id="weekSelect" class="ui-select" aria-label="Select week">
+        <option>Week 1</option>
+      </select>
         <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
         <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
-        <div class="flame">Spark</div><div class="spark-logo">🔥</div>
+        <div class="flame">HGSpark©</div><div class="spark-logo">🔥</div>
       </div>
     </header>
-
+ 
     <div style="margin-top:12px;">
       <select id="cardSelector" class="ui-select" aria-label="Select card">
-      <option value="mainstage">MainStage</option>        
+      <option value="mainstage">Select Card</option>        
       <option value="frontporch">Front Porch</option>
       <option value="prayermap">Prayer Map</option>
       <option value="studyhub">Study Hub</option>
@@ -717,17 +721,9 @@
       <option value="listen">"Listen"</option>
       <option value="sources">Sources</option>
       <option value="stewardship-Card">Stewardship</option>
+      <option value="map">Map</option>
       </select>
     </div>
-
-
-    <section id="frontPorch">
-      <div class="fp-kicker">Front Porch</div>
-      <h1 class="fp-title">A simple place to begin.</h1>
-      <p class="fp-sub">
-        Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
-      </p>
-    </section>
 
     <main id="viewport">
       <div id="cardsRow">
@@ -739,8 +735,8 @@
               <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
 
               <div class="card-heading">
-                <div class="card-kicker">Main Stage</div>
-                <h2 class="card-title">Weekly Study</h2>
+                <div class="card-kicker"><p id="mainStageSub" class="hero-sub">Please wait while the weekly data loads.</p></div>
+                <h2 class="card-title"><h3 id="mainStageTitle" class="hero-title">Loading week data...</h3></h2>
               </div>
 
               <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
@@ -748,36 +744,62 @@
 
             <div class="card-body">
               <section class="hero-panel">
-                <h3 id="mainStageTitle" class="hero-title">Loading week...</h3>
-                <p id="mainStageSub" class="hero-sub">Please wait while the weekly study loads.</p>
+                    <section id="frontPorch">
+                <div class="fp-kicker" onclick="toggleSection(this)">
+              Front Porch ▼                  
+                </div>
+                      
+              <h1 class="fp-title">A simple place to begin.</h1>
+            <p class="fp-sub">
+              Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
+            </p>
+          </section>
+                <!--<h3 id="mainStageTitle" class="hero-title">Loading week...</h3>
+                <p id="mainStageSub" class="hero-sub">Please wait while the weekly study loads.</p>-->
               </section>
 
               <div id="nowPlaying">Now Playing: —</div>
 
               <section class="content-panel">
-                <div class="section-label">Audio Playlist</div>
-                <div id="mainStagePlaylist">
-                  <div class="empty-state">Playlist will appear here.</div>
-                </div>
-              </section>
+              <div class="section-label" onclick="toggleSection(this)">
+              Audio Playlist ▼
+              </div>
+
+              <div id="mainStagePlaylist">
+              <div class="empty-state">Playlist will appear here.</div>
+              </div>
+            </section>
 
               <section class="content-panel">
-                <div class="section-label">Chapter Outlines</div>
-                <div id="mainStageChapters">
-                  <div class="empty-state">Outlines will appear here.</div>
-                </div>
-              </section>
+              <div class="section-label" onclick="toggleSection(this)">
+              Chapter Outlines ▼
+              </div>
+
+              <div id="mainStageChapters">
+              <div class="empty-state">Outlines will appear here.</div>
+              </div>
+            </section>
 
               <section class="content-panel">
-                <div class="section-label">Video / Media</div>
-                <div id="mainStageVideo" class="hidden">
+              <div class="section-label" onclick="toggleSection(this)">
+              Video / Media ▼
+              </div>
+
+              <div id="mainStageVideo">
+              <div class="empty-state">Media will appear here.</div>
+              </div>
+            </section>
+
+              <!--<section class="content-panel">
+                <div class="section-label"></div>
+                <div id="" class="hidden">
                   <div class="empty-state">Media will appear here.</div>
                 </div>
-              </section>
+              </section>-->
 
                             <div class="card-body">
               <section class="content-panel">
-                <div class="section-label">Week Cards</div>
+                <div class="section-label">More Cards</div>
                 <div id="cardsContainer">
                   <div class="empty-state">Your loader can drop extra card content here.</div>
                 </div>
@@ -810,7 +832,7 @@
             <div class="card-body">
               <section class="content-panel">
                 <div class="section-label">Week Cards</div>
-                <div id="cardsContainer">
+                <div id="loadedCardHost">
                   <div class="empty-state">Your loader can drop extra card content here.</div>
                 </div>
             
@@ -838,5 +860,11 @@
    <!--
  <script src="js/loadCommentary.js"></script>  -->
   <!--<script src="js/orbitFloatingPlayer.js"></script>-->
+
+    <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- MarkerCluster JS -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 </body>
 </html>
