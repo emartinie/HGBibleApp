@@ -1,0 +1,138 @@
+<section class="hg-omer-card">
+  <style>
+    .hg-omer-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      color: #eef3ff;
+    }
+
+    .hg-omer-head {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hg-omer-kicker {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a8b2c7;
+    }
+
+    .hg-omer-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffe7b0;
+      line-height: 1.1;
+    }
+
+    .hg-omer-sub {
+      margin: 0;
+      color: #a8b2c7;
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .hg-omer-panel {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .hg-omer-big {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+      color: #fff4d7;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .hg-omer-label {
+      text-align: center;
+      color: #f3c878;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .hg-omer-meta {
+      display: grid;
+      gap: 10px;
+    }
+
+    .hg-omer-chip {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      padding: 10px 12px;
+      color: #dbe8ff;
+      font-size: 0.92rem;
+    }
+
+    .hg-omer-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hg-omer-btn {
+      appearance: none;
+      border: none;
+      outline: none;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: #eef3ff;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .hg-omer-note {
+      color: #a8b2c7;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+  </style>
+
+  <header class="hg-omer-head">
+    <div class="hg-omer-kicker">Count the Omer</div>
+    <h2 class="hg-omer-title">Omer Counter</h2>
+    <p class="hg-omer-sub">
+      A cleaner mobile-first version that fits the new app shell.
+    </p>
+  </header>
+
+  <section class="hg-omer-panel">
+    <div id="omerDayNumber" class="hg-omer-big">--</div>
+    <div class="hg-omer-label">Day of the Omer</div>
+
+    <div class="hg-omer-meta">
+      <div id="omerDayText" class="hg-omer-chip">Counting details will appear here.</div>
+      <div id="omerHebrewText" class="hg-omer-chip">Hebrew text will appear here.</div>
+      <div id="omerDateRange" class="hg-omer-chip">Calendar date will appear here.</div>
+    </div>
+  </section>
+
+  <section class="hg-omer-panel">
+    <div class="hg-omer-kicker" style="margin-bottom:8px;">Meditation / Reflection</div>
+    <div id="omerMeditation" class="hg-omer-note">
+      Meditation text will appear here.
+    </div>
+  </section>
+
+  <section class="hg-omer-panel">
+    <div class="hg-omer-kicker" style="margin-bottom:8px;">Actions</div>
+    <div class="hg-omer-actions">
+      <button id="omerPrevBtn" class="hg-omer-btn" type="button">‹ Previous</button>
+      <button id="omerTodayBtn" class="hg-omer-btn" type="button">Today</button>
+      <button id="omerNextBtn" class="hg-omer-btn" type="button">Next ›</button>
+    </div>
+  </section>
+</section>
