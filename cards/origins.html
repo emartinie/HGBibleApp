@@ -1,0 +1,134 @@
+<section class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto p-5 space-y-5">
+
+  <!-- Hero -->
+  <header class="text-center space-y-3">
+    <h2 class="text-3xl font-extrabold flex items-center justify-center gap-3">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
+      Origins
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
+    </h2>
+
+    <p class="text-slate-300 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+      Where do we come from? Why is there something instead of nothing?
+      This is not a debate stage. It is a table.
+      You are welcome here whether you come with conviction, curiosity, questions, or uncertainty.
+    </p>
+
+    <p class="text-slate-400 text-xs md:text-sm italic">
+      Explore. Reflect. Go deeper only when you want to.
+    </p>
+  </header>
+
+  <!-- Main grid -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+    <!-- Creation / Design -->
+    <article class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-4 space-y-3 shadow-lg">
+      <div class="flex items-center justify-between gap-3">
+        <h3 class="text-xl font-bold text-cyan-300">🕊️ Creation / Design Perspective</h3>
+        <button
+          class="px-3 py-1 rounded-lg bg-cyan-700/70 hover:bg-cyan-600 text-sm font-semibold"
+          onclick="openOriginsInfo('creation')">
+          Learn More
+        </button>
+      </div>
+
+      <p class="text-slate-200 text-sm leading-relaxed">
+        This view holds that the universe, life, and humanity were created intentionally by a Creator.
+        In Biblical tradition, the Creator is personal, purposeful, and involved.
+      </p>
+
+      <ul class="list-disc pl-5 text-slate-300 text-sm space-y-1">
+        <li>Order and beauty suggest intention</li>
+        <li>Life appears meaningful, not accidental</li>
+        <li>Human consciousness and morality point beyond matter alone</li>
+      </ul>
+    </article>
+
+    <!-- Natural Processes -->
+    <article class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-4 space-y-3 shadow-lg">
+      <div class="flex items-center justify-between gap-3">
+        <h3 class="text-xl font-bold text-emerald-300">🔬 Natural Processes Perspective</h3>
+        <button
+          class="px-3 py-1 rounded-lg bg-emerald-700/70 hover:bg-emerald-600 text-sm font-semibold"
+          onclick="openOriginsInfo('natural')">
+          Learn More
+        </button>
+      </div>
+
+      <p class="text-slate-200 text-sm leading-relaxed">
+        This view explains the universe and life through natural processes such as physics, chemistry,
+        astronomy, and biological evolution. It emphasizes observable and testable mechanisms.
+      </p>
+
+      <ul class="list-disc pl-5 text-slate-300 text-sm space-y-1">
+        <li>The universe developed over time</li>
+        <li>Complexity can emerge from simpler systems</li>
+        <li>Scientific models focus on how processes work</li>
+      </ul>
+    </article>
+  </section>
+
+  <!-- Bridge -->
+  <section class="rounded-2xl bg-indigo-950/40 border border-indigo-700/30 p-4 space-y-3 shadow-lg">
+    <div class="flex items-center justify-between gap-3">
+      <h3 class="text-xl font-bold text-amber-300">⚖️ A Shared Question</h3>
+      <button
+        class="px-3 py-1 rounded-lg bg-amber-700/70 hover:bg-amber-600 text-sm font-semibold"
+        onclick="openOriginsInfo('bridge')">
+        Learn More
+      </button>
+    </div>
+
+    <p class="text-slate-200 text-sm leading-relaxed">
+      Both perspectives are trying to answer the same deep question:
+      <span class="text-amber-200 font-semibold">Why is there something rather than nothing?</span>
+    </p>
+
+    <p class="text-slate-300 text-sm leading-relaxed">
+      Science often explains <span class="font-semibold text-white">how</span> things work.
+      Faith traditions often explore <span class="font-semibold text-white">why</span> they exist.
+      Many people find themselves living in the tension between both.
+    </p>
+  </section>
+
+  <!-- Reflection -->
+  <section class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-4 space-y-3 shadow-lg">
+    <div class="flex items-center justify-between gap-3">
+      <h3 class="text-xl font-bold text-purple-300">🤲 Consider This</h3>
+      <button
+        class="px-3 py-1 rounded-lg bg-purple-700/70 hover:bg-purple-600 text-sm font-semibold"
+        onclick="openOriginsInfo('reflection')">
+        Learn More
+      </button>
+    </div>
+
+    <div class="text-slate-200 text-sm space-y-2 leading-relaxed">
+      <p>What do you currently believe about where we came from?</p>
+      <p>Has that belief changed over time?</p>
+      <p>What experiences, teachings, or questions shaped that view?</p>
+    </div>
+  </section>
+
+  <!-- Optional deeper actions -->
+  <section class="flex flex-wrap gap-3 justify-center pt-2">
+    <button
+      class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 font-semibold"
+      onclick="openOriginsInfo('overview')">
+      Quick Overview
+    </button>
+
+    <button
+      class="px-4 py-2 rounded-xl bg-indigo-700 hover:bg-indigo-600 font-semibold"
+      onclick="goDeeperOrigins()">
+      Go Deeper
+    </button>
+  </section>
+
+  <!-- Closing line -->
+  <footer class="text-center pt-2">
+    <p class="text-slate-400 text-xs md:text-sm italic">
+      You do not have to agree with everything here to belong here.
+    </p>
+  </footer>
+</section>
