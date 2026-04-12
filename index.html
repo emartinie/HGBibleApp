@@ -705,9 +705,9 @@
               </section>
 
               <section class="content-panel">
-                <div class="section-label">More Cards</div>
+                <div class="section-label" onclick="toggleSection(this)">Week Info Cards ▼</div>
                 <div id="cardsContainer">
-                  <div class="empty-state">Your loader can drop extra card content here.</div>
+                  <div class="empty-state">The loader will drop dynamic week content here.</div>
                 </div>
               </section>
             </div>
@@ -721,6 +721,8 @@
 
               <div class="card-heading">
                 <div class="card-kicker">Dynamic Cards</div>
+              <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
+            </div>                
                 <div id="loadedCardHost">
                   <div class="empty-state">Your loader can drop extra card content here.</div>
                 </div>
