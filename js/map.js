@@ -7,7 +7,6 @@
     return;
   }
 
-  // clean reload inside card loader
   if (mapEl._hgMapInstance) {
     mapEl._hgMapInstance.remove();
     mapEl._hgMapInstance = null;
@@ -15,9 +14,10 @@
 
   const map = L.map(mapEl).setView([39.5, -98.35], 4);
   mapEl._hgMapInstance = map;
+  window.currentMap = map;
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 18,
+    maxZoom: 19,
     attribution: "&copy; OpenStreetMap"
   }).addTo(map);
 
@@ -27,6 +27,22 @@
       : L.featureGroup();
 
   map.addLayer(markers);
+
+  function maskPrivateText(value) {
+    if (!value) return "";
+    const str = String(value);
+    if (str.length <= 3) return str;
+    return str.slice(0, 3) + "*".repeat(str.length - 3);
+  }
+
+  function maskDescription(description) {
+    if (!description) return "";
+
+    return String(description)
+      .replace(/([A-Z0-9._%+-]{4,}@[A-Z0-9.-]+\.[A-Z]{2,})/gi, (m) => maskPrivateText(m))
+      .replace(/(\+?\d[\d\-\s().]{6,}\d)/g, (m) => maskPrivateText(m))
+      .replace(/(Address:\s*)([^<\n]+)/gi, (_, prefix, value) => prefix + maskPrivateText(value.trim()));
+  }
 
   function getHomeGroupsLatLng(feature) {
     const raw = feature?.properties?.Coordinates;
@@ -75,7 +91,7 @@
     const p = feature?.properties || {};
     const name = labelFor(feature, i);
     const message = p.Message || p.message || "";
-    const description = p.description || p.Description || "";
+    const description = maskDescription(p.description || p.Description || "");
     const visibility = p.visibility ?? p.Visibility ?? "";
     const coords = p.Coordinates || "";
 
@@ -101,8 +117,6 @@
       let validCount = 0;
       let skippedCount = 0;
 
-      console.log("FIRST FEATURE:", features[0]);
-
       features.forEach((feature, i) => {
         const latlng = getHomeGroupsLatLng(feature);
 
@@ -123,8 +137,15 @@
       console.log(`GeoJSON loaded: ${validCount} markers, ${skippedCount} skipped`);
 
       if (latlngs.length) {
-        map.fitBounds(latlngs, { padding: [15, 15] });
-        setTimeout(() => map.zoomIn(1), 50);
+        const bounds = L.latLngBounds(latlngs);
+        map.fitBounds(bounds, { padding: [8, 8] });
+
+        // one extra zoom-in if possible
+        const currentZoom = map.getZoom();
+        const maxZoom = map.getMaxZoom() || 19;
+        if (currentZoom < maxZoom) {
+          setTimeout(() => map.setZoom(Math.min(currentZoom + 1, maxZoom)), 80);
+        }
       } else {
         L.marker([36.1659, -86.7844])
           .addTo(map)
@@ -142,4 +163,40 @@
         .bindPopup("GeoJSON failed to load")
         .openPopup();
     });
+
+  window.locateUser = function () {
+    if (!window.currentMap) return;
+
+    const activeMap = window.currentMap;
+
+    activeMap.locate({
+      setView: true,
+      maxZoom: 12,
+      enableHighAccuracy: true,
+      timeout: 10000
+    });
+
+    activeMap.once("locationfound", function (e) {
+      if (window.userLocationMarker) {
+        activeMap.removeLayer(window.userLocationMarker);
+      }
+
+      if (window.userLocationCircle) {
+        activeMap.removeLayer(window.userLocationCircle);
+      }
+
+      window.userLocationMarker = L.marker(e.latlng)
+        .addTo(activeMap)
+        .bindPopup("📍 You are here.")
+        .openPopup();
+
+      window.userLocationCircle = L.circle(e.latlng, {
+        radius: e.accuracy || 30
+      }).addTo(activeMap);
+    });
+
+    activeMap.once("locationerror", function (e) {
+      console.warn("Geolocation error:", e.message);
+    });
+  };
 })();
