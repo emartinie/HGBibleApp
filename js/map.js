@@ -132,18 +132,7 @@
           .openPopup();
       }
 
-      setTimeout(() => map.invalidateSize(), 120);
-      setTimeout(() => map.invalidateSize(), 500);
-    })
-    .catch(err => {
-      console.error("GeoJSON load error:", err);
-      L.marker([36.1659, -86.7844])
-        .addTo(map)
-        .bindPopup("GeoJSON failed to load")
-        .openPopup();
-    });
-
-     function locateUser() {
+           function locateUser() {
   if (!window.currentMap) return;
   addGeoLocateMarker(window.currentMap);
      }
@@ -181,5 +170,16 @@ function addGeoLocateMarker(map) {
   map.once("locationerror", function (e) {
     console.warn("Geolocation error:", e.message);
   });
-//}
-//})();
+}
+
+      setTimeout(() => map.invalidateSize(), 120);
+      setTimeout(() => map.invalidateSize(), 500);
+    })
+    .catch(err => {
+      console.error("GeoJSON load error:", err);
+      L.marker([36.1659, -86.7844])
+        .addTo(map)
+        .bindPopup("GeoJSON failed to load")
+        .openPopup();
+    });
+})();
