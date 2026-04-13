@@ -182,4 +182,4 @@ function addGeoLocateMarker(map) {
     console.warn("Geolocation error:", e.message);
   });
 }
-})();
+//})();
