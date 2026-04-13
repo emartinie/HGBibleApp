@@ -63,6 +63,7 @@
       display:flex;
       gap:8px;
       flex-wrap:wrap;
+      justify-content:center;
     }
 
     .hg-btn{
@@ -74,158 +75,148 @@
       color:#eef3ff;
       border:1px solid rgba(255,255,255,.10);
       font:inherit;
+      cursor:pointer;
+    }
+
+    .hg-scorebar{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      padding:10px 12px;
+      border-radius:14px;
+      background:rgba(15,23,42,.75);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:.9rem;
+    }
+
+    .hg-question-card,
+    .hg-hint-card,
+    .hg-answer-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:22px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(15,23,42,.72);
+      box-shadow:0 10px 24px rgba(0,0,0,.22);
+    }
+
+    .hg-question-card video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:.25;
+      z-index:0;
+    }
+
+    .hg-question-inner{
+      position:relative;
+      z-index:1;
+    }
+
+    .hg-question-text{
+      font-size:1.2rem;
+      font-weight:700;
+      line-height:1.35;
+      margin-bottom:14px;
+    }
+
+    #choices{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .hg-card-caption{
+      text-align:center;
+      font-size:1rem;
+      font-weight:700;
+      color:#ffe7b0;
+      margin-bottom:10px;
+    }
+
+    .hg-team-board{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:center;
+      margin-top:12px;
     }
   </style>
 
- <!-- <header class="hg-card-head">
-    <div class="hg-card-kicker">Loaded Card</div>
-    <h2 class="hg-card-title">Card Title</h2>
-    <p class="hg-card-sub">Short description goes here.</p>
-  </header>-->
+  <header class="hg-card-head">
+    <div class="hg-card-kicker">Game Card</div>
+    <h2 class="hg-card-title">Trivia</h2>
+    <p class="hg-card-sub">Questions, hints, answers, and team scoring.</p>
+  </header>
 
   <section class="hg-panel">
-    <!--<div class="hg-section-label">Section</div>
-    <div class="hg-empty">Your content goes here.</div>-->
-    <p>                <!-- SCOREBOARD MANAGER -->
-                <!-- SCOREBOARD STATUS BAR -->
-                    <h3 class="text-lg font-semibold text-orange-300 mb-3 text-center">
-                    LeaderBoard
-                <div id="scoreStatus" class="sticky top-0 z-20 flex justify-between items-center
-         px-3 py-2 bg-slate-900/80 border-b border-slate-700 text-sm">
+    <div class="hg-card-caption">LeaderBoard</div>
 
-                 <!-- <div class="text-orange-300 font-bold">
-                    🏆 <span id="leaderBoard">LEADERSHIP</span> pts-->
-                  <div class="text-slate-300 font-semibold">
-                    🏆 <span id="scoreTop">5000</span> pts
-                  </div>
+    <div id="scoreStatus" class="hg-scorebar">
+      <div>🏆 <span id="scoreTop">5000</span> pts</div>
+      <div>Team: <span id="topTeam">Zack</span></div>
+      <div>Q <span id="qNum">1</span>/<span id="qTotal">10</span></div>
+    </div>
+  </section>
 
-                  <div class="text-slate-300">
-                    Team: <span id="topTeam">Zack</span>
-                  </div>
+  <section class="hg-panel">
+    <div class="hg-btn-row" style="margin-bottom:12px;">
+      <button id="prevBtn" class="hg-btn">◀</button>
+      <button id="nextBtn" class="hg-btn">▶</button>
+    </div>
 
-                  <div class="text-slate-400">
-                    Q <span id="qNum">1</span>/<span id="qTotal">10</span>
-                  </div>
-                </div>
-                <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 w-full">
-                  <button id="prevBtn">◀
-                      </button><button id="nextBtn">▶
-                      </button>
-                    
-                        <!--<button id="prevBtn"
-                      class="px-4 py-2 rounded-lg p-6 mb-4 bg-gradient-to-r from-yellow-900 via-orange-800 to-slate-900 text-white text-2xl font-semibold shadow-2xl hover:bg-orange-500">◀
-                      Previous</button><button id="nextBtn"
-                      class="px-4 py-2 rounded-lg p-6 mb-4 bg-gradient-to-r from-yellow-900 via-orange-800 to-slate-900 text-white text-2xl font-semibold shadow-2xl hover:bg-orange-500">Next
-                      ▶</button>-->
-                 <!-- Question Card -->
-                  <!--<div id="questionsCard"
-                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-yellow-900 via-orange-800 to-slate-900 text-white text-2xl font-bold shadow-2xl">-->
-                  <div id="questionsCard"
-                    class="relative rounded-3xl p-6 mb-4 text-white text-2xl font-bold shadow-2xl">
-                          
-                    <!-- Background video -->
-                    <video autoplay muted loop playsinline
-                      class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                      <source src="videos/bg-motion.mp4" type="video/mp4">
-                    </video>
-                    <div id="choices" class="grid gap-3 mt-4"></div <span class="relative z-10">Loading
-                    question...</span>                  
-                          </div>
-                        <!-- Hint -->
-                  <!--<div id="hintCard"
-                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">-->
-                  <div id="hintCard"
-                    class="relative rounded-3xl p-6 mb-4 text-2xl font-bold shadow-2xl inline-block mx-auto">
-                    Hint:
-                    <em id="hintText" class="relative z-10"></em>
-                  </div>
+    <div id="questionsCard" class="hg-question-card">
+      <video autoplay muted loop playsinline>
+        <source src="videos/bg-motion.mp4" type="video/mp4">
+      </video>
 
-                  <!-- Answer -->
-                  <!--<div id="answerCard"
-                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">-->
-                  <div id="answerCard"
-                    class="relative rounded-3xl p-6 mb-4 text-2xl font-bold shadow-2xl inline-block mx-auto">
-                    Answer:
-                    <em id="answerText" class="relative z-10"></em>
-                  </div>
-                      <!--<button id="hintBtn"
-                      class="px-4 py-2 rounded-lg bg-yellow-500 text-slate-900 font-bold shadow hover:bg-yellow-400">✨
-                      Reveal Hint ✨</button>-->
-                  <button id="hintBtn"
-                      class="px-4 py-2 rounded-lg text-orange-900 font-bold shadow hover:bg-yellow-400">✨
-                      Reveal Hint ✨</button>
-                    <!--<button id="revealBtn"
-                      class="px-4 py-2 rounded-lg bg-yellow-500 text-slate-900 font-bold shadow hover:bg-yellow-400">✨
-                      Reveal Answer ✨</button>-->
-                  <button id="revealBtn"
-                      class="px-4 py-2 rounded-lg  text-orange-900 font-bold shadow hover:bg-yellow-400">✨
-                      Reveal Answer ✨</button>
-                  </div>
+      <div class="hg-question-inner">
+        <div class="hg-question-text">
+          <span id="questionText">Loading question...</span>
+        </div>
+        <div id="choices"></div>
+      </div>
+    </div>
+  </section>
 
-                 <!-- <div class="flex justify-between items-center mb-3 text-center">
-                    <h3 class="text-sm text-slate-400">
-                      Add unlimited teams or players
-                    </h3>
+  <section class="hg-panel">
+    <div class="hg-card-caption">Hint</div>
+    <div id="hintCard" class="hg-hint-card">
+      <em id="hintText">Hint will appear here.</em>
+    </div>
 
-                    <!--<button onclick="playSound('assets/sounds/score-up.mp3')">
-                      Test Sound
-                    </button>-->
+    <div class="hg-btn-row" style="margin-top:12px;">
+      <button id="hintBtn" class="hg-btn">✨ Reveal Hint ✨</button>
+    </div>
+  </section>
 
-                  </div>
+  <section class="hg-panel">
+    <div class="hg-card-caption">Answer</div>
+    <div id="answerCard" class="hg-answer-card">
+      <em id="answerText">Answer will appear here.</em>
+    </div>
 
-                  <h3 class="text-lg font-semibold text-orange-300 mb-3 text-center">
-                    Teams & Scores
-                  </h3>
-                    <button id="sb-add-team"
-                      class="x-4 py-2 rounded-lg p-6 mb-4 bg-gradient-to-r from-yellow-900 via-orange-800 to-slate-900 text-white text-2xl font-semibold shadow-2xl hover:bg-orange-500 mx-auto">
-                      + Add Team
-                    </button>
-                                          <!--<button class="px-2 py-1 border rounded" style="float: right;"
-                onclick="getResource('porchPanel')?.openPorchPanel('How It Works', '<p>Answer correctly <strong>without a hint</strong> → +2 points<br>Use the Scripture hint → +1 point<br>Reveal the answer → no points, but you still learn<br>    For Hints: give a Bible reference only. Then open the Scriptures and search it out.</p>')">
-                🗣️ How This Works
-              </button>-->
-                   <p class="text-sm text-slate-400 text-center mt-4">
-                    Add unlimited teams or players.</p>
+    <div class="hg-btn-row" style="margin-top:12px;">
+      <button id="revealBtn" class="hg-btn">✨ Reveal Answer ✨</button>
+    </div>
+  </section>
 
-                  <div id="sb-board" class="flex flex-wrap gap-4 justify-center"></div>
-                </div>
+  <section class="hg-panel">
+    <div class="hg-card-caption">Teams & Scores</div>
 
-                <!-- Card body -->
-                <div class="p-6 relative">
+    <div class="hg-btn-row">
+      <button id="sb-add-team" class="hg-btn">+ Add Team</button>
+    </div>
 
-                  <!-- Hint 
-                  <div id="hintCard"
-                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">
-                    Hint:
-                    <em id="hintText" class="relative z-10"></em>
-                  </div>
+    <p class="hg-card-sub" style="text-align:center; margin-top:12px;">
+      Add unlimited teams or players.
+    </p>
 
-                  <!-- Answer -->
-                  <!--<div id="answerCard"
-                    class="relative rounded-3xl p-6 mb-4 bg-gradient-to-r from-teal-900 via-indigo-800 to-slate-900 text-2xl font-bold shadow-2xl inline-block mx-auto">
-                    Answer:
-                    <em id="answerText" class="relative z-10"></em>
-                  </div>
-
-                  <!-- Controls -->
-                 <!-- <div class="flex justify-between mt-6">-->
-                   <!-- <button id="prevBtn"
-                      class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-500">◀
-                      Previous</button>-->
-
-                   <!-- <button id="nextBtn"
-                      class="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-500">Next
-                      ▶</button>-->
-                  </div>
-
-                </div>
-              </div>
-
-          </div>
-
-         
-                  </div>
-                </div>
-              </div></p>
+    <div id="sb-board" class="hg-team-board"></div>
   </section>
 </section>
