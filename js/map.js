@@ -93,7 +93,7 @@
     const message = p.Message || p.message || "";
     const description = maskDescription(p.description || p.Description || "");
     const visibility = p.visibility ?? p.Visibility ?? "";
-    const coords = p.Coordinates || "";
+    const coords = maskDescription(p.Coordinates || "");
 
     return `
       <div class="map-popup">
