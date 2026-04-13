@@ -181,5 +181,5 @@ function addGeoLocateMarker(map) {
   map.once("locationerror", function (e) {
     console.warn("Geolocation error:", e.message);
   });
-}
-//})();
+//}
+})();
