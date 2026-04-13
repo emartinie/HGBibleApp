@@ -143,7 +143,22 @@
         .openPopup();
     });
 
-    map.once("locationfound", function (e) {
+     function locateUser() {
+  if (!window.currentMap) return;
+  addGeoLocateMarker(window.currentMap);
+     }
+  
+function addGeoLocateMarker(map) {
+  if (!map) return;
+
+  map.locate({
+    setView: true,
+    maxZoom: 12,
+    enableHighAccuracy: true,
+    timeout: 10000
+  });
+
+  map.once("locationfound", function (e) {
     // remove old marker if exists
     if (window.userLocationMarker) {
       map.removeLayer(window.userLocationMarker);
@@ -162,4 +177,9 @@
       radius: e.accuracy || 30
     }).addTo(map);
   });
+
+  map.once("locationerror", function (e) {
+    console.warn("Geolocation error:", e.message);
+  });
+}
 })();
