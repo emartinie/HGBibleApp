@@ -187,7 +187,7 @@
 
       window.userLocationMarker = L.marker(e.latlng)
         .addTo(activeMap)
-        .bindPopup("📍 You are here.")
+        .bindPopup("📍 You are here. Zoom out to find people near you.")
         .openPopup();
 
       window.userLocationCircle = L.circle(e.latlng, {
