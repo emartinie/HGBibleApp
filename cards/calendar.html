@@ -1,104 +1,24 @@
-        <!-- Card 4: Prophecy Calendar     -->
-        <!-- ============================= -->
-<style>
-	.omer-card{
-  width:min(92vw, 520px);
-  margin:20px auto;
-  padding:2px;
-  border-radius:24px;
-  background:linear-gradient(135deg, rgba(255,215,120,.45), rgba(255,255,255,.08), rgba(120,180,255,.28));
-  box-shadow:
-    0 0 30px rgba(255,215,120,.18),
-    0 20px 60px rgba(0,0,0,.35);
-}
+<section class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto p-5 space-y-5">
 
-.omer-inner{
-  border-radius:22px;
-  padding:28px 22px;
-  text-align:center;
-  color:#fff;
-  background:
-    radial-gradient(circle at top, rgba(255,215,120,.14), transparent 45%),
-    rgba(12,12,18,.82);
-  backdrop-filter: blur(14px);
-}
+  <!-- Hero -->
+  <header class="text-center space-y-3">
+    <h2 class="text-3xl font-extrabold flex items-center justify-center gap-3">
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
+      Prophecy Calendar
+      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
+    </h2>
 
-.omer-label{
-  font-size:.95rem;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  opacity:.82;
-  margin-bottom:10px;
-}
+    <p class="text-slate-300 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+      Choose a calendar system, see the next appointed time, and open deeper explanations only when you want them. Different traditions calculate time differently. This app allows you to explore these systems side by side,
+while focusing on the meaning of the appointed times themselves.<br><button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500 mx-auto" onclick="openCalendarInfo('calendars')">More Info</button><p class="text-slate-400 text-sm mt-1 mx-auto">
+                      Next Sabbath begins Friday at sunset.
+    </p>
+    
 
-.omer-day{
-  font-size:clamp(3rem, 10vw, 5.5rem);
-  font-weight:800;
-  line-height:1;
-  margin-bottom:12px;
-  text-shadow:0 0 18px rgba(255,215,120,.35);
-}
-
-.omer-text{
-  font-size:1.25rem;
-  font-weight:700;
-  margin-bottom:8px;
-}
-
-.omer-detail{
-  font-size:.98rem;
-  opacity:.86;
-  line-height:1.5;
-  max-width:34ch;
-  margin:0 auto;
-}
-	</style>
-        <section id="calendarCard" class="card">
-          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
-
-            <!-- Card header -->
-            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-              <button
-                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"
-                title="Prev card">
-                <!-- Heroicon: Chevron Left -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-
-              <div class="text-center">
-                <div class="label-pill text-slate-400">Card 4</div>
-                <h2 class="text-xl font-bold text-orange-300">
-                  Prophecy Calendar
-                </h2>
-              </div>
-
-              <button
-                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
-                title="Next card">
-                <!-- Heroicon: Chevron Right -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-
-            </div>
-
-            <!-- Card body -->
-           <!-- <div class="p-5">
-              <div class="card-inner">
-
-                <p><!-- Cosmic Badass Calendar Card -->
-               <!-- <section id="calendarCard"
-                  class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6 mx-auto max-w-4xl transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl">
-                  <!-- Background video -->
-                  <!--<video autoplay muted loop playsinline
-                    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                    <source src="videos/firevideos.mp4" type="video/mp4">
-                  </video>
+    <p class="text-slate-400 text-xs md:text-sm italic">
+      Explore. Reflect. Go deeper only when you want to.
+    </p>
+  </header>
 
                   <!-- Calendar: Today (read-only) -->
                   <div id="calendarToday" class="mb-6">
@@ -114,6 +34,7 @@
       </h3>
                
     </div>
+      <p class="text-slate-400 text-xs uppercase tracking-wider">Choose Calendar Calculator</p>
 
     <div class="flex flex-wrap gap-2">
       <button class="px-3 py-2 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Hillel')">Hillel</button>
@@ -124,157 +45,12 @@
         <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Catholic')">W. Orthodox(Catholic)</button>
     </div>
   </div>
-<p class="text-slate-300 text-sm max-w-2xl">
-      Choose a calendar system, see the next appointed time, and open deeper explanations only when you want them. Different traditions calculate time differently. This app allows you to explore these systems side by side,
-while focusing on the meaning of the appointed times themselves.<br><button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500 mx-auto" onclick="openCalendarInfo('calendars')">More Info</button><p class="text-slate-400 text-sm mt-1 mx-auto">
-                      Next Sabbath begins Friday at sunset.
-                    </p>
-   <!-- <section class="omer-card" id="omerCard">
-  <div class="omer-inner">
-    <div class="omer-label">Counting the Omer</div>
-    <div class="omer-day" id="omerDay">--</div>
-    <div class="omer-text" id="omerText">Loading…</div>
-    <div class="omer-detail" id="omerDetail"></div>
   </div>
-</section>-->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="rounded-xl bg-gray-900/60 p-4 space-y-2">
-      <p class="text-slate-400 text-xs uppercase tracking-wider">Current Calculation</p>
-      <h3 id="currentCalendarType"
-        class="text-2xl font-bold text-orange-300"
-        style="text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-        Hillel 
-      </h3>      <p class="text-slate-400 text-xs uppercase tracking-wider">Next Holy Day</p>
-      <h3 id="nextHolyDayTitle" class="text-2xl font-bold text-amber-300">Passover</h3>
-      <p id="nextHolyDayDate" class="text-slate-200">Begins at sundown on April 1, 2026</p>
-      <p id="nextHolyDaySummary" class="text-slate-400 text-sm">
-        A night of remembrance, deliverance, and freedom.
-      </p>
-      <div class="flex gap-2 pt-2">
-        <button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500" onclick="openHolyDayDetails(currentNextHolyDayKey)">
-          Learn More
-        </button>
-        <button class="px-3 py-2 rounded bg-emerald-600 hover:bg-emerald-500" onclick="beginHolyDayExperience(currentNextHolyDayKey)">
-          Begin Experience
-        </button>
-      </div>
-    </div>
-
-    <div class="rounded-xl bg-gray-900/60 p-4 space-y-2">
-      <p class="text-slate-400 text-xs uppercase tracking-wider">Countdown</p>
-      <h3 class="text-2xl font-bold text-green-300">Time Remaining</h3>
-      <div id="countdownValue" class="text-3xl font-extrabold">--</div>
-      <p id="countdownSubtext" class="text-slate-400 text-sm">
-        Preparing for the next appointed time.
-      </p>
-    </div>
-  </div>
-
-  <div>
-    <div class="flex items-center justify-between mb-3">
-      <h3 class="text-2xl font-bold text-blue-300">Holy Days</h3>
-      <p class="text-slate-400 text-sm">Tap Info for details</p>
-    </div>
-    <div id="holyDayList" class="space-y-3"></div>
-  </div>
-</section>
-                         <!-- <p id="nextHolyDayDate" class="text-slate-200">
-  Begins at sundown on April 1, 2026
-</p>
-                  </div>
-                  <!--<h3 class="text-xl font-bold mb-2 flex items-center">Next Holy Day: Pesach/ Passover (פֶּסַח) : Begins
-                    April 1, 2026 at sundown; ends at nightfall on April 9, 2026. Activity is light on April 2–3 and
-                    April 8–9.. </h3>
-                  <h2>Begins In</h2>-->
-                  <!--<button id="downloadBtn" style="
-  display: flex;
-  justify-content: center; /* Horizontal center */
-  align-items: center;  
-  margin-top: 2.5rem;
-  padding: 0.6rem 1.2rem;
-  border-radius: 999px;
-  background: rgba(56,189,248,0.2);
-  border: 1px solid rgba(56,189,248,0.6);
-  color: #f8fafc;
-  font-size: 0.9rem;
-  cursor: pointer;
-  hover:drop-shadow-[0_0_8px_#0ff];
-">
-📸 Download and Share Image
-</button>-->
-                 <!-- <h3></h3>
-                  <div class="countdown-group">
-                    <div class="countdown" id="startCountdown">
-                      <div class="time"><span id="startPDays">0</span><label>Days</label></div>
-                      <div class="time"><span id="startPHours">0</span><label>Hours</label></div>
-                      <div class="time"><span id="startPMinutes">0</span><label>Minutes</label></div>
-                      <div class="time"><span id="startPSeconds">0</span><label>Seconds</label></div>
-                    </div>
-                  </div>
-
-                  <div class="countdown-group">
-                    <h2>Ends In</h2>
-                    <div class="countdown" id="endCountdown">
-                      <div class="time"><span id="endPDays">0</span><label>Days</label></div>
-                      <div class="time"><span id="endPHours">0</span><label>Hours</label></div>
-                      <div class="time"><span id="endPMinutes">0</span><label>Minutes</label></div>
-                      <div class="time"><span id="endPSeconds">0</span><label>Seconds</label></div>
-                    </div>
-
-                  </div>-->
-
-
-       <script src="js/pesachStart.js"></script>           
-
-
-                 <!-- <div
-                    class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl justify-center">
-                    <!-- Hero Header -->
-                  <!--  <header class="flex flex-col items-center gap-2 text-center">
-                      <h2 class="text-3xl font-extrabold flex items-center gap-3">
-                        <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
-                        Prophecy Calendar
-                        <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
-                      </h2>
-
-                    </header>
-                  </div>-->
-                        <section class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto p-4 space-y-5">
-
-  <!-- Hero -->
-  <header class="flex flex-col items-center gap-2 text-center">
-    <h2 class="text-3xl font-extrabold flex items-center gap-3">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
-      Prophecy Calendar
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
-    </h2>
-
-  </header>
-
-  <!-- Current Calculation 
-  <section class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-3">
-    <div class="flex flex-wrap items-center justify-between gap-3">
-      <div>
-        <p class="text-slate-400 text-xs uppercase tracking-wider">Current Calculation</p>
-        <h3 id="currentCalendarType"
-          class="text-2xl font-bold text-cyan-300"
-          style="text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-          Hillel
-        </h3>
-      </div>
-
-      <div class="flex flex-wrap gap-2">
-        <button class="px-3 py-2 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Hillel')">Hillel</button>
-        <button class="px-3 py-2 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Enochian')">Enochian</button>
-        <button class="px-3 py-2 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Zedokian')">Zedokian</button>
-
-      </div>
-    </div>
-  </section>-->
 
   <!-- Next Event / Countdown -->
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
+<section class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-4">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div>
       <p class="text-slate-400 text-xs uppercase tracking-wider">Next Appointed Time</p>
       <h3 id="nextHolyDayTitle" class="text-2xl font-bold text-amber-300">Passover</h3>
       <p id="nextHolyDayDate" class="text-slate-200">Begins at sundown on April 1, 2026</p>
@@ -290,62 +66,8 @@ while focusing on the meaning of the appointed times themselves.<br><button clas
         </button>
       </div>     
     </div>
-
-   <!-- <div class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
-      <p class="text-slate-400 text-xs uppercase tracking-wider">Countdown</p>
-      <h3 id="countdownLabel" class="text-2xl font-bold text-green-300">Time Remaining</h3>
-      <div id="countdownValue" class="text-3xl font-extrabold">12d 04h 19m</div>
-      <p class="text-slate-400 text-sm">
-        Use this calendar to prepare, remember, and participate.
-      </p>
-    </div>
-  </section>-->
-          🕍 Hillel Calendar (Rabbinic)
-
-The Hillel calendar is the standard Jewish calendar used today.
-
-It is:
-	•	lunar-based (months follow moon cycles)
-	•	mathematically calculated, not observational
-	•	includes leap months to stay aligned with seasons
-
-It was formalized to ensure:
-	•	unity across dispersed Jewish communities
-	•	predictable feast days year after year
-
-Key idea:
-A reliable, shared system for all Israel—regardless of location.
-
-⸻
-
-🌿 Enochian Calendar (364-Day Solar Model)
-
-The Enochian calendar is based on a 364-day solar cycle, found in texts like 1 Enoch and some Dead Sea Scroll traditions.
-
-It features:
-	•	exactly 52 weeks (perfect weekly alignment)
-	•	feast days always fall on the same day of the week each year
-	•	no lunar dependency
-
-Key idea:
-A perfectly ordered, unchanging calendar aligned to a structured creation pattern.
-
-⸻
-
-🕊️ Zedokian Calendar (Priestly Restoration Model)
-
-The Zedokian calendar attempts to restore the priestly calendar associated with the sons of Zadok.
-
-It typically emphasizes:
-	•	Biblical authority over later rabbinic tradition
-	•	observational or reconstructed timing
-	•	alignment with temple service cycles
-
-There is no single agreed version, but all share the goal of:
-
-Key idea:
-Returning to what is believed to be the original priestly timing of appointed times.
-
+ 
+  </section>
   <!-- Holy Days List -->
   <section class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-4">
     <div class="flex items-center justify-between">
@@ -437,7 +159,7 @@ Returning to what is believed to be the original priestly timing of appointed ti
   </section>
 
   <!-- Supporting Tools -->
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <!--<section class="grid grid-cols-1 md:grid-cols-3 gap-4">-->
     <div class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4">
       <h3 class="text-xl font-semibold text-yellow-300">Astronomical / Mazzaroth</h3>
       <p class="text-slate-400 text-sm mt-2">
@@ -468,409 +190,26 @@ Returning to what is believed to be the original priestly timing of appointed ti
       </button>
     </div>
   </section>
+
+    <!-- Optional deeper actions -->
+  <section class="flex flex-wrap gap-3 justify-center pt-2">
+    <button
+      class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 font-semibold"
+      onclick="openOriginsInfo('overview')">
+      Quick Overview
+    </button>
+
+    <button
+      class="px-4 py-2 rounded-xl bg-indigo-700 hover:bg-indigo-600 font-semibold"
+      onclick="goDeeperOrigins()">
+      Go Deeper
+    </button>
+  </section>
+
+  <!-- Closing line -->
+  <footer class="text-center pt-2">
+    <p class="text-slate-400 text-xs md:text-sm italic">
+      You do not have to agree with everything here to belong here.
+    </p>
+  </footer>
 </section>
-<!--old page------------------------------------------------------------------------------------------------------------------------------------------------------------
-                  <!-- Placeholder / In Progress 
-                  <section class="placeholders bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-2">
-                    <h2 class="text-2xl font-bold flex items-center gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                      </svg>
-                      <!-- Calendar Filters 
-                      <div class="calendar-filters flex flex-wrap gap-2 justify-center">
-                        <button
-                          class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 flex items-center gap-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
-                          </svg>
-                          Hillel
-                        </button>
-                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Enochian</button>
-                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Zedokian</button>
-                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Eastern
-                          Orthodox</button>
-                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Western Orthodox /
-                          Catholic</button>
-                        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">MS Christian</button>
-                        <h3 class="text-xl font-semibold text-blue-400">
-                          Current Calculation:
-                        </h3><button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600"
-                          onclick="setCalendarType('Hillel')">
-                          <h3 style="color:#00bfff; text-align:center; text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-                            Hillel
-                          </h3>
-                          <!--</h2>
-    <p>🎵 Placeholder: Music / voice interaction panel</p>
-    <p>🌌 Placeholder: Cosmic visual effects / touch interactions</p>
-    <p>📅 Placeholder: Advanced calendar logic / highlight upcoming events</p>
-                  </section>-->
-                 <!-- <div class="calendar-filters flex flex-wrap gap-2 justify-center">
-
-                    <!-- Horizontal Section Example -->
-                   <!-- <section class="horizontal-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-                      <!-- Astronomical Info Card -->
-                    <!--  <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                        <h2 class="text-2xl font-bold flex items-center gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 3v3m0 12v3m9-9h-3M6 12H3m15.364-6.364l-2.121 2.121M7.757 16.243l-2.121 2.121m12.728 0l-2.121-2.121M7.757 7.757L5.636 5.636" />
-                          </svg>
-                          Astronomical Info/ The Mazzaroth
-                        </h2>
-                        <p>🌞 Sun Rise / Set: 06:23</p>
-                        <p>🌙 Moon Phase: Waxing Crescent</p>
-                        <p>⭐ Visible Stars / Constellations: Orion, Cassiopeia</p>
-                        <button class="px-3 py-1 rounded bg-orange-600 hover:bg-orange-500">Learn More</button>
-
-
-                        <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ 12 Tribes</h3>
-                        <p>-Judah: Often associated with Leo, the royal lion, based on Genesis 49:9.
-                        <p></p>
-                        <p>-Issachar: Associated with Cancer, the Crab, possibly because Jacob referred to him as an
-                          "ass," and the Cancer constellation contains the "ass" stars.
-                        <p></p>
-                        <p>-Reuben: Often linked to Taurus, the Bull, while other systems place him with Cancer.
-                        <p></p>
-                        <p>-Zebulun: Associated with Gemini or Pisces, depending on the system.
-                        <p></p>
-                        <p>-Benjamin: Linked to Sagittarius, the Archer, or Gemini.
-                        <p></p>
-                        <p>-Dan: Often linked to Scorpio or Capricorn.
-                        <p></p>
-                        <p>-Naphtali: Frequently associated with Virgo, the Virgin.
-                        <p></p>
-                        <p>-Gad: Associated with Sagittarius or Pisces.
-                        <p></p>
-                        <p>-Asher: Linked to Libra or Aquarius.
-                        <p></p>
-                        <p>-Naphtali: Associated also with Virgo.
-                        <p></p>
-
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                        <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
-                        <button class="px-3 py-1 rounded bg-orange-600 hover:bg-orange-500">Learn More</button>
-                        <p></p>
-                        <p></p>
-                        <p></p>
-                      </div>
-
-                      <!-- Calendar Dates Card -->
-                    <!--  <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                        <h2 class="text-2xl font-bold flex items-center gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
-                          </svg>
-                          Calendar Dates
-                        </h2>
-
-                        <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Fulfillment</h3>
-                        <ul class="list-disc pl-5 space-y-1">
-                          <li>
-                            Passover: Jesus' death on the cross is seen as the fulfillment (happened
-                            on the
-                            same-day, anniversary) of the Passover
-                            lamb, where his blood provides redemption.
-                          </li>
-                          <p></p>
-                          <p></p>
-                          <p></p>
-                          <li>
-                            Feast of Unleavened Bread: Jesus' burial is fulfilled (happened on the
-                            same-day,
-                            anniversary) during this feast, which
-                            symbolizes his sinless life being buried with him as the "bread of
-                            life".
-                          </li>
-                          <li>
-                            Feast of First Fruits: His resurrection on this day marked him (happened
-                            on the
-                            same-day, anniversary) as the
-                            firstfruits of those who will be resurrected.
-                          </li>
-                          <li>Pentecost: The Holy Spirit was given to believers 50 days after the
-                            resurrection, fulfilling (happened on the same-day, anniversary) the
-                            promise of
-                            the new covenant sealed in Jesus' blood. This was/ is also the
-                            anniversary of
-                            the first Covenant at Mt. Sinai.
-                          </li>
-                          <li>
-                            Feasts fulfilled by Jesus' second coming:
-                          </li>
-                          <li>Feast of Trumpets: This is seen as a signal for his return, potentially
-                            marking
-                            the rapture of believers.
-                          </li>
-                          <li>
-                            Day of Atonement: This feast is associated with the final judgment and
-                            his
-                            second coming as king.
-                          </li>
-                          <li>
-                            Feast of Tabernacles: This represents the 1,000-year Messianic kingdom
-                            on earth,
-                            which will be established when he returns as king
-                          </li>
-                        </ul>
-
-                      </div>
-
-                      <!-- Holy Days / Feasts Card -->
-                     <!-- <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                        <h2 class="text-2xl font-bold flex items-center gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                          </svg>
-                          Holy Days / Feasts Explained
-                        </h2>
-                        <ul class="list-disc pl-5 space-y-1">
-                          <li>Evening of Wed, Oct 1, 2025 – Thu, Oct 2, 2025 <button
-                              class="px-2 py-1 ml-2 rounded bg-orange-600 hover:bg-orange-500"
-                              onclick="alert('Yom Kippur means Day of Atonement in English and is the holiest day on the Biblical calendar, observed by fasting and intensive prayer to atone for sins and seal judgment for the year. The holiday marks the end of the Days of Awe (the Ten Days of Repentance) that begin with Rosh Hashanah, focusing on self-reflection, seeking forgiveness, and making amends')">Info</button>
-                          </li>
-                          <li>Sukkot (Feast of Tabernacles): Starts the evening of Monday, October 6, 2025, and
-                            concludes at nightfall on Monday, October 13, 2025<button
-                              class="px-2 py-1 ml-2 rounded bg-orange-600 hover:bg-orange-500"
-                              onclick="alert('Sukkot lasts for seven days. The two days following the festival, Shemini Atzeret and Simchat Torah, are separate holidays but are related to Sukkot and are commonly thought of as part of Sukkot.')">Info</button>
-                          </li>
-
-                          <li>Shemini Atzeret: Follows Sukkot, beginning the evening of Monday, October 13, 2025, and
-                            ending at nightfall on Tuesday, October 14, 2025<button
-                              class="px-2 py-1 ml-2 rounded bg-orange-600 hover:bg-orange-500"
-                              onclick="alert('It is celebrated on the 22nd day of the Hebrew month of Tishrei, usually coinciding with late-September or early-October. It is the eighth day of Sukkot, a sacred occasion, where one stores up gratitude and devotion, and is not quite its own holiday.')">Info</button>
-                          </li>
-
-                        </ul>
-
-                        <ul class="list-disc pl-5 space-y-1">
-                          <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Spring Feasts</h3>
-                          <li>
-                            Pesach (Passover): The first spring feast, commemorating the liberation
-                            of the
-                            Israelites from Egyptian slavery.:
-                          <li>
-                            Matzot (Unleavened Bread): Follows Passover and celebrates the hasty
-                            departure
-                            from Egypt, with no time for bread to rise.
-                          </li>
-                          <li>
-                            Bikkurim (First Fruits): Celebrates the first harvest and the
-                            resurrection of
-                            the Messiah as the first fruits from the dead.
-
-                          </li>
-                          <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Summer Feast</h3>
-                          <li>
-                            Pentecost:
-                            Shavuot (Pentecost): Also known as the Feast of Weeks, it celebrates the
-                            second
-                            grain harvest and commemorates the giving of the Torah to Moses.
-                          </li>
-                          <h3 class="text-2xl font-bold flex items-center gap-2">🕊️ Fall Feasts</h3>
-                          <li>
-                            Yom Teruah (Trumpets): Also called Rosh Hashanah, it marks the Jewish
-                            New Year
-                            and is a time of sounding trumpets.
-
-                          </li>
-                          <li>
-                            Yom Kippur (Day of Atonement): A day of fasting, repentance, and
-                            atonement for
-                            sins.
-
-                          </li>
-                          <li>
-                            Sukkot (Feast of Tabernacles/Booths): A week-long festival commemorating
-                            the
-                            Israelites' 40 years of wandering in the desert, living in temporary
-                            shelters.
-                          </li>
-                        </ul>
-
-
-                        <section>
-
-
-                      </div>
-
-                      <!-- Calendar Dates Card -->
-                     <!-- <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                        <h2 class="text-2xl font-bold flex items-center gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
-                          </svg>
-                          2026 Calendar Dates
-                        </h2>
-
-                        <p>April 1: Passover Sundown</p>
-                        <p>April 2–8: Feast of Unleavened Bread</p>
-                        <p>September 12: Feast of Trumpets</p>
-                        <p>September 22–24: Rosh Hashanah</p>
-                        <p>October 1–2: Yom Kippur</p>
-                        <p>October 6–13: Sukkot</p>
-                        <p>December 14–22: Hanukkah</p>
-                        <p>Last Great Day - 10/14/2025</p>
-                        <p>Locations: Jerusalem, Synagogues, Churches, HomeGroups</p>
-                        <button class="px-3 py-1 rounded bg-orange-600 hover:bg-orange-500">Learn More</button>
-                      </div>
-
-                      <!-- Calendar Dates Card -->
-                     <!-- <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                        <h2 class="text-2xl font-bold flex items-center gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
-                          </svg>
-                          <h2>Christian Holidays</24>
-
-                            <p>January 1: Solemnity of Mary, the Mother of God</p>
-                            <p>January 6: Epiphany</p>
-                            <p>February 18: Ash Wednesday</p>
-                            <p>May 14: Ascension of the Lord</p>
-                            <p>January 7: Orthodox Christmas Day</p>
-                            <p>May 24: Pentecost</p>
-                            <p>August 15: Assumption of the Blessed Virgin Mary</p>
-                            <p>November 1: All Saints' Day</p>
-                            <p>November 29: First Sunday of Advent</p>
-                            <p>December 8: Immaculate Conception of the Blessed Virgin Mary</p>
-                            <p>December 25: Christmas</p>
-                            <p>June 16–17: Islamic New Year (Hijri)</p>
-                            <p>Pagan Christmas - 12/25/2026</p>
-                      </div>
-                      <!-- Calendar Dates Card -->
-                     <!-- <div class="card bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 flex flex-col gap-2">
-                        <h2 class="text-2xl font-bold flex items-center gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
-                          </svg>
-                          Other Religious Observances
-                        </h2>
-
-                        <p>February 17–March 18: Ramadan</p>
-                        <p>May 26–27: Eid al-Adha</p>
-                        <p>June 16–17: Islamic New Year (Hijri)</p>
-                        <p>January 3: Mahayana New Year (Buddhist)</p>
-                        <p>June 18: Martyrdom of Guru Arjan Dev (Sikhism)</p>
-                        <p>June 16–17: Islamic New Year (Hijri)</p>
-                        <p>August 16: Krishna Janmashtami (Hinduism)</p>
-                        <p>October 20: Diwali (Hindu, Jain, Sikh)</p>
-                        <p>November 5: Guru Nanak Gurpurab (Sikhism)</p>
-                        <p>February 17–March 18: Ramadan</p>
-                        <p>May 26–27: Eid al-Adha</p>
-                        <p>June 16–17: Islamic New Year (Hijri)</p>
-                        <p>Christmas - 12/25/2025</p>
-
-                      </div>
-
-                  </div>
-                  </p>
-              </div>
-            </div>
-          </div>-->
-                                  
-
-        </section>
-<script>
-(function () {
-  // 2026 Omer: begins evening of Apr 2, ends night before May 20
-  // This counter rolls over at local sundown (default 7:30 PM).
-  const OMER_START = new Date(2026, 3, 2);   // Apr 2, 2026
-  const OMER_END   = new Date(2026, 4, 20);  // May 20, 2026
-  const SUNDOWN_HOUR = 19;   // adjust if you want
-  const SUNDOWN_MIN  = 30;   // adjust if you want
-
-  const dayEl = document.getElementById("omerDay");
-  const textEl = document.getElementById("omerText");
-  const detailEl = document.getElementById("omerDetail");
-
-  function startOfLocalDay(d) {
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  }
-
-  function getEffectiveDate(now) {
-    const sundown = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      SUNDOWN_HOUR,
-      SUNDOWN_MIN,
-      0,
-      0
-    );
-
-    // After sundown, Jewish day advances for counting purposes
-    if (now >= sundown) {
-      const tomorrow = new Date(now);
-      tomorrow.setDate(now.getDate() + 1);
-      return startOfLocalDay(tomorrow);
-    }
-
-    return startOfLocalDay(now);
-  }
-
-  function formatWeeksDays(dayNumber) {
-    const weeks = Math.floor(dayNumber / 7);
-    const days = dayNumber % 7;
-
-    if (dayNumber < 7) return ${dayNumber} day${dayNumber === 1 ? "" : "s"};
-    if (days === 0) return ${dayNumber} days, which is ${weeks} week${weeks === 1 ? "" : "s"};
-    return ${dayNumber} days, which is ${weeks} week${weeks === 1 ? "" : "s"} and ${days} day${days === 1 ? "" : "s"};
-  }
-
-  function updateOmerCounter() {
-    const now = new Date();
-    const effectiveDate = getEffectiveDate(now);
-
-    const diffMs = effectiveDate - OMER_START;
-    const dayNumber = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;
-
-    const beforeStart = effectiveDate < OMER_START;
-    const afterEnd = effectiveDate > OMER_END;
-
-    if (beforeStart) {
-      dayEl.textContent = "0";
-      textEl.textContent = "Omer has not started yet";
-      detailEl.textContent = "Counting begins after sundown on April 2, 2026.";
-      return;
-    }
-
-    if (afterEnd || dayNumber > 49) {
-      dayEl.textContent = "50";
-      textEl.textContent = "Shavuot has arrived";
-      detailEl.textContent = "The 49-day Omer count is complete.";
-      return;
-    }
-
-    dayEl.textContent = dayNumber;
-    textEl.textContent = Today is ${formatWeeksDays(dayNumber)} of the Omer.;
-
-    if (dayNumber < 49) {
-      detailEl.textContent = now.getHours() >= SUNDOWN_HOUR
-        ? "Counted after sundown."
-        : "This will advance at sundown.";
-    } else {
-      detailEl.textContent = "Final day of the Omer count.";
-    }
-  }
-
-  updateOmerCounter();
-
-  // Refresh every minute in case sundown passes while page is open
-  setInterval(updateOmerCounter, 60000);
-})();
-</script>
