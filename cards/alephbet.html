@@ -50,19 +50,11 @@
       margin-bottom:8px;
     }
 
-    .hg-empty{
-      color:#a8b2c7;
-      font-size:.92rem;
-      padding:14px;
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:14px;
-      text-align:center;
-    }
-
     .hg-btn-row{
       display:flex;
       gap:8px;
       flex-wrap:wrap;
+      justify-content:center;
     }
 
     .hg-btn{
@@ -74,337 +66,123 @@
       color:#eef3ff;
       border:1px solid rgba(255,255,255,.10);
       font:inherit;
+      cursor:pointer;
+    }
+
+    .hg-muted{
+      color:#94a3b8;
+      font-size:.92rem;
+      line-height:1.45;
+      text-align:center;
+    }
+
+    .hg-small-note{
+      color:#64748b;
+      font-size:.82rem;
+      line-height:1.4;
+      text-align:center;
+      font-style:italic;
+    }
+
+    .hg-aleph-viewer{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      margin-top:8px;
+      margin-bottom:12px;
+    }
+
+    .hg-aleph-nav{
+      border:none;
+      background:transparent;
+      color:#94a3b8;
+      font-size:2rem;
+      line-height:1;
+      cursor:pointer;
+      padding:0 8px;
+    }
+
+    .hg-aleph-nav:hover{
+      color:#fff;
     }
 
     .alephbet-strip {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  gap: 1rem;
-  padding-bottom: 0.5rem;
-}
+      display:flex;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      gap:1rem;
+      padding-bottom:0.5rem;
+      -webkit-overflow-scrolling:touch;
+    }
 
-.alephbet-page {
-  min-width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
-  scroll-snap-align: start;
-}
+    .alephbet-page {
+      min-width:100%;
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:0.75rem;
+      scroll-snap-align:start;
+    }
 
-.letter-card {
-  background: rgba(15, 23, 42, 0.75);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 0.75rem;
-  padding: 0.75rem 0.5rem;
-  text-align: center;
-}
+    .letter-card {
+      background:rgba(15, 23, 42, 0.75);
+      border:1px solid rgba(148, 163, 184, 0.25);
+      border-radius:0.75rem;
+      padding:0.75rem 0.5rem;
+      text-align:center;
+    }
 
-.letter-card .hebrew {
-  font-size: 2.2rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-}
+    .letter-card .hebrew {
+      font-size:2.2rem;
+      font-weight:600;
+      margin-bottom:0.25rem;
+    }
 
-.letter-card .name {
-  font-size: 0.75rem;
-  color: #94a3b8;
-}
+    .letter-card .name {
+      font-size:0.75rem;
+      color:#94a3b8;
+    }
 
-.letter-card .sound {
-  font-size: 0.7rem;
-  color: #64748b;
-}
+    .letter-card .sound {
+      font-size:0.7rem;
+      color:#64748b;
+    }
 
-.hebrew-letter {
-  font-size: 3rem;
-  color: #f5e6c8;
-  text-shadow:
-    0 0 2px rgba(245,230,200,0.3),
-    inset 0 0 6px rgba(180,140,60,0.4);
-  animation: inkBreath 6s ease-in-out infinite;
-}
+    .aleph-glow {
+      position:relative;
+      width:12rem;
+      height:12rem;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      border-radius:1rem;
+      background:
+        radial-gradient(circle at top,
+          rgba(255, 200, 120, 0.18),
+          rgba(15, 23, 42, 0.9) 70%);
+      border:1px solid rgba(255, 210, 150, 0.35);
+      box-shadow:
+        0 0 25px rgba(255, 190, 120, 0.25),
+        inset 0 0 18px rgba(255, 200, 140, 0.15);
+    }
 
-@keyframes inkBreath {
-  0%, 100% {
-    text-shadow:
-      0 0 2px rgba(245,230,200,0.3),
-      0 0 6px rgba(180,140,60,0.4);
-  }
-  50% {
-    text-shadow:
-      0 0 4px rgba(245,230,200,0.5),
-      0 0 12px rgba(180,140,60,0.7);
-  }
-}
+    .aleph-glow::after {
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius:1.25rem;
+      background:radial-gradient(
+        circle at center,
+        rgba(251, 191, 36, 0.25),
+        transparent 70%
+      );
+      filter:blur(14px);
+      z-index:-1;
+    }
 
-/* Alephbet sacred glow */
-.aleph-glow {
-  position: relative;
-  box-shadow:
-    inset 0 0 18px rgba(251, 191, 36, 0.18),
-    0 0 28px rgba(251, 191, 36, 0.25);
-}
-
-.aleph-glow::after {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 1.25rem;
-  background: radial-gradient(
-    circle at center,
-    rgba(251, 191, 36, 0.25),
-    transparent 70%
-  );
-  filter: blur(14px);
-  z-index: -1;
-}
-
-/* Hebrew letter glow itself */
-.aleph-letter {
-  text-shadow:
-    0 0 12px rgba(251, 191, 36, 0.45),
-    0 0 28px rgba(251, 191, 36, 0.25);
-  animation: alephBreath 6s ease-in-out infinite;
-}
-
-@keyframes alephBreath {
-  0%, 100% {
-    text-shadow:
-      0 0 10px rgba(251, 191, 36, 0.35),
-      0 0 24px rgba(251, 191, 36, 0.2);
-  }
-  50% {
-    text-shadow:
-      0 0 16px rgba(251, 191, 36, 0.55),
-      0 0 36px rgba(251, 191, 36, 0.35);
-  }
-}
-
-.aleph-glow {
-  background:
-    radial-gradient(circle at top,
-      rgba(255, 200, 120, 0.18),
-      rgba(15, 23, 42, 0.9) 70%);
-  border: 1px solid rgba(255, 210, 150, 0.35);
-  box-shadow:
-    0 0 25px rgba(255, 190, 120, 0.25),
-    inset 0 0 18px rgba(255, 200, 140, 0.15);
-}
-
-.aleph-letter {
-  font-size: 4rem;
-  color: #f6e7c1;
-  text-shadow:
-    0 0 12px rgba(255, 210, 140, 0.7),
-    0 0 28px rgba(255, 180, 90, 0.35);
-}
-    </style>
-
-  <header class="hg-card-head">
-   <!-- <div class="hg-card-kicker">Card Loaded.</div>
-    <h2 class="hg-card-title">Card Title</h2>
-    <p class="hg-card-sub">Short description goes here.</p>-->
-  </header>
-
-  <section class="hg-panel">
-   <!-- <div class="hg-section-label">Section</div>
-    <div class="hg-empty">Your content goes here.-->
-        <!-- Body (must breathe) -->
-        <div class="card-inner text-center">
-
-           <!-- <h2 class="text-lg font-semibold text-amber-200 mb-4">
-                The Alephbet
-            </h2>-->
-            <div class="flex justify-center mt-4">
-                <button id="alephAudioBtn" class="px-4 py-2 rounded-full text-sm
-                 bg-amber-500/20 border border-amber-400/40
-                 text-amber-200 hover:bg-amber-500/30 transition">
-                    ▶ Play Alephbet Song
-                </button>
-            </div>
-
-            <p></p>
-            <div id="alephbetViewer" class="flex items-center justify-center gap-6">
-                <button id="alephPrev" class="text-2xl text-slate-400 hover:text-white">‹</button>
-
-                <div id="alephCard" class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
-                    <div id="alephLetter" class="aleph-letter mb-1">א</div>
-                    <div id="alephName" class="text-lg text-amber-100">Aleph</div>
-                    <div id="alephSound" class="text-xs text-amber-300 mt-1">
-                        Silent / Ah
-                    </div>
-                </div>
-
-                <button id="alephNext" class="text-2xl text-slate-400 hover:text-white">›</button>
-            </div>
-
-            <button id="alephPlay" class="mt-4 text-xs text-amber-300 hover:text-white">
-                🔊 Hear pronunciation
-            </button>
-
-            <div class="text-xs text-slate-500 mt-3 italic">
-                Take your time. Let it settle.
-            </div>
-
-            <div class="text-center mb-4">
-                <div class="label-pill text-slate-400">Practice writing</div>
-                <p class="text-sm text-slate-400 mt-1">
-                    No rush. No pressure. Just familiarity.
-                </p>
-
-                <!-- Horizontal pager -->
-                <div class="alephbet-strip">
-
-                    <!-- Page 1 -->
-                    <div class="alephbet-page">
-                        <div class="letter-card">
-                            <div class="hebrew">א</div>
-                            <div class="name">Aleph</div>
-                            <div class="sound">silent / breath</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ב</div>
-                            <div class="name">Bet</div>
-                            <div class="sound">b / v</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ג</div>
-                            <div class="name">Gimel</div>
-                            <div class="sound">g</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ד</div>
-                            <div class="name">Dalet</div>
-                            <div class="sound">d</div>
-                        </div>
-                    </div>
-
-                    <!-- Page 2 -->
-                    <div class="alephbet-page">
-                        <div class="letter-card">
-                            <div class="hebrew">ה</div>
-                            <div class="name">He</div>
-                            <div class="sound">h</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ו</div>
-                            <div class="name">Vav</div>
-                            <div class="sound">v / o / u</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ז</div>
-                            <div class="name">Zayin</div>
-                            <div class="sound">z</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ח</div>
-                            <div class="name">Chet</div>
-                            <div class="sound">kh</div>
-                        </div>
-                    </div>
-
-                    <!-- Page 3 -->
-                    <div class="alephbet-page">
-                        <div class="letter-card">
-                            <div class="hebrew">ט</div>
-                            <div class="name">Tet</div>
-                            <div class="sound">T</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">י</div>
-                            <div class="name">Yod</div>
-                            <div class="sound">Y</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">כ/ך</div>
-                            <div class="name">Kaph</div>
-                            <div class="sound">K / Kh</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ל</div>
-                            <div class="name">Lamed</div>
-                            <div class="sound">L</div>
-                        </div>
-                    </div>
-
-                    <!-- Page 4 -->
-                    <div class="alephbet-page">
-                        <div class="letter-card">
-                            <div class="hebrew">מ/ם</div>
-                            <div class="name">Mem</div>
-                            <div class="sound">M</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">נ/ן</div>
-                            <div class="name">Nun</div>
-                            <div class="sound">N</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ס</div>
-                            <div class="name">Samekh</div>
-                            <div class="sound">S</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ע</div>
-                            <div class="name">Aiyin</div>
-                            <div class="sound">Silent / NG</div>
-                        </div>
-                    </div>
-
-                    <!-- Page 5 -->
-                    <div class="alephbet-page">
-                        <div class="letter-card">
-                            <div class="hebrew">פ/ף</div>
-                            <div class="name">Pe</div>
-                            <div class="sound">P / F</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">צ/ץ</div>
-                            <div class="name">Tsadi</div>
-                            <div class="sound">Ts</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ק</div>
-                            <div class="name">Qof</div>
-                            <div class="sound">K</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ר</div>
-                            <div class="name">Resh</div>
-                            <div class="sound">R</div>
-                        </div>
-                    </div>
-
-                    <!-- Page 6 -->
-                    <div class="alephbet-page">
-                        <div class="letter-card">
-                            <div class="hebrew">ש</div>
-                            <div class="name">Shin</div>
-                            <div class="sound">Sh / S</div>
-                        </div>
-                        <div class="letter-card">
-                            <div class="hebrew">ת</div>
-                            <div class="name">Tav</div>
-                            <div class="sound">T</div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <p class="text-xs text-slate-500 text-center mt-4 italic">
-                    You are not required to learn anything.
-                    Familiarity comes naturally.
-                </p>
-            </div>
-
-            <div class="text-center text-xs text-slate-500 mt-4">
-                Swipe slowly. Let it settle.
-            </div>
-        </div>
-
-    </div>
-</section>
-</div>
-  </section>
-</section>
+    .aleph-letter {
+      font-size:4rem;
+      color:#f6e7c1;
+      text-shadow:
+        0 0 12px rgba(255, 210, 140, 0
