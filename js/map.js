@@ -17,7 +17,7 @@
   mapEl._hgMapInstance = map;
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
+    maxZoom: 18,
     attribution: "&copy; OpenStreetMap"
   }).addTo(map);
 
@@ -131,46 +131,6 @@
           .bindPopup("No valid GeoJSON coordinates found")
           .openPopup();
       }
-
-           function locateUser() {
-  if (!window.currentMap) return;
-  addGeoLocateMarker(window.currentMap);
-     }
-  
-function addGeoLocateMarker(map) {
-  if (!map) return;
-
-  map.locate({
-    setView: true,
-    maxZoom: 12,
-    enableHighAccuracy: true,
-    timeout: 10000
-  });
-
-  map.once("locationfound", function (e) {
-    // remove old marker if exists
-    if (window.userLocationMarker) {
-      map.removeLayer(window.userLocationMarker);
-    }
-
-    if (window.userLocationCircle) {
-      map.removeLayer(window.userLocationCircle);
-    }
-
-    window.userLocationMarker = L.marker(e.latlng)
-      .addTo(map)
-      .bindPopup("📍 You are here.<br>Zoom out to find people nearby.")
-      .openPopup();
-
-    window.userLocationCircle = L.circle(e.latlng, {
-      radius: e.accuracy || 30
-    }).addTo(map);
-  });
-
-  map.once("locationerror", function (e) {
-    console.warn("Geolocation error:", e.message);
-  });
-}
 
       setTimeout(() => map.invalidateSize(), 120);
       setTimeout(() => map.invalidateSize(), 500);
