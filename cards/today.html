@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Today</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center">
+
+  <!-- TODAY CARD -->
+  <div class="w-full max-w-md px-6">
+
+    <!-- Context Header -->
+    <div class="mb-6 text-center">
+      <h1 class="text-2xl font-semibold">Today</h1>
+      <p class="text-slate-400 text-sm">Wednesday, March 6</p>
+    </div>
+
+    <!-- Main Card -->
+    <div class="bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700">
+
+      <h2 class="text-lg font-medium mb-3 text-slate-200">
+        Today’s Scripture
+      </h2>
+
+      <p class="text-slate-400 text-sm mb-2">
+        Psalm 23
+      </p>
+
+      <p class="italic text-slate-200 mb-6">
+        “The LORD is my shepherd; I shall not want.”
+      </p>
+
+      <!-- Primary Action -->
+      <button
+        class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 transition text-white font-medium"
+      >
+        ▶ Listen
+      </button>
+
+      <!-- Go Deeper Toggle -->
+      <div class="mt-4 text-center">
+        <button
+          onclick="document.getElementById('deeper').classList.toggle('hidden')"
+          class="text-slate-400 text-sm hover:text-slate-200"
+        >
+          Go deeper →
+        </button>
+      </div>
+
+      <!-- Deeper Drawer -->
+      <div id="deeper" class="hidden mt-4 border-t border-slate-700 pt-4 text-sm text-slate-300">
+        <ul class="space-y-2">
+          <li>• Read full chapter</li>
+          <li>• View in Hebrew / Greek</li>
+          <li>• Study notes</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+        <!-- ============================= -->
+        <!-- Card 0: FrontPorch           -->
+        <!-- ============================= -->
+        <section id="frontPorchCard" class="card active">
+          <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Card header -->
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+              <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"
+                title="Prev card">
+                <!-- Heroicon: Chevron Left -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              <div class="text-center">
+                <div class="label-pill text-slate-400">Card 0</div>
+                <h2 class="text-xl font-bold text-orange-300">
+                  Front Porch • Get Comfy
+                </h2>
+              </div>
+
+              <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"
+                title="Next card">
+                <!-- Heroicon: Chevron Right -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Card body -->
+            <div class="p-5 space-y-5">
+
+
+              <!-- Hero video / floating player slot -->
+              <div id="frontPorch" class="relative w-full max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
+                <!--<video autoplay muted loop playsinline
+                     class="absolute inset-0 w-full h-full object-cover opacity-30">
+                <source src="videos/bg-motion.mp4" type="video/mp4" />
+              </video>-->
+
+                <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">
+                  <!-- Welcome -->
+                  <header class="space-y-2">
+                    <h1 class="text-2xl font-semibold text-white">Welcome, friends.</h1>
+                    <p class="text-slate-400 text-sm">Sit. Listen. Breathe.</p>
+                  </header>
+
+
+                  <button onclick="getResource('journey')?.openJourney()"
+                    class="mt-4 px-5 py-3 rounded-xl bg-orange-700/90 text-white font-medium shadow-lg text-center">
+                    🌿 Want a Guided Journey?
+                  </button>
+                  <p class="label-pill text-sky-300/90">
+                    <marquee behavior="scroll" direction="right">
+                      <p id="nowPlaying" class="mt-1 text-sm text-orange-600 dark:text-orange-400"></p>
+                    </marquee>
+
+                    <button id="openScriptureBtn" class="px-2 py-1 border rounded" style="float: center;">Show
+                      Verses</button> <button id="openVideoBtn" class="px-2 py-1 border rounded"
+                      style="float: center;">Show Video</button>
+                  </p>
+                  <div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+                    <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
+                    <video controls class="max-w-[90%] max-h-[90%]">
+                      <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
+                    </video>
+                  </div>
+
+
+
+                  <!-- Video -->
+                  <!-- <div class="aspect-video w-full max-w-xs mx-auto rounded-xl overflow-hidden border border-slate-700/50 shadow-lg">
+      <iframe
+        class="w-full h-full"
+        src="https://www.youtube.com/embed/Q95FO1e1HGU"
+        title="Welcome"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+    </div>-->
+
+                  <!-- Gentle Text -->
+                  <p class="text-xs text-slate-500">
+                    No rush. No pressure.
+                    Stay as long as you like.
+                  </p>
+
+                  <!-- Porch Orbit -->
+                  <div class="orbit mt-6 relative">
+
+                    <!-- Center Player -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <div
+                        class="w-[40%] aspect-square max-w-[140px] rounded-full bg-slate-900/90 border border-slate-700/60 flex items-center justify-center shadow-inner text-center text-sm text-slate-200">
+                        <p>
+                          🎧 5. Listen<br>
+                          <button onclick="openPlayerPanel()" class="mt-1 text-orange-400 hover:text-orange-300">
+                            ▶
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Orbit Buttons -->
+                    <button class="orbit-btn top" onclick="openToday()">
+                      🪑 1. Rest
+                    </button>
+
+                    <button class="roundorbit-btn top-right"
+                      onclick="getResource('htmlPanel')?.open('https://emartinie.github.io/MainStage/scripture/english/week1.html')">
+                      Scripture
+                    </button>
+
+                    <button class="orbit-btn right" onclick="goToCard('mapCard')">
+                      🤝 2. Join
+                    </button>
+
+                    <button class="roundorbit-btn bottom-right" onclick="goToCard('hostCard')">
+                      Games
+                    </button>
+
+                    <button class="orbit-btn bottom"
+                      onclick="getResource('porchPanel')?.openPorchPanel('Public/private Communication', '<p>Messaging coming soon 🌱</p>')">
+                      🗣️ 3. Speak
+                    </button>
+
+                    <button class="roundorbit-btn bottom-left" onclick="goToCard('calendarCard')">
+                      Calendar
+                    </button>
+
+                    <button class="orbit-btn left" onclick="goToCard('studyContent')">
+                      📖 4. Learn
+                    </button>
+
+                    <button class="roundorbit-btn top-left" onclick="
+  getResource('porchPanel')?.openPorchPanel(
+    'Sharing Information',
+    '<p>2-way forms coming soon 🌱</p>'
+  )
+">
+                      Panel
+                    </button>
+                  </div>
+
+
+
+                  <div class="mobile-doors md:hidden space-y-3">
+
+                    <button class="door-btn" onclick="openToday()">🪑 Rest</button>
+                    <button class="door-btn" onclick="goToCard('mapCard')">🤝 Join</button>
+                    <button class="door-btn" onclick="getResource('porchPanel')?.openPorchPanel(...)">🗣️ Speak</button>
+                    <button class="door-btn" onclick="goToCard('studyContent')">📖 Learn</button>
+                    <button class="door-btn" onclick="openPlayerPanel()">🎧 Listen</button>
+
+                  </div>
+
+                  <!-- Scripture -->
+                  <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 mt-6 text-center">
+                    <h1 class="text-2xl font-semibold">My Vision for the App</h1>
+                    <p class="mt-2 text-lg font-medium">"People Don't Care How Much You Know, Until They Know How Much
+                      You Care"</p>
+                    <p class="mt-3 italic text-slate-200">
+                      “ 🌿 Pastoral first
+                      • 🪑 Porch before library
+                      • 🕊️ Peace before precision
+                      • 🔥 Warmth before wisdom”
+
+                    </p>
+                    <p>
+                      -The 5 Doors That Cover 90% of Needs (things I have built to meet them)-</p>
+
+
+                    <p class="text-slate-400 text-sm">
+                      🪑 1. Sit & Rest
+
+                      (Today / Porch / Fireside / Calm content)</p>
+                    <p class="text-slate-400 text-sm">
+                      🤝 2. Join
+
+                      (Map participation, visible community, easy entry, group prayer and games)</p>
+                    <p class="text-slate-400 text-sm">
+                      🗣️ 3. Speak
+
+                      (Feedback, stories, voice, contributions)</p>
+                    <p class="text-slate-400 text-sm">
+                      📖 4. Learn
+
+                      (Study, scripture, deeper tools)</p>
+                    <p class="text-slate-400 text-sm">
+                      🎧 5. Listen
+
+                      (Audio, video, simple explanations)</p>
+                    <p class="text-slate-400 text-sm">
+                      If each of these feels warm, clear, and accessible,
+                      people will say:
+
+                      “This App has everything I need.”</p>
+                  </section>
+
+                  <!-- Quiet Word -->
+                  <section class="bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 space-y-3 text-center">
+                    <h2 class="text-lg font-medium text-orange-300">A quiet word</h2>
+                    <p class="text-slate-300 leading-relaxed">
+                      Ask God for light for the next step — not the whole staircase.
+                      Let the Word be enough for today.
+                    </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </section>

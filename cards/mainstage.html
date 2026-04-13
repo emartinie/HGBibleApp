@@ -1,52 +1,110 @@
-       <!-- Card 1: Main Stage -->
-        <section id="mainStageCard" class="card">
-          <div class="card-shell">
-            <div class="card-header">
-              <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
+<!-- ============================= -->
+<!-- Card 1: Main Stage           -->
+<!-- ============================= -->
+<section id="mainStageCard" class="card active">
+    <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
 
-              <div class="card-heading">
-                <div class="card-kicker">Main Stage</div>
-                <h2 class="card-title">Weekly Study</h2>
-              </div>
+        <!-- Card header -->
+        <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6" title="Prev card">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
 
-              <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
+            <div class="text-center">
+                <div class="label-pill text-slate-400">Card 1</div>
+                <h2 class="text-xl font-bold text-orange-300">Main Stage • Weekly Study</h2>
             </div>
-<select id="weekSelect" class="ui-select" aria-label="Select week">
-        <option>Week 1</option>
-      </select>
 
-      <div class="toolbar">
-        <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
-        <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
-      </div>
-            <div class="card-body">
-              <section class="hero-panel">
-                <h3 id="mainStageTitle" class="hero-title">Loading week...</h3>
-                <p id="mainStageSub" class="hero-sub">Please wait while the weekly study loads.</p>
-              </section>
+            <button class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6" title="Next card">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
 
-              <div id="nowPlaying">Now Playing: —</div>
+        <!-- Card body -->
+        <div class="p-5 space-y-5">
+            <!-- Hero video section -->
+            <div class="relative w-full max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
+                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-30">
+                    <source src="videos/bg-motion.mp4" type="video/mp4" />
+                </video>
 
-              <section class="content-panel">
-                <div class="section-label">Audio Playlist</div>
-                <div id="mainStagePlaylist">
-                  <div class="empty-state">Playlist will appear here.</div>
+                <div class="relative z-10 p-6 flex flex-col items-center gap-3 text-center text-white">
+                    <p class="label-pill text-sky-300/90">
+                        <marquee behavior="scroll" direction="right">
+                            <span id="nowPlaying" class="mt-1 text-sm text-blue-600 dark:text-blue-400"></span>
+                        </marquee>
+                        <span id="headerWeekLabel">Weekly</span> • Torah / Prophets / New Covenant
+                    </p>
+                    <h3 id="mainStageTitle" class="text-3xl font-bold drop-shadow">Weekly Bible Study</h3>
+                    <p id="mainStageSub" class="text-sm text-slate-200">English • Hebrew • Greek (Phase 2) – Audio + Visual</p>
+
+                    <!-- Control buttons -->
+                    <div class="flex gap-2">
+                        <button id="openScriptureBtn" class="px-2 py-1 border rounded">Show Verses</button>
+                        <button id="openVideoBtn" class="px-2 py-1 border rounded">Show Video</button>
+                    </div>
+
+                    <!-- Video overlay -->
+                    <div id="videoOverlay" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
+                        <button id="closeVideo" class="absolute top-4 right-4 text-white text-xl">✕</button>
+                        <video controls class="max-w-[90%] max-h-[90%]">
+                            <source src="videos/build_your_kingdom_here.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div id="mainStagePlaylist" class="grid gap-2 sm:grid-cols-2 mb-4"></div>
+
+                    <h2 class="text-2xl font-bold flex items-center gap-2">
+                        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                        AudioVisual Scriptures
+                        <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                    </h2>
                 </div>
-              </section>
-
-              <section class="content-panel">
-                <div class="section-label">Chapter Outlines</div>
-                <div id="mainStageChapters">
-                  <div class="empty-state">Outlines will appear here.</div>
-                </div>
-              </section>
-
-              <section class="content-panel">
-                <div class="section-label">Video / Media</div>
-                <div id="mainStageVideo" class="hidden">
-                  <div class="empty-state">Media will appear here.</div>
-                </div>
-              </section>
             </div>
-          </div>
-        </section>
+
+            <!-- Action buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <!--<button id="openAnnouncementsBtn" class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold shadow-lg shadow-emerald-500/40">
+                    🔁 Open Announcements
+                </button>
+                <button id="openPrayersBtn" class="px-4 py-2 rounded-full bg-orange-600 hover:bg-orange-500 text-sm font-semibold shadow-lg shadow-orange-500/40 hover:drop-shadow-[0_0_8px_#0ff]">
+                    📖 Open Prayers
+                </button>-->
+            </div>
+
+            <!-- Chapter outlines section -->
+            <div class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6">
+                <h2 class="text-2xl font-bold flex items-center gap-2 mb-4">
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                    This Week's Chapter Outlines
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                </h2>
+                <div id="mainStageChapters" class="p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300"></div>
+            </div>
+
+            <!-- Updates section -->
+            <div class="hero-card relative border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white p-6">
+                <h2 class="text-2xl font-bold flex items-center justify-center gap-2 mb-4">
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                    This Week's Updates
+                    <img src="images/HGHouses.png" alt="logo" class="w-8 h-7" />
+                </h2>
+                <div id="mainStageUpdates" class="p-3 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-inner space-y-2 text-gray-700 dark:text-gray-300"></div>
+            </div>
+
+            <!-- Sources section -->
+            <div class="jesus-tile">
+                <div class="jesus-label">Open Scriptural Sources & Witnesses</div>
+                <button id="openSourcesBtn" class="sources-btn">Open Sources →</button>
+            </div>
+
+            <!-- Cards container -->
+            <div id="cardsContainer" class="space-y-6 mt-6"></div>
+        </div>
+    </div>
+</section>
+
