@@ -7,13 +7,13 @@
     return;
   }
 
-  // destroy old map if this card reloads into same container
+  // clean reload inside card loader
   if (mapEl._hgMapInstance) {
     mapEl._hgMapInstance.remove();
     mapEl._hgMapInstance = null;
   }
 
-  const map = L.map(mapEl).setView([36.1659, -86.7844], 6);
+  const map = L.map(mapEl).setView([39.5, -98.35], 4);
   mapEl._hgMapInstance = map;
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -21,7 +21,6 @@
     attribution: "&copy; OpenStreetMap"
   }).addTo(map);
 
-  // use cluster if plugin is loaded, otherwise fall back
   const markers =
     typeof L.markerClusterGroup === "function"
       ? L.markerClusterGroup()
@@ -29,30 +28,31 @@
 
   map.addLayer(markers);
 
-  function getLatLngFromFeature(feature) {
-    if (!feature || !feature.properties) return null;
-
-    const raw = feature.properties.Coordinates;
+  function getHomeGroupsLatLng(feature) {
+    const raw = feature?.properties?.Coordinates;
     if (!raw) return null;
-
-    if (Array.isArray(raw) && raw.length >= 2) {
-      const a = Number(raw[0]);
-      const b = Number(raw[1]);
-
-      if (Number.isFinite(a) && Number.isFinite(b)) {
-        if (Math.abs(a) <= 90 && Math.abs(b) <= 180) return [a, b];
-        if (Math.abs(b) <= 90 && Math.abs(a) <= 180) return [b, a];
-      }
-    }
 
     if (typeof raw === "string") {
       const parts = raw.split(",").map(s => Number(s.trim()));
-      if (parts.length >= 2 && Number.isFinite(parts[0]) && Number.isFinite(parts[1])) {
-        const a = parts[0];
-        const b = parts[1];
-        if (Math.abs(a) <= 90 && Math.abs(b) <= 180) return [a, b];
-        if (Math.abs(b) <= 90 && Math.abs(a) <= 180) return [b, a];
-      }
+      if (parts.length < 2) return null;
+
+      const lon = parts[0];
+      const lat = parts[1];
+
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+      if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+      return [lat, lon];
+    }
+
+    if (Array.isArray(raw) && raw.length >= 2) {
+      const lon = Number(raw[0]);
+      const lat = Number(raw[1]);
+
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+      if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+      return [lat, lon];
     }
 
     return null;
@@ -61,12 +61,12 @@
   function labelFor(feature, i) {
     const p = feature?.properties || {};
     return (
-      p.name ||
       p.Name ||
-      p.title ||
+      p.name ||
       p.Title ||
-      p.group ||
+      p.title ||
       p.Group ||
+      p.group ||
       `Marker ${i + 1}`
     );
   }
@@ -74,14 +74,16 @@
   function popupFor(feature, i) {
     const p = feature?.properties || {};
     const name = labelFor(feature, i);
-    const desc = p.description || p.Description || "";
+    const message = p.Message || p.message || "";
+    const description = p.description || p.Description || "";
     const visibility = p.visibility ?? p.Visibility ?? "";
     const coords = p.Coordinates || "";
 
     return `
       <div class="map-popup">
         <strong>${name}</strong>
-        ${desc ? `<div style="margin-top:6px;">${desc}</div>` : ""}
+        ${message ? `<div style="margin-top:6px;"><em>${message}</em></div>` : ""}
+        ${!message && description ? `<div style="margin-top:6px;">${description}</div>` : ""}
         ${visibility !== "" ? `<div style="margin-top:6px;opacity:.8;"><strong>Visibility:</strong> ${visibility}</div>` : ""}
         ${coords ? `<div style="margin-top:6px;opacity:.7;font-size:.8rem;"><strong>Coordinates:</strong> ${coords}</div>` : ""}
       </div>
@@ -95,19 +97,22 @@
     })
     .then(data => {
       const features = Array.isArray(data?.features) ? data.features : [];
+      const latlngs = [];
       let validCount = 0;
       let skippedCount = 0;
 
-      console.log("FIRST FEATURE:", data.features?.[0]);
+      console.log("FIRST FEATURE:", features[0]);
 
       features.forEach((feature, i) => {
-        const latlng = getLatLngFromFeature(feature);
+        const latlng = getHomeGroupsLatLng(feature);
 
         if (!latlng) {
           skippedCount++;
           console.warn(`Skipping feature ${i}: bad or missing Coordinates`, feature);
           return;
         }
+
+        latlngs.push(latlng);
 
         const marker = L.marker(latlng);
         marker.bindPopup(popupFor(feature, i));
@@ -117,11 +122,9 @@
 
       console.log(`GeoJSON loaded: ${validCount} markers, ${skippedCount} skipped`);
 
-      if (validCount > 0) {
-        const bounds = markers.getBounds?.();
-        if (bounds && bounds.isValid && bounds.isValid()) {
-          map.fitBounds(bounds, { padding: [20, 20] });
-        }
+      if (latlngs.length) {
+        map.fitBounds(latlngs, { padding: [15, 15] });
+        setTimeout(() => map.zoomIn(1), 50);
       } else {
         L.marker([36.1659, -86.7844])
           .addTo(map)
@@ -129,8 +132,8 @@
           .openPopup();
       }
 
-      setTimeout(() => map.invalidateSize(), 200);
-      setTimeout(() => map.invalidateSize(), 600);
+      setTimeout(() => map.invalidateSize(), 120);
+      setTimeout(() => map.invalidateSize(), 500);
     })
     .catch(err => {
       console.error("GeoJSON load error:", err);
@@ -138,7 +141,5 @@
         .addTo(map)
         .bindPopup("GeoJSON failed to load")
         .openPopup();
-
-      setTimeout(() => map.invalidateSize(), 200);
     });
 })();
