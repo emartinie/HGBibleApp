@@ -142,4 +142,24 @@
         .bindPopup("GeoJSON failed to load")
         .openPopup();
     });
+
+    map.once("locationfound", function (e) {
+    // remove old marker if exists
+    if (window.userLocationMarker) {
+      map.removeLayer(window.userLocationMarker);
+    }
+
+    if (window.userLocationCircle) {
+      map.removeLayer(window.userLocationCircle);
+    }
+
+    window.userLocationMarker = L.marker(e.latlng)
+      .addTo(map)
+      .bindPopup("📍 You are here.<br>Zoom out to find people nearby.")
+      .openPopup();
+
+    window.userLocationCircle = L.circle(e.latlng, {
+      radius: e.accuracy || 30
+    }).addTo(map);
+  });
 })();
