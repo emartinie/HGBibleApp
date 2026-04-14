@@ -88,27 +88,38 @@ function parseScriptureFromFilename(filename) {
 
 // --- Generic collapsible card ---
 function createCard(title, contentHTML) {
-    const card = document.createElement("section");
-    card.className = "card border rounded-2xl shadow-lg bg-white dark:bg-gray-800 p-4 transition transform hover:scale-[1.02] hover:shadow-2xl duration-300";
+  const card = document.createElement("section");
+  card.className = "hg-panel"; // ✅ match your system
 
-    const header = document.createElement("h2");
-    header.className = "text-xl font-bold mb-2 cursor-pointer flex justify-between items-center";
-    header.innerHTML = `${title} <span class="text-gray-400">▼</span>`;
+  const header = document.createElement("div");
+  header.className = "flex justify-between items-center cursor-pointer";
 
-    const content = document.createElement("div");
-    content.className = "collapse-content max-h-0 overflow-hidden transition-all duration-500";
-    content.innerHTML = contentHTML;
+  const titleEl = document.createElement("div");
+  titleEl.className = "text-sm font-semibold text-amber-100";
+  titleEl.textContent = title;
 
-    header.addEventListener("click", () => {
-        const open = content.classList.contains("max-h-0");
-        content.classList.toggle("max-h-0", !open);
-        content.classList.toggle("max-h-screen", open);
-        header.querySelector("span").textContent = open ? "▲" : "▼";
-    });
+  const icon = document.createElement("span");
+  icon.className = "text-slate-400 text-sm";
+  icon.textContent = "▼";
 
-    card.appendChild(header);
-    card.appendChild(content);
-    return card;
+  const content = document.createElement("div");
+  content.className = "overflow-hidden max-h-0 transition-all duration-300";
+  content.innerHTML = contentHTML;
+
+  header.appendChild(titleEl);
+  header.appendChild(icon);
+
+  header.addEventListener("click", () => {
+    const open = content.classList.contains("max-h-0");
+    content.classList.toggle("max-h-0", !open);
+    content.classList.toggle("max-h-[500px]", open); // smoother than max-h-screen
+    icon.textContent = open ? "▲" : "▼";
+  });
+
+  card.appendChild(header);
+  card.appendChild(content);
+
+  return card;
 }
 
 // --- Render other cards ---
