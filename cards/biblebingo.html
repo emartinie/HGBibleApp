@@ -5,6 +5,15 @@
               <div id="bingoHistory" class="flex flex-wrap gap-2 text-lg">
               </div>
               <!-- Card body -->
+		  <section class="hg-panel">
+		    <div class="hg-card-caption">LeaderBoard</div>
+		
+		    <div id="scoreStatus" class="hg-scorebar">
+		      <div>🏆 <span id="scoreTop">5000</span> pts</div>
+		      <div>Team: <span id="topTeam">Zack</span></div>
+		      <div>Q <span id="qNum">1</span>/<span id="qTotal">10</span></div>
+		    </div>
+		  </section>
               <div class="p-6 relative">
                 <div id="bingoCaller" class="text-center space-y-4">
                   <div id="bingoDisplay" class="text-4xl font-extrabold text-cyan-300">
@@ -17,9 +26,6 @@
 
                 </div>
               </div>
-
-
-
 
               <!-- Background video -->
               <video autoplay muted loop playsinline
@@ -151,21 +157,19 @@ Use any standard 1–75 Bingo card.
 
 </div>
 
-                <div
-                  class="border team bg-gradient-to-b from-gray-800 to-slate-900 p-4 rounded-xl shadow-md w-500 text-center">
-  
-<!-- SCOREBOARD MODULE -->
-<div id="scoreboard-module" class="mt-6">
+  <section class="hg-panel">
+    <div class="hg-card-caption">Teams & Scores</div>
 
-  <div class="flex justify-between items-center mb-3">
-    <h3 class="text-lg font-semibold text-cyan-300">Scoreboard</h3>
-    <button id="sb-add-team"
-      class="px-3 py-1 rounded bg-emerald-600 text-white font-semibold hover:bg-emerald-700">
-      + Add Team
-    </button>
-  </div>
+    <div class="hg-btn-row">
+      <button id="sb-add-team" class="hg-btn">+ Add Team</button>
+    </div>
 
-  <div id="sb-board" class="flex flex-wrap gap-4 justify-center"></div>
+    <p class="hg-card-sub" style="text-align:center; margin-top:12px;">
+      Add unlimited teams or players.
+    </p>
+
+    <div id="sb-board" class="hg-team-board"></div>
+  </section>
 
 </div>    </div>
 The Vision (unchanged)
