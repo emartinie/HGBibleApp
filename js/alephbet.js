@@ -57,7 +57,7 @@
 
         render();
 
-      const audio = new Audio();
+      //const audio = new Audio();
       
       document.getElementById("alephAudioBtn")?.addEventListener("click", () => {
         audio.src = "assets/sounds/heart-and-soul.mp3"; //  actual path
