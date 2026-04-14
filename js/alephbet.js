@@ -56,4 +56,17 @@
         };
 
         render();
+
+      const audio = new Audio();
+      
+      document.getElementById("alephAudioBtn")?.addEventListener("click", () => {
+        audio.src = "assets/sounds/heart-and-soul.mp3"; //  actual path
+        audio.play();
+      });
+      
+      document.getElementById("alephPlay")?.addEventListener("click", () => {
+        const letter = document.getElementById("alephName")?.textContent.toLowerCase();
+        audio.src = `assets/sounds/letters${letter}.mp3`; // example
+        audio.play();
+      });            
       })();
