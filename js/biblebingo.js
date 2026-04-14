@@ -74,7 +74,7 @@ function updateHistory(label) {
 
     const label = `${draw.letter} ${draw.number}`;
     updateDisplay(label);
-    speakCall(label)
+    speakCall(label);
     updateCurrentCall(label);
 updateHistory(label);
     
@@ -156,8 +156,9 @@ updateHistory(label);
   // BOOT
   // ----------------------------
  // document.addEventListener("DOMContentLoaded", () => {
-    init();
-    bindUI();
-  });
-
+   // init();
+  //  bindUI();
+  //});
+init();
+bindUI();
 })();
