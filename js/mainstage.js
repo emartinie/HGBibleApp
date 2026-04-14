@@ -173,36 +173,52 @@ async function loadMainStageWeek(weekData) {
     })();
 
 
-    playlist.forEach(track => {
-        const card = document.createElement('div');
-        card.className = "p-2 border rounded shadow-sm bg-gray-100 dark:bg-gray-700 flex items-center justify-between mb-2";
+playlist.forEach(track => {
+  const card = document.createElement('div');
+  card.className = "flex items-center justify-between gap-3 p-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm";
 
-        const playBtn = document.createElement('button');
-        playBtn.className = "px-2 py-1 bg-red-600 dark:bg-blue-400 text-white rounded mr-2";
-        playBtn.textContent = "▶";
+  const left = document.createElement('div');
+  left.className = "flex items-center gap-3 min-w-0";
 
-        const label = document.createElement('span');
-        label.className = "font-medium text-gray-800 dark:text-gray-200";
-        label.textContent = track.label;
+  const playBtn = document.createElement('button');
+  playBtn.className = "flex items-center justify-center w-9 h-9 rounded-full border border-white/10 bg-white/10 text-white hover:bg-white/20 transition";
+  playBtn.textContent = "▶";
 
-        const scriptureText = parseScriptureFromFilename(track.src);
-        const scriptureSpan = document.createElement('span');
-        scriptureSpan.className = "ml-2 text-sm text-blue-600 dark:text-blue-400 underline cursor-pointer";
-        scriptureSpan.textContent = scriptureText;
-        scriptureSpan.addEventListener('click', () => window.open(track.src, '_blank'));
+  const textWrap = document.createElement('div');
+  textWrap.className = "flex flex-col min-w-0";
 
-        playBtn.addEventListener('click', () => {
-            audio.src = track.src;
-            audio.play().catch(err => console.warn("Autoplay prevented:", err));
-            const nowPlayingLabel = document.getElementById("nowPlaying");
-            if(nowPlayingLabel) nowPlayingLabel.textContent = `Now Playing: ${track.label} — ${scriptureText}`;
-        });
+  const label = document.createElement('span');
+  label.className = "text-sm font-semibold text-amber-100 truncate";
+  label.textContent = track.label;
 
-        card.appendChild(playBtn);
-        card.appendChild(label);
-        card.appendChild(scriptureSpan);
-        mainStagePlaylist.appendChild(card);
-    });
+  const scriptureText = parseScriptureFromFilename(track.src);
+
+  const scriptureSpan = document.createElement('span');
+  scriptureSpan.className = "text-xs text-blue-300 hover:text-blue-200 underline cursor-pointer";
+  scriptureSpan.textContent = scriptureText;
+
+  scriptureSpan.addEventListener('click', () => window.open(track.src, '_blank'));
+
+  playBtn.addEventListener('click', () => {
+    audio.src = track.src;
+    audio.play().catch(err => console.warn("Autoplay prevented:", err));
+
+    const nowPlayingLabel = document.getElementById("nowPlaying");
+    if (nowPlayingLabel) {
+      nowPlayingLabel.textContent = `Now Playing: ${track.label} — ${scriptureText}`;
+    }
+  });
+
+  textWrap.appendChild(label);
+  textWrap.appendChild(scriptureSpan);
+
+  left.appendChild(playBtn);
+  left.appendChild(textWrap);
+
+  card.appendChild(left);
+
+  document.getElementById("mainStagePlaylist").appendChild(card);
+});
 
     if (playlist.length > 0) {
         audio.src = playlist[0].src;
