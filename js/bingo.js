@@ -141,7 +141,7 @@ updateHistory(label);
   // ----------------------------
   // PUBLIC DEBUG (optional)
   // ----------------------------
-  window.bingo = {
+  window.BibleBingo = {
     callNext,
     reset: () => {
       stopAuto();
