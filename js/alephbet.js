@@ -66,7 +66,7 @@
       
       document.getElementById("alephPlay")?.addEventListener("click", () => {
         const letter = document.getElementById("alephName")?.textContent.toLowerCase();
-        audio.src = `assets/sounds/letters${letter}.mp3`; // example
+        audio.src = `assets/sounds/letters/${letter}.mp3`; // example
         audio.play();
       });            
       })();
