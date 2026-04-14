@@ -51,9 +51,9 @@
           render();
         };
 
-        document.getElementById("alephPlay").onclick = () => {
-          if (audio) globalAudio.play(audio);
-        };
+       // document.getElementById("alephPlay").onclick = () => {
+       //   if (audio) globalAudio.play(audio);
+       // };
 
         render();
 
