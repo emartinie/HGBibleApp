@@ -160,4 +160,4 @@ updateHistory(label);
     bindUI();
   });
 
-//})();
+})();
