@@ -155,9 +155,9 @@ updateHistory(label);
   // ----------------------------
   // BOOT
   // ----------------------------
-  document.addEventListener("DOMContentLoaded", () => {
+ // document.addEventListener("DOMContentLoaded", () => {
     init();
     bindUI();
   });
 
-})();
+//})();
