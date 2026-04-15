@@ -37,7 +37,7 @@
       const COMMENTARY_DIR = "commentary";
 
       async function loadScriptureForCurrentWeek() {
-        const week = getSelectedWeekNumber();
+        //const week = getSelectedWeekNumber();
         const scripturePath = `${SCRIPTURE_DIR}/week${week}.html`;
         const commentaryPath = `${COMMENTARY_DIR}/week${week}.html`;
 
