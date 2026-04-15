@@ -294,6 +294,18 @@ function renderHolyDayList(calendarType) {
   `).join("");
 }
 
+  function toggleHolyDays(btn) {
+  const list = document.getElementById("holyDayList");
+  if (!list) return;
+
+  const isHidden = list.style.display === "none";
+
+  list.style.display = isHidden ? "" : "none";
+
+  const arrow = btn.querySelector("span");
+  if (arrow) arrow.textContent = isHidden ? "▼" : "▶";
+}
+
 function updateCountdown(targetDateString) {
   const countdownEl = document.getElementById("countdownValue");
   if (!countdownEl) return;
@@ -446,18 +458,6 @@ window.initCalendarCard = initCalendarCard;
       detailEl.textContent = "Final day of the Omer count.";
     }
   }
-
-  function toggleHolyDays(btn) {
-  const list = document.getElementById("holyDayList");
-  if (!list) return;
-
-  const isHidden = list.style.display === "none";
-
-  list.style.display = isHidden ? "" : "none";
-
-  const arrow = btn.querySelector("span");
-  if (arrow) arrow.textContent = isHidden ? "▼" : "▶";
-}
 
   updateOmerCounter();
 
