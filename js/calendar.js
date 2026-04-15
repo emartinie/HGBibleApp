@@ -447,6 +447,18 @@ window.initCalendarCard = initCalendarCard;
     }
   }
 
+  function toggleHolyDays(btn) {
+  const list = document.getElementById("holyDayList");
+  if (!list) return;
+
+  const isHidden = list.style.display === "none";
+
+  list.style.display = isHidden ? "" : "none";
+
+  const arrow = btn.querySelector("span");
+  if (arrow) arrow.textContent = isHidden ? "▼" : "▶";
+}
+
   updateOmerCounter();
 
   // Refresh every minute in case sundown passes while page is open
