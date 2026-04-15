@@ -56,11 +56,7 @@ function buildMisslerCarousel() {
 }
 
 // Initialize
-window.initCard = function(){
-
-  console.log("🔥 Missler init");
-
+window.addEventListener("DOMContentLoaded", () => {
   buildMisslerCarousel();
-  loadMisslerHour(24);
-
-};
+  loadMisslerHour(24); // autoplay Hour 24 by default
+});
