@@ -56,7 +56,7 @@ function buildMisslerCarousel() {
 }
 
 // Initialize
-window.addEventListener("DOMContentLoaded", () => {
+//window.addEventListener("DOMContentLoaded", () => {
   buildMisslerCarousel();
   loadMisslerHour(24); // autoplay Hour 24 by default
 });
