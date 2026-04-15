@@ -639,10 +639,14 @@
 
     <header id="topBar">
       <div class="toolbar">
-        <button type="button" id="openScriptureHeaderBtn" class="p-2 rounded-full bg-yellow-800 border border-orange-500 text-red-300"
-          onclick="openDockCModal()">
-          📖
-        </button>
+        <button
+  type="button"
+  id="openScriptureHeaderBtn"
+  class="p-2 rounded-full bg-yellow-800 border border-orange-500 text-red-300"
+  onclick="loadAndOpenScripture(event)"
+>
+  📖
+</button>
         <select id="weekSelect" class="ui-select" aria-label="Select week">
           <option>Week 1</option>
         </select>
