@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 34 – In the wilderness</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0; padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3 { margin: 0.25rem 0; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; color: #38bdf8; }
+    .week-label {
+      font-size: .9rem; letter-spacing: .08em;
+      text-transform: uppercase; color: #9ca3af;
+    }
+    .reading-list {
+      margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+      font-size: .95rem;
+    }
+    .scripture-box {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .link-row {
+      margin: 1rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+        .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .placeholder {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+
+    <div class="week-label">Week 34</div>
+    <h1>In the wilderness</h1>
+        <h2>Read the Whole Bible in a Year, Every Year</h2>  <div id="readOrbitBtns" class= animate-pulse><button>🌐</button> <button>🎵</button> <button> 🎬 </button></div>
+
+
+        <div class="notice" display: flex; justify-content: flex-end;>
+      Scripture text is loaded from BibleGateway.  
+      TLV use is subject to permission from the Messianic Jewish Bible Society.
+    </div>
+    <section class="placeholder">
+      <strong>Coming soon:</strong> Inline TLV / KJV / WLT / SBLGNT scriptures display inside the app's Reader Modal. All rendered dynamically like everything else in the app. 
+    </section>
+
+    <ul class="reading-list">
+      <li><strong>Torah/ Penteteuch:</strong> Numbers 1:1-4:20</li>
+      <li><strong>Haftarah/ Prophets & Writings:</strong> Josh 2:1-2:24</li>
+      <li><strong>Brit Ḥadashah/ New Testatement:</strong> Mt. 21:33-46; 2 Cor 6:14-18</li>
+    </ul>
+
+    <div class="link-row">
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Numbers%201%3A1-4%3A20%3B%20Josh%202%3A1-2%3A24%3B%20Mt.%2021%3A33-46%3B%C2%A02%20Cor%206%3A14-18&version=TLV">⭐ TLV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Numbers%201%3A1-4%3A20%3B%20Josh%202%3A1-2%3A24%3B%20Mt.%2021%3A33-46%3B%C2%A02%20Cor%206%3A14-18&version=KJV">📘 KJV</a>
+<a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=WLC">📘 WLC</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=SBLGNT">📖 SBLGNT</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+    </div>
+
+    <h2>Scripture Text (TLV)</h2>
+    <div class="scripture-box">Parashat Bamidbar
+
+Census of Fighting Men
+
+1 In the wilderness of Sinai, on the first day of the second month in the second year from the Exodus from the land of Egypt, Adonai spoke to Moses in the Tent of Meeting saying,
+
+2 “Do a head count of all the community of Bnei-Yisrael by their families and their ancestral house, with a total of every male one by one.
+
+3 You and Aaron are to muster by their divisions every son from 20 years and upward available to serve in the army of Israel.
+
+4 One man from each tribe, each head of his father’s household, is to assist you.
+
+5 “These then are the names of the men who will assist you: from Reuben, Elizur son of Shedeur.
+
+6 From Simeon, Shelumiel son of Zurishaddai.
+
+7 From Judah, Nahshon son of Amminadab.
+
+8 From Issachar, Nethanel son of Zuar.
+
+9 From Zebulon, Eliab son of Helon.
+
+10 From the sons of Joseph—from Ephraim, Elishama son of Ammihud, from Manasseh, Gamaliel son of Pedahzur.
+
+11 From Benjamin, Abidan son of Gideoni.
+
+12 From Dan, Ahiezer son of Ammishaddai.
+
+13 From Asher, Pagiel son of Ochran.
+
+14 From Gad, Eliasaph son of Deuel.
+
+15 From Naphtali, Ahira son of Enan.”
+
+16 These were those selected from the community, princes of their ancestral tribes. They were heads of the thousands of Israel.
+
+17 So Moses and Aaron took these men designated by name.
+
+18 They assembled all the community on the first day of the second month. They declared their lineage according to their families, the households of their forefathers, with the number of the names of those 20 years old and upward being listed individually.
+
+19 Moses numbered Israel in the wilderness of Sinai just as Adonai had commanded him.
+
+20 The sons of Reuben, Israel’s firstborn (their generations, their families, by their ancestral households, according to the count of their names, every male from 20 years and upward, all available for the army),
+
+21 those counted from the tribe of Reuben were 46,500.
+
+22 From the sons of Simeon (their generations, according to their families, their ancestral households, whose names were counted by polls, every male 20 years and upward, every one who would go with the army),
+
+23 they counted from the tribe of Simeon 59,300.
+
+24 From the sons of Gad (their generations according to their families, to their ancestral households, in the count of names of every male 20 years old and upward, every one available to go out with the army),
+
+25 those counted from the tribe of Gad were 45,650.
+
+26 From the sons of Judah (their generations, by their families, their ancestral households, the count of their names, all who would go out with the army),
+
+27 those counted from the tribe of Judah were 74,600.
+
+28 From the sons of Issachar (their generations, according to their families, their ancestral households, by number of the names of every male 20 years old and upward, going out with the army),
+
+29 those counted from the tribe of Issachar were 54,400.
+
+30 From the sons of Zebulon (their generations, according to their families, to their ancestral households, by number of the names of everyone 20 years old and upward going out with the army),
+
+31 those counted from the tribe of Zebulun were 57,400.
+
+32 From the sons of Joseph—the sons of Ephraim (their generations according to their families, to their ancestral households, by count of the names of all those 20 years old and upward going out with the army),
+
+33 those numbered from the tribe of Ephraim were 40,500.
+
+34 From the sons of Manasseh (their generations according to their families, their ancestral households, by number of the names of those 20 years old and upward going out with the army),
+
+35 those counted from the tribe of Manasseh were 32,200.
+
+36 From the sons of Benjamin (their generations by their families, their ancestral households, by number of the names of every one 20 years old and upward going out with the army),
+
+37 those numbered from the tribe of Benjamin were 35,400.
+
+38 From the sons of Dan, their generations by their families their ancestral households, by number of everyone 20 years old and upward who would go out with the army,
+
+39 those numbered from the tribe of Dan were 62,700.
+
+40 From the sons of Asher (their generations by their families, their ancestral households, by number everyone 20 years old and upward who could go out with the army),
+
+41 those counted from the tribe of Asher were 41,500.
+
+42 From the sons of Naphtali (their generations by their families, their ancestral households, by number everyone 20 years old and upward who would go out with the army),
+
+43 those counted from the tribe of Naphtali were 53,400.
+
+44 These were the ones numbered—Moses, Aaron and the princes of Israel counted them. Each of the twelve men represented his ancestral house.
+
+45 So all those counted from Bnei-Yisrael , according to their ancestral houses, from 20 years old and up—all able to go out with the army in Israel—
+
+46 all those who were counted totaled 603,550.
+
+Duties of the Levities
+
+47 The Levites, however, were not counted by the tribe of their ancestors,
+
+48 for Adonai told Moses saying,
+
+49 “Definitely you are not to number the tribe of Levi, nor take the sum of them among Bnei-Yisrael .
+
+50 Instead, you are to appoint the Levites over the Tabernacle of the Testimony, over all its implements and all pertaining to it. They are to carry the Tabernacle and all its utensils, tend to it and camp around it.
+
+51 Whenever the Tabernacle sets out, the Levites are to dismantle it, and whenever the Tabernacle is pitched, the Levites are to set it up. But the commoner who comes near to it must be put to death.
+
+52 Bnei-Yisrael will encamp, each man with his own camp, each with his own standard, according to their own divisions.
+
+53 The Levites are to camp around the Tabernacle of the Testimony, so that there will be no wrath unleashed on the community of Bnei-Yisrael . So the Levites are to maintain care of the Tabernacle of the Testimony.
+
+54 So Bnei-Yisrael did—all that Adonai commanded Moses, so they did.
+
+Order of Ancestral Households
+
+2 Adonai said to Moses and Aaron saying, “
+
+2 Let each man encamp under his own standard among the banners of their ancestral house at an appropriate distance around the Tent of Meeting.
+
+3 Those camping on the east—toward the sunrise—will be of the standard of Judah, according to their divisions. Nachshon son of Amminadab, is the prince of the sons of Judah.
+
+4 His division, by their number, is 74,600.
+
+5 Camping next to him shall be the tribe of Issachar. The prince of the sons of Issachar is Nethanel son of Zuar.
+
+6 Their division, by their number, is 54,400.
+
+7 Next, the tribe of Zebulun. The prince of the sons of Zebulun is Eliab son of Helon.
+
+8 His division, by count, is 57,400.
+
+9 All those numbered to Judah’s camp, by their divisions, are 186,400. They are to advance first.
+
+10 The standard of the camp of Reuben shall be on the south side, by their divisions. The prince of the sons of Reuben is Elizur son of Shedeur.
+
+11 His division, by their number, is 46,500.
+
+12 Those camping next to them are the tribe of Simeon. The prince of the sons of Simeon is Shelumiel son of Zurishaddai.
+
+13 His division, by their number, is 59,300.
+
+14 Next, the tribe of Gad. The prince of the tribe of Gad is Eliasaph son of Reuel.
+
+15 His division, by their numbers, is 45,650.
+
+16 All those numbered to the camp of Reuben are 151,450. They are to set out second.
+
+17 Then the Tent of Meeting will move out with the camp of the Levites, which is in the middle of the camps—just as they were in camp, each person in his own place under his own appropriate standard.
+
+18 On the west will be the standard of the camp of Ephraim, by their divisions. The prince of the sons of Ephraim is Elishama son of Ammihud.
+
+19 His division, by their numbers, is 40,500.
+
+20 Next to him is the tribe of Manasseh. The prince of the sons of Manasseh is Gamaliel, son of Pedahzur.
+
+21 His division, by their numbers, is 32,200.
+
+22 Next, the tribe of Benjamin. The prince of the sons of Benjamin is Abidan son of Gideoni.
+
+23 His division, by their numbers, is 35,400.
+
+24 All those numbered to the camp of Ephraim are 108,100, by their divisions. They are to advance third.
+
+25 The standard of the camp of Dan shall be on the north, according to their divisions. The prince of the sons of Dan is Ahiezer, son of Ammishaddai.
+
+26 His division, by their numbers, is 62,700.
+
+27 Next to him will encamp the tribe of Asher. The prince of the sons of Asher is Pagiel, son of Ochran.
+
+28 His division, by their numbers, is 41,500.
+
+29 Next, tribe of Naphtali. The prince of the sons of Naphtali is Ahira son of Enan.
+
+30 His division, by their numbers, is 53,400.
+
+31 All those numbered to the camp of Dan are 157,600. They are to advance last by their standards.
+
+32 These are the numbers of Bnei-Yisrael , in accordance with their ancestral households. All those counted according to their divisions are 603,550.
+
+33 However, the Levites were not counted among Bnei-Yisrael , just as Adonai commanded Moses.
+
+34 So Bnei-Yisrael acted in accordance with all that Adonai had commanded Moses.
+
+Thus they camped by their standards and set out, each man according to their families and their ancestral houses.
+
+The Levite Families and Duties
+
+3 These are the generations of Aaron and Moses current at the time Adonai spoke to Moses at Mount Sinai.
+
+2 These are the names of Aaron’s sons: Nadab the first-born, Abihu, Eleazar and Ithamar.
+
+3 These are the names of the sons of Aaron, the anointed kohanim whom he consecrated to be priests.
+
+4 But Nadab and Abihu died before Adonai for offering unauthorized fire [ a ] before Adonai in the Sinai wilderness—they had no children. So Eleazar and Ithamar served as kohanim under Aaron their father.
+
+5 Then Adonai spoke to Moses saying,
+
+6 “Gather the tribe of Levi near, and appoint them to attend to Aaron the kohen .
+
+7 They are to keep watch over duties for him and the entire community before the Tent of Meeting while performing the service of the Tabernacle.
+
+8 They are to tend to all the implements of the Tent of Meeting and the service of Bnei-Yisrael while performing the service of the Tabernacle.
+
+9 You are to give the Levites to Aaron and his sons. Out of Bnei-Yisrael they are dedicated entirely to him.
+
+10 You are to appoint Aaron and his sons to maintain the priesthood; any commoner who approaches must be executed.”
+
+11 Then Adonai said to Moses saying,
+
+12 “See, I have taken the Levites from among Bnei-Yisrael in place of the firstborn who open the womb among Bnei-Yisrael . The Levites will be Mine,
+
+13 because all the firstborn are Mine. In the day when I was striking down all the firstborn in the land of Egypt, I consecrated to Myself every firstborn in Israel—whether man or animal—as Mine. I am Adonai .”
+
+14 Adonai spoke in the Sinai wilderness to Moses saying,
+
+15 “Count the sons of Levi. According to their ancestral house, by their families, every male a month old and upward you are to number them.”
+
+16 So Moses numbered them in accordance with the word of Adonai , just as he was commanded.
+
+17 These were the sons of Levi, by their names: Gershon, Kohath, and Merari.
+
+18 These then were the names of the sons of Gershon—Libni and Shimei.
+
+19 The sons of Kohath by their families were Amram, Izhar, Hebron, and Uzziel.
+
+20 The sons of Merari, by their families, are Mahli and Mushi. These then were the families of the Levites by their ancestral households.
+
+21 To Gershon belonged the family of the Libnites and the family of the Shimeites. These were the families of the Gershonites.
+
+22 The number of every male one month old and upward who were counted was 7,500.
+
+23 The Gershonites were to camp behind the Tabernacle on the west.
+
+24 The prince of the ancestral house of the Gershonites was Eliasaph son of Lael.
+
+25 The duties of the sons of Gershon in the Tent of Meeting were the Tabernacle, the tent, its coverings, the curtain of the entrance of the Tent of Meeting,
+
+26 the curtains of the courtyard, the screen of the entrance of the courtyard around the Tabernacle and altar, its ropes and all related to its use.
+
+27 To Kohath belonged the family of the Amramites, the family of the Izharites, the Hebronites and the Uzzielites. These were the Kohathite families.
+
+28 The number of every male one month old and upward was 8,600. Their duties were caring for the Sanctuary.
+
+29 The Kohathite families were to camp along the side of the Tabernacle on the south.
+
+30 The prince of the ancestral household of the Kohathites was Elizaphan son of Uzziel.
+
+31 They were responsible for the Ark, the table, the menorah , the altars, and the implements of the Sanctuary used in service with them, the curtain and all involved with its use.
+
+32 The chief prince of the Levites was Eleazar son of Aaron the kohen appointed over those whose responsibility was the care of the Sanctuary.
+
+33 To Merari belonged the families of the Mahlites and the Mushites. These were the families of Merari.
+
+34 Their number by count of every male one month old and upward was 6,200.
+
+35 The prince of the household of the father of the Merarites was Zuriel son of Abihail. They were to camp on the north side of the Tabernacle.
+
+36 The sons of Merari were appointed over the care of the frames of the Tabernacle, its crossbars, posts, bases, and all equipment for its use,
+
+37 the posts of the surrounding courtyard, their bases, pegs and ropes.
+
+38 Those camping in front of the Tent of Meeting, on the east, toward the sunrise, were Moses, Aaron, and his sons. They were to care for the Sanctuary on behalf of Bnei-Yisrael . But anyone unauthorized who approached had to be executed.
+
+39 All the Levites counted by Moses and Aaron at the word of Adonai , by their families, inclusive of every male one month old and upward, were 22,000.
+
+Redemption of the Firstborn
+
+40 Adonai said to Moses, “Count every firstborn male of Bnei-Yisrael from one month old and upward and make a list of their names.
+
+41 Set the Levites apart for me in place of all the firstborn of Bnei-Yisrael , and, all the livestock of the Levites in place of the firstborn of the livestock of Bnei-Yisrael . I am Adonai .”
+
+42 So Moses counted all the firstborn of Bnei-Yisrael as Adonai commanded him.
+
+43 The sum total of the firstborn males of Bnei-Yisrael , one month old and upward, listed by name, was 22,273.
+
+44 Again Adonai spoke to Moses saying,
+
+45 “Take the Levites in place of all the firstborn of Bnei-Yisrael , and the livestock of the Levites in place of their livestock. The Levites will be Mine. I am Adonai .
+
+46 To redeem the 273 firstborn of Bnei-Yisrael exceeding the number of the Levites,
+
+47 you are to collect five shekels for each, based on the shekel of the Sanctuary, which is 20 gerahs.
+
+[ b ] 48 Give the money for the redemption of the extra ones of the firstborn of them to Aaron and his sons.”
+
+49 Hence Moses collected the redemption money for those exceeding the number redeemed by the Levites.
+
+50 From the firstborn of Bnei-Yisrael he collected silver weighing 1,365 shekels, according to the Sanctuary shekel.
+
+51 Moses gave the redemption money to Aaron and his sons, just as Adonai commanded him, in accordance with the mouth of Adonai .
+
+Preparing the Sanctuary to Move
+
+4 Adonai spoke to Moses and to Aaron saying,
+
+2 “Take a census of the sons of Kohath from among the sons of Levi, by their families and by their ancestral households,
+
+3 everyone from 30 years of age to 50, all who come to serve doing the work in the Tent of Meeting.
+
+4 “This is the task of the sons of Kohath in the Tent of Meeting—the most holy things.
+
+5 Whenever the camp is about to move out, Aaron and his sons are to take down the shielding curtain [ c ] and cover the Ark of the Testimony with it.
+
+6 Then they are to cover this with porpoise hide, then spread over it a cloth of solid blue. Then they are to put its poles in place.
+
+7 “Then over the table of the Presence they are to spread a solid blue cloth, then lay on it the plates, ladles, bowls, and jars for the drink offering. The bread that is continually there is to remain there.
+
+[ d ] 8 Over them they are to spread a solid scarlet cloth, cover it with a covering of porpoise hide, then install its poles.
+
+9 “Then they are to take a blue cloth and cover the menorah for light, along with its lamps, tongs, snuffers and oil jars that they use to tend to it.
+
+10 They then are to wrap it and all its accessories in a cover of porpoise hide and place it all on a carrying frame.
+
+11 “Over the golden altar they are to spread a blue cloth and cover that with a covering of porpoise hide, then put its poles in place.
+
+12 “They are to take all the utensils used for the service of the ministry of the Sanctuary, wrap them in a blue cloth, cover them with porpoise hide, and place them on a carrying frame.
+
+13 “They are to remove the ashes from the altar, then spread over it a purple cloth.
+
+14 They are to put onto it all the utensils with which they tend to the altar, among them the firepans, meat forks, shovels and sprinkling bowls. They are to spread over it a covering of porpoise hide and install its poles.
+
+15 “When Aaron and his sons have finished covering the Sanctuary and all its holy implements, and when the camp is ready to move out, after this the sons of Kohath may come to do the carrying. But they must not touch the holy items or they will die. These are the task of the sons of Kohath with regard to the Tent of Meeting.
+
+16 “Eleazar son of Aaron the kohen will have charge of the oil for the light, the fragrant incense, the regular grain offering and the anointing oil. He is to have charge of the Tabernacle and all that is in it, including its holy items and all its implements.”
+
+17 Adonai spoke to Moses and Aaron saying,
+
+18 “You are not to let the families of the tribe of the Kohathites be cut off from among the Levites.
+
+19 Do this for them so that they may live and not die whenever they approach the most holy items—Aaron and his sons are to go into the Sanctuary and assign each man his job and his responsibility.
+
+20 But the Kohathites are not to go in to look at what is holy, not even momentarily, or they will die.”
+
+Rahab’s Faith
+
+2 Then Joshua son of Nun secretly sent out two spies from Shittim saying: “Go, explore the land, especially Jericho.” So they went and came to the house of a prostitute whose name was Rahab, and lodged there. [ a ]
+
+2 The king of Jericho was told, “Some men from Bnei-Yisrael have just come here tonight to spy out the land.”
+
+3 So the king of Jericho sent word to Rahab saying: “Bring out the men who came to you, who entered your house—for they have come to spy out all the land.”
+
+4 But the woman took the two men and hid them, and said: “Yes, the men did come to me, but I didn’t know where they were from.
+
+5 So when it was time to shut the gate at dark, the men went out, and I don’t know where they went. Pursue them quickly, for you may overtake them.”
+
+6 But she had brought them up to the roof and hidden them in the stalks of flax that she had spread out on the roof.
+
+7 So the men pursued them on the road to the fords of the Jordan. As soon as the pursuers had gone out, they shut the gate.
+
+8 Now before they lay down, she came up to them on the roof,
+
+9 and she said to the men: “I know that Adonai has given you the land—dread of you has fallen on us and all the inhabitants of the land are melting in fear before you.
+
+10 For we have heard how Adonai dried up the water of the Sea of Reeds before you when you came out of Egypt, and what you did to the two kings of the Amorites that were beyond the Jordan, to Sihon and Og, whom you utterly destroyed.
+
+11 When we heard about it, our hearts melted, and no spirit remained any more in anyone because of you. For Adonai your God, He is God, in heaven above and on earth beneath.
+
+12 So now, please swear to me by Adonai , since I have dealt kindly with you, that you also will deal kindly with my father’s house. Give me a true sign
+
+13 that you will spare the lives of my father, my mother, my brothers, my sisters and all who belong to them, and save our lives from death.”
+
+14 The men said to her: “Our life for yours, if you don’t report this business of ours. Then it will be when Adonai gives us the land that we will deal kindly and loyally with you.”
+
+15 So she lowered them down by a rope through the window—for her house was in the wall; she was living in the wall.
+
+16 Then she said to them: “Go to the hill country, lest the pursuers meet you, and hide yourselves there for three days, until the pursuers return. Afterward, you may go your way.”
+
+17 Then the men said to her: “We will be released from this oath that you have made us swear,
+
+18 unless when we come into the land, you tie this line of scarlet thread in the window through which you lowered us down, and gather to yourself in the house your father, your mother, your brothers and all your father’s household—
+
+19 whoever goes out of the doors of your house into the street, his blood will be on his head and we will be innocent, but whoever is with you in the house, his blood will be on our head if any hand is laid on him.
+
+20 But if you divulge this business of ours, then we will be released from your oath you have made us swear.”
+
+21 So she said: “According to your words, so be it.” Then she sent them away. After they had gone, she tied the scarlet cord to the window.
+
+22 Then they departed and came to the hill country. They stayed there for three days until the pursuers returned. Now the pursuers had looked for them all along the road, but had not found them.
+
+23 Then the two men returned, came down from the hill country, crossed over and came to Joshua son of Nun.
+
+They reported to him all that had befallen them.
+
+24 “Surely Adonai has given all the land into our hands,” they said to Joshua. “Indeed, all the inhabitants of the land have melted in fear before us.”
+
+Parable of the Vineyard
+
+33 “Listen to another parable. There was a master of a household who planted a vineyard. He put a hedge around it, dug a winepress in it, and built a tower. [ a ] Then He leased it to some tenant farmers and went on a journey.
+
+34 Now when fruit season drew near, he sent his servants to the tenants to collect his fruit.
+
+35 But grabbing his servants, the tenants beat up one, killed another, and stoned still another.
+
+36 Again the master sent other servants, even more than the first, and they did the same thing to them.
+
+37 Finally he sent his son to them, saying, ‘They will respect my son.’
+
+38 “But when the tenants saw the son, they said among themselves, ‘This is the heir! Come on, let’s kill him and get his inheritance!’
+
+39 So grabbing him, they threw him out of the vineyard and killed him.
+
+40 Therefore when the master of the vineyard comes, what will he do to those tenants?”
+
+41 “He will bring those miserable men to a miserable end,” they said to Him, “and will lease the vineyard to other tenants, who will give him his share of the fruits in their seasons.”
+
+42 Yeshua said to them, “Have you never read in the Scriptures [ b ] ?
+
+‘The stone which the builders rejected,
+
+this has become the chief cornerstone.
+
+This came from Adonai ,
+
+and it is marvelous in our eyes.’ [ c ]
+
+43 Therefore I say to you, the kingdom of God will be taken away from you and given to people producing its fruits.
+
+44 Whoever falls on this stone will be shattered; but the one upon whom it falls, it will crush him.” [ d ]
+
+45 When the ruling kohanim and Pharisees heard Yeshua’s parables, they realized He was talking about them.
+
+46 Although they were trying to seize Him, they feared the crowds, because they regarded Him as a prophet.
+
+Preserving Sanctity in God’s Living Temple
+
+14 Do not be unequally yoked with unbelievers. [ a ] For what partnership is there between righteousness and lawlessness? Or what fellowship does light have with darkness?
+
+15 What harmony does Messiah have with Belial [ b ] ? Or what part does a believer have in common with an unbeliever?
+
+16 What agreement does God’s Temple have with idols? [ c ] For we are the temple of the living God—just as God said,
+
+“I will dwell in them and walk among them;
+
+and I will be their God,
+
+and they shall be My people. [ d ]
+
+17 Therefore, come out from among them,
+
+and be separate, says Adonai .
+
+Touch no unclean thing. [ e ]
+
+Then I will take you in. [ f ]
+
+18 I will be a father to you,
+
+and you shall be My sons and daughters,
+
+says Adonai -Tzva’ot .” [ g ]</div>
+
+    <h2>Advanced Learning from writings of Sages and Church Fathers
+</h2>
+<div class="scripture-box" id="advancedlearningbox"></div>     
+                        
+  </main>
+</body>
+</html>

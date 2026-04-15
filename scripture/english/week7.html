@@ -1,0 +1,672 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 07 – And he went out</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0; padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3 { margin: 0.25rem 0; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; color: #38bdf8; }
+    .week-label {
+      font-size: .9rem; letter-spacing: .08em;
+      text-transform: uppercase; color: #9ca3af;
+    }
+    .reading-list {
+      margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+
+      font-size: .95rem;
+    }
+    .scripture-box {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .link-row {
+      margin: 1rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+        .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .placeholder {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+         <button class="maximize-btn" onclick="toggleMaximize() absolute top-3 right-4 text-white text-3xl">&#x25A0;</button> <!-- Unicode square symbol -->
+
+    <div class="week-label">Week 07</div>
+    <h1>And he went out</h1>
+        <h2>Read the Whole Bible in a Year, Every Year</h2>  <div id="readOrbitBtns" class= animate-pulse><button>🌐</button> <button>🎵</button> <button> 🎬 </button></div>
+
+
+        <div class="notice" display: flex; justify-content: flex-end;>
+      Scripture text is loaded from BibleGateway.  
+      TLV use is subject to permission from the Messianic Jewish Bible Society.
+    </div>
+    <section class="placeholder">
+      <strong>Coming soon:</strong> Inline TLV / KJV / WLT / SBLGNT scriptures display inside the app's Reader Modal. All rendered dynamically like everything else in the app. 
+    </section>
+
+    <ul class="reading-list">
+      <li><strong>Torah/ Penteteuch:</strong> Genesis 28:10-32:3</li>
+      <li><strong>Haftarah/ Prophets & Writings:</strong> Amos 2:6-3:8</li>
+      <li><strong>Brit Ḥadashah/ New Testatement:</strong> Rom 9:1-31</li>
+    </ul>
+
+    <div class="link-row">
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=TLV">⭐ TLV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=KJV">📘 KJV</a>
+<a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=WLC">📘 WLC</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=SBLGNT">📖 SBLGNT</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+    </div>
+
+    <h2>Scripture Text (TLV)</h2>
+    <div class="scripture-box">Parashat Vayetze
+
+Jacob’s Ladder From Heaven
+
+10 Then Jacob left Beer-sheba and went toward Haran.
+
+11 He happened upon a certain place and spent the night there, for the sun had set. So he took one of the stones from the place and put it by his head and lay down in that place.
+
+12 He dreamed: All of a sudden, there was a stairway set up on the earth and its top reaching to the heavens—and behold, angels of God going up and down on it!
+
+13 Surprisingly, Adonai was standing on top of it [ a ] and He said, “I am Adonai , the God of your father Abraham and the God of Isaac. The land on which you lie, I will give it to you and to your seed.
+
+14 Your seed will be as the dust of the land, and you will burst forth to the west and to the east and to the north and to the south. And in you all the families of the earth will be blessed—and in your seed.
+
+15 Behold, I am with you, and I will watch over you wherever you go, and I will bring you back to this land, for I will not forsake you until I have done what I promised you.”
+
+16 Jacob woke up from his sleep and said, “Undoubtedly, Adonai is in this place—and I was unaware.”
+
+17 So he was afraid and said, “How fearsome this place is! This is none other than the House of God—this must be the gate of heaven!”
+
+18 Early in the morning Jacob got up and took the stone, which he had placed by his head, and set it up as a memorial stone and poured oil on top of it.
+
+19 He called the name of that place Beth-El (though originally the city’s name was Luz).
+
+20 Then Jacob made a vow saying, “If God will be with me and watch over me on this way that I am going, and provide me food to eat and clothes to wear,
+
+21 and I return in shalom to my father’s house, then Adonai will be my God.
+
+22 So this stone which I set up as a memorial stone will become God’s House, and of everything You provide me I will definitely give a tenth of it to You.”
+
+Jacob Loves Rachel
+
+29 Then Jacob lifted up his feet and went to the land of the peoples of the east.
+
+2 When he looked, suddenly, there was a well in the field, and there were three herds of sheep resting by it. (For from that well they would water the flocks. The stone on the mouth of the well was large.
+
+3 When all the herds gathered there, they would roll away the stone from the mouth of the well and water the flocks, and put the stone back to its place over the mouth of the well.)
+
+4 Jacob said to them, “My brothers, where are you from?”
+
+“We’re from Haran,” they said.
+
+5 So he said to them, “Do you know Laban, Nahor’s son?”
+
+They said, “We know.”
+
+6 He said to them, “Is he well?”
+
+“Well,” they said. “Look, here comes his daughter Rachel with the flock.”
+
+7 He said, “Since it’s still the middle of the day, it’s not time for the livestock to be gathered. Water the flock and let them go and graze.”
+
+8 But they said, “We can’t, not until all the flocks are gathered and the stone is rolled away from the mouth of the well—then we water the flock.”
+
+9 While he was still speaking with them, Rachel came with the flock that belonged to her father (for she was a shepherdess).
+
+10 Now when Jacob saw Rachel (the daughter of Laban, his mother’s brother), Jacob stepped forward and rolled the stone away from the mouth of the well and watered the flock of Laban, his mother’s brother.
+
+11 Then Jacob kissed Rachel, and lifted up his voice and wept.
+
+12 Then Jacob told Rachel that he was her father’s relative and that he was Rebekah’s son. So she ran and told her father.
+
+13 Now when Laban heard the news about Jacob, his sister’s son, he ran to meet him, hugged and kissed him, and brought him to his house. Then he told Laban all these things.
+
+14 Laban said to him, “Surely you are my own bone and flesh.” And he stayed with him for a month.
+
+15 Then Laban said to Jacob, “Should you, my relative, serve me for nothing? Tell me, what should your wages be?”
+
+16 Now Laban had two daughters; the name of the older was Leah, and the name of the younger was Rachel.
+
+17 Leah’s eyes were delicate, but Rachel was beautiful in form and appearance.
+
+18 Jacob was in love with Rachel, so he said, “Let me serve you for seven years for Rachel your younger daughter.”
+
+19 Laban said, “It’s better that I give her to you than I give her to another man! Stay with me.”
+
+20 So Jacob worked for Rachel seven years, yet in his eyes it was like a few days, because of his love for her.
+
+21 Then Jacob said to Laban, “Give me my wife, for my days are completed, so I may go to her.”
+
+22 So Laban gathered all the men of the place and he prepared a feast.
+
+23 When it was evening he took his daughter Leah and brought her to him, and he went to her.
+
+24 Laban also gave her Zilpah his female servant to his daughter Leah as a female servant.
+
+25 So when it was morning, behold there she was, Leah! So he said to Laban, “What is this you’ve done to me? Wasn’t it for Rachel that I worked with you? So why have you deceived me?”
+
+26 But Laban said, “It’s not done so in our place—to give the younger before the first-born.
+
+27 Complete the bridal week for this one. Then we’ll also give you this other—for work that you’ll do with me—another seven years more.”
+
+28 So Jacob did; he also completed this one ’s bridal week. Then he gave him his daughter Rachel to be his wife.
+
+29 Laban also gave his daughter Rachel his female servant Bilhah, to be a servant for her.
+
+30 Jacob also went to Rachel and indeed loved Rachel more than Leah. So he served with him for yet another seven years.
+
+Rivalry Continues With Wives
+
+31 Now Adonai saw that Leah was unloved, so he opened her womb; but Rachel was unable to conceive.
+
+32 Leah became pregnant and gave birth to a son and named him Reuben because she said, “For Adonai has seen my affliction. Surely now my husband will love me.”
+
+33 Then she became pregnant again and gave birth to a son, and said, “For Adonai heard that I am hated, so He’s given me this one also,” and she named him Simeon.
+
+34 Then she became pregnant again and gave birth to a son, and said, “Now this time my husband will join himself to me because I’ve given birth to three sons for him.” For this reason he was named Levi.
+
+35 Then she became pregnant again and gave birth to a son and said, “This time I praise Adonai .” For this reason she named him Judah. Then she stopped having children.
+
+30 When Rachel saw that she bore no children for Jacob, Rachel was jealous of her sister. So she said to Jacob, “Give me sons—if there are none, I’ll die!”
+
+2 But Jacob became furious with Rachel and said, “Am I, instead of God, the one who withheld from you the fruit of the womb?”
+
+3 So she said, “Here’s my maid-servant Bilhah. Go to her and let her give birth on my knees, so that from her I may also build a family.”
+
+4 Then she gave her maid-servant Bilhah to him for a wife, and Jacob went to her.
+
+5 Bilhah became pregnant and gave birth to a son for Jacob.
+
+6 So Rachel said, “God has judged my cause and also heard my voice—and given me a son.” Therefore she named him Dan.
+
+7 Then Rachel’s female servant became pregnant again and gave birth to a second son for Jacob.
+
+8 So Rachel said, “I’ve surely wrestled greatly with my sister—also I’ve won.” So she named him Naphtali.
+
+9 Now Leah saw that she stopped having children, so she took Zilpah her female servant and gave her to Jacob as a wife.
+
+10 Then Zilpah, Leah’s female servant, gave birth to a son for Jacob.
+
+11 Leah said, “How fortunate!” So she named him Gad.
+
+12 Then Zilpah, Leah’s female servant, gave birth to a second son for Jacob.
+
+13 Leah said, “How happy am I, for daughters have called me happy.” So she named him Asher.
+
+14 Now during the days of the wheat harvest, Reuben went and found mandrakes in the field and he brought them to his mother Leah. Then Rachel said to Leah, “Please give me some of your son’s mandrakes.” [ b ]
+
+15 But she said to her, “Wasn’t it enough that you took my husband away? You’d also take away my son’s mandrakes?”
+
+So Rachel said, “That being so, let him lie with you tonight, in exchange for your son’s mandrakes.”
+
+16 So when Jacob came from the field in the evening, Leah went out to meet him, and she said, “You must come to me. For I’ve actually hired you with my son’s mandrakes.” So he lay with her that very night.
+
+17 Moreover, God heard Leah, and she became pregnant and gave birth to a fifth son for Jacob.
+
+18 Leah said, “God gave me my reward [ c ] because I gave my female servant to my husband.” So she named him Issachar.
+
+19 Then Leah became pregnant again and gave birth to a sixth son for Jacob.
+
+20 Leah said, “God has presented me a good gift. This time my husband will honor me for I’ve borne six sons for him.” So she named him Zebulun.
+
+21 Afterwards she gave birth to a daughter and named her Dinah.
+
+22 Then God remembered Rachel and God listened to her and opened her womb.
+
+23 Then she became pregnant and gave birth to a son. So she said, “God has taken away my disgrace.”
+
+24 She named him Joseph saying, “May Adonai add another son for me.”
+
+Jacob Outwits Laban
+
+25 Now it was after Rachel gave birth to Joseph that Jacob said to Laban, “Send me away so that I can go to my place and to my land.
+
+26 Give me my wives and my children for whom I’ve served you, and let me go. For you yourself know my labor—that I’ve served you.”
+
+27 But Laban said to him, “If I’ve found favor in your eyes—I’ve looked for good omens, and Adonai has blessed me because of you.”
+
+28 Moreover he said, “Name your own price and I’ll pay it.”
+
+29 Then he said to him, “You yourself know how I’ve served you and how your livestock fared with me.
+
+30 For you had very little before I came, and it has been busting at the seams in abundance. So Adonai blessed you with my every step. So now, when am I myself going to make something for my household also?”
+
+31 Then he said, “What can I pay you?”
+
+Jacob said, “You don’t need to pay me anything. If you will do this one thing for me, I will shepherd your flock again and watch it:
+
+32 let me pass through your flock today, removing every colorfully spotted lamb from there and every dark-colored lamb among the sheep as well as the colorfully spotted among the goats—and that will be my salary.
+
+33 So tomorrow my honesty will testify on my behalf when you come to check on my salary you agreed to. Every one that isn’t colorfully spotted among the goats or dark-colored among the sheep with me, it is stolen.”
+
+34 So Laban said, “All right! May it be according to your word.”
+
+35 On that day he removed the colorfully striped and colorful billy goats as well as all the colorfully spotted goats—everyone with white on it—and every dark-colored one among the lambs, and he put them in the hand of his sons.
+
+36 Then he put a three-day’s journey between them and Jacob, while Jacob was shepherding Laban’s remaining flocks.
+
+37 But Jacob took fresh white poplar, almond, and plane tree branches, peeled away white stripped sections on them, exposing the white of the branches.
+
+38 Then he set the branches he had peeled in front of the flocks in the drinking troughs and watering channels where the flocks come to drink. Since they were in heat when they came to drink,
+
+39 the flocks mated near the branches, and the flocks gave birth to striped, spotted and colorful ones.
+
+40 Now Jacob separated the lambs and set the faces of the flocks toward the striped ones as well as all the dark-colored ones among Laban’s flocks. Then he set aside the herds for himself and did not put them with Laban’s flocks.
+
+41 Whenever the strong flocks mated, Jacob put the branches in the watering troughs before the eyes of the flocks, to have them mate near the branches.
+
+42 But when the flocks were sickly, he did not put the branches down—so the sickly ones became Laban’s and the stronger ones became Jacob’s.
+
+43 And the man grew exceedingly prosperous and had numerous flocks, along with female and male servants, camels and donkeys.
+
+Jacob Secretly Leaves Laban
+
+31 Now Jacob heard the words Laban’s sons were saying, “Jacob has taken everything that belongs to our father, and from what belongs to our father he has made all these riches.”
+
+2 Then Jacob saw Laban’s face, and he noticed that his expression wasn’t the same as it was just a day or two before.
+
+3 Then Adonai said to Jacob, “Return to the land of your fathers and to your relatives, and I will be with you.”
+
+4 So Jacob sent and called for Rachel and Leah to come to the field, to his flock.
+
+5 He said to them, “I can see by your father’s face that his expression isn’t the same as it was just a day or two ago. But the God of my father has been with me.
+
+6 Now you yourselves know that I’ve served your father with all my strength.
+
+7 Yet your father has fooled around with me and has changed my salary ten times—but God hasn’t allowed him to harm me.
+
+8 If he would say, ‘the spotted ones will be your salary,’ then the flocks would give birth to spotted ones. Or if he would say, ‘the striped ones will be your salary,’ then all the flocks would give birth to striped ones.
+
+9 So God has taken away your father’s livestock and has given them to me.
+
+10 Now it happened when the flocks were in heat that I lifted up my eyes and saw, in a dream, behold, the males going up to the flocks were striped, spotted and speckled.
+
+11 Then the angel of God said to me in the dream, ‘Jacob,’ and I said, ‘ Hineni .’
+
+12 He said, ‘Lift up your eyes and see that all the males going up to the flocks are striped, spotted and speckled. For I have seen everything Laban has done to you.
+
+13 I am the God of Beth-El where you anointed a memorial stone, where you made a vow to Me. Get up now and leave this land, and return to the land of your relatives.’”
+
+14 Then Rachel answered along with Leah and they said to him, “Is there still a portion and inheritance for us in our father’s house?
+
+15 Aren’t we considered foreigners to him? For he has sold us and has also completely used up our bridal price.
+
+16 For all the riches that God has taken away from our father is for us and for our children. So now, everything God said to you, do it!”
+
+17 Then Jacob got up and put his children and wives on camels.
+
+18 He drove away all his livestock and all his possessions that he had acquired—the livestock in his possession that he acquired in Paddan-aram—to go to his father Isaac, to the land of Canaan.
+
+19 But while Laban went to shear his flocks, Rachel stole the idols that belonged to her father,
+
+20 while Jacob stole the heart from Laban the Aramean by not telling him that he was fleeing.
+
+21 He himself fled with everything that belonged to him, and he got up and crossed the River, and set his face toward the hill country of Gilead.
+
+Laban Confronts Jacob and Makes Covenant
+
+22 When Laban was told on the third day after Jacob had fled,
+
+23 he took his relatives with him and pursued him a seven days’ journey. Then he overtook him in the hill country of Gilead.
+
+24 But God came to Laban the Aramean in a dream at night and said to him, “Watch yourself—lest you say anything to Jacob, good or bad.”
+
+25 So Laban caught up to Jacob. (Jacob had pitched his tent in the hill country, so Laban and his brothers pitched their tents in the hill country of Gilead as well).
+
+26 Then Laban said to Jacob, “What have you done, that you’ve stolen my heart and have driven my daughters away like captives of the sword?
+
+27 Why did you secretly flee away, and steal from me? Why didn’t you tell me, so I could send you away with joy and with songs, with tambourines and with lyres?
+
+28 And you didn’t even let me kiss my sons and daughters!
+
+“Now, you’ve behaved foolishly.
+
+29 It is in the power of my hand to do evil with you, but yesterday the God of your fathers spoke to me, saying, ‘Watch yourself—lest you say anything to Jacob, good or bad.’
+
+30 So now, when you up and left because you really missed your father’s house, why did you steal my gods?”
+
+31 In response, Jacob said to Laban, “Because I was afraid, for I thought, ‘Suppose you snatch your daughters away from me.’
+
+32 Anyone with whom you find your gods shall not live. In front of our relatives, identify whatever is yours that is with me, and take it back.” (But Jacob did not know that Rachel had stolen them.)
+
+33 So Laban went into Jacob’s tent, and Leah’s tent and into the tent of the two maids, but he found nothing. Then he went out of Leah’s tent and entered Rachel’s tent.
+
+34 (Now Rachel had taken the idols, put them in the camel’s saddlebag and sat on them.) So Laban felt around the entire tent but did not find them.
+
+35 She said to her father, “Let not my lord be angry that I cannot rise before you, for I am having the way of women.” So he searched but did not find the idols.
+
+36 Then Jacob got angry and argued with Laban. Jacob answered and said to Laban, “What’s my crime? What’s my sin that you’ve hotly pursued me?
+
+37 For you’ve felt through all my things. What did you find? Any of your household things? Put them here, in front of my relatives and yours—so they can decide between the two of us.
+
+38 These past twenty years I’ve been with you, your ewes and female goats have never miscarried, and I’ve never eaten the rams of your flock.
+
+39 I didn’t bring you animals torn by wild beasts. I myself would bear the loss. You would require it from my hand, whether stolen by day or stolen by night.
+
+40 I was consumed by heat during the day, consumed by frost during the night, and my sleep fled from my eyes.
+
+41 This is how it’s been for me twenty years in your house. I served you fourteen years for your two daughters, and six years for your flocks—and you changed my salary ten times!
+
+42 Had I not had the God of my father, the God of Abraham, and the fear of Isaac, you would have sent me away empty-handed now. But God saw my misery and the toil of my hands and last night He became the Judge.”
+
+43 In response Laban said to Jacob, “The daughters are my daughters, and the sons are my sons, and the flocks are my flocks. Everything you see is mine. But what can I do for these, my daughters, today, or for their sons to whom they’ve given birth?
+
+44 So now, come, let’s make a covenant, you and I, and let it be a witness between you and me.”
+
+45 So Jacob took a stone and set it up as a pillar,
+
+46 and Jacob said to his relatives, “Gather stones.” So they took the stones and made a pile. Then they ate there on the pile.
+
+47 Laban called it Jegar-sahadutha and Jacob called it Gal-ed.
+
+48 And Laban said, “This pile is a witness between me and you today.” That is why its name is Gal-ed,
+
+49 or Mizpah, for he said, “Let Adonai keep watch between you and me when we are out of one another’s sight.
+
+50 If you mistreat my daughters, and if you take wives besides my daughters, though no one is with us, look! God is the witness between you and me.”
+
+51 Laban said further to Jacob, “Behold, this pile, and this pillar which I’ve set up between you and me:
+
+52 this pile serves as a witness, that I won’t pass by this pillar to go to you, and that you won’t pass by this pile and this pillar to go to me—with evil intent.
+
+53 May the God of Abraham and the gods of Nahor, the gods of their father, judge between us.”
+
+Jacob also made an oath by the fear of his father Isaac.
+
+54 Then Jacob offered a sacrifice on the mountain and he invited his relatives to eat bread. So they ate bread and spent the night on the mountain.
+
+32 Early in the morning Laban got up, kissed his grandchildren and daughters and blessed them. Then Laban left and returned to his place.
+
+2 While Jacob left on his way, the angels of God met him.
+
+3 Then Jacob said when he saw them, “This is God’s camp”, and he named that place Mahanaim.
+
+6 Thus says Adonai :
+
+“For three crimes of Israel
+
+even for four, I will not relent.
+
+For they sell the righteous for silver
+
+and the needy for a pair of shoes.
+
+7 They trample the head of the poor
+
+into the dust of the earth
+
+and thwart the way of the humble.
+
+A man and his father go to the same girl, [ a ]
+
+to profane My holy Name.
+
+8 Upon garments taken in pledge
+
+they stretch out beside every altar,
+
+and drink wine confiscated as fines
+
+in the house of their gods.
+
+9 “I destroyed the Amorite before them,
+
+whose height was like cedars
+
+and as strong as oaks—
+
+yes, I destroyed his fruit from above
+
+and his roots from beneath.
+
+10 It was I also who brought you up from the land of Egypt
+
+and led you forty years in the wilderness
+
+to possess the Amorite’s land.
+
+11 I raised up prophets from your sons
+
+and Nazirites from your young men.
+
+Is this not so, Bnei Yisrael ?”
+
+declares Adonai .
+
+12 “But you gave the Nazirites wine to drink,
+
+and you commanded the prophets saying,
+
+‘Do not prophesy.’
+
+13 Behold! I will cause a tottering beneath you
+
+as a cart totters when full of sheaves.
+
+14 Then flight will fail for the swift.
+
+The mighty will not strengthen his power,
+
+The warrior will not save his life.
+
+15 The archer will not stand,
+
+the fleet-footed will not escape,
+
+the horseman will not save himself.
+
+16 The valiant among the warriors
+
+will flee naked in that day.”
+
+declares Adonai .
+
+The Prophet Reveals Destruction
+
+3 Hear this word that Adonai has spoken against you, Bnei Yisrael , against the whole family that I brought up from the land of Egypt, saying:
+
+2 “Only you have I known from among
+
+all the families of the earth.
+
+Therefore, I will punish you
+
+for all your iniquities.
+
+3 Can two walk together
+
+unless they meet by appointment?
+
+4 Does a lion roar in the forest
+
+when he has no prey?
+
+Does a young lion growl from his den
+
+unless he has taken prey?
+
+5 Does a bird fall into a trap on the ground
+
+if it has no bait?
+
+Will a snare spring up from the ground
+
+without taking anything?
+
+6 If a shofar alarm sounds in a city,
+
+will people not tremble?
+
+If there is calamity in a city,
+
+has not Adonai caused it?
+
+7 For the Lord Adonai , will do nothing,
+
+unless He has revealed His counsel
+
+to His servants the prophets. [ b ]
+
+8 A lion has roared, who will not fear?
+
+My Lord Adonai has spoken,
+
+who shall not prophesy?
+
+The Role of Israel
+
+9 I tell the truth in Messiah—I do not lie, my conscience assuring me in the Ruach ha-Kodesh —
+
+2 that my sorrow is great and the anguish in my heart unending.
+
+3 For I would pray that I myself were cursed, banished from Messiah for the sake of my people—my own flesh and blood,
+
+[ a ] 4 who are Israelites. To them belong the adoption [ b ] and the glory [ c ] and the covenants and the giving of the Torah [ d ] and the Temple service [ e ] and the promises.
+
+5 To them belong the patriarchs—and from them, according to the flesh, the Messiah, who is over all, God, blessed forever. Amen.
+
+6 But it is not as though the word of God has failed. For not all those who are descended from Israel are Israel,
+
+7 nor are they all children because they are Abraham’s seed; rather, “Your seed shall be called through Isaac.”
+
+[ f ] 8 That is, it is not the children of the flesh who are children of God; rather, the children of the promise are counted as seed.
+
+9 For the word of promise is this: “At this time I will come, and Sarah shall have a son.”
+
+[ g ] 10 And not only this, but also Rebecca having twins, from one act with our father Isaac.
+
+11 Yet before the sons were even born and had not done anything good or bad—so that God’s purpose and choice might stand not because of works but because of Him who calls—
+
+12 it was said to her, “The older shall serve the younger.”
+
+[ h ] 13 As it is written, “Jacob I loved, but Esau I hated.” [ i ]
+
+14 What shall we say then? There is no injustice with God, is there? May it never be!
+
+15 For to Moses He says,
+
+“I will have mercy on whom I have mercy,
+
+and I will have compassion on whom I have compassion.” [ j ]
+
+16 So then it does not depend on the one who wills or the one who strives, but on God who shows mercy.
+
+17 For the Scripture says to Pharaoh, “For this very purpose I raised you up—to demonstrate My power in you, so My name might be proclaimed in all the earth.”
+
+[ k ] 18 So then He has mercy on whom He wills, and He hardens whom He wills.
+
+19 You will say to me then, “Why does He still find fault? For who has resisted His will?”
+
+20 But who in the world are you, O man, who talks back to God? Will what is formed say to the one who formed it, “Why did you make me like this?”
+
+[ l ] 21 Does the potter have no right over the clay, to make from the same lump one vessel for honor and another for common use?
+
+22 Now what if God, willing to demonstrate His wrath and to make His power known, endured with much patience vessels of wrath designed for destruction?
+
+23 And what if He did so to make known the riches of His glory on vessels of mercy, which He prepared beforehand for glory?
+
+24 Even us He called—not only from the Jewish people, but also from the Gentiles—
+
+25 as He says also in Hosea,
+
+“I will call those who were not My people,
+
+‘My people,’
+
+and her who was not loved,
+
+‘Beloved.’
+
+26 And it shall be that in the place where it was said to them,
+
+‘You are not My people,’
+
+there they shall be called sons of the living God.” [ m ]
+
+27 Isaiah cries out concerning Israel,
+
+“Though the number of B’nei-Israel be as the sand of the sea,
+
+only the remnant shall be saved.
+
+28 For Adonai will carry out His word upon the earth,
+
+bringing it to an end and finishing quickly.” [ n ]
+
+29 And just as Isaiah foretold,
+
+“Unless Adonai -Tzva’ot had left us seed,
+
+we would have become like Sodom and
+
+resembled Gomorrah.” [ o ]
+
+30 What shall we say then? That Gentiles, who did not pursue righteousness, attained righteousness—that is, a righteousness of faith.
+
+31 But Israel, who pursued a Torah of righteousness, did not reach the Torah .</div>
+
+    <h2>Advanced Learning from writings of Sages and Church Fathers
+</h2>
+<div class="scripture-box" id="advancedlearningbox"></div>   
+<script>
+    function toggleMaximize() {
+  var windowElem = document.getElementById("scriptureBox");
+  windowElem.classList.toggle("maximized");
+}
+</script>  
+                        
+  </main>
+</body>
+</html>

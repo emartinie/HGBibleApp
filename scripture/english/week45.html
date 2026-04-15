@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 45 – And I pleaded</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0; padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3 { margin: 0.25rem 0; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; color: #38bdf8; }
+    .week-label {
+      font-size: .9rem; letter-spacing: .08em;
+      text-transform: uppercase; color: #9ca3af;
+    }
+    .reading-list {
+      margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+      font-size: .95rem;
+    }
+    .scripture-box {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .link-row {
+      margin: 1rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+        .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .placeholder {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+
+    <div class="week-label">Week 45</div>
+    <h1>And I pleaded</h1>
+        <h2>Read the Whole Bible in a Year, Every Year</h2>  <div id="readOrbitBtns" class= animate-pulse><button>🌐</button> <button>🎵</button> <button> 🎬 </button></div>
+
+
+        <div class="notice" display: flex; justify-content: flex-end;>
+      Scripture text is loaded from BibleGateway.  
+      TLV use is subject to permission from the Messianic Jewish Bible Society.
+    </div>
+    <section class="placeholder">
+      <strong>Coming soon:</strong> Inline TLV / KJV / WLT / SBLGNT scriptures display inside the app's Reader Modal. All rendered dynamically like everything else in the app. 
+    </section>
+
+    <ul class="reading-list">
+      <li><strong>Torah/ Penteteuch:</strong> Deuteronomy 3:23-7:11</li>
+      <li><strong>Haftarah/ Prophets & Writings:</strong> Isa 51:12-52:12</li>
+      <li><strong>Brit Ḥadashah/ New Testatement:</strong> Mt 23:31-39; Mk 12:28-34</li>
+    </ul>
+
+    <div class="link-row">
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Deuteronomy%203%3A23-7%3A11%3B%20Isa%2051%3A12-52%3A12%3B%20Mt%2023%3A31-39%3B%C2%A0Mk%2012%3A28-34&version=TLV">⭐ TLV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Deuteronomy%203%3A23-7%3A11%3B%20Isa%2051%3A12-52%3A12%3B%20Mt%2023%3A31-39%3B%C2%A0Mk%2012%3A28-34&version=KJV">📘 KJV</a>
+<a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=WLC">📘 WLC</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=SBLGNT">📖 SBLGNT</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+    </div>
+
+    <h2>Scripture Text (TLV)</h2>
+    <div class="scripture-box">Parashat Va’etchanan
+
+Moses Pleads to Enter
+
+23 “I pleaded with Adonai at that time, saying,
+
+24 ‘O Lord Adonai , You have begun to show Your servant Your greatness and Your strong hand—for what god is there in heaven or on earth who can do deeds and mighty acts like Yours?
+
+25 Please! Let me cross over and see the good land across the Jordan—that good hill country and the Lebanon.’
+
+26 “But Adonai was angry with me because of you, so He would not listen to me. ‘Enough!’ Adonai said to me, ‘Do not speak to Me anymore about this matter.
+
+27 Go up to the top of Pisgah, look around to the west and the north and the south and the east, and see with your eyes—for you will not cross over this Jordan.
+
+28 But commission Joshua, and encourage and strengthen him, for he will cross over before this people, and he will enable them to inherit the land that you will see.’
+
+29 So we stayed in the valley opposite Beth-peor.
+
+Bnei-Yisrael Must Listen and Obey
+
+4 “Now, O Israel, listen to the statutes and ordinances that I am teaching you to do, so that you may live and go in and possess the land that Adonai the God of your fathers is giving you.
+
+2 You must not add to the word that I am commanding you or take away from it—in order to keep the mitzvot of Adonai your God that I am commanding you.
+
+3 Your eyes have seen what Adonai did at Baal Peor, for Adonai your God has destroyed from among you everyone who followed Baal Peor.
+
+4 But you who held tight to Adonai your God are alive today—all of you.
+
+5 “See, just as Adonai my God commanded me, I have taught you statutes and ordinances to do in the land that you are about to enter to possess.
+
+6 You must keep and do them, for it is your wisdom and understanding in the eyes of the peoples, who will hear all these statutes and say, ‘Surely this great nation is a wise and understanding people.’
+
+7 For what great nation is there that has gods so near to them, as Adonai our God is whenever we call on Him?
+
+8 What great nation is there that has statutes and ordinances that are righteous—like all of this Torah that I am setting before you today?
+
+9 “Only be watchful and watch over your soul closely, so you do not forget the things your eyes have seen and they slip from your heart all the days of your life. You are to make them known to your children and your children’s children.
+
+10 The day that you stood before Adonai your God in Horeb, Adonai said to me, ‘Gather the people to Me and I will make them hear My words, so that they learn to fear Me all the days that they live on the earth, and so that they teach their children.’
+
+Words from the Fiery Mountain
+
+11 “You came near and stood at the bottom of the mountain while the mountain was blazing with fire up to the heart of the heavens—darkness, cloud, and fog.
+
+12 Adonai spoke to you from the midst of the fire. The sound of words you heard, but a form you did not see—only a voice.
+
+[ a ] 13 He declared to you His covenant, which He commanded you to do—the Ten Words—and He wrote them on two tablets of stone.
+
+[ b ] 14 Adonai commanded me at that time to teach you statutes and ordinances, so that you might do them in the land you are crossing over to possess.
+
+15 “So be very watchful over your souls since you saw no form on the day that Adonai spoke to you in Horeb out of the midst of the fire,
+
+16 so that you do not act corruptly and make for yourselves a graven image in the likeness of any figure—the form of a male or female,
+
+17 the form of any animal that is on the earth, the form of any winged bird that flies in the sky,
+
+18 the form of anything that creeps on the ground, the form of any fish that is in the water under the earth—
+
+19 and so that you do not lift up your eyes toward the heavens and see the sun and the moon and the stars—all the heavenly host—and are drawn away and bow down and worship them. Adonai your God has allotted them to all the peoples under all the heavens.
+
+20 But you, Adonai has taken, and He brought you out of the iron furnace, out of Egypt to be a people for His own inheritance, as you are this day.
+
+21 “Furthermore Adonai was angry with me because of your words, and He swore that I would not cross over the Jordan or enter the good land that Adonai your God is giving you for an inheritance.
+
+22 For I must die in this land; I am not crossing over the Jordan. But you will cross over and take possession of that good land.
+
+23 Watch yourselves, so that you do not forget the covenant of Adonai your God, which He cut with you, and make for yourselves a graven image in the form of anything that Adonai your God has forbidden you.
+
+24 For Adonai your God is a consuming fire [ c ] —a jealous God.
+
+25 “When you father children and children’s children and have been in the land a long time, and you act corruptly and make a graven image in the form of anything and do evil in the sight of Adonai your God, provoking Him to anger,
+
+26 I call heaven and earth to witness against you today that you will certainly be carried off quickly from the land you are crossing over the Jordan to possess. You will not prolong your days on it, for you will certainly be destroyed.
+
+27 Adonai will scatter you among the peoples, and you will be left few in number among the nations where Adonai will drive you.
+
+28 There you will serve man-made gods of wood and stone, which do not see or hear or eat or smell.
+
+29 But from there you will seek Adonai your God and you will find Him, when you seek Him with all your heart and with all your soul.
+
+30 “When you are in distress and all these things have come on you, in the latter days you will return to Adonai your God and listen to His voice.
+
+31 For Adonai your God is a merciful God. He will not abandon you or destroy you, or forget the covenant with your fathers that He swore to them.
+
+32 “Indeed, ask now about the former days that were before you, from the day that God created man on the earth, and ask from one end of the sky to the other. Has there ever been such a great thing as this, or has anything like it been heard?
+
+33 Has a people ever heard the voice of God speaking from the midst of the fire, as you have heard—and lived?
+
+34 Or has any god ever tried to come to take for himself a nation from within a nation—by trials, by signs and wonders, and by war, and by a mighty hand and an outstretched arm, and by great terrors—like all that Adonai your God did for you in Egypt before your eyes?
+
+35 You were shown, so that you might know that Adonai is God—there is no other besides Him.
+
+[ d ] 36 From the heavens He made you hear His voice to instruct you, [ e ] and on earth He caused you to see His great fire—you heard His words from the midst of the fire.
+
+37 Because He loved your fathers, He chose their descendants after them. Then He brought you out from Egypt with His presence, by His great power—
+
+38 to drive out from before you nations greater and mightier than you, to bring you in to give you their land for an inheritance, as it is this day.
+
+39 “So you will know today and take to heart that Adonai , He is God, in the heavens above and on the earth below—there is no other.
+
+40 You must keep His statutes and His mitzvot , which I am commanding you today, so that it may go well with you and with your children after you, and so that you may prolong your days in the land that Adonai your God is giving you for all time.”
+
+41 Then Moses set apart three cities beyond the Jordan, toward the east.
+
+42 There the manslayer might flee, who kills his neighbor unintentionally and did not hate him previously. He may flee to one of these cities and live:
+
+43 Bezer in the wilderness on the plateau for the Reubenites, Ramot in the Gilead for the Gadites, and Golan in the Bashan for the Manassites.
+
+44 This is the Torah , which Moses set before Bnei-Yisrael .
+
+45 These are the testimonies and the statutes and the ordinances, which Moses spoke to Bnei-Yisrael when they came out from Egypt—
+
+46 beyond the Jordan, in the valley opposite Beth-peor, in the land of Sihon king of the Amorites who lived at Heshbon, whom Moses and Bnei-Yisrael struck down when they came out from Egypt.
+
+47 They took possession of his land and the land of Og king of the Bashan, the two kings of the Amorites who were beyond the Jordan toward the east—
+
+48 from Aroer, which is on the edge of the wadi Arnon, as far as Mount Sion (that is, Hermon),
+
+49 and all the Arabah beyond the Jordan eastward, as far as the sea of the Arabah [ f ] , under the slopes of Pisgah.
+
+The Ten Words
+
+5 Moses called to all Israel and said to them, “Hear, O Israel, the statutes and the ordinances that I am speaking in your hearing today, learn them and make sure to do them.
+
+2 Adonai our God cut a covenant with us in Horeb.
+
+3 Not with our fathers has Adonai cut this covenant but with us—all of us alive here today.
+
+4 Adonai spoke with you face to face on the mountain from the midst of the fire.
+
+5 (I was standing between Adonai and you at that time, to tell you the word of Adonai , because you were afraid because of the fire and did not go up the mountain.)
+
+‘He said:
+
+6 ‘I am Adonai your God, who brought you out from the land of Egypt, from the house of bondage.
+
+7 ‘You shall not have other gods beside Me.
+
+8 ‘Do not make for yourself a graven image—no image of what is in the heavens above or on the earth beneath or in the water under the earth.
+
+9 Do not bow down to them or worship them. For I, Adonai your God, am a jealous God, visiting the iniquity of the fathers on the children and on the third and fourth generation of those who hate Me,
+
+10 but showing lovingkindness to a thousand generations of those who love Me and keep My mitzvot .
+
+11 ‘You must not take the Name of Adonai your God in vain, for Adonai will not leave unpunished anyone who takes His Name in vain.
+
+12 ‘Observe Yom Shabbat to keep it holy, as Adonai your God commanded you.
+
+13 Six days you are to labor and do all your work,
+
+14 but the seventh day is a Shabbat to Adonai your God. In it you are not to do any work—not you or your son or your daughter, or your slave or your maid, or your ox, your donkey or any of your livestock or the outsider within your gates, so that your slave and your maid may rest as you do.
+
+15 You must remember that you were a slave in the land of Egypt, and Adonai your God brought you out from there with a mighty hand and an outstretched arm. Therefore Adonai your God commanded you to keep Yom Shabbat .
+
+16 ‘Honor your father and your mother just as Adonai your God commanded you, so that your days may be long and it may go well with you in the land Adonai your God is giving you. [ g ]
+
+17 ‘Do not murder.
+
+‘Do not commit adultery.
+
+‘Do not steal.
+
+‘Do not bear false witness against your neighbor. [ h ] [ i ]
+
+18 ‘Do not covet your neighbor’s wife, nor desire your neighbor’s house, his field, his manservant, his maidservant, his ox, his donkey, or anything that belongs to your neighbor.’
+
+19 “These words Adonai spoke to all your assembly on the mountain from the midst of the fire, the cloud and the fog, with a great voice. He added no more. He wrote them on two tablets of stone and gave them to me.
+
+Live and Prolong Your Days
+
+20 “As soon as you heard the voice from the midst of the darkness, while the mountain was blazing with fire, you came near to me—all the heads of your tribes and your elders.
+
+21 Then you said, ‘ Adonai our God has just shown us His glory and His greatness, and we have heard His voice from the midst of the fire. This day we have seen that God speaks with man, and yet he keeps on living.
+
+22 Now then, why should we die? For this great fire will consume us! If we hear the voice of Adonai our God any more, then we will die.
+
+23 For who is there of all flesh who has heard the voice of the living God speaking from the midst of the fire, as we have, and lived?
+
+24 You go near and hear all that Adonai our God says. Then you tell us all what Adonai our God tells you, and we will hear it and do it.’
+
+25 “ Adonai heard the tone of your words when you spoke to me, and Adonai said to me, ‘I have heard the tone of the words that this people has spoken to you—they have done well in all they have spoken.
+
+26 If only there were such a heart in them to fear Me and keep all My mitzvot always, so that it might go well with them and with their children forever!
+
+27 Go say to them, “Return to your tents.”
+
+28 But as for you, stand here by Me, and I will tell you the whole commandment—both the statutes and the ordinances that you are to teach them. And they will do them in the land I am giving them to possess.’
+
+29 “So you must take care to do as Adonai your God has commanded you—do not turn aside to the right or to the left.
+
+30 You are to walk in all the way that Adonai your God has commanded you, so that you may live and it may be well with you and you may prolong your days in the land that you will possess.
+
+6 “Now this is the commandment, the statutes and ordinances that Adonai your God commanded to teach you to do in the land you are crossing over to possess—
+
+2 so that you might fear Adonai your God, to keep all His statutes and mitzvot that I am commanding you and your son and your son’s son all the days of your life, and so that you may prolong your days.
+
+3 Hear, therefore, O Israel, and take care to do this, so that it may go well with you and you may increase mightily, as Adonai the God of your fathers has promised you, in a land flowing with milk and honey.
+
+Shema Israel, ADONAI Eloheinu, ADONAI Echad
+
+4 “Hear O Israel, the Lord our God, the Lord is one [ j ] .
+
+5 Love Adonai your God with all your heart and with all your soul and with all your strength.
+
+[ k ] 6 These words, which I am commanding you today, are to be on your heart.
+
+7 You are to teach them diligently to your children, and speak of them when you sit in your house, when you walk by the way, when you lie down and when you rise up.
+
+8 Bind them as a sign on your hand, they are to be as frontlets [ l ] between your eyes,
+
+9 and write them on the doorposts of your house and on your gates.
+
+When You Prosper, Do Not Forget
+
+10 “Now when Adonai your God brings you into the land that He swore to your fathers—to Abraham, Isaac and Jacob—to give you great and good cities that you did not build,
+
+11 and houses full of all good things that you did not fill, and cisterns dug that you did not dig, vineyards and olive trees that you did not plant, and you eat and are full,
+
+12 then watch yourself so that you do not forget Adonai , who brought you out from the land of Egypt, from the house of slavery.
+
+13 You must fear Adonai your God and serve Him, [ m ] and swear by His Name.
+
+14 You must not go after other gods, the gods of the peoples around you;
+
+15 for Adonai your God in the midst of you is a jealous God. Otherwise the anger of Adonai your God will be kindled against you, and He will wipe you from the face of the earth.
+
+16 “You are not to test Adonai your God, as you tested Him at Massah.
+
+[ n ] 17 Diligently keep the mitzvot of Adonai your God, and His testimonies and His statutes that He has commanded you.
+
+18 You are to do what is right and good in the sight of Adonai , so that it may go well with you and you may go in and possess the good land that Adonai swore to your fathers—
+
+19 to drive out all your enemies from before you, as Adonai has spoken.
+
+When Your Son Asks
+
+20 “When your son asks you in time to come, saying ‘What are the testimonies and the statutes and the ordinances that Adonai our God commanded you?’
+
+21 then you are to tell your son, ‘We were slaves to Pharaoh in Egypt, and Adonai brought us out from Egypt with a mighty hand.
+
+22 Before our eyes Adonai showed signs and wonders, great and terrible—on Egypt, on Pharaoh, and on all his house.
+
+23 Then He brought us out from there so that He might bring us in, to give us the land that He swore to our fathers.
+
+24 Adonai commanded us to do all these statutes, to fear Adonai our God—for our good always, to keep us alive, as is the case this day.
+
+25 It will be righteousness [ o ] to us, if we take care to do all this commandment before Adonai our God, just as He has commanded us.’
+
+No Mixing With Idolaters
+
+7 “When Adonai your God brings you into the land you are entering to possess and drives out many nations before you—the Hittite and the Girgashite and the Amorite, the Canaanite and the Perizzite, the Hivite and the Jebusite, seven nations more numerous and mightier than you—
+
+2 and Adonai your God gives them over to you and you strike them down, then you are to utterly destroy them. You are to make no covenant with them and show no mercy to them.
+
+3 You are not to intermarry with them—you are not to give your daughter to his son, or take his daughter for your son.
+
+4 For he will turn your son away from following Me to serve other gods. Then the anger of Adonai will be kindled against you, and He will swiftly destroy you.
+
+5 Instead, you are to deal with them like this: tear down their altars, smash their pillars, cut down their Asherah poles, and burn their carved images with fire.
+
+6 For you are a holy people to Adonai your God—from all the peoples on the face of the earth, Adonai your God has chosen you to be His treasured people. [ p ]
+
+7 “It is not because you are more numerous than all the peoples that Adonai set His love on you and chose you—for you are the least of all peoples.
+
+8 Rather, because of His love for you and His keeping the oath He swore to your fathers, Adonai brought you out with a mighty hand and redeemed you from the house of slavery, from the hand of Pharaoh king of Egypt.
+
+9 “Know therefore that Adonai your God, He is God—the faithful God who keeps covenant kindness for a thousand generations with those who love Him and keep His mitzvot ,
+
+[ q ] 10 but repays those who hate Him to their face, to annihilate them. He will not hesitate with him who hates Him; He will repay him to his face.
+
+11 Therefore you are to keep the commandment—both the statutes and the ordinances—that I am commanding you today, to do them.
+
+12 “I, I am the One who comforts you.
+
+Who are you that you should fear man,
+
+who dies, or a son of man,
+
+who is given up like grass?”
+
+13 But you forgot Adonai your Maker,
+
+who stretched out the heavens
+
+and laid the foundations of the earth.
+
+Are you in constant dread all day
+
+because of the fury of the oppressor
+
+as he makes ready to destroy?
+
+But where is the fury of the oppressor?
+
+14 Soon one bowed down will be released.
+
+He will not die and go to the Pit,
+
+nor will his bread be lacking.
+
+15 “For I am Adonai your God,
+
+who stirs up the sea so that its waves roar—
+
+Adonai -Tzva’ot is His Name.
+
+16 I have put My words in your mouth,
+
+and covered you with the shadow of My hand—
+
+I who set the heavens in place,
+
+who laid the foundations of the earth,
+
+and say to Zion, ‘You are My people.’”
+
+17 Awake, awake!
+
+Stand up, Jerusalem!
+
+From Adonai ’s hand you have drunk the cup of His fury,
+
+the chalice of reeling
+
+that you have drained to the dregs.
+
+18 There is none to guide her
+
+among all the sons she has borne,
+
+nor is there one to take her by the hand
+
+among all the sons she has raised.
+
+19 These two things have befallen you
+
+—who will mourn for you?—
+
+devastation and destruction, famine and the sword.
+
+How will I comfort you?
+
+20 Your sons have fainted.
+
+They lie at every street corner,
+
+like an antelope in a net.
+
+They are full of Adonai ’s fury,
+
+the rebuke of your God.
+
+21 Therefore hear this, you who are afflicted,
+
+who are drunk, but not with wine.
+
+22 Thus says your Lord, Adonai your God who defends His people:
+
+“Behold, I have taken from your hand the cup of reeling,
+
+the bowl of My wrath.
+
+You will never drink it again.
+
+23 Then I will put it into the hand of your tormentors,
+
+who said to you, ‘Lie down, so we may walk over you.’
+
+You have made your back like the ground
+
+and like a street for passersby.
+
+Ma Navu: The Song of Salvation
+
+52 Awake, awake!
+
+Clothe yourself in your strength, Zion!
+
+Clothe yourself in beautiful garments, Jerusalem, the holy city,
+
+for the uncircumcised and the unclean
+
+will never invade you again.
+
+2 Shake off the dust and arise!
+
+Be enthroned, Jerusalem.
+
+Loose the bonds off your neck,
+
+captive Daughter of Zion.
+
+3 For thus says Adonai :
+
+“You were sold for nothing.
+
+So you will be redeemed without silver.”
+
+4 For thus says Adonai Elohim :
+
+“At first My people went down to Egypt to reside there,
+
+then the Assyrian oppressed them for nothing.
+
+5 “Now therefore, what do I have here?”
+
+—it is a declaration of Adonai —
+
+“My people are taken away for nothing?
+
+Its rulers wail”
+
+—it is Adonai ’s declaration—
+
+“and My Name is continually blasphemed all day long. [ a ]
+
+6 Therefore My people will know My Name.
+
+Therefore in that day,
+
+I am the One who will be saying, ‘ Hineni !’”
+
+7 How beautiful on the mountains are
+
+the feet of him who brings good news,
+
+who announces shalom ,
+
+who brings good news of happiness, [ b ]
+
+who announces salvation,
+
+who says to Zion, “Your God reigns!”
+
+8 The voice of your watchmen—they will lift up their voices.
+
+Together they are shouting for joy!
+
+For they will see eye to eye
+
+when Adonai returns to Zion.
+
+9 Break forth in joy, sing together,
+
+you ruins of Jerusalem,
+
+for Adonai has comforted His people.
+
+He has redeemed Jerusalem.
+
+10 Adonai has bared His holy arm
+
+before the eyes of all the nations.
+
+All the ends of the earth will see
+
+the salvation of our God. [ c ]
+
+11 Leave, leave! Get out of there!
+
+Touch no unclean thing.
+
+Go out of her midst. Purify yourselves,
+
+you who carry the vessels of Adonai .
+
+12 For you will not go out in haste,
+
+nor will you go in flight,
+
+for Adonai will go before you,
+
+and the God of Israel will be your rear guard.
+
+31 So you testify against yourselves, that you are sons of those who murdered the prophets.
+
+32 Fill up, then, the measure of your fathers!
+
+33 O snakes, you brood of vipers! How will you escape the condemnation of Gehenna?
+
+34 “Because of this, behold, I’m sending you prophets and wise men and Torah scholars. Some of them you will kill and execute at the stake, and some of them you will scourge in your synagogues and persecute from city to city.
+
+35 And so, upon you shall come all the righteous blood shed on earth, from the blood of righteous Abel to the blood of Zechariah son of Berechiah, [ a ] whom you murdered between the Temple and the altar.
+
+[ b ] 36 Amen, I tell you, all these things will come upon this generation.”
+
+Holy Temple to Be Destroyed
+
+37 “O Jerusalem, Jerusalem who kills the prophets and stones those sent to her! How often I longed to gather your children together, as a hen gathers her chicks under her wings, but you were not willing!
+
+38 Look, your house is left to you desolate!
+
+[ c ] 39 For I tell you, you will never see Me again until you say, ‘ Baruch ha-ba b’shem Adonai . Blessed is He who comes in the name of the Lord !’” [ d ]
+
+Love Ends the Argument
+
+28 One of the Torah scholars came and heard them debating. Seeing that Yeshua had answered them well, he asked Him, “Which commandment is first of all?”
+
+29 Yeshua answered, “The first is, ‘ Shema Yisrael, Adonai Eloheinu, Adonai echad . Hear, O Israel, the Lord our God, the Lord is One.
+
+30 And you shall love Adonai your God with all your heart, and with all your soul, and with all your mind, and with all your strength.’
+
+[ a ] 31 The second is this, ‘You shall love your neighbor as yourself.’ [ b ] There is no other commandment greater than these.”
+
+32 “Well said, Teacher,” the Torah scholar said to Him. “You have spoken the truth, that He is echad , and besides Him there is no other!
+
+[ c ] 33 And ‘to love Him with all the heart, with all the understanding, and with all the strength,’ [ d ] and ‘to love the neighbor as oneself,’ [ e ] is much more than all burnt offerings and sacrifices.”
+
+34 When Yeshua saw that he had answered wisely, He said to him, “You are not far from the kingdom of God.” And no one dared any longer to question Him.</div>
+
+    <h2>Advanced Learning from writings of Sages and Church Fathers
+</h2>
+<div class="scripture-box" id="advancedlearningbox"></div>     
+                        
+  </main>
+</body>
+</html>

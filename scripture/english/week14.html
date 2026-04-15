@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 14 – And I appeared</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0; padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3 { margin: 0.25rem 0; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; color: #38bdf8; }
+    .week-label {
+      font-size: .9rem; letter-spacing: .08em;
+      text-transform: uppercase; color: #9ca3af;
+    }
+    .reading-list {
+      margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+      font-size: .95rem;
+    }
+    .scripture-box {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .link-row {
+      margin: 1rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+        .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .placeholder {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+
+    <div class="week-label">Week 14</div>
+    <h1>And I appeared</h1>
+        <h2>Read the Whole Bible in a Year, Every Year</h2>  <div id="readOrbitBtns" class= animate-pulse><button>🌐</button> <button>🎵</button> <button> 🎬 </button></div>
+
+
+        <div class="notice" display: flex; justify-content: flex-end;>
+      Scripture text is loaded from BibleGateway.  
+      TLV use is subject to permission from the Messianic Jewish Bible Society.
+    </div>
+    <section class="placeholder">
+      <strong>Coming soon:</strong> Inline TLV / KJV / WLT / SBLGNT scriptures display inside the app's Reader Modal. All rendered dynamically like everything else in the app. 
+    </section>
+
+    <ul class="reading-list">
+      <li><strong>Torah/ Penteteuch:</strong> Exodus 6:2-9:35</li>
+      <li><strong>Haftarah/ Prophets & Writings:</strong> Isa 6:1-7:6; 9:5-9:6</li>
+      <li><strong>Brit Ḥadashah/ New Testatement:</strong> Acts 7:17-35; 1 Cor 14:18-25</li>
+    </ul>
+
+    <div class="link-row">
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Exodus%206%3A2-9%3A35%3B%20Isa%206%3A1-7%3A6%3B%209%3A5-9%3A6%3B%20Acts%207%3A17-35%3B%201%20Cor%2014%3A18-25&version=TLV">⭐ TLV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Exodus%206%3A2-9%3A35%3B%20Isa%206%3A1-7%3A6%3B%209%3A5-9%3A6%3B%20Acts%207%3A17-35%3B%201%20Cor%2014%3A18-25&version=KJV">📘 KJV</a>
+<a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=WLC">📘 WLC</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=SBLGNT">📖 SBLGNT</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+    </div>
+
+    <h2>Scripture Text (TLV)</h2>
+    <div class="scripture-box">Parashat Va’eira
+
+2 God spoke further to Moses and said to him, “I am Adonai .
+
+3 I appeared to Abraham, to Isaac and to Jacob, as El Shaddai . Yet by My Name, Adonai , did I not make Myself known to them.
+
+4 I also established My covenant with them, to give them the land of Canaan, the land of their pilgrimage where they journeyed.
+
+5 Furthermore, I have heard the groaning of Bnei-Yisrael , whom the Egyptians are keeping in bondage. So I have remembered My covenant.
+
+6 Therefore say to Bnei-Yisrael : I am Adonai , and I will bring you out from under the burdens of the Egyptians. I will deliver you from their bondage, and I will redeem you with an outstretched arm and with great judgments.
+
+7 I will take you to Myself as a people, and I will be your God. You will know that I am Adonai your God, who brought you out from under the burdens of the Egyptians.
+
+8 So I will bring you into the land that I swore to give to Abraham, to Isaac and to Jacob, and give it to you as an inheritance. I am Adonai .”
+
+9 Moses spoke this way to Bnei-Yisrael , but they did not listen to him because of their broken spirit and cruel bondage.
+
+10 So Adonai told Moses,
+
+11 “Go, speak to Pharaoh king of Egypt, so that will he let Bnei-Yisrael go out of his land.”
+
+12 But Moses said to Adonai , “ Bnei-Yisrael have not listened to me. So how would Pharaoh listen to me—I, who have uncircumcised lips?”
+
+13 Then Adonai spoke to Moses and to Aaron and gave to them a charge for Bnei-Yisrael and Pharaoh king of Egypt, to bring Bnei-Yisrael out of the land of Egypt.
+
+14 These are the heads of their father’s houses. The sons of Reuben the firstborn of Israel were Hanoch, Pallu, Hezron and Carmi. These are the families of Reuben.
+
+15 The sons of Simeon were Jemuel, Jamin, Ohad, Jachin, Zohar and Shaul the son of a Canaanite woman. These are the families of Simeon.
+
+16 These are the names of the sons of Levi according to their generations: Gershon, Kohath and Merari. Levi lived 137 years.
+
+17 The sons of Gershon were Libni and Shimei, according to their families.
+
+18 The sons of Kohath were Amram, Izhar, Hebron and Uzziel. Kohath lived 133 years.
+
+19 The sons of Merari were Mahli and Mushi. These are the families of the Levites according to their generations.
+
+20 Amram married Jochebed, his father’s sister, and she bore him Aaron and Moses. Amram lived 137 years.
+
+21 The sons of Izhar were Korah, Nepheg and Zichri.
+
+22 The sons of Uzziel were Mishael, Elzaphan and Sithri.
+
+23 Aaron married Elisheba daughter of Amminadav, sister of Nahshon, and she bore him Nadab and Abihu, Eleazar and Ithamar.
+
+24 The sons of Korah were Assir, Elkanah and Abiasaph. These are the families of the Korahites.
+
+25 Eleazar, Aaron’s son, married one of the daughters of Putiel and she bore him Phinehas. These are the heads of the ancestral houses of the Levites according to their families.
+
+26 These are the same Aaron and Moses to whom Adonai said, “Bring Bnei-Yisrael out from the land of Egypt according to their divisions.”
+
+27 These are the ones that spoke to Pharaoh king of Egypt, to bring Bnei-Yisrael out from Egypt. These are that same Moses and Aaron.
+
+28 So it happened on the day when Adonai spoke to Moses in the land of Egypt,
+
+29 that Adonai said to Moses, “I am Adonai . Tell Pharaoh king of Egypt everything that I tell to you.”
+
+30 But Moses said to Adonai , “I am of uncircumcised lips, so how would Pharaoh listen to me?”
+
+7 So Adonai said to Moses, “See, I have set you as God to Pharaoh, and Aaron your brother will be your prophet.
+
+2 You are to speak all that I command you and Aaron your brother is to speak to Pharaoh, so that he will let Bnei-Yisrael go out of his land.
+
+3 Yet I will harden Pharaoh’s heart, and multiply My signs and wonders in the land of Egypt.
+
+4 But Pharaoh will not listen to you, so I will lay My hand upon Egypt, and bring forth My armies, My people Bnei-Yisrael , out of the land of Egypt by great judgments.
+
+5 The Egyptians will know that I am Adonai , when I stretch out My hand against Egypt, and bring out Bnei-Yisrael from among them.”
+
+6 So Moses and Aaron did as Adonai commanded them.
+
+7 Moses was eighty years old [ a ] and Aaron eighty-three years old when they spoke to Pharaoh.
+
+8 Adonai told Moses and Aaron,
+
+9 “When Pharaoh speaks to you saying, ‘Prove yourselves with a miracle,’ then you are to say to Aaron, ‘Take your staff and cast it down before Pharaoh, so that it may become a serpent.’”
+
+10 So Moses and Aaron went in to Pharaoh and did as Adonai had commanded. Aaron threw down his staff before Pharaoh and before his servants, and it became a serpent.
+
+11 Then Pharaoh called for the wise men and the sorcerers, and they too, the magicians of Egypt, did the same with their secret arts.
+
+12 For each man threw down his staff, and they became serpents. But Aaron’s staff swallowed up their staffs.
+
+13 Yet Pharaoh’s heart was hardened. So he did not listen to them—just as Adonai had said.
+
+Ten Plagues Begin: Blood
+
+14 Then Adonai said to Moses, “Pharaoh’s heart is stubborn; he refuses to let the people go.
+
+15 Go to Pharaoh in the morning as he is coming out to the water, and stand ready to meet him by the bank of the Nile. Take the staff that was transformed into a serpent in your hand.
+
+16 You are to say to him: Adonai , God of the Hebrews, has sent me to you, saying, ‘Let My people go, so they may serve Me in the wilderness,’ and behold, you have not listened.
+
+17 This is what Adonai says: ‘By this you will know that I am Adonai . Behold, I will strike the waters that are in the river with the staff that is in my hand, and they will be turned to blood.
+
+18 The fish that are in the river will die, the river will become foul, and the Egyptians will hate to drink water from the Nile.”’
+
+19 Adonai said to Moses, “Say to Aaron: Take your staff and stretch out your hand over the waters of Egypt, over their rivers, over their streams, over their pools and over all their ponds, so that they become blood. There will be blood throughout all the land of Egypt, even in wooden and stone containers.”
+
+20 So Moses and Aaron did as Adonai commanded. He lifted up the staff and struck the waters that were in the river in the sight of Pharaoh and his servants, and all the waters of the Nile turned to blood.
+
+21 When the fish that were in the river died, the river became so foul that the Egyptians could not drink water from the river. The blood was throughout all the land of Egypt.
+
+22 But the magicians of Egypt did the same with their secret arts. So Pharaoh’s heart was hardened, and he did not listen to them—just as Adonai had said.
+
+23 Pharaoh turned and went into his house, and did not even take it to heart.
+
+24 So all the Egyptians dug around the river for water to drink, because they could not drink of the water from the Nile.
+
+25 Seven days were fulfilled after Adonai had struck the Nile.
+
+26 [ b ] Then Adonai said to Moses, “Go to Pharaoh and say to him: This is what Adonai says: ‘Let My people go, so they may serve Me.
+
+27 If you refuse to let them go, see, I will strike all your territory with frogs.
+
+28 The river will swarm with frogs. They will go up and enter your house, into your bedroom, upon your bed, into the houses of your servants, upon your people, into your ovens, and in your kneading bowls.
+
+29 The frogs will climb up on you, your people and all your servants.’”
+
+Frogs, Gnats, Flies
+
+8 Then Adonai told Moses, “Say to Aaron: Stretch out your hand with your staff over the rivers, canals and pools, and cause frogs to come up over the land of Egypt.”
+
+2 So Aaron stretched out his hand over the waters of Egypt, and the frogs came up and covered the land.
+
+3 But the magicians did the same with their secret arts and brought up frogs over the land of Egypt.
+
+4 Then Pharaoh called for Moses and Aaron and said, “Pray to Adonai , that He would take the frogs away from me and from my people. Then I will let the people go, so they may sacrifice to Adonai .”
+
+5 Moses answered Pharaoh, “Boast about me after I pray for you. When am I to pray for you, your servants and your people, that the frogs would be cut off from you and your houses, and remain only in the Nile?”
+
+6 “Tomorrow,” he said.
+
+So he said, “Let it happen according to your word, so that you may know that there is none like Adonai our God.
+
+7 The frogs will depart from you, from your houses, from your servants and from your people. They will remain only in the Nile.”
+
+8 After Moses and Aaron went out from Pharaoh, Moses cried out to Adonai concerning the frogs, which He had brought upon Pharaoh.
+
+9 So Adonai acted according to the word of Moses, and the frogs died out in the houses, the courts and the fields.
+
+10 They piled them together in large heaps, and the land stank.
+
+11 But when Pharaoh saw that there was relief, he hardened his heart and did not listen to them—just as Adonai had said.
+
+12 So Adonai said to Moses, “Tell Aaron, ‘Stretch out your staff and strike the dust of the earth, and it will become gnats [ c ] throughout all the land of Egypt.’”
+
+13 So they did. When Aaron stretched out his hand with his staff and struck the dust of the earth, there were gnats on men and animals. All the dust of the earth became gnats throughout all the land of Egypt.
+
+14 When the magicians attempted the same with their secret arts to bring forth gnats, they could not. There were gnats on men and animals.
+
+15 So the magicians said to Pharaoh, “This is the finger of God.” But Pharaoh’s heart was hardened, and he did not listen to them—just as Adonai had said.
+
+16 Then Adonai said to Moses, “Rise up early in the morning and stand before Pharaoh. As he comes to the water say to him, This is what Adonai says: Let My people go, that they may serve Me.
+
+17 Or else, if you do not let My people go, I will send the swarm of flies [ d ] on you and on your servants, on your people and into your houses. The houses of the Egyptians will be full of the swarm of flies including the ground that they stand on.
+
+18 “But on that day I will set apart the land of Goshen, where My people are dwelling—except no swarm of flies will be there—so that you may know that I, Adonai , am in the midst of the earth.
+
+19 I will make a distinction between My people and your people. By tomorrow this sign will happen.”
+
+20 Adonai did just so. A massive swarm of flies went into the house of Pharaoh and into his servant’s houses. All the land of Egypt was ruined because of the swarm of flies.
+
+21 So Pharaoh called for Moses and for Aaron and said, “Go! Sacrifice to your God—in the land.”
+
+22 But Moses said, “That would not be right. For the offerings we intend to sacrifice to Adonai our God are an abomination to the Egyptians. If we sacrifice what is an abomination to the Egyptians, wouldn’t they stone us?
+
+23 We must walk a three-day journey into the wilderness and sacrifice to Adonai our God—just as He tells us.”
+
+24 Pharaoh said, “I will let you go, so that you may sacrifice to Adonai your God in the wilderness. Only you must not go very far away. Pray for me.”
+
+25 So Moses said, “See, I am leaving you, and I will pray to Adonai that the swarm of flies will depart from Pharaoh, his servants and from his people tomorrow. However, let Pharaoh no longer deal deceitfully by not letting the people go sacrifice to Adonai .”
+
+26 Then Moses went out from Pharaoh and prayed to Adonai .
+
+27 Adonai acted according to the word of Moses, and removed the swarm of flies from Pharaoh, from his servants and from his people. Nothing remained.
+
+28 But Pharaoh hardened his heart this time also, and did not let the people go.
+
+Livestock, Boils, Hail
+
+9 Then Adonai said to Moses, “Go in to Pharaoh, and tell him: This is what Adonai , the God of the Hebrews, says: ‘Let My people go, so they may serve Me.’
+
+2 For if you refuse to let them go, and hold them still,
+
+3 behold, the hand of Adonai will fall upon your livestock that are in the field—on the horses, donkeys, camels, herds and flocks. There will be a crushing plague.
+
+4 But Adonai will make a distinction between the cattle of Israel and the cattle of Egypt, and nothing will die that belongs to Bnei-Yisrael .”
+
+5 Also Adonai set a specific time, saying, “Tomorrow Adonai will do this thing in the land.”
+
+6 Then the next day, Adonai did the deed. All the cattle of Egypt died, yet of the cattle of Bnei-Yisrael , not one died.
+
+7 When Pharaoh inquired, there was not so much as one of the cattle of Bnei-Yisrael dead. But the heart of Pharaoh was stubborn, and he did not let the people go.
+
+8 Then Adonai said to Moses and Aaron, “Take handfuls of soot from the furnace, and have Moses throw it heavenward in the sight of Pharaoh.
+
+9 It will become fine dust over all the land of Egypt, and will become boils erupting with sores on both men and animals throughout all the land.”
+
+10 So they took soot from the furnace and stood before Pharaoh. When Moses threw it heavenward, it became boils erupting with sores on both men and animals.
+
+11 Moreover, the magicians could not stand before Moses because of the boils, because they were on the magicians, as on all the Egyptians.
+
+12 But Adonai hardened the heart of Pharaoh, so he did not listen to them—just as Adonai had said to Moses.
+
+13 Then Adonai said to Moses, “Rise up early in the morning, stand before Pharaoh and say to him: This is what Adonai the God of the Hebrews says: ‘Let My people go, so they may serve Me.
+
+14 For this time I will send all My plagues to your heart, and on your servants and your people, so that you may know that there is none like Me in all the earth.
+
+15 Surely by now I could have stretched out My hand and struck you and your people with a plague that would have wiped you off the earth.
+
+16 However, I have let you stand for this reason: to show you My power, and that My Name might be proclaimed throughout all the earth.
+
+17 Yet still you exalt yourself over My people, by not letting them go.
+
+18 Behold, tomorrow at about this time, I will cause it to rain a very severe hailstorm, the likes of which has not occurred in Egypt since the day it was founded until now.
+
+19 Send word, shelter your cattle and all that you have in the field. For every person and animal found in the field and not brought home, when the hail comes down on them, they will die.’”
+
+20 Whoever feared the word of Adonai among the servants of Pharaoh had his own servants and cattle flee into the houses,
+
+21 but whoever disregarded the word of Adonai left his servants and cattle in the field.
+
+22 Then Adonai said to Moses, “Stretch out your hand toward heaven and let there be hail in all the land of Egypt, on people, animals and every plant of the field, throughout all the land.”
+
+23 So Moses stretched out his staff toward heaven, and Adonai sent thunder and hail. Fire came down on the earth, as Adonai rained hail on the land of Egypt.
+
+24 The hail fell very severely, with fire flashing up amidst the hail, the likes of which had not occurred in all the land of Egypt since it became a nation.
+
+25 The hail struck down everything that was in the fields, both men and animals, all throughout the land of Egypt. It also struck every plant of the field and broke down every tree.
+
+26 Only in the land of Goshen, where Bnei-Yisrael were, was there no hail.
+
+27 So Pharaoh sent, called for Moses and Aaron and said to them, “I have sinned this time. Adonai is righteous, while I and my people are wicked.
+
+28 Pray to Adonai —there has been enough of God’s thunders and hail! I will let you go. You don’t have to stay any longer.”
+
+29 Moses said to him, “As soon as I am gone out of the city, I will stretch out my hands to Adonai . The thunder will cease and there will be no more hail—so you may know that the earth is Adonai ’s.
+
+30 But as for you and your servants, I know that you do not yet fear Adonai Elohim .”
+
+31 (The flax and the barley were destroyed, because the barley was in the ear, and the flax was in bloom.
+
+32 But the wheat and the spelt were not destroyed, because they ripen later.)
+
+33 Moses went out of the city, away from Pharaoh, and stretched out his hands to Adonai . Then the thunder and hail ceased, and rain no longer poured down on the earth.
+
+34 But when Pharaoh saw that the rain, the hail and the thunder had ceased, he increased his sin and hardened his heart, both he and his servants.
+
+35 So Pharaoh’s heart was hardened and he did not let Bnei-Yisrael go—just as Adonai had said by Moses’ hand.
+
+Judah’s Encounter with Adonai
+
+6 In the year of King Uzziah’s death, I saw Adonai sitting on a throne, high and lifted up, [ a ] and the train of His robe filled the Temple.
+
+2 Seraphim were standing above Him. Each had six wings: with two he covered his face and with two he covered his feet, and with two he flew.
+
+3 One called out to another, and said:
+
+“Holy, holy, holy, is Adonai -Tzva’ot !
+
+The whole earth is full of His glory.” [ b ]
+
+4 Then the posts of the door trembled at the voice of those who called, and the House was filled with smoke.
+
+[ c ] 5 Then I said:
+
+“ Oy to me! For I am ruined!
+
+For I am a man of unclean lips,
+
+and I am dwelling among a people of unclean lips.
+
+For my eyes have seen the King, Adonai -Tzva’ot !”
+
+6 Then one of the seraphim flew to me, with a glowing coal in his hand, which he had taken with tongs from the altar.
+
+7 He touched my mouth with it and said:
+
+“Behold, this has touched your lips.
+
+Your iniquity is taken away, and your sins atoned for.”
+
+8 Then I heard the voice of Adonai saying:
+
+“Whom should I send, and who will go for Us?”
+
+So I said, “ Hineni . Send me.”
+
+9 Then He said:
+
+“Go! Tell this people:
+
+‘Hear without understanding,
+
+and see without perceiving.’ [ d ]
+
+10 Make the heart of this people fat,
+
+their ears heavy, and their eyes blind.
+
+Else they would see with their eyes,
+
+and hear with their ears,
+
+and understand with their heart,
+
+and return, and be healed.” [ e ]
+
+11 Then I said, “ Adonai , how long?”
+
+He answered,
+
+“Until cities are laid waste
+
+and without inhabitant,
+
+houses are without people,
+
+and the land is utterly desolate.
+
+12 Adonai will drive people far away.
+
+The desertion of the land will be vast.
+
+13 Though a tenth still be in it,
+
+it will again be burned.
+
+As a terebinth tree or as an oak
+
+whose stump remains when cut down,
+
+so the holy seed will be the stump.”
+
+Reassurance Regarding a Threat
+
+7 Now it came about in the days of Ahaz son of Jotham, son of Uzziah, king of Judah, that King Rezin of Aram and King Pekah, son of Remaliah of Israel, went up to Jerusalem to war against it, but could not prevail against it.
+
+2 When it was reported to the house of David saying: “Aram is camped in Ephraim,” his heart as well as the heart of his people shook like the trees of the forest shaking with the wind.
+
+3 Then Adonai said to Isaiah: “Go out now to meet Ahaz—you and Shear-jashub your son, at the end of the aqueduct from the upper pool, in the highway of the fullers’ field [ f ] ;
+
+4 and say to him, ‘Keep calm and be quiet. Do not fear nor be faint-hearted because of these two stubs of smoldering firebrands, because of the fierce anger of Rezin and Aram, nor of the son of Remaliah,
+
+5 because Aram has plotted harm against you, along with Ephraim and the son of Remaliah saying,
+
+6 “Let us go up against Judah, terrorize it, divide it for ourselves, and appoint Tabeel’s son as king in the midst of it.”
+
+Prince of Peace
+
+5 For to us a child is born,
+
+a son will be given to us, [ a ]
+
+and the government will be upon His shoulder. [ b ]
+
+His Name will be called
+
+Wonderful Counselor, [ c ]
+
+Mighty God
+
+My Father of Eternity,
+
+Prince of Peace. [ d ]
+
+6 Of the increase of His government
+
+and shalom there will be no end—
+
+on the throne of David and over His kingdom—
+
+to establish it and uphold it
+
+through justice and righteousness
+
+from now until forevermore. [ e ]
+
+The zeal of Adonai -Tzva’ot
+
+will accomplish this.
+
+17 “But as the time drew near for the promise God had sworn to Abraham, the people increased and multiplied in Egypt—
+
+18 until ‘there arose another king over Egypt who knew nothing about Joseph.’
+
+[ a ] 19 Dealing with our people with cruel cunning, this king mistreated our fathers and forced them to abandon their infants so they would not survive.
+
+20 “At this time Moses was born—extraordinary before God. For three months he was nurtured in his father’s house.
+
+21 And when he was set outside, Pharaoh’s daughter took him and raised him as her own son.
+
+22 Moses was educated in all the wisdom of the Egyptians, and he was powerful in his words and deeds.
+
+23 “When he was approaching forty years of age, it came into his heart to visit his brothers, Bnei-Yisrael .
+
+24 When he saw one of them being treated unjustly, he went to the defense of the oppressed man and avenged him by striking down the Egyptian.
+
+25 He was assuming that his brothers understood that by his hand God was delivering them, but they did not understand.
+
+26 So on the next day he appeared to them as they were fighting. He tried to reconcile them in shalom , saying, ‘Men, you are brothers. Why do you wrong one another?’
+
+27 “But the one doing wrong to his neighbor pushed him away, saying, ‘Who appointed you ruler and judge over us?
+
+28 You don’t want to kill me as you killed the Egyptian yesterday, do you?’
+
+[ b ] 29 At this remark, Moses fled and became an exile in the land of Midian, where he became the father of two sons.
+
+30 “When forty years had passed, an angel appeared to him in the wilderness of Mount Sinai in the flame of a burning bush.
+
+31 When Moses saw it, he was amazed at the sight. But when he came up to look, there came the voice of Adonai :
+
+32 ‘I am the God of your fathers, the God of Abraham and Isaac and Jacob.’ [ c ]
+
+“Moses trembled in fear and did not dare to look.
+
+33 But Adonai said to him, ‘Take the sandals off your feet, for the place where you are standing is holy ground.
+
+34 I have surely seen the oppression of my people in Egypt and have heard their groaning, and I have come down to deliver them. Now come—let Me send you to Egypt.’
+
+35 “This Moses—whom they rejected, saying, ‘Who appointed you as ruler and judge?’—is the one whom God sent as both ruler and redeemer, by the hand of the angel who appeared to him in the bush.
+
+18 I thank God that I speak in tongues more than all of you.
+
+19 However, in Messiah’s community I would rather speak five words with my mind, so I may also instruct others, than ten thousand words in a tongue.
+
+20 Brothers and sisters, stop being children in your thinking—rather, be infants in evil, but in your thinking be mature.
+
+21 In the Prophets [ a ] it is written,
+
+“By those with strange tongues
+
+and by the lips of strangers
+
+I will speak to this people.
+
+And not even then will they listen to me,” says Adonai .
+
+22 Therefore tongues are a sign not for believers but for unbelievers—but prophecy is a sign not for unbelievers but for believers.
+
+23 So if Messiah’s whole community comes together and everyone speaks in tongues, and uninstructed or unbelieving people come in, won’t they say that you are crazy?
+
+24 But if all are prophesying and some unbelieving or ungifted person comes in, he is convicted by all, he is called to account by all.
+
+25 The secrets of his heart become known, and so he will fall down on his face and worship God, declaring, “God really is among you!” [ b ]</div>
+
+    <h2>Advanced Learning from writings of Sages and Church Fathers
+</h2>
+<div class="scripture-box" id="advancedlearningbox"></div>     
+                        
+  </main>
+</body>
+</html>

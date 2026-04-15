@@ -1,0 +1,796 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 01 – In the beginning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0; padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3 { margin: 0.25rem 0; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; color: #38bdf8; }
+    .week-label {
+      font-size: .9rem; letter-spacing: .08em;
+      text-transform: uppercase; color: #9ca3af;
+    }
+    .reading-list {
+      margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+      font-size: .95rem;
+    }
+    .scripture-box {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .link-row {
+      margin: 1rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+        .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .placeholder {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+
+    <div class="week-label">Week 01</div>
+    <h1>In the beginning</h1>
+        <h2>Read the Whole Bible in a Year, Every Year</h2>  <div id="readOrbitBtns" class= animate-pulse><button>🌐</button> <button>🎵</button> <button> 🎬 </button></div>
+
+
+        <div class="notice" display: flex; justify-content: flex-end;>
+      Scripture text is loaded from BibleGateway.  
+      TLV use is subject to permission from the Messianic Jewish Bible Society.
+    </div>
+    <section class="placeholder">
+      <strong>Coming soon:</strong> Inline TLV / KJV / WLT / SBLGNT scriptures display inside the app's Reader Modal. All rendered dynamically like everything else in the app. 
+    </section>
+
+    <ul class="reading-list">
+      <li><strong>Torah/ Penteteuch:</strong> Genesis 1:1-6:8</li>
+      <li><strong>Haftarah/ Prophets & Writings:</strong> Isa 42:5-43:11</li>
+      <li><strong>Brit Ḥadashah/ New Testatement:</strong> John 1:1-14</li>
+    </ul>
+
+    <div class="link-row">
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%201%3A1-6%3A8%3B%20Isa%2042%3A5-43%3A11%3B%20John%201%3A1-14&version=TLV">⭐ TLV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%201%3A1-6%3A8%3B%20Isa%2042%3A5-43%3A11%3B%20John%201%3A1-14&version=KJV">📘 KJV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=WLC">📘 WLC</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=SBLGNT">📖 SBLGNT</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+
+      <button class="open-apocrypha-btn">
+  Open Apocrypha (Public Domain)
+</button>
+    </div>
+
+    <h2>Scripture Text (TLV)</h2>
+    <div class="scripture-box">Parashat Bereshit
+
+Creation in Six Days
+
+1 In the beginning God created the heavens and the earth.
+
+[ a ] 2 Now the earth was chaos and waste, darkness was on the surface of the deep, and the Ruach Elohim was hovering upon the surface of the water. [ b ]
+
+3 Then God said, “Let there be light!” and there was light.
+
+4 God saw that the light was good. So God distinguished the light from the darkness.
+
+5 God called the light “day,” and the darkness He called “night.” So there was evening and there was morning—one day.
+
+6 Then God said, “Let there be an expanse in the midst of the water! Let it be for separating water from water.”
+
+7 So God made the expanse and it separated the water that was below the expanse from the water that was over the expanse. And it happened so.
+
+8 God called the expanse “sky.” So there was evening and there was morning—a second day.
+
+9 Then God said, “Let the water below the sky be gathered to one place. Let the dry ground appear.” And it happened so.
+
+10 God called the dry ground “land,” and the collection of the water He called “seas.” And God saw that it was good.
+
+11 Then God said, “Let the land sprout grass, green plants yielding seed, fruit trees making fruit, each according to its species with seed in it, upon the land.” And it happened so.
+
+12 The land brought forth grass, green plants yielding seed, each according to its species, and trees making fruit with the seed in it, each according to its species. And God saw that it was good.
+
+13 So there was evening and there was morning—a third day.
+
+14 Then God said, “Let lights in the expanse of the sky be for separating the day from the night. They will be for signs and for seasons and for days and years.
+
+15 They will be for lights in the expanse of the sky to shine upon the land.” And it happened so.
+
+16 Then God made the two great lights—the greater light for dominion over the day, and the lesser light as well as the stars for dominion over the night.
+
+17 God set them in the expanse of the sky to shine on the land
+
+18 and to have dominion over the day and over the night and to separate the light from the darkness. And God saw that it was good.
+
+19 So there was evening and there was morning—a fourth day.
+
+20 Then God said, “Let the waters swarm with swarms of living creatures! Let flying creatures fly above the land across the expanse of the sky.”
+
+21 Then God created the large sea creatures and every living creature that crawls, with which the water swarms, according to their species, as well as every winged flying creature, according to their species. And God saw that it was good.
+
+22 Then God blessed them by saying, “Be fruitful and multiply and fill the water in the seas. Let the flying creatures multiply on the land.”
+
+23 So there was evening and there was morning—a fifth day.
+
+24 Then God said, “Let the land bring forth living creatures according to their species—livestock, crawling creatures and wild animals, according to their species.” And it happened so.
+
+25 God made the wild animals according to their species, the livestock according to their species, and everything that crawls on the ground, each according to its species. And God saw that it was good.
+
+26 Then God said, “Let Us make man in Our image, after Our likeness! Let them rule over the fish of the sea, over the flying creatures of the sky, over the livestock, over the whole earth, and over every crawling creature that crawls on the land.”
+
+27 God created humankind in His image, in the image of God He created him, male and female He created them.
+
+[ c ] 28 God blessed them and God said to them, “Be fruitful and multiply, fill the land, and conquer it. Rule over the fish of the sea, the flying creatures of the sky, and over every animal that crawls on the land.”
+
+29 Then God said, “I have just given you every green plant yielding seed that is on the surface of the whole land, and every tree, which has the fruit of a tree yielding seed. They are to be food for you.
+
+30 Also for every wild animal, every flying creature of the sky and every creature that crawls on the land which has life, every green plant is to be food.” And it happened so.
+
+31 So God saw everything that He made, and behold it was very good.
+
+So there was evening and there was morning—the sixth day.
+
+Shabbat For Rest
+
+2 So the heavens and the earth were completed along with their entire array.
+
+2 God completed—on the seventh day—His work that He made, and He ceased—on the seventh day—from all His work that He made.
+
+3 Then God blessed the seventh day and sanctified it, for on it He ceased from all His work that God created for the purpose of preparing.
+
+Humanity in Gan-Eden
+
+4 These are the genealogical records of the heavens and the earth when they were created, at the time when Adonai Elohim made land and sky.
+
+5 Now no shrub of the field was in the land yet, and no green plants of the field had sprouted yet. For Adonai Elohim had not caused it to rain upon the land, and there was no one to work the ground.
+
+6 But a mist came up from the land and watered the whole surface of the ground.
+
+7 Then Adonai Elohim formed the man out of the dust from the ground and He breathed into his nostrils a breath of life—so the man became a living being.
+
+8 Then Adonai Elohim planted a garden in Eden in the east, and there He put the man whom He had formed.
+
+9 Then Adonai Elohim caused to sprout from the ground every tree that was desirable to look at and good for food.
+
+Now the Tree of Life was in the middle of the garden, and also the Tree of Knowledge of Good and Evil.
+
+10 A river flowed out of Eden to water the garden. From there it divided and became four riverheads.
+
+11 The name of the first is Pishon, the one that winds around the whole land of the Havilah, where there is gold.
+
+12 The gold of that land is good—bdellium and lapis lazuli stones are also there.
+
+13 The name of the second river is Gihon—it winds around the whole land of Cush.
+
+14 The name of the third river is Tigris—it runs east of Assyria. And the fourth river is Euphrates.
+
+15 Then Adonai Elohim took the man and gave him rest in the Garden of Eden in order to cultivate and watch over it.
+
+16 Then Adonai Elohim commanded the man saying, “From all the trees of the garden you are most welcome to eat.
+
+17 But of the Tree of the Knowledge of Good and Evil you must not eat. For when you eat from it, you most assuredly will die!
+
+18 Then Adonai Elohim said, “It is not good for the man to be alone. Let Me make a well-matched helper for him.”
+
+19 Adonai Elohim had formed from the ground every animal of the field and every flying creature of the sky, so He brought them to the man to see what he would call them. Whatever the man called them—each living creature—that was its name.
+
+20 So the man gave names to all of the livestock, and to the flying creatures of the sky, and to all the animals of the field; but for the man He did not find a well-matched helper for him.
+
+21 Adonai Elohim caused a deep sleep to fall on the man and he slept; and He took one of his ribs and closed up the flesh in its place.
+
+22 Adonai Elohim built the rib, which He had taken from the man, into a woman. Then He brought her to the man.
+
+23 Then the man said,
+
+“This one, at last, is bone of my bones
+
+and flesh from my flesh.
+
+This one is called woman,
+
+for from man was taken this one.”
+
+24 This is why a man leaves his father and his mother and clings to his wife; and they become one flesh. [ d ]
+
+From Innocence to Shame
+
+25 Now both of them were naked, the man and his wife, and they were not ashamed.
+
+3 But the serpent was shrewder than any animal of the field that Adonai Elohim made. So it said to the woman, “Did God really say, ‘You must not eat from all the trees of the garden’?”
+
+2 The woman said to the serpent, “Of the fruit of the trees, we may eat.
+
+3 But of the fruit of the tree which is in the middle of the garden, God said, ‘You must not eat of it and you must not touch it, or you will die.’”
+
+4 The serpent said to the woman, “You most assuredly won’t die!
+
+5 For God knows that when you eat of it, your eyes will be opened and you will be like God, knowing good and evil.”
+
+6 Now the woman saw that the tree was good for food, and that it was a thing of lust for the eyes, and that the tree was desirable for imparting wisdom. So she took of its fruit and she ate. She also gave to her husband who was with her and he ate.
+
+7 Then the eyes of both of them were opened and they knew that they were naked; so they sewed fig leaves together and made for themselves loin-coverings.
+
+8 And they heard the sound of Adonai Elohim going to and fro in the garden in the wind of the day. So the man and his wife hid themselves from the presence of Adonai Elohim in the midst of the Tree of the garden.
+
+9 Then Adonai Elohim called to the man and He said to him, “Where are you?”
+
+10 Then he said, “Your sound—I heard it in the garden and I was afraid. Because I am naked, I hid myself.”
+
+11 Then He said, “Who told you that you are naked? Have you eaten from the Tree from which I commanded you not to eat?”
+
+12 Then the man said, “The woman whom You gave to be with me—she gave me of the Tree, and I ate.”
+
+13 Adonai Elohim said to the woman, “What did you do?”
+
+The woman said, “The serpent deceived me and I ate.”
+
+14 Adonai Elohim said to the serpent, “Because you did this,
+
+Cursed are you above all the livestock
+
+and above every animal of the field.
+
+On your belly will you go,
+
+and dust will you eat
+
+all the days of your life.
+
+15 I will put animosity
+
+between you and the woman—
+
+between your seed and her seed.
+
+He will crush your head,
+
+and you will crush his heel. [ e ]
+
+16 To the woman He said,
+
+“I will greatly increase your pain from conception to labor.
+
+In pain will you give birth to children.
+
+Your desire will be toward your husband,
+
+yet he must rule over you.”
+
+17 Then to the man He said, “Because you listened to your wife’s voice and ate of the tree which I commanded you, saying, ‘You must not eat of it’:
+
+Cursed is the ground because of you—
+
+with pain will you eat of it all the days of your life.
+
+18 Thorns and thistles will sprout for you.
+
+You will eat the plants of the field,
+
+19 By the sweat of your brow will you eat food,
+
+until you return to the ground,
+
+since from it were you taken.
+
+For you are dust,
+
+and to dust will you return.”
+
+20 Now Adam named his wife Eve because she was the mother of all the living.
+
+21 Adonai Elohim made Adam and his wife tunics of skin and He clothed them.
+
+22 Then Adonai Elohim said, “Behold, the man has become like one of Us, knowing good and evil. So now, in case he stretches out his hand and takes also from the Tree of Life and eats and lives forever,”
+
+23 Adonai Elohim sent him away from the Garden of Eden, to work the ground from which he had been taken.
+
+24 And He expelled the man; and at the east of the Garden of Eden He had cheruvim dwell along, with the whirling sword of flame, to guard the way to the Tree of Life.
+
+Cain and Abel’s Blood
+
+4 Now the man had relations with Eve his wife and she became pregnant and gave birth to Cain. She said, “I produced a man with Adonai .”
+
+2 Then she gave birth again, to his brother Abel. Abel became a shepherd of flocks while Cain became a worker of the ground.
+
+3 So it happened after some time that Cain brought an offering of the fruit of the ground to Adonai ,
+
+4 while Abel—he also brought of the firstborn of his flock and their fat portions. Now Adonai looked favorably upon Abel and his offering,
+
+5 but upon Cain and his offering He did not look favorably. Cain became very angry, and his countenance fell.
+
+6 Then Adonai said to Cain, “Why are you angry? And why has your countenance fallen?
+
+7 If you do well, it will lift. But if you do not do well, sin is crouching at the doorway. Its desire is for you, but you must master it.”
+
+8 Cain spoke to Abel his brother. While they were in the field, Cain rose up against Abel his brother and killed him.
+
+[ f ] 9 Then Adonai said to Cain, “Where is Abel, your brother?”
+
+“I don’t know,” he said. “Am I my brother’s keeper?”
+
+10 Then He said, “What have you done? The voice of your brother’s blood is crying out to Me from the ground.
+
+11 So now, cursed are you from the ground which opened its mouth to receive your brother’s blood from your hand.
+
+12 As often as you work the ground, it will not yield its crops to you again. You will be a restless wanderer on the earth.”
+
+13 Cain said to Adonai , “My iniquity [ g ] is too great to bear!
+
+14 Since You expelled me today from the face of the ground and I must be hidden from Your presence, then I will be a restless wanderer on the earth—anyone who finds me will kill me!”
+
+15 But Adonai said to him, “In that case, anyone who kills Cain is to be avenged seven times over.”
+
+So Adonai put a mark on Cain, so that anyone who found him would not strike him down.
+
+16 Then Cain left Adonai ’s presence and dwelled in the Land of Wandering, east of Eden.
+
+17 Cain was intimate with his wife and she became pregnant and gave birth to Enoch. And he was building a city, and he named the city after the name of his son, Enoch.
+
+18 And to Enoch was born Irad. Irad fathered Mehujael, and Mehujael fathered Methushael, and Methushael fathered Lamech.
+
+19 Now Lamech took for himself two wives. The name of the first one was Adah, and the name of the second one was Zillah.
+
+20 Adah gave birth to Jabal—he was the pioneer of tent dwellers with livestock.
+
+21 His brother’s name was Jubal—he was the pioneer of all who skillfully handle stringed instruments and wind instruments.
+
+22 Now Zillah also gave birth to Tubal-Cain, the forger of every kind of bronze and iron tools; Tubal-Cain’s sister was Naamah.
+
+23 Lamech said to his wives,
+
+“Adah and Zillah: Hear my voice!
+
+Lamech’s wives: Listen to my speech!
+
+For I have killed a man for wounding me,
+
+and a boy for bruising me.
+
+24 If Cain is to be avenged seven times,
+
+then Lamech—77 times!”
+
+25 Adam was intimate with his wife again, and she gave birth to a son and she named him Seth, “For God has appointed me another seed in place of Abel—since Cain killed him.”
+
+26 To Seth, also was born a son. He named him Enosh. Then people began to call on Adonai ’s Name.
+
+Book of Genealogies
+
+5 This is the Book of the Genealogies of Adam:
+
+When God created Adam, in the likeness of God He made him.
+
+2 Male and female He created them, and He blessed them and called their name “Adam” when He created them.
+
+3 Adam lived 130 years, then fathered a son in his likeness, after his image, and named him Seth.
+
+4 Then the days of Adam after he fathered Seth were 800 years, and He fathered other sons and daughters.
+
+5 So all Adam’s days that he lived were 930 years, and then he died.
+
+6 Seth lived 105 years, then fathered Enosh.
+
+7 Seth lived 807 years after he fathered Enosh, and he fathered sons and daughters.
+
+8 So all Seth’s days were 912 years, and then he died.
+
+9 Enosh lived 90 years, then fathered Kenan.
+
+10 Enosh lived 815 years after he fathered Kenan, and he fathered sons and daughters.
+
+11 So all of Enosh’s days were 905 years, and then he died.
+
+12 Kenan lived 70 years, then fathered Mahalalel.
+
+13 Kenan lived 840 years after he fathered Mahalalel, he fathered sons and daughters.
+
+14 So all of Kenan’s days were 910 years, and then he died.
+
+15 Mahalalel lived 65 years, then fathered Jared.
+
+16 Mahalalel lived 830 years after he fathered Jared, and he fathered sons and daughters.
+
+17 So all of Mahalalel’s days were 895 years, and then he died.
+
+18 Jared lived 162 years, then fathered Enoch.
+
+19 Jared lived 800 years after he fathered Enoch, and he fathered sons and daughters.
+
+20 So all of Jared’s days were 962 years, and then he died.
+
+21 Enoch lived 65 years, then fathered Methuselah.
+
+22 Now Enoch walked with God continually for 300 years after he fathered Methuselah, and he fathered sons and daughters.
+
+23 So all of Enoch’s days were 365 years.
+
+24 And Enoch continually walked with God—then he was not there, because God took him.
+
+25 Methuselah lived 187 years and fathered Lamech.
+
+26 And Methuselah lived 782 years after he fathered Lamech, and he fathered other sons and daughters.
+
+27 So all of Methuselah’s days were 969 years, and then he died.
+
+28 Lamech lived 182 years and he fathered a son.
+
+29 And he named him Noah saying, “This one will comfort us from our work and from the pain of our hands because of the ground which Adonai cursed.”
+
+30 Lamech lived 595 years after he fathered Noah, and he fathered sons and daughters.
+
+31 So all of Lamech’s days were 777 years, and then he died.
+
+32 And Noah was 500 years old when he fathered Shem, Ham and Japheth.
+
+Evil Inclination of All Humanity
+
+6 Now when humankind began to multiply on the face of the ground and daughters were born to them,
+
+2 then the sons of God saw that the daughters of men were good and they took for themselves wives, any they chose.
+
+3 Then Adonai said, “My Spirit will not remain with humankind forever, since they are flesh. So their days will be 120 years.
+
+4 The Nephilim were on the earth in those days, and also afterward, whenever the sons of God came to the daughters of men, and gave birth to them. Those were the mighty men of old, men of renown.
+
+5 Then Adonai saw that the wickedness of humankind was great on the earth, and that every inclination of the thoughts of their heart was only evil all the time.
+
+6 So Adonai regretted that He made humankind on the earth, and His heart was deeply pained.
+
+7 So Adonai said, “I will wipe out humankind, whom I have created, from the face of the ground, from humankind to livestock, crawling things and the flying creatures of the sky, because I regret that I made them.”
+
+8 But Noah found favor in Adonai ’s eyes.
+
+5 Thus says God, Adonai ,
+
+who created the heavens and stretched them out,
+
+who spread out the earth and what comes from it,
+
+who gives breath to the people on it,
+
+and Ruach to those who walk in it [ a ] —
+
+6 “I, Adonai , called You in righteousness,
+
+I will take hold of Your hand,
+
+I will keep You and give You
+
+as a covenant to the people, [ b ]
+
+as a light to the nations, [ c ]
+
+7 by opening blind eyes,
+
+bringing prisoners out of the dungeon,
+
+and those sitting in darkness out of the prison house. [ d ]
+
+8 “I am Adonai —that is My Name!
+
+My glory I will not give to another,
+
+Or My praise to graven images.
+
+9 Behold, the former things have come to pass,
+
+Now I declare new things.
+
+Before they spring forth
+
+I announce them to you.”
+
+10 Sing to Adonai a new song,
+
+His praise from the end of the earth,
+
+you who go down to the sea with all its fullness,
+
+islands and their inhabitants.
+
+11 Let the desert and its cities exult—
+
+the villages that Kedar inhabits.
+
+Let the dwellers of Sela sing for joy.
+
+Let them shout for joy
+
+from the top of the mountains.
+
+12 Let them give glory to Adonai
+
+and declare His praise in the islands.
+
+13 Adonai goes out as a mighty one.
+
+He stirs up His zeal like a man of war.
+
+He will shout, yes, raise a war cry!
+
+He will prevail over His enemies.
+
+14 “I have held My peace a long time,
+
+I have been still and restrained Myself.
+
+Now like a woman in labor I groan,
+
+gasping and panting at once.
+
+15 I will lay waste mountains and hills,
+
+and dry up all their vegetation.
+
+I will turn the rivers into islands,
+
+and dry up the pools.
+
+16 I will bring the blind by a way they do not know.
+
+in paths they have not known, I will guide them.
+
+I will turn darkness before them to light
+
+and the rough places smooth.
+
+These are the things I will do,
+
+and I will not forsake them.
+
+17 They will be turned back, utterly put to shame—
+
+those trusting in idols,
+
+who say to molten images, ‘You are our gods.’
+
+18 Hear, you deaf!
+
+Look, you blind, so you may see.
+
+19 Who is blind, but My Servant?
+
+Or deaf as My Messenger that I send?
+
+Who is so blind as the one in covenant with Me,
+
+blind as Adonai ’s Servant?
+
+20 You have seen many things,
+
+but you do not pay attention.
+
+Though ears are open, no one hears.” [ e ]
+
+21 Adonai was pleased,
+
+for the sake of His righteousness,
+
+to make Torah great and glorious.
+
+22 But this is a people robbed and looted.
+
+all of them trapped in holes,
+
+hidden away in prisons.
+
+They have become a prey
+
+with no one to deliver them ,
+
+and plunder,
+
+with none to say, “Give them back!”
+
+23 Who among you will give ear to this?
+
+Who will listen and heed hereafter?
+
+24 Who gave Jacob to the looter,
+
+Israel to the plunderers?
+
+Was it not Adonai ?
+
+Have we not sinned against Him?
+
+In His ways they were unwilling to walk
+
+and His Torah they did not obey.
+
+25 So He poured out on him the fury of His anger,
+
+and the fierceness of battle.
+
+it blazed all around him, yet he did not understand it.
+
+it burned him, yet he did not take it to heart.
+
+Love for Israel
+
+43 But now, thus says Adonai —
+
+the One who created you, O Jacob,
+
+the One who formed you, O Israel:
+
+“Fear not, for I have redeemed you,
+
+I have called you by name, you are Mine.
+
+2 When you pass through the waters,
+
+I will be with you,
+
+or through the rivers,
+
+they will not overflow you.
+
+When you walk through the fire,
+
+you will not be burned,
+
+nor will the flame burn you.
+
+3 For I am Adonai your God,
+
+the Holy One of Israel, your Savior.
+
+I have given Egypt as your ransom,
+
+Ethiopia and Seba in your place.
+
+4 Since you are precious in My eyes, honored,
+
+because I love you,
+
+I will give a man in exchange for you,
+
+and other peoples for your life.
+
+5 Do not fear, for I am with you.
+
+I will bring your offspring from the east
+
+and gather you from the west.
+
+6 I will say to the north, ‘Give them up!’
+
+and to the south, ‘Do not hold them back.’
+
+Bring My sons from far
+
+and My daughters from the ends of the earth.
+
+7 Everyone who is called by My Name,
+
+whom I created for My glory.
+
+I formed him—yes, I made him!”
+
+You Are My Witnesses
+
+8 Bring out the people who are blind, yet have eyes,
+
+who are deaf, yet have ears.
+
+9 All the nations are gathered together,
+
+and the peoples are assembled.
+
+Who among them can declare this,
+
+and proclaim to us former things?
+
+Let them present their witnesses
+
+so they may be justified,
+
+or let them hear and say, “It’s true.”
+
+10 “You are My witnesses”
+
+—it is a declaration of Adonai —
+
+“and My Servant whom I have chosen,
+
+so that you may know and believe Me,
+
+and understand that I am He.
+
+Before Me no God was formed,
+
+and there will none after Me.
+
+11 “I, I am Adonai —
+
+and there is no savior beside Me. [ f ]
+
+The Word Becomes Flesh
+
+1 In the beginning was the Word. [ a ] The Word was with God, and the Word was God.
+
+2 He was with God in the beginning.
+
+3 All things were made through Him, and apart from Him nothing was made that has come into being.
+
+4 In Him was life, and the life was the light of men.
+
+5 The light shines in the darkness, and the darkness has not overpowered it.
+
+6 There came a man sent from God, whose name was John.
+
+7 He came as a witness to testify about the light, so that through him everyone might believe.
+
+8 He was not the light, but he came to bear witness concerning the light.
+
+9 The true light, coming into the world, gives light to every man.
+
+10 He was in the world, and the world was made through Him; but the world did not know Him.
+
+11 He came to His own, but His own did not receive Him.
+
+12 But whoever did receive Him, those trusting in His name, to these He gave the right to become children of God.
+
+13 They were born not of a bloodline, nor of human desire, nor of man’s will, but of God.
+
+14 And the Word became flesh and tabernacled among us. We looked upon His glory, [ b ] the glory of the one and only [ c ] from the Father, full of grace and truth.</div>
+
+    <h2>Advanced Learning from writings of Sages and Church Fathers
+</h2>
+<div class="scripture-box" id="advancedlearningbox"></div>     
+                        
+  </main>
+
+</body>
+</html>

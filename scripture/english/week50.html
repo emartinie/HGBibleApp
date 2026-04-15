@@ -1,0 +1,656 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 50 – When you enter in</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0; padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3 { margin: 0.25rem 0; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; color: #38bdf8; }
+    .week-label {
+      font-size: .9rem; letter-spacing: .08em;
+      text-transform: uppercase; color: #9ca3af;
+    }
+    .reading-list {
+      margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+      font-size: .95rem;
+    }
+    .scripture-box {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .link-row {
+      margin: 1rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+        .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .placeholder {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+
+    <div class="week-label">Week 50</div>
+    <h1>When you enter in</h1>
+        <h2>Read the Whole Bible in a Year, Every Year</h2>  <div id="readOrbitBtns" class= animate-pulse><button>🌐</button> <button>🎵</button> <button> 🎬 </button></div>
+
+
+        <div class="notice" display: flex; justify-content: flex-end;>
+      Scripture text is loaded from BibleGateway.  
+      TLV use is subject to permission from the Messianic Jewish Bible Society.
+    </div>
+    <section class="placeholder">
+      <strong>Coming soon:</strong> Inline TLV / KJV / WLT / SBLGNT scriptures display inside the app's Reader Modal. All rendered dynamically like everything else in the app. 
+    </section>
+
+    <ul class="reading-list">
+      <li><strong>Torah/ Penteteuch:</strong> Deuteronomy26:1-29:8</li>
+      <li><strong>Haftarah/ Prophets & Writings:</strong> II Sam 22:1-51</li>
+      <li><strong>Brit Ḥadashah/ New Testatement:</strong> Eph 1:3-6; Rev 21:10-27</li>
+    </ul>
+
+    <div class="link-row">
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Deuteronomy26%3A1-29%3A8%3B%20II%20Sam%2022%3A1-51%3B%20Eph%201%3A3-6%3B%C2%A0Rev%2021%3A10-27&version=TLV">⭐ TLV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Deuteronomy26%3A1-29%3A8%3B%20II%20Sam%2022%3A1-51%3B%20Eph%201%3A3-6%3B%C2%A0Rev%2021%3A10-27&version=KJV">📘 KJV</a>
+<a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=WLC">📘 WLC</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=SBLGNT">📖 SBLGNT</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+    </div>
+
+    <h2>Scripture Text (TLV)</h2>
+    <div class="scripture-box">Parashat Ki Tavo
+
+Firstfruits and Tithes
+
+26 “Now when you enter the land that Adonai your God is giving you as an inheritance, and you possess it and dwell in it,
+
+2 you are to take some of the first of all the produce of the soil, which you gather from your land that Adonai your God is giving you, put it in a basket and go to the place Adonai your God chooses to make His Name dwell.
+
+3 You are to go to the kohen in charge in those days and say to him, ‘I declare today to Adonai your God, that I have entered into the land Adonai swore to our fathers to give us.’
+
+4 The kohen is to take the basket from your hand and set it down before the altar of Adonai your God.
+
+5 “Then you are to respond before Adonai your God, ‘My father was a wandering Aramean, and he went down to Egypt and lived there as an outsider, few in number. But there he became a great nation—mighty and numerous.
+
+6 The Egyptians treated us badly, afflicted us, and imposed hard labor on us.
+
+7 Then we cried out to Adonai , God of our fathers, and Adonai listened to our voice and saw our affliction, our toil and our oppression.
+
+8 Then Adonai brought us out from Egypt with a mighty hand and an outstretched arm, with great terror, and with signs and wonders.
+
+9 He brought us to this place and gave us this land—a land flowing with milk and honey.
+
+10 So now, look! I have brought the first of the fruits of the soil that You have given me, Adonai .’ Then you are to set it down before Adonai your God and worship before Adonai your God.
+
+11 You will rejoice in all the good that Adonai your God has given to you and to your house—you, the Levite, and the outsider in your midst.
+
+12 “When you finish tithing the full tenth of your produce in the third year, the year of the tithe, you are to give it to the Levite, to the outsider, to the orphan and to the widow, so that they may eat within your town gates and be satisfied.
+
+13 Then you are to say before Adonai your God, ‘I have removed the holy tithe from my house and also have given it to the Levite and to the outsider, to the orphan and to the widow, according to all Your mitzvah that You have commanded me. I have not transgressed or forgotten any of Your mitzvot .
+
+14 I have not eaten from the tithe in my mourning, or removed any of it while unclean, or given any of it to the dead. I have obeyed the voice of Adonai my God; I have done all just as You commanded me.
+
+15 Look down from Your holy dwelling place, from the heavens and bless Your people Israel and the soil You have given us, as You swore to our fathers—a land flowing with milk and honey.’
+
+Affirming the Covenant
+
+16 “This day Adonai your God is commanding you to do these statutes and ordinances—so you are to take care and do them with all your heart and with all your soul.
+
+17 Today you have affirmed Adonai as your God, that you will walk in His ways, keep His statutes, mitzvot and ordinances, and listen to His voice.
+
+18 Now today Adonai has affirmed you as His treasured people, as He promised you; that you are to keep all His mitzvot ;
+
+19 that He will set you high above all the nations He has made, for praise, fame and honor; and that you are to be a holy people to Adonai your God, as He has promised.”
+
+27 Moses and the elders of Israel commanded the people, saying, “Keep the whole mitzvah that I am commanding you today.
+
+2 Now on the day when you cross over the Jordan to the land that Adonai your God is giving you, you are to set up large stones for yourself and coat them with plaster.
+
+3 Then you are to write on them all the words of this Torah when you cross over—so that you may enter the land that Adonai your God is giving you, a land flowing with milk and honey just as Adonai , the God of your fathers, promised you.
+
+4 Now when you cross over the Jordan, you are to set up these stones about which I am commanding you today on Mount Ebal, and coat them with plaster.
+
+5 There also you will build an altar to Adonai your God, an altar of stones—you are not to use an iron tool on them.
+
+6 You are to build the altar of Adonai your God of whole stones, and you are to offer up burnt offerings on it to Adonai your God.
+
+7 You are to sacrifice fellowship offerings and eat there, and you will rejoice before Adonai your God.
+
+8 You are to write on the stones all the words of this Torah very clearly.”
+
+9 Then Moses and the Levitical kohanim spoke to all Israel, saying, “Be silent and listen, O Israel—this day you have become a people for Adonai your God.
+
+10 Therefore listen to the voice of Adonai your God, and do His mitzvot and statutes that I am commanding you today.”
+
+11 Moses commanded the people on that day saying,
+
+12 “When you have crossed over the Jordan, these are to stand on Mount Gerizim to bless the people: Simeon, Levi, Judah, Issachar, Joseph, and Benjamin.
+
+13 For the curse these are to stand on Mount Ebal: Reuben, Gad, Asher, Zebulun, Dan, and Naphtali.
+
+14 “Then the Levites are to answer and say with a loud voice to every man of Israel:
+
+15 ‘Cursed is the one who makes a carved or molten image—an abomination to Adonai , the work of a craftsman’s hands—and sets it up in secret.’ Then all the people are to answer and say, ‘Amen.’
+
+16 ‘Cursed is the one who dishonors his father or mother.’ Then all the people are to say, ‘Amen.’
+
+17 ‘Cursed is the one who removes his neighbor’s boundary marker.’ Then all the people are to say, ‘Amen.’
+
+18 ‘Cursed is the one who misleads a blind person on the road.’ Then all the people are to say, ‘Amen.’
+
+19 ‘Cursed is the one who twists justice for the outsider, orphan and widow.’ Then all the people are to say, ‘Amen.’
+
+20 ‘Cursed is the one who lies with his father’s wife, because he has uncovered his father’s nakedness.’ [ a ] Then all the people are to say, ‘Amen.’
+
+21 ‘Cursed is the one who lies with any kind of animal.’ Then all the people are to say, ‘Amen.’
+
+22 ‘Cursed is the one who lies with his sister, the daughter of his father or the daughter of his mother.’ Then all the people are to say, ‘Amen.’
+
+23 “Cursed is the one who lies with his mother-in-law.’ Then all the people are to say, ‘Amen.’
+
+24 ‘Cursed is the one who strikes down his neighbor in secret.’ Then all the people are to say, ‘Amen.’
+
+25 ‘Cursed is the one who takes a bribe to strike down an innocent life.’ Then all the people are to say, ‘Amen.’
+
+26 ‘Cursed is the one who does not uphold the words of this Torah by doing them.’ Then all the people are to say, ‘Amen.’ [ b ]
+
+Blessings for Obedience
+
+28 “Now if you listen obediently to the voice of Adonai your God, taking care to do all His mitzvot that I am commanding you today, Adonai your God will set you on high—above all the nations of the earth.
+
+2 Then all these blessings will come upon you and overtake you, if you listen to the voice of Adonai your God:
+
+3 “Blessed will you be in the city, and blessed will you be in the field.
+
+4 “Blessed will be the fruit of your womb, the produce of your soil, and the offspring of your livestock—the increase of your herds and the young of your flock.
+
+5 “Blessed will be your basket and your kneading bowl.
+
+6 “Blessed will you be when you come in, and blessed will you be when you go out.
+
+7 “ Adonai will cause your enemies who rise up against you to be struck down before you. They will come out against you one way and flee before you seven ways.
+
+8 Adonai will command the blessing on you in your barns and in every undertaking of your hand, and He will bless you in the land Adonai your God is giving you.
+
+9 Adonai will establish you as a holy people for Himself, just as He swore to you—if you keep the mitzvot of Adonai your God and walk in His ways.
+
+10 Then all the peoples of the earth will see that you are called by the name of Adonai and they will stand in awe of you.
+
+11 Adonai will make you overflow in prosperity—in the fruit of your womb, the offspring of your livestock and the produce of your soil—on the land Adonai swore to your fathers to give you.
+
+12 Adonai will open for you His good storehouse—the heavens—to give rain for your land in its season and to bless all the work of your hand. You will lend to many nations, but you will not borrow.
+
+13 Adonai will make you the head and not the tail, and you will be only above and not below—if you listen to the mitzvot of Adonai your God that I am commanding you today, careful to do them,
+
+14 and do not turn aside from any of the words I am commanding you today, to the right or the left, to go after other gods in order to serve them.
+
+Curses for Disobedience
+
+15 “But if you will not listen to the voice of Adonai your God, to take care to do all His mitzvot and statutes that I am commanding you today, all these curses will come on you and overtake you:
+
+16 “Cursed will you be in the city, and cursed will you be in the field.
+
+17 “Cursed will be your basket and your kneading bowl.
+
+18 “Cursed will be the fruit of your womb, the produce of your soil, the increase of your herd and the young of your flock.
+
+19 “Cursed will you be when you come in, and cursed will you be when you go out.
+
+20 “ Adonai will send on you cursing, confusion and frustration in every undertaking of your hand that you will do—until you are destroyed and perish quickly, because of the evil of your deeds by which you have abandoned Me.
+
+21 Adonai will make the plague cling to you, until He has put an end to you from the land that you are going in to possess.
+
+22 Adonai will strike you with weakness, fever, inflammation, fiery heat, the sword, blight and mildew—they will pursue you until you perish.
+
+23 Your sky above your head will be bronze, and the earth beneath you iron.
+
+24 Adonai will make the rain of your land powder and dust—it will come down on you from the heavens, until you are destroyed.
+
+25 “ Adonai will bring you to defeat before your enemies. You will go out one way against them and flee seven ways before them. You will become a horror to all the kingdoms of the earth.
+
+26 Your carcass will be food for every bird of the heavens and beast of the earth, and there will be no one to frighten them away.
+
+27 “ Adonai will strike you with the boils of Egypt, with hemorrhoids, with scabs and with itching, from which you cannot be healed.
+
+28 “ Adonai will strike you with madness, with blindness, and with confusion of heart.
+
+29 You will grope at noon as the blind person gropes in darkness, and you will not prosper in your ways. You will be only oppressed and robbed all the time, and there will be no one to save you.
+
+30 “You will become engaged to a woman, but another man will sleep with her. You will build a house, but you will not dwell in it. You will plant a vineyard, but you will not put it to use.
+
+31 Your ox will be slaughtered before your eyes, but you will not eat of it. Your donkey will be stolen in front of you, and it will not be returned to you. Your sheep will be given to your enemies, and you will have no one to save you.
+
+32 “Your sons and daughters will be given to another people while your eyes look on, longing for them all day long—but your hand will be powerless.
+
+33 A people you do not know will eat up the produce of your soil and all your labor, and you will be only oppressed and crushed all the time.
+
+34 You will be driven mad by the sight that your eyes will see.
+
+35 “ Adonai will strike you on the knees and thighs with severe boils, from which you cannot be healed—from the sole of your foot to the crown of your head.
+
+36 “ Adonai will bring you and the king you set over you to a nation you and your fathers have not known—and there you will serve other gods, wood and stone.
+
+37 You will become a horror, a proverb, and a byword—among all the peoples where Adonai will drive you.
+
+38 “Much seed you will take out to the field—but little will you bring in, for the locust will eat it up.
+
+39 Vineyards you will plant and tend—but wine you will not drink or bring in, for the worm will devour it.
+
+40 Olive trees you will have in all your territory—but oil you will not rub on yourself, for your olives will drop off.
+
+41 Sons and daughters you will father—but they will not be yours, for they will go into captivity.
+
+42 All your trees and the produce of your soil the whirring locust will possess.
+
+43 “The outsider who is in your midst will rise up higher and higher above you, and you will go down lower and lower.
+
+44 He will lend to you, but you will not lend to him; he will become the head and you will become the tail.
+
+45 “All these curses will come upon you and pursue you and overtake you until you are destroyed—because you did not listen to the voice of Adonai your God, to keep His mitzvot and statutes that He commanded you.
+
+46 They will be a sign and a wonder on you and your descendants forever.
+
+47 Instead of serving Adonai your God with joy and goodness of heart, out of the abundance of everything,
+
+48 you will serve your enemies, whom Adonai will send against you, in hunger and thirst, in nakedness and lacking everything; and He will put an iron yoke on your neck until He has destroyed you.
+
+49 “ Adonai will raise up a nation against you from far away, from the end of the earth, just as the eagle swoops down—a nation whose language you will not understand,
+
+50 a brazen-faced nation that will not respect the old or be gracious to the young.
+
+51 It will devour the offspring of your livestock and the produce of your soil, until you are destroyed. It will not leave behind for you grain, new wine, or oil, the increase of your herds or the young of your flock, until it ruins you.
+
+52 It will besiege you within all your town gates throughout your land, until your high and fortified walls—that you trusted in—come down. It will besiege you within all your gates throughout your land that Adonai your God has given you.
+
+53 “You will eat the fruit of your womb, the flesh of your sons and daughters Adonai your God has given you, in the siege and stress with which your enemies will distress you.
+
+54 The most tender and delicate man among you—his eye will become evil against his brother and the wife of his bosom and the rest of his children that he has left.
+
+55 He will not give to a single one of them from his children’s flesh that he will eat, because nothing else is left for him in the siege and stress with which your enemy will distress you within all your town gates.
+
+56 The tender and delicate woman among you, who never ventured to set the sole of her foot on the ground out of delicateness and tenderness—her eye will become evil against the husband of her bosom and her son and daughter.
+
+57 For in secret she will eat her afterbirth that issues from between her legs and the children she bears, for lack of anything else in the siege and stress with which your enemy will distress you within all your gates.
+
+58 “If you do not take care to do all the words of this Torah , the things written in this scroll, to fear this glorious and awesome Name, Adonai your God,
+
+59 then Adonai will make your plagues and the plagues of your descendants extraordinary—terrible and prolonged plagues, severe and prolonged illnesses.
+
+60 He will bring back on you all the diseases of Egypt that you were afraid of, and they will cling to you.
+
+61 Also every illness and plague that is not written in the scroll of this Torah , Adonai will bring on you, until you are destroyed.
+
+62 “You will be left few in number, instead of being like the stars of the sky in number—because you did not listen to the voice of Adonai your God.
+
+63 Now just as Adonai rejoiced over you to do you good and to multiply you, so Adonai will rejoice over you to ruin and destroy you; and you will be uprooted from the land that you are going in to possess.
+
+64 “ Adonai will scatter you among all peoples from the one end of the earth to the other, and there you will serve other gods—wood and stone—that you and your fathers have not known.
+
+65 Among these nations you will find no rest, and there will be no rest for the sole of your foot. But there Adonai will give you a trembling heart and failing eyes, and a despairing spirit.
+
+66 “Your life will hang in the balance before you; you will be afraid night and day, and you will have no assurance of your life.
+
+67 In the morning you will say, ‘If only it were evening!’ and at evening you will say, ‘If only it were morning!”—from the fear of your heart that you will fear and the sight of your eyes that you will see.
+
+68 Adonai will bring you back to Egypt in ships, by the way that I said to you, ‘You will not see it again.’ There you will sell yourselves to your enemies as slaves and maids, but there will be no buyer.”
+
+Renewing the Covenant
+
+69 These are the words of the covenant that Adonai commanded Moses to make with Bnei-Yisrael in the land of Moab, in addition to the covenant He made with them at Horeb. [ c ]
+
+29 Moses called to all Israel and said to them, “You have seen all that Adonai did before your eyes in the land of Egypt, to Pharaoh and all his servants and all his land—
+
+2 the great trials that your eyes saw, those great signs and wonders.
+
+3 But to this day Adonai has not given you a heart to know, or eyes to see, or ears to hear.
+
+[ d ] 4 I led you 40 years in the wilderness—your clothes have not worn out on you, and your sandals have not worn out on your feet.
+
+5 Bread you have not eaten and wine and strong drink you have not drunk—in order that you may know that I am Adonai your God.
+
+6 “When you came to this place, King Sihon of Heshbon and King Og of the Bashan came out against us to battle, but we struck them down.
+
+7 We took their land and gave it as an inheritance to Reuben, Gad and the half-tribe of Manasseh.
+
+8 So keep the words of this covenant and do them, so that you may prosper in all that you do.
+
+David’s Songs of Valor and Last Words
+
+22 David spoke to Adonai the words of this song in the day that Adonai delivered him from the hand of all his enemies and from the hand of Saul.
+
+2 He said:
+
+“ Adonai is my rock, my fortress and my deliverer.
+
+3 My God is my rock, in Him I take refuge,
+
+my shield, my horn of salvation, [ a ]
+
+my stronghold and my refuge,
+
+my Savior—You save me from violence.
+
+4 I called upon Adonai , worthy of praise,
+
+and I was rescued from my enemies.
+
+5 For waves of death encompassed me.
+
+Torrents of Belial overwhelmed me.
+
+6 Cords of death entangled me.
+
+Snares of death came before me.
+
+7 In my distress I called upon Adonai ,
+
+yes, I called to my God.
+
+From His Temple He heard my voice,
+
+my cry came into His ears.
+
+8 Then the earth rocked and quaked,
+
+the foundation of heaven trembled.
+
+They reeled because He was angry.
+
+9 Smoke rose from His nostrils
+
+and consuming fire from His mouth.
+
+Coals blazed from Him.
+
+10 He parted the heavens and came down,
+
+with thick darkness under His feet.
+
+11 He rode upon a cheruv and flew.
+
+He was seen on the wings of the wind.
+
+12 He made darkness as a sukkah round Him—
+
+a mass of waters, thick clouds of the skies.
+
+13 Out of the brilliance before Him
+
+coals of fire flamed out.
+
+14 Adonai also thundered from heaven
+
+and Elyon gave forth His voice.
+
+15 He shot arrows and scattered them,
+
+lightning bolts, and routed them.
+
+16 Then the ravines of the sea appeared,
+
+the foundations of the world were exposed
+
+by the rebuke of Adonai ,
+
+at a blast of the breath of His nostrils.
+
+17 He reached down from on high
+
+and He took hold of me.
+
+He drew me out of mighty waters.
+
+18 He delivered me from my powerful enemy,
+
+from those who hated me—
+
+for they were much stronger than me.
+
+19 They came against me in the day of my calamity,
+
+but Adonai was my support.
+
+20 He brought me out to a wide-open place.
+
+He rescued me since He delighted in me.
+
+21 Adonai rewarded me for my righteousness.
+
+For the cleanness of my hands
+
+He repaid me.
+
+22 For I kept the ways of Adonai ,
+
+and did not turn wickedly from my God.
+
+23 For all His judgments are before me.
+
+As for His rulings,
+
+I do not turn away from them.
+
+24 I also had integrity with Him,
+
+and kept myself from my sin.
+
+25 So Adonai rewarded me for my righteousness,
+
+according to my cleanness in His eyes.
+
+26 With the loyal You deal loyally.
+
+With the blameless You are blameless.
+
+27 With the pure You show Yourself pure,
+
+but with the crooked You show Yourself shrewd.
+
+28 You save lowly people.
+
+But Your eyes are on the haughty—
+
+You will humble them.
+
+29 For You are my lamp, Adonai .
+
+Adonai shines in my darkness.
+
+30 For with You I rush on a troop,
+
+with my God I can leap over a wall.
+
+31 As for God, His way is perfect.
+
+The word of Adonai is pure.
+
+He is a shield to all who take refuge in Him.
+
+32 For who is God, besides Adonai ?
+
+and who is a Rock, besides our God?
+
+33 God is my strong fortress
+
+and He keeps my way blameless.
+
+34 He makes my legs like a deer
+
+and sets me on my heights.
+
+35 Who trains my hands for battle,
+
+so my arms can bend a bronze bow.
+
+36 You gave me Your shield of salvation.
+
+and Your answering has made me great.
+
+37 You broaden my steps beneath me,
+
+so my feet have not slipped.
+
+38 I pursue my enemies and destroy them.
+
+I will not return till they are consumed.
+
+39 I consumed them and crushed them till they cannot rise;
+
+yes, they fall beneath my feet.
+
+40 You girded me with strength for battle.
+
+You made those rising up against me bow down before me.
+
+41 You also made my enemies turn their backs to me.
+
+I cut off those who hate me.
+
+42 They looked, but there was none to save
+
+—to Adonai , but He did not answer them.
+
+43 Then I beat them as the dust of the earth,
+
+I stamped and crushed them like mud of the streets.
+
+44 You free me from strifes of my people.
+
+You kept me as head of the nations—
+
+people I did not know are serving me.
+
+45 Children of foreigners cringe before me.
+
+As soon as they hear, they obey me.
+
+46 Children of foreigners lose heart
+
+and come trembling from their hideouts.
+
+47 Adonai lives! And blessed be my Rock!
+
+Exalted be God—the Rock of my salvation!
+
+48 God—He gives me vengeance
+
+and brings down peoples under me.
+
+49 He brings me out from my enemies.
+
+Indeed You lift me up above those who rise up against me.
+
+You deliver me from the violent man.
+
+50 Therefore I praise You among the nations, Adonai ,
+
+and will sing praises to Your name.
+
+51 He is a tower of salvation to His king,
+
+He shows loyal love to His anointed—
+
+to David and to his seed, forever.
+
+God’s Glorious Grace
+
+3 Blessed be the God and Father of our Lord Yeshua the Messiah, who has blessed us with every spiritual blessing in the heavenly places in Messiah.
+
+4 He chose us in the Messiah before the foundation of the world, to be holy and blameless before Him in love.
+
+5 He predestined us for adoption as sons through Messiah Yeshua , in keeping with the good pleasure of His will—
+
+6 to the glorious praise of His grace, with which He favored us through the One He loves!
+
+10 Then he carried me away in the Ruach to a great and high mountain, [ a ] and he showed me the holy city, Jerusalem, coming down out of heaven from God,
+
+11 having the glory of God—her radiance like a most precious stone, like a jasper, sparkling like crystal.
+
+12 She had a great, high wall, with twelve gates, and above the gates twelve angels. On the gates were inscribed the names of the twelve tribes of Bnei-Yisrael —
+
+13 three gates on the east, three gates on the north, three gates on the south, and three gates on the west.
+
+[ b ] 14 And the wall of the city had twelve foundations, and on them the twelve names of the twelve emissaries of the Lamb.
+
+15 The angel speaking with me had a gold measuring rod to measure the city and its gates and walls.
+
+[ c ] 16 The city is laid out as a square—its length the same as its width. He measured the city with the rod—12,000 stadia. [ d ] Its length and width and height are equal.
+
+17 He also measured its wall—144 cubits by human measurement, which is also an angel’s measurement.
+
+18 The material of the city’s wall was jasper, while the city was pure gold, clear as glass.
+
+19 The foundations of the city wall were decorated with every kind of precious stone—the first foundation was jasper; the second, sapphire; the third, chalcedony; the fourth, emerald;
+
+20 the fifth, sardonyx; the sixth, carnelian; the seventh, yellow topaz; the eighth; beryl; the ninth, topaz; the tenth, chrysoprase; the eleventh, jacinth; the twelfth, amethyst.
+
+21 And the twelve gates were twelve pearls—each of the gates was from a single pearl. And the street of the city was pure gold, transparent as glass.
+
+22 I saw no temple in her, for its Temple is Adonai Elohei-Tzva’ot and the Lamb.
+
+23 And the city has no need for the sun or the moon to shine on it, for the glory of God lights it up, and its lamp is the Lamb.
+
+[ e ] 24 The nations shall walk by its light, and the kings of the earth bring their glory into it.
+
+[ f ] 25 Its gates shall never be shut by day, [ g ] for there shall be no night there!
+
+26 And they shall bring into it the glory and honor of the nations.
+
+27 And nothing unholy [ h ] shall ever enter it, nor anyone doing what is detestable or false, [ i ] but only those written in the Book of Life.</div>
+
+    <h2>Advanced Learning from writings of Sages and Church Fathers
+</h2>
+<div class="scripture-box" id="advancedlearningbox"></div>     
+                        
+  </main>
+</body>
+</html>

@@ -1,0 +1,660 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 02 – Noah (rest)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0; padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3 { margin: 0.25rem 0; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; color: #38bdf8; }
+    .week-label {
+      font-size: .9rem; letter-spacing: .08em;
+      text-transform: uppercase; color: #9ca3af;
+    }
+    .reading-list {
+      margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+      font-size: .95rem;
+    }
+    .scripture-box {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .link-row {
+      margin: 1rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+        .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .placeholder {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+
+    <div class="week-label">Week 02</div>
+    <h1>Noah (rest)</h1>
+        <h2>Read the Whole Bible in a Year, Every Year</h2>  <div id="readOrbitBtns" class= animate-pulse><button>🌐</button> <button>🎵</button> <button> 🎬 </button></div>
+
+
+        <div class="notice" display: flex; justify-content: flex-end;>
+      Scripture text is loaded from BibleGateway.  
+      TLV use is subject to permission from the Messianic Jewish Bible Society.
+    </div>
+    <section class="placeholder">
+      <strong>Coming soon:</strong> Inline TLV / KJV / WLT / SBLGNT scriptures display inside the app's Reader Modal. All rendered dynamically like everything else in the app. 
+    </section>
+
+    <ul class="reading-list">
+      <li><strong>Torah/ Penteteuch:</strong> Genesis 6:9-11:32</li>
+      <li><strong>Haftarah/ Prophets & Writings:</strong> Isa 40:27-41:16</li>
+      <li><strong>Brit Ḥadashah/ New Testatement:</strong> Mt 24:36-46; 1 Pet 3:18-22</li>
+    </ul>
+
+    <div class="link-row">
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%206%3A9-11%3A32%3B%20Isa%2040%3A27-41%3A16%3B%20Mt%2024%3A36-46%3B%C2%A01%20Pet%203%3A18-22&version=TLV">⭐ TLV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%206%3A9-11%3A32%3B%20Isa%2040%3A27-41%3A16%3B%20Mt%2024%3A36-46%3B%C2%A01%20Pet%203%3A18-22&version=KJV">📘 KJV</a>
+<a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=WLC">📘 WLC</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=SBLGNT">📖 SBLGNT</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+    </div>
+
+    <h2>Scripture Text (TLV)</h2>
+    <div class="scripture-box">Parashat Noah
+
+9 These are the genealogies of Noah. Noah was a righteous man. He was blameless among his generation. Noah continually walked with God.
+
+10 Noah fathered three sons: Shem, Ham and Japheth.
+
+11 Now the earth was ruined before God, and the earth was filled with violence.
+
+12 God saw the earth, and behold it was ruined because all flesh had corrupted their way upon the earth.
+
+Instructions for the Ark
+
+13 Then God said to Noah, “The end of all flesh is coming before Me, for the earth is filled with violence because of them. Behold, I am about to bring ruin upon them along with the land.
+
+14 Make for yourself an ark of gopher wood. You shall make the ark with compartments and smear pitch on it, both inside and out.
+
+15 Now this is how you shall make it: the length of the ark 300 cubits, its breadth 50 cubits, and its height 30 cubits.
+
+16 You shall make a roof for the ark, and you shall finish it to within a cubit from the top. You shall put the door of the ark in its side. You shall make it with lower, second, and third stories.
+
+[ a ] 17 Now I am about to bring the flood—water upon the land—to destroy all flesh in which is the spirit of life from under the sky. Everything that is on the land will perish.
+
+18 But I will establish My covenant with you. So you shall come into the ark—you, your sons, your wife, and your sons’ wives with you.
+
+19 Also of every living thing, of all flesh, you shall bring two of everything—male and female—into the ark to keep alive with you.
+
+20 Of the flying creatures according to their kind, of the livestock according to their kind, of all the crawling creatures of the ground according to their kind—two of everything will come to you to keep them alive.
+
+21 As for you: take for yourself every kind of edible food and gather it to yourself. It will be food for you and for them.”
+
+22 So Noah did according to all that God commanded him; he did so exactly.
+
+Deliverance Through the Flood
+
+7 Then Adonai said to Noah, “Come—you and all your household—into the ark. For you only do I perceive as righteous before Me in this generation.
+
+2 Of every clean animal you shall take with you seven of each kind, male and female; and of the animals which themselves are not clean two, male and female;
+
+3 also of the flying creatures of the sky seven of every kind, male and female, to keep offspring alive on the face of the whole land.
+
+4 For in seven more days, I am going to make it rain upon the land forty days and forty nights, and I will wipe out all existence that I made from the face of the ground.
+
+5 So Noah did all just as Adonai commanded him.
+
+6 Now Noah was 600 years old when the flood came—water upon the land.
+
+7 So Noah, his sons, his wife, and his sons’ wives, entered the ark because of the floodwaters.
+
+8 Of the clean animals and unclean animals, the flying creatures and everything that crawls on the ground,
+
+9 two by two they came to Noah, into the ark, male and female, just as God commanded Noah.
+
+10 After the seven days, the floodwaters were upon the land.
+
+11 In the six-hundredth year of Noah’s life, in the second month, on the seventeenth day of the month, on this day, all the water sources of the great deep burst open, and the windows of the sky were opened.
+
+12 Then there was rain upon the land 40 days and 40 nights.
+
+13 On that same day Noah, along with Noah’s sons Shem, Ham and Japheth, Noah’s wife and the three wives of Noah’s sons with them, entered the ark,
+
+14 they and every animal according to its kind, and all the livestock according to its kind, and every crawling creature that crawls on the land according to its kind, and every flying creature according to its kind, every bird, every winged creature.
+
+15 So to Noah and into the ark they went by twos—all flesh in which was the spirit of life.
+
+16 Those that came, male and female of all flesh, came just as God commanded him. Then Adonai shut him in.
+
+17 The flood was forty days upon the land, and the waters increased and lifted the ark, so that it rose above the land.
+
+18 The waters overpowered and became very mighty over the land, and the ark drifted on the surface of the water.
+
+19 The waters completely overpowered the land so that all the high mountains beneath the entire sky were covered.
+
+20 The waters rose 15 cubits higher, as the mountains were covered.
+
+21 All flesh perished—those that crawl on the land, the flying creatures, livestock, wild animals, all creatures that swarm upon the land, and all humankind.
+
+22 Everything that had the breath of the spirit of life in its nostrils—everything on dry land—died.
+
+23 So He wiped out all existence that was upon the surface of the ground, everything from people to livestock, to crawling creatures, and to flying creatures of the sky. They were wiped out off the land. Only Noah and those with him in the ark survived.
+
+24 The waters overpowered the land for 150 days.
+
+8 Then God remembered Noah and all the wild animals and all the livestock that were with him in the ark. So God caused a wind to pass over the land and the water subsided.
+
+2 Also the sources of the deep and the windows of the skies were closed up, and the rain from the sky was held back.
+
+3 The waters kept receding gradually from upon the land and the waters decreased by the end of 150 days.
+
+4 The ark came to rest in the seventh month, on the seventeenth day of the month, upon the mountains of Ararat.
+
+5 The waters went on decreasing until the tenth month. In the tenth month, on the first day of the month, the tops of the mountains appeared.
+
+6 It was at the end of forty days that Noah opened the window of the ark that he had made.
+
+7 Then he sent out a raven and it kept going back and forth until the waters were drying up from the land.
+
+8 Then he sent out a dove to see whether the waters had receded from the surface of the ground.
+
+9 But the dove did not find a resting place for the sole of her foot. She returned to him in the ark because water covered the surface of the whole land. He stretched out his hand and he took her, and brought her to him into the ark.
+
+10 So he waited yet another seven days and again he sent the dove out from the ark.
+
+11 The dove came to him at evening, and surprisingly—a freshly plucked olive leaf was in its mouth. So Noah knew that the waters had receded from the land.
+
+12 After he waited seven more days, he sent out the dove, but she did not return to him again.
+
+13 It was in his six-hundred-and first year—in the first month, on the first day of the month—that the waters had dried up from the land. Then Noah removed the cover of the ark and he looked, and behold, the surface of the ground had dried up.
+
+14 By the second month, on the twenty-seventh day of the month, the land was dry.
+
+Noah’s Soothing Sacrifice
+
+15 Then God spoke to Noah, saying,
+
+16 “Come out of the ark, you and your wife, your sons and your sons’ wives with you.
+
+17 Every animal that is with you of all flesh, including the flying creatures, livestock and every crawling creature that crawls on the land, bring out with you, and let them swarm in the land and be fruitful and multiply upon the land.”
+
+18 So Noah came out, with his sons, his wife, and his sons’ wives.
+
+19 Every animal—every crawling creature, every flying creature, everything that crawls upon the land—came out from the ark in their families.
+
+20 Then Noah built an altar to Adonai and he took of every clean domestic animal and of every clean flying creature and he offered burnt offerings on the altar.
+
+21 When Adonai smelled the soothing aroma, Adonai said in His heart, “I will never again curse the ground on account of man, even though the inclination of the heart of humankind is evil from youth. Nor will I ever again smite all living creatures, as I have done.
+
+22 While all the days of the land remain,
+
+seedtime and harvest,
+
+cold and heat,
+
+summer and winter,
+
+day and night will not cease.”
+
+Covenant with Noah’s Descendants
+
+9 God blessed Noah and his sons, and He said to them, “Be fruitful and multiply and fill the land.
+
+2 The fear and terror of you will be on every wild animal, and on every flying creature of the sky, with everything that crawls on the ground and with all the fish of the sea—into your hand they are given.
+
+3 Every crawling thing that is alive will be food for you, as are the green plants—I have now given you everything.
+
+4 Only flesh with its life—that is, its blood—you must not eat!
+
+5 Surely your lifeblood will I avenge. From every animal and from every person will I avenge it. From every person’s brother will I avenge that person’s life.
+
+6 The one who sheds human blood,
+
+by a human will his blood be shed,
+
+for in God’s image He made humanity.
+
+7 But as for you, be fruitful and multiply! Flourish in the land and multiply in it.”
+
+8 Then God said to Noah and to his sons with him, saying,
+
+9 “Now I, behold, I am about to establish My covenant with you, and with your seed after you,
+
+10 and with every living creature that is with you, including the flying creatures, the livestock, and every wild animal with you, of all that is coming out of the ark—every animal of the earth.
+
+11 I will confirm My covenant with you—never again will all flesh be cut off by the waters of the flood, and never again will there be a flood to ruin the land.”
+
+12 Then God said, “This is the sign of the covenant that I am making between Me and you, and every living creature that is with you for all future generations.
+
+13 My rainbow do I place in the cloud, and it will be a sign of the covenant between Me and the land.
+
+14 Whenever I bring clouds over the land and the rainbow appears in the clouds,
+
+15 I will remember My covenant that is between Me and you and every living creature of all flesh. Never again will the waters become a flood to destroy all flesh.
+
+16 When the rainbow is in the cloud, I will look at it, to remember the perpetual covenant between God and every living creature of all flesh that is on the land.”
+
+17 Then God said to Noah, “This is the sign of the covenant that I have confirmed between Me and all flesh that is on the land.”
+
+Dispersion of Noah’s Family
+
+18 Noah’s sons who came out from the ark were Shem, Ham and Japheth, and Ham was the father of Canaan.
+
+19 These three were Noah’s sons, and from these the whole earth dispersed.
+
+20 Then Noah, a man of the soil, was first to plant a vineyard.
+
+21 He drank some of the wine, got drunk, and was uncovered in his tent.
+
+22 Then Ham, Canaan’s father, saw his father’s private parts and told his two brothers outside.
+
+23 So Shem and Japheth took the cloak and laid it over both their shoulders and walked backwards and with it covered their father’s private parts. But their faces were turned away, so they did not see their father’s private parts.
+
+24 When Noah woke up from his wine, he learned what his youngest son had done to him.
+
+25 So he said,
+
+“Cursed is Canaan: the lowest slave will he be to his brothers.”
+
+26 He also said,
+
+“Blessed be Adonai , God of Shem,
+
+and let Canaan be his servant.
+
+27 May God enlarge Japheth,
+
+may he dwell in the tents of Shem,
+
+and may Canaan be his slave.”
+
+28 Now Noah lived 350 years after the flood.
+
+29 So all Noah’s days were 950 years. Then he died.
+
+10 And these are the genealogical records of Noah’s sons, Shem, Ham, and Japheth. Sons were born to them after the flood.
+
+2 Japheth’s sons were Gomer, Magog, Madai, Javan, Tubal, Meshech and Tiras.
+
+3 Gomer’s sons were Ashkenaz, Riphath and Togarmah.
+
+4 Javan’s sons were Elishah and Tarshish, Kittites and Dodanites.
+
+5 From these the coastlands of the nations spread out in their lands, each one according to his language, according to their families, into their nations.
+
+6 Ham’s sons were Cush, Mizraim, Put and Canaan.
+
+7 Cush’s sons were Seba, Havilah, Sabtah, Raamah, and Sabteca. And Raamah’s sons were Sheba, and Dedan.
+
+8 Now Cush fathered Nimrod. He started to become mighty in the land.
+
+9 He was a mighty hunter before Adonai . This is why it is said, “Like Nimrod, a mighty hunter before Adonai .”
+
+10 The beginning of his kingdom included Babel, Erech, Accad and Calneh, in the land of Shinar.
+
+11 From that land he went out to Assyria and built Nineveh, Rechovot-ir, Calah
+
+12 and Resen, between Nineveh and Calah—it is the great city.
+
+13 Mizraim fathered the Ludites, the Anamites, the Lehabites, the Naphtuhites,
+
+14 the Pathrusites, the Casluhites—from whom came the Philistines—and the Caphtorites.
+
+15 Canaan fathered Sidon his firstborn, Heth,
+
+16 the Jebusite, the Amorite, the Girgashite,
+
+17 the Hivite, the Arkite, the Sinite,
+
+18 the Arvadite, the Zemarite and the Hamathite—and afterwards, the Canaanite families were scattered.
+
+19 Now the Canaanite border was from Zidon, as you go toward Gerar, as far as Gaza; as you go toward Sodom and Gomorrah, Admah and Zeboiim, as far as Lasha.
+
+20 These are Ham’s sons according to their families, according to their languages, in their lands, in their nations.
+
+21 Sons were also born to Shem, who was Japheth’s older brother and the father of all the sons of Eber.
+
+22 Shem’s sons were Elam, Asshur, Arpachshad, Lud and Aram.
+
+23 Aram’s sons were Uz, Hul, Gether and Mash.
+
+24 Arpachshad fathered Shelah, and Shelah fathered Eber.
+
+25 Two sons were born to Eber. The name of the first was Peleg—because in his days the land was divided—and his brother’s name was Joktan.
+
+26 Joktan fathered Elmodad, Sheleph, Hazarmaveth, Jerah,
+
+27 Hadoram, Uzal, Diklah,
+
+28 Obal, Abimael, Sheba,
+
+29 Ophir, Havilah and Jobab. All of these are Joktan’s sons.
+
+30 Their dwelling place was from Mesha till you come toward Sephar, the eastern hill country.
+
+31 These are Shem’s sons, according to their families, according to their languages, in their lands, according to their nations.
+
+32 These are the families of the sons of Noah according to their genealogies in their nations, and from these the nations were dispersed on the earth after the flood.
+
+Tower of Babel
+
+11 Now the entire earth had the same language with the same vocabulary.
+
+2 When they traveled eastward, they found a valley-plain in the land of Shinar and settled there.
+
+3 They said to one another, “Come! Let’s make bricks and bake them until they’re hard.” So they used bricks for stone, and tar for mortar.
+
+4 Then they said, “Come! Let’s build ourselves a city, with a tower whose top reaches into heaven. So let’s make a name for ourselves, or else we will be scattered over the face of the whole land.”
+
+5 Then Adonai came down to see the city and the tower that the sons of man had built.
+
+6 Adonai said, “Look, the people are one and all of them have the same language. So this is what they have begun to do. Now, nothing they plan to do will be impossible.
+
+7 Come! Let Us go down and confuse their language there, so that they will not understand each other’s language.”
+
+8 So Adonai scattered them from there over the face of the entire land, and they stopped building the city.
+
+9 This is why it is named Babel, because Adonai confused the languages of the entire world there, and from there Adonai scattered them over the face of the entire world.
+
+From Shem to Abram
+
+10 These are the genealogical records of Shem: Shem was 100 years old when he fathered Arpachshad—two years after the flood.
+
+11 Shem lived 500 years after he fathered Arpachshad, and he fathered sons and daughters.
+
+12 Arpachshad lived 35 years when he fathered Shelah.
+
+13 Arpachshad lived 403 years after he fathered Shelah, and fathered sons and daughters.
+
+14 Shelah lived 30 years and he fathered Eber.
+
+15 Shelah lived 403 years after he fathered Eber, and fathered sons and daughters.
+
+16 Eber lived 34 years and he fathered Peleg.
+
+17 Eber lived 430 years after he fathered Peleg, and he fathered sons and daughters.
+
+18 Peleg lived 30 years and he fathered Reu.
+
+19 Peleg lived 209 years after he fathered Reu, and he fathered sons and daughters.
+
+20 Reu lived 32 years and he fathered Serug.
+
+21 Reu lived 207 years after he fathered Serug, and he fathered sons and daughters.
+
+22 Serug lived 30 years and fathered Nahor.
+
+23 Serug lived 200 years after he fathered Nahor, and he fathered sons and daughters.
+
+24 Nahor lived 27 years and he fathered Terah.
+
+25 Nahor lived 119 years after he fathered Terah, and he fathered sons and daughters.
+
+26 Terah lived 70 years when he fathered Abram, Nahor and Haran.
+
+27 These are Terah’s genealogies: Terah fathered Abram, Nahor and Haran. Haran fathered Lot.
+
+28 Haran died before Terah his father, in the land of his birth, in Ur of the Chaldeans.
+
+29 Abram and Nahor took wives for themselves. The name of Abram’s wife was Sarai, and the name of Nahor’s wife was Milcah—the daughter of Haran, father of Milcah and Iscah.
+
+30 Sarai was barren; she did not have a child.
+
+31 Terah took Abram his son and Lot, Haran’s son, his grandson, and Sarai his daughter-in-law, his son Abram’s wife, and he took them out of Ur of the Chaldeans to go to the land of Canaan. But when they came to Haran, they settled there.
+
+32 Terah’s days were 205 years, and Terah died in Haran.
+
+27 Why do you say, O Jacob,
+
+and assert, O Israel,
+
+“My way is hidden from Adonai ,
+
+and the justice due me escapes
+
+the notice of my God”?
+
+28 Have you not known?
+
+Have you not heard?
+
+Adonai is the eternal God,
+
+the Creator of the ends of the earth.
+
+He does not grow tired or weary.
+
+His understanding is unsearchable.
+
+29 He gives strength to the weary,
+
+and to one without vigor He adds might.
+
+30 Even youths grow tired and weary,
+
+and young men stumble and fall,
+
+31 but they who wait for Adonai
+
+will renew their strength.
+
+They will soar up with wings as eagles.
+
+They will run, and not grow weary.
+
+They will walk, and not be faint.
+
+Coming Conqueror
+
+41 “Be silent before Me, O islands!
+
+Let peoples renew their strength.
+
+Let them draw near, then let them speak.
+
+Let us come together for judgment.
+
+2 Who has stirred up one from the east?
+
+He calls justice to His feet.
+
+He gives nations over to him and subdues kings.
+
+He makes them like dust with his sword, as driven stubble with his bow.
+
+3 He pursues them, passing on safely,
+
+by a path his feet had not traveled.
+
+4 Who has performed and done it?
+
+Calling forth the generations from the beginning,
+
+I, Adonai , am the first and the last,
+
+I am He!”
+
+5 The coastlands have seen and fear.
+
+The ends of the earth tremble.
+
+They draw near and come.
+
+6 Each one helps his neighbor
+
+and says to his brother, “Be strong!”
+
+7 The craftsman encourages the smith,
+
+who smooths with the hammer,
+
+who strikes with the anvil,
+
+saying of the soldering, “It’s good!”
+
+as he fastens it with nails so that it will not totter.
+
+My Servant, My Friend
+
+8 “But you, Israel, My servant,
+
+Jacob whom I have chosen,
+
+descendant of Abraham, My friend—
+
+9 I took hold of you from the ends of the earth,
+
+and called from its uttermost parts,
+
+and said to you, ‘You are My servant—
+
+I have chosen you, not rejected you. [ a ]
+
+10 Fear not, for I am with you,
+
+be not dismayed, for I am your God.
+
+I will strengthen you.
+
+Surely I will help you.
+
+I will uphold you with My righteous right hand.
+
+11 Behold, all who were angry at you
+
+will be ashamed and disgraced.
+
+Those who quarrel with you
+
+will be as nothing and perish.
+
+12 Though you will look for those who contended with you,
+
+you will not find them.
+
+Those who warred against you
+
+will be as nothing at all.
+
+13 For I am Adonai your God who upholds your right hand,
+
+who says to you,
+
+“Fear not, I will help you.”
+
+14 Fear not, you worm Jacob,
+
+you men of Israel!
+
+I will help you.”
+
+It is a declaration of Adonai ,
+
+your Redeemer, the Holy One of Israel.
+
+15 “Look, I will make you a threshing sledge,
+
+new, with sharp, double-edged spikes.
+
+You will thresh the mountains and grind them up,
+
+and will make the hills like chaff.
+
+16 You will winnow them,
+
+and a wind will carry them away,
+
+a storm-wind will scatter them.
+
+But you will rejoice in Adonai .
+
+You will glory in the Holy One of Israel.
+
+[ a ] 36 But of that day and hour no one knows, not even the angels of heaven nor the Son, [ b ] except the Father alone.
+
+37 “For just as the days of Noah were, so will be the coming of the Son of Man.
+
+38 For in those days before the flood, they were eating and drinking, marrying and giving in marriage, until the day Noah entered the ark.
+
+39 And they did not understand until the flood came and swept them all away. [ c ] So shall it be at the coming of the Son of Man.
+
+40 Then two men will be in the field, one taken and one left.
+
+41 Two women will be grinding at the mill, one taken and one left.
+
+[ d ] 42 Therefore stay alert; for you do not know what day your Lord is coming.
+
+43 But know this, that if the master of the house had known what time the thief was coming, he would have kept watch and not let his house be broken into.
+
+44 So you also must be ready, for the Son of Man is coming at an hour you do not expect.”
+
+The Faithful Servant
+
+45 “Who then is the faithful and wise servant, whom the master put in charge of his household to give them food at the proper time?
+
+46 Blessed is that servant whose master finds him so doing when he comes.
+
+18 For Messiah once suffered for sins also—the righteous for the unrighteous [ a ] —in order to bring you to God. He was put to death in the flesh, but made alive by the Ruach .
+
+19 Through the Ruach He also went and preached to the spirits in prison.
+
+20 Long ago they disobeyed while God kept waiting patiently, in the days of Noah as the ark was being built. In that ark a few (that is, eight souls) were brought safely through water.
+
+21 Corresponding to that, immersion now brings you to safety—not the removal of dirt from the flesh, but a pledge to God of a good conscience—through the resurrection of Messiah Yeshua .
+
+22 He has gone into heaven and is at the right hand of God, with angels and authorities and powers subjected to Him.</div>
+
+    <h2>Advanced Learning from writings of Sages and Church Fathers
+</h2>
+<div class="scripture-box" id="advancedlearningbox"></div>     
+                        
+  </main>
+</body>
+</html>

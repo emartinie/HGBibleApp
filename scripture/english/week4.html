@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 04 – And He appeared</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0; padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3 { margin: 0.25rem 0; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; color: #38bdf8; }
+    .week-label {
+      font-size: .9rem; letter-spacing: .08em;
+      text-transform: uppercase; color: #9ca3af;
+    }
+    .reading-list {
+      margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+      font-size: .95rem;
+    }
+    .scripture-box {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .link-row {
+      margin: 1rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+        .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .placeholder {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+
+    <div class="week-label">Week 04</div>
+    <h1>And He appeared</h1>
+        <h2>Read the Whole Bible in a Year, Every Year</h2>  <div id="readOrbitBtns" class= animate-pulse><button>🌐</button> <button>🎵</button> <button> 🎬 </button></div>
+
+
+        <div class="notice" display: flex; justify-content: flex-end;>
+      Scripture text is loaded from BibleGateway.  
+      TLV use is subject to permission from the Messianic Jewish Bible Society.
+    </div>
+    <section class="placeholder">
+      <strong>Coming soon:</strong> Inline TLV / KJV / WLT / SBLGNT scriptures display inside the app's Reader Modal. All rendered dynamically like everything else in the app. 
+    </section>
+
+    <ul class="reading-list">
+      <li><strong>Torah/ Penteteuch:</strong> Genesis 18:1-22:24</li>
+      <li><strong>Haftarah/ Prophets & Writings:</strong> I Ki 1:1-31</li>
+      <li><strong>Brit Ḥadashah/ New Testatement:</strong> Lk 1:26-38; 24:36-53; 2 Pet. 2:4-11</li>
+    </ul>
+
+    <div class="link-row">
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2018%3A1-22%3A24%3B%20I%20Ki%201%3A1-31%3B%20Lk%201%3A26-38%3B%2024%3A36-53%3B%202%20Pet.%202%3A4-11&version=TLV">⭐ TLV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2018%3A1-22%3A24%3B%20I%20Ki%201%3A1-31%3B%20Lk%201%3A26-38%3B%2024%3A36-53%3B%202%20Pet.%202%3A4-11&version=KJV">📘 KJV</a>
+<a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=WLC">📘 WLC</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=SBLGNT">📖 SBLGNT</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+    </div>
+
+    <h2>Scripture Text (TLV)</h2>
+    <div class="scripture-box">Parashat Vayera
+
+The Promise of a Son
+
+18 Then Adonai appeared to him at Mamre’s large trees while he was sitting in the entrance of his tent during the heat of the day.
+
+2 When he lifted up his eyes to see, suddenly, three men were standing right by him. When he saw them, he ran from the entrance of his tent to meet them and bowed down to the ground.
+
+3 Then he said, “My Lord, if now I have found favor in your eyes, please do not pass by your servant.
+
+4 Please let a little water be brought so you can wash your feet, and make yourselves comfortable under the tree.
+
+5 And let me bring a bit of bread so that you can refresh yourselves—then you can pass on—since you have passed by your servant.
+
+They said, “Do just as you have said.”
+
+6 So Abraham hurried into the tent to Sarah and said, “Quick! Knead three measures of fine flour and prepare bread loaves!”
+
+7 Then to the herd Abraham ran and took a young ox, tender and good, and he gave it to the servant, who prepared it quickly.
+
+8 Then he took butter and milk and the young ox that he had prepared and set it before them. While he was standing by them under the tree, they ate.
+
+9 Then they said to him, “Where is Sarah your wife?”
+
+“There, in the tent,” he said.
+
+10 Then He said, “I will most surely return to you in about a year’s time, surprisingly, Sarah your wife will have a son.”
+
+Sarah was listening at the entrance of the tent, which was behind Him.
+
+11 Now Abraham and Sarah were old, advanced in years—Sarah had stopped having the way of women.
+
+12 So Sarah laughed to herself, saying, “After I’ve grown decrepit, can I have desire—and my lord so old?”
+
+13 Then Adonai said to Abraham, “Why is it that Sarah laughed, saying, ‘Can I really give birth when I am so old?’
+
+14 Is anything too difficult for Adonai ? At the appointed time I will return to you—in about a year—and Sarah will have a son.”
+
+15 Sarah denied it saying, “I didn’t laugh!” For she was afraid.
+
+But He said, “No—for you did laugh.”
+
+Abraham Intercedes
+
+16 Then the men got up from there and looked down over Sodom. Abraham was walking with them to send them off,
+
+17 when Adonai said, “Should I keep secret from Abraham what I am about to do,
+
+18 seeing that Abraham will most certainly become a great and mighty nation and in him all the nations of the earth will be blessed?
+
+19 For I have made myself known to him so that he will command his sons and his household after him to keep the way of Adonai by doing righteousness and justice, so that Adonai may bring upon Abraham what He has spoken about him.”
+
+20 Then Adonai said, “The outcry against Sodom and Gomorrah is great indeed, and their sin is very grievous indeed.
+
+21 I want to go down now, and see if they deserve destruction, as its outcry has come to Me. And if not, I will know.”
+
+22 Then the men turned from there and went toward Sodom, but Abraham was still standing before Adonai .
+
+23 Abraham drew near and said, “Will you really sweep away the righteous with the wicked?
+
+24 Suppose there are fifty righteous within the city. Will you really sweep away and not spare the place for the sake of fifty righteous who are in it?
+
+25 Far be it from You to do such a thing—to cause the righteous to die with the wicked, so that the righteous and the wicked share the same fate! Far be it from You! Shall the Judge of the whole world not exercise justice?”
+
+26 Then Adonai said, “If I find in Sodom fifty righteous people within the city, I will spare the whole place for their sake.”
+
+27 Then Abraham answered and said, “Look, pray, I have decided to speak to my Lord, though I am dust and ashes.
+
+28 Suppose the fifty righteous people are lacking five. Will You destroy the whole city for lack of five?”
+
+And He said, “I will not destroy it if I find forty-five there.”
+
+29 So he spoke to Him yet again and said, “Perhaps forty will be found there?”
+
+And He said, “I will not do it for the sake of the forty.”
+
+30 Then he said, “Please, let my Lord not be angry, so I may speak. Perhaps thirty will be found there?”
+
+And He said, “I will not do it if I find thirty there.”
+
+31 Then he said, “Look, pray, I have decided to speak to my Lord: Perhaps twenty will be found there?”
+
+And He said, “I will not destroy it for the sake of the twenty.”
+
+32 Then he said, “Please, let not my Lord be angry, so I may speak once more. Perhaps ten will be found there?”
+
+And He said, “I will not destroy it for the sake of the ten.”
+
+33 Now when He had finished speaking to Abraham, Adonai left, and Abraham returned to his place.
+
+Sodom and Gomorrah
+
+19 Now the two angels came to Sodom in the evening, while Lot was sitting at the gate of Sodom. When Lot saw them, he got up to meet them, and bowed down with his face to the ground.
+
+2 Then he said, “Here, please my lords, please turn aside to your servant’s house, spend the night and wash your feet. Then you can get up early and go on your way.”
+
+But they said, “No. We will spend the night in the open plaza.”
+
+3 But he urged them strongly, so they turned aside to him and they came into his house. He prepared a feast for them and baked matzot , and they ate.
+
+4 They had not yet lain down when the men of the city (the men of Sodom) surrounded the house—from youth to elderly, all the people without exception.
+
+5 And they called out to Lot and said to him, “Where are the men who came to you tonight? Bring them out to us so that we can have relations with them!”
+
+6 But Lot went out to them at the doorway and shut the door behind him,
+
+7 and said, “Please, my brothers, don’t act wickedly.
+
+8 Look, I have two daughters who haven’t been intimate with a man. Please let me bring them out to you—do to them whatever is good in your eyes! However, do nothing to these men—since they have come under the protection of my roof.”
+
+9 “Get out of the way!” they said, and they said, “This one came as an outsider and dares to judge! Now we’ll treat you worse than them!”
+
+So they strongly pressed against the man, Lot, and moved in close to break the door down.
+
+10 But the men reached out their hands, brought Lot into the house with them, and shut the door.
+
+11 Then they struck the men at the doorway of the house with blindness—from youth to elderly—so that they gave up trying to find the doorway.
+
+12 Then the men said to Lot, “Who else related to you is still here? A son-in-law, your sons and your daughters, whoever else is related to you in the city—bring them out of the place!
+
+13 For we are about to destroy this place, because their outcry has become so great before Adonai that Adonai has sent us to destroy it.”
+
+14 So Lot went out and spoke to his sons-in-law who were going to marry his daughters, “Get up!” he said, “Get out of this place! For Adonai is about to destroy the city!” But in the eyes of his sons-in-law, he was like a joker.
+
+15 So when morning dawned the angels rushed Lot, saying, “Get up! Take your wife and your two daughters who are here, or else you will be swept away with the city’s iniquity!”
+
+16 But he hesitated. So the men grabbed his hand, his wife’s hand and his two daughters’ hands—because of Adonai ’s compassion for him—and they brought him out and left him outside the city.
+
+17 When they brought them outside, one said, “Flee for your life! Do not look behind you, and do not stop anywhere in the surrounding area! Escape to the hills, or else you’ll be swept away!”
+
+18 But Lot said to them, “No, my Lord, please!
+
+19 Look, please, your servant has found favor in Your eyes and You have magnified Your merciful loyalty, which You have shown me by letting me live. But I can’t escape to the hill country—for the disaster will overtake me and I’ll die!
+
+20 Look, please, this city is close enough to flee there, and it’s little. Please let me escape there. Isn’t it small? And let me live!”
+
+21 So He said to him, “Behold, I will grant your request concerning this matter too—not to demolish the city of which you have spoken.
+
+22 Hurry! Flee to safety there, because I cannot do anything until you arrive there.” (This is why the town is named Zoar.)
+
+23 The moment the sun rose upon the land, Lot entered Zoar,
+
+24 and Adonai rained sulfur and fire upon Sodom and Gomorrah from Adonai out of the sky.
+
+25 So He demolished these cities and the whole surrounding area, all the inhabitants of the cities and the vegetation of the ground.
+
+26 But his wife looked behind him and she turned into a pillar of salt.
+
+27 Now Abraham rose early in the morning to the place where he had stood before Adonai ,
+
+28 and he looked down toward Sodom and Gomorrah, and toward the entire land of the surrounding area, and saw, behold, the smoke of the land ascended like smoke from a furnace.
+
+29 So it was, as God destroyed the cities of the surrounding area, that God remembered Abraham, and sent Lot out of the midst of the upheaval, when He demolished the cities where Lot had dwelt.
+
+Lot Fathers Moab and Ammon
+
+30 Then Lot went up from Zoar and dwelled on the mountain, his two daughters with him, because he was afraid to dwell in Zoar. So he lived in a cave—he and his two daughters.
+
+31 Then the firstborn said to the younger, “Our father is old, and there is no man in the land to come to us as is the custom of the whole land.
+
+32 Come on! Let’s make our father drink wine so that we can lie with him and keep the seed from our father alive.
+
+33 So they made their father drink wine that night, and the firstborn came and lay down with her father. Yet he did not know that she lay down and got up.
+
+34 On the following day, the firstborn said to the younger, “See! I slept with my father last night. Let’s make him drink wine tonight as well. Come on! Sleep with him so that we’ll keep the seed from our father alive.”
+
+35 So they made their father drink wine that night as well, and the younger got up and lay down with him and he did not know that she lay down and got up.
+
+36 So Lot’s two daughters become pregnant by their father.
+
+37 Then the firstborn gave birth to a son and named him Moab: he is the ancestor of the Moabites to this day.
+
+38 The younger also gave birth to a son and named him Ben-Ammi: he is the ancestor of the sons of Ammon to this day.
+
+Sarah Renewed
+
+20 Then Abraham journeyed from there to the land of the Negev and settled between Kadesh and Shur. While he was dwelling as an outsider in Gerar,
+
+2 Abraham said of Sarah his wife, “She is my sister.” So King Abimelech of Gerar sent for and took Sarah.
+
+3 But God came to Abimelech in a dream at night and said to him, “Behold, you are as good as dead, because of the woman whom you have taken—since she is a married woman.”
+
+4 Now Abimelech had not come near her. So he said, “My Lord, will You slay a nation, even though innocent?
+
+5 Didn’t he say to me, ‘She’s my sister’? And she herself even said, ‘He’s my brother.’ I did this with integrity of my heart and guiltlessness of my hands.”
+
+6 Then God said to him in a dream, “Yes, I myself knew that you did this with integrity of your heart, so I, yes I Myself prevented you from sinning against Me. That is why I did not allow you to touch her.
+
+7 So now, return the man’s wife, for he is a prophet. And let him pray for you and you will live. But if you do not return her, know that you will surely die—you and all who are yours.”
+
+8 Abimelech rose early in the morning, called all his servants and spoke all these words in their ears—and the men were very frightened.
+
+9 Then Abimelech called to Abraham and said to him, “What have you done to us, and how have I sinned against you, that you brought great sin upon me and my kingdom? You’ve done to me things that should not be done!”
+
+10 Abimelech also said to Abraham, “What motivated you to do this thing?”
+
+11 Abraham said, “Because I thought, ‘There is certainly no fear of God in this place, so they’ll kill me, because of my wife.’
+
+12 And besides, she really is my sister. She’s my father’s daughter, though not my mother’s daughter. Then she became my wife.
+
+13 So when God made me wander away from my father’s house, I said to her, ‘This is your loyalty that you must show me: in every place we go, say of me, ‘He is my brother.’”
+
+14 Then Abimelech took sheep, cattle, male slaves and female slaves and gave them to Abraham, and returned his wife Sarah to him.
+
+15 Then Abimelech said, “Look, my land is before you. Dwell wherever it pleases you.”
+
+16 At the same time he said to Sarah, “Look, I’ve given a thousand shekels to your brother. Look, it is compensation for everything that happened—so to everyone with you, you are vindicated.”
+
+17 Then Abraham prayed to God and God healed Abimelech, his wife and his female slaves so that they could bear children.
+
+18 For Adonai had completely locked up every womb in Abimelech’s household because of Sarah, Abraham’s wife.
+
+Birth of Isaac
+
+21 Then Adonai visited Sarah just as He had said, and Adonai did for Sarah just as He had spoken.
+
+2 So Sarah became pregnant and gave birth to a son for Abraham in his old age, at the appointed time that God had told him.
+
+3 Abraham named his son who was born to him—whom Sarah bore for him—Isaac.
+
+4 Then Abraham circumcised Isaac, his eight-day-old son, just as God had commanded him.
+
+5 Abraham was 100 years old when Isaac his son was born to him.
+
+6 So Sarah said, “God has made laughter for me! Everyone who hears will laugh with me.”
+
+7 She also said, “Who would have said to Abraham, ‘Sarah has nursed children’? For I have given birth to a son in his old age!”
+
+Ishmael Banished, Yet Delivered
+
+8 The child grew and was weaned—Abraham made a big feast on the day Isaac was weaned.
+
+9 But Sarah saw the son of Hagar the Egyptian whom she had born to Abraham—making fun.
+
+10 So she said to Abraham, “Drive out this female slave and her son, for the son of this female slave will not be an heir with my son—with Isaac.”
+
+11 Now the matter was very displeasing in Abraham’s eyes on account of his son.
+
+12 But God said to Abraham, “Do not be displeased about the boy and your slave woman. Whatever Sarah says to you, listen to her voice. For through Isaac shall your seed be called.
+
+13 Yet I will also make the son of the slave woman into a nation, because he is your seed.”
+
+14 So Abraham got up early in the morning and took bread and a skin of water and gave them to Hagar, putting them on her shoulder, and the child, and sent her away. She went and wandered about in the wilderness of Beer-sheba.
+
+15 When the water from the skin was finished, she abandoned the child under one of the bushes.
+
+16 Then she went and sat herself down opposite, about a bowshot away, for she had said, “I can’t bear to see the child dying!” So she sat down opposite and lifted up her voice and wept.
+
+17 Then God heard the boy’s voice and the angel of God called to Hagar from heaven, and He said to her, “What troubles you, Hagar? Do not be afraid, because God has heard the boy’s voice where he is.
+
+18 Get up! Lift the boy up, and hold on to him with your hand, for I will make him a great nation.”
+
+19 Then God opened her eyes and she saw a well of water, and she went and filled the water skin, and gave the boy a drink.
+
+20 God was with the boy and he grew. He dwelled in the wilderness and became an archer.
+
+21 He dwelled in the wilderness of Paran, and his mother took a wife for him from the land of Egypt.
+
+Covenant of Abimelech and Abraham
+
+22 Now it came about at that same time that Abimelech—with Phicol the commander of his army—said to Abraham, “God is with you in all that you do.
+
+23 So now, make a pledge to me here, by God, that you will not violate your word with me or with my descendants or with my offspring. As I have shown loyalty to you, show the same to me, and to the land in which you have lived as an outsider.”
+
+24 Abraham said, “I make a pledge.”
+
+25 Now Abraham had rebuked Abimelech because of the well of water that Abimelech’s servants had seized.
+
+26 So Abimelech said, “I don’t know who did this thing. Nor did you tell me, nor did I hear about it until today.”
+
+27 Then Abraham took a flock of sheep and cattle and gave them to Abimelech, and the two of them made a covenant.
+
+28 Abraham set seven young ewe-lambs apart from the flock of sheep by themselves.
+
+29 Abimelech said to Abraham, “What do these seven ewe-lambs that you’ve set by themselves mean?”
+
+30 He said, “You are to accept the seven ewe-lambs from my hand, so that they may be a witness for me that I dug this well.”
+
+31 That is why that place is named Beer-sheba, because there both of them made a pledge,
+
+32 and they made a covenant in Beer-sheba. Then Abimelech got up, with Phicol the commander of his army, and they returned to the land of the Philistines.
+
+33 Then he planted a tamarisk tree in Beer-sheba and called there on the Name of Adonai , the Everlasting God.
+
+34 He lived as an outsider in the land of the Philistines for many days.
+
+The Binding of Isaac
+
+22 Now it was after these things that God tested Abraham. He said to him, “Abraham.” [ a ]
+
+“ Hineni ,” he said.
+
+2 Then He said, “Take your son, your only son whom you love [ b ] —Isaac—and go to the land of Moriah, and offer him there as a burnt offering on one of the mountains about which I will tell you.”
+
+3 So Abraham got up early in the morning, saddled his donkey and took two of his young men with him, and Isaac his son. He split wood for the burnt offering, and got up and went to the place about which God had told him.
+
+4 On the third day, Abraham lifted up his eyes and saw the place from a distance.
+
+5 Abraham said to his young men, “Sit yourselves down here with the donkey. As for me and the young man, we’ll go over there, worship and return to you.”
+
+6 Then Abraham took the wood for the burnt offering and put it on Isaac his son. In his hand he took the fire and the knife. So the two of them walked on together.
+
+7 Then Isaac said to Abraham his father, “My father?”
+
+Then he said, “Here I am, my son.”
+
+He said, “Look. Here’s the fire and the wood. But where’s the lamb for a burnt offering?”
+
+8 Abraham said, “God will provide for Himself a lamb for a burnt offering, my son.”
+
+The two of them walked on together.
+
+9 Then they came to the place about which God had told him, and Abraham built the altar there, laid out the wood, bound up Isaac his son, and laid him on the altar, on top of the wood.
+
+[ c ] 10 Then Abraham reached out his hand and took the knife to slaughter his son.
+
+11 But the angel of Adonai called to him from heaven and said, “Abraham! Abraham!”
+
+He said, “ Hineni !”
+
+12 Then He said, “Do not reach out your hand against the young man—do nothing to him at all. For now I know that you are one who fears God—you did not withhold your son, your only son, from Me.”
+
+13 Then Abraham lifted up his eyes and behold, there was a ram, just caught in the thick bushes by its horns. So Abraham went and took the ram, and offered it up as a burnt offering instead of his son.
+
+14 Abraham named that place, Adonai Yireh ,—as it is said today, “On the mountain, Adonai will provide.”
+
+15 The angel of Adonai called to Abraham a second time from heaven
+
+16 and said, “By myself I swear—it is a declaration of Adonai —because you have done this thing, and you did not withhold your son, your only son,
+
+[ d ] 17 I will richly bless you and bountifully multiply your seed like the stars of heaven, and like the sand that is on the seashore, and your seed will possess the gate of his enemies.
+
+18 In your seed all the nations of the earth will be blessed—because you obeyed My voice.” [ e ]
+
+19 Then Abraham returned to his young men and they got up and went together to Beer-sheba. Then Abraham dwelled in Beer-sheba.
+
+20 Now it was after these things that it was told to Abraham, “Look, Milcah has also borne sons to Nahor your brother:
+
+21 Uz his firstborn, Buz his brother, Kemuel the father of Aram,
+
+22 Chesed, Hazo, Pildash, Yidlaph and Bethuel.”
+
+23 Then Bethuel fathered Rebekah. These eight Milcah bore to Nahor, Abraham’s brother.
+
+24 His concubine, whose name was Reumah, also bore Tebah, Gaham, Tahash and Maacah.
+
+Prophecy of Birth to the Virgin
+
+26 Then in the sixth month, the angel Gabriel was sent by Adonai into a town in the Galilee named Natzeret
+
+27 and to a virgin engaged to a man named Joseph, of the house of David. The virgin’s name was Miriam.
+
+28 And coming to her, the angel said, “ Shalom , favored one! Adonai is with you. [ a ] ”
+
+29 But at the message, she was perplexed and kept wondering what kind of greeting this might be.
+
+30 The angel spoke to her, “Do not be afraid, Miriam, for you have found favor with God.
+
+31 Behold, you will become pregnant and give birth to a son, and you shall call His name Yeshua .
+
+[ b ] 32 He will be great and will be called Ben-Elyon . Adonai Elohim will give Him the throne of David, [ c ] His father.
+
+33 He shall reign over the house of Jacob for all eternity, and His kingdom will be without end.” [ d ]
+
+34 Miriam said to the angel, “How can this be, since I am not intimate with a man?” [ e ]
+
+35 And responding, the angel said to her, “The Ruach ha-Kodesh will come upon you, and the power of Elyon will overshadow you. Therefore, the Holy One being born will be called Ben-Elohim .
+
+36 Behold, even your relative Elizabeth has conceived a son in her old age; and the one who was called barren is six months pregnant.
+
+37 For nothing will be impossible with God.” [ f ]
+
+38 So Miriam said, “Behold, the servant of Adonai . Let it be done to me according to your word.” And the angel left her.
+
+36 While they were speaking of these things, Yeshua Himself stood in the midst of them and said, “ Shalom Aleichem !”
+
+37 But they were startled and terrified, thinking they were seeing a ghost.
+
+38 Then He said to them, “Why are you so shaken? And why do doubts arise in your heart?
+
+39 Look at My hands and My feet—it is I Myself! Touch Me and see! For a spirit doesn’t have flesh and bones, as you see I have.”
+
+40 And when He had said this, He showed them His hands and His feet.
+
+41 But while they were still in disbelief due to joy and wonder, He said to them, “Do you have anything to eat here?”
+
+42 They gave Him a piece of broiled fish,
+
+43 and He took it and ate it in their presence.
+
+44 Then He said to them, “These are My words which I spoke to you while I was still with you—everything written concerning Me in the Torah of Moses and the Prophets and the Psalms must be fulfilled.
+
+45 Then He opened their minds to understand the Scriptures,
+
+46 and He said to them, “So it is written, that the Messiah is to suffer and to rise from the dead on the third day,
+
+47 and that repentance for the removal of sins [ a ] is to be proclaimed in His name to all nations, beginning from Jerusalem.
+
+[ b ] 48 You are witnesses of these things.
+
+49 And behold, I am sending the promise of My Father upon you; but you are to stay in the city until you are clothed with power from on high.”
+
+Yeshua Ascends into Heaven
+
+50 Then Yeshua led them out as far as Bethany, and He lifted up His hands [ c ] and blessed them.
+
+51 And while blessing them, He departed from them and was taken up into heaven.
+
+52 After worshiping Him, they returned to Jerusalem with great joy.
+
+53 And they were continually in the Temple, praising God.
+
+4 For God did not spare angels when they sinned, but threw them into Sheol . [ a ] He put them in chains of gloomy darkness, to be held until the judgment.
+
+[ b ] 5 He did not spare the ancient world. He preserved only Noah, a proclaimer of righteousness, along with seven others, when He brought a flood upon the world of the ungodly.
+
+6 He devastated the cities of Sodom and Gomorrah, reducing them to ashes [ c ] —making them an example of what is going to happen to the ungodly.
+
+7 He rescued Lot, a righteous man deeply troubled by the shameless immorality of the wicked.
+
+[ d ] 8 (For that righteous man, while living among them, was tormented in his righteous soul day after day by lawless deeds he saw and heard.)
+
+9 Therefore the Lord certainly knows how to rescue the godly from trials, and how to keep the unrighteous being punished until the Day of Judgment—
+
+10 especially those who follow after the flesh in its unclean desires and who despise the Lord’s authority. [ e ]
+
+Brazen and arrogant, these people do not tremble while slandering glorious beings;
+
+11 yet even angels, though stronger and more powerful, do not bring a slanderous charge against them before the Lord.</div>
+
+    <h2>Advanced Learning from writings of Sages and Church Fathers
+</h2>
+<div class="scripture-box" id="advancedlearningbox"></div>     
+                        
+  </main>
+</body>
+</html>

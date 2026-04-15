@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 47 – See!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0; padding: 1rem;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1,h2,h3 { margin: 0.25rem 0; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.2rem; color: #38bdf8; }
+    .week-label {
+      font-size: .9rem; letter-spacing: .08em;
+      text-transform: uppercase; color: #9ca3af;
+    }
+    .reading-list {
+      margin: .75rem 0 1.25rem; padding-left: 1.1rem;
+      font-size: .95rem;
+    }
+    .scripture-box {
+      white-space: pre-wrap;
+      background: rgba(255,255,255,0.05);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .link-row {
+      margin: 1rem 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .button {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      text-decoration: none;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+    }
+
+        .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .placeholder {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+
+    <div class="week-label">Week 47</div>
+    <h1>See!</h1>
+        <h2>Read the Whole Bible in a Year, Every Year</h2>  <div id="readOrbitBtns" class= animate-pulse><button>🌐</button> <button>🎵</button> <button> 🎬 </button></div>
+
+
+        <div class="notice" display: flex; justify-content: flex-end;>
+      Scripture text is loaded from BibleGateway.  
+      TLV use is subject to permission from the Messianic Jewish Bible Society.
+    </div>
+    <section class="placeholder">
+      <strong>Coming soon:</strong> Inline TLV / KJV / WLT / SBLGNT scriptures display inside the app's Reader Modal. All rendered dynamically like everything else in the app. 
+    </section>
+
+    <ul class="reading-list">
+      <li><strong>Torah/ Penteteuch:</strong> Deuteronomy 11:26-16:17</li>
+      <li><strong>Haftarah/ Prophets & Writings:</strong> Isa 60:1-60:22</li>
+      <li><strong>Brit Ḥadashah/ New Testatement:</strong> Jn 7:37-52; 1 Jn 4:1-6</li>
+    </ul>
+
+    <div class="link-row">
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Deuteronomy%2011%3A26-16%3A17%3B%20Isa%2060%3A1-60%3A22%3B%20Jn%207%3A37-52%3B%201%20Jn%204%3A1-6&version=TLV">⭐ TLV</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Deuteronomy%2011%3A26-16%3A17%3B%20Isa%2060%3A1-60%3A22%3B%20Jn%207%3A37-52%3B%201%20Jn%204%3A1-6&version=KJV">📘 KJV</a>
+<a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=WLC">📘 WLC</a>
+      <a class="button" target="_blank" href="https://www.biblegateway.com/passage/?search=Genesis%2028%3A10-32%3A3%3B%20Amos%202%3A6-3%3A8%3B%20Rom%209%3A1-31&version=SBLGNT">📖 SBLGNT</a>
+      <a class="button" target="_blank" href="https://www.kingjamesbibleonline.org/Apocrypha-Books/">📖 Open Apocrypha (Public Domain)</a>
+    </div>
+
+    <h2>Scripture Text (TLV)</h2>
+    <div class="scripture-box">Parashat Re’eh
+
+Blessing or Curse Set Before You
+
+26 “See, I am setting before you today a blessing and a curse—
+
+27 the blessing, if you listen to the mitzvot of Adonai your God that I am commanding you today,
+
+28 but the curse, if you do not listen to the mitzvot of Adonai your God, but turn from the way I am commanding you today, to go after other gods you have not known.
+
+29 Now when Adonai your God brings you into the land you are going in to possess, you are to set the blessing on Mount Gerizim and the curse on Mount Ebal.
+
+30 Are they not across the Jordan toward the west, in the land of the Canaanites who dwell in the Arabah—opposite Gilgal, beside the oaks of Moreh?
+
+31 For you are about to cross over the Jordan to go in to possess the land Adonai your God is giving you—you will possess it and dwell in it,
+
+32 and you will take care to do all the statutes and ordinances that I am setting before you today.
+
+The Place He Chooses
+
+12 “These are the statutes and ordinances that you are to make sure to do in the land that Adonai , the God of your fathers, has given you to possess—all the days that you live on the earth.
+
+2 You must utterly destroy all the places where the nations that you will dispossess served their gods—on the high mountains and on the hills and under every green tree.
+
+3 You are to tear down their altars, smash their pillars, burn their Asherah poles in the fire and cut down the carved images of their gods, and you are to obliterate their name from that place.
+
+4 “You are not to act like this toward Adonai your God.
+
+5 Rather you are to seek only the place Adonai your God chooses from all your tribes to put His Name to dwell—there you will come.
+
+6 There you are to bring your burnt offerings and your sacrifices, your tithes, the offering of your hand, your vow and freewill offerings, and the firstborn of your herd and of your flock.
+
+7 There you and your households will eat before Adonai your God and rejoice in every undertaking of your hand, as Adonai your God has blessed you.
+
+8 You will not do all the things as we are doing here today—everyone doing what is right in his own eyes.
+
+9 For you have not yet come to the resting place and the inheritance that Adonai your God is giving you.
+
+10 But when you cross over the Jordan and settle in the land that Adonai your God enables you to inherit, and He gives you rest from all your enemies around you, you will dwell in safety.
+
+11 “Then the place Adonai your God chooses to make His Name dwell, there you are to bring all that I command you—your burnt offerings and your sacrifices, your tithes, the offering of your hand, and all your finest vow offerings that you vow to Adonai .
+
+12 Then you will rejoice before Adonai your God—you and your sons and daughters, your slaves and maids, and the Levite in your towns, for he has no portion or inheritance among you.
+
+13 Be careful that you do not offer your burnt offerings in any place you see.
+
+14 Rather do so only in the place Adonai chooses in one of your tribes—there you are to offer your burnt offerings, and there you are to do all I am commanding you.
+
+15 “However, you may slaughter and eat meat within all your gates—whatever your soul’s desire, according to the blessing Adonai your God has given you. Either the unclean or clean may eat of it, as they would a gazelle and or deer.
+
+16 But you are not to eat the blood—you are to pour it out on the ground like water.
+
+17 You may not eat within your gates the tithe of your grain or new wine or oil, or the firstborn of your herd or of your flock, or any of your vow offerings that you vow, or your freewill offerings, or the offering of your hand.
+
+18 Rather you are to eat them before Adonai your God in the place Adonai your God chooses—you, your son and daughter, your slave and maid, and the Levite within your gates—and you will rejoice before Adonai your God in every undertaking of your hand.
+
+19 Be careful that you do not neglect the Levite as long as you live on the earth.
+
+20 “When Adonai your God enlarges your territory as He has promised you, and you say, ‘I want to eat meat,’ because your soul craves meat, then you may eat meat—all your soul’s desire.
+
+21 If the place Adonai your God chooses to put His Name is too far from you, then you may slaughter any of your herd and flock that Adonai has given you—as I have commanded you—and you may eat within your gates, all your soul’s desire.
+
+22 Just as the gazelle or hart is eaten, so you may eat it—the unclean and clean alike may eat it.
+
+23 Only be sure that you do not eat the blood—for the blood is the life, [ a ] and you are not to eat the life with the meat.
+
+24 You are not to eat it—you are to pour it out on the ground like water.
+
+25 You are not to eat it, so that it may go well with you and your children after you, when you do what is right in Adonai ’s eyes.
+
+26 “Only the holy things and vow offerings that are yours are you to take and go to the place that Adonai chooses.
+
+27 You are to offer your burnt offerings—the flesh and the blood—on the altar of Adonai your God. The blood of your sacrifices is to be poured out on the altar of Adonai your God, but the meat you are to eat.
+
+28 Take care and listen to all these words that I am commanding you, so that it may go well with you and your children after you forever, when you do what is good and right in the eyes of Adonai your God.
+
+29 “When Adonai your God cuts off before you the nations that you are going in to dispossess, when you have dispossessed them and settled in their land,
+
+30 be careful not to be trapped into imitating them after they have been destroyed before you. Do not inquire about their gods, saying, ‘How do these nations serve their gods? I will do the same.’
+
+31 You are not to act like this toward Adonai your God! For every abomination of Adonai , which He hates, they have done to their gods—they even burn their sons and daughters in the fire to their gods.
+
+Beware of False Prophets
+
+13 “Whatever I command you, you must take care to do—you are not to add to it or take away from it. [ b ]
+
+2 “Suppose a prophet or a dreamer of dreams rises up among you and gives you a sign or wonder,
+
+3 and the sign or wonder he spoke to you comes true, while saying, ‘Let’s follow other gods’—that you have not known, and—‘Let’s serve them!’
+
+[ c ] 4 You must not listen to the words of that prophet or that dreamer of dreams—for Adonai your God is testing you, to find out whether you love Adonai your God with all your heart and with all your soul.
+
+5 Adonai your God you will follow and Him you will fear. His mitzvot you will keep, to His voice you will listen, Him you will serve and to Him you will cling.
+
+6 That prophet or dreamer of dreams must be put to death! For he has spoken falsehood against Adonai your God, who brought you out from the land of Egypt and redeemed you from the house of slavery, to entice you from the way Adonai your God commanded you to walk. So you will purge the evil from your midst. [ d ]
+
+7 “Suppose your brother—your mother’s son—or your son or daughter, or the wife of your bosom, or your best friend of your own soul misleads you secretly, saying, ‘Let’s go and serve other gods’—that you and your fathers have not known,
+
+8 from among the gods of the peoples around you, near you or far off from you, from one end of the earth to the other.
+
+9 You are not to give in or listen to him, your eye is not to pity him, and you are not to spare or conceal him.
+
+10 Instead, you will surely put him to death. Your hand should be the first against him to put him to death, and afterwards the hand of all the people.
+
+11 You are to stone him with stones to death because he tried to entice you away from Adonai your God, who brought you out from the land of Egypt, from the house of slavery.
+
+12 Then all Israel will hear and be afraid, and never again will they do such an evil thing as this in your midst.
+
+13 “Suppose you hear it said in one of your cities, which Adonai your God is giving you to dwell in,
+
+14 that worthless fellows [ e ] have gone out from among you and enticed the inhabitants of their city, saying, ‘Let’s go and serve other gods’—that you have not known.
+
+15 Then you are to investigate, search out and inquire thoroughly. If indeed it is true and the matter certain that this abomination has been done in your midst,
+
+16 you will surely strike down the inhabitants of that city with the edge of the sword, utterly destroying it and all that is in it and its livestock with the sword.
+
+17 You are to gather all its plunder into the middle of the street, and you are to burn with fire the city and all its plunder—all of it to Adonai your God. It will be a ruin forever—it shall never be built again.
+
+18 Nothing from the ban should cling to your hand, so that Adonai may turn from the fierceness of His anger and show you mercy, and have compassion on you and multiply you, just as He swore to your fathers—
+
+19 when you listen to the voice of Adonai your God, keeping all His mitzvot that I am commanding you today, doing what is right in the eyes of Adonai your God.
+
+Clean Foods for a Holy People
+
+14 “You are the children of Adonai your God. You are not to cut yourselves or shave your forehead for the dead.
+
+2 For you are a holy people to Adonai your God—from all the peoples on the face of the earth, Adonai has chosen you to be His treasured people.
+
+3 You are not to eat any detestable thing.
+
+4 These are the animals you may eat: the ox, the sheep, the goat,
+
+5 the deer, the gazelle, the roebuck, the wild goat, the ibex, the antelope, and the mountain sheep.
+
+6 Among the animals, you may eat any animal that splits the hoof—the hoof completely split in two—and chews the cud.
+
+7 Yet of those that chew the cud or have a split hoof, you are not to eat the camel, the hare, and the rabbit—because they chew the cud but do not split the hoof, they are unclean to you.
+
+8 The pig, because it splits the hoof but does not chew the cud, is unclean to you—you are not to eat their meat or touch their carcasses.
+
+9 Of all that are in the waters, these you may eat: whatever has fins and scales you may eat,
+
+10 but whatever does not have fins and scales you are not to eat—it is unclean to you.
+
+11 You may eat all clean birds,
+
+12 but these are the ones you are not to eat: the eagle, the vulture, the buzzard,
+
+13 the red kite, the black kite, and any bird of prey of that kind,
+
+14 every raven of any kind,
+
+15 the ostrich, the owl, the seagull, a hawk of any kind,
+
+16 the little owl, the great owl, the white owl,
+
+17 the pelican, the Egyptian vulture, the cormorant,
+
+18 the stork, a heron of any kind, the hoopoe, and the bat.
+
+19 All winged insects are unclean to you—they are not to be eaten.
+
+20 You may eat any clean bird.
+
+21 You are not to eat anything that dies of itself. You may give it to the outsider within your gates so that he may eat it or you may sell it to a foreigner. For you are a holy people to Adonai your God. You are not to boil a young goat in its mother’s milk.
+
+Tithe and Remember the Levite
+
+22 “You will surely set aside a tenth of all the yield of your seed that comes from the field year by year.
+
+23 You are to eat the tithe of your grain, your new wine, your oil, and the firstborn of your herd and flock, before Adonai your God in the place He chooses to make His Name dwell, so that you may learn to fear Adonai your God always.
+
+24 Now suppose the way is too long for you, for you cannot carry the tithe because the place Adonai your God chooses to set His Name is too far from you. When Adonai your God blesses you,
+
+25 then you are to exchange the tithe for silver, bind up the silver in your hand, and go to the place that Adonai your God chooses.
+
+26 You may spend the money for whatever your soul desires—cattle, sheep, wine, strong drink, or whatever your soul asks of you. Then you will eat there before Adonai your God and rejoice—you and your household.
+
+27 But you are not to neglect the Levite within your gates, for he has no portion or inheritance with you.
+
+28 At the end of every three years, you are to bring out all the tithe of your produce in that year and store it within your gates.
+
+29 Then the Levite, because he has no portion or inheritance with you, along with the outsider, the orphan and the widow within your gates, will come and eat and be satisfied, so that Adonai your God may bless you in all the work of your hand that you do.
+
+Shmittah: Cancellation of Debts
+
+15 “At the end of every seven years you are to cancel debts.
+
+2 This is how you are to cancel debts: every creditor is to release what he has loaned to his neighbor. He must not force his neighbor or his brother to repay, for Adonai ’s debt cancellation has been proclaimed.
+
+3 A foreigner you may force, but your hand is to release whatever your brother owes you.
+
+4 “However, there should be no poor among you, for Adonai will surely bless you in the land Adonai your God is giving you as an inheritance to possess.
+
+5 If only you would carefully listen to the voice of Adonai your God, being careful to do all these mitzvah that I am commanding you today!
+
+6 For Adonai your God will bless you as He promised you. So you will lend to many nations, but not borrow; you will rule over many nations, but they will not rule over you.
+
+7 “If there is a poor man among you—any of your brothers within any of your gates in your land that Adonai your God is giving you—you are not to harden your heart or shut your hand against your poor brother.
+
+[ f ] 8 Rather, you must surely open your hand to him and you must surely lend him enough for his need—whatever he is lacking.
+
+9 Watch yourself, so there is no unworthy thing in your heart saying, ‘The seventh year, the year of cancelling debts, is near,’ and your eye is evil against your poor brother and you give him nothing. Then he may call out to Adonai against you, and it will be a sin upon you.
+
+10 You must surely give to him, and your heart is not to be grieved when you give to him—for because of this thing Adonai your God will bless you in all your work and in every undertaking of your hand.
+
+11 “For there will never cease to be poor people in the land. Therefore I am commanding you, saying, ‘You must surely open your hand to your brother—to your needy and poor in your land.’
+
+12 “If your fellow Hebrew—a man or woman—is sold to you and serves you six years, then in the seventh year you are to set him free.
+
+13 When you set him free, you are not to send him away empty-handed.
+
+14 You are to surely provide for him from your flock and threshing floor and winepress. As Adonai your God has blessed you, you are to give to him.
+
+15 You will remember that you were a slave in the land of Egypt, and Adonai your God redeemed you; therefore I am commanding you this thing today.
+
+16 “Now if he tells you, ‘I will not go away from you’—because he loves you and your household since he is well off with you—
+
+17 then you are to take an awl and put it through his ear to the door, and he will be your servant forever. And to your female slave you are to do the same.
+
+18 It should not seem hard to you when you set him free from you, for he has served you six years—double the value of a hired worker. So Adonai your God will bless you in all that you do.
+
+19 “All the firstborn males that are born in your herd and your flock you are to consecrate to Adonai your God. You are to do no work with the firstborn of your herd or shear the firstborn of your flock.
+
+20 You are to eat it before Adonai your God year after year in the place Adonai chooses—you and your household.
+
+21 But if it has any blemish—if it is lame or blind or has any serious blemish—you are not to sacrifice it to Adonai your God.
+
+22 You are to eat it within your gates, the unclean and the clean together, just as they eat the gazelle or deer.
+
+23 Only its blood you are not to eat—you must pour it out on the ground like water.
+
+Three Harvest Festivals
+
+16 “Observe the month of Aviv and keep the Passover to Adonai your God, for in the month of Aviv [ g ] Adonai your God brought you out from Egypt by night.
+
+2 You are to sacrifice the Passover offering to Adonai your God, from the flock and the herd, in the place Adonai chooses to make His Name dwell.
+
+3 You are not to eat hametz with it. For seven days you are to eat matzot with it, the bread of affliction—for you came out from the land of Egypt in haste. Do this so that all the days of your life you will remember the day when you came out from the land of Egypt.
+
+4 No hametz should be seen with you in all your territory for seven days, and none of the meat you sacrifice on the evening of the first day may be left overnight until the morning.
+
+5 You may not sacrifice the Passover offering within any of your gates that Adonai your God is giving you.
+
+6 Rather, at the place Adonai your God chooses to make His Name dwell, there you will sacrifice the Passover offering in the evening at sunset—the time of your coming out from Egypt.
+
+7 You are to cook and eat it at the place Adonai your God chooses, then you will turn around in the morning and journey home.
+
+8 For six days you are to eat matzot . On the seventh day there is to be a solemn gathering for Adonai your God—on it you are to do no work.
+
+9 Seven weeks you are to count for yourself—from the time you begin to put the sickle to the standing grain you will begin to count seven weeks.
+
+10 Then you will keep the Feast of Shavuot [ h ] to Adonai your God with a measure of a freewill offering from your hand, which you are to give according to how Adonai your God blesses you.
+
+11 So you will rejoice before Adonai your God in the place Adonai your God chooses to make His Name dwell—you, your son and daughter, slave and maid, Levite and outsider, orphan and widow in your midst.
+
+12 You will remember that you were a slave in Egypt, and you are to take care and do these statutes.
+
+13 “You are to keep the Feast of Sukkot for seven days, [ i ] after gathering in the produce from your threshing floor and winepress.”
+
+14 So you will rejoice in your feast—you, your son and daughter, slave and maid, Levite and outsider, orphan and widow within your gates.
+
+15 Seven days you will feast to Adonai your God in the place He chooses, because Adonai your God will bless you in all your produce and in all the work of your hand, and you will be completely filled with joy.
+
+16 Three times a year all your males are to appear before Adonai your God in the place He chooses—at the Feast of Matzot , the Feast of Shavuot , and the Feast of Sukkot . No one should appear before Adonai empty-handed—
+
+17 the gift of each man’s hand according to the blessing Adonai your God has given you.
+
+Arise, Shine, O Zion
+
+60 Arise, shine, for your light has come!
+
+The glory of Adonai has risen on you.
+
+2 For behold, darkness covers the earth,
+
+and deep darkness the peoples.
+
+But Adonai will arise upon you,
+
+and His glory will appear over you.
+
+3 Nations will come to your light,
+
+kings to the brilliance of your rising.
+
+4 Lift up your eyes and look all around:
+
+they all gather—they come to you—
+
+your sons will come from far away,
+
+your daughters carried on the hip.
+
+5 Then you will see and be radiant,
+
+and your heart will throb and swell with joy.
+
+For the abundance of the sea will be turned over to you.
+
+The wealth of nations will come to you.
+
+6 A multitude of camels will cover you,
+
+young camels of Midian and Ephah,
+
+all those from Sheba will come.
+
+They will bring gold and frankincense, [ a ]
+
+and proclaim the praises of Adonai .
+
+7 All Kedar’s flocks will be gathered to you.
+
+Nebaioth’s rams will minister to you.
+
+They will go up with favor on My altar,
+
+and I will beautify My glorious House.
+
+8 Who are these who fly like a cloud,
+
+like doves to their windows?
+
+9 Surely the islands will hope in Me,
+
+with the ships of Tarshish in the lead,
+
+to bring your sons from afar,
+
+their silver and gold with them,
+
+for the Name of Adonai your God,
+
+and for the Holy One of Israel,
+
+because He has glorified you.
+
+10 Foreigners will build up your walls,
+
+and their kings will minister to you.
+
+For in My fury I struck you,
+
+but in My favor I will show you mercy.
+
+11 Your gates will be open continually.
+
+They will not be shut day or night,
+
+so that men may bring to you the wealth of the nations,
+
+with their kings led in procession.
+
+12 For the nation and the kingdom which will not serve you will perish—
+
+those nations will be utterly ruined.
+
+13 The glory of Lebanon will come to you
+
+—cypress, elm and pine together—
+
+to beautify the place of My Sanctuary.
+
+I will give to the place of My feet glory.
+
+14 The sons of those who afflicted you will come bowing to you,
+
+and all those who despised you will fall at the soles of your feet.
+
+They will call you the city of Adonai ,
+
+Zion of the Holy One of Israel.
+
+15 Instead of deserted and hated,
+
+no one passing through,
+
+I will make you an eternal pride,
+
+joy from generation to generation.
+
+16 You will also suck the milk of nations
+
+and nurse at the breast of kings.
+
+Then you will know that I, Adonai , am your Savior
+
+and your Redeemer, the Mighty One of Jacob.
+
+17 “Instead of bronze I will bring gold,
+
+instead of iron I will bring silver,
+
+instead of wood, bronze,
+
+and instead of stones, iron.
+
+I will make shalom your overseer,
+
+and righteousness your taskmasters.
+
+18 No more will violence be heard in your land,
+
+devastation nor destruction within your borders.
+
+But you will call your walls Salvation
+
+and your gates Praise.
+
+19 No more will the sun be your light by day,
+
+nor the glow of the moon be your light,
+
+but Adonai will be your everlasting light,
+
+and your God for your glory. [ b ]
+
+20 No more will your sun set,
+
+nor will your moon wane,
+
+for Adonai will be your everlasting light,
+
+as the days of your mourning end. [ c ]
+
+21 Then your people will all be righteous.
+
+They will possess the land forever—
+
+the branch of His planting,
+
+the work of My hands—
+
+that I may be glorified.
+
+22 The smallest will become a thousand,
+
+and the least a mighty nation.
+
+I, Adonai , will hasten it in its time.”
+
+Satisfying Spiritual Thirst
+
+37 On the last and greatest day of the Feast, Yeshua stood up and cried out loudly, “If anyone is thirsty, let him come to Me and drink.
+
+38 Whoever believes in Me, as the Scripture says, ‘out of his innermost being will flow rivers of living water.’”
+
+[ a ] 39 Now He said this about the Ruach , whom those who trusted in Him were going to receive; for the Ruach [ b ] was not yet given, since Yeshua was not yet glorified.
+
+40 When they heard these words, some of the crowd said, “This man really is the Prophet.”
+
+41 Others were saying, “This is the Messiah.” Still others were saying, “ The Messiah doesn’t come from the Galilee, does He?
+
+42 Didn’t the Scripture say that the Messiah comes from the seed of David and from Bethlehem, David’s town?”
+
+[ c ] 43 So a division arose in the crowd because of Yeshua .
+
+44 Some wanted to capture Him, but no one laid hands on Him.
+
+Religious Adversaries
+
+45 Then the guards returned to the ruling kohanim and Pharisees, who asked them, “Why didn’t you bring Him?”
+
+46 “Never has anyone spoken like this man,” the guards answered.
+
+47 The Pharisees responded, “You haven’t been led astray also, have you?
+
+48 Have any of the rulers or Pharisees believed in Him?
+
+49 No, but this mob that doesn’t know the Torah —they are cursed!”
+
+50 Nicodemus, the one who had come to Yeshua before and was one of them, said to them,
+
+51 “Our Torah doesn’t judge a man unless it first hears from him and knows what he’s doing, does it?”
+
+52 They answered him, “You aren’t from the Galilee too, are you? Search, and see that no prophet comes out of the Galilee!” [ d ]
+
+Yeshua, the Ruach of Truth
+
+4 Loved ones, do not believe every spirit, but test the spirits to see if they are from God. For many false prophets have gone out into the world.
+
+[ a ] 2 You know the Ruach Elohim by this—every spirit that acknowledges that Messiah Yeshua has come in human flesh is from God,
+
+3 but every spirit that does not acknowledge Yeshua is not from God. This is the spirit of the anti-messiah, which you have heard is coming and now is already in the world.
+
+4 You are from God, children, and you have overcome them, because greater is He who is in you than he who is in the world.
+
+5 They are from the world, so they speak from the world and the world listens to them.
+
+6 We are from God; whoever knows God listens to us, but whoever is not from God does not listen to us. By this we know the Spirit of truth and the spirit of error.</div>
+
+    <h2>Advanced Learning from writings of Sages and Church Fathers
+</h2>
+<div class="scripture-box" id="advancedlearningbox"></div>     
+                        
+  </main>
+</body>
+</html>
