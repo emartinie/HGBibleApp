@@ -91,14 +91,19 @@ function openDockCModal() {
         }
       }
 
-      function loadAndOpenScripture() {
-        loadScriptureForCurrentWeek()
-          .then(openDockCModal)
-          .catch(err => {
-            console.error(err);
-            openDockCModal();
-          });
-      }
+function loadAndOpenScripture(e) {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  loadScriptureForCurrentWeek()
+    .then(openDockCModal)
+    .catch(err => {
+      console.error(err);
+      openDockCModal();
+    });
+}
 
       document.getElementById("openScriptureBtn")?.addEventListener("click", loadAndOpenScripture);
       document.getElementById("openScriptureHeaderBtn")?.addEventListener("click", loadAndOpenScripture);
