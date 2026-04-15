@@ -72,7 +72,9 @@ while focusing on the meaning of the appointed times themselves.<br><button clas
   <section class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-4">
     <div class="flex items-center justify-between">
       <h3 class="text-2xl font-bold text-blue-300">Holy Days</h3>
-      <p class="text-slate-400 text-sm">Tap Info for deeper explanation</p>
+      <p class="text-slate-400 text-sm" onclick="toggleSection(this)">Tap Info for deeper explanation ▼</p>
+                    <section class="content-panel">
+
     </div>
 
     <div id="holyDayList" class="space-y-3">
@@ -160,6 +162,7 @@ while focusing on the meaning of the appointed times themselves.<br><button clas
 
   <!-- Supporting Tools -->
   <!--<section class="grid grid-cols-1 md:grid-cols-3 gap-4">-->
+    <section class="content-panel">
     <div class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4">
       <h3 class="text-xl font-semibold text-yellow-300">Astronomical / Mazzaroth</h3>
       <p class="text-slate-400 text-sm mt-2">
