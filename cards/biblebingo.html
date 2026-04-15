@@ -1,4 +1,153 @@
-              <div class="text-4xl font-extrabold text-cyan-300 text-center">
+<section class="hg-card-module">
+  <style>
+    .hg-card-module{
+      color:#eef3ff;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .hg-card-head{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .hg-card-kicker{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#a8b2c7;
+    }
+
+    .hg-card-title{
+      margin:0;
+      font-size:1.15rem;
+      font-weight:800;
+      color:#ffe7b0;
+      line-height:1.1;
+    }
+
+    .hg-card-sub{
+      margin:0;
+      color:#a8b2c7;
+      font-size:.92rem;
+      line-height:1.45;
+    }
+
+    .hg-panel{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .hg-section-label{
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:#f3c878;
+      margin-bottom:8px;
+    }
+
+    .hg-empty{
+      color:#a8b2c7;
+      font-size:.92rem;
+      padding:14px;
+      border:1px dashed rgba(255,255,255,.12);
+      border-radius:14px;
+      text-align:center;
+    }
+
+    .hg-btn-row{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .hg-btn{
+      border:none;
+      border-radius:999px;
+      min-height:40px;
+      padding:0 14px;
+      background:rgba(255,255,255,.07);
+      color:#eef3ff;
+      border:1px solid rgba(255,255,255,.10);
+      font:inherit;
+      cursor:pointer;
+    }
+
+    .hg-scorebar{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      padding:10px 12px;
+      border-radius:14px;
+      background:rgba(15,23,42,.75);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:.9rem;
+    }
+
+    .hg-question-card,
+    .hg-hint-card,
+    .hg-answer-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:22px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(15,23,42,.72);
+      box-shadow:0 10px 24px rgba(0,0,0,.22);
+    }
+
+    .hg-question-card video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      opacity:.25;
+      z-index:0;
+    }
+
+    .hg-question-inner{
+      position:relative;
+      z-index:1;
+    }
+
+    .hg-question-text{
+      font-size:1.2rem;
+      font-weight:700;
+      line-height:1.35;
+      margin-bottom:14px;
+    }
+
+    #choices{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .hg-card-caption{
+      text-align:center;
+      font-size:1rem;
+      font-weight:700;
+      color:#ffe7b0;
+      margin-bottom:10px;
+    }
+
+    .hg-team-board{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:center;
+      margin-top:12px;
+    }
+  </style>
+<div class="text-4xl font-extrabold text-cyan-300 text-center">
                 🅱️🅸🅱️🅻🅴 Bingo </div>
               <div class="text-sm text-slate-400 text-center mt-4">
                 Want to host this with friends? Share this page.</div>
