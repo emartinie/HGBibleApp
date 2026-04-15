@@ -639,6 +639,10 @@
 
     <header id="topBar">
       <div class="toolbar">
+                      <button id="openScriptureHeaderBtn" class="p-2 rounded-full bg-yellow-800 border border-orange-500 text-red-300"
+          onclick="openDockCModal()">
+          📖
+        </button>
         <select id="weekSelect" class="ui-select" aria-label="Select week">
           <option>Week 1</option>
         </select>
@@ -873,6 +877,92 @@
     Go Deeper
   </button>
 </div>
+
+          <!-- ============================= -->
+    <!--  Modal Script    -->
+    <!-- ============================= -->
+    <!-- 🎧 DOCK C — Scripture Modal -->
+    <!-- ============================= -->
+    <div id="dockC-modal"
+      class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] items-center justify-center hidden">
+
+      <div id="dockC-inner" class="relative">
+        <!-- FLIP WRAPPER -->
+        <div id="dockC-flipWrapper">
+
+          <!-- FRONT: Scripture + Commentary -->
+          <div class="flip-face front">
+            <div class="flex items-center justify-between mb-1 text-align:center">
+              <h2 class="text-orange-300 text-lg font-semibold">
+                Scripture & Commentary
+              </h2>
+              <div class="flex gap-3 items-center text-sm text-slate-300">
+                <span id="modalWeekLabel"></span> ___
+              </div>
+            </div>
+
+            <div class="face-scroll">
+              <div id="scriptureBox"></div>
+              <div id="commentaryBox"></div>
+            </div>
+          </div>
+
+          <!-- BACK: Articles -->
+          <div class="flip-face back">
+            <div class="flex items-center justify-between mb-1">
+              <h2 class="text-orange-300 text-lg font-semibold">
+                Articles & Reader
+              </h2>
+              <span class="text-xs text-slate-400">
+                (Click An Article to Load It Below the List)
+              </span>
+            </div>
+
+            <div class="face-scroll">
+              <div id="articleListBox">
+
+                <div id="articlelist"></div>
+              </div>
+
+              <div id="articleViewer">
+                <p class="text-sm text-slate-300">
+                  When you click an article title, you can load its HTML here.
+                </p>
+                <div id="articleModal">
+                  <h2 id="articleTitle"></h2>
+                  <div id="articleContent"></div>
+                </div>
+
+
+                <!-- <div id="articlePager" class="pager hidden">
+          <button id="articlePrevBtn">◀</button>
+          <span id="articlePagerStatus"></span>
+          <button id="articleNextBtn">▶</button>
+          </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLOSE BUTTON -->
+        <button type="button" onclick="closeDockCModal()"
+          class="absolute top-2 right-3 text-2xl text-slate-400 hover:text-white">
+          ✕
+        </button>
+
+        <button type="button" id="flipModalBtn" class="absolute top-2 left-1/2 -translate-x-1/2
+         px-3 py-1 rounded-full
+         text-sm font-semibold
+         text-orange-200 hover:text-white
+         bg-cyan-500/10 hover:bg-cyan-500/20
+         border border-orange-400/40
+         backdrop-blur
+         shadow-md hover:shadow-orange-500/30
+         transition-all">
+          🔁 FlipOver
+        </button>
+      </div>
+    </div>
 
   </div>
 </div>
