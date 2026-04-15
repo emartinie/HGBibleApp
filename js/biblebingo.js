@@ -36,6 +36,7 @@ let calledHistory = [];
   function init() {
     buildPool();
     updateDisplay("Ready");
+    renderScoreboard();
   }
 
   function updateCurrentCall(label) {
@@ -136,6 +137,75 @@ updateHistory(label);
 
     if (nextBtn) nextBtn.addEventListener("click", callNext);
     if (autoBtn) autoBtn.addEventListener("click", toggleAuto);
+
+    bindScoreboardUI();
+  }
+
+    // ----------------------------
+  // SCOREBOARD
+  // ----------------------------
+  let teams = [
+    { name: "Team A", score: 0 },
+    { name: "Team B", score: 0 }
+  ];
+
+  function renderScoreboard() {
+    const board = document.getElementById("bingo-board");
+    if (!board) return;
+
+    board.innerHTML = "";
+
+    teams.forEach((team, index) => {
+      const card = document.createElement("div");
+      card.className = "bg-slate-800 p-4 rounded-xl shadow-md w-40 text-center";
+
+      card.innerHTML = `
+        <input
+          class="w-full mb-2 bg-slate-900 text-white text-center rounded px-2 py-1 font-bold"
+          value="${team.name}"
+        />
+        <div class="text-3xl font-extrabold text-white mb-2">${team.score}</div>
+        <div class="flex justify-center gap-2 mb-2">
+          <button class="btn-up px-2 py-1 rounded bg-emerald-600 text-white">+1</button>
+          <button class="btn-down px-2 py-1 rounded bg-red-600 text-white">-1</button>
+        </div>
+        <button class="btn-remove text-xs text-red-400 hover:text-red-300">Remove</button>
+      `;
+
+      card.querySelector("input").oninput = (e) => {
+        team.name = e.target.value;
+      };
+
+      card.querySelector(".btn-up").onclick = () => {
+        team.score++;
+        renderScoreboard();
+      };
+
+      card.querySelector(".btn-down").onclick = () => {
+        team.score--;
+        renderScoreboard();
+      };
+
+      card.querySelector(".btn-remove").onclick = () => {
+        teams.splice(index, 1);
+        renderScoreboard();
+      };
+
+      board.appendChild(card);
+    });
+  }
+
+  function bindScoreboardUI() {
+    const addBtn = document.getElementById("bingo-add-team");
+    if (!addBtn) return;
+
+    addBtn.onclick = () => {
+      teams.push({
+        name: `Team ${String.fromCharCode(65 + teams.length)}`,
+        score: 0
+      });
+      renderScoreboard();
+    };
   }
 
   // ----------------------------
