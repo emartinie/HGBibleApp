@@ -60,4 +60,4 @@ function buildMisslerCarousel() {
   buildMisslerCarousel();
   loadMisslerHour(24); // autoplay Hour 24 by default
 //}
-);
+//);
