@@ -2,7 +2,15 @@
       // ---------------------------------
       // MODAL OPEN/CLOSE + FLIP
       // ---------------------------------
-      function openDockCModal() {
+function getSelectedWeekNumber() {
+  const select = document.getElementById("weekSelect");
+  if (!select) return 1;
+
+  const val = parseInt(select.value, 10);
+  return isNaN(val) ? 1 : val;
+}      
+
+function openDockCModal() {
         const modal = document.getElementById("dockC-modal");
         if (!modal) return;
         modal.classList.remove("hidden");          // ✅ show (Tailwind)
@@ -37,7 +45,7 @@
       const COMMENTARY_DIR = "commentary";
 
       async function loadScriptureForCurrentWeek() {
-        //const week = getSelectedWeekNumber();
+        const week = getSelectedWeekNumber();
         const scripturePath = `${SCRIPTURE_DIR}/week${week}.html`;
         const commentaryPath = `${COMMENTARY_DIR}/week${week}.html`;
 
