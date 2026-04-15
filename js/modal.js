@@ -1,4 +1,4 @@
-    <script>
+
       // ---------------------------------
       // MODAL OPEN/CLOSE + FLIP
       // ---------------------------------
@@ -104,9 +104,9 @@
           loadScriptureForCurrentWeek();
         }
       });
-    </script>
+ 
 
-    <script>
+
       document.addEventListener("DOMContentLoaded", () => {
         const scriptureBox = document.getElementById("scriptureBox");
         if (scriptureBox) {
@@ -127,4 +127,4 @@
           }
         });
       });
-    </script>
+ 
