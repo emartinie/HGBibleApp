@@ -58,7 +58,7 @@ while focusing on the meaning of the appointed times themselves.<br><button clas
         A night of remembrance, deliverance, and the beginning of freedom.
       </p>
       <div class="flex gap-2 pt-2">
-        <button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500" onclick="openCalendarInfo('passover')">
+        <button class="hg-btn" onclick="openCalendarInfo('passover')">
           Learn More
         </button>
         <button class="px-3 py-2 rounded bg-emerald-600 hover:bg-emerald-500" onclick="beginHolyDayExperience('passover')">
@@ -68,92 +68,93 @@ while focusing on the meaning of the appointed times themselves.<br><button clas
     </div>
  
   </section>
+  
   <!-- Holy Days List -->
   <section class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-4">
     <div class="flex items-center justify-between">
       <h3 class="text-2xl font-bold text-blue-300">Holy Days</h3>
-      <p class="text-slate-400 text-sm" onclick="toggleSection(this)">Tap Info for deeper explanation ▼</p>
+      <p class="text-slate-400 text-sm">Tap Info for deeper explanation</p>
      
 
     </div>
 
     <div id="holyDayList" class="space-y-3">
 
-      <div class="rounded-xl bg-gray-900/60 p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h4 class="font-semibold text-lg">Passover</h4>
           <p class="text-slate-300 text-sm">Begins at sundown on April 1, 2026</p>
           <p class="text-slate-400 text-sm">Remembering deliverance from bondage.</p>
         </div>
         <div class="flex gap-2">
-          <button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500" onclick="openHolyDayDetails('passover')">Info</button>
+          <button class="hg-btn" onclick="openHolyDayDetails('passover')">Info</button>
           <button class="px-3 py-2 rounded bg-slate-700 hover:bg-slate-600" onclick="beginHolyDayExperience('passover')">Play</button>
         </div>
       </div>
 
-      <div class="rounded-xl bg-gray-900/60 p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h4 class="font-semibold text-lg">Feast of Unleavened Bread</h4>
           <p class="text-slate-300 text-sm">April 2–8, 2026</p>
           <p class="text-slate-400 text-sm">Leaving bondage behind and walking cleanly.</p>
         </div>
         <div class="flex gap-2">
-          <button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500" onclick="openHolyDayDetails('unleavened_bread')">Info</button>
+          <button class="hg-btn" onclick="openHolyDayDetails('unleavened_bread')">Info</button>
         </div>
       </div>
 
-      <div class="rounded-xl bg-gray-900/60 p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h4 class="font-semibold text-lg">First Fruits</h4>
           <p class="text-slate-300 text-sm">Spring 2026</p>
           <p class="text-slate-400 text-sm">The beginning of harvest and the promise of more to come.</p>
         </div>
         <div class="flex gap-2">
-          <button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500" onclick="openHolyDayDetails('first_fruits')">Info</button>
+          <button class="hg-btn" onclick="openHolyDayDetails('first_fruits')">Info</button>
         </div>
       </div>
 
-      <div class="rounded-xl bg-gray-900/60 p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h4 class="font-semibold text-lg">Pentecost / Shavuot</h4>
           <p class="text-slate-300 text-sm">Spring/Summer 2026</p>
           <p class="text-slate-400 text-sm">Weeks fulfilled, covenant remembered, Spirit given.</p>
         </div>
         <div class="flex gap-2">
-          <button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500" onclick="openHolyDayDetails('pentecost')">Info</button>
+          <button class="hg-btn" onclick="openHolyDayDetails('pentecost')">Info</button>
         </div>
       </div>
 
-      <div class="rounded-xl bg-gray-900/60 p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h4 class="font-semibold text-lg">Trumpets</h4>
           <p class="text-slate-300 text-sm">September 12, 2026</p>
           <p class="text-slate-400 text-sm">A call to awaken, gather, and prepare.</p>
         </div>
         <div class="flex gap-2">
-          <button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500" onclick="openHolyDayDetails('trumpets')">Info</button>
+          <button class="hg-btn" onclick="openHolyDayDetails('trumpets')">Info</button>
         </div>
       </div>
 
-      <div class="rounded-xl bg-gray-900/60 p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h4 class="font-semibold text-lg">Day of Atonement</h4>
           <p class="text-slate-300 text-sm">Autumn 2026</p>
           <p class="text-slate-400 text-sm">Repentance, mercy, and the seriousness of judgment.</p>
         </div>
         <div class="flex gap-2">
-          <button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500" onclick="openHolyDayDetails('atonement')">Info</button>
+          <button class="hg-btn" onclick="openHolyDayDetails('atonement')">Info</button>
         </div>
       </div>
 
-      <div class="rounded-xl bg-gray-900/60 p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h4 class="font-semibold text-lg">Tabernacles / Sukkot</h4>
           <p class="text-slate-300 text-sm">Autumn 2026</p>
           <p class="text-slate-400 text-sm">Dwelling, joy, and remembering the wilderness journey.</p>
         </div>
         <div class="flex gap-2">
-          <button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500" onclick="openHolyDayDetails('tabernacles')">Info</button>
+          <button class="hg-btn" onclick="openHolyDayDetails('tabernacles')">Info</button>
         </div>
       </div>
 
