@@ -141,5 +141,37 @@
     goToCard(0);
   }
 
+    (function () {
+      const cardSelector = document.getElementById("cardSelector");
+      const prevCardSelect = document.getElementById("prevCardSelect");
+      const nextCardSelect = document.getElementById("nextCardSelect");
+
+      if (!cardSelector || !prevCardSelect || !nextCardSelect) return;
+
+      function getSelectableOptions() {
+        return Array.from(cardSelector.options).filter(opt => opt.value);
+      }
+
+      function stepCardSelector(direction) {
+        const options = getSelectableOptions();
+        if (!options.length) return;
+
+        const currentValue = cardSelector.value;
+        let index = options.findIndex(opt => opt.value === currentValue);
+
+        if (index === -1) {
+          index = direction > 0 ? 0 : options.length - 1;
+        } else {
+          index = (index + direction + options.length) % options.length;
+        }
+
+        cardSelector.value = options[index].value;
+        cardSelector.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+      prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
+      nextCardSelect.addEventListener("click", () => stepCardSelector(1));
+
+
   document.addEventListener("DOMContentLoaded", init);
 })();
