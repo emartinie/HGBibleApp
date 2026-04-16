@@ -598,39 +598,6 @@
         margin: 0 auto;
       }
     }
-
-    .hg-outline-card{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:16px;
-  padding:12px 14px;
-  margin-bottom:10px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.hg-outline-title{
-  font-size:.85rem;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:#f3c878;
-  font-weight:700;
-}
-
-.hg-outline-list{
-  margin:0;
-  padding-left:16px;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-
-.hg-outline-list li{
-  font-size:.92rem;
-  color:#dbe8ff;
-  line-height:1.35;
-}
   </style>
 </head>
 
@@ -639,16 +606,6 @@
 
     <header id="topBar">
       <div class="toolbar">
-        <button
-  type="button"
-  id="openScriptureHeaderBtn"
-  class="p-2 rounded-full bg-yellow-800 border border-orange-500 text-red-300">
-  📖
-</button>
-       <!-- <button id="openScriptureHeaderBtn" class="p-2 rounded-full bg-slate-800 border border-cyan-500 text-cyan-300"
-          onclick="openDockCModal()">
-          📖
-        </button>-->
         <select id="weekSelect" class="ui-select" aria-label="Select week">
           <option>Week 1</option>
         </select>
@@ -667,22 +624,21 @@
       <select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
         <option value="">Select Card</option>
         <option value="omercount">Omer Count</option>
-        <option value="today">Today</option>
-        <option value="frontporch">Front Porch</option>
-        <option value="map">Map</option>
         <option value="calendar">Calendar</option>
+        <option value="frontporch">Front Porch</option>
         <option value="studyhub">Study Hub</option>
+        <option value="map">Map</option>
         <option value="alephbet">Alephbet</option>
         <option value="origins">Origins</option>
-        <option value="trivia">Bible Trivia</option>
-        <option value="biblebingo">Bible Bingo</option>
+        <option value="trivia">Trivia</option>
+        <option value="bingo">Bingo</option>
         <option value="jeopardy">Jeopardy</option>
         <option value="prayermap">Prayer Map</option>
         <option value="beready">Be-Ready</option>
         <option value="amateurRadio">Amateur Radio</option>
         <option value="radioMapCard">Radio Map</option>        
         <option value="missler">Chuck Missler</option>
-        <option value="prezis">Prezis</option>
+        <option value="prezi">Prezis</option>
         <option value="podcast">Podcast</option>
         <option value="quizzes">Quizzes</option>
         <option value="nt">NT Page</option>
@@ -690,7 +646,7 @@
         <option value="intertext-quotes">Quotes Page</option>
         <option value="listen">"Listen"</option>
         <option value="sources">Sources</option>
-        <option value="stewardship-card.html">Stewardship</option>
+        <option value="stewardship-Card">Stewardship</option>
         <option value="lastomercount">Last Omer Count</option>
         <option value="oldomercount">Old Omer Count</option> 
         <option value="test">TEST</option>  
@@ -820,11 +776,42 @@
 
   <script src="js/app.js"></script>
   <script src="js/mainstage.js"></script>
-  <script src="js/modal.js"></script>
-<!--<script src="js/loadCommentary.js"></script>-->
-  <script src="js/SAVEorbitFloatingPlayer.js"></script>
-    
+  <!--<script src="js/loadCommentary.js"></script>-->
+  <!--<script src="js/orbitFloatingPlayer.js"></script>-->
 
+  <script>
+    (function () {
+      const cardSelector = document.getElementById("cardSelector");
+      const prevCardSelect = document.getElementById("prevCardSelect");
+      const nextCardSelect = document.getElementById("nextCardSelect");
+
+      if (!cardSelector || !prevCardSelect || !nextCardSelect) return;
+
+      function getSelectableOptions() {
+        return Array.from(cardSelector.options).filter(opt => opt.value);
+      }
+
+      function stepCardSelector(direction) {
+        const options = getSelectableOptions();
+        if (!options.length) return;
+
+        const currentValue = cardSelector.value;
+        let index = options.findIndex(opt => opt.value === currentValue);
+
+        if (index === -1) {
+          index = direction > 0 ? 0 : options.length - 1;
+        } else {
+          index = (index + direction + options.length) % options.length;
+        }
+
+        cardSelector.value = options[index].value;
+        cardSelector.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+      prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
+      nextCardSelect.addEventListener("click", () => stepCardSelector(1));
+    })();
+  </script>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
@@ -844,6 +831,7 @@
 
     <div id="miniModalContent" class="text-sm text-slate-200 space-y-2"></div>
 
+<div id="miniModalContent" class="text-sm text-slate-200 space-y-2"></div>
 
 <div class="mt-4 flex justify-center">
   <button id="miniModalDeeperBtn"
@@ -851,92 +839,6 @@
     Go Deeper
   </button>
 </div>
-
-          <!-- ============================= -->
-    <!--  Modal Script    -->
-    <!-- ============================= -->
-    <!-- 🎧 DOCK C — Scripture Modal -->
-    <!-- ============================= -->
-    <div id="dockC-modal"
-      class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[9998] items-center justify-center hidden">
-
-      <div id="dockC-inner" class="relative">
-        <!-- FLIP WRAPPER -->
-        <div id="dockC-flipWrapper">
-
-          <!-- FRONT: Scripture + Commentary -->
-          <div class="flip-face front">
-            <div class="flex items-center justify-between mb-1 text-align:center">
-              <h2 class="text-orange-300 text-lg font-semibold">
-                Scripture & Commentary
-              </h2>
-              <div class="flex gap-3 items-center text-sm text-slate-300">
-                <span id="modalWeekLabel"></span> ___
-              </div>
-            </div>
-
-            <div class="face-scroll">
-              <div id="scriptureBox"></div>
-              <div id="commentaryBox"></div>
-            </div>
-          </div>
-
-          <!-- BACK: Articles -->
-          <div class="flip-face back">
-            <div class="flex items-center justify-between mb-1">
-              <h2 class="text-orange-300 text-lg font-semibold">
-                Articles & Reader
-              </h2>
-              <span class="text-xs text-slate-400">
-                (Click An Article to Load It Below the List)
-              </span>
-            </div>
-
-            <div class="face-scroll">
-              <div id="articleListBox">
-
-                <div id="articlelist"></div>
-              </div>
-
-              <div id="articleViewer">
-                <p class="text-sm text-slate-300">
-                  When you click an article title, you can load its HTML here.
-                </p>
-                <div id="articleModal">
-                  <h2 id="articleTitle"></h2>
-                  <div id="articleContent"></div>
-                </div>
-
-
-                <!-- <div id="articlePager" class="pager hidden">
-          <button id="articlePrevBtn">◀</button>
-          <span id="articlePagerStatus"></span>
-          <button id="articleNextBtn">▶</button>
-          </div> -->
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CLOSE BUTTON -->
-        <button type="button" onclick="closeDockCModal()"
-          class="absolute top-2 right-3 text-2xl text-slate-400 hover:text-white">
-          ✕
-        </button>
-
-        <button type="button" id="flipModalBtn" class="absolute top-2 left-1/2 -translate-x-1/2
-         px-3 py-1 rounded-full
-         text-sm font-semibold
-         text-orange-200 hover:text-white
-         bg-cyan-500/10 hover:bg-cyan-500/20
-         border border-orange-400/40
-         backdrop-blur
-         shadow-md hover:shadow-orange-500/30
-         transition-all">
-          🔁 FlipOver
-        </button>
-      </div>
-    </div>
 
   </div>
 </div>
