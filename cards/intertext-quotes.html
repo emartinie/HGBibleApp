@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NT–OT Quotations</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      line-height: 1.6;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .entry {
+      border-bottom: 1px solid #ddd;
+      padding: 1rem 0;
+    }
+    .nt {
+      font-weight: bold;
+    }
+    .ot {
+      margin-left: 1rem;
+    }
+    .label {
+      font-size: 0.85em;
+      color: #667;
+      margin-top: 0.25rem;
+    }
+
+/* default stacked */
+.witnesses {
+  display: block;
+}
+
+/* side-by-side mode */
+.side-by-side .witnesses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+  </style>
+  <!-- Reuse existing Tailwind CDN for now (no new CSS yet) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+<body class="bg-slate-900 text-slate-100">
+
+  <main class="max-w-4xl mx-auto px-4 py-8">
+
+    <header class="mb-10">
+  <h1 class="text-3xl font-semibold mb-3">
+    Explicit NT Quotations of the Hebrew Scriptures
+  </h1>
+  <p class="text-slate-400 leading-relaxed">
+    This dataset records explicit New Testament quotations of the Hebrew Scriptures.
+    It makes no claim to completeness and does not attempt to identify allusions. These quotations show how New Testament authors engaged existing Hebrew textual traditions already circulating in their time.
+  </p>
+</header>
+
+<div class="mb-6 flex gap-4 items-center">
+  <select id="bookFilter" class="bg-slate-800 text-slate-200 p-2 rounded">
+    <option value="">All NT Books</option>
+  </select>
+
+  <button id="expandAll" class="text-sm text-cyan-400">
+    Expand all witnesses
+  </button>
+
+  <button
+    id="viewToggle"
+    class="text-sm text-cyan-400 hover:underline"
+    type="button">
+    Side-by-Side View
+  </button>
+</div>
+
+</div>
+
+
+<section id="nt-quotes" class="space-y-6"></section>
+
+<script src="js/intertext-quotes.js"></script>
+<script>
+document.getElementById("viewToggle").onclick = () => {
+  document
+    .getElementById("nt-quotes")
+    .classList.toggle("side-by-side");
+};
+</script>
+</body>
+</html>
