@@ -169,15 +169,35 @@
     }, { passive: true });
   }
 
-  function init() {
-    wireCardNavButtons();
-    wireSwipe();
-    wireKeyboard();
-    wireCardSelector();
-    wireCardSelectorStepButtons();
-    syncCurrentCardOnScroll();
-    goToCard(0);
+  function loadFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const card = params.get("card");
+
+  if (card) {
+    console.log("🌐 Loading from URL:", card);
+
+    // set dropdown so UI stays in sync
+    if (cardSelector) {
+      cardSelector.value = card;
+    }
+
+    loadCard(card);
   }
+}
+
+function init() {
+  wireCardNavButtons();
+  wireSwipe();
+  wireKeyboard();
+  wireCardSelector();
+  wireCardSelectorStepButtons();
+  syncCurrentCardOnScroll();
+
+  loadFromUrl(); // 👈 
+
+if (!window.location.search.includes("card=")) {
+  goToCard(0);
+}}
 
   document.addEventListener("DOMContentLoaded", init);
 })();
