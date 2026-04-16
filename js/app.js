@@ -3,6 +3,8 @@
   const cards = Array.from(document.querySelectorAll(".card"));
   const cardSelector = document.getElementById("cardSelector");
   const loadedCardHost = document.getElementById("loadedCardHost");
+  const prevCardSelect = document.getElementById("prevCardSelect");
+  const nextCardSelect = document.getElementById("nextCardSelect");
 
   let currentCardIndex = 0;
   let loadedScript = null;
@@ -100,10 +102,43 @@
 
   function wireCardSelector() {
     if (!cardSelector) return;
+
     cardSelector.addEventListener("change", () => {
       const value = cardSelector.value;
       if (value) loadCard(value);
     });
+  }
+
+  function getSelectableOptions() {
+    if (!cardSelector) return [];
+    return Array.from(cardSelector.options).filter(opt => opt.value);
+  }
+
+  function stepCardSelector(direction) {
+    const options = getSelectableOptions();
+    if (!options.length || !cardSelector) return;
+
+    const currentValue = cardSelector.value;
+    let index = options.findIndex(opt => opt.value === currentValue);
+
+    if (index === -1) {
+      index = direction > 0 ? 0 : options.length - 1;
+    } else {
+      index = (index + direction + options.length) % options.length;
+    }
+
+    cardSelector.value = options[index].value;
+    cardSelector.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
+  function wireCardSelectorStepButtons() {
+    if (prevCardSelect) {
+      prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
+    }
+
+    if (nextCardSelect) {
+      nextCardSelect.addEventListener("click", () => stepCardSelector(1));
+    }
   }
 
   function syncCurrentCardOnScroll() {
@@ -112,6 +147,7 @@
     let ticking = false;
     cardsRow.addEventListener("scroll", () => {
       if (ticking) return;
+
       requestAnimationFrame(() => {
         const left = cardsRow.scrollLeft;
         let nearest = 0;
@@ -128,6 +164,7 @@
         currentCardIndex = nearest;
         ticking = false;
       });
+
       ticking = true;
     }, { passive: true });
   }
@@ -137,41 +174,10 @@
     wireSwipe();
     wireKeyboard();
     wireCardSelector();
+    wireCardSelectorStepButtons();
     syncCurrentCardOnScroll();
     goToCard(0);
   }
-
-    (function () {
-      const cardSelector = document.getElementById("cardSelector");
-      const prevCardSelect = document.getElementById("prevCardSelect");
-      const nextCardSelect = document.getElementById("nextCardSelect");
-
-      if (!cardSelector || !prevCardSelect || !nextCardSelect) return;
-
-      function getSelectableOptions() {
-        return Array.from(cardSelector.options).filter(opt => opt.value);
-      }
-
-      function stepCardSelector(direction) {
-        const options = getSelectableOptions();
-        if (!options.length) return;
-
-        const currentValue = cardSelector.value;
-        let index = options.findIndex(opt => opt.value === currentValue);
-
-        if (index === -1) {
-          index = direction > 0 ? 0 : options.length - 1;
-        } else {
-          index = (index + direction + options.length) % options.length;
-        }
-
-        cardSelector.value = options[index].value;
-        cardSelector.dispatchEvent(new Event("change", { bubbles: true }));
-      }
-
-      prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
-      nextCardSelect.addEventListener("click", () => stepCardSelector(1));
-
 
   document.addEventListener("DOMContentLoaded", init);
 })();
