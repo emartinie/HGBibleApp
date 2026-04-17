@@ -1,194 +1,110 @@
-<section class="hg-card-module">
-  <style>
-    .hg-card-module{
-      color:#eef3ff;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
+<style>
+.study-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.7);
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  transition: 0.2s ease;
+}
 
-    .hg-card-head{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
+.study-link-btn:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(251, 146, 60, 0.45);
+}
+</style>
 
-    .hg-card-kicker{
-      font-size:.72rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:#a8b2c7;
-    }
+<section class="hg-panel">
+  <div class="hg-section-label">Study Table</div>
 
-    .hg-card-title{
-      margin:0;
-      font-size:1.15rem;
-      font-weight:800;
-      color:#ffe7b0;
-      line-height:1.1;
-    }
+  <div class="p-6 text-slate-200">
+    <div class="space-y-6">
 
-    .hg-card-sub{
-      margin:0;
-      color:#a8b2c7;
-      font-size:.92rem;
-      line-height:1.45;
-    }
+      <div>
+        <h3 class="text-2xl font-semibold text-orange-300">StudyHub / SermonPrep</h3>
+        <p class="text-slate-400 text-sm mt-1">
+          A kitchen table for study, sermon prep, and pulling together the right resources without the noise.
+        </p>
+      </div>
 
-    .hg-panel{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;
-      padding:14px;
-    }
-
-    .hg-section-label{
-      font-size:.72rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:#f3c878;
-      margin-bottom:8px;
-    }
-
-    .hg-empty{
-      color:#a8b2c7;
-      font-size:.92rem;
-      padding:14px;
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:14px;
-      text-align:center;
-    }
-
-    .hg-btn-row{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .hg-btn{
-      border:none;
-      border-radius:999px;
-      min-height:40px;
-      padding:0 14px;
-      background:rgba(255,255,255,.07);
-      color:#eef3ff;
-      border:1px solid rgba(255,255,255,.10);
-      font:inherit;
-    }
-  </style>
-
- <!-- <header class="hg-card-head">
-    <div class="hg-card-kicker">StudyHub Card Loaded Dynamically</div>
-    <h2 class="hg-card-title">StudyHub/ SermonPrep</h2>
-    <p class="hg-card-sub">Prepare faithful bible studies with deeper study. Walk through Observation, Interpretation, Correlation, and Application with AI guidance.</p>
-  </header>-->
-
-  <section class="hg-panel">
-    <div class="hg-section-label">Magic Section</div>
-    <div class="hg-empty">
-                  <div class="p-6 text-center text-slate-300 text-sm">
-
-              <div class="card-inner">
-                <div class="space-y-4">
-                  <h3 class="text-xl font-semibold">Study Content</h3>
-
-                  <p class="text-slate-400 text-sm">
-                    Access study tools and reference material. You can enable or disable sections later.
-                  </p>
-                  <div class="grid gap-3">
-
-
-                    <button onclick="
-  getResource('porchPanel')?.openPorchPanel(
-    'Test',
-    '<p>Hello from PorchPanel</p>'
-          <button class='mt-4 w-full py-2 bg-orange-600 rounded text-white'
-        onclick='getResource('htmlPanel')?.open('https://example.com', 'Scripture')'
-      >
-        Open Sources
-      </button>
-  )
-">
-                      Open Panel
-                    </button>
-
-                  </div>
-                </div>
-              </div>
-
-
-              <!-- Intro -->
-              <div>
-                <h3 class="text-xl font-semibold text-orange-300">More</h3>
-                <p class="text-slate-400 text-sm mt-1">
-                  Scripture. Context. Understanding. No noise.
-                </p>
-              </div>
-
-              <!-- Scripture Focus -->
-              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
-                <h4 class="text-slate-200 font-semibold mb-2">📖 Read the Word</h4>
-                <p class="text-slate-400 text-sm mb-3">
-                  Start with the text itself — clear, structured, distraction-free.
-                </p>
-                <a href="nt.html" class="study-link">Open NT Reader</a>
-              </div>
-
-              <!-- Context & Cross-References -->
-              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
-                <h4 class="text-slate-200 font-semibold mb-2">🔗 Scripture Connections</h4>
-                <p class="text-slate-400 text-sm mb-3">
-                  See how the New Testament quotes and reflects the Hebrew Scriptures.
-                </p>
-                <a href="intertext-quotes.html" class="study-link">View Intertext Quotations</a>
-              </div>
-
-              <!-- Commentary -->
-              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
-                <h4 class="text-slate-200 font-semibold mb-2">📝 Commentary</h4>
-                <p class="text-slate-400 text-sm mb-3">
-                  Deeper insights and teaching material (when you're ready).
-                </p>
-                <a href="#" class="study-link opacity-50 cursor-not-allowed">
-                  Commentary (Coming Soon)
-                </a>
-              </div>
-
-              <!-- Sources -->
-              <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
-                <h4 class="text-slate-200 font-semibold mb-2">📚 Sources</h4>
-                <p class="text-slate-400 text-sm mb-3">
-                  Ancient witnesses, textual references, and historical sources.
-                </p>
-                <a href="sources.html" class="study-link">Open Sources</a>
-              </div>
-
-              <!-- Gentle Footer -->
-              <div class="text-xs text-slate-500 italic">
-                “Let the Word speak first.”
-              </div>
-
-            </div>
-
+      <div class="rounded-2xl bg-slate-800/60 border border-slate-700/60 p-4">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <div>
+            <h4 class="text-slate-100 font-semibold">This Week</h4>
+            <p id="studyhubWeekText" class="text-slate-400 text-sm mt-1">
+              Quick access to the current study flow.
+            </p>
           </div>
-        </section>
 
-        <script>
-          function getStudyContext() {
-            const week = typeof getSelectedWeekNumber === "function"
-              ? getSelectedWeekNumber()
-              : 1;
+          <button id="studyhubRefreshBtn" class="study-link-btn">
+            Refresh Context
+          </button>
+        </div>
+      </div>
 
-            return {
-              week,
-              // future:
-              // book,
-              // chapter,
-              // cardId
-            };
-          }
-        </script>
-        
+      <div class="grid gap-4 md:grid-cols-2">
+
+        <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+          <h4 class="text-slate-200 font-semibold mb-2">📖 Read the Word</h4>
+          <p class="text-slate-400 text-sm mb-3">
+            Open the NT reader and stay inside the app.
+          </p>
+          <button id="openNtReaderBtn" class="study-link-btn">
+            Open NT Reader
+          </button>
+        </div>
+
+        <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+          <h4 class="text-slate-200 font-semibold mb-2">🔗 Scripture Connections</h4>
+          <p class="text-slate-400 text-sm mb-3">
+            View quotations, echoes, and cross-scripture relationships.
+          </p>
+          <button id="openIntertextBtn" class="study-link-btn">
+            View Intertext Quotations
+          </button>
+        </div>
+
+        <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+          <h4 class="text-slate-200 font-semibold mb-2">📚 Sources</h4>
+          <p class="text-slate-400 text-sm mb-3">
+            Ancient witnesses, historical references, and source material.
+          </p>
+          <button id="openSourcesBtn" class="study-link-btn">
+            Open Sources
+          </button>
+        </div>
+
+        <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
+          <h4 class="text-slate-200 font-semibold mb-2">📝 Prep Table</h4>
+          <p class="text-slate-400 text-sm mb-3">
+            Observation, interpretation, correlation, and application will live here.
+          </p>
+          <button id="openPrepNotesBtn" class="study-link-btn">
+            Prep Notes
+          </button>
+        </div>
+
+        <div class="rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left md:col-span-2">
+          <h4 class="text-slate-200 font-semibold mb-2">☕ Shared Table</h4>
+          <p class="text-slate-400 text-sm mb-3">
+            Future homegroup / shared study room space for virtual table experiences.
+          </p>
+          <button type="button" class="study-link-btn opacity-70">
+            Shared Table (Coming Soon)
+          </button>
+        </div>
+
+      </div>
+
+      <div class="text-xs text-slate-500 italic">
+        “Let the Word speak first.”
+      </div>
+
     </div>
-  </section>
+  </div>
 </section>
