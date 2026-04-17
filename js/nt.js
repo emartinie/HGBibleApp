@@ -485,7 +485,46 @@ function loadBookTiles() {
     .catch(err => {
       console.error(err);
       if (root) {
-        root.innerHTML = "<p class='text-red-400'>Error loading content.</p>";
+root.innerHTML = `
+  <section class="space-y-4">
+    <div class="rounded-2xl border border-red-500/40 bg-red-900/20 p-5">
+      <h2 class="text-lg font-semibold text-red-300">Something went wrong</h2>
+
+      <p class="text-slate-300 text-sm mt-2">
+        We couldn’t load this content. It may be missing or temporarily unavailable.
+      </p>
+
+      <div class="mt-4 flex gap-2 flex-wrap">
+        <button id="ntRetryBtn"
+          class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm">
+          Try Again
+        </button>
+
+        <button id="ntHomeBtn"
+          class="px-3 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white text-sm">
+          Back to NT Landing
+        </button>
+      </div>
+    </div>
+  </section>
+`;
+        document.getElementById("ntRetryBtn")?.addEventListener("click", () => {
+  window.loadCard?.("nt");
+});
+
+document.getElementById("ntHomeBtn")?.addEventListener("click", () => {
+  const url = new URL(window.location.href);
+
+  url.searchParams.set("card", "nt");
+  url.searchParams.delete("book");
+  url.searchParams.delete("chapter");
+  url.searchParams.delete("view");
+  url.searchParams.delete("section");
+
+  window.history.replaceState({}, "", url);
+
+  window.loadCard?.("nt");
+});
       }
     });
 })();
