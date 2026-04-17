@@ -160,7 +160,7 @@
       // Optional panel-first behavior:
       if (view === "panel" && section && ch[section]) {
         const href =
-          `nt.html?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(section)}`;
+          `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(section)}`;
         openPanel(`${book} — Ch ${chapter} — ${section}`, 
         buildPanelSection(`${book} — Ch ${chapter}`, ch[section], href));
       }
@@ -217,7 +217,7 @@ function loadBookTiles() {
 
   books.forEach(book => {
     const tile = document.createElement("a");
-    tile.href = `nt.html?book=${encodeURIComponent(book)}&view=introduction`;
+    tile.href = `${NT_BASE}?book=${encodeURIComponent(book)}&view=introduction`;
 
     tile.style.cssText = `
       display:block;
@@ -252,10 +252,10 @@ function renderIntroduction(book, intro) {
     return;
   }
 
-  const linkIntro = `cards/nt.html?book=${encodeURIComponent(book)}&view=introduction`;
-  const linkCh1 = `cards/nt.html?book=${encodeURIComponent(book)}&chapter=1`;
-  const linkSum = `cards/nt.html?book=${encodeURIComponent(book)}&chapter=1&section=summary`;
-  const linkRQ  = `cards/nt.html?book=${encodeURIComponent(book)}&chapter=1&section=reviewQuestions`;
+  const linkIntro = `${NT_BASE}?book=${encodeURIComponent(book)}&view=introduction`;
+  const linkCh1 = `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=1`;
+  const linkSum = `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=1&section=summary`;
+  const linkRQ  = `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=1&section=reviewQuestions`;
 
   root.innerHTML = `
     <section class="mb-6">
@@ -333,11 +333,11 @@ function renderChapterNav(book, chapter) {
   const ch = Number(chapter); // 🔑 THIS IS THE FIX
 
   const prev = ch > 1
-    ? `<a href="nt.html?book=${encodeURIComponent(book)}&chapter=${ch - 1}">← Previous</a>`
+    ? `<a href="${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${ch - 1}">← Previous</a>`
     : `<span style="opacity:0.4;">← Previous</span>`;
 
   const next =
-    `<a href="nt.html?book=${encodeURIComponent(book)}&chapter=${ch + 1}">Next →</a>`;
+    `<a href="${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${ch + 1}">Next →</a>`;
 
   nav.innerHTML = `
     <div style="
@@ -363,7 +363,7 @@ function renderChapterNav(book, chapter) {
 
   // Build link to THIS exact section (shareable)
   const href =
-    `cards/nt.html?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(id)}`;
+    `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(id)}`;
 
   const paragraphs = text
     .replace(/\r\n/g, "\n")
