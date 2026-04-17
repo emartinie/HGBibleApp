@@ -4,7 +4,7 @@
   const chapter = params.get("chapter");
   const view = params.get("view");
   const section = params.get("section");
-
+  const NT_BASE = "cards/nt.html";
   const root = document.getElementById("nt-root");
 
   // ---------- PANEL HELPERS ----------
@@ -252,10 +252,10 @@ function renderIntroduction(book, intro) {
     return;
   }
 
-  const linkIntro = `nt.html?book=${encodeURIComponent(book)}&view=introduction`;
-  const linkCh1 = `nt.html?book=${encodeURIComponent(book)}&chapter=1`;
-  const linkSum = `nt.html?book=${encodeURIComponent(book)}&chapter=1&section=summary`;
-  const linkRQ  = `nt.html?book=${encodeURIComponent(book)}&chapter=1&section=reviewQuestions`;
+  const linkIntro = `cards/nt.html?book=${encodeURIComponent(book)}&view=introduction`;
+  const linkCh1 = `cards/nt.html?book=${encodeURIComponent(book)}&chapter=1`;
+  const linkSum = `cards/nt.html?book=${encodeURIComponent(book)}&chapter=1&section=summary`;
+  const linkRQ  = `cards/nt.html?book=${encodeURIComponent(book)}&chapter=1&section=reviewQuestions`;
 
   root.innerHTML = `
     <section class="mb-6">
@@ -363,7 +363,7 @@ function renderChapterNav(book, chapter) {
 
   // Build link to THIS exact section (shareable)
   const href =
-    `nt.html?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(id)}`;
+    `cards/nt.html?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(id)}`;
 
   const paragraphs = text
     .replace(/\r\n/g, "\n")
