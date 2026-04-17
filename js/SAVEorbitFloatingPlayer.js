@@ -11,7 +11,7 @@ if (window.__floatingPlayerLoaded) {
 } else {
   window.__floatingPlayerLoaded = true;
 
-  // 👇 PUT THE REST OF YOUR FILE BELOW THIS LINE
+  // 👇 PUT THE REST OF FILE BELOW THIS LINE
  
 function setupFloatingPlayer() {
   const existing = document.getElementById("floatingPlayer");
