@@ -515,6 +515,9 @@ root.innerHTML = `
 document.getElementById("ntHomeBtn")?.addEventListener("click", () => {
   const url = new URL(window.location.href);
 
+  document.getElementById("ntQuotesBtn")?.addEventListener("click", () => {
+  const url = new URL(window.location.href);
+
   url.searchParams.set("card", "nt");
   url.searchParams.delete("book");
   url.searchParams.delete("chapter");
