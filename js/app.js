@@ -200,4 +200,7 @@ if (!window.location.search.includes("card=")) {
 }}
 
   document.addEventListener("DOMContentLoaded", init);
+
+window.loadCard = loadCard;
+  
 })();
