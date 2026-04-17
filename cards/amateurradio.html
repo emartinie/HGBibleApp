@@ -1,0 +1,161 @@
+<style>
+  .ar-card .ar-section {
+  margin-top: 0;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.15);
+}
+
+.ar-card .ar-title {
+  font-weight: 600;
+  color: #fdba74;
+  margin-bottom: 0.75rem;
+}
+
+.ar-card .ar-links,
+.ar-card .ar-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.ar-card .ar-link,
+.ar-card .ar-btn {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(30, 41, 59, 0.75);
+  color: #e2e8f0;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.ar-card .ar-link:hover,
+.ar-card .ar-btn:hover {
+  background: rgba(51, 65, 85, 0.95);
+  transform: translateY(-1px);
+}
+
+.ar-card .ar-list {
+  padding-left: 1rem;
+}
+
+.ar-card .ar-list li {
+  color: #cbd5e1;
+}
+</style>
+<section class="hg-panel ar-card">
+  <div class="label-pill text-slate-400">Comms</div>
+
+  <div class="p-5 space-y-5">
+    <div class="card-inner space-y-5">
+
+      <div class="text-center">
+        <h2 class="text-xl font-semibold text-orange-300">📻 Amateur Radio Table</h2>
+        <p class="text-sm text-slate-300">
+          Field manuals, emergency communication tools, frequencies, and practical references.
+        </p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2">
+
+        <section class="ar-section">
+          <h3 class="ar-title">📻 Amateur Radio Tools</h3>
+          <div class="ar-links">
+            <a href="https://www.arrl.org" target="_blank" rel="noopener noreferrer" class="ar-link">ARRL</a>
+            <a href="https://repeaterbook.com" target="_blank" rel="noopener noreferrer" class="ar-link">RepeaterBook</a>
+            <a href="https://www.radioreference.com" target="_blank" rel="noopener noreferrer" class="ar-link">RadioReference</a>
+            <a href="https://websdr.org" target="_blank" rel="noopener noreferrer" class="ar-link">WebSDR</a>
+          </div>
+        </section>
+
+        <section class="ar-section">
+          <h3 class="ar-title">🚨 Emergency Communication</h3>
+          <div class="ar-links">
+            <a href="https://www.ready.gov/kit" target="_blank" rel="noopener noreferrer" class="ar-link">Build Emergency Kit</a>
+            <a href="https://www.dhs.gov" target="_blank" rel="noopener noreferrer" class="ar-link">Homeland Security</a>
+            <a href="https://www.redcross.org" target="_blank" rel="noopener noreferrer" class="ar-link">Red Cross</a>
+            <button type="button" class="ar-btn" id="arOfflineGuideBtn">Offline Comms Guide</button>
+          </div>
+        </section>
+
+        <section class="ar-section">
+          <h3 class="ar-title">📡 Quick Frequencies</h3>
+          <ul class="ar-list">
+            <li>146.520 MHz — National Simplex</li>
+            <li>446.000 MHz — UHF Simplex</li>
+            <li>462.5625 MHz — GMRS Channel 1</li>
+            <li>121.500 MHz — Emergency</li>
+          </ul>
+        </section>
+
+        <section class="ar-section">
+          <h3 class="ar-title">🎒 Radio Gear</h3>
+          <ul class="ar-list">
+            <li>Handheld Radio</li>
+            <li>Extra Batteries</li>
+            <li>Solar Charger</li>
+            <li>Long Wire Antenna</li>
+          </ul>
+          <button type="button" class="ar-btn mt-3" id="arLoadoutBtn">Build Loadout</button>
+        </section>
+
+        <section class="ar-section">
+          <h3 class="ar-title">📻 Comms Control</h3>
+          <div class="grid gap-2">
+            <button type="button" class="ar-btn" data-freq="146.520">VHF Simplex (146.520)</button>
+            <button type="button" class="ar-btn" data-freq="446.000">UHF Simplex (446.000)</button>
+            <button type="button" class="ar-btn" data-freq="462.5625">GMRS Ch 1</button>
+            <button type="button" class="ar-btn" id="arScanModeBtn">Scan Mode</button>
+            <button type="button" class="ar-btn" id="arRepeatersBtn">Repeaters</button>
+          </div>
+        </section>
+
+        <section class="ar-section">
+          <h3 class="ar-title">🗣 Net / Check-In</h3>
+          <div class="grid gap-2">
+            <button type="button" class="ar-btn" id="arCheckInBtn">Check In</button>
+            <button type="button" class="ar-btn" id="arActiveNetsBtn">Active Nets</button>
+            <button type="button" class="ar-btn" id="arLogContactBtn">Log Contact</button>
+            <button type="button" class="ar-btn" id="arCenterMapBtn">Center Map on Signal</button>
+          </div>
+        </section>
+
+      </div>
+
+      <section class="bg-black/40 border border-slate-700/40 rounded-2xl p-5 text-center">
+        <h3 class="text-2xl font-semibold">Two is one, and one is none.</h3>
+        <p class="mt-2 text-lg font-medium">By failing to prepare, you are preparing to fail.</p>
+      </section>
+
+      <section class="space-y-3">
+        <div class="prepper-item">
+          <span class="prepper-icon">📻</span>
+          <div>
+            <div class="prepper-title">Emergency Communications</div>
+            <div class="prepper-meta">Signals • Nets • Frequencies</div>
+          </div>
+        </div>
+
+        <div class="prepper-item">
+          <span class="prepper-icon">🧭</span>
+          <div>
+            <div class="prepper-title">Field Reference Tools</div>
+            <div class="prepper-meta">Guides • Lookup • Quick Access</div>
+          </div>
+        </div>
+      </section>
+
+      <button
+        type="button"
+        class="w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700"
+        id="arBrowseLibraryBtn">
+        📂 Browse Full Library
+      </button>
+
+    </div>
+  </div>
+</section>
