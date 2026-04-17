@@ -17,6 +17,41 @@
       .replaceAll("'", "&#039;");
   }
 
+  function interceptNTLinks() {
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a");
+    if (!a) return;
+
+    const href = a.getAttribute("href");
+    if (!href) return;
+
+    // Only intercept NT links
+    if (!href.startsWith(NT_BASE)) return;
+
+    e.preventDefault();
+
+    const url = new URL(href, window.location.origin);
+    const params = url.searchParams;
+
+    // Build new app URL
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set("card", "nt");
+
+    ["book", "chapter", "view", "section"].forEach(key => {
+      const val = params.get(key);
+      if (val) newUrl.searchParams.set(key, val);
+      else newUrl.searchParams.delete(key);
+    });
+
+    window.history.replaceState({}, "", newUrl);
+
+    // 🔑 THIS reloads the NT card in-place
+    if (window.loadCard) {
+      window.loadCard("nt");
+    }
+  });
+}
+
   function renderReviewQuestions(text) {
   const lines = String(text || "").split("\n").map(l => l.trim()).filter(Boolean);
 
@@ -170,7 +205,7 @@
       root.innerHTML = "<p class='text-red-400'>Error loading content.</p>";
     });
 
-
+interceptNTLinks();
 
   // ---------- RENDERERS ----------
 
