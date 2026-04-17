@@ -1,5 +1,5 @@
 // orbitFloatingPlayer.js
-import { registerResource } from "/js/core/resourceManager.js";
+//import { registerResource } from "/js/core/resourceManager.js";
 
 let player = null;
 let audio = null;
