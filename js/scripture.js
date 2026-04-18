@@ -37,6 +37,10 @@
       .getElementById("scriptureReloadBtn")
       ?.addEventListener("click", loadScripture);
 
+    document
+      .getElementById("scriptureNextBtn")
+      ?.addEventListener("click", loadScripture);
+
     loadScripture();
   }
 
