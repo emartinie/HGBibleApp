@@ -66,6 +66,26 @@
     });
   }
 
+  async function loadExtraScript(src) {
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[data-src="${src}"]`);
+    if (existing) {
+      resolve();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = `${src}?v=${Date.now()}`;
+    script.defer = true;
+    script.dataset.src = src;
+
+    script.onload = resolve;
+    script.onerror = reject;
+
+    document.body.appendChild(script);
+  });
+}
+
   async function loadCard(cardName) {
     if (!loadedCardHost || !cardName) return;
 
@@ -82,6 +102,10 @@
         loadedScript.remove();
         loadedScript = null;
       }
+
+      if (cardName === "prayermap") {
+  await loadExtraScript("js/prayerStore.dev.js");
+}
 
       const script = document.createElement("script");
       script.src = `js/${cardName}.js?v=${Date.now()}`;
