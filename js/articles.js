@@ -1,8 +1,3 @@
-// --- articles.js ---
-console.log("🧾 Articles system online");
-
-const ARTICLE_FOLDER = "articles/";
-
 (function () {
 const articles = [
   { title: "Almost There, but Not Quite", file: "almost_there_but_not_quite.html" },
