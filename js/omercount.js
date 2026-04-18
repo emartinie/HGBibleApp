@@ -24,7 +24,7 @@
     !weekDayEl || !sefirahEl || !detailEl || !constellationEl || !linesEl ||
     !meditationTitleEl || !meditationTextEl || !meditationPrayerEl || !meditationScriptureEl
   ) {
-    console.warn("Omer card elements missing.");
+    console.warn(" card elements missing.");
     return;
   }
 
@@ -283,7 +283,7 @@
     const percent = (displayDay / 49) * 100;
 
     dayNumberEl.textContent = displayDay;
-    titleEl.textContent = `Today is ${formatWeeksDays(displayDay)} of the Omer`;
+    titleEl.textContent = `Today is ${formatWeeksDays(displayDay)} of the Omer counting`;
     hebrewEl.textContent = simpleHebrewDay(displayDay);
     weekDayEl.innerHTML = `<strong>Week / Day:</strong> ${getWeekDayLabel(displayDay)}`;
     sefirahEl.innerHTML = `<strong>Sefirah/ Attribute:</strong> ${sefirah.en}<br><span style="opacity:.78;font-weight:500;">${sefirah.he}</span>`;
