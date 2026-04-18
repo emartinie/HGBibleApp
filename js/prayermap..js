@@ -1,32 +1,75 @@
-// prayerMap.dev.js
-import { listenForPrayers } from './prayerStore.dev.js';
+console.log("🗺️ prayermap.js loaded");
 
-console.log("🗺️ prayerMap.dev.js loaded");
+(function () {
+  const mapEl = document.getElementById("prayerMap");
+  if (!mapEl) {
+    console.warn("⚠️ #prayerMap not found");
+    return;
+  }
 
-let prayerLayer = null;
-let mapInstance = null;
+  if (typeof L === "undefined") {
+    console.error("❌ Leaflet is not loaded");
+    return;
+  }
 
-// Store markers by ID so we can update/remove them
-const activeMarkers = {};
+  let prayerLayer = null;
+  let mapInstance = null;
+  let unsubscribe = null;
+  const activeMarkers = {};
 
-export const PrayerMap = {
-  init(map) {
-    console.log("🔥 PrayerMap.init CALLED", map);
+  function createPrayerMarker(prayer) {
+    let [lng, lat] = prayer.coordinates || [];
+    if (typeof lat !== "number" || typeof lng !== "number") return;
 
-    if (!map || !map.addLayer) {
-      console.error("❌ PrayerMap.init expected a Leaflet map object");
+    const marker = L.circleMarker([lat, lng], {
+      radius: 8,
+      fillColor: "#4a5568",
+      color: "#000",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+    }).addTo(prayerLayer);
+
+    marker.bindPopup(`
+      <strong>${prayer.name || "Anonymous"}</strong><br>
+      <p>${prayer.message || ""}</p>
+    `);
+
+    activeMarkers[prayer.id] = marker;
+  }
+
+  function updatePrayerMarker(prayer) {
+    const marker = activeMarkers[prayer.id];
+    if (!marker) {
+      createPrayerMarker(prayer);
       return;
     }
 
-    mapInstance = map;
+    const [lng, lat] = prayer.coordinates || [];
+    if (typeof lat !== "number" || typeof lng !== "number") return;
 
-    if (!prayerLayer) {
-      prayerLayer = L.layerGroup().addTo(mapInstance);
-      console.log("✅ prayerLayer created and added to map");
+    marker.setLatLng([lat, lng]);
+    marker.bindPopup(`
+      <strong>${prayer.name || "Anonymous"}</strong><br>
+      <p>${prayer.message || ""}</p>
+    `);
+  }
+
+  function removePrayerMarker(id) {
+    const marker = activeMarkers[id];
+    if (!marker) return;
+
+    prayerLayer.removeLayer(marker);
+    delete activeMarkers[id];
+  }
+
+  function initPrayerListener() {
+    if (typeof window.listenForPrayers !== "function") {
+      console.error("❌ listenForPrayers is not available on window");
+      return;
     }
 
-    // 🔥 Set up Firebase listener ONCE
-    listenForPrayers((change) => {
+    unsubscribe = window.listenForPrayers((change) => {
       console.log("📥 Prayer change received:", change);
 
       const { id, type, data } = change;
@@ -50,63 +93,47 @@ export const PrayerMap = {
       }
     });
   }
-};
 
-// -------------------------
-// Helper functions
-// -------------------------
+  function initMap() {
+    mapInstance = L.map(mapEl).setView([36.1, -87.4], 8);
 
-function createPrayerMarker(prayer) {
-  let [lng, lat] = prayer.coordinates;
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors"
+    }).addTo(mapInstance);
 
-  // Small jitter to separate overlapping markers
-  const jitterAmount = 0.00005;
-  let key = `${lat}_${lng}`;
-  if (activeMarkers[key]) {
-    lat += jitterAmount;
-    lng += jitterAmount;
-    key = `${lat}_${lng}`;
+    prayerLayer = L.layerGroup().addTo(mapInstance);
+
+    console.log("✅ Prayer map initialized");
   }
 
-  const marker = L.circleMarker([lat, lng], {
-    radius: 8,
-    fillColor: "#4a5568",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-  }).addTo(prayerLayer);
+  function wireUi() {
+    document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
+      alert("Add Prayer form coming next.");
+    });
 
-  marker.bindPopup(`
-    <strong>${prayer.name || "Anonymous"}</strong><br>
-    <p>${prayer.message || ""}</p>
-  `);
+    document.getElementById("prayTogetherBtn")?.addEventListener("click", () => {
+      alert("Pray Together flow coming next.");
+    });
 
-  // Track by Firebase ID
-  activeMarkers[prayer.id] = marker;
-}
+    document.getElementById("joinCommunityBtn")?.addEventListener("click", () => {
+      alert("Join Community flow coming next.");
+    });
 
-function updatePrayerMarker(prayer) {
-  const marker = activeMarkers[prayer.id];
-  if (!marker) {
-    // Marker not found? create it
-    createPrayerMarker(prayer);
-    return;
+    document.getElementById("prayerPorchCloseBtn")?.addEventListener("click", () => {
+      document.getElementById("prayerPorchPanel")?.classList.add("hidden");
+    });
   }
 
-  const [lng, lat] = prayer.coordinates;
-  marker.setLatLng([lat, lng]);
+  function init() {
+    initMap();
+    wireUi();
+    initPrayerListener();
+  }
 
-  marker.bindPopup(`
-    <strong>${prayer.name || "Anonymous"}</strong><br>
-    <p>${prayer.message || ""}</p>
-  `);
-}
+  init();
 
-function removePrayerMarker(id) {
-  const marker = activeMarkers[id];
-  if (!marker) return;
-
-  prayerLayer.removeLayer(marker);
-  delete activeMarkers[id];
-}
+  window.PrayerMapCleanup = function () {
+    if (typeof unsubscribe === "function") unsubscribe();
+    if (mapInstance) mapInstance.remove();
+  };
+})();
