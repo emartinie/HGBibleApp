@@ -1,8 +1,14 @@
 // firebase-init.dev.js
-import { initializeApp } 
+import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
-import { getFirestore } 
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  query,
+  orderBy
+}
 from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 console.log("🔥 firebase-init.dev.js loading");
@@ -17,6 +23,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+const db = getFirestore(app);
+
+// expose globals for non-module card scripts
+window.db = db;
+window.collection = collection;
+window.onSnapshot = onSnapshot;
+window.query = query;
+window.orderBy = orderBy;
 
 console.log("🔥 Firebase initialized");
