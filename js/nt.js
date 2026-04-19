@@ -224,56 +224,6 @@ function loadBookTiles() {
         <a href="${reviewLink}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center">
           Review
         </a>
-      </div>
-    `;
-
-    grid.appendChild(tile);
-  });
-}
-
-function loadBookTiles() {
-  const books = [
-    "Matthew","Mark","Luke","John","Acts","Romans",
-    "1 Corinthians","2 Corinthians","Galatians","Ephesians",
-    "Philippians","Colossians","1 Thessalonians","2 Thessalonians",
-    "1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James",
-    "1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"
-  ];
-
-  const grid = document.getElementById("nt-book-grid");
-  if (!grid) return;
-
-  books.forEach(bookName => {
-    const introLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`;
-    const ch1Link = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1`;
-    const summaryLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary`;
-    const reviewLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
-
-    const tile = document.createElement("div");
-    tile.className = "rounded-2xl border border-slate-700 bg-slate-900/70 p-4 shadow-lg";
-
-    tile.innerHTML = `
-      <div class="mb-3">
-        <div class="text-lg font-semibold text-cyan-200">${bookName}</div>
-        <div class="text-xs text-slate-400">Direct entry points</div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-2">
-        <a href="${introLink}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center">
-          Intro
-        </a>
-
-        <a href="${ch1Link}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center">
-          Chapter 1
-        </a>
-
-        <a href="${summaryLink}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center">
-          Summary
-        </a>
-
-        <a href="${reviewLink}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center">
-          Review
-        </a>
 
         <button
           type="button"
@@ -317,7 +267,13 @@ function loadBookTiles() {
       const backBtn = document.getElementById("ntBackToLanding");
       if (backBtn) {
         backBtn.addEventListener("click", () => {
-          window.history.replaceState({}, "", "?card=nt");
+          const url = new URL(window.location.href);
+          url.searchParams.set("card", "nt");
+          url.searchParams.delete("book");
+          url.searchParams.delete("chapter");
+          url.searchParams.delete("view");
+          url.searchParams.delete("section");
+          window.history.replaceState({}, "", url);
           window.loadCard?.("nt");
         });
       }
@@ -340,6 +296,54 @@ function loadBookTiles() {
       <div id="wordsToPonder"></div>
       <div id="reviewQuestions"></div>
     `;
+
+    function renderIntroduction(bookName, intro) {
+  setContextHeader(`${bookName} — Introduction`);
+  setSubContext("Book overview and study entry points.");
+
+  if (!root) return;
+
+  if (!intro?.rawText) {
+    root.innerHTML = "<p>No introduction available.</p>";
+    return;
+  }
+
+  const linkIntro = `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`;
+  const linkCh1 = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1`;
+  const linkSum = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary`;
+  const linkRQ = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
+
+  root.innerHTML = `
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold">Begin Study</h2>
+
+      <div class="flex gap-2 flex-wrap mt-3">
+        <a href="${linkCh1}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60">Read Chapter 1</a>
+        <a href="${linkSum}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60">Summary First</a>
+        <a href="${linkRQ}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60">Review Questions</a>
+
+        <button id="introPanelBtn"
+          class="px-3 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white">
+          Open Intro in Panel
+        </button>
+      </div>
+    </section>
+
+    <section class="reader-block reader-skin">
+      <pre>${escapeHtml(intro.rawText)}</pre>
+    </section>
+  `;
+
+  const btn = document.getElementById("introPanelBtn");
+  if (btn) {
+    btn.onclick = () => {
+      openPanel(
+        `${bookName} — Introduction`,
+        buildPanelSection(`${bookName} — Introduction`, intro.rawText, linkIntro)
+      );
+    };
+  }
+}
 
     renderChapterNav(bookName, chapterNum);
 
@@ -482,52 +486,49 @@ function loadBookTiles() {
         );
       }
     })
+
     .catch(err => {
-      console.error(err);
-      if (root) {
-root.innerHTML = `
-  <section class="space-y-4">
-    <div class="rounded-2xl border border-red-500/40 bg-red-900/20 p-5">
-      <h2 class="text-lg font-semibold text-red-300">Something went wrong</h2>
+  console.error(err);
 
-      <p class="text-slate-300 text-sm mt-2">
-        We couldn’t load this content. It may be missing or temporarily unavailable.
-      </p>
+  if (root) {
+    root.innerHTML = `
+      <section class="space-y-4">
+        <div class="rounded-2xl border border-red-500/40 bg-red-900/20 p-5">
+          <h2 class="text-lg font-semibold text-red-300">Something went wrong</h2>
 
-      <div class="mt-4 flex gap-2 flex-wrap">
-        <button id="ntRetryBtn"
-          class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm">
-          Try Again
-        </button>
+          <p class="text-slate-300 text-sm mt-2">
+            We couldn’t load this content. It may be missing or temporarily unavailable.
+          </p>
 
-        <button id="ntHomeBtn"
-          class="px-3 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white text-sm">
-          Back to NT Landing
-        </button>
-      </div>
-    </div>
-  </section>
-`;
-        document.getElementById("ntRetryBtn")?.addEventListener("click", () => {
-  window.loadCard?.("nt");
-});
+          <div class="mt-4 flex gap-2 flex-wrap">
+            <button id="ntRetryBtn"
+              class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm">
+              Try Again
+            </button>
 
-document.getElementById("ntHomeBtn")?.addEventListener("click", () => {
-  const url = new URL(window.location.href);
+            <button id="ntHomeBtn"
+              class="px-3 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white text-sm">
+              Back to NT Landing
+            </button>
+          </div>
+        </div>
+      </section>
+    `;
 
-  document.getElementById("ntQuotesBtn")?.addEventListener("click", () => {
-  const url = new URL(window.location.href);
-
-  url.searchParams.set("card", "nt");
-  url.searchParams.delete("book");
-  url.searchParams.delete("chapter");
-  url.searchParams.delete("view");
-  url.searchParams.delete("section");
-
-  window.history.replaceState({}, "", url);
-
-  window.loadCard?.("nt");
-});
-      }
+    document.getElementById("ntRetryBtn")?.addEventListener("click", () => {
+      window.loadCard?.("nt");
     });
+
+    document.getElementById("ntHomeBtn")?.addEventListener("click", () => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("card", "nt");
+      url.searchParams.delete("book");
+      url.searchParams.delete("chapter");
+      url.searchParams.delete("view");
+      url.searchParams.delete("section");
+      window.history.replaceState({}, "", url);
+      window.loadCard?.("nt");
+    });
+  }
+});
 })();
