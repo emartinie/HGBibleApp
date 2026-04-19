@@ -29,27 +29,23 @@ body.has-fullscreen-card {
   position: fixed !important;
   inset: 12px !important;
   z-index: 9999 !important;
-  width: auto !important;
-  height: auto !important;
-  max-width: none !important;
-  max-height: none !important;
-  margin: 0 !important;
-  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important; /* IMPORTANT */
 }
 
 /* Make inner wrappers fill available space */
 .card.card-fullscreen > *,
-.card.card-fullscreen .hg-panel,
-.card.card-fullscreen .card-content,
-.card.card-fullscreen .card-inner {
+.card.card-fullscreen .hg-panel {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
 /* Let panels scroll instead of the page */
-.card.card-fullscreen .hg-panel,
-.card.card-fullscreen .card-content,
-.card.card-fullscreen .card-inner {
-  overflow: auto;
+.card.card-fullscreen .hg-panel {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Optional: slightly stronger shell when expanded */
