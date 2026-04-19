@@ -159,7 +159,7 @@
   }
 
 function renderNTLanding() {
-  setContextHeader("New Testament Reader");
+  setContextHeader("My New Testament Notes");
   setSubContext("Choose a book and jump straight to the part you want.");
 
   if (!root) return;
