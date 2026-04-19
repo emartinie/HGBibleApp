@@ -1,19 +1,19 @@
 <style>
   .source-card {
-  display:block;
-  padding:1rem;
-  border-radius:12px;
-  border:1px solid rgba(148,163,184,0.3);
-  background:rgba(30,41,59,0.7);
-  transition:0.2s;
-}
-.source-card:hover {
-  background:rgba(51,65,85,0.9);
-}
+    display: block;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(148,163,184,0.3);
+    background: rgba(30,41,59,0.7);
+    transition: 0.2s;
+  }
+
+  .source-card:hover {
+    background: rgba(51,65,85,0.9);
+  }
 </style>
 
-<!--section class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto p-5 space-y-5">-->
-<section class'"hg-panel">
+<section class="hg-panel">
   <!-- Hero -->
   <header class="text-center space-y-3">
     <h2 class="text-3xl font-extrabold flex items-center justify-center gap-3">
@@ -57,7 +57,7 @@
         <li>Life appears meaningful, not accidental</li>
         <li>Human consciousness and morality point beyond matter alone</li>
       </ul>
-
+    </article>
 
     <!-- Natural Processes -->
     <article class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-4 space-y-3 shadow-lg">
@@ -81,34 +81,36 @@
         <li>Scientific models focus on how processes work</li>
       </ul>
     </article>
+
   </section>
 
-  <section class'"hg-panel">
-      <article class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-4 space-y-3 shadow-lg">
-      <div class="flex items-center justify-between gap-3">
-  <h3>Archaeological & Digital Archives</h3>
-<div class="grid gap-3">
+  <!-- Archives -->
+  <section class="mt-6 rounded-2xl bg-slate-900/70 border border-slate-700/60 p-4 space-y-3 shadow-lg">
+    <div class="flex items-center justify-between gap-3">
+      <h3 class="text-xl font-bold text-orange-300">Archaeological & Digital Archives</h3>
+    </div>
 
-  <a href="https://www.deadseascrolls.org.il" target="_blank" class="source-card">
-    Dead Sea Scrolls Digital Library
-  </a>
+    <div class="grid gap-3 sm:grid-cols-2">
+      <a href="https://www.deadseascrolls.org.il" target="_blank" rel="noopener noreferrer" class="source-card">
+        Dead Sea Scrolls Digital Library
+      </a>
 
-  <a href="https://www.britishmuseum.org/collection" target="_blank" class="source-card">
-    British Museum Collection
-  </a>
+      <a href="https://www.britishmuseum.org/collection" target="_blank" rel="noopener noreferrer" class="source-card">
+        British Museum Collection
+      </a>
 
-  <a href="https://www.metmuseum.org/art/collection" target="_blank" class="source-card">
-    Metropolitan Museum of Art
-  </a>
+      <a href="https://www.metmuseum.org/art/collection" target="_blank" rel="noopener noreferrer" class="source-card">
+        Metropolitan Museum of Art
+      </a>
 
-  <a href="https://digi.vatlib.it/" target="_blank" class="source-card">
-    Vatican Digital Library
-  </a>
-
-</div>
+      <a href="https://digi.vatlib.it/" target="_blank" rel="noopener noreferrer" class="source-card">
+        Vatican Digital Library
+      </a>
+    </div>
+  </section>
 
   <!-- Bridge -->
-  <section class="rounded-2xl bg-indigo-950/40 border border-indigo-700/30 p-4 space-y-3 shadow-lg">
+  <section class="mt-6 rounded-2xl bg-indigo-950/40 border border-indigo-700/30 p-4 space-y-3 shadow-lg">
     <div class="flex items-center justify-between gap-3">
       <h3 class="text-xl font-bold text-amber-300">⚖️ A Shared Question</h3>
       <button
@@ -131,7 +133,7 @@
   </section>
 
   <!-- Reflection -->
-  <section class="rounded-2xl bg-slate-900/70 border border-slate-700/60 p-4 space-y-3 shadow-lg">
+  <section class="mt-6 rounded-2xl bg-slate-900/70 border border-slate-700/60 p-4 space-y-3 shadow-lg">
     <div class="flex items-center justify-between gap-3">
       <h3 class="text-xl font-bold text-purple-300">🤲 Consider This</h3>
       <button
@@ -148,8 +150,8 @@
     </div>
   </section>
 
-  <!-- Optional deeper actions -->
-  <section class="flex flex-wrap gap-3 justify-center pt-2">
+  <!-- Actions -->
+  <section class="flex flex-wrap gap-3 justify-center pt-6">
     <button
       class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 font-semibold"
       onclick="openOriginsInfo('overview')">
@@ -163,8 +165,8 @@
     </button>
   </section>
 
-  <!-- Closing line -->
-  <footer class="text-center pt-2">
+  <!-- Closing -->
+  <footer class="text-center pt-4">
     <p class="text-slate-400 text-xs md:text-sm italic">
       You do not have to agree with everything here to belong here.
     </p>
