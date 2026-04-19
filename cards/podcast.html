@@ -1,145 +1,19 @@
-<!-- ============================= -->
-<!-- Card 6: Podcast / D-Cast      -->
-<!-- ============================= -->
-<section id="podcast-card" class="card">
-    <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+<section class="hg-panel">
+  <div class="p-5 space-y-4 text-slate-100">
 
-        <!-- Card header -->
-        <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button
-                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"
-                title="Prev card">
-                <!-- Heroicon: Chevron Left -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </button>
+    <h2 class="text-xl font-semibold text-orange-300">🎙️ Podcast</h2>
 
-            <div class="text-center">
-                <div class="label-pill text-slate-400">Card 6</div>
-                <h2 class="text-xl font-bold text-orange-300">
-                    Bible Teaching • D-Cast
-                </h2>
-            </div>
-
-            <button
-                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_8px_#0ff] hover:rotate-6"
-                title="Next card">
-                <!-- Heroicon: Chevron Right -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
-
-        </div>
-
-        <!-- Card body -->
-        <div class="p-5">
-            <div
-                class="podcast-card relative bg-gray-900/80 backdrop-blur-lg rounded-3xl shadow-2xl p-6 max-w-xl mx-auto transform transition-transform duration-500 hover:scale-105 hover:shadow-3xl space-y-6">
-
-                <!-- Background video -->
-                <video autoplay muted loop playsinline
-                    class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                    <source src="videos/bg-motion.mp4" type="video/mp4">
-                </video>
-
-                <!-- Header: Podcast Title + Icon -->
-                <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-bold flex items-center gap-2 text-blue-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z" />
-                        </svg>
-                        Bible Teaching
-                    </h3>
-                    <span class="text-sm text-gray-400">Episode 12</span>
-                </div>
-
-                <!-- Cover Art -->
-                <div class="relative">
-                    <img src="images/HGHouses.png" class="w-full h-48 object-cover rounded-xl shadow-lg"
-                        alt="Podcast Cover">
-                    <!-- Floating Play Button -->
-                    <button
-                        class="absolute bottom-3 right-3 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14.752 11.168l-6.518-3.759A1 1 0 007 8.32v7.36a1 1 0 001.234.972l6.518-1.944a1 1 0 00.75-.972v-1.74a1 1 0 00-.75-.972z" />
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Description -->
-                <p class="text-gray-300 text-sm">
-                    Dive into cosmic mysteries, ancient scriptures, and audio-visual meditations.
-                    This episode explores the prophecies of Passover.
-                </p>
-
-                <!-- Progress Bar -->
-                <div class="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                    <div class="bg-blue-500 h-2 w-1/3"></div>
-                </div>
-
-                <!-- Actions -->
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                    <button
-                        class="px-3 py-1 border rounded bg-indigo-600 hover:bg-indigo-500 text-white flex items-center gap-1 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        Favorite
-                    </button>
-                    <button
-                        class="px-3 py-1 border rounded bg-green-600 hover:bg-green-500 text-white flex items-center gap-1 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 10l4.553-4.553a2 2 0 012.828 0l.172.172a2 2 0 010 2.828L18 14" />
-                        </svg>
-                        Share
-                    </button>
-                    <span class="text-gray-400 text-xs">45 min</span>
-                </div>
-
-                <!-- Fireside Teaching Section -->
-                <div class="border-t border-slate-700 pt-6">
-                    <h3 class="text-xl font-semibold text-orange-300 mb-3">
-                        Fireside Teaching
-                    </h3>
-
-                    <p class="text-slate-400 text-sm mb-4">
-                        A quiet space for Scripture-centered reflection. No rush. No pressure.
-                    </p>
-
-                    <div class="bg-slate-950/50 border border-slate-700 rounded-xl p-5 space-y-3">
-                        <p class="text-sm text-slate-400">Featured Teaching</p>
-
-                        <h4 class="text-lg font-medium text-white">
-                            Walking in the Light
-                        </h4>
-
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            A short reflection on Psalm 119:105 and learning to take the next step with God.
-                        </p>
-
-                        <button
-                            class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium">
-                            ▶ Listen by the Fire
-                        </button>
-                    </div>
-
-                    <p class="text-xs text-slate-500 text-center italic mt-4">
-                        "Come, let us reason together."
-                    </p>
-                </div>
-
-            </div>
-        </div>
+    <div class="text-sm text-slate-400">
+      Weekly recorded teachings. Real-time insights and study.
     </div>
+
+    <!-- Episode list -->
+    <div id="podcastList" class="space-y-2"></div>
+
+    <!-- Player -->
+    <div class="mt-4">
+      <audio id="podcastPlayer" controls class="w-full"></audio>
+    </div>
+
+  </div>
 </section>
