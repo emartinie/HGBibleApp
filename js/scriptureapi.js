@@ -1,10 +1,16 @@
 (async function () {
   const API_BASE = "https://rest.api.bible";
   const API_KEY = "5sFfxuspfEX8TD9YAODX8";
-  const BIBLE_ID = "a6aee10bb058511c-01"; // KJV example
+
+  const BIBLE_IDS = {
+    KJV: "a6aee10bb058511c-01",
+    AMP: "a81b73293d3080c9-01",
+    NASB: "b8ee27bcd1cae43a-01"
+  };
 
   const root = document.getElementById("scriptureContent");
   const meta = document.getElementById("scriptureMeta");
+  const versionSelect = document.getElementById("scriptureVersion");
   const bookSelect = document.getElementById("scriptureBook");
   const chapterInput = document.getElementById("scriptureChapter");
   const loadBtn = document.getElementById("scriptureLoadBtn");
@@ -13,7 +19,7 @@
   const searchInput = document.getElementById("scriptureSearch");
   const searchBtn = document.getElementById("scriptureSearchBtn");
 
-  if (!root || !bookSelect || !chapterInput) return;
+  if (!root || !versionSelect || !bookSelect || !chapterInput) return;
 
   const BOOK_MAP = {
     matthew: "MAT",
@@ -86,10 +92,7 @@
   };
 
   function normalizeBookName(name) {
-    return name
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, " ");
+    return name.toLowerCase().trim().replace(/\s+/g, " ");
   }
 
   function parseReference(input) {
@@ -109,6 +112,10 @@
     return { rawBook, code, chapter, verse };
   }
 
+  function getSelectedBibleId() {
+    return BIBLE_IDS[versionSelect.value] || BIBLE_IDS.KJV;
+  }
+
   function getRef() {
     const book = bookSelect.value || "JHN";
     const chapter = String(Math.max(1, Number(chapterInput.value) || 1));
@@ -116,8 +123,9 @@
   }
 
   function setMeta(apiData, verse) {
+    const version = versionSelect.value;
     const title = apiData?.data?.reference || "";
-    meta.textContent = verse ? `${title} (verse ${verse})` : title;
+    meta.textContent = verse ? `${title} (${version}, verse ${verse})` : `${title} (${version})`;
   }
 
   function scrollToVerse(verse) {
@@ -140,8 +148,10 @@
     root.innerHTML = "Loading...";
 
     try {
+      const bibleId = getSelectedBibleId();
+
       const res = await fetch(
-        `${API_BASE}/v1/bibles/${BIBLE_ID}/chapters/${book}.${chapter}`,
+        `${API_BASE}/v1/bibles/${bibleId}/chapters/${book}.${chapter}`,
         {
           method: "GET",
           headers: {
@@ -211,15 +221,12 @@
     loadChapter(parsed.code, parsed.chapter, parsed.verse);
   }
 
-  document.getElementById("copyScriptureBtn")?.addEventListener("click", () => {
-  const text = document.getElementById("scriptureContent")?.innerText || "";
-  navigator.clipboard.writeText(text);
-});
-
   loadBtn?.addEventListener("click", handleLoad);
   prevBtn?.addEventListener("click", handlePrev);
   nextBtn?.addEventListener("click", handleNext);
   searchBtn?.addEventListener("click", handleReferenceSearch);
+
+  versionSelect.addEventListener("change", handleLoad);
 
   chapterInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") handleLoad();
