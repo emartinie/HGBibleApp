@@ -28,50 +28,59 @@
 </div>
     </div>
 
-    <div class="grid gap-3 sm:grid-cols-3">
-      <div>
-        <label for="scriptureBook" class="block text-xs text-slate-400 mb-1">Choose Book</label>
-        <select id="scriptureBook" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-          <option value="JHN">John</option>
-          <option value="MAT">Matthew</option>
-          <option value="MRK">Mark</option>
-          <option value="LUK">Luke</option>
-          <option value="ACT">Acts</option>
-          <option value="ROM">Romans</option>
-          <option value="1CO">1 Corinthians</option>
-          <option value="2CO">2 Corinthians</option>
-          <option value="GAL">Galatians</option>
-          <option value="EPH">Ephesians</option>
-          <option value="PHP">Philippians</option>
-          <option value="COL">Colossians</option>
-          <option value="1TH">1 Thessalonians</option>
-          <option value="2TH">2 Thessalonians</option>
-          <option value="1TI">1 Timothy</option>
-          <option value="2TI">2 Timothy</option>
-          <option value="TIT">Titus</option>
-          <option value="PHM">Philemon</option>
-          <option value="HEB">Hebrews</option>
-          <option value="JAS">James</option>
-          <option value="1PE">1 Peter</option>
-          <option value="2PE">2 Peter</option>
-          <option value="1JN">1 John</option>
-          <option value="2JN">2 John</option>
-          <option value="3JN">3 John</option>
-          <option value="JUD">Jude</option>
-          <option value="REV">Revelation</option>
-        </select>
-      </div>
+<div class="grid gap-3 sm:grid-cols-4">
+  <div>
+    <label for="scriptureVersion" class="block text-xs text-slate-400 mb-1">Version</label>
+    <select id="scriptureVersion" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+      <option value="KJV">KJV</option>
+      <option value="AMP">AMP</option>
+      <option value="NASB">NASB</option>
+    </select>
+  </div>
 
-      <div>
-        <label for="scriptureChapter" class="block text-xs text-slate-400 mb-1">Chapter</label>
-        <input id="scriptureChapter" type="number" min="1" value="1"
-          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm" />
-      </div>
+  <div>
+    <label for="scriptureBook" class="block text-xs text-slate-400 mb-1">Book</label>
+    <select id="scriptureBook" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+      <option value="JHN">John</option>
+      <option value="MAT">Matthew</option>
+      <option value="MRK">Mark</option>
+      <option value="LUK">Luke</option>
+      <option value="ACT">Acts</option>
+      <option value="ROM">Romans</option>
+      <option value="1CO">1 Corinthians</option>
+      <option value="2CO">2 Corinthians</option>
+      <option value="GAL">Galatians</option>
+      <option value="EPH">Ephesians</option>
+      <option value="PHP">Philippians</option>
+      <option value="COL">Colossians</option>
+      <option value="1TH">1 Thessalonians</option>
+      <option value="2TH">2 Thessalonians</option>
+      <option value="1TI">1 Timothy</option>
+      <option value="2TI">2 Timothy</option>
+      <option value="TIT">Titus</option>
+      <option value="PHM">Philemon</option>
+      <option value="HEB">Hebrews</option>
+      <option value="JAS">James</option>
+      <option value="1PE">1 Peter</option>
+      <option value="2PE">2 Peter</option>
+      <option value="1JN">1 John</option>
+      <option value="2JN">2 John</option>
+      <option value="3JN">3 John</option>
+      <option value="JUD">Jude</option>
+      <option value="REV">Revelation</option>
+    </select>
+  </div>
 
-      <div class="flex items-end">
-        <button id="scriptureLoadBtn" class="ui-btn w-full" type="button">Load</button>
-      </div>
-    </div>
+  <div>
+    <label for="scriptureChapter" class="block text-xs text-slate-400 mb-1">Chapter</label>
+    <input id="scriptureChapter" type="number" min="1" value="1"
+      class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm" />
+  </div>
+
+  <div class="flex items-end">
+    <button id="scriptureLoadBtn" class="ui-btn w-full" type="button">Load Scripture</button>
+  </div>
+</div>
 
     <div id="scriptureMeta" class="text-sm text-slate-400"></div>
 
