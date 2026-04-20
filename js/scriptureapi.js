@@ -211,6 +211,11 @@
     loadChapter(parsed.code, parsed.chapter, parsed.verse);
   }
 
+  document.getElementById("copyScriptureBtn")?.addEventListener("click", () => {
+  const text = document.getElementById("scriptureContent")?.innerText || "";
+  navigator.clipboard.writeText(text);
+});
+
   loadBtn?.addEventListener("click", handleLoad);
   prevBtn?.addEventListener("click", handlePrev);
   nextBtn?.addEventListener("click", handleNext);
