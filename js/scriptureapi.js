@@ -32,6 +32,7 @@
     } catch (err) {
       root.innerHTML = `<div class="text-red-400">Failed to load scripture</div>`;
       console.error(err);
+      console.log("api.bible response:", data);
     }
   }
 
