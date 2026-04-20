@@ -5,12 +5,9 @@
       : 1;
   }
 
-  async function loadScripture() {
-    const week = getWeek();
-
+  async function loadScripture(week = getWeek()) {
     const meta = document.getElementById("scriptureMeta");
     const content = document.getElementById("scriptureContent");
-
     if (!content) return;
 
     meta.textContent = `Week ${week}`;
@@ -22,26 +19,29 @@
 
       const html = await res.text();
       content.innerHTML = html;
-
     } catch (err) {
-      content.innerHTML = `
-        <div class="text-red-400">
-          Failed to load scripture for week ${week}
-        </div>
-      `;
+      content.innerHTML = `<div class="text-red-400">Failed to load scripture for week ${week}</div>`;
     }
   }
 
   function init() {
-    document
-      .getElementById("scriptureReloadBtn")
-      ?.addEventListener("click", loadScripture);
+    let currentWeek = getWeek();
 
-    document
-      .getElementById("scriptureNextBtn")
-      ?.addEventListener("click", loadScripture);
+    document.getElementById("scriptureReloadBtn")?.addEventListener("click", () => {
+      loadScripture(currentWeek);
+    });
 
-    loadScripture();
+    document.getElementById("scriptureNextBtn")?.addEventListener("click", () => {
+      currentWeek += 1;
+      loadScripture(currentWeek);
+    });
+
+    document.getElementById("scripturePrevBtn")?.addEventListener("click", () => {
+      currentWeek = Math.max(1, currentWeek - 1);
+      loadScripture(currentWeek);
+    });
+
+    loadScripture(currentWeek);
   }
 
   init();
