@@ -1,7 +1,7 @@
 (async function () {
 
   const API_KEY = "5sFfxuspfEX8TD9YAODX8";
-  const BIBLE_ID = "de4e12af7f28f599-02"; // KJV example
+  const BIBLE_ID = "a6aee10bb058511c-01"; // KJV example
 
   const root = document.getElementById("scriptureContent");
   if (!root) return;
