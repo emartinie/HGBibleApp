@@ -91,6 +91,13 @@
     malachi: "MAL"
   };
 
+  const TOPIC_MAP = {
+  "ROM 8": ["Isaiah 40", "Psalms 23"],
+  "JHN 1": ["Genesis 1", "Proverbs 8"],
+  "MAT 5": ["Exodus 20", "Deuteronomy 6"],
+  "HEB 8": ["Jeremiah 31"]
+};
+
   function normalizeBookName(name) {
     return name.toLowerCase().trim().replace(/\s+/g, " ");
   }
@@ -257,6 +264,22 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
     chapterInput.value = 1;
     handleLoad();
   });
+
+  document.getElementById("openBridgeBtn")?.addEventListener("click", () => {
+  const code = document.getElementById("scriptureBook")?.value;
+  const chapter = document.getElementById("scriptureChapter")?.value;
+
+  const key = `${code} ${chapter}`;
+  const targets = TOPIC_MAP[key];
+
+  if (!targets || !targets.length) {
+    alert("No related context mapped yet.");
+    return;
+  }
+
+  localStorage.setItem("sefariaBridge", JSON.stringify({ targets }));
+  window.loadCard?.("sefaria");
+});
 
   document.getElementById("openSefariaContextBtn")?.addEventListener("click", () => {
   const book = document.getElementById("scriptureBook")?.selectedOptions[0]?.text;
