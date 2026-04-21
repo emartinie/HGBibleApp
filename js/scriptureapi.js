@@ -144,70 +144,70 @@
     }
   }
 
-  async function loadChapter(book = "JHN", chapter = "1", verse = null) {
-    root.innerHTML = "Loading...";
+async function loadChapter(book = "JHN", chapter = "1", verse = null) {
+  root.innerHTML = "Loading...";
 
-        if (verse) {
+  try {
+    const bibleId = getSelectedBibleId();
+
+    const res = await fetch(
+      `${API_BASE}/v1/bibles/${bibleId}/chapters/${book}.${chapter}`,
+      {
+        method: "GET",
+        headers: {
+          "api-key": API_KEY,
+          "accept": "application/json"
+        }
+      }
+    );
+
+    const data = await res.json();
+    console.log("API RESPONSE:", data);
+
+    if (!res.ok) {
+      throw new Error(data?.message || `HTTP ${res.status}`);
+    }
+
+    if (!data?.data?.content) {
+      throw new Error("No scripture content returned");
+    }
+
+    setMeta(data, verse);
+
+    root.innerHTML = `
+      <div class="prose prose-invert max-w-none">
+        ${data.data.content}
+      </div>
+    `;
+
+    if (verse) {
       setTimeout(() => {
         const el =
           root.querySelector(`[data-number="${verse}"]`) ||
           root.querySelector(`[id$=".${verse}"]`) ||
           root.querySelector(`[id$="-${verse}"]`);
-    
+
         if (el) {
           el.style.background = "rgba(250, 204, 21, 0.2)";
           el.style.padding = "4px";
           el.style.borderRadius = "6px";
-    
           el.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          console.log("Verse element not found for", verse);
         }
       }, 50);
     }
 
-    try {
-      const bibleId = getSelectedBibleId();
-
-      const res = await fetch(
-        `${API_BASE}/v1/bibles/${bibleId}/chapters/${book}.${chapter}`,
-        {
-          method: "GET",
-          headers: {
-            "api-key": API_KEY,
-            "accept": "application/json"
-          }
-        }
-      );
-
-      const data = await res.json();
-      console.log("API RESPONSE:", data);
-
-      if (!res.ok) {
-        throw new Error(data?.message || `HTTP ${res.status}`);
-      }
-
-      if (!data?.data?.content) {
-        throw new Error("No scripture content returned");
-      }
-
-      setMeta(data, verse);
-
-      root.innerHTML = `
-        <div class="prose prose-invert max-w-none">
-          ${data.data.content}
-        </div>
-      `;
-
-      setTimeout(() => scrollToVerse(verse), 50);
-    } catch (err) {
-      meta.textContent = "";
-      root.innerHTML = `
-        <div class="text-red-400">
-          Failed to load scripture: ${err.message}
-        </div>
-      `;
-      console.error(err);
-    }
+  } catch (err) {
+    meta.textContent = "";
+    root.innerHTML = `
+      <div class="text-red-400">
+        Failed to load scripture: ${err.message}
+      </div>
+    `;
+    console.error(err);
   }
+}
 
   function handleLoad() {
     const { book, chapter } = getRef();
