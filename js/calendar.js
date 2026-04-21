@@ -161,6 +161,17 @@ const CALENDAR_DATA = {
 };
 
 const CALENDAR_INFO = {
+    calendars: {
+    title: "Calendars",
+    content: `
+      <p>🕍 Hillel Calendar (Rabbinic)</p>
+      <p>The Hillel calendar is the standard Jewish calendar used today.</p>
+      <p>It is:<br>
+	•	lunar-based (months follow moon cycles)<br>
+	•	mathematically calculated, not observational<br>
+	•	includes leap months to stay aligned with seasons</p>
+    `
+  },
   passover: {
     title: "Passover",
     content: `
