@@ -147,6 +147,23 @@
   async function loadChapter(book = "JHN", chapter = "1", verse = null) {
     root.innerHTML = "Loading...";
 
+        if (verse) {
+      setTimeout(() => {
+        const el =
+          root.querySelector(`[data-number="${verse}"]`) ||
+          root.querySelector(`[id$=".${verse}"]`) ||
+          root.querySelector(`[id$="-${verse}"]`);
+    
+        if (el) {
+          el.style.background = "rgba(250, 204, 21, 0.2)";
+          el.style.padding = "4px";
+          el.style.borderRadius = "6px";
+    
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 50);
+    }
+
     try {
       const bibleId = getSelectedBibleId();
 
