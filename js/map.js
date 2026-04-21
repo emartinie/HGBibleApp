@@ -144,7 +144,7 @@
         const currentZoom = map.getZoom();
         const maxZoom = map.getMaxZoom() || 19;
         if (currentZoom < maxZoom) {
-          setTimeout(() => map.setZoom(Math.min(currentZoom + 1, maxZoom)), 80);
+          setTimeout(() => map.setZoom(Math.min(currentZoom + 2, maxZoom)), 80);
         }
       } else {
         L.marker([36.1659, -86.7844])
@@ -171,7 +171,7 @@
 
     activeMap.locate({
       setView: true,
-      maxZoom: 12,
+      maxZoom: 11,
       enableHighAccuracy: true,
       timeout: 10000
     });
