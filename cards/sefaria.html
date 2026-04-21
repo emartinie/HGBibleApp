@@ -2,24 +2,56 @@
   <div class="p-5 space-y-4 text-slate-100">
 
     <div class="flex items-center justify-between gap-3 flex-wrap">
-      <h2 class="text-xl font-semibold text-orange-300">📚 Sefaria</h2>
+      <h2 class="text-xl font-semibold text-orange-300">📚 Writings from Sages</h2>
+
+      <div class="flex items-center gap-2 flex-wrap">
+        <button id="sefariaPrevBtn" class="ui-btn" type="button">← Prev</button>
+        <button id="sefariaNextBtn" class="ui-btn" type="button">Next →</button>
+      </div>
+    </div>
+
+    <div class="text-xs text-slate-500 italic">
+      Source: Sefaria
+    </div>
+
+    <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
+      <div>
+        <label class="block text-xs text-slate-400 mb-1">Reference</label>
+        <input
+          id="sefariaSearch"
+          type="text"
+          value="Genesis 1"
+          placeholder="Genesis 1, Exodus 3, Psalms 23"
+          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm"
+        />
+      </div>
+
+      <div class="flex items-end">
+        <button id="sefariaSearchBtn" class="ui-btn w-full sm:w-auto" type="button">
+          Go
+        </button>
+      </div>
     </div>
 
     <div class="grid gap-3 sm:grid-cols-3">
       <div>
         <label class="block text-xs text-slate-400 mb-1">Book</label>
-        <input id="sefariaBook"
+        <input
+          id="sefariaBook"
           value="Genesis"
-          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm" />
+          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm"
+        />
       </div>
 
       <div>
         <label class="block text-xs text-slate-400 mb-1">Chapter</label>
-        <input id="sefariaChapter"
+        <input
+          id="sefariaChapter"
           type="number"
           min="1"
           value="1"
-          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm" />
+          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm"
+        />
       </div>
 
       <div class="flex items-end">
@@ -37,11 +69,6 @@
     >
       Ready.
     </div>
-<button onclick="document.getElementById('scriptureContent').scrollTop = 0">
-  ↑ Top
-</button>
+
   </div>
-  <div class="text-xs text-slate-500 italic">
-  Source: Sefaria
-</div>
 </section>
