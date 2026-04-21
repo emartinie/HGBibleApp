@@ -169,9 +169,10 @@ const CALENDAR_INFO = {
       <p>It is:<br>
 	•	lunar-based (months follow moon cycles)<br>
 	•	mathematically calculated, not observational<br>
-	•	includes leap months to stay aligned with seasons</p>
+	•	includes leap months to stay aligned with seasons
+	</p>
       <p>Key idea:<br>
-	  A reliable, shared system for all Israel—regardless of location.
+	  A reliable, shared system for all Israel—regardless of location.</p>
 
 	        <p>🌿 Enochian Calendar (364-Day Solar Model)</p>
       <p>The Enochian calendar is based on a 364-day solar cycle, found in texts like 1 Enoch and some Dead Sea Scroll traditions.</p>
@@ -179,8 +180,9 @@ const CALENDAR_INFO = {
 	•	exactly 52 weeks (perfect weekly alignment)
 	•	feast days always fall on the same day of the week each year
 	•	no lunar dependency
+	</p>
       <p>Key idea:<br>
-    A perfectly ordered, unchanging calendar aligned to a structured creation pattern.
+    A perfectly ordered, unchanging calendar aligned to a structured creation pattern.</p>
 
 	      <p>🕊️ Zedokian Calendar (Priestly Restoration Model)</p>
       <p>The Zedokian calendar attempts to restore the priestly calendar associated with the sons of Zadok.</p>
@@ -188,9 +190,43 @@ const CALENDAR_INFO = {
 	•	Biblical authority over later rabbinic tradition
 	•	observational or reconstructed timing
 	•	alignment with temple service cycles
+	</p>
 	<p>There is no single agreed version, but all share the goal of:</p>
       <p>Key idea:<br>
-	  Returning to what is believed to be the original priestly timing of appointed times.
+	  Returning to what is believed to be the original priestly timing of appointed times.</p>
+
+	  <p>✝️ MS Christian Calendar (Mainstream Christian Model)</p>
+<p>The MS Christian calendar reflects the widely used Gregorian-based system followed by most Protestant and many non-liturgical churches.</p>
+<p>It emphasizes:<br>
+  • Historical continuity with the Gregorian reform<br>
+  • Fixed solar calendar dating<br>
+  • Celebration of major events like Christmas and Easter based on established tradition
+</p>
+<p>There is broad agreement across denominations, though interpretations and observances may vary.</p>
+<p>Key idea:<br>
+  A unified, globally recognized system centered on the life and work of Messiah.</p>
+
+  <p>⛪ Western Orthodox / Catholic Calendar</p>
+<p>The Western Orthodox and Catholic calendar follows the Gregorian system and reflects the liturgical traditions of the Western Church.</p>
+<p>It emphasizes:<br>
+  • Structured liturgical seasons (Advent, Lent, Easter, etc.)<br>
+  • Fixed and movable feast days<br>
+  • Historical continuity through church tradition
+</p>
+<p>There is strong internal consistency, though some variations exist among denominations.</p>
+<p>Key idea:<br>
+  A rhythm of worship shaped by tradition, seasons, and sacred remembrance.</p>
+
+  <p>🕯️ Eastern Orthodox Calendar</p>
+<p>The Eastern Orthodox calendar preserves ancient liturgical traditions, often using the Julian calendar or a revised form for fixed feasts.</p>
+<p>It emphasizes:<br>
+  • Continuity with early church practices<br>
+  • Distinct calculation of Pascha (Easter)<br>
+  • Deep liturgical and fasting cycles
+</p>
+<p>Differences in calendar usage (Julian vs. Revised Julian) can result in varying observance dates.</p>
+<p>Key idea:<br>
+  Faithfulness to ancient rhythms and the preservation of early ecclesiastical tradition.</p>
 	
     `
   },
