@@ -170,6 +170,28 @@ const CALENDAR_INFO = {
 	•	lunar-based (months follow moon cycles)<br>
 	•	mathematically calculated, not observational<br>
 	•	includes leap months to stay aligned with seasons</p>
+      <p>Key idea:<br>
+	  A reliable, shared system for all Israel—regardless of location.
+
+	        <p>🌿 Enochian Calendar (364-Day Solar Model)</p>
+      <p>The Enochian calendar is based on a 364-day solar cycle, found in texts like 1 Enoch and some Dead Sea Scroll traditions.</p>
+      <p>It features:<br>
+	•	exactly 52 weeks (perfect weekly alignment)
+	•	feast days always fall on the same day of the week each year
+	•	no lunar dependency
+      <p>Key idea:<br>
+    A perfectly ordered, unchanging calendar aligned to a structured creation pattern.
+
+	      <p>🕊️ Zedokian Calendar (Priestly Restoration Model)</p>
+      <p>The Zedokian calendar attempts to restore the priestly calendar associated with the sons of Zadok.</p>
+      <p>It emphasizes:<br>
+	•	Biblical authority over later rabbinic tradition
+	•	observational or reconstructed timing
+	•	alignment with temple service cycles
+	<p>There is no single agreed version, but all share the goal of:</p>
+      <p>Key idea:<br>
+	  Returning to what is believed to be the original priestly timing of appointed times.
+	
     `
   },
   passover: {
