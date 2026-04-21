@@ -258,5 +258,18 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
     handleLoad();
   });
 
+  document.getElementById("openSefariaContextBtn")?.addEventListener("click", () => {
+  const book = document.getElementById("scriptureBook")?.selectedOptions[0]?.text;
+  const chapter = document.getElementById("scriptureChapter")?.value;
+
+  if (!book || !chapter) return;
+
+  // Save context
+  localStorage.setItem("sefariaJump", JSON.stringify({ book, chapter }));
+
+  // Jump to Sefaria card
+  window.loadCard?.("sefaria");
+});
+
   loadChapter(bookSelect.value, chapterInput.value);
 })();
