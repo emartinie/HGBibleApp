@@ -240,10 +240,13 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
     setMeta(data, verse);
 
     root.innerHTML = `
-      <div class="prose prose-invert max-w-none">
+      <div id="scriptureRendered" class="max-w-none">
         ${data.data.content}
       </div>
     `;
+    
+    const rendered = document.getElementById("scriptureRendered");
+    beautifyScriptureContent(rendered);
 
     if (verse) {
       setTimeout(() => {
