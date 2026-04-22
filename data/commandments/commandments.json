@@ -419,30 +419,30 @@
     "themes": [],
     "commentary": ""
   },
-  {
-    "id": 36,
-    "code": "P 36",
-    "type": "positive",
-    "category": "Temple And The Priests",
-    "reference": "Deuteronomy 18:6",
-    "title": "8 – On the Cohanim ministering in rotation/watches",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 37,
-    "code": "P 37",
-    "type": "positive",
-    "category": "Temple And The Priests",
-    "reference": "Leviticus 21:2",
-    "title": "3 – On the Cohanim being defiled for dead relatives",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
+{
+  "id": 36,
+  "code": "P 36",
+  "type": "positive",
+  "category": "Temple And The Priests",
+  "reference": "Deuteronomy 18:6-8",
+  "title": "On the Cohanim ministering in rotation/watches",
+  "nt_links": [],
+  "sefaria_links": [],
+  "themes": [],
+  "commentary": ""
+},
+{
+  "id": 37,
+  "code": "P 37",
+  "type": "positive",
+  "category": "Temple And The Priests",
+  "reference": "Leviticus 21:2-3",
+  "title": "On the Cohanim being defiled for dead relatives",
+  "nt_links": [],
+  "sefaria_links": [],
+  "themes": [],
+  "commentary": ""
+},
   {
     "id": 38,
     "code": "P 38",
