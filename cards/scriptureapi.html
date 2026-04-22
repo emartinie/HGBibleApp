@@ -140,12 +140,21 @@
 <button id="openSefariaContextBtn" class="ui-btn">
   Jewish Context
 </button>
-    <div
-      id="scriptureContent"
-      class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[70vh] overflow-y-auto text-sm leading-relaxed"
-    >
-      Loading scripture...
-    </div>
+<div
+  id="scriptureContent"
+  class="bg-gradient-to-b from-slate-900/80 to-black/70
+         border border-slate-700
+         rounded-2xl
+         p-5
+         max-h-[70vh]
+         overflow-y-auto
+         text-sm leading-relaxed
+         shadow-inner
+         backdrop-blur-sm
+         space-y-2"
+>
+  Loading scripture...
+</div>
 <button onclick="document.getElementById('scriptureContent').scrollTop = 0">
   ↑ Top
 </button>
