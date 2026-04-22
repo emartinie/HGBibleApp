@@ -11,18 +11,19 @@
 
   if (!root || !bookInput || !chapterInput) return;
 
-  function parseReference(input) {
-    if (!input) return null;
+function parseReference(input) {
+  if (!input) return null;
 
-    const cleaned = input.trim().replace(/\s+/g, " ");
-    const match = cleaned.match(/^(.+?)\s+(\d+)$/i);
-    if (!match) return null;
+  const cleaned = input.trim().replace(/\s+/g, " ");
+  const match = cleaned.match(/^(.+?)\s+(\d+)(?::(\d+))?$/i);
+  if (!match) return null;
 
-    return {
-      book: match[1].trim(),
-      chapter: String(Math.max(1, Number(match[2]) || 1))
-    };
-  }
+  return {
+    book: match[1].trim(),
+    chapter: String(Math.max(1, Number(match[2]) || 1)),
+    verse: match[3] ? String(Math.max(1, Number(match[3]) || 1)) : null
+  };
+}
 
   function getRef() {
     return {
