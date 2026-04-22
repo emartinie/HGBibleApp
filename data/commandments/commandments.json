@@ -126,10 +126,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:7",
     "title": "On studying and teaching Torah",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 28:20", "2 Timothy 2:2"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["instruction", "teaching", "continuity"],
+    "commentary": "The transmission of Torah depends on both learning and passing it on faithfully from one generation to the next."
   },
   {
     "id": 12,
@@ -138,10 +138,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:8",
     "title": "On binding Tefillin on the head",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Romans 12:2", "Ephesians 6:17"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["remembrance", "mind", "devotion"],
+    "commentary": "This command expresses the call to keep God’s words before the mind and to live with conscious remembrance of Him."
   },
   {
     "id": 13,
@@ -150,10 +150,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:8",
     "title": "On binding Tefillin on the hand",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["James 1:22", "Colossians 3:17"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["action", "obedience", "devotion"],
+    "commentary": "This command points to the joining of devotion and action, bringing God’s instruction into what one does."
   },
   {
     "id": 14,
@@ -162,10 +162,10 @@
     "category": "Torah",
     "reference": "Numbers 15:38",
     "title": "On making Tzitzit with thread of blue, garments corners",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 9:20", "Luke 8:44"],
+    "sefaria_links": ["Numbers 15"],
+    "themes": ["remembrance", "identity", "obedience"],
+    "commentary": "Tzitzit serve as a visible reminder to remember God’s commandments and walk in covenant faithfulness."
   },
   {
     "id": 15,
@@ -174,10 +174,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:9",
     "title": "On affixing a Mezuzah to doorposts and gates",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["John 10:9", "Colossians 3:16"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["household", "remembrance", "covenant"],
+    "commentary": "The mezuzah marks the household as a place ordered by God’s word and keeps His instruction at the threshold of daily life."
   },
   {
     "id": 16,
