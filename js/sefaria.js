@@ -127,10 +127,25 @@
     if (e.key === "Enter") handleSearch();
   });
 
-  const saved = loadLastRef();
-  if (saved?.book && saved?.chapter) {
-    loadSefaria(saved.book, saved.chapter);
+const savedSearch = localStorage.getItem("sefariaSearch");
+
+if (savedSearch) {
+  searchInput.value = savedSearch;
+  localStorage.removeItem("sefariaSearch");
+  handleSearch();
+} else {
+  const jump = JSON.parse(localStorage.getItem("sefariaJump") || "null");
+
+  if (jump?.book && jump?.chapter) {
+    loadSefaria(jump.book, jump.chapter);
+    localStorage.removeItem("sefariaJump");
   } else {
-    loadSefaria("Genesis", "1");
+    const saved = loadLastRef();
+    if (saved?.book && saved?.chapter) {
+      loadSefaria(saved.book, saved.chapter);
+    } else {
+      loadSefaria("Genesis", "1");
+    }
   }
+}
 })();
