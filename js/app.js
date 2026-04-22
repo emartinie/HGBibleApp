@@ -66,6 +66,18 @@
     });
   }
 
+  window.goToNT = function () {
+  const ref = localStorage.getItem("scriptureSearch");
+  if (ref) {
+    localStorage.setItem("ntSearch", ref);
+  }
+  window.loadCard?.("nt");
+};
+
+window.goBackToCommandments = function () {
+  window.loadCard?.("commandments");
+};
+
 window.loadFromReference = function(ref) {
   localStorage.setItem("scriptureSearch", ref);
   window.loadCard?.("scriptureapi");
