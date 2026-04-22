@@ -65,7 +65,7 @@
       if (e.key === "ArrowLeft") prevCard();
     });
   }
-
+// helper functions global
   window.goToNT = function () {
   const ref = localStorage.getItem("scriptureSearch");
   if (ref) {
