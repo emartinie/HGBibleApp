@@ -66,10 +66,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 10:20",
     "title": "To cleave to God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["John 15:4", "1 Corinthians 6:17"],
+    "sefaria_links": ["Deuteronomy 10"],
+    "themes": ["attachment", "relationship", "faithfulness"],
+    "commentary": "Cleave expresses a continual attachment to God, remaining connected in life and purpose."
   },
   {
     "id": 7,
@@ -78,10 +78,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 10:20",
     "title": "On taking an oath by God’s Name",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 5:34", "Hebrews 6:16"],
+    "sefaria_links": ["Deuteronomy 10"],
+    "themes": ["truth", "authority", "integrity"],
+    "commentary": "Invoking God’s Name in an oath reflects the seriousness of truth and accountability before Him."
   },
   {
     "id": 8,
@@ -90,10 +90,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 28:9",
     "title": "On walking in God’s ways",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Ephesians 5:1", "1 John 2:6"],
+    "sefaria_links": ["Deuteronomy 28"],
+    "themes": ["imitation", "obedience", "conduct"],
+    "commentary": "Walking in God’s ways reflects a life shaped by His character and expressed through daily actions."
   },
   {
     "id": 9,
@@ -102,10 +102,10 @@
     "category": "Relationship To God",
     "reference": "Leviticus 22:32",
     "title": "On Sanctifying God’s Name",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 5:16", "1 Peter 1:15"],
+    "sefaria_links": ["Leviticus 22"],
+    "themes": ["holiness", "witness", "honor"],
+    "commentary": "Sanctifying God’s Name is expressed through conduct that reflects His holiness before others."
   },
   {
     "id": 10,
@@ -114,10 +114,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:7",
     "title": "On reciting the Sh’ma each morning and evening",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Mark 12:29", "Colossians 3:16"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["remembrance", "instruction", "devotion"],
+    "commentary": "Regular recitation reinforces continual awareness of God and embeds His words into daily life."
   },
   {
     "id": 11,
