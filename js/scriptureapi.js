@@ -294,5 +294,13 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
   window.loadCard?.("sefaria");
 });
 
+const savedSearch = localStorage.getItem("scriptureSearch");
+
+if (savedSearch) {
+  searchInput.value = savedSearch;
+  localStorage.removeItem("scriptureSearch");
+  handleReferenceSearch();
+} else {
   loadChapter(bookSelect.value, chapterInput.value);
+}
 })();
