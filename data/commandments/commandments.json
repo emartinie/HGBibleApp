@@ -6,10 +6,10 @@
     "category": "Relationship To God",
     "reference": "Exodus 20:2",
     "title": "To believe in God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Hebrews 11:6", "John 17:3"],
+    "sefaria_links": ["Exodus 20"],
+    "themes": ["faith", "knowledge of God", "relationship"],
+    "commentary": "Belief in God is the foundation of all relationship with Him, expressed in both knowing and trusting."
   },
   {
     "id": 2,
@@ -18,23 +18,23 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 6:4",
     "title": "To acknowledge the Unity of God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Mark 12:29", "1 Corinthians 8:6"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["oneness", "unity", "identity of God"],
+    "commentary": "The declaration of God's unity establishes who He is and frames all worship and understanding."
   },
-{
-  "id": 3,
-  "code": "P 3",
-  "type": "positive",
-  "category": "Relationship To God",
-  "reference": "Deuteronomy 6:5",
-  "title": "To love God",
-  "nt_links": ["Matthew 22:37", "Mark 12:30"],
-  "sefaria_links": ["Deuteronomy 6"],
-  "themes": ["love", "covenant", "obedience"],
-  "commentary": "This is central to both traditions..."
-},
+  {
+    "id": 3,
+    "code": "P 3",
+    "type": "positive",
+    "category": "Relationship To God",
+    "reference": "Deuteronomy 6:5",
+    "title": "To love God",
+    "nt_links": ["Matthew 22:37", "Mark 12:30"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["love", "covenant", "obedience"],
+    "commentary": "This is central to both traditions, expressing devotion through heart, soul, and strength."
+  },
   {
     "id": 4,
     "code": "P 4",
@@ -42,10 +42,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 6:13",
     "title": "To fear God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Luke 12:5", "Acts 9:31"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["reverence", "awe", "obedience"],
+    "commentary": "Fear of God reflects reverence and awareness of His authority, guiding how one lives and responds."
   },
   {
     "id": 5,
@@ -54,11 +54,12 @@
     "category": "Relationship To God",
     "reference": "Exodus 23:25; Deuteronomy 11:13; 13:5",
     "title": "To serve God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
+    "nt_links": ["Matthew 4:10", "Romans 12:1"],
+    "sefaria_links": ["Exodus 23", "Deuteronomy 11"],
+    "themes": ["service", "worship", "obedience"],
+    "commentary": "Serving God is expressed through worship, obedience, and the offering of one’s life in devotion."
+  }
+]
   {
     "id": 6,
     "code": "P 6",
