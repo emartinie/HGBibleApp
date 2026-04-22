@@ -1,3 +1,46 @@
+<style>
+  .scripture-reader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.scripture-reader p {
+  margin: 0;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.5rem;
+  line-height: 1.8;
+}
+
+.scripture-reader p:hover {
+  background: rgba(30, 41, 59, 0.35);
+}
+
+.scripture-reader .v-num,
+.scripture-reader [data-number],
+.scripture-reader .verse-number {
+  color: rgb(148 163 184);
+  font-size: 0.8em;
+  margin-right: 0.4rem;
+}
+
+.scripture-reader h1,
+.scripture-reader h2,
+.scripture-reader h3,
+.scripture-reader h4 {
+  color: rgb(186 230 253);
+  margin: 0.5rem 0 0.25rem;
+}
+
+.scripture-reader small,
+.scripture-reader sup {
+  color: rgb(148 163 184);
+}
+
+.scripture-reader br + br {
+  display: none;
+}
+</style>
 <section class="hg-panel">
   <div class="p-5 space-y-4 text-slate-100">
 
@@ -153,16 +196,7 @@
 </button>
 <div
   id="scriptureContent"
-  class="bg-gradient-to-b from-slate-900/80 to-black/70
-         border border-slate-700
-         rounded-2xl
-         p-5
-         max-h-[70vh]
-         overflow-y-auto
-         text-sm leading-relaxed
-         shadow-inner
-         backdrop-blur-sm
-         space-y-2"
+  class="bg-gradient-to-b from-slate-900/80 to-black/70 border border-slate-700 rounded-2xl p-5 max-h-[70vh] overflow-y-auto text-sm leading-relaxed shadow-inner backdrop-blur-sm"
 >
   Loading scripture...
 </div>
