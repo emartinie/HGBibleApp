@@ -66,15 +66,15 @@
     });
   }
 
- function loadFromReference(ref) {
+window.loadFromReference = function(ref) {
   localStorage.setItem("scriptureSearch", ref);
   window.loadCard?.("scripture");
-}
+};
 
-function loadFromSefaria(ref) {
+window.loadFromSefaria = function(ref) {
   localStorage.setItem("sefariaSearch", ref);
   window.loadCard?.("sefaria");
-}
+};
 
   async function loadExtraScript(src) {
   return new Promise((resolve, reject) => {
