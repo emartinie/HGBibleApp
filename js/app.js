@@ -68,7 +68,7 @@
 
 window.loadFromReference = function(ref) {
   localStorage.setItem("scriptureSearch", ref);
-  window.loadCard?.("scripture");
+  window.loadCard?.("scriptureapi");
 };
 
 window.loadFromSefaria = function(ref) {
