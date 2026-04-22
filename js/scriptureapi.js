@@ -151,6 +151,64 @@
     }
   }
 
+  function beautifyScriptureContent(container) {
+  if (!container) return;
+
+  container.classList.add("scripture-reader");
+
+  // If api.bible already gave us paragraphs, just style them.
+  const paragraphs = container.querySelectorAll("p");
+  if (paragraphs.length) return;
+
+  // If content came in as loose nodes, wrap meaningful chunks into paragraphs.
+  const nodes = Array.from(container.childNodes);
+  const wrapper = document.createElement("div");
+  wrapper.className = "scripture-reader";
+
+  let current = document.createElement("p");
+
+  for (const node of nodes) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent.trim();
+      if (text) current.appendChild(document.createTextNode(text + " "));
+      continue;
+    }
+
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const el = node;
+
+      // Headings get preserved as headings
+      if (/^H[1-6]$/.test(el.tagName)) {
+        if (current.textContent.trim()) {
+          wrapper.appendChild(current);
+          current = document.createElement("p");
+        }
+        wrapper.appendChild(el.cloneNode(true));
+        continue;
+      }
+
+      // Break on BR BR patterns by starting a new paragraph
+      if (el.tagName === "BR") {
+        if (current.textContent.trim()) {
+          wrapper.appendChild(current);
+          current = document.createElement("p");
+        }
+        continue;
+      }
+
+      current.appendChild(el.cloneNode(true));
+      current.appendChild(document.createTextNode(" "));
+    }
+  }
+
+  if (current.textContent.trim()) {
+    wrapper.appendChild(current);
+  }
+
+  container.innerHTML = "";
+  container.appendChild(wrapper);
+}
+
 async function loadChapter(book = "JHN", chapter = "1", verse = null) {
   root.innerHTML = "Loading...";
 
