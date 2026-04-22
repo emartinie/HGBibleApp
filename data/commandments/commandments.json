@@ -23,18 +23,18 @@
     "themes": [],
     "commentary": ""
   },
-  {
-    "id": 3,
-    "code": "P 3",
-    "type": "positive",
-    "category": "Relationship To God",
-    "reference": "Deuteronomy 6:5",
-    "title": "To love God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
+{
+  "id": 3,
+  "code": "P 3",
+  "type": "positive",
+  "category": "Relationship To God",
+  "reference": "Deuteronomy 6:5",
+  "title": "To love God",
+  "nt_links": ["Matthew 22:37", "Mark 12:30"],
+  "sefaria_links": ["Deuteronomy 6"],
+  "themes": ["love", "covenant", "obedience"],
+  "commentary": "This is central to both traditions..."
+},
   {
     "id": 4,
     "code": "P 4",
