@@ -66,6 +66,16 @@
     });
   }
 
+ function loadFromReference(ref) {
+  localStorage.setItem("scriptureSearch", ref);
+  window.loadCard?.("scripture");
+}
+
+function loadFromSefaria(ref) {
+  localStorage.setItem("sefariaSearch", ref);
+  window.loadCard?.("sefaria");
+}
+
   async function loadExtraScript(src) {
   return new Promise((resolve, reject) => {
     const existing = document.querySelector(`script[data-src="${src}"]`);
