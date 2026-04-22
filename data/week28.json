@@ -12,7 +12,7 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "http://audio.esvbible.org/hw/03014001-03015033.mp3",
+        "src": "https://audio.esv.org/hw/mq/03014001-03015033.mp3",
         "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
         "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
