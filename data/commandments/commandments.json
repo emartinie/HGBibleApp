@@ -6,10 +6,10 @@
     "category": "Relationship To God",
     "reference": "Exodus 20:2",
     "title": "To believe in God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Hebrews 11:6", "John 17:3"],
+    "sefaria_links": ["Exodus 20"],
+    "themes": ["faith", "knowledge of God", "relationship"],
+    "commentary": "Belief in God is the foundation of all relationship with Him, expressed in both knowing and trusting."
   },
   {
     "id": 2,
@@ -18,10 +18,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 6:4",
     "title": "To acknowledge the Unity of God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Mark 12:29", "1 Corinthians 8:6"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["oneness", "unity", "identity of God"],
+    "commentary": "The declaration of God's unity establishes who He is and frames all worship and understanding."
   },
   {
     "id": 3,
@@ -30,10 +30,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 6:5",
     "title": "To love God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 22:37", "Mark 12:30"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["love", "covenant", "obedience"],
+    "commentary": "This is central to both traditions, expressing devotion through heart, soul, and strength."
   },
   {
     "id": 4,
@@ -42,10 +42,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 6:13",
     "title": "To fear God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Luke 12:5", "Acts 9:31"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["reverence", "awe", "obedience"],
+    "commentary": "Fear of God reflects reverence and awareness of His authority, guiding how one lives and responds."
   },
   {
     "id": 5,
@@ -54,10 +54,10 @@
     "category": "Relationship To God",
     "reference": "Exodus 23:25; Deuteronomy 11:13; 13:5",
     "title": "To serve God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 4:10", "Romans 12:1"],
+    "sefaria_links": ["Exodus 23", "Deuteronomy 11"],
+    "themes": ["service", "worship", "obedience"],
+    "commentary": "Serving God is expressed through worship, obedience, and the offering of one’s life in devotion."
   },
   {
     "id": 6,
@@ -66,10 +66,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 10:20",
     "title": "To cleave to God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["John 15:4", "1 Corinthians 6:17"],
+    "sefaria_links": ["Deuteronomy 10"],
+    "themes": ["attachment", "relationship", "faithfulness"],
+    "commentary": "Cleave expresses a continual attachment to God, remaining connected in life and purpose."
   },
   {
     "id": 7,
@@ -78,10 +78,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 10:20",
     "title": "On taking an oath by God’s Name",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 5:34", "Hebrews 6:16"],
+    "sefaria_links": ["Deuteronomy 10"],
+    "themes": ["truth", "authority", "integrity"],
+    "commentary": "Invoking God’s Name in an oath reflects the seriousness of truth and accountability before Him."
   },
   {
     "id": 8,
@@ -90,10 +90,10 @@
     "category": "Relationship To God",
     "reference": "Deuteronomy 28:9",
     "title": "On walking in God’s ways",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Ephesians 5:1", "1 John 2:6"],
+    "sefaria_links": ["Deuteronomy 28"],
+    "themes": ["imitation", "obedience", "conduct"],
+    "commentary": "Walking in God’s ways reflects a life shaped by His character and expressed through daily actions."
   },
   {
     "id": 9,
@@ -102,10 +102,10 @@
     "category": "Relationship To God",
     "reference": "Leviticus 22:32",
     "title": "On Sanctifying God’s Name",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 5:16", "1 Peter 1:15"],
+    "sefaria_links": ["Leviticus 22"],
+    "themes": ["holiness", "witness", "honor"],
+    "commentary": "Sanctifying God’s Name is expressed through conduct that reflects His holiness before others."
   },
   {
     "id": 10,
@@ -114,10 +114,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:7",
     "title": "On reciting the Sh’ma each morning and evening",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Mark 12:29", "Colossians 3:16"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["remembrance", "instruction", "devotion"],
+    "commentary": "Regular recitation reinforces continual awareness of God and embeds His words into daily life."
   },
   {
     "id": 11,
@@ -126,10 +126,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:7",
     "title": "On studying and teaching Torah",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 28:20", "2 Timothy 2:2"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["instruction", "teaching", "continuity"],
+    "commentary": "The transmission of Torah depends on both learning and passing it on faithfully from one generation to the next."
   },
   {
     "id": 12,
@@ -138,10 +138,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:8",
     "title": "On binding Tefillin on the head",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Romans 12:2", "Ephesians 6:17"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["remembrance", "mind", "devotion"],
+    "commentary": "This command expresses the call to keep God’s words before the mind and to live with conscious remembrance of Him."
   },
   {
     "id": 13,
@@ -150,10 +150,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:8",
     "title": "On binding Tefillin on the hand",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["James 1:22", "Colossians 3:17"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["action", "obedience", "devotion"],
+    "commentary": "This command points to the joining of devotion and action, bringing God’s instruction into what one does."
   },
   {
     "id": 14,
@@ -162,10 +162,10 @@
     "category": "Torah",
     "reference": "Numbers 15:38",
     "title": "On making Tzitzit with thread of blue, garments corners",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 9:20", "Luke 8:44"],
+    "sefaria_links": ["Numbers 15"],
+    "themes": ["remembrance", "identity", "obedience"],
+    "commentary": "Tzitzit serve as a visible reminder to remember God’s commandments and walk in covenant faithfulness."
   },
   {
     "id": 15,
@@ -174,10 +174,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 6:9",
     "title": "On affixing a Mezuzah to doorposts and gates",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["John 10:9", "Colossians 3:16"],
+    "sefaria_links": ["Deuteronomy 6"],
+    "themes": ["household", "remembrance", "covenant"],
+    "commentary": "The mezuzah marks the household as a place ordered by God’s word and keeps His instruction at the threshold of daily life."
   },
   {
     "id": 16,
@@ -185,11 +185,11 @@
     "type": "positive",
     "category": "Torah",
     "reference": "Deuteronomy 31:12",
-    "title": "On Assembling each 7th year to hear the Torah read",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On assembling each 7th year to hear the Torah read",
+    "nt_links": ["Luke 4:16", "Acts 13:15"],
+    "sefaria_links": ["Deuteronomy 31"],
+    "themes": ["assembly", "hearing", "instruction"],
+    "commentary": "Gathering to hear the Torah reinforces shared understanding and renews commitment across the community."
   },
   {
     "id": 17,
@@ -198,10 +198,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 17:18",
     "title": "On that a king must write a copy of Torah for himself",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 4:4", "John 5:39"],
+    "sefaria_links": ["Deuteronomy 17"],
+    "themes": ["leadership", "accountability", "instruction"],
+    "commentary": "Leadership is anchored in submission to God’s instruction, requiring continual engagement with His word."
   },
   {
     "id": 18,
@@ -210,10 +210,10 @@
     "category": "Torah",
     "reference": "Deuteronomy 31:19",
     "title": "On that everyone should have a Torah scroll",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Colossians 3:16", "2 Timothy 3:16"],
+    "sefaria_links": ["Deuteronomy 31"],
+    "themes": ["preservation", "instruction", "access"],
+    "commentary": "Having the Torah present ensures that God’s instruction remains accessible and active among the people."
   },
   {
     "id": 19,
@@ -221,11 +221,11 @@
     "type": "positive",
     "category": "Torah",
     "reference": "Deuteronomy 8:10",
-    "title": "On praising God after eating, Grace after meals",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On praising God after eating, grace after meals",
+    "nt_links": ["Matthew 14:19", "1 Timothy 4:4"],
+    "sefaria_links": ["Deuteronomy 8"],
+    "themes": ["gratitude", "provision", "remembrance"],
+    "commentary": "Giving thanks after provision acknowledges God as the source and keeps gratitude central to daily life."
   },
   {
     "id": 20,
@@ -233,11 +233,11 @@
     "type": "positive",
     "category": "Temple And The Priests",
     "reference": "Exodus 25:8",
-    "title": "On building a Sanctuary/(Tabernacle/Temple) for God",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On building a Sanctuary (Tabernacle/Temple) for God",
+    "nt_links": ["Acts 7:48", "1 Corinthians 3:16"],
+    "sefaria_links": ["Exodus 25"],
+    "themes": ["dwelling", "presence", "worship"],
+    "commentary": "The sanctuary represents a place set apart for God’s presence, shaping how worship and nearness are understood."
   },
   {
     "id": 21,
@@ -246,10 +246,10 @@
     "category": "Temple And The Priests",
     "reference": "Leviticus 19:30",
     "title": "On respecting the Sanctuary",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 21:12", "John 2:16"],
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["reverence", "holiness", "worship"],
+    "commentary": "Respect for the sanctuary reflects recognition of what is set apart and devoted to God."
   },
   {
     "id": 22,
@@ -258,10 +258,10 @@
     "category": "Temple And The Priests",
     "reference": "Numbers 18:4",
     "title": "On guarding the Sanctuary",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["1 Corinthians 3:17", "1 Timothy 6:20"],
+    "sefaria_links": ["Numbers 18"],
+    "themes": ["guarding", "responsibility", "holiness"],
+    "commentary": "Guarding the sanctuary emphasizes responsibility to preserve what is holy and entrusted to care."
   },
   {
     "id": 23,
@@ -270,10 +270,10 @@
     "category": "Temple And The Priests",
     "reference": "Numbers 18:23",
     "title": "On Levitical services in the Tabernacle",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Hebrews 8:5", "Hebrews 9:6"],
+    "sefaria_links": ["Numbers 18"],
+    "themes": ["service", "order", "worship"],
+    "commentary": "Levitical service establishes order in worship, structuring how duties are carried out before God."
   },
   {
     "id": 24,
@@ -282,10 +282,10 @@
     "category": "Temple And The Priests",
     "reference": "Exodus 30:19",
     "title": "On Cohanim washing hands & feet before entering Temple",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["John 13:10", "Hebrews 10:22"],
+    "sefaria_links": ["Exodus 30"],
+    "themes": ["purity", "preparation", "worship"],
+    "commentary": "Preparation through cleansing reflects the need for purity when approaching what is set apart."
   },
   {
     "id": 25,
@@ -294,10 +294,10 @@
     "category": "Temple And The Priests",
     "reference": "Exodus 27:21",
     "title": "On kindling the Menorah by the Cohanim",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 5:15", "Revelation 1:20"],
+    "sefaria_links": ["Exodus 27"],
+    "themes": ["light", "service", "continuity"],
+    "commentary": "The continual lighting of the menorah reflects ongoing service and the presence of light within the sanctuary."
   },
   {
     "id": 26,
@@ -306,10 +306,10 @@
     "category": "Temple And The Priests",
     "reference": "Numbers 6:23",
     "title": "On the Cohanim blessing Israel",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Luke 24:50", "2 Corinthians 13:14"],
+    "sefaria_links": ["Numbers 6"],
+    "themes": ["blessing", "mediation", "presence"],
+    "commentary": "The priestly blessing expresses God’s favor being spoken over the people through appointed service."
   },
   {
     "id": 27,
@@ -318,10 +318,10 @@
     "category": "Temple And The Priests",
     "reference": "Exodus 25:30",
     "title": "On the Showbread before the Ark",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Matthew 12:4", "John 6:35"],
+    "sefaria_links": ["Exodus 25"],
+    "themes": ["provision", "presence", "remembrance"],
+    "commentary": "The showbread represents continual provision and presence before God within the sanctuary."
   },
   {
     "id": 28,
@@ -329,11 +329,11 @@
     "type": "positive",
     "category": "Temple And The Priests",
     "reference": "Exodus 30:7",
-    "title": "On Burning the Incense on the Golden Altar twice daily",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On burning the incense on the Golden Altar twice daily",
+    "nt_links": ["Luke 1:10", "Revelation 8:3"],
+    "sefaria_links": ["Exodus 30"],
+    "themes": ["prayer", "worship", "continuity"],
+    "commentary": "The continual offering of incense reflects ongoing prayer and devotion rising before God."
   },
   {
     "id": 29,
@@ -342,10 +342,10 @@
     "category": "Temple And The Priests",
     "reference": "Leviticus 6:6",
     "title": "On the perpetual fire on the Altar",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Romans 12:11", "1 Thessalonians 5:19"],
+    "sefaria_links": ["Leviticus 6"],
+    "themes": ["continuity", "devotion", "service"],
+    "commentary": "The continual fire symbolizes ongoing devotion and the unceasing nature of service before God."
   },
   {
     "id": 30,
@@ -354,10 +354,10 @@
     "category": "Temple And The Priests",
     "reference": "Leviticus 6:3",
     "title": "On removing the ashes from the Altar",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["1 Corinthians 14:40", "Hebrews 13:15"],
+    "sefaria_links": ["Leviticus 6"],
+    "themes": ["order", "service", "maintenance"],
+    "commentary": "Even the removal of ashes reflects ordered service, maintaining what is set apart for worship."
   },
   {
     "id": 31,
@@ -366,10 +366,10 @@
     "category": "Temple And The Priests",
     "reference": "Numbers 5:2",
     "title": "On removing unclean persons from the camp",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["1 Corinthians 5:13", "2 Corinthians 6:17"],
+    "sefaria_links": ["Numbers 5"],
+    "themes": ["separation", "purity", "holiness"],
+    "commentary": "Separation from uncleanness preserves the integrity of what is set apart and maintains the holiness of the community."
   },
   {
     "id": 32,
@@ -378,10 +378,10 @@
     "category": "Temple And The Priests",
     "reference": "Leviticus 21:8",
     "title": "On honoring the Cohanim",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["1 Timothy 5:17", "Hebrews 5:1"],
+    "sefaria_links": ["Leviticus 21"],
+    "themes": ["honor", "service", "set apart"],
+    "commentary": "Those appointed to sacred service are to be regarded with honor because of their role in what is set apart."
   },
   {
     "id": 33,
@@ -390,10 +390,10 @@
     "category": "Temple And The Priests",
     "reference": "Exodus 28:2",
     "title": "On the garments of the Cohanim",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Revelation 19:8", "Exodus 28"],
+    "sefaria_links": ["Exodus 28"],
+    "themes": ["holiness", "identity", "service"],
+    "commentary": "Priestly garments reflect distinction and identity in service, marking what is set apart for sacred purpose."
   },
   {
     "id": 34,
@@ -402,10 +402,10 @@
     "category": "Temple And The Priests",
     "reference": "Numbers 7:9",
     "title": "On Cohanim bearing the Ark on their shoulders",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["2 Samuel 6:13", "1 Chronicles 15:15"],
+    "sefaria_links": ["Numbers 7"],
+    "themes": ["responsibility", "reverence", "service"],
+    "commentary": "Carrying what is set apart requires care and reverence, emphasizing responsibility in handling sacred things."
   },
   {
     "id": 35,
@@ -414,34 +414,34 @@
     "category": "Temple And The Priests",
     "reference": "Exodus 30:31",
     "title": "On the holy anointing oil",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["1 John 2:20", "James 5:14"],
+    "sefaria_links": ["Exodus 30"],
+    "themes": ["anointing", "consecration", "set apart"],
+    "commentary": "Anointing marks what is set apart, signifying consecration for a specific purpose in service."
   },
   {
     "id": 36,
     "code": "P 36",
     "type": "positive",
     "category": "Temple And The Priests",
-    "reference": "Deuteronomy 18:6",
-    "title": "8 – On the Cohanim ministering in rotation/watches",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "reference": "Deuteronomy 18:6-8",
+    "title": "On the Cohanim ministering in rotation/watches",
+    "nt_links": ["Luke 1:8-9", "1 Corinthians 14:40"],
+    "sefaria_links": ["Deuteronomy 18"],
+    "themes": ["order", "service", "rotation"],
+    "commentary": "Structured service ensures that responsibilities are carried out in order, preserving continuity in what is set apart."
   },
   {
     "id": 37,
     "code": "P 37",
     "type": "positive",
     "category": "Temple And The Priests",
-    "reference": "Leviticus 21:2",
-    "title": "3 – On the Cohanim being defiled for dead relatives",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "reference": "Leviticus 21:2-3",
+    "title": "On the Cohanim being defiled for dead relatives",
+    "nt_links": ["John 11:25", "Hebrews 7:26"],
+    "sefaria_links": ["Leviticus 21"],
+    "themes": ["purity", "family", "set apart"],
+    "commentary": "Even within sacred service, allowances are made for family, balancing holiness with human responsibility."
   },
   {
     "id": 38,
@@ -450,10 +450,10 @@
     "category": "Temple And The Priests",
     "reference": "Leviticus 21:13",
     "title": "On that Cohen haGadol may only marry a virgin",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["2 Corinthians 11:2", "Hebrews 7:26"],
+    "sefaria_links": ["Leviticus 21"],
+    "themes": ["purity", "set apart", "holiness"],
+    "commentary": "The requirements for the high priest emphasize a heightened level of separation, reflecting the role’s distinct holiness."
   },
   {
     "id": 39,
