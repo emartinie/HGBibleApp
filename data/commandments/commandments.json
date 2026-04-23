@@ -1709,11 +1709,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Deuteronomy 18:3",
-    "title": "The Cohen’s due in the slaughter of every clean animal",
+    "title": "On the priestly portions from the slaughter of clean animals",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 18"],
+    "themes": ["priesthood", "provision", "slaughter"],
+    "commentary": "Specific portions from slaughter are set aside for the priests, establishing provision within ordinary consumption."
   },
   {
     "id": 144,
@@ -1721,11 +1721,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Deuteronomy 18:4",
-    "title": "On the first of the fleece to be given to the Cohen",
+    "title": "On giving the first of the fleece to the priest",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 18"],
+    "themes": ["first portion", "priesthood", "provision"],
+    "commentary": "The first of the fleece is given, extending the pattern of first portions beyond produce to livestock."
   },
   {
     "id": 145,
@@ -1733,11 +1733,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Leviticus 27:21",
-    "title": "(Cherem vow) one devoted thing to God, other to Cohanim",
+    "title": "On items devoted by vow being given as designated",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 27"],
+    "themes": ["vow", "dedication", "transfer"],
+    "commentary": "What is devoted by vow is transferred according to its designation, reflecting the binding nature of such commitments."
   },
   {
     "id": 146,
@@ -1745,11 +1745,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Deuteronomy 12:21",
-    "title": "Slaughtering animals, according to Torah, before eating",
+    "title": "On slaughtering animals before eating",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 12"],
+    "themes": ["slaughter", "preparation", "food"],
+    "commentary": "Animals are slaughtered in a prescribed way before consumption, establishing a defined process."
   },
   {
     "id": 147,
@@ -1757,11 +1757,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Leviticus 17:13",
-    "title": "Covering with earth the blood of slain fowl and beast",
+    "title": "On covering the blood of a hunted animal or bird",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 17"],
+    "themes": ["blood", "respect", "handling"],
+    "commentary": "Blood is covered after slaughter, marking a boundary in how life is handled."
   },
   {
     "id": 148,
@@ -1769,11 +1769,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Deuteronomy 22:7",
-    "title": "On setting free the parent bird when taking the nest",
+    "title": "On releasing the parent bird when taking young",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 22"],
+    "themes": ["restraint", "preservation", "animals"],
+    "commentary": "When taking young, the parent is released, introducing restraint into use of animals."
   },
   {
     "id": 149,
@@ -1781,11 +1781,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Leviticus 11:2",
-    "title": "Searching for prescribed signs in beasts, for eating",
+    "title": "On identifying permitted animals by their signs",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 11"],
+    "themes": ["classification", "food", "animals"],
+    "commentary": "Animals are identified by specific signs to determine what may be eaten."
   },
   {
     "id": 150,
@@ -1793,11 +1793,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Deuteronomy 14:11",
-    "title": "Searching for the prescribed signs in birds, for eating",
+    "title": "On identifying permitted birds by their designation",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 14"],
+    "themes": ["classification", "food", "birds"],
+    "commentary": "Birds are distinguished for consumption according to defined criteria."
   },
   {
     "id": 151,
@@ -1805,11 +1805,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Leviticus 11:21",
-    "title": "Searching for prescribed signs in locusts, for eating",
+    "title": "On identifying permitted locusts by their signs",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 11"],
+    "themes": ["classification", "food", "insects"],
+    "commentary": "Certain locusts are identified by defined signs, completing the classification of permitted creatures."
   },
   {
     "id": 152,
@@ -1817,11 +1817,11 @@
     "type": "positive",
     "category": "Concerning Animals For Consumption",
     "reference": "Leviticus 11:9",
-    "title": "Searching for the prescribed signs in fish, for eating",
+    "title": "On identifying permitted fish by their signs",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 11"],
+    "themes": ["classification", "food", "fish"],
+    "commentary": "Fish are distinguished by specific signs, establishing criteria for what may be eaten."
   },
   {
     "id": 153,
@@ -1829,11 +1829,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Exodus 12:2; Deuteronomy 16:1",
-    "title": "Sanhedrin to sanctify New Moon, & reckon years & seasons",
+    "title": "On establishing the new month and ordering the calendar",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 12", "Deuteronomy 16"],
+    "themes": ["calendar", "time", "authority"],
+    "commentary": "Time is structured through the recognition of months and seasons, forming the basis for appointed times."
   },
   {
     "id": 154,
@@ -1841,11 +1841,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Exodus 23:12",
-    "title": "On resting on the Shabbat",
+    "title": "On resting on the seventh day",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 23"],
+    "themes": ["sabbath", "rest", "time"],
+    "commentary": "The seventh day is marked by rest, establishing a recurring rhythm in time."
   },
   {
     "id": 155,
@@ -1853,11 +1853,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Exodus 20:8",
-    "title": "On declaring Shabbat holy at its onset and termination",
+    "title": "On setting apart the Sabbath at its beginning and end",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 20"],
+    "themes": ["sabbath", "sanctification", "time"],
+    "commentary": "The Sabbath is set apart through acknowledgment at its boundaries, marking it as distinct in time."
   },
   {
     "id": 156,
@@ -1865,11 +1865,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Exodus 12:15",
-    "title": "On removal of chametz, leaven (yeast) on (Nisan 14) Pesach",
+    "title": "On removing leaven before Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "leaven", "preparation"],
+    "commentary": "Leaven is removed in preparation, marking a transition into the appointed time."
   },
   {
     "id": 157,
@@ -1877,11 +1877,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Exodus 13:8",
-    "title": "Tell of Exodus from Egypt 1st night Pesach, (Nisan 15)",
+    "title": "On recounting the exodus on the night of Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 13"],
+    "themes": ["passover", "remembrance", "teaching"],
+    "commentary": "The exodus is recounted, preserving memory through spoken transmission."
   },
   {
     "id": 158,
@@ -1889,11 +1889,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Exodus 12:18",
-    "title": "On eating Matzah the first night of Pesach, (Nisan 15)",
+    "title": "On eating unleavened bread on the first night of Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "matzah", "food"],
+    "commentary": "Unleavened bread is eaten as part of the observance, linking food with the appointed time."
   },
   {
     "id": 159,
@@ -1901,11 +1901,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Exodus 12:16",
-    "title": "On resting on the first day of Pesach",
+    "title": "On resting on the first day of Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "rest", "time"],
+    "commentary": "The first day is marked by rest, setting it apart within the festival."
   },
   {
     "id": 160,
@@ -1913,71 +1913,71 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Exodus 12:16",
-    "title": "On resting on the seventh day of Pesach",
+    "title": "On resting on the seventh day of Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "rest", "time"],
+    "commentary": "The final day is also marked by rest, framing the festival with defined boundaries."
   },
   {
-    "id": 161,
-    "code": "P 161",
+    "id": 156,
+    "code": "P 156",
     "type": "positive",
     "category": "Festivals",
-    "reference": "Leviticus 23:35",
-    "title": "Count the Omer 49 days from day of first sheaf (Nisan 16)",
+    "reference": "Exodus 12:15",
+    "title": "On removing leaven before Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "leaven", "preparation"],
+    "commentary": "Leaven is removed in preparation, marking a transition into the appointed time."
   },
   {
-    "id": 162,
-    "code": "P 162",
+    "id": 157,
+    "code": "P 157",
     "type": "positive",
     "category": "Festivals",
-    "reference": "Leviticus 23:21",
-    "title": "On resting on Shavuot",
+    "reference": "Exodus 13:8",
+    "title": "On recounting the exodus on the night of Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 13"],
+    "themes": ["passover", "remembrance", "teaching"],
+    "commentary": "The exodus is recounted, preserving memory through spoken transmission."
   },
   {
-    "id": 163,
-    "code": "P 163",
+    "id": 158,
+    "code": "P 158",
     "type": "positive",
     "category": "Festivals",
-    "reference": "Leviticus 23:24",
-    "title": "On resting on Rosh HaShannah",
+    "reference": "Exodus 12:18",
+    "title": "On eating unleavened bread on the first night of Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "matzah", "food"],
+    "commentary": "Unleavened bread is eaten as part of the observance, linking food with the appointed time."
   },
   {
-    "id": 164,
-    "code": "P 164",
+    "id": 159,
+    "code": "P 159",
     "type": "positive",
     "category": "Festivals",
-    "reference": "Leviticus 16:29",
-    "title": "On fasting on Yom Kippur",
+    "reference": "Exodus 12:16",
+    "title": "On resting on the first day of Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "rest", "time"],
+    "commentary": "The first day is marked by rest, setting it apart within the festival."
   },
   {
-    "id": 165,
-    "code": "P 165",
+    "id": 160,
+    "code": "P 160",
     "type": "positive",
     "category": "Festivals",
-    "reference": "Leviticus 16:29",
-    "title": "On resting on Yom Kippur",
+    "reference": "Exodus 12:16",
+    "title": "On resting on the seventh day of Passover",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "rest", "time"],
+    "commentary": "The final day is also marked by rest, framing the festival with defined boundaries."
   },
   {
     "id": 166,
@@ -1987,9 +1987,9 @@
     "reference": "Leviticus 23:35",
     "title": "On resting on the first day of Sukkot",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 23"],
+    "themes": ["sukkot", "rest", "time"],
+    "commentary": "The first day of Sukkot is marked by rest, setting it apart within the festival."
   },
   {
     "id": 167,
@@ -1997,11 +1997,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Leviticus 23:36",
-    "title": "On resting on (the 8th day) Shemini Atzeret",
+    "title": "On resting on the eighth day assembly",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 23"],
+    "themes": ["assembly", "rest", "time"],
+    "commentary": "An additional day is marked by rest, concluding the festival period with a distinct gathering."
   },
   {
     "id": 168,
@@ -2009,11 +2009,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Leviticus 23:42",
-    "title": "On dwelling in a Sukkah (booth) for seven days",
+    "title": "On dwelling in booths during Sukkot",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 23"],
+    "themes": ["sukkot", "dwelling", "practice"],
+    "commentary": "Temporary dwellings are used during the festival, creating a lived expression of the appointed time."
   },
   {
     "id": 169,
@@ -2021,11 +2021,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Leviticus 23:40",
-    "title": "On taking a Lulav (the four species) on Sukkot",
+    "title": "On taking the four species during Sukkot",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 23"],
+    "themes": ["sukkot", "practice", "symbol"],
+    "commentary": "Specific items are taken as part of the observance, adding physical expression to the festival."
   },
   {
     "id": 170,
@@ -2033,11 +2033,11 @@
     "type": "positive",
     "category": "Festivals",
     "reference": "Numbers 29:1",
-    "title": "On hearing the sound of the Shofar on Rosh HaShannah",
+    "title": "On hearing the sound of the shofar",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Numbers 29"],
+    "themes": ["shofar", "sound", "time"],
+    "commentary": "The sounding of the shofar marks the appointed time, signaling its beginning."
   },
   {
     "id": 171,
@@ -2045,11 +2045,11 @@
     "type": "positive",
     "category": "Community",
     "reference": "Exodus 30:12",
-    "title": "On every male giving half a shekel annually to Temple",
+    "title": "On each male giving a half-shekel for the sanctuary",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 30"],
+    "themes": ["community", "contribution", "sanctuary"],
+    "commentary": "A fixed contribution is given, linking individuals to the collective support of the sanctuary."
   },
   {
     "id": 172,
@@ -2057,11 +2057,11 @@
     "type": "positive",
     "category": "Community",
     "reference": "Deuteronomy 18:15",
-    "title": "On heeding the Prophets",
+    "title": "On heeding the prophet",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 18"],
+    "themes": ["prophet", "authority", "guidance"],
+    "commentary": "Instruction delivered through a prophet is to be received, establishing a channel of guidance."
   },
   {
     "id": 173,
@@ -2071,9 +2071,9 @@
     "reference": "Deuteronomy 17:15",
     "title": "On appointing a king",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 17"],
+    "themes": ["leadership", "king", "authority"],
+    "commentary": "A king may be established, creating a defined form of leadership within the community."
   },
   {
     "id": 174,
@@ -2081,11 +2081,11 @@
     "type": "positive",
     "category": "Community",
     "reference": "Deuteronomy 17:11",
-    "title": "On obeying the Great Court (Sanhedrin)",
+    "title": "On following the decisions of the court",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 17"],
+    "themes": ["court", "authority", "law"],
+    "commentary": "Decisions issued by the court are followed, maintaining order and consistency in judgment."
   },
   {
     "id": 175,
@@ -2093,11 +2093,11 @@
     "type": "positive",
     "category": "Community",
     "reference": "Exodus 23:2",
-    "title": "On in case of division, abiding by a majority decision",
+    "title": "On following the majority in judgment",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 23"],
+    "themes": ["judgment", "majority", "decision"],
+    "commentary": "In matters of judgment, decisions follow the majority, establishing a consistent method for resolving disputes."
   },
   {
     "id": 176,
@@ -2177,11 +2177,11 @@
     "type": "positive",
     "category": "Community",
     "reference": "Deuteronomy 21:4",
-    "title": "On Eglah Arufah, on the heifer when murderer unknown",
+    "title": "On the procedure for an unsolved killing",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 21"],
+    "themes": ["justice", "responsibility", "atonement"],
+    "commentary": "A defined procedure is followed when a killing is unresolved, acknowledging responsibility within the community."
   },
   {
     "id": 182,
@@ -2189,11 +2189,11 @@
     "type": "positive",
     "category": "Community",
     "reference": "Deuteronomy 19:3",
-    "title": "On establishing Six Cities of Refuge",
+    "title": "On establishing cities of refuge",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 19"],
+    "themes": ["refuge", "justice", "protection"],
+    "commentary": "Cities of refuge are established, providing protection within the justice system."
   },
   {
     "id": 183,
@@ -2201,11 +2201,11 @@
     "type": "positive",
     "category": "Community",
     "reference": "Numbers 35:2",
-    "title": "Give cities to Levites – who’ve no ancestral land share",
+    "title": "On giving cities to the Levites",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Numbers 35"],
+    "themes": ["levites", "provision", "land"],
+    "commentary": "Cities are given to the Levites, providing habitation for those without a land inheritance."
   },
   {
     "id": 184,
@@ -2213,11 +2213,11 @@
     "type": "positive",
     "category": "Community",
     "reference": "Deuteronomy 22:8",
-    "title": "Build fence on roof, remove potential hazards from home",
+    "title": "On removing hazards from one’s property",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 22"],
+    "themes": ["safety", "responsibility", "community"],
+    "commentary": "Potential dangers are addressed, extending responsibility to the safety of others."
   },
   {
     "id": 185,
@@ -2225,71 +2225,71 @@
     "type": "positive",
     "category": "Idolatry",
     "reference": "Deuteronomy 12:2",
-    "title": "On destroying all idolatry and its appurtenances",
+    "title": "On removing idolatrous sites and objects",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 12"],
+    "themes": ["idolatry", "removal", "purity"],
+    "commentary": "Idolatrous sites and objects are removed, establishing boundaries in worship and practice."
   },
   {
-    "id": 186,
-    "code": "P 186",
+    "id": 181,
+    "code": "P 181",
+    "type": "positive",
+    "category": "Community",
+    "reference": "Deuteronomy 21:4",
+    "title": "On the procedure for an unsolved killing",
+    "nt_links": [],
+    "sefaria_links": ["Deuteronomy 21"],
+    "themes": ["justice", "responsibility", "atonement"],
+    "commentary": "A defined procedure is followed when a killing is unresolved, acknowledging responsibility within the community."
+  },
+  {
+    "id": 182,
+    "code": "P 182",
+    "type": "positive",
+    "category": "Community",
+    "reference": "Deuteronomy 19:3",
+    "title": "On establishing cities of refuge",
+    "nt_links": [],
+    "sefaria_links": ["Deuteronomy 19"],
+    "themes": ["refuge", "justice", "protection"],
+    "commentary": "Cities of refuge are established, providing protection within the justice system."
+  },
+  {
+    "id": 183,
+    "code": "P 183",
+    "type": "positive",
+    "category": "Community",
+    "reference": "Numbers 35:2",
+    "title": "On giving cities to the Levites",
+    "nt_links": [],
+    "sefaria_links": ["Numbers 35"],
+    "themes": ["levites", "provision", "land"],
+    "commentary": "Cities are given to the Levites, providing habitation for those without a land inheritance."
+  },
+  {
+    "id": 184,
+    "code": "P 184",
+    "type": "positive",
+    "category": "Community",
+    "reference": "Deuteronomy 22:8",
+    "title": "On removing hazards from one’s property",
+    "nt_links": [],
+    "sefaria_links": ["Deuteronomy 22"],
+    "themes": ["safety", "responsibility", "community"],
+    "commentary": "Potential dangers are addressed, extending responsibility to the safety of others."
+  },
+  {
+    "id": 185,
+    "code": "P 185",
     "type": "positive",
     "category": "Idolatry",
-    "reference": "Deuteronomy 13:17",
-    "title": "The law about a city that has become apostate/perverted",
+    "reference": "Deuteronomy 12:2",
+    "title": "On removing idolatrous sites and objects",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 187,
-    "code": "P 187",
-    "type": "positive",
-    "category": "Idolatry",
-    "reference": "Deuteronomy 20:17",
-    "title": "On the law about destroying the seven Canaanite nations",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 188,
-    "code": "P 188",
-    "type": "positive",
-    "category": "Idolatry",
-    "reference": "Deuteronomy 25:19",
-    "title": "On the extinction of the seed of Amalek",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 189,
-    "code": "P 189",
-    "type": "positive",
-    "category": "Idolatry",
-    "reference": "Deuteronomy 25:17",
-    "title": "On remembering the nefarious deeds of Amalek to Israel",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 190,
-    "code": "P 190",
-    "type": "positive",
-    "category": "War",
-    "reference": "Deuteronomy 20:11",
-    "title": "Regulations for wars other than ones commanded in Torah",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 12"],
+    "themes": ["idolatry", "removal", "purity"],
+    "commentary": "Idolatrous sites and objects are removed, establishing boundaries in worship and practice."
   },
   {
     "id": 191,
@@ -2297,11 +2297,11 @@
     "type": "positive",
     "category": "War",
     "reference": "Deuteronomy 20:2",
-    "title": "Cohen for special duties in war; also men unfit return",
+    "title": "On appointing roles and exemptions in time of war",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 20"],
+    "themes": ["war", "roles", "exemption"],
+    "commentary": "Specific roles are assigned and certain individuals are exempted, structuring participation in war."
   },
   {
     "id": 192,
@@ -2309,23 +2309,23 @@
     "type": "positive",
     "category": "War",
     "reference": "Deuteronomy 23:14",
-    "title": "Prepare place beyond the camp, so to keep sanitary &…",
+    "title": "On maintaining sanitation within the camp",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 23"],
+    "themes": ["war", "sanitation", "camp"],
+    "commentary": "The camp is kept orderly and sanitary, extending discipline beyond combat."
   },
   {
     "id": 193,
     "code": "P 193",
     "type": "positive",
     "category": "War",
-    "reference": "Deuteronomy 23:15",
-    "title": "…so include a digging tool among war implements",
+    "reference": "Deuteronomy 23:13",
+    "title": "On including tools for sanitation among equipment",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 23"],
+    "themes": ["war", "equipment", "sanitation"],
+    "commentary": "Necessary tools are included as part of preparation, ensuring proper maintenance of the camp."
   },
   {
     "id": 195,
@@ -2333,11 +2333,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Deuteronomy 15:8",
-    "title": "On to give charity to the poor (Leviticus25:35-36)",
+    "title": "On giving to the poor according to need",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 15"],
+    "themes": ["charity", "poor", "provision"],
+    "commentary": "Assistance is given based on need, reinforcing responsibility toward others."
   },
   {
     "id": 196,
@@ -2345,11 +2345,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Deuteronomy 15:14",
-    "title": "On giving gifts to a Hebrew bondman upon his freedom",
+    "title": "On giving provision to a servant upon release",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 15"],
+    "themes": ["release", "provision", "restoration"],
+    "commentary": "Provision is given at release, supporting transition back into independent life."
   },
   {
     "id": 197,
@@ -2357,11 +2357,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Exodus 22:24",
-    "title": "On lending money to the poor without interest",
+    "title": "On lending to the poor without interest",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 22"],
+    "themes": ["lending", "poor", "compassion"],
+    "commentary": "Loans to the poor are given without interest, reducing burden and preserving dignity."
   },
   {
     "id": 198,
@@ -2369,23 +2369,23 @@
     "type": "positive",
     "category": "Social",
     "reference": "Deuteronomy 23:21",
-    "title": "On lending money to the foreigner with interest",
+    "title": "On lending with interest to a foreigner",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 23"],
+    "themes": ["lending", "distinction", "economics"],
+    "commentary": "A distinction is made in lending practices, defining different terms across boundaries."
   },
   {
     "id": 199,
     "code": "P 199",
     "type": "positive",
     "category": "Social",
-    "reference": "Deuteronomy 24:13",
-    "title": "Exodus22:25 On restoring a pledge to its owner if he needs it",
+    "reference": "Deuteronomy 24:13; Exodus 22:25",
+    "title": "On returning a pledge when needed by its owner",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 24", "Exodus 22"],
+    "themes": ["pledge", "justice", "compassion"],
+    "commentary": "A pledge is returned when needed, balancing obligation with compassion."
   },
   {
     "id": 200,
@@ -2393,11 +2393,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Deuteronomy 24:15",
-    "title": "On paying the worker his wages on time",
+    "title": "On paying wages on time",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 24"],
+    "themes": ["wages", "justice", "labor"],
+    "commentary": "Wages are paid promptly, ensuring fairness in labor and livelihood."
   },
   {
     "id": 201,
@@ -2405,11 +2405,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Deuteronomy 23:25",
-    "title": "Employee is allowed to eat the produce he’s working in",
+    "title": "On allowing a worker to eat from what he is harvesting",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 23"],
+    "themes": ["labor", "provision", "fairness"],
+    "commentary": "A worker may partake of the produce being worked, ensuring immediate provision during labor."
   },
   {
     "id": 202,
@@ -2417,11 +2417,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Exodus 23:5",
-    "title": "On helping unload when necessary a tired animal",
+    "title": "On helping unload a burdened animal",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 23"],
+    "themes": ["assistance", "animals", "responsibility"],
+    "commentary": "Assistance is given to relieve a burdened animal, extending care beyond ownership."
   },
   {
     "id": 203,
@@ -2429,23 +2429,23 @@
     "type": "positive",
     "category": "Social",
     "reference": "Deuteronomy 22:4",
-    "title": "On assisting a man loading his beast with its burden",
+    "title": "On helping load a burdened animal",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 22"],
+    "themes": ["assistance", "animals", "community"],
+    "commentary": "Assistance is given in lifting burdens, reinforcing responsibility toward others."
   },
   {
     "id": 204,
     "code": "P 204",
     "type": "positive",
     "category": "Social",
-    "reference": "Deuteronomy 22:1",
-    "title": "Exodus 23:4 On that lost property must be returned to its owner",
+    "reference": "Deuteronomy 22:1; Exodus 23:4",
+    "title": "On returning lost property to its owner",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 22", "Exodus 23"],
+    "themes": ["property", "responsibility", "community"],
+    "commentary": "Lost property is restored to its owner, maintaining trust and accountability within the community."
   },
   {
     "id": 205,
@@ -2453,11 +2453,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Leviticus 19:17",
-    "title": "On being required to reprove the sinner",
+    "title": "On correcting wrongdoing",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["correction", "accountability", "community"],
+    "commentary": "Wrongdoing is addressed directly, reinforcing responsibility within relationships."
   },
   {
     "id": 206,
@@ -2465,11 +2465,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Leviticus 19:18",
-    "title": "On love your neighbor as yourself",
+    "title": "On loving one’s neighbor as oneself",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["love", "neighbor", "community"],
+    "commentary": "Care for others is expressed in relation to oneself, establishing a baseline for social interaction."
   },
   {
     "id": 207,
@@ -2477,11 +2477,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Deuteronomy 10:19",
-    "title": "On being commanded to love the convert/proselyte",
+    "title": "On loving the stranger",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 10"],
+    "themes": ["stranger", "love", "inclusion"],
+    "commentary": "Care extends beyond familiar relationships, including those outside one’s immediate group."
   },
   {
     "id": 208,
@@ -2489,11 +2489,11 @@
     "type": "positive",
     "category": "Social",
     "reference": "Leviticus 19:36",
-    "title": "On the law of accurate weights and measures",
+    "title": "On maintaining honest weights and measures",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["honesty", "trade", "justice"],
+    "commentary": "Accuracy in measurement is required, ensuring fairness in exchange and commerce."
   },
   {
     "id": 209,
@@ -2501,11 +2501,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Leviticus 19:32",
-    "title": "On honoring the old (and wise)",
+    "title": "On honoring the aged",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["honor", "age", "respect"],
+    "commentary": "Respect is shown to those advanced in age, recognizing their place within the community."
   },
   {
     "id": 210,
@@ -2513,11 +2513,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Exodus 20:12",
-    "title": "On honoring parents",
+    "title": "On honoring one’s parents",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 20"],
+    "themes": ["honor", "family", "authority"],
+    "commentary": "Parents are honored, establishing a foundational relationship within the family structure."
   },
   {
     "id": 211,
@@ -2525,11 +2525,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Leviticus 19:3",
-    "title": "On fearing parents",
+    "title": "On revering one’s parents",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["family", "honor", "respect"],
+    "commentary": "Parents are held in reverence, reinforcing respect within the family structure."
   },
   {
     "id": 212,
@@ -2537,11 +2537,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Genesis 1:28",
-    "title": "On to be fruitful and multiply",
+    "title": "On being fruitful and multiplying",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Genesis 1"],
+    "themes": ["family", "growth", "life"],
+    "commentary": "The continuation and growth of life is established as a foundational aspect of humanity."
   },
   {
     "id": 213,
@@ -2549,11 +2549,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Deuteronomy 24:1",
-    "title": "On the law of marriage",
+    "title": "On the formation of marriage",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 24"],
+    "themes": ["marriage", "family", "relationship"],
+    "commentary": "Marriage is defined as a recognized relationship, forming a core unit within the family structure."
   },
   {
     "id": 214,
@@ -2561,23 +2561,23 @@
     "type": "positive",
     "category": "Family",
     "reference": "Deuteronomy 24:5",
-    "title": "On bridegroom devoting himself to his wife for one year",
+    "title": "On a husband devoting time to his wife",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 24"],
+    "themes": ["marriage", "commitment", "family"],
+    "commentary": "A period is set aside for a husband to focus on his wife, strengthening the marital relationship."
   },
   {
     "id": 215,
     "code": "P 215",
     "type": "positive",
     "category": "Family",
-    "reference": "Genesis 17:10 Leviticus 12:3",
-    "title": "On circumcising one’s son",
+    "reference": "Genesis 17:10; Leviticus 12:3",
+    "title": "On circumcising a male child",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Genesis 17", "Leviticus 12"],
+    "themes": ["covenant", "family", "sign"],
+    "commentary": "A physical sign is established within the family, marking identity and continuity."
   },
   {
     "id": 216,
@@ -2585,11 +2585,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Deuteronomy 25:5",
-    "title": "If a man dies childless his brother marry widow, or…",
+    "title": "On a brother marrying a childless widow",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 25"],
+    "themes": ["family", "continuity", "marriage"],
+    "commentary": "A provision is made to preserve family continuity when a man dies without children."
   },
   {
     "id": 217,
@@ -2597,11 +2597,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Deuteronomy 25:9",
-    "title": "…release her/the-widow (Chalitzah)",
+    "title": "On releasing a widow from this obligation",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 25"],
+    "themes": ["family", "release", "choice"],
+    "commentary": "A formal process allows release from the obligation, establishing an alternative path."
   },
   {
     "id": 218,
@@ -2609,11 +2609,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Deuteronomy 22:29",
-    "title": "A violator must marry the virgin/maiden he has violated",
+    "title": "On marriage obligations following violation",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 22"],
+    "themes": ["marriage", "responsibility", "law"],
+    "commentary": "Specific obligations are established following a violation, defining responsibility within the law."
   },
   {
     "id": 219,
@@ -2621,11 +2621,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Deuteronomy 22:18",
-    "title": "The defamer of his bride is flogged & may never divorce",
+    "title": "On consequences for falsely accusing a spouse",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 22"],
+    "themes": ["marriage", "justice", "accountability"],
+    "commentary": "False accusations within marriage carry defined consequences, protecting integrity in the relationship."
   },
   {
     "id": 220,
@@ -2633,11 +2633,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Exodus 22:15",
-    "title": "On the seducer must be punished according to the law",
+    "title": "On legal consequences for seduction",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 22"],
+    "themes": ["marriage", "responsibility", "law"],
+    "commentary": "The law defines responsibility and consequences in cases of seduction."
   },
   {
     "id": 221,
@@ -2645,11 +2645,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Deuteronomy 21:11",
-    "title": "Captive women treated according to special regulations",
+    "title": "On treating a captive woman according to prescribed regulations",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 21"],
+    "themes": ["family", "war", "regulation"],
+    "commentary": "Specific regulations govern how a captive woman is to be treated, defining conduct in such circumstances."
   },
   {
     "id": 222,
@@ -2657,11 +2657,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Deuteronomy 24:1",
-    "title": "The law of divorce, only be means of written document",
+    "title": "On formalizing divorce through a written document",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 24"],
+    "themes": ["divorce", "marriage", "law"],
+    "commentary": "Divorce is formalized through a written document, establishing a defined legal process."
   },
   {
     "id": 223,
@@ -2669,11 +2669,11 @@
     "type": "positive",
     "category": "Family",
     "reference": "Numbers 5:15",
-    "title": "Suspected adulteress has to submit to the required test",
+    "title": "On the procedure for a suspected adulteress",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Numbers 5"],
+    "themes": ["marriage", "procedure", "law"],
+    "commentary": "A defined procedure addresses suspicion within marriage, structuring resolution under the law."
   },
   {
     "id": 224,
@@ -2681,11 +2681,11 @@
     "type": "positive",
     "category": "Judicial",
     "reference": "Deuteronomy 25:2",
-    "title": "On whipping transgressors of certain commandments",
+    "title": "On administering corporal punishment for certain offenses",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 25"],
+    "themes": ["judgment", "punishment", "law"],
+    "commentary": "Certain offenses carry defined penalties, applied within the judicial system."
   },
   {
     "id": 225,
@@ -2693,11 +2693,11 @@
     "type": "positive",
     "category": "Judicial",
     "reference": "Numbers 35:25",
-    "title": "On exile to city of refuge for unintentional homicide",
+    "title": "On exile to a city of refuge for unintentional killing",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Numbers 35"],
+    "themes": ["refuge", "judgment", "protection"],
+    "commentary": "Exile to a place of refuge is established as a response to unintentional killing."
   },
   {
     "id": 226,
@@ -2705,11 +2705,11 @@
     "type": "positive",
     "category": "Judicial",
     "reference": "Exodus 21:20",
-    "title": "On beheading transgressors of certain commandments",
+    "title": "On execution by the sword for certain offenses",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 21"],
+    "themes": ["judgment", "penalty", "law"],
+    "commentary": "Specific offenses carry defined forms of execution within the judicial system."
   },
   {
     "id": 227,
@@ -2717,11 +2717,11 @@
     "type": "positive",
     "category": "Judicial",
     "reference": "Exodus 21:16",
-    "title": "On strangling transgressors of certain commandments",
+    "title": "On execution by strangulation for certain offenses",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 21"],
+    "themes": ["judgment", "penalty", "law"],
+    "commentary": "Certain offenses are assigned a defined method of execution under the law."
   },
   {
     "id": 228,
@@ -2729,11 +2729,11 @@
     "type": "positive",
     "category": "Judicial",
     "reference": "Leviticus 20:14",
-    "title": "On burning transgressors of certain commandments",
+    "title": "On execution by burning for certain offenses",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 20"],
+    "themes": ["judgment", "penalty", "law"],
+    "commentary": "The law specifies a form of execution for certain offenses."
   },
   {
     "id": 229,
@@ -2741,11 +2741,11 @@
     "type": "positive",
     "category": "Judicial",
     "reference": "Deuteronomy 22:24",
-    "title": "On stoning transgressors of certain commandments",
+    "title": "On execution by stoning for certain offenses",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 22"],
+    "themes": ["judgment", "penalty", "law"],
+    "commentary": "Stoning is prescribed as a form of execution for particular offenses."
   },
   {
     "id": 230,
@@ -2753,11 +2753,11 @@
     "type": "positive",
     "category": "Judicial",
     "reference": "Deuteronomy 21:22",
-    "title": "Hang after execution, violators of certain commandments",
+    "title": "On hanging after execution for certain offenses",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 21"],
+    "themes": ["judgment", "penalty", "law"],
+    "commentary": "Post-execution display is defined for certain cases within the judicial system."
   },
   {
     "id": 231,
@@ -2765,11 +2765,11 @@
     "type": "positive",
     "category": "Judicial",
     "reference": "Deuteronomy 21:23",
-    "title": "On burial on the same day of execution",
+    "title": "On burial on the same day as execution",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 21"],
+    "themes": ["burial", "dignity", "law"],
+    "commentary": "Burial is carried out without delay, establishing a defined conclusion to judicial action."
   },
   {
     "id": 232,
@@ -2777,11 +2777,11 @@
     "type": "positive",
     "category": "Slaves",
     "reference": "Exodus 21:2",
-    "title": "On the special laws for treating the Hebrew bondman",
+    "title": "On the treatment of a Hebrew servant",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 21"],
+    "themes": ["servant", "law", "treatment"],
+    "commentary": "Specific laws define how a Hebrew servant is to be treated within the system."
   },
   {
     "id": 233,
@@ -2789,11 +2789,11 @@
     "type": "positive",
     "category": "Slaves",
     "reference": "Exodus 21:8",
-    "title": "Hebrew bondmaid married to her master or his son, or…",
+    "title": "On the rights and redemption of a female servant",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 21"],
+    "themes": ["servant", "rights", "redemption"],
+    "commentary": "A female servant is given defined rights, including provisions for redemption."
   },
   {
     "id": 234,
@@ -2801,11 +2801,11 @@
     "type": "positive",
     "category": "Slaves",
     "reference": "Exodus 21:8",
-    "title": "…allow the redemption to the Hebrew bondmaid",
+    "title": "On allowing redemption for a female servant",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 21"],
+    "themes": ["servant", "redemption", "law"],
+    "commentary": "Provision is made for redemption, offering a path out of servitude."
   },
   {
     "id": 235,
@@ -2813,11 +2813,11 @@
     "type": "positive",
     "category": "Slaves",
     "reference": "Leviticus 25:46",
-    "title": "On the laws for treating an alien bondman",
+    "title": "On the treatment of a non-Israelite servant",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 25"],
+    "themes": ["servant", "distinction", "law"],
+    "commentary": "Different categories of servants are governed by distinct legal frameworks."
   },
   {
     "id": 236,
@@ -2825,11 +2825,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 21:18",
-    "title": "On the penalty for a person inflicting injury",
+    "title": "On liability for personal injury",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 21"],
+    "themes": ["injury", "liability", "justice"],
+    "commentary": "Injury caused by one person to another carries defined liability within the law."
   },
   {
     "id": 237,
@@ -2837,11 +2837,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 21:28",
-    "title": "On the law of injuries caused by an animal",
+    "title": "On liability for damage caused by an animal",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 21"],
+    "themes": ["animal", "damage", "liability"],
+    "commentary": "Damage caused by an animal is addressed through defined responsibility of its owner."
   },
   {
     "id": 238,
@@ -2849,11 +2849,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 21:33",
-    "title": "On the law of injuries caused by an pit",
+    "title": "On liability for damage caused by a pit",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 21"],
+    "themes": ["hazard", "damage", "liability"],
+    "commentary": "Hazards created by a person carry responsibility for resulting damage."
   },
   {
     "id": 239,
@@ -2861,11 +2861,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 21:37",
-    "title": "On the law of punishment of thieves",
+    "title": "On restitution for theft",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 21"],
+    "themes": ["theft", "restitution", "justice"],
+    "commentary": "Theft is addressed through restitution, restoring loss to the injured party."
   },
   {
     "id": 240,
@@ -2873,23 +2873,24 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 22:4",
-    "title": "On the law of a judgment for damage caused by a beast",
+    "title": "On liability for damage caused by grazing",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 22"],
+    "themes": ["property", "damage", "liability"],
+    "commentary": "Damage caused by animals grazing on another’s property incurs responsibility."
   },
+ [
   {
     "id": 241,
     "code": "P 241",
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 22:5",
-    "title": "On the law of a judgment for damage caused by a fire",
+    "title": "On liability for damage caused by fire",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 22"],
+    "themes": ["fire", "damage", "liability"],
+    "commentary": "Damage caused by fire carries defined responsibility under the law."
   },
   {
     "id": 242,
@@ -2897,11 +2898,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 22:6",
-    "title": "On the law of an unpaid guardian",
+    "title": "On the responsibilities of an unpaid guardian",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 22"],
+    "themes": ["guardian", "responsibility", "property"],
+    "commentary": "An unpaid guardian is governed by defined responsibilities for entrusted property."
   },
   {
     "id": 243,
@@ -2909,11 +2910,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 22:9",
-    "title": "On the law of a paid guardian",
+    "title": "On the responsibilities of a paid guardian",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 22"],
+    "themes": ["guardian", "responsibility", "property"],
+    "commentary": "A paid guardian carries a different level of responsibility for entrusted property."
   },
   {
     "id": 244,
@@ -2921,11 +2922,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 22:13",
-    "title": "On the law of a borrower",
+    "title": "On the responsibilities of a borrower",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 22"],
+    "themes": ["borrower", "responsibility", "property"],
+    "commentary": "A borrower is held responsible for what is borrowed under defined conditions."
   },
   {
     "id": 245,
@@ -2933,11 +2934,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Leviticus 25:14",
-    "title": "On the law of buying and selling",
+    "title": "On fairness in buying and selling",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 25"],
+    "themes": ["commerce", "fairness", "exchange"],
+    "commentary": "Transactions are governed by fairness, ensuring just dealings between parties."
   },
   {
     "id": 246,
@@ -2945,11 +2946,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Exodus 22:8",
-    "title": "On the law of litigants",
+    "title": "On resolving disputes between litigants",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 22"],
+    "themes": ["litigation", "dispute", "law"],
+    "commentary": "Disputes are brought forward and resolved through established legal processes."
   },
   {
     "id": 247,
@@ -2957,11 +2958,11 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Deuteronomy 25:12",
-    "title": "Save life of one pursued, even if need – kill oppressor",
+    "title": "On intervening to save one pursued",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 25"],
+    "themes": ["protection", "intervention", "justice"],
+    "commentary": "Action is taken to protect a person from harm, even in urgent circumstances."
   },
   {
     "id": 248,
@@ -2969,11 +2970,10 @@
     "type": "positive",
     "category": "Torts",
     "reference": "Numbers 27:8",
-    "title": "On the law of inheritance",
+    "title": "On the laws of inheritance",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Numbers 27"],
+    "themes": ["inheritance", "property", "family"],
+    "commentary": "Inheritance is governed by defined rules, ensuring orderly transfer of property."
   }
 ]
-  
