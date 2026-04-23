@@ -2099,78 +2099,18 @@
     "themes": ["judgment", "majority", "decision"],
     "commentary": "In matters of judgment, decisions follow the majority, establishing a consistent method for resolving disputes."
   },
-  {
-    "id": 176,
-    "code": "P 176",
-    "type": "positive",
-    "category": "Community",
-    "reference": "Deuteronomy 16:18",
-    "title": "Appointing Judges & Officers of the Court in every town",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 177,
-    "code": "P 177",
-    "type": "positive",
-    "category": "Community",
-    "reference": "Leviticus 19:15",
-    "title": "Treating litigants equally/impartially before the law",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 178,
-    "code": "P 178",
-    "type": "positive",
-    "category": "Community",
-    "reference": "Leviticus 5:1",
-    "title": "Anyone aware of evidence must come to court to testify",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 179,
-    "code": "P 179",
-    "type": "positive",
-    "category": "Community",
-    "reference": "Deuteronomy 13:15",
-    "title": "The testimony of witnesses shall be examined thoroughly",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 180,
-    "code": "P 180",
-    "type": "positive",
-    "category": "Community",
-    "reference": "Deuteronomy 19:19",
-    "title": "On condemning witnesses who testify falsely",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
-  {
-    "id": 180,
-    "code": "P 180",
-    "type": "positive",
-    "category": "Community",
-    "reference": "Deuteronomy 19:19",
-    "title": "False witnesses punished, as they intended upon accused",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
-  },
+{
+  "id": 180,
+  "code": "P 180",
+  "type": "positive",
+  "category": "Community",
+  "reference": "Deuteronomy 19:19",
+  "title": "On punishing false witnesses as they intended for the accused",
+  "nt_links": [],
+  "sefaria_links": ["Deuteronomy 19"],
+  "themes": ["justice", "witness", "accountability"],
+  "commentary": "False witnesses are punished according to the harm they intended, establishing proportional justice within the legal system."
+}
   {
     "id": 181,
     "code": "P 181",
