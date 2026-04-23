@@ -455,17 +455,18 @@
     "themes": ["purity", "set apart", "holiness"],
     "commentary": "The requirements for the high priest emphasize a heightened level of separation, reflecting the role’s distinct holiness."
   },
+  [
   {
     "id": 39,
     "code": "P 39",
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 28:3",
-    "title": "On the twice Daily Burnt, tamid, offerings",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the twice daily burnt (tamid) offerings",
+    "nt_links": ["Hebrews 10:11", "Romans 12:1"],
+    "sefaria_links": ["Numbers 28"],
+    "themes": ["continuity", "devotion", "offering"],
+    "commentary": "The continual offering establishes an ongoing rhythm of devotion, marking daily life with regular dedication."
   },
   {
     "id": 40,
@@ -473,11 +474,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 6:13",
-    "title": "On Cohen haGadol’s twice daily meal offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the Cohen haGadol’s twice daily meal offering",
+    "nt_links": ["Hebrews 7:27", "Hebrews 5:1"],
+    "sefaria_links": ["Leviticus 6"],
+    "themes": ["offering", "leadership", "devotion"],
+    "commentary": "The high priest’s offering reflects personal participation in devotion, not only oversight of it."
   },
   {
     "id": 41,
@@ -485,11 +486,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 28:9",
-    "title": "On the Shabbat additional, musaf, offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the Shabbat additional (musaf) offering",
+    "nt_links": ["Matthew 12:5", "Hebrews 4:9"],
+    "sefaria_links": ["Numbers 28"],
+    "themes": ["rest", "worship", "appointed times"],
+    "commentary": "Additional offerings on the Sabbath mark it as distinct, reinforcing its role as a set-apart time."
   },
   {
     "id": 42,
@@ -497,11 +498,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 28:11",
-    "title": "On the New Moon, Rosh Chodesh, additional offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the New Moon (Rosh Chodesh) additional offering",
+    "nt_links": ["Colossians 2:16", "1 Samuel 20:5"],
+    "sefaria_links": ["Numbers 28"],
+    "themes": ["time", "renewal", "cycles"],
+    "commentary": "The new moon offering marks the beginning of cycles, recognizing renewal within the flow of time."
   },
   {
     "id": 43,
@@ -510,10 +511,10 @@
     "category": "Sacrifices",
     "reference": "Leviticus 23:36",
     "title": "On the Pesach additional offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["1 Corinthians 5:7", "Luke 22:15"],
+    "sefaria_links": ["Leviticus 23"],
+    "themes": ["redemption", "festival", "remembrance"],
+    "commentary": "Festival offerings reinforce remembrance, tying present worship to past acts of redemption."
   },
   {
     "id": 44,
@@ -522,10 +523,10 @@
     "category": "Sacrifices",
     "reference": "Leviticus 23:10",
     "title": "On the second day of Pesach meal offering of the Omer",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["1 Corinthians 15:20", "Leviticus 23"],
+    "sefaria_links": ["Leviticus 23"],
+    "themes": ["firstfruits", "offering", "harvest"],
+    "commentary": "The offering of firstfruits acknowledges provision at the beginning, setting apart what comes first."
   },
   {
     "id": 45,
@@ -533,11 +534,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 28:26",
-    "title": "On the Shavuot additional, musaf, offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the Shavuot additional (musaf) offering",
+    "nt_links": ["Acts 2:1", "Leviticus 23"],
+    "sefaria_links": ["Numbers 28"],
+    "themes": ["harvest", "assembly", "appointed times"],
+    "commentary": "The Shavuot offering marks completion of a cycle, gathering the people in a shared moment of recognition."
   },
   {
     "id": 46,
@@ -545,11 +546,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 23:17",
-    "title": "On the Two Loaves of bread Wave offering on Shavuot",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the two loaves wave offering on Shavuot",
+    "nt_links": ["Acts 2:1", "James 1:18"],
+    "sefaria_links": ["Leviticus 23"],
+    "themes": ["firstfruits", "offering", "harvest"],
+    "commentary": "The two loaves offering represents the presentation of firstfruits, marking completion and dedication of provision."
   },
   {
     "id": 47,
@@ -557,11 +558,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 29:1",
-    "title": "2 – On the Rosh HaShannah additional offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the Rosh Hashanah additional offering",
+    "nt_links": ["1 Thessalonians 4:16", "Leviticus 23"],
+    "sefaria_links": ["Numbers 29"],
+    "themes": ["trumpet", "remembrance", "appointed times"],
+    "commentary": "The trumpet day marks a call to remembrance, signaling a transition and drawing attention to what is set apart."
   },
   {
     "id": 48,
@@ -569,11 +570,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 29:7",
-    "title": "8 – On the Yom Kippur additional offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the Yom Kippur additional offering",
+    "nt_links": ["Hebrews 9:12", "Hebrews 10:3"],
+    "sefaria_links": ["Numbers 29"],
+    "themes": ["atonement", "cleansing", "holiness"],
+    "commentary": "The additional offering emphasizes the seriousness of atonement, focusing on cleansing and restoration."
   },
   {
     "id": 49,
@@ -581,11 +582,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 16:3",
-    "title": "24 – On the service of Yom Kippur, Avodah",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the service of Yom Kippur (Avodah)",
+    "nt_links": ["Hebrews 9:7", "Hebrews 9:11"],
+    "sefaria_links": ["Leviticus 16"],
+    "themes": ["atonement", "service", "holiness"],
+    "commentary": "The Yom Kippur service represents a unique moment of approach, centered on atonement and restoration."
   },
   {
     "id": 50,
@@ -593,11 +594,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 29:13",
-    "title": "On the Sukkot, musaf, offerings",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the Sukkot additional (musaf) offerings",
+    "nt_links": ["John 7:37", "Zechariah 14:16"],
+    "sefaria_links": ["Numbers 29"],
+    "themes": ["joy", "festival", "provision"],
+    "commentary": "The Sukkot offerings reflect celebration and provision, marking a time of gathering and shared recognition."
   },
   {
     "id": 51,
@@ -606,10 +607,10 @@
     "category": "Sacrifices",
     "reference": "Numbers 29:36",
     "title": "On the Shemini Atzeret additional offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["John 7:37", "Leviticus 23"],
+    "sefaria_links": ["Numbers 29"],
+    "themes": ["assembly", "completion", "appointed times"],
+    "commentary": "Shemini Atzeret marks a distinct concluding assembly, carrying the sense of completion and held presence after the festival cycle."
   },
   {
     "id": 52,
@@ -617,23 +618,23 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Exodus 23:14",
-    "title": "On the three annual Festival pilgrimages to the Temple",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the three annual festival pilgrimages to the Temple",
+    "nt_links": ["Luke 2:41", "John 7:10"],
+    "sefaria_links": ["Exodus 23"],
+    "themes": ["pilgrimage", "festival", "assembly"],
+    "commentary": "The pilgrimage festivals gather the people in shared worship, tying sacred time to sacred place."
   },
   {
     "id": 53,
     "code": "P 53",
     "type": "positive",
     "category": "Sacrifices",
-    "reference": "Exodus 34:23",
-    "title": "On appearing before YHVH during the Festivals (Deuteronomy 16:16)",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "reference": "Exodus 34:23; Deuteronomy 16:16",
+    "title": "On appearing before YHVH during the Festivals",
+    "nt_links": ["Luke 2:42", "Acts 2:1"],
+    "sefaria_links": ["Exodus 34", "Deuteronomy 16"],
+    "themes": ["presence", "festival", "pilgrimage"],
+    "commentary": "Appearing before YHVH during the festivals emphasizes intentional presence, gathering before Him at appointed times."
   },
   {
     "id": 54,
@@ -642,10 +643,10 @@
     "category": "Sacrifices",
     "reference": "Deuteronomy 16:14",
     "title": "On rejoicing on the Festivals",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Philippians 4:4", "John 16:24"],
+    "sefaria_links": ["Deuteronomy 16"],
+    "themes": ["joy", "festival", "worship"],
+    "commentary": "Festival joy is not incidental but commanded, making rejoicing itself part of sacred observance."
   },
   {
     "id": 55,
@@ -654,10 +655,10 @@
     "category": "Sacrifices",
     "reference": "Exodus 12:6",
     "title": "On the 14th of Nisan slaughtering the Pesach lamb",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["1 Corinthians 5:7", "John 19:14"],
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "redemption", "remembrance"],
+    "commentary": "The slaughtering of the Pesach lamb anchors remembrance in action, linking redemption to a specific appointed act in time."
   },
   {
     "id": 56,
@@ -665,11 +666,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Exodus 12:8",
-    "title": "On eating the roasted Pesach lamb night of Nisan 14/15",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On eating the roasted Pesach lamb on the night of Nisan 14/15",
+    "nt_links": ["Luke 22:15", "John 6:53"],
+    "sefaria_links": ["Exodus 12"],
+    "themes": ["passover", "remembrance", "participation"],
+    "commentary": "Eating the Pesach lamb makes remembrance participatory, joining the people to the act of redemption in a tangible way."
   },
   {
     "id": 57,
@@ -677,11 +678,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 9:11",
-    "title": "On slaughtering the Pesach Sheini, Iyyar 14, offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On slaughtering the Pesach Sheini offering on Iyyar 14",
+    "nt_links": ["Numbers 9", "2 Peter 3:9"],
+    "sefaria_links": ["Numbers 9"],
+    "themes": ["passover", "second chance", "appointed times"],
+    "commentary": "Pesach Sheini reflects provision for those who could not participate at the appointed time, preserving access without removing the appointment."
   },
   {
     "id": 58,
@@ -689,23 +690,23 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 9:11",
-    "title": "On eating the Pesach Sheini lamb with Matzah and Maror",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On eating the Pesach Sheini lamb with matzah and maror",
+    "nt_links": ["Numbers 9", "Luke 22:19"],
+    "sefaria_links": ["Numbers 9"],
+    "themes": ["passover", "remembrance", "participation"],
+    "commentary": "Pesach Sheini preserves the same pattern of participation, joining remembrance with the appointed elements."
   },
   {
     "id": 59,
     "code": "P 59",
     "type": "positive",
     "category": "Sacrifices",
-    "reference": "Numbers 10:9",
-    "title": "10 – Trumpets for Feast sacrifices brought & for tribulation",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "reference": "Numbers 10:9-10",
+    "title": "On using trumpets for feast sacrifices and for times of distress",
+    "nt_links": ["1 Corinthians 14:8", "Revelation 8:6"],
+    "sefaria_links": ["Numbers 10"],
+    "themes": ["trumpet", "assembly", "remembrance"],
+    "commentary": "The trumpets function as signals of gathering, worship, and alarm, marking moments that call for attention before God."
   },
   {
     "id": 60,
@@ -713,11 +714,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 22:27",
-    "title": "On minimum age of cattle to be offered",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the minimum age of cattle to be offered",
+    "nt_links": ["Leviticus 22", "Romans 12:1"],
+    "sefaria_links": ["Leviticus 22"],
+    "themes": ["offering", "fitness", "order"],
+    "commentary": "The requirement of fitness in offerings reflects that what is brought before God is to meet what has been set apart as acceptable."
   },
   {
     "id": 61,
