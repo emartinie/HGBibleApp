@@ -726,10 +726,10 @@
     "category": "Sacrifices",
     "reference": "Leviticus 22:21",
     "title": "On offering only unblemished sacrifices",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["1 Peter 1:19", "Malachi 1:8"],
+    "sefaria_links": ["Leviticus 22"],
+    "themes": ["offering", "purity", "acceptability"],
+    "commentary": "Offerings are required to be without defect, reflecting what is considered acceptable and set apart."
   },
   {
     "id": 62,
@@ -738,10 +738,10 @@
     "category": "Sacrifices",
     "reference": "Leviticus 2:13",
     "title": "On bringing salt with every offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "nt_links": ["Mark 9:49", "Matthew 5:13"],
+    "sefaria_links": ["Leviticus 2"],
+    "themes": ["covenant", "preservation", "offering"],
+    "commentary": "Salt accompanies offerings as a sign of preservation and covenant, marking what is set apart."
   },
   {
     "id": 63,
@@ -749,11 +749,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 1:2",
-    "title": "On the Burnt-Offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the burnt-offering",
+    "nt_links": ["Ephesians 5:2", "Romans 12:1"],
+    "sefaria_links": ["Leviticus 1"],
+    "themes": ["offering", "devotion", "dedication"],
+    "commentary": "The burnt-offering represents complete dedication, being wholly given over as an offering."
   },
   {
     "id": 64,
@@ -761,11 +761,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 6:18",
-    "title": "On the Sin-Offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the sin-offering",
+    "nt_links": ["Hebrews 10:12", "Hebrews 13:11"],
+    "sefaria_links": ["Leviticus 6"],
+    "themes": ["sin", "atonement", "offering"],
+    "commentary": "The sin-offering addresses wrongdoing, providing a means for atonement within the system of offerings."
   },
   {
     "id": 65,
@@ -773,11 +773,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 7:1",
-    "title": "On the Guilt-Offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the guilt-offering",
+    "nt_links": ["Isaiah 53:10", "Leviticus 7"],
+    "sefaria_links": ["Leviticus 7"],
+    "themes": ["guilt", "restitution", "offering"],
+    "commentary": "The guilt-offering deals with specific offenses requiring restoration, addressing both wrongdoing and its consequences."
   },
   {
     "id": 66,
@@ -785,11 +785,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 3:1",
-    "title": "On the Peace-Offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the peace-offering",
+    "nt_links": ["Ephesians 2:14", "Colossians 1:20"],
+    "sefaria_links": ["Leviticus 3"],
+    "themes": ["peace", "fellowship", "offering"],
+    "commentary": "The peace-offering expresses fellowship and shared participation, marking a state of peace in relation to God."
   },
   {
     "id": 67,
@@ -797,11 +797,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 2:1",
-    "title": "On the Meal-Offering",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the meal-offering",
+    "nt_links": ["John 6:35", "Leviticus 2"],
+    "sefaria_links": ["Leviticus 2"],
+    "themes": ["offering", "provision", "dedication"],
+    "commentary": "The meal-offering consists of produce rather than animal sacrifice, reflecting dedication of provision."
   },
   {
     "id": 68,
@@ -809,11 +809,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 4:13",
-    "title": "On offerings for a Court (Sanhedrin) that has erred",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On offerings for a court that has erred",
+    "nt_links": ["Hebrews 5:2", "Leviticus 4"],
+    "sefaria_links": ["Leviticus 4"],
+    "themes": ["error", "atonement", "leadership"],
+    "commentary": "Provision is made for communal error in leadership, recognizing responsibility at the collective level."
   },
   {
     "id": 69,
@@ -821,11 +821,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 4:27",
-    "title": "Fixed Sin-Offering, by one unknowingly breaking a karet",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On a fixed sin-offering for unintentional transgression",
+    "nt_links": ["Hebrews 9:7", "Leviticus 4"],
+    "sefaria_links": ["Leviticus 4"],
+    "themes": ["sin", "atonement", "unintentional"],
+    "commentary": "A sin-offering is prescribed for unintentional wrongdoing, addressing actions done without awareness."
   },
   {
     "id": 70,
@@ -833,11 +833,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 5:17",
-    "title": "Suspensive Guilt-Offering if doubt of breaking a karet",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On a guilt-offering in cases of uncertainty",
+    "nt_links": ["Hebrews 10:22", "Leviticus 5"],
+    "sefaria_links": ["Leviticus 5"],
+    "themes": ["guilt", "uncertainty", "atonement"],
+    "commentary": "A guilt-offering is brought when there is uncertainty, acknowledging responsibility even without full clarity."
   },
   {
     "id": 71,
@@ -845,11 +845,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 5:15",
-    "title": "Unconditional Guilt-Offering, for stealing, etc.",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On a guilt-offering for wrongdoing such as misappropriation",
+    "nt_links": ["Luke 19:8", "Leviticus 5"],
+    "sefaria_links": ["Leviticus 5"],
+    "themes": ["guilt", "restitution", "offering"],
+    "commentary": "A guilt-offering addresses wrongdoing involving loss or misuse, often paired with restoration."
   },
   {
     "id": 72,
@@ -857,11 +857,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 5:1",
-    "title": "11 – Offering higher or lower value, according to ones means",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On bringing an offering according to one’s means",
+    "nt_links": ["Mark 12:43", "Leviticus 5"],
+    "sefaria_links": ["Leviticus 5"],
+    "themes": ["accessibility", "offering", "equity"],
+    "commentary": "Provision is made for different levels of means, ensuring that participation is accessible to all."
   },
   {
     "id": 73,
@@ -869,11 +869,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Numbers 5:6",
-    "title": "7 – To confess one’s sins before God and repent from them",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On confessing one’s sins and turning from them",
+    "nt_links": ["1 John 1:9", "Psalm 32:5"],
+    "sefaria_links": ["Numbers 5"],
+    "themes": ["confession", "repentance", "restoration"],
+    "commentary": "Confession acknowledges wrongdoing openly, forming part of the process of turning back and restoration."
   },
   {
     "id": 74,
@@ -881,11 +881,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 15:13",
-    "title": "On offering brought by a zav (man with a discharge)",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On an offering brought by a man after discharge",
+    "nt_links": ["Mark 1:44", "Leviticus 15"],
+    "sefaria_links": ["Leviticus 15"],
+    "themes": ["purity", "restoration", "offering"],
+    "commentary": "An offering marks the transition from a state of impurity back into participation within the community."
   },
   {
     "id": 75,
@@ -893,11 +893,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 15:28",
-    "title": "Offering brought by a zavah (woman with a discharge)",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On an offering brought by a woman after discharge",
+    "nt_links": ["Luke 8:44", "Leviticus 15"],
+    "sefaria_links": ["Leviticus 15"],
+    "themes": ["purity", "restoration", "offering"],
+    "commentary": "This offering reflects restoration after a period of impurity, allowing re-entry into normal participation."
   },
   {
     "id": 76,
@@ -905,11 +905,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 12:6",
-    "title": "On offering brought by a woman after childbirth",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On an offering brought by a woman after childbirth",
+    "nt_links": ["Luke 2:22", "Leviticus 12"],
+    "sefaria_links": ["Leviticus 12"],
+    "themes": ["purity", "restoration", "offering"],
+    "commentary": "An offering follows childbirth, marking a transition back into regular participation after a period of separation."
   },
   {
     "id": 77,
@@ -917,11 +917,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 14:10",
-    "title": "On offering brought by a leper after being cleansed",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On an offering brought after cleansing from leprosy",
+    "nt_links": ["Mark 1:44", "Luke 5:14"],
+    "sefaria_links": ["Leviticus 14"],
+    "themes": ["cleansing", "restoration", "offering"],
+    "commentary": "After cleansing, an offering marks restoration, allowing full return to the community."
   },
   {
     "id": 78,
@@ -929,11 +929,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 27:32",
-    "title": "On the Tithe of one’s cattle",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the tithe of cattle",
+    "nt_links": ["Hebrews 7:5", "Leviticus 27"],
+    "sefaria_links": ["Leviticus 27"],
+    "themes": ["tithe", "provision", "dedication"],
+    "commentary": "The tithe sets apart a portion of increase, marking recognition of provision and dedication."
   },
   {
     "id": 79,
@@ -941,11 +941,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Exodus 13:2",
-    "title": "Sacrificing the First-born of clean (permitted) cattle",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On setting apart the firstborn of clean cattle",
+    "nt_links": ["Luke 2:23", "Exodus 13"],
+    "sefaria_links": ["Exodus 13"],
+    "themes": ["firstborn", "dedication", "set apart"],
+    "commentary": "The firstborn is set apart, recognizing what comes first as belonging in a special way."
   },
   {
     "id": 80,
@@ -953,11 +953,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Exodus 22:28",
-    "title": "On Redeeming the First-born of man, Pidyon ha-ben",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On redeeming the firstborn of man",
+    "nt_links": ["Luke 2:27", "Numbers 18"],
+    "sefaria_links": ["Exodus 22"],
+    "themes": ["firstborn", "redemption", "dedication"],
+    "commentary": "Redemption of the firstborn reflects substitution, preserving the principle of dedication while allowing continuation of life."
   },
   {
     "id": 81,
@@ -965,11 +965,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Exodus 34:20",
-    "title": "On Redeeming the firstling of an ass, if not…",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On redeeming the firstling of a donkey",
+    "nt_links": ["Luke 2:23", "Numbers 18"],
+    "sefaria_links": ["Exodus 34"],
+    "themes": ["firstborn", "redemption", "dedication"],
+    "commentary": "The firstling of a donkey is redeemed, preserving the principle of setting apart the first while providing an alternative to sacrifice."
   },
   {
     "id": 82,
@@ -977,11 +977,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Exodus 13:13",
-    "title": "…breaking the neck of the firstling of an ass",
+    "title": "On breaking the neck of the firstling of a donkey if not redeemed",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 13"],
+    "themes": ["firstborn", "consequence", "dedication"],
+    "commentary": "If not redeemed, the firstling is not used, emphasizing that what is set apart cannot be treated as ordinary."
   },
   {
     "id": 83,
@@ -989,11 +989,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Deuteronomy 12:5",
-    "title": "6 – On bringing due offerings to Jerusalem without delay",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On bringing due offerings without delay",
+    "nt_links": ["Ecclesiastes 5:4", "Deuteronomy 12"],
+    "sefaria_links": ["Deuteronomy 12"],
+    "themes": ["obedience", "timeliness", "offering"],
+    "commentary": "Offerings are to be brought without delay, reflecting promptness in fulfilling what is owed."
   },
   {
     "id": 84,
@@ -1001,11 +1001,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Deuteronomy 12:14",
-    "title": "All offerings must be brought only to the Sanctuary",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On bringing offerings only to the chosen place",
+    "nt_links": ["John 4:21", "Deuteronomy 12"],
+    "sefaria_links": ["Deuteronomy 12"],
+    "themes": ["sanctuary", "location", "worship"],
+    "commentary": "Offerings are restricted to the chosen place, centralizing worship and maintaining order in how offerings are brought."
   },
   {
     "id": 85,
@@ -1013,11 +1013,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Deuteronomy 12:36",
-    "title": "On offerings due from outside Israel to the Sanctuary",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On bringing offerings from outside the land to the sanctuary",
+    "nt_links": ["Isaiah 56:7", "Deuteronomy 12"],
+    "sefaria_links": ["Deuteronomy 12"],
+    "themes": ["sanctuary", "inclusion", "offering"],
+    "commentary": "Offerings brought from outside the land are still directed to the sanctuary, maintaining the central place of worship."
   },
   {
     "id": 86,
@@ -1025,11 +1025,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Deuteronomy 12:15",
-    "title": "On Redeeming blemished sanctified animal offerings",
+    "title": "On redeeming blemished sanctified animal offerings",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 12"],
+    "themes": ["redemption", "substitution", "offering"],
+    "commentary": "A blemished sanctified animal is redeemed rather than offered, preserving the standard of what is acceptable."
   },
   {
     "id": 87,
@@ -1039,9 +1039,9 @@
     "reference": "Leviticus 27:33",
     "title": "On the holiness of substituted animal offerings",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 27"],
+    "themes": ["substitution", "holiness", "offering"],
+    "commentary": "When an animal is substituted, both it and its replacement are regarded as set apart, maintaining the sanctity of what was designated."
   },
   {
     "id": 88,
@@ -1049,11 +1049,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 6:9",
-    "title": "On Cohanim eating the remainder of the Meal Offerings",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the Cohanim eating the remainder of the meal offerings",
+    "nt_links": ["1 Corinthians 9:13", "Leviticus 6"],
+    "sefaria_links": ["Leviticus 6"],
+    "themes": ["priesthood", "provision", "offering"],
+    "commentary": "Portions of certain offerings are designated for the Cohanim, providing for those serving in the sanctuary."
   },
   {
     "id": 89,
@@ -1061,11 +1061,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Exodus 29:33",
-    "title": "On Cohanim eating the meat of Sin and Guilt Offerings",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the Cohanim eating portions of sin and guilt offerings",
+    "nt_links": ["Leviticus 6", "Hebrews 13:10"],
+    "sefaria_links": ["Exodus 29"],
+    "themes": ["priesthood", "atonement", "provision"],
+    "commentary": "Certain offerings are consumed by the Cohanim, linking their service with participation in the atonement process."
   },
   {
     "id": 90,
@@ -1073,11 +1073,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 7:19",
-    "title": "Burn Consecrated Offerings that’ve become tameh/unclean",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On burning consecrated offerings that become unclean",
+    "nt_links": ["Leviticus 7", "Hebrews 12:29"],
+    "sefaria_links": ["Leviticus 7"],
+    "themes": ["purity", "holiness", "offering"],
+    "commentary": "Offerings that become unclean are not used but destroyed, preserving the boundary between what is holy and what is not."
   },
   {
     "id": 91,
@@ -1085,11 +1085,11 @@
     "type": "positive",
     "category": "Sacrifices",
     "reference": "Leviticus 7:17",
-    "title": "Burn remnant of Consecrated Offerings not eaten in time",
+    "title": "On burning the remainder of consecrated offerings not eaten in time",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 7"],
+    "themes": ["timing", "holiness", "offering"],
+    "commentary": "Portions of offerings not eaten within the allotted time are burned, maintaining the boundaries set for what is holy."
   },
   {
     "id": 92,
@@ -1097,11 +1097,11 @@
     "type": "positive",
     "category": "Vows",
     "reference": "Numbers 6:5",
-    "title": "The Nazir letting his hair grow during his separation",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On a Nazirite letting his hair grow during separation",
+    "nt_links": ["Acts 18:18", "Numbers 6"],
+    "sefaria_links": ["Numbers 6"],
+    "themes": ["vow", "separation", "dedication"],
+    "commentary": "The Nazirite vow includes visible signs of separation, marking a period set apart for dedication."
   },
   {
     "id": 93,
@@ -1109,11 +1109,11 @@
     "type": "positive",
     "category": "Vows",
     "reference": "Numbers 6:18",
-    "title": "Nazir completing vow shaves his head & brings sacrifice",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On a Nazirite completing the vow with shaving and offerings",
+    "nt_links": ["Acts 21:23", "Numbers 6"],
+    "sefaria_links": ["Numbers 6"],
+    "themes": ["vow", "completion", "offering"],
+    "commentary": "Completion of the Nazirite vow is marked by specific actions, signaling the end of the period of separation."
   },
   {
     "id": 94,
@@ -1121,11 +1121,11 @@
     "type": "positive",
     "category": "Vows",
     "reference": "Deuteronomy 23:24",
-    "title": "On that a man must honor his oral vows and oaths",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On honoring one’s vows and oaths",
+    "nt_links": ["Matthew 5:33", "Ecclesiastes 5:4"],
+    "sefaria_links": ["Deuteronomy 23"],
+    "themes": ["vow", "integrity", "obedience"],
+    "commentary": "Vows and oaths are to be upheld, reflecting integrity in what is spoken."
   },
   {
     "id": 95,
@@ -1133,11 +1133,11 @@
     "type": "positive",
     "category": "Vows",
     "reference": "Numbers 30:3",
-    "title": "On that a judge can annul vows, only according to Torah",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the authority to annul vows according to Torah",
+    "nt_links": ["Numbers 30", "Matthew 18:18"],
+    "sefaria_links": ["Numbers 30"],
+    "themes": ["vow", "authority", "judgment"],
+    "commentary": "The annulment of vows is regulated, placing authority within defined boundaries."
   },
   {
     "id": 96,
@@ -1145,11 +1145,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 11:8",
-    "title": "Defilement by touching certain animal carcasses, &…",
+    "title": "On impurity from touching certain animal carcasses",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 11"],
+    "themes": ["impurity", "contact", "boundary"],
+    "commentary": "Contact with certain carcasses results in a state of impurity, marking boundaries around what is handled."
   },
   {
     "id": 97,
@@ -1157,11 +1157,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 11:29",
-    "title": "…by touching carcasses of eight creeping creatures",
+    "title": "On impurity from touching specified creeping creatures",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 11"],
+    "themes": ["impurity", "contact", "boundary"],
+    "commentary": "Specific creatures are identified whose contact transmits impurity, defining clear limits."
   },
   {
     "id": 98,
@@ -1169,11 +1169,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 11:34",
-    "title": "Defilement of food & drink, if contacting unclean thing",
+    "title": "On impurity of food and drink through contact with unclean things",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 11"],
+    "themes": ["impurity", "transfer", "food"],
+    "commentary": "Impurity can transfer to food and drink, extending boundaries beyond direct contact with persons."
   },
   {
     "id": 99,
@@ -1181,11 +1181,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 15:19",
-    "title": "On Tumah of a menstruant woman",
+    "title": "On impurity during a woman’s menstruation",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 15"],
+    "themes": ["impurity", "cycle", "separation"],
+    "commentary": "A defined period of impurity is associated with the menstrual cycle, structuring times of separation."
   },
   {
     "id": 100,
@@ -1193,11 +1193,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 12:2",
-    "title": "On Tumah of a woman after childbirth",
+    "title": "On impurity after childbirth",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 12"],
+    "themes": ["impurity", "birth", "separation"],
+    "commentary": "Childbirth is followed by a period of impurity, marking a transition before full return to normal participation."
   },
   {
     "id": 101,
@@ -1205,11 +1205,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 13:3",
-    "title": "On Tumah of a leper",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On impurity associated with a skin disease",
+    "nt_links": ["Mark 1:40", "Luke 5:12"],
+    "sefaria_links": ["Leviticus 13"],
+    "themes": ["impurity", "disease", "separation"],
+    "commentary": "Certain skin conditions place a person in a state of impurity, requiring recognition and separation."
   },
   {
     "id": 102,
@@ -1217,11 +1217,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 13:51",
-    "title": "On garments contaminated by leprosy",
+    "title": "On impurity in garments affected by a skin condition",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 13"],
+    "themes": ["impurity", "objects", "spread"],
+    "commentary": "Impurity can affect garments, showing that certain conditions extend beyond the person to objects."
   },
   {
     "id": 103,
@@ -1229,11 +1229,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 14:44",
-    "title": "On a leprous house",
+    "title": "On impurity in a house affected by a skin condition",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 14"],
+    "themes": ["impurity", "dwelling", "spread"],
+    "commentary": "Impurity can extend to a dwelling, indicating that certain conditions affect the environment itself."
   },
   {
     "id": 104,
@@ -1241,11 +1241,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 15:2",
-    "title": "On Tumah of a zav (man with a running issue)",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On impurity from bodily discharge in a man",
+    "nt_links": ["Mark 5:25", "Leviticus 15"],
+    "sefaria_links": ["Leviticus 15"],
+    "themes": ["impurity", "body", "discharge"],
+    "commentary": "Certain bodily discharges result in a state of impurity, with defined boundaries and responses."
   },
   {
     "id": 105,
@@ -1253,11 +1253,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 15:6",
-    "title": "On Tumah of semen",
+    "title": "On impurity related to seminal emission",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 15"],
+    "themes": ["impurity", "body", "emission"],
+    "commentary": "Specific bodily emissions are associated with impurity, defining conditions and required responses."
   },
   {
     "id": 106,
@@ -1265,11 +1265,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 15:19",
-    "title": "Tumah of a zavah (woman suffering from a running issue)",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On impurity from prolonged discharge in a woman",
+    "nt_links": ["Mark 5:25", "Leviticus 15"],
+    "sefaria_links": ["Leviticus 15"],
+    "themes": ["impurity", "body", "discharge"],
+    "commentary": "A prolonged discharge results in a defined state of impurity, with boundaries governing contact and restoration."
   },
   {
     "id": 107,
@@ -1277,11 +1277,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Numbers 19:14",
-    "title": "On Tumah of a human corpse",
+    "title": "On impurity from a human corpse",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Numbers 19"],
+    "themes": ["impurity", "death", "contact"],
+    "commentary": "Contact with a human corpse results in a state of impurity, marking one of the most severe forms of impurity."
   },
   {
     "id": 108,
@@ -1289,11 +1289,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Numbers 19:13",
-    "title": "Law of the purification water of sprinkling, mei niddah",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On purification through the water of sprinkling",
+    "nt_links": ["Hebrews 9:13", "Numbers 19"],
+    "sefaria_links": ["Numbers 19"],
+    "themes": ["purification", "water", "restoration"],
+    "commentary": "Water used for purification is applied in specific cases, providing a means of restoration from impurity."
   },
   {
     "id": 109,
@@ -1301,11 +1301,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 15:16",
-    "title": "On immersing in a mikveh to become ritually clean",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On immersing in water to become clean",
+    "nt_links": ["Matthew 3:6", "Leviticus 15"],
+    "sefaria_links": ["Leviticus 15"],
+    "themes": ["purification", "water", "immersion"],
+    "commentary": "Immersion in water marks a transition from impurity to a state of cleanness in defined situations."
   },
   {
     "id": 110,
@@ -1313,11 +1313,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 14:2",
-    "title": "On the specified procedure of cleansing from leprosy",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the procedure for cleansing from a skin disease",
+    "nt_links": ["Luke 17:14", "Leviticus 14"],
+    "sefaria_links": ["Leviticus 14"],
+    "themes": ["cleansing", "procedure", "restoration"],
+    "commentary": "Cleansing from certain conditions follows a defined procedure, marking restoration and re-entry."
   },
   {
     "id": 111,
@@ -1325,11 +1325,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 14:9",
-    "title": "On that a leper must shave his head",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On shaving as part of cleansing from a skin condition",
+    "nt_links": ["Luke 17:14", "Leviticus 14"],
+    "sefaria_links": ["Leviticus 14"],
+    "themes": ["cleansing", "procedure", "restoration"],
+    "commentary": "Shaving is part of the prescribed process of cleansing, marking transition and renewal."
   },
   {
     "id": 112,
@@ -1337,11 +1337,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Leviticus 13:45",
-    "title": "On that the leper must be made easily distinguishable",
+    "title": "On making a person with a skin condition distinguishable",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 13"],
+    "themes": ["impurity", "separation", "visibility"],
+    "commentary": "Visible signs mark a state of impurity, allowing recognition and maintaining boundaries within the community."
   },
   {
     "id": 113,
@@ -1349,11 +1349,11 @@
     "type": "positive",
     "category": "Ritual Purity",
     "reference": "Numbers 19:2",
-    "title": "9 – On Ashes of the Red Heifer, used in ritual purification",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On the ashes of the red heifer for purification",
+    "nt_links": ["Hebrews 9:13", "Numbers 19"],
+    "sefaria_links": ["Numbers 19"],
+    "themes": ["purification", "ashes", "restoration"],
+    "commentary": "Ashes prepared in a specific way are used in purification, especially in cases involving contact with death."
   },
   {
     "id": 114,
@@ -1361,11 +1361,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Leviticus 27:2",
-    "title": "8 – On the valuation for a person himself to the Temple",
+    "title": "On the valuation of a person dedicated to the temple",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 27"],
+    "themes": ["valuation", "dedication", "offering"],
+    "commentary": "A person dedicated by vow is assigned a set valuation, providing a structured way to fulfill the dedication."
   },
   {
     "id": 115,
@@ -1373,11 +1373,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Leviticus 27:11",
-    "title": "On the valuation for an unclean beast to the Temple",
+    "title": "On the valuation of an unclean animal dedicated to the temple",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 27"],
+    "themes": ["valuation", "dedication", "substitution"],
+    "commentary": "Animals not suitable for offering are valued instead, maintaining the principle of dedication through substitution."
   },
   {
     "id": 116,
@@ -1385,11 +1385,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Leviticus 27:14",
-    "title": "On the valuation of a house as a donation to the Temple",
+    "title": "On the valuation of a house dedicated to the temple",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 27"],
+    "themes": ["valuation", "dedication", "property"],
+    "commentary": "A house dedicated by vow is assigned a value, providing a structured way to fulfill the dedication."
   },
   {
     "id": 117,
@@ -1397,11 +1397,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Leviticus 27:16",
-    "title": "On the valuation of a field as a donation to the Temple",
+    "title": "On the valuation of a field dedicated to the temple",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 27"],
+    "themes": ["valuation", "dedication", "land"],
+    "commentary": "Fields are valued according to set measures, linking dedication with a defined system of assessment."
   },
   {
     "id": 118,
@@ -1409,11 +1409,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Leviticus 5:16",
-    "title": "If benefit from Temple property, restitution plus 1/5th",
+    "title": "On restitution with an added fifth for misuse of sacred property",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 5"],
+    "themes": ["restitution", "sacred property", "accountability"],
+    "commentary": "Misuse of what is set apart requires restitution plus an additional amount, reinforcing accountability."
   },
   {
     "id": 119,
@@ -1421,11 +1421,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Leviticus 19:24",
-    "title": "On the fruits of the trees fourth year’s growth",
+    "title": "On dedicating the fourth year fruit",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["firstfruits", "dedication", "produce"],
+    "commentary": "The fourth year’s produce is treated as dedicated, marking a stage in the cycle of growth and use."
   },
   {
     "id": 120,
@@ -1433,11 +1433,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Leviticus 19:9",
-    "title": "On leaving the corners (Peah) of fields for the poor",
+    "title": "On leaving the corners of the field for the poor",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["provision", "poor", "generosity"],
+    "commentary": "Leaving portions of the harvest provides for those in need, integrating provision into the system."
   },
   {
     "id": 121,
@@ -1447,9 +1447,9 @@
     "reference": "Leviticus 19:9",
     "title": "On leaving gleanings of the field for the poor",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["provision", "poor", "harvest"],
+    "commentary": "Gleanings are left intentionally, providing ongoing access to food for those in need."
   },
   {
     "id": 122,
@@ -1459,21 +1459,21 @@
     "reference": "Deuteronomy 24:19",
     "title": "On leaving the forgotten sheaf for the poor",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 24"],
+    "themes": ["provision", "poor", "harvest"],
+    "commentary": "What is overlooked is not reclaimed, but left for those in need."
   },
   {
     "id": 123,
     "code": "P 123",
     "type": "positive",
     "category": "Donations To The Temple",
-    "reference": "Leviticus 19:19",
-    "title": "On leaving the misformed grape clusters for the poor",
+    "reference": "Leviticus 19:10",
+    "title": "On leaving malformed grape clusters for the poor",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["provision", "poor", "harvest"],
+    "commentary": "Even imperfect produce is left available, reinforcing provision without discrimination."
   },
   {
     "id": 124,
@@ -1483,9 +1483,9 @@
     "reference": "Leviticus 19:10",
     "title": "On leaving grape gleanings for the poor",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 19"],
+    "themes": ["provision", "poor", "harvest"],
+    "commentary": "Remnants of the harvest are left accessible, ensuring continued provision."
   },
   {
     "id": 125,
@@ -1493,11 +1493,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Exodus 23:19",
-    "title": "On separating & bringing First-fruits to the Sanctuary",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On bringing firstfruits to the sanctuary",
+    "nt_links": ["James 1:18", "Exodus 23"],
+    "sefaria_links": ["Exodus 23"],
+    "themes": ["firstfruits", "dedication", "offering"],
+    "commentary": "The first of the produce is brought as an offering, marking the beginning as set apart."
   },
   {
     "id": 126,
@@ -1505,11 +1505,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Deuteronomy 18:4",
-    "title": "To separate the great Heave-offering (terumah)",
+    "title": "On setting aside the heave-offering",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 18"],
+    "themes": ["offering", "priesthood", "provision"],
+    "commentary": "A portion is set apart and given, supporting those who serve in the sanctuary."
   },
   {
     "id": 127,
@@ -1517,11 +1517,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Leviticus 27:30",
-    "title": "To set aside the first tithe to the Levites",
+    "title": "On setting aside the first tithe for the Levites",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 27"],
+    "themes": ["tithe", "levites", "provision"],
+    "commentary": "The first tithe is given to the Levites, establishing a structured provision for those without land inheritance."
   },
   {
     "id": 128,
@@ -1529,11 +1529,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Deuteronomy 14:22",
-    "title": "To set aside the second tithe, eaten only in Jerusalem",
+    "title": "On setting aside the second tithe",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 14"],
+    "themes": ["tithe", "festival", "dedication"],
+    "commentary": "A second tithe is set apart and used in a designated place, linking provision with participation."
   },
   {
     "id": 129,
@@ -1541,11 +1541,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Numbers 18:26",
-    "title": "On Levites’ giving tenth of their tithe to the Cohanim",
+    "title": "On the Levites giving a tenth of their tithe",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Numbers 18"],
+    "themes": ["tithe", "priesthood", "provision"],
+    "commentary": "The Levites also give a portion, maintaining a layered system of provision."
   },
   {
     "id": 130,
@@ -1553,11 +1553,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Deuteronomy 14:28",
-    "title": "To set aside the poor-man’s tithe in 3rd and 6th year",
+    "title": "On setting aside the tithe for the poor in designated years",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 14"],
+    "themes": ["tithe", "poor", "provision"],
+    "commentary": "In specific years, the tithe is directed toward those in need, integrating care into the cycle."
   },
   {
     "id": 131,
@@ -1565,11 +1565,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Deuteronomy 26:13",
-    "title": "A declaration made when separating the various tithes",
+    "title": "On making a declaration when separating the tithes",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 26"],
+    "themes": ["declaration", "tithe", "integrity"],
+    "commentary": "A spoken declaration accompanies the separation of tithes, affirming that they have been handled properly."
   },
   {
     "id": 132,
@@ -1577,11 +1577,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Deuteronomy 26:5",
-    "title": "A declaration made bringing First-fruits to the Temple",
+    "title": "On making a declaration when bringing firstfruits",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 26"],
+    "themes": ["declaration", "firstfruits", "remembrance"],
+    "commentary": "Bringing firstfruits includes a declaration that recounts origins and acknowledges provision."
   },
   {
     "id": 133,
@@ -1589,11 +1589,11 @@
     "type": "positive",
     "category": "Donations To The Temple",
     "reference": "Numbers 15:20",
-    "title": "On the first portion of the Challah given to the Cohen",
+    "title": "On giving the first portion of dough",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Numbers 15"],
+    "themes": ["first portion", "priesthood", "provision"],
+    "commentary": "A portion of dough is set apart and given, extending the pattern of first portions into daily life."
   },
   {
     "id": 134,
@@ -1601,11 +1601,11 @@
     "type": "positive",
     "category": "The Sabbatical Year",
     "reference": "Exodus 23:11",
-    "title": "On ownerless produce of the Sabbatical year (shemittah)",
+    "title": "On leaving the produce of the sabbatical year ownerless",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 23"],
+    "themes": ["sabbatical", "land", "provision"],
+    "commentary": "During the sabbatical year, produce is not held as private property, allowing access for all."
   },
   {
     "id": 135,
@@ -1613,11 +1613,11 @@
     "type": "positive",
     "category": "The Sabbatical Year",
     "reference": "Exodus 34:21",
-    "title": "On resting the land on the Sabbatical year",
+    "title": "On resting the land in the sabbatical year",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Exodus 34"],
+    "themes": ["sabbatical", "rest", "land"],
+    "commentary": "The land itself is given rest, marking a recurring interruption in regular agricultural activity."
   },
   {
     "id": 136,
@@ -1625,11 +1625,11 @@
     "type": "positive",
     "category": "The Sabbatical Year",
     "reference": "Leviticus 25:10",
-    "title": "On sanctifying the Jubilee (50th) year",
-    "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "title": "On sanctifying the Jubilee year",
+    "nt_links": ["Luke 4:18", "Leviticus 25"],
+    "sefaria_links": ["Leviticus 25"],
+    "themes": ["jubilee", "sanctification", "release"],
+    "commentary": "The Jubilee year is set apart as a time of release, marking a distinct cycle within the broader system."
   },
   {
     "id": 137,
@@ -1637,11 +1637,11 @@
     "type": "positive",
     "category": "The Sabbatical Year",
     "reference": "Leviticus 25:9",
-    "title": "Blow Shofar on Yom Kippur in the Jubilee & slaves freed",
+    "title": "On proclaiming the Jubilee with the shofar and releasing slaves",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 25"],
+    "themes": ["jubilee", "proclamation", "freedom"],
+    "commentary": "The Jubilee is publicly announced, and those in servitude are released, marking a reset in status."
   },
   {
     "id": 138,
@@ -1649,23 +1649,23 @@
     "type": "positive",
     "category": "The Sabbatical Year",
     "reference": "Leviticus 25:24",
-    "title": "Reversion of the land to ancestral owners in Jubilee yr",
+    "title": "On the return of land to ancestral owners in the Jubilee",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 25"],
+    "themes": ["jubilee", "land", "restoration"],
+    "commentary": "Land reverts to original families, restoring inherited structure and preventing permanent transfer."
   },
   {
     "id": 139,
     "code": "P 139",
     "type": "positive",
     "category": "The Sabbatical Year",
-    "reference": "Leviticus 25:24",
-    "title": "On the redemption of a house within a year of the sale",
+    "reference": "Leviticus 25:29",
+    "title": "On redeeming a house within a set period after sale",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 25"],
+    "themes": ["redemption", "property", "time"],
+    "commentary": "A defined window allows redemption of a house, introducing time limits into property transfer."
   },
   {
     "id": 140,
@@ -1673,11 +1673,11 @@
     "type": "positive",
     "category": "The Sabbatical Year",
     "reference": "Leviticus 25:8",
-    "title": "Counting and announcing the years till the Jubilee year",
+    "title": "On counting the years leading to the Jubilee",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Leviticus 25"],
+    "themes": ["jubilee", "time", "cycle"],
+    "commentary": "The Jubilee is reached through a counted cycle, structuring time toward periodic reset."
   },
   {
     "id": 141,
@@ -1685,11 +1685,11 @@
     "type": "positive",
     "category": "The Sabbatical Year",
     "reference": "Deuteronomy 15:3",
-    "title": "All debts are annulled in the Sabbatical year, but…",
+    "title": "On releasing debts in the sabbatical year",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 15"],
+    "themes": ["sabbatical", "debt", "release"],
+    "commentary": "Debts are released during the sabbatical cycle, preventing long-term accumulation of obligation."
   },
   {
     "id": 142,
@@ -1697,10 +1697,10 @@
     "type": "positive",
     "category": "The Sabbatical Year",
     "reference": "Deuteronomy 15:3",
-    "title": "…one may exact a debt owed by a foreigner",
+    "title": "On distinctions in debt collection from foreigners",
     "nt_links": [],
-    "sefaria_links": [],
-    "themes": [],
-    "commentary": ""
+    "sefaria_links": ["Deuteronomy 15"],
+    "themes": ["debt", "distinction", "law"],
+    "commentary": "The law distinguishes between internal release and external obligations, maintaining defined boundaries."
   }
 ]
