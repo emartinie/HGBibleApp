@@ -210,15 +210,34 @@ playlist.forEach(track => {
 
   scriptureSpan.addEventListener('click', () => window.open(track.src, '_blank'));
 
-  playBtn.addEventListener('click', () => {
-    audio.src = track.src;
-    audio.play().catch(err => console.warn("Autoplay prevented:", err));
-
-    const nowPlayingLabel = document.getElementById("nowPlaying");
-    if (nowPlayingLabel) {
-      nowPlayingLabel.textContent = `Now Playing: ${track.label} — ${scriptureText}`;
+playBtn.addEventListener('click', () => {
+  // If clicking same track → toggle
+  if (audio.src === track.src) {
+    if (audio.paused) {
+      audio.play().catch(err => console.warn("Autoplay prevented:", err));
+      playBtn.textContent = "⏸";
+    } else {
+      audio.pause();
+      playBtn.textContent = "▶";
     }
+    return;
+  }
+
+  // New track → reset all buttons
+  document.querySelectorAll("#mainStagePlaylist button").forEach(b => {
+    b.textContent = "▶";
   });
+
+  // Load and play new track
+  audio.src = track.src;
+  audio.play().catch(err => console.warn("Autoplay prevented:", err));
+  playBtn.textContent = "⏸";
+
+  const nowPlayingLabel = document.getElementById("nowPlaying");
+  if (nowPlayingLabel) {
+    nowPlayingLabel.textContent = `Now Playing: ${track.label} — ${scriptureText}`;
+  }
+});
 
   textWrap.appendChild(label);
   textWrap.appendChild(scriptureSpan);
@@ -441,3 +460,9 @@ function init() {
 
 // --- Start ---
 document.addEventListener("DOMContentLoaded", init);
+
+audio.addEventListener("ended", () => {
+  document.querySelectorAll("#mainStagePlaylist button").forEach(b => {
+    b.textContent = "▶";
+  });
+});
