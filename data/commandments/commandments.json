@@ -2914,5 +2914,18 @@
     "sefaria_links": ["Numbers 27"],
     "themes": ["inheritance", "property", "family"],
     "commentary": "Inheritance is governed by defined rules, ensuring orderly transfer of property."
-  }
-]
+  },
+    {
+    "id": 249,
+    "code": "P 249",
+    "type": "positive",
+    "category": "Torts",
+    "reference": "Deuteronomy 25:12",
+    "title": "On intervening to save one pursued",
+    "nt_links": [],
+    "sefaria_links": ["Deuteronomy 25"],
+    "themes": ["protection", "intervention", "justice"],
+    "commentary": "Action is taken to protect a person from harm, even in urgent circumstances."
+  },
+
+
