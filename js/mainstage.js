@@ -208,8 +208,14 @@ playlist.forEach(track => {
   scriptureSpan.className = "text-xs text-blue-300 hover:text-blue-200 underline cursor-pointer";
   scriptureSpan.textContent = scriptureText;
 
-  scriptureSpan.addEventListener('click', () => window.open(track.src, '_blank'));
-
+  scriptureSpan.addEventListener('click', () => {
+    // store reference for scripture system
+    localStorage.setItem("scriptureSearch", scriptureText);
+  
+    // jump to your scripture card
+    window.loadCard?.("scripture");
+  });
+  
 playBtn.addEventListener('click', () => {
   // If clicking same track → toggle
   if (audio.src === track.src) {
