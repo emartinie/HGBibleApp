@@ -1,3 +1,6 @@
+import { db } from "./firebase-init.js";
+import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 console.log("🗺️ prayermap.js loaded");
 
 (function () {
