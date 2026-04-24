@@ -23,28 +23,20 @@ console.log("🗺️ prayermap.js loaded");
     console.log("✅ Prayer map initialized");
   }
 
-  function addMarker(prayer) {
-    const lat = prayer.lat;
-    const lng = prayer.lng;
+function listenForPrayers() {
+  const col = collection(db, "prayers");
 
-    if (typeof lat !== "number" || typeof lng !== "number") return;
+  onSnapshot(col, (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      const id = change.doc.id;
+      const data = change.doc.data();
 
-    const marker = L.circleMarker([lat, lng], {
-      radius: 8,
-      fillColor: "#f97316",
-      color: "#111827",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.85
-    }).addTo(prayerLayer);
-
-    marker.bindPopup(`
-      <strong>${prayer.name || "Anonymous"}</strong><br>
-      <p>${prayer.message || ""}</p>
-    `);
-
-    activeMarkers[prayer.id] = marker;
-  }
+      if (change.type === "added") {
+        addMarker({ id, ...data });
+      }
+    });
+  });
+}
 
   function wireUi() {
     document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
@@ -57,8 +49,9 @@ console.log("🗺️ prayermap.js loaded");
   }
 
   function init() {
-    initMap();
-    wireUi();
+      initMap();
+      wireUi();
+      listenForPrayers();
 
     // Temporary test marker until Firestore is connected
     addMarker({
