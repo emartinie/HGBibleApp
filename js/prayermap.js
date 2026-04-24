@@ -126,6 +126,10 @@ console.log("🗺️ prayermap.js loaded");
 
       if (!pendingLatLng || !prayerText) return;
 
+      const btn = document.getElementById("prayerSaveBtn");
+      btn.disabled = true;
+      btn.textContent = "Saving...";
+
       await savePrayerMarker(name, prayerText, pendingLatLng.lat, pendingLatLng.lng);
 
       pendingLatLng = null;
