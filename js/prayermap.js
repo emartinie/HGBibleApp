@@ -23,21 +23,6 @@ console.log("🗺️ prayermap.js loaded");
     console.log("✅ Prayer map initialized");
   }
 
-function listenForPrayers() {
-  const col = collection(db, "prayers");
-
-  onSnapshot(col, (snapshot) => {
-    snapshot.docChanges().forEach((change) => {
-      const id = change.doc.id;
-      const data = change.doc.data();
-
-      if (change.type === "added") {
-        addMarker({ id, ...data });
-      }
-    });
-  });
-}
-
   function wireUi() {
     document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
       alert("Add Prayer form coming next.");
@@ -53,15 +38,20 @@ function listenForPrayers() {
       wireUi();
       listenForPrayers();
 
-    // Temporary test marker until Firestore is connected
-    addMarker({
-      id: "test-1",
-      name: "Test Prayer",
-      message: "Firestore connection comes next.",
-      lat: 36.1,
-      lng: -87.4
-    });
-  }
+    function listenForPrayers() {
+      const col = collection(db, "prayers");
+    
+      onSnapshot(col, (snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          const id = change.doc.id;
+          const data = change.doc.data();
+    
+          if (change.type === "added") {
+            addMarker({ id, ...data });
+          }
+        });
+      });
+    }
 
   init();
 
