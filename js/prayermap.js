@@ -1,5 +1,5 @@
 import { db } from "./firebase-init.js";
-import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { collection, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 console.log("🗺️ prayermap.js loaded");
 
@@ -19,6 +19,10 @@ console.log("🗺️ prayermap.js loaded");
     }).addTo(map);
 
     prayerLayer = L.layerGroup().addTo(map);
+
+    map.on("click", (e) => {
+  savePrayerMarker(e.latlng.lat, e.latlng.lng);
+});
 
     console.log("✅ Prayer map initialized");
   }
@@ -73,6 +77,21 @@ console.log("🗺️ prayermap.js loaded");
       });
     });
   }
+
+  async function savePrayerMarker(lat, lng) {
+  const name = prompt("Your name?") || "Anonymous";
+  const message = prompt("Prayer request?");
+
+  if (!message) return;
+
+  await addDoc(collection(db, "prayers"), {
+    name,
+    message,
+    lat,
+    lng,
+    createdAt: serverTimestamp()
+  });
+}
 
   function wireUi() {
     document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
