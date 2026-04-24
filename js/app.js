@@ -142,6 +142,11 @@ window.loadFromSefaria = function(ref) {
       const script = document.createElement("script");
       script.src = `js/${cardName}.js?v=${Date.now()}`;
       script.defer = true;
+      
+      if (cardName === "prayermap") {
+        script.type = "module";
+      }
+      
       document.body.appendChild(script);
       loadedScript = script;
 
