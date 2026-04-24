@@ -44,5 +44,15 @@
     loadScripture(currentWeek);
   }
 
-  init();
+window.addEventListener("weekChanged", (e) => {
+  const week = e.detail?.week || getWeek();
+  loadScripture(week);
+});
+
+  window.addEventListener("load", () => {
+  setTimeout(() => {
+    loadScripture(getWeek());
+  }, 100); // small delay lets mainstage finish
+});
+
 })();
