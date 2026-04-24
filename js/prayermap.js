@@ -68,7 +68,7 @@ console.log("🗺️ prayermap.js loaded");
         data-id="${prayer.id}" 
         class="mark-prayed-btn mt-2 px-2 py-1 text-xs bg-blue-600 text-white rounded"
       >
-        ${prayer.prayed ? "🙏 Prayed" : "🙏 I Prayed"}
+        ${prayer.prayed ? "🙏 Prayed for" : "🙏 I Prayed"}
       </button>
     `);
     prayerData[prayer.id] = prayer;
