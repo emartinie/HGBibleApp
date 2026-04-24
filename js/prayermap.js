@@ -66,9 +66,9 @@ console.log("🗺️ prayermap.js loaded");
       <p>${prayer.message || ""}</p>
       <button 
         data-id="${prayer.id}" 
-        class="mark-answered-btn mt-2 px-2 py-1 text-xs bg-green-600 text-white rounded"
+        class="mark-prayed-btn mt-2 px-2 py-1 text-xs bg-blue-600 text-white rounded"
       >
-        ${prayer.answered ? "Answered ✅" : "Mark Answered"}
+        ${prayer.prayed ? "🙏 Prayed" : "🙏 I Prayed"}
       </button>
     `);
     prayerData[prayer.id] = prayer;
@@ -83,6 +83,9 @@ console.log("🗺️ prayermap.js loaded");
     const prayer = prayerData[id];
 
     const text = `${prayer.name || ""} ${prayer.message || ""}`.toLowerCase();
+
+    const isPrayed = prayer.prayed === true;
+    fillColor: isPrayed ? "#22c55e" : "#f97316"
 
     if (!q || text.includes(q)) {
       marker.addTo(prayerLayer);
@@ -116,14 +119,14 @@ console.log("🗺️ prayermap.js loaded");
     if (!message) return;
 
         await addDoc(collection(db, "prayers"), {
-      name: name || "Anonymous",
-      message,
-      lat,
-      lng,
-      answered: false, // 👈 ADD THIS
-      createdAt: serverTimestamp()
-    });
-  }
+        name: name || "Anonymous",
+        message,
+        lat,
+        lng,
+        prayed: false, // 👈 changed
+        createdAt: serverTimestamp()
+      });
+        }
 
   function openPrayerModal(lat, lng) {
     pendingLatLng = { lat, lng };
@@ -189,7 +192,7 @@ console.log("🗺️ prayermap.js loaded");
   init();
 
   map.on("popupopen", (e) => {
-  const btn = e.popup._contentNode.querySelector(".mark-answered-btn");
+  const btn = e.popup._contentNode.querySelector(".mark-prayed-btn");
 
   if (!btn) return;
 
@@ -197,7 +200,7 @@ console.log("🗺️ prayermap.js loaded");
     const id = btn.dataset.id;
 
     await updateDoc(doc(db, "prayers", id), {
-      answered: true
+      prayed: true
     });
   });
 });
