@@ -23,20 +23,56 @@ console.log("🗺️ prayermap.js loaded");
     console.log("✅ Prayer map initialized");
   }
 
-function listenForPrayers() {
-  const col = collection(db, "prayers");
+  function addMarker(prayer) {
+    const lat = prayer.lat;
+    const lng = prayer.lng;
 
-  onSnapshot(col, (snapshot) => {
-    snapshot.docChanges().forEach((change) => {
-      const id = change.doc.id;
-      const data = change.doc.data();
+    if (typeof lat !== "number" || typeof lng !== "number") {
+      console.warn("⚠️ Prayer missing lat/lng:", prayer);
+      return;
+    }
 
-      if (change.type === "added") {
-        addMarker({ id, ...data });
-      }
+    if (activeMarkers[prayer.id]) {
+      activeMarkers[prayer.id].setLatLng([lat, lng]);
+      return;
+    }
+
+    const marker = L.circleMarker([lat, lng], {
+      radius: 8,
+      fillColor: "#f97316",
+      color: "#111827",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.85
+    }).addTo(prayerLayer);
+
+    marker.bindPopup(`
+      <strong>${prayer.name || "Anonymous"}</strong><br>
+      <p>${prayer.message || ""}</p>
+    `);
+
+    activeMarkers[prayer.id] = marker;
+  }
+
+  function listenForPrayers() {
+    const col = collection(db, "prayers");
+
+    onSnapshot(col, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const id = change.doc.id;
+        const data = change.doc.data();
+
+        if (change.type === "added" || change.type === "modified") {
+          addMarker({ id, ...data });
+        }
+
+        if (change.type === "removed" && activeMarkers[id]) {
+          prayerLayer.removeLayer(activeMarkers[id]);
+          delete activeMarkers[id];
+        }
+      });
     });
-  });
-}
+  }
 
   function wireUi() {
     document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
@@ -49,19 +85,10 @@ function listenForPrayers() {
   }
 
   function init() {
-      initMap();
-      wireUi();
-      listenForPrayers();
-
-    // Temporary test marker until Firestore is connected
-  //  addMarker({
-   //   id: "test-1",
-   //   name: "Test Prayer",
-  //    message: "Firestore connection comes next.",
-   //   lat: 36.1,
-    //  lng: -87.4
-  //  });
-//  }
+    initMap();
+    wireUi();
+    listenForPrayers();
+  }
 
   init();
 
