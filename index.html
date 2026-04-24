@@ -724,6 +724,37 @@
                   <div class="empty-state">The loader will drop dynamic week content here.</div>
                 </div>
               </section>
+              <section id="scriptureSection" class="hg-panel max-w-4xl mx-auto my-6">
+
+  <div class="flex items-center justify-between p-4 border-b border-white/10">
+    <h2 class="text-xl font-semibold text-orange-300">📖 Scripture</h2>
+
+    <div class="flex gap-2">
+      <button id="scriptureReloadBtn" class="ui-btn">Reload</button>
+      <button id="scriptureNextBtn" class="ui-btn">Next</button>
+    </div>
+  </div>
+
+  <div class="p-5 space-y-4 text-slate-100">
+
+    <div id="scriptureMeta" class="text-sm text-slate-400"></div>
+
+    <div class="flex gap-2 flex-wrap">
+      <button class="ui-btn" onclick="goToNT()">✝️ NT View</button>
+      <button class="ui-btn" onclick="goBackToCommandments()">🔙 Commandments</button>
+      <button class="ui-btn" onclick="scrollScriptureTop()">↑ Top</button>
+    </div>
+
+    <div
+      id="scriptureContent"
+      class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed"
+    >
+      Loading scripture...
+    </div>
+
+  </div>
+
+</section>
             </div>
           </div>
         </section>
