@@ -67,10 +67,10 @@
   }
   
 // helper functions global
-function scrollScriptureTop() {
-  const el = document.getElementById('scriptureContent');
-  if (el) el.scrollTop = 0;
-}
+//function scrollScriptureTop() {
+ // const el = document.getElementById('scriptureContent');
+ // if (el) el.scrollTop = 0;
+//}
   
   window.goToNT = function () {
   const ref = localStorage.getItem("scriptureSearch");
