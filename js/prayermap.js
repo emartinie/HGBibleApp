@@ -1,5 +1,10 @@
 import { db } from "./firebase-init.js";
-import { collection, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+  collection,
+  onSnapshot,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 console.log("🗺️ prayermap.js loaded");
 
@@ -8,9 +13,9 @@ console.log("🗺️ prayermap.js loaded");
   if (!mapEl || typeof L === "undefined") return;
 
   let map;
-  let addMode = false;
-  let pendingLatLng = null;  
   let prayerLayer;
+  let addMode = false;
+  let pendingLatLng = null;
   const activeMarkers = {};
 
   function initMap() {
@@ -22,7 +27,7 @@ console.log("🗺️ prayermap.js loaded");
 
     prayerLayer = L.layerGroup().addTo(map);
 
-          map.on("click", (e) => {
+    map.on("click", (e) => {
       if (!addMode) return;
       addMode = false;
       openPrayerModal(e.latlng.lat, e.latlng.lng);
@@ -32,11 +37,11 @@ console.log("🗺️ prayermap.js loaded");
   }
 
   function addMarker(prayer) {
-    const lat = prayer.lat;
-    const lng = prayer.lng;
+    const lat = Number(prayer.lat);
+    const lng = Number(prayer.lng);
 
-    if (typeof lat !== "number" || typeof lng !== "number") {
-      console.warn("⚠️ Prayer missing lat/lng:", prayer);
+    if (isNaN(lat) || isNaN(lng)) {
+      console.warn("⚠️ Invalid lat/lng:", prayer);
       return;
     }
 
@@ -82,59 +87,62 @@ console.log("🗺️ prayermap.js loaded");
     });
   }
 
-async function savePrayerMarker(name, message, lat, lng) {
-  if (!message) return;
+  async function savePrayerMarker(name, message, lat, lng) {
+    if (!message) return;
 
-  await addDoc(collection(db, "prayers"), {
-    name: name || "Anonymous",
-    message,
-    lat,
-    lng,
-    createdAt: serverTimestamp()
-  });
-}
+    await addDoc(collection(db, "prayers"), {
+      name: name || "Anonymous",
+      message,
+      lat,
+      lng,
+      createdAt: serverTimestamp()
+    });
+  }
 
   function openPrayerModal(lat, lng) {
-  pendingLatLng = { lat, lng };
+    pendingLatLng = { lat, lng };
 
-  const panel = document.getElementById("prayerPorchPanel");
-  const title = document.getElementById("prayerPorchTitle");
-  const message = document.getElementById("prayerPorchMessage");
+    const panel = document.getElementById("prayerPorchPanel");
+    const title = document.getElementById("prayerPorchTitle");
+    const message = document.getElementById("prayerPorchMessage");
 
-  if (!panel || !message) return;
+    if (!panel || !message) return;
 
-  title.textContent = "Add Prayer";
+    title.textContent = "Add Prayer";
 
-  message.innerHTML = `
-    <input id="prayerNameInput" class="w-full mb-3 px-3 py-2 rounded bg-slate-800 text-white border border-slate-600" placeholder="Name optional">
-    <textarea id="prayerMessageInput" class="w-full px-3 py-2 rounded bg-slate-800 text-white border border-slate-600" rows="4" placeholder="Prayer request"></textarea>
-    <button id="prayerSaveBtn" class="mt-4 px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-500 text-white">
-      Save Prayer
-    </button>
-  `;
+    message.innerHTML = `
+      <input id="prayerNameInput" class="w-full mb-3 px-3 py-2 rounded bg-slate-800 text-white border border-slate-600" placeholder="Name optional">
+      <textarea id="prayerMessageInput" class="w-full px-3 py-2 rounded bg-slate-800 text-white border border-slate-600" rows="4" placeholder="Prayer request"></textarea>
+      <button id="prayerSaveBtn" class="mt-4 px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-500 text-white">
+        Save Prayer
+      </button>
+    `;
 
-  panel.classList.remove("hidden");
+    panel.classList.remove("hidden");
 
-  document.getElementById("prayerSaveBtn")?.addEventListener("click", async () => {
-    const name = document.getElementById("prayerNameInput")?.value.trim();
-    const prayerText = document.getElementById("prayerMessageInput")?.value.trim();
+    document.getElementById("prayerSaveBtn")?.addEventListener("click", async () => {
+      const name = document.getElementById("prayerNameInput")?.value.trim();
+      const prayerText = document.getElementById("prayerMessageInput")?.value.trim();
 
-    if (!pendingLatLng || !prayerText) return;
+      if (!pendingLatLng || !prayerText) return;
 
-    await savePrayerMarker(name, prayerText, pendingLatLng.lat, pendingLatLng.lng);
+      await savePrayerMarker(name, prayerText, pendingLatLng.lat, pendingLatLng.lng);
 
-    pendingLatLng = null;
-    panel.classList.add("hidden");
-  });
-}
+      pendingLatLng = null;
+      panel.classList.add("hidden");
+    });
+  }
 
-  document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
-  addMode = true;
-  alert("Click the map where you want to place the prayer.");
-});
+  function wireUi() {
+    document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
+      addMode = true;
+      alert("Click the map where you want to place the prayer.");
+    });
 
     document.getElementById("prayerPorchCloseBtn")?.addEventListener("click", () => {
       document.getElementById("prayerPorchPanel")?.classList.add("hidden");
+      pendingLatLng = null;
+      addMode = false;
     });
   }
 
