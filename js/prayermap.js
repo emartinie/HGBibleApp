@@ -8,6 +8,7 @@ console.log("🗺️ prayermap.js loaded");
   if (!mapEl || typeof L === "undefined") return;
 
   let map;
+  let addMode = false;
   let prayerLayer;
   const activeMarkers = {};
 
@@ -20,9 +21,12 @@ console.log("🗺️ prayermap.js loaded");
 
     prayerLayer = L.layerGroup().addTo(map);
 
-    map.on("click", (e) => {
-  savePrayerMarker(e.latlng.lat, e.latlng.lng);
-});
+      map.on("click", (e) => {
+    if (!addMode) return;
+  
+    addMode = false;
+    savePrayerMarker(e.latlng.lat, e.latlng.lng);
+  });
 
     console.log("✅ Prayer map initialized");
   }
@@ -95,7 +99,8 @@ console.log("🗺️ prayermap.js loaded");
 
   function wireUi() {
     document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
-      alert("Add Prayer form coming next.");
+      addMode = true;
+      alert("Click the map to place your prayer.");
     });
 
     document.getElementById("prayerPorchCloseBtn")?.addEventListener("click", () => {
