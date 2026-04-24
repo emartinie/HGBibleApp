@@ -24,35 +24,32 @@
     }
   }
 
-  function init() {
-    let currentWeek = getWeek();
+function init() {
+  let currentWeek = getWeek();
 
-    document.getElementById("scriptureReloadBtn")?.addEventListener("click", () => {
-      loadScripture(currentWeek);
-    });
-
-    document.getElementById("scriptureNextBtn")?.addEventListener("click", () => {
-      currentWeek += 1;
-      loadScripture(currentWeek);
-    });
-
-    document.getElementById("scripturePrevBtn")?.addEventListener("click", () => {
-      currentWeek = Math.max(1, currentWeek - 1);
-      loadScripture(currentWeek);
-    });
-
+  document.getElementById("scriptureReloadBtn")?.addEventListener("click", () => {
     loadScripture(currentWeek);
-  }
+  });
 
-window.addEventListener("weekChanged", (e) => {
-  const week = e.detail?.week || getWeek();
-  loadScripture(week);
-});
+  document.getElementById("scriptureNextBtn")?.addEventListener("click", () => {
+    currentWeek += 1;
+    loadScripture(currentWeek);
+  });
 
-  window.addEventListener("load", () => {
+  document.getElementById("scripturePrevBtn")?.addEventListener("click", () => {
+    currentWeek = Math.max(1, currentWeek - 1);
+    loadScripture(currentWeek);
+  });
+
+  window.addEventListener("weekChanged", (e) => {
+    currentWeek = e.detail?.week || getWeek();
+    loadScripture(currentWeek);
+  });
+
   setTimeout(() => {
-    loadScripture(getWeek());
-  }, 100); // small delay lets mainstage finish
-});
+    currentWeek = getWeek();
+    loadScripture(currentWeek);
+  }, 100);
+}
 
-})();
+window.addEventListener("load", init);
