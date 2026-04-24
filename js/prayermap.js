@@ -17,7 +17,8 @@ console.log("🗺️ prayermap.js loaded");
   let addMode = false;
   let pendingLatLng = null;
   const activeMarkers = {};
-
+  const prayerData = {};
+  
   function initMap() {
     map = L.map(mapEl).setView([36.1, -87.4], 8);
 
@@ -63,9 +64,26 @@ console.log("🗺️ prayermap.js loaded");
       <strong>${prayer.name || "Anonymous"}</strong><br>
       <p>${prayer.message || ""}</p>
     `);
-
+    prayerData[prayer.id] = prayer;
     activeMarkers[prayer.id] = marker;
   }
+
+  function filterMarkers(query) {
+  const q = query.toLowerCase();
+
+  Object.keys(activeMarkers).forEach((id) => {
+    const marker = activeMarkers[id];
+    const prayer = prayerData[id];
+
+    const text = `${prayer.name || ""} ${prayer.message || ""}`.toLowerCase();
+
+    if (!q || text.includes(q)) {
+      marker.addTo(prayerLayer);
+    } else {
+      prayerLayer.removeLayer(marker);
+    }
+  });
+}
 
   function listenForPrayers() {
     const col = collection(db, "prayers");
@@ -149,6 +167,10 @@ console.log("🗺️ prayermap.js loaded");
       addMode = false;
     });
   }
+
+  document.getElementById("prayerMapSearch")?.addEventListener("input", (e) => {
+  filterMarkers(e.target.value);
+});
 
   function init() {
     initMap();
