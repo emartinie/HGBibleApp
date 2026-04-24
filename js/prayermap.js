@@ -54,14 +54,14 @@ function listenForPrayers() {
       listenForPrayers();
 
     // Temporary test marker until Firestore is connected
-    addMarker({
-      id: "test-1",
-      name: "Test Prayer",
-      message: "Firestore connection comes next.",
-      lat: 36.1,
-      lng: -87.4
-    });
-  }
+  //  addMarker({
+   //   id: "test-1",
+   //   name: "Test Prayer",
+  //    message: "Firestore connection comes next.",
+   //   lat: 36.1,
+    //  lng: -87.4
+  //  });
+//  }
 
   init();
 
