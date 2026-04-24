@@ -106,6 +106,10 @@ window.loadFromSefaria = function(ref) {
     script.src = `${src}?v=${Date.now()}`;
     script.defer = true;
     script.dataset.src = src;
+    
+    if (src.includes("prayermap.js") || src.includes("firebase-init.js")) {
+      script.type = "module";
+    }
 
     script.onload = resolve;
     script.onerror = reject;
