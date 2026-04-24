@@ -1,4 +1,5 @@
 import { db } from "./firebase-init.js";
+import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
   collection,
   onSnapshot,
@@ -60,9 +61,15 @@ console.log("🗺️ prayermap.js loaded");
       fillOpacity: 0.85
     }).addTo(prayerLayer);
 
-    marker.bindPopup(`
+      marker.bindPopup(`
       <strong>${prayer.name || "Anonymous"}</strong><br>
       <p>${prayer.message || ""}</p>
+      <button 
+        data-id="${prayer.id}" 
+        class="mark-answered-btn mt-2 px-2 py-1 text-xs bg-green-600 text-white rounded"
+      >
+        ${prayer.answered ? "Answered ✅" : "Mark Answered"}
+      </button>
     `);
     prayerData[prayer.id] = prayer;
     activeMarkers[prayer.id] = marker;
@@ -108,11 +115,12 @@ console.log("🗺️ prayermap.js loaded");
   async function savePrayerMarker(name, message, lat, lng) {
     if (!message) return;
 
-    await addDoc(collection(db, "prayers"), {
+        await addDoc(collection(db, "prayers"), {
       name: name || "Anonymous",
       message,
       lat,
       lng,
+      answered: false, // 👈 ADD THIS
       createdAt: serverTimestamp()
     });
   }
@@ -179,6 +187,20 @@ console.log("🗺️ prayermap.js loaded");
   }
 
   init();
+
+  map.on("popupopen", (e) => {
+  const btn = e.popup._contentNode.querySelector(".mark-answered-btn");
+
+  if (!btn) return;
+
+  btn.addEventListener("click", async () => {
+    const id = btn.dataset.id;
+
+    await updateDoc(doc(db, "prayers", id), {
+      answered: true
+    });
+  });
+});
 
   window.PrayerMapCleanup = function () {
     if (map) map.remove();
