@@ -65,7 +65,13 @@
       if (e.key === "ArrowLeft") prevCard();
     });
   }
+  
 // helper functions global
+function scrollScriptureTop() {
+  const el = document.getElementById('scriptureContent');
+  if (el) el.scrollTop = 0;
+}
+  
   window.goToNT = function () {
   const ref = localStorage.getItem("scriptureSearch");
   if (ref) {
