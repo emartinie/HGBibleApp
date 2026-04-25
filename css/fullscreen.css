@@ -131,3 +131,8 @@ body.has-fullscreen-card {
   display: none;
 }
 
+#mainStageTitle {
+  text-align: center;
+  width: 100%;
+}
+
