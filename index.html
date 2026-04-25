@@ -854,6 +854,30 @@
     Go Deeper
   </button>
 </div>
+    
+<script>
+    let deferredInstallPrompt = null;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+
+  const btn = document.getElementById("installAppBtn");
+  if (btn) btn.hidden = false;
+});
+
+document.getElementById("installAppBtn")?.addEventListener("click", async () => {
+  if (!deferredInstallPrompt) return;
+
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+
+  deferredInstallPrompt = null;
+
+  const btn = document.getElementById("installAppBtn");
+  if (btn) btn.hidden = true;
+});
+    </script>
 
   </div>
 </div>
