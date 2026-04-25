@@ -136,3 +136,11 @@ body.has-fullscreen-card {
   width: 100%;
 }
 
+.card-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
