@@ -47,10 +47,7 @@
     <div class="flex items-center justify-between gap-3 flex-wrap">
       <!--<h2 class="text-xl font-semibold text-orange-300">📖 Scripture</h2>-->
 
-      <div class="flex items-center gap-2 flex-wrap">
-        <button id="scripturePrevBtn" class="ui-btn" type="button">← Prev</button>
-        <button id="scriptureNextBtn" class="ui-btn" type="button">Next →</button>
-      </div>
+
        <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
   <div>
     <label for="scriptureSearch" class="block text-xs text-slate-400 mb-1">Type/ Paste Scripture</label>
@@ -66,7 +63,6 @@
     <button id="scriptureSearchBtn" class="ui-btn w-full sm:w-auto" type="button">
       Go
     </button>
-    <button id="copyScriptureBtn" class="ui-btn">Copy</button>
   </div>
 </div>
     </div>
@@ -188,12 +184,15 @@
   <button class="ui-btn" onclick="goBackToCommandments()">
     🔙 Commandments
   </button>
-
+      <div class="flex items-center gap-2 flex-wrap">
+        <button id="scripturePrevBtn" class="ui-btn" type="button">← Prev</button>
+        <button id="scriptureNextBtn" class="ui-btn" type="button">Next →</button>
+      </div>
 </div>
-    <div id="scriptureMeta" class="text-sm text-slate-400"></div>
 <button id="openSefariaContextBtn" class="ui-btn">
   Jewish Context
 </button>
+        <div id="scriptureMeta" class="text-sm text-slate-400"></div>    <button id="copyScriptureBtn" class="ui-btn">Copy</button>
 <div
   id="scriptureContent"
   class="bg-gradient-to-b from-slate-900/80 to-black/70 border border-slate-700 rounded-2xl p-5 max-h-[70vh] overflow-y-auto text-sm leading-relaxed shadow-inner backdrop-blur-sm"
