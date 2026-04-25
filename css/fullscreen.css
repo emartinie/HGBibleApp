@@ -63,3 +63,8 @@ body.has-fullscreen-card {
   height: auto !important;
   min-height: 0;
 }
+
+.card-header .prev-card-btn,
+.card-header .next-card-btn {
+  display: none;
+}
