@@ -59,13 +59,18 @@ const articles = [
     }
   }
 
-  function wire() {
-    listEl?.addEventListener("click", (e) => {
-      const btn = e.target.closest("button");
-      if (!btn) return;
-      loadArticle(btn.dataset.file);
-    });
-  }
+function wire() {
+  listEl?.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+
+    // highlight active
+    listEl.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    loadArticle(btn.dataset.file);
+  });
+}
 
   function init() {
     renderList();
