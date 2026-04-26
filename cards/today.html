@@ -5,31 +5,15 @@
   <title>Today</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<section id="todayCard" class="card">
-  <div class="card-shell">
-    <div class="card-header">
-      <h2 class="card-title">Today’s Focus</h2>
-    </div>
-    <div class="card-body">
-      <p class="text-slate-300">Today is: <span id="todayDate"></span></p>
-      <p class="text-slate-200">Verse of the Day: <span id="todayVerse"></span></p>
-      <p class="text-slate-200">Reflection: Be still and know that I am God.</p>
-      <div id="upcomingEvent" class="mt-4 text-slate-200"></div>
-      <button id="todayActionBtn" class="px-4 py-2 rounded bg-orange-600 text-white">
-        Take Today’s Step
-      </button>
-    </div>
-  </div>
-<!--</section>-->
+
 <body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center">
 
-  <!-- TODAY CARD -->
-  <div class="w-full max-w-md px-6">
+  <section id="todayCard" class="w-full max-w-md px-6">
 
     <!-- Context Header -->
     <div class="mb-6 text-center">
       <h1 class="text-2xl font-semibold">Today</h1>
-      <p class="text-slate-400 text-sm">Wednesday, March 6</p>
+      <p id="todayDatePretty" class="text-slate-400 text-sm"></p>
     </div>
 
     <!-- Main Card -->
@@ -39,20 +23,20 @@
         Today’s Scripture
       </h2>
 
-      <p class="text-slate-400 text-sm mb-2">
-        Psalm 23
-      </p>
+      <p id="todayVerseRef" class="text-slate-400 text-sm mb-2"></p>
 
-      <p class="italic text-slate-200 mb-6">
-        “The LORD is my shepherd; I shall not want.”
-      </p>
+      <p id="todayVerseText" class="italic text-slate-200 mb-6"></p>
 
       <!-- Primary Action -->
       <button
+        id="todayActionBtn"
         class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 transition text-white font-medium"
       >
         ▶ Listen
       </button>
+
+      <!-- Upcoming Event -->
+      <div id="upcomingEvent" class="mt-4 text-sm text-slate-300"></div>
 
       <!-- Go Deeper Toggle -->
       <div class="mt-4 text-center">
@@ -74,7 +58,9 @@
       </div>
 
     </div>
-  </div>
+  </section>
+
+
 
 </body>
 </html>
