@@ -35,7 +35,7 @@ const articles = [
   function renderList() {
     if (!listEl) return;
 
-    listEl.innerHTML = ARTICLES.map(a => `
+    listEl.innerHTML = articles.map(a => `
       <button class="ui-btn w-full text-left" data-file="${a.file}">
         ${a.title}
       </button>
