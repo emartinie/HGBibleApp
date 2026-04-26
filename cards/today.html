@@ -5,7 +5,22 @@
   <title>Today</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
+<section id="todayCard" class="card">
+  <div class="card-shell">
+    <div class="card-header">
+      <h2 class="card-title">Today’s Focus</h2>
+    </div>
+    <div class="card-body">
+      <p class="text-slate-300">Today is: <span id="todayDate"></span></p>
+      <p class="text-slate-200">Verse of the Day: <span id="todayVerse"></span></p>
+      <p class="text-slate-200">Reflection: Be still and know that I am God.</p>
+      <div id="upcomingEvent" class="mt-4 text-slate-200"></div>
+      <button id="todayActionBtn" class="px-4 py-2 rounded bg-orange-600 text-white">
+        Take Today’s Step
+      </button>
+    </div>
+  </div>
+<!--</section>-->
 <body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center">
 
   <!-- TODAY CARD -->
