@@ -2,42 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Main Page</title>
+  <title>Main Stage Template</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
 
-  <!-- Header -->
-  <header class="p-4 bg-slate-800 shadow">
-    <h1 class="text-3xl text-center font-semibold">Welcome to the App</h1>
-  </header>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex items-center justify-center">
 
-  <!-- Main Content / Cards Row -->
-  <main id="viewport" class="flex-1 p-6">
-    <div id="cardsRow" class="space-y-6">
-      <!-- Card Template -->
-      <section class="card bg-slate-800 rounded-xl shadow p-4">
-        <div class="card-shell">
-          <div class="card-header">
-            <h2 class="card-title text-xl font-bold">Card Title</h2>
-          </div>
-          <div class="card-body">
-            <p class="text-slate-300">Your content goes here.</p>
-            <!-- Add buttons or actions if needed -->
-          </div>
+  <!-- VIEWPORT -->
+  <main id="viewport" class="w-full max-w-md px-4">
+
+    <!-- CARD -->
+    <section class="card">
+      <div class="card-shell bg-slate-800 rounded-xl shadow-lg border border-slate-700 flex flex-col">
+
+        <!-- HEADER (LOCK THIS) -->
+        <div class="card-header px-4 py-3 border-b border-slate-700 flex items-center justify-center">
+          <h2 class="card-title text-lg font-semibold text-slate-200">
+            Main Stage
+          </h2>
         </div>
-      </section>
-      <!-- Repeat the card structure as needed -->
-    </div>
+
+        <!-- BODY (THIS IS YOUR LANDING CONTENT) -->
+        <div class="card-body p-4 flex flex-col gap-4">
+
+          <!-- HERO -->
+          <div class="hero-panel bg-slate-900 rounded-lg p-4 text-center">
+            <h1 class="text-xl font-bold mb-2">Welcome</h1>
+            <p class="text-slate-400 text-sm">
+              This is your starting point. Everything flows from here.
+            </p>
+          </div>
+
+          <!-- PRIMARY ACTIONS -->
+          <div class="content-panel flex flex-col gap-2">
+
+            <button class="w-full py-2 rounded bg-blue-600 hover:bg-blue-500">
+              Open Map
+            </button>
+
+            <button class="w-full py-2 rounded bg-slate-700 hover:bg-slate-600">
+              Read Scripture
+            </button>
+
+            <button class="w-full py-2 rounded bg-slate-700 hover:bg-slate-600">
+              View Commentary
+            </button>
+
+          </div>
+
+          <!-- SECONDARY / CONTEXT -->
+          <div class="text-center text-xs text-slate-500">
+            Keep it simple. Stay focused.
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
-  <!-- Footer -->
-  <footer class="p-4 bg-slate-800 text-center">
-    <p class="text-slate-400">© 2026 Your App</p>
-  </footer>
-
-  <!-- Scripts (e.g., interactivity) -->
-  <script src="your-script.js"></script>
 </body>
 </html>
