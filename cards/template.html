@@ -1,91 +1,43 @@
-<section class="hg-card-module">
-  <style>
-    .hg-card-module{
-      color:#eef3ff;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Main Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
 
-    .hg-card-head{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
+  <!-- Header -->
+  <header class="p-4 bg-slate-800 shadow">
+    <h1 class="text-3xl text-center font-semibold">Welcome to the App</h1>
+  </header>
 
-    .hg-card-kicker{
-      font-size:.72rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:#a8b2c7;
-    }
+  <!-- Main Content / Cards Row -->
+  <main id="viewport" class="flex-1 p-6">
+    <div id="cardsRow" class="space-y-6">
+      <!-- Card Template -->
+      <section class="card bg-slate-800 rounded-xl shadow p-4">
+        <div class="card-shell">
+          <div class="card-header">
+            <h2 class="card-title text-xl font-bold">Card Title</h2>
+          </div>
+          <div class="card-body">
+            <p class="text-slate-300">Your content goes here.</p>
+            <!-- Add buttons or actions if needed -->
+          </div>
+        </div>
+      </section>
+      <!-- Repeat the card structure as needed -->
+    </div>
+  </main>
 
-    .hg-card-title{
-      margin:0;
-      font-size:1.15rem;
-      font-weight:800;
-      color:#ffe7b0;
-      line-height:1.1;
-    }
+  <!-- Footer -->
+  <footer class="p-4 bg-slate-800 text-center">
+    <p class="text-slate-400">© 2026 Your App</p>
+  </footer>
 
-    .hg-card-sub{
-      margin:0;
-      color:#a8b2c7;
-      font-size:.92rem;
-      line-height:1.45;
-    }
-
-    .hg-panel{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;
-      padding:14px;
-    }
-
-    .hg-section-label{
-      font-size:.72rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:#f3c878;
-      margin-bottom:8px;
-    }
-
-    .hg-empty{
-      color:#a8b2c7;
-      font-size:.92rem;
-      padding:14px;
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:14px;
-      text-align:center;
-    }
-
-    .hg-btn-row{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .hg-btn{
-      border:none;
-      border-radius:999px;
-      min-height:40px;
-      padding:0 14px;
-      background:rgba(255,255,255,.07);
-      color:#eef3ff;
-      border:1px solid rgba(255,255,255,.10);
-      font:inherit;
-    }
-  </style>
-
- <!-- <header class="hg-card-head">
-    <div class="hg-card-kicker">Loaded Card</div>
-    <h2 class="hg-card-title">Card Title</h2>
-    <p class="hg-card-sub">Short description goes here.</p>
-  </header>-->
-
-  <section class="hg-panel">
-    <!--<div class="hg-section-label">Section</div>
-    <div class="hg-empty">Your content goes here.</div>-->
-    <p>Your content goes here.</p>
-  </section>
-</section>
+  <!-- Scripts (e.g., interactivity) -->
+  <script src="your-script.js"></script>
+</body>
+</html>
