@@ -1,3 +1,105 @@
+  <!-- TODAY Overlay -->
+  <div id="todayOverlay" class="hidden fixed inset-0 bg-black/40 z-50">
+    <div>
+      <h2 class="text-xl font-semibold">Today</h2>
+
+    </div>
+    <div id="todayPanel" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+           w-[90%] max-w-md
+           bg-white dark:bg-slate-900
+           rounded-xl shadow-xl
+           p-6
+           opacity-0 scale-95 transition-all duration-300">
+      <h2 class="text-xl font-semibold mb-4">Today Only (relax)</h2>
+      <p id="todayDate" class="text-slate-400 text-sm mt-1"></p>
+      <p id="todaySabbath" class="text-slate-300 text-sm mb-4"></p>
+
+
+      <!-- Gentle Devotional (placeholder) -->
+      <div class="mt-5">
+        <h3 class="text-slate-200 font-semibold mb-2">A quiet word</h3>
+        <p class="text-slate-300 leading-relaxed">
+          Ask God for light for the next step — not the whole staircase.
+          Let the Word be enough for today.
+        </p>
+
+        <!-- Scripture Block -->
+        <div class="rounded-lg border border-slate-700 bg-slate-950/40 p-4">
+          <p class="text-slate-300 text-sm mb-2">Today’s One Psalm</p>
+
+          <p class="text-slate-200 font-medium">Psalm 119:105</p>
+          <p class="mt-2 italic text-slate-100 leading-relaxed">
+            “Your word is a lamp to my feet and a light to my path.”
+          </p>
+        </div>
+        <p class="mt-2 text-sm text-slate-400">Genesis Chapter 1 (Bereshit- בְּרֵאשִׁית)</p>
+
+        <!-- Primary Action (placeholder only) -->
+        <div class="mt-4">
+          <button id="todayListenBtn" type="button"
+            class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium"
+            onclick="alert('You are bout to listen to Geneis 1 recorded by a real human.')">
+            ▶ Listen
+          </button>
+
+          <p class="text-xs text-slate-500 mt-2 text-center">
+            Simple. Holy. No pressure.
+          </p>
+        </div>
+
+
+      </div>
+
+
+      <!-- Go Deeper Toggle -->
+      <div class="mt-5 pt-4 border-t border-slate-700">
+        <button id="todayDeeperBtn" type="button" class="text-slate-300 hover:text-white text-sm underline"
+          onclick="document.getElementById('todayDeeper').classList.toggle('hidden')">
+          Go deeper →
+        </button>
+
+        <div id="todayDeeper" class="hidden mt-3 text-sm text-slate-300">
+          <ul class="space-y-2">
+            <li>
+              • <a class="text-blue-400 hover:text-blue-300 underline" href="nt.html" target="_blank">
+                NT Reader
+              </a>
+            </li>
+            <li>
+              • <a class="text-blue-400 hover:text-blue-300 underline" href="sources.html" target="_blank">
+                Ancient Sources
+              </a>
+            </li>
+            <li>
+              • <a class="text-blue-400 hover:text-blue-300 underline" href="intertext-quotes.html" target="_blank">
+                Intertext Quotes
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <button id="todayCloseBtn" class="mt-6 text-sm text-blue-600 underline">
+        Close
+      </button>
+    </div>
+  </div>
+  <header class="sticky top-0 z-20 bg-slate-900/80 backdrop-blur border-b border-slate-800">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between px-3 py-2 gap-2">
+
+      <!-- Left -->
+      <div class="flex items-center gap-2 min-w-0">
+        <img src="images/HGHouses.png" alt="HG" class="w-8 h-8 shrink-0" />
+        <div class="min-w-0">
+          <div class="text-[10px] sm:text-xs text-slate-400 truncate">
+            HomeGroups • MainStage
+          </div>
+          <div class="text-base sm:text-lg font-bold text-cyan-300 tracking-wide truncate">
+            MainStage
+          </div>
+        </div>
+      </div>
+
 <!doctype html>
 <html lang="en">
 <head>
