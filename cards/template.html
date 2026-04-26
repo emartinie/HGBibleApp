@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Main Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="p-4 bg-slate-800 shadow">
+    <h1 class="text-3xl text-center font-semibold">Welcome to the App</h1>
+  </header>
+
+  <!-- Main Content / Cards Row -->
+  <main id="viewport" class="flex-1 p-6">
+    <div id="cardsRow" class="space-y-6">
+      <!-- Card Template -->
+      <section class="card bg-slate-800 rounded-xl shadow p-4">
+        <div class="card-shell">
+          <div class="card-header">
+            <h2 class="card-title text-xl font-bold">Card Title</h2>
+          </div>
+          <div class="card-body">
+            <p class="text-slate-300">Your content goes here.</p>
+            <!-- Add buttons or actions if needed -->
+          </div>
+        </div>
+      </section>
+      <!-- Repeat the card structure as needed -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="p-4 bg-slate-800 text-center">
+    <p class="text-slate-400">© 2026 Your App</p>
+  </footer>
+
+  <!-- Scripts (e.g., interactivity) -->
+  <script src="your-script.js"></script>
+</body>
+</html>
