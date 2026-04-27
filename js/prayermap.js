@@ -16,11 +16,16 @@ console.log("🗺️ prayermap.js loaded");
   let map;
   let prayerLayer;
   let homeGroupLayer;
+
   let addMode = false;
   let pendingLatLng = null;
+
   const activeMarkers = {};
   const prayerData = {};
-  
+
+  // ======================
+  // INIT MAP
+  // ======================
   function initMap() {
     map = L.map(mapEl).setView([36.1, -87.4], 8);
 
@@ -29,8 +34,14 @@ console.log("🗺️ prayermap.js loaded");
     }).addTo(map);
 
     prayerLayer = L.layerGroup().addTo(map);
-    homeGroupLayer = L.layerGroup().addTo(map); 
-    
+    homeGroupLayer = L.layerGroup().addTo(map);
+
+    // ✅ CORRECT placement
+    L.control.layers(null, {
+      "Prayers": prayerLayer,
+      "Home Groups": homeGroupLayer
+    }).addTo(map);
+
     map.on("click", (e) => {
       if (!addMode) return;
       addMode = false;
@@ -40,6 +51,9 @@ console.log("🗺️ prayermap.js loaded");
     console.log("✅ Prayer map initialized");
   }
 
+  // ======================
+  // ADD PRAYER MARKER
+  // ======================
   function addMarker(prayer) {
     const lat = Number(prayer.lat);
     const lng = Number(prayer.lng);
@@ -48,11 +62,6 @@ console.log("🗺️ prayermap.js loaded");
       console.warn("⚠️ Invalid lat/lng:", prayer);
       return;
     }
-
-    L.control.layers(null, {
-  "Prayers": prayerLayer,
-  "Home Groups": homeGroupLayer
-}).addTo(map);
 
     if (activeMarkers[prayer.id]) {
       activeMarkers[prayer.id].setLatLng([lat, lng]);
@@ -64,11 +73,10 @@ console.log("🗺️ prayermap.js loaded");
       fillColor: "#f97316",
       color: "#111827",
       weight: 1,
-      opacity: 1,
       fillOpacity: 0.85
     }).addTo(prayerLayer);
 
-      marker.bindPopup(`
+    marker.bindPopup(`
       <strong>${prayer.name || "Anonymous"}</strong><br>
       <p>${prayer.message || ""}</p>
       <button 
@@ -78,68 +86,76 @@ console.log("🗺️ prayermap.js loaded");
         ${prayer.prayed ? "🙏 Prayed for" : "🙏 I Prayed"}
       </button>
     `);
+
     prayerData[prayer.id] = prayer;
     activeMarkers[prayer.id] = marker;
   }
 
+  // ======================
+  // FILTER
+  // ======================
   function filterMarkers(query) {
-  const q = query.toLowerCase();
+    const q = query.toLowerCase();
 
-  Object.keys(activeMarkers).forEach((id) => {
-    const marker = activeMarkers[id];
-    const prayer = prayerData[id];
+    Object.keys(activeMarkers).forEach((id) => {
+      const marker = activeMarkers[id];
+      const prayer = prayerData[id];
 
-    const text = `${prayer.name || ""} ${prayer.message || ""}`.toLowerCase();
+      const text = `${prayer.name || ""} ${prayer.message || ""}`.toLowerCase();
+      const isPrayed = prayer.prayed === true;
 
-    const isPrayed = prayer.prayed === true;
-    marker.setStyle({
-  fillColor: isPrayed ? "#22c55e" : "#f97316"
-});
+      marker.setStyle({
+        fillColor: isPrayed ? "#22c55e" : "#f97316"
+      });
 
-    if (!q || text.includes(q)) {
-      marker.addTo(prayerLayer);
-    } else {
-      prayerLayer.removeLayer(marker);
-    }
-  });
-}
-
-  async function loadHomeGroups() {
-  try {
-    const res = await fetch('/data/HomeGroupsMap.geojson');
-    if (!res.ok) throw new Error("Failed to load HomeGroups");
-
-    const data = await res.json();
-
-    L.geoJSON(data, {
-      pointToLayer: (feature, latlng) => {
-        return L.circleMarker(latlng, {
-          radius: 7,
-          fillColor: "#3b82f6", // blue (different from prayers)
-          color: "#111827",
-          weight: 1,
-          fillOpacity: 0.85
-        });
-      },
-
-      onEachFeature: (feature, layer) => {
-        const props = feature.properties || {};
-
-        layer.bindPopup(`
-          <strong>${props.name || "Home Group"}</strong><br>
-          <p>${props.description || ""}</p>
-        `);
+      if (!q || text.includes(q)) {
+        marker.addTo(prayerLayer);
+      } else {
+        prayerLayer.removeLayer(marker);
       }
-
-    }).addTo(homeGroupLayer);
-
-    console.log("🏠 HomeGroups loaded");
-
-  } catch (err) {
-    console.error("HomeGroups error:", err);
+    });
   }
-}
 
+  // ======================
+  // LOAD HOME GROUPS
+  // ======================
+  async function loadHomeGroups() {
+    try {
+      const res = await fetch('./data/HomeGroupsMap.geojson'); // safer path
+      if (!res.ok) throw new Error("Failed to load HomeGroups");
+
+      const data = await res.json();
+
+      L.geoJSON(data, {
+        pointToLayer: (feature, latlng) => {
+          return L.circleMarker(latlng, {
+            radius: 7,
+            fillColor: "#3b82f6",
+            color: "#111827",
+            weight: 1,
+            fillOpacity: 0.85
+          });
+        },
+        onEachFeature: (feature, layer) => {
+          const props = feature.properties || {};
+
+          layer.bindPopup(`
+            <strong>${props.name || "Home Group"}</strong><br>
+            <p>${props.description || ""}</p>
+          `);
+        }
+      }).addTo(homeGroupLayer);
+
+      console.log(`🏠 Loaded ${data.features.length} HomeGroups`);
+
+    } catch (err) {
+      console.error("HomeGroups error:", err);
+    }
+  }
+
+  // ======================
+  // FIRESTORE LISTENER
+  // ======================
   function listenForPrayers() {
     const col = collection(db, "prayers");
 
@@ -160,19 +176,25 @@ console.log("🗺️ prayermap.js loaded");
     });
   }
 
+  // ======================
+  // SAVE PRAYER
+  // ======================
   async function savePrayerMarker(name, message, lat, lng) {
     if (!message) return;
 
-        await addDoc(collection(db, "prayers"), {
-        name: name || "Anonymous",
-        message,
-        lat,
-        lng,
-        prayed: false, // 👈 changed
-        createdAt: serverTimestamp()
-      });
-        }
+    await addDoc(collection(db, "prayers"), {
+      name: name || "Anonymous",
+      message,
+      lat,
+      lng,
+      prayed: false,
+      createdAt: serverTimestamp()
+    });
+  }
 
+  // ======================
+  // MODAL
+  // ======================
   function openPrayerModal(lat, lng) {
     pendingLatLng = { lat, lng };
 
@@ -200,10 +222,6 @@ console.log("🗺️ prayermap.js loaded");
 
       if (!pendingLatLng || !prayerText) return;
 
-      const btn = document.getElementById("prayerSaveBtn");
-      btn.disabled = true;
-      btn.textContent = "Saving...";
-
       await savePrayerMarker(name, prayerText, pendingLatLng.lat, pendingLatLng.lng);
 
       pendingLatLng = null;
@@ -211,6 +229,9 @@ console.log("🗺️ prayermap.js loaded");
     });
   }
 
+  // ======================
+  // UI
+  // ======================
   function wireUi() {
     document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
       addMode = true;
@@ -222,36 +243,38 @@ console.log("🗺️ prayermap.js loaded");
       pendingLatLng = null;
       addMode = false;
     });
+
+    document.getElementById("prayerMapSearch")?.addEventListener("input", (e) => {
+      filterMarkers(e.target.value);
+    });
   }
 
-  document.getElementById("prayerMapSearch")?.addEventListener("input", (e) => {
-  filterMarkers(e.target.value);
-});
-
+  // ======================
+  // INIT
+  // ======================
   function init() {
-  initMap();
-  wireUi();
-  listenForPrayers();
-  loadHomeGroups(); // 👈 ADD THIS
-}
+    initMap();
+    wireUi();
+    listenForPrayers();
+    loadHomeGroups();
+  }
 
   init();
 
+  // ======================
+  // POPUP ACTION
+  // ======================
   map.on("popupopen", (e) => {
-  const btn = e.popup._contentNode.querySelector(".mark-prayed-btn");
+    const btn = e.popup._contentNode.querySelector(".mark-prayed-btn");
+    if (!btn) return;
 
-  if (!btn) return;
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
 
-  btn.addEventListener("click", async () => {
-    const id = btn.dataset.id;
-
-    await updateDoc(doc(db, "prayers", id), {
-      prayed: true
+      await updateDoc(doc(db, "prayers", id), {
+        prayed: true
+      });
     });
   });
-});
 
-  window.PrayerMapCleanup = function () {
-    if (map) map.remove();
-  };
 })();
