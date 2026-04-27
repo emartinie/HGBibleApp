@@ -22,7 +22,35 @@ console.log("🗺️ prayermap.js loaded");
 
   const activeMarkers = {};
   const prayerData = {};
+function getHomeGroupsLatLng(feature) {
+  const raw = feature?.properties?.Coordinates;
+  if (!raw) return null;
 
+  if (typeof raw === "string") {
+    const parts = raw.split(",").map(s => Number(s.trim()));
+    if (parts.length < 2) return null;
+
+    const lon = parts[0];
+    const lat = parts[1];
+
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+    return [lat, lon];
+  }
+
+  if (Array.isArray(raw) && raw.length >= 2) {
+    const lon = Number(raw[0]);
+    const lat = Number(raw[1]);
+
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+    return [lat, lon];
+  }
+
+  return null;
+}
 
   function initMap() {
     map = L.map(mapEl).setView([36.1, -87.4], 8);
@@ -132,56 +160,45 @@ console.log("🗺️ prayermap.js loaded");
   // LOAD HOME GROUPS
   // ======================
   async function loadHomeGroups() {
-    try {
-      const res = await fetch('HomeGroupsMap.geojson'); 
-      if (!res.ok) throw new Error("Failed to load HomeGroups");
+  try {
+    const res = await fetch('./data/HomeGroupsMap.geojson');
+    if (!res.ok) throw new Error("Failed to load");
 
-      const data = await res.json();
+    const data = await res.json();
 
-      L.geoJSON(data, {
-        pointToLayer: (feature, latlng) => {
-          return L.circleMarker(latlng, {
-            radius: 7,
-            fillColor: "#3b82f6",
-            color: "#111827",
-            weight: 1,
-            fillOpacity: 0.85
-          });
-        },
-        onEachFeature: (feature, layer) => {
-          const props = feature.properties || {};
+    const features = Array.isArray(data?.features) ? data.features : [];
 
-          layer.bindPopup(`
-            <strong>${props.name || "Home Group"}</strong><br>
-            <p>${props.description || ""}</p>
-          `);
-        }
-          
-            const hgLayer = L.geoJSON(data, {
-              filter: (feature) => {
-                return feature.geometry && feature.geometry.type === "Point";
-              },
-            
-              pointToLayer: (feature, latlng) => {
-                return L.circleMarker(latlng, {
-                  radius: 8,
-                  fillColor: "#00ff00",
-                  color: "#000",
-                  weight: 1,
-                  fillOpacity: 1
-                });
-              }
-            
-            }).addTo(homeGroupLayer);
-            
-            homeGroupLayer.bringToFront();
+    features.forEach((feature, i) => {
+      const latlng = getHomeGroupsLatLng(feature);
+      if (!latlng) return;
+
+      const marker = L.circleMarker(latlng, {
+        radius: 6,
+        fillColor: "#3b82f6",
+        color: "#111827",
+        weight: 1,
+        fillOpacity: 0.9
+      });
+
+      const p = feature.properties || {};
+
+      marker.bindPopup(`
+        <strong>${p.Name || p.name || "Home Group"}</strong><br>
+        <p>${p.Description || p.description || ""}</p>
+      `);
+
+      homeGroupLayer.addLayer(marker); // 👈 THIS is key
+    });
+
+    console.log("🏠 HomeGroups loaded:", features.length);
+
+  } catch (err) {
+    console.error("HomeGroups error:", err);
+  }
+}
 
       console.log(`🏠 Loaded ${data.features.length} HomeGroups`);
 
-    } catch (err) {
-      console.error("HomeGroups error:", err);
-    }
-  }
 
   // ======================
   // FIRESTORE LISTENER
@@ -198,9 +215,9 @@ console.log("🗺️ prayermap.js loaded");
           addMarker({ id, ...data });
         }
 
-        if (change.type === "removed" && activeMarkers[id]) {
+        if (change.type === "removed" && active[id]) {
           prayerLayer.removeLayer(activeMarkers[id]);
-          delete activeMarkers[id];
+          delete active[id];
         }
       });
     });
