@@ -15,6 +15,7 @@ console.log("🗺️ prayermap.js loaded");
 
   let map;
   let prayerLayer;
+  let homeGroupLayer;
   let addMode = false;
   let pendingLatLng = null;
   const activeMarkers = {};
@@ -28,7 +29,8 @@ console.log("🗺️ prayermap.js loaded");
     }).addTo(map);
 
     prayerLayer = L.layerGroup().addTo(map);
-
+    homeGroupLayer = L.layerGroup().addTo(map); 
+    
     map.on("click", (e) => {
       if (!addMode) return;
       addMode = false;
@@ -46,6 +48,46 @@ console.log("🗺️ prayermap.js loaded");
       console.warn("⚠️ Invalid lat/lng:", prayer);
       return;
     }
+
+    async function loadHomeGroups() {
+  try {
+    const res = await fetch('/data/HomeGroupsMap.geojson');
+    if (!res.ok) throw new Error("Failed to load HomeGroups");
+
+    const data = await res.json();
+
+    L.geoJSON(data, {
+      pointToLayer: (feature, latlng) => {
+        return L.circleMarker(latlng, {
+          radius: 7,
+          fillColor: "#3b82f6", // blue (different from prayers)
+          color: "#111827",
+          weight: 1,
+          fillOpacity: 0.85
+        });
+      },
+
+      onEachFeature: (feature, layer) => {
+        const props = feature.properties || {};
+
+        layer.bindPopup(`
+          <strong>${props.name || "Home Group"}</strong><br>
+          <p>${props.description || ""}</p>
+        `);
+      }
+
+    }).addTo(homeGroupLayer);
+
+    console.log("🏠 HomeGroups loaded");
+
+  } catch (err) {
+    console.error("HomeGroups error:", err);
+  }
+}
+    L.control.layers(null, {
+  "Prayers": prayerLayer,
+  "Home Groups": homeGroupLayer
+}).addTo(map);
 
     if (activeMarkers[prayer.id]) {
       activeMarkers[prayer.id].setLatLng([lat, lng]);
@@ -85,7 +127,9 @@ console.log("🗺️ prayermap.js loaded");
     const text = `${prayer.name || ""} ${prayer.message || ""}`.toLowerCase();
 
     const isPrayed = prayer.prayed === true;
-    fillColor: isPrayed ? "#22c55e" : "#f97316"
+    marker.setStyle({
+  fillColor: isPrayed ? "#22c55e" : "#f97316"
+});
 
     if (!q || text.includes(q)) {
       marker.addTo(prayerLayer);
@@ -184,10 +228,11 @@ console.log("🗺️ prayermap.js loaded");
 });
 
   function init() {
-    initMap();
-    wireUi();
-    listenForPrayers();
-  }
+  initMap();
+  wireUi();
+  listenForPrayers();
+  loadHomeGroups(); // 👈 ADD THIS
+}
 
   init();
 
