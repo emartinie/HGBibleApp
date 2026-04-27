@@ -68,8 +68,13 @@ console.log("🗺️ prayermap.js loaded");
       "Prayers": prayerLayer,
       "Home Groups": homeGroupLayer
     }).addTo(map);
+      
+    });
 
-    map.on("click", (e) => {
+    console.log("✅ Prayer map initialized");
+  }
+
+      map.on("click", (e) => {
       if (!addMode) return;
       addMode = false;
       openPrayerModal(e.latlng.lat, e.latlng.lng);
@@ -86,12 +91,6 @@ console.log("🗺️ prayermap.js loaded");
           });
         });
       });
-      
-    });
-
-    console.log("✅ Prayer map initialized");
-  }
-
   // ======================
   // ADD PRAYER MARKER
   // ======================
