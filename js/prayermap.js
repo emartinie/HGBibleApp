@@ -150,7 +150,7 @@ console.log("🗺️ prayermap.js loaded");
   // ======================
   async function loadHomeGroups() {
     try {
-      const res = await fetch('./data/HomeGroupsMap.geojson'); // safer path
+      const res = await fetch('HomeGroupsMap.geojson'); 
       if (!res.ok) throw new Error("Failed to load HomeGroups");
 
       const data = await res.json();
