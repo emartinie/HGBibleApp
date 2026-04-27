@@ -84,6 +84,68 @@ map.addLayer(homeGroupLayer);
       .replace(/(\+?\d[\d\-\s().]{6,}\d)/g, (m) => maskPrivateText(m))
       .replace(/(Address:\s*)([^<\n]+)/gi, (_, prefix, value) => prefix + maskPrivateText(value.trim()));
   }
+
+     function getHomeGroupsLatLng(feature) {
+    const raw = feature?.properties?.Coordinates;
+    if (!raw) return null;
+
+    if (typeof raw === "string") {
+      const parts = raw.split(",").map(s => Number(s.trim()));
+      if (parts.length < 2) return null;
+
+      const lon = parts[0];
+      const lat = parts[1];
+
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+      if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+      return [lat, lon];
+    }
+
+    if (Array.isArray(raw) && raw.length >= 2) {
+      const lon = Number(raw[0]);
+      const lat = Number(raw[1]);
+
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+      if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+      return [lat, lon];
+    }
+
+    return null;
+  }
+
+  function labelFor(feature, i) {
+    const p = feature?.properties || {};
+    return (
+      p.Name ||
+      p.name ||
+      p.Title ||
+      p.title ||
+      p.Group ||
+      p.group ||
+      `Marker ${i + 1}`
+    );
+  }
+
+  function popupFor(feature, i) {
+    const p = feature?.properties || {};
+    const name = labelFor(feature, i);
+    const message = p.Message || p.message || "";
+    const description = maskDescription(p.description || p.Description || "");
+    const visibility = p.visibility ?? p.Visibility ?? "";
+    const coords = maskDescription(p.Coordinates || "");
+
+    return `
+      <div class="map-popup">
+        <strong>${name}</strong>
+        ${message ? `<div style="margin-top:6px;"><em>${message}</em></div>` : ""}
+        ${!message && description ? `<div style="margin-top:6px;">${description}</div>` : ""}
+        ${visibility !== "" ? `<div style="margin-top:6px;opacity:.8;"><strong>Visibility:</strong> ${visibility}</div>` : ""}
+        ${coords ? `<div style="margin-top:6px;opacity:.7;font-size:.8rem;"><strong>Coordinates:</strong> ${coords}</div>` : ""}
+      </div>
+    `;
+  }
   // ✅ masking end
   L.control.layers(null, {
     "Prayers": prayerLayer,
