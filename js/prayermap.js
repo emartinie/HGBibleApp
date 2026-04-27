@@ -68,7 +68,7 @@ console.log("🗺️ prayermap.js loaded");
 
   function labelFor(feature, i) {
     const p = feature?.properties || {};
-    return p.Name || p.name || p.Title || p.title || Group ${i + 1};
+    return p.Name || p.name || p.Title || p.title || `Group ${i + 1}`;
   }
 
   function popupFor(feature, i) {
@@ -80,8 +80,8 @@ console.log("🗺️ prayermap.js loaded");
     return `
       <div>
         <strong>${name}</strong>
-        ${description ? <div style="margin-top:6px;">${description}</div> : ""}
-        ${coords ? <div style="font-size:.8rem;opacity:.7;">${coords}</div> : ""}
+        ${description ? `<div style="margin-top:6px;">${description}</div>` : ""}
+        ${coords ? `<div style="font-size:.8rem;opacity:.7;">${coords}</div>` : ""}
       </div>
     `;
   }
