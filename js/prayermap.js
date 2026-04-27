@@ -214,10 +214,10 @@ async function loadHomeGroups() {
           addMarker({ id, ...data });
         }
 
-        if (change.type === "removed" && active[id]) {
-          prayerLayer.removeLayer(activeMarkers[id]);
-          delete active[id];
-        }
+        if (change.type === "removed" && activeMarkers[id]) {
+      prayerLayer.removeLayer(activeMarkers[id]);
+      delete activeMarkers[id];
+    }
       });
     });
   }
