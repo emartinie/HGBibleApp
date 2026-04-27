@@ -262,17 +262,17 @@ console.log("🗺️ prayermap.js loaded");
   // ======================
   // POPUP ACTION
   // ======================
-  map.on("popupopen", (e) => {
-    const btn = e.popup._contentNode.querySelector(".mark-prayed-btn");
-    if (!btn) return;
+map.on("popupopen", (e) => {
+  const btn = e.popup._contentNode.querySelector(".mark-prayed-btn");
+  if (!btn) return;
 
-    btn.addEventListener("click", async () => {
-      const id = btn.dataset.id;
+  btn.addEventListener("click", async () => {
+    const id = btn.dataset.id;
 
-      await updateDoc(doc(db, "prayers", id), {
-        prayed: true
-      });
+    await updateDoc(doc(db, "prayers", id), {
+      prayed: true
     });
   });
+});
 
 })();
