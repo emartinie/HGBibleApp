@@ -49,41 +49,6 @@ console.log("🗺️ prayermap.js loaded");
       return;
     }
 
-    async function loadHomeGroups() {
-  try {
-    const res = await fetch('/data/HomeGroupsMap.geojson');
-    if (!res.ok) throw new Error("Failed to load HomeGroups");
-
-    const data = await res.json();
-
-    L.geoJSON(data, {
-      pointToLayer: (feature, latlng) => {
-        return L.circleMarker(latlng, {
-          radius: 7,
-          fillColor: "#3b82f6", // blue (different from prayers)
-          color: "#111827",
-          weight: 1,
-          fillOpacity: 0.85
-        });
-      },
-
-      onEachFeature: (feature, layer) => {
-        const props = feature.properties || {};
-
-        layer.bindPopup(`
-          <strong>${props.name || "Home Group"}</strong><br>
-          <p>${props.description || ""}</p>
-        `);
-      }
-
-    }).addTo(homeGroupLayer);
-
-    console.log("🏠 HomeGroups loaded");
-
-  } catch (err) {
-    console.error("HomeGroups error:", err);
-  }
-}
     L.control.layers(null, {
   "Prayers": prayerLayer,
   "Home Groups": homeGroupLayer
@@ -137,6 +102,42 @@ console.log("🗺️ prayermap.js loaded");
       prayerLayer.removeLayer(marker);
     }
   });
+}
+
+  async function loadHomeGroups() {
+  try {
+    const res = await fetch('/data/HomeGroupsMap.geojson');
+    if (!res.ok) throw new Error("Failed to load HomeGroups");
+
+    const data = await res.json();
+
+    L.geoJSON(data, {
+      pointToLayer: (feature, latlng) => {
+        return L.circleMarker(latlng, {
+          radius: 7,
+          fillColor: "#3b82f6", // blue (different from prayers)
+          color: "#111827",
+          weight: 1,
+          fillOpacity: 0.85
+        });
+      },
+
+      onEachFeature: (feature, layer) => {
+        const props = feature.properties || {};
+
+        layer.bindPopup(`
+          <strong>${props.name || "Home Group"}</strong><br>
+          <p>${props.description || ""}</p>
+        `);
+      }
+
+    }).addTo(homeGroupLayer);
+
+    console.log("🏠 HomeGroups loaded");
+
+  } catch (err) {
+    console.error("HomeGroups error:", err);
+  }
 }
 
   function listenForPrayers() {
