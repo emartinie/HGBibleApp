@@ -68,6 +68,23 @@ console.log("🗺️ prayermap.js loaded");
 
 map.addLayer(homeGroupLayer);
 
+     // ✅ masking begin
+   function maskPrivateText(value) {
+    if (!value) return "";
+    const str = String(value);
+    if (str.length <= 3) return str;
+    return str.slice(0, 3) + "*".repeat(str.length - 3);
+  }
+
+  function maskDescription(description) {
+    if (!description) return "";
+
+    return String(description)
+      .replace(/([A-Z0-9._%+-]{4,}@[A-Z0-9.-]+\.[A-Z]{2,})/gi, (m) => maskPrivateText(m))
+      .replace(/(\+?\d[\d\-\s().]{6,}\d)/g, (m) => maskPrivateText(m))
+      .replace(/(Address:\s*)([^<\n]+)/gi, (_, prefix, value) => prefix + maskPrivateText(value.trim()));
+  }
+  // ✅ masking end
   L.control.layers(null, {
     "Prayers": prayerLayer,
     "Home Groups": homeGroupLayer
