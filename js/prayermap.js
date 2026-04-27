@@ -69,7 +69,7 @@ console.log("🗺️ prayermap.js loaded");
       "Home Groups": homeGroupLayer
     }).addTo(map);
       
-    });
+    //});
 
     console.log("✅ Prayer map initialized");
   }
