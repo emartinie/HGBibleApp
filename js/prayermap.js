@@ -281,7 +281,7 @@ console.log("🗺️ prayermap.js loaded");
     initMap();
     wireUi();
     listenForPrayers();
-    loadHomeGroups();
+    //loadHomeGroups();
   }
 
   init();
