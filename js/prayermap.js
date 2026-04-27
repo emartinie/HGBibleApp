@@ -144,7 +144,20 @@ console.log("🗺️ prayermap.js loaded");
             <p>${props.description || ""}</p>
           `);
         }
-      }).addTo(homeGroupLayer);
+      const layer = L.geoJSON(data, {
+  pointToLayer: (feature, latlng) => {
+    return L.circleMarker(latlng, {
+      radius: 12,
+      fillColor: "#00ff00",
+      color: "#000",
+      weight: 1,
+      fillOpacity: 1
+    });
+  }
+}).addTo(homeGroupLayer);
+
+// 👇 force map to show them
+map.fitBounds(layer.getBounds());
 
       console.log(`🏠 Loaded ${data.features.length} HomeGroups`);
 
