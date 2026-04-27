@@ -22,7 +22,8 @@ console.log("🗺️ prayermap.js loaded");
 
   const activeMarkers = {};
   const prayerData = {};
-function getHomeGroupsLatLng(feature) {
+
+  function getHomeGroupsLatLng(feature) {
   const raw = feature?.properties?.Coordinates;
   if (!raw) return null;
 
@@ -159,7 +160,7 @@ function getHomeGroupsLatLng(feature) {
   // ======================
   // LOAD HOME GROUPS
   // ======================
-  async function loadHomeGroups() {
+async function loadHomeGroups() {
   try {
     const res = await fetch('./data/HomeGroupsMap.geojson');
     if (!res.ok) throw new Error("Failed to load");
@@ -196,8 +197,6 @@ function getHomeGroupsLatLng(feature) {
     console.error("HomeGroups error:", err);
   }
 }
-
-      console.log(`🏠 Loaded ${data.features.length} HomeGroups`);
 
 
   // ======================
