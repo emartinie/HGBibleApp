@@ -312,4 +312,39 @@ async function loadHomeGroups() {
   init();
 
 
+    window.locateUser = function () {
+    if (!window.currentMap) return;
+
+    const activeMap = window.currentMap;
+
+    activeMap.locate({
+      setView: true,
+      maxZoom: 11,
+      enableHighAccuracy: true,
+      timeout: 10000
+    });
+
+    activeMap.once("locationfound", function (e) {
+      if (window.userLocationMarker) {
+        activeMap.removeLayer(window.userLocationMarker);
+      }
+
+      if (window.userLocationCircle) {
+        activeMap.removeLayer(window.userLocationCircle);
+      }
+
+      window.userLocationMarker = L.marker(e.latlng)
+        .addTo(activeMap)
+        .bindPopup("📍 You are here. Zoom out to find people near you.")
+        .openPopup();
+
+      window.userLocationCircle = L.circle(e.latlng, {
+        radius: e.accuracy || 30
+      }).addTo(activeMap);
+    });
+
+    activeMap.once("locationerror", function (e) {
+      console.warn("Geolocation error:", e.message);
+    });
+  };
 })();
