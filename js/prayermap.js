@@ -61,7 +61,12 @@ console.log("🗺️ prayermap.js loaded");
   }).addTo(map);
 
   prayerLayer = L.layerGroup().addTo(map);
-  homeGroupLayer = L.layerGroup().addTo(map);
+  homeGroupLayer =
+  typeof L.markerClusterGroup === "function"
+    ? L.markerClusterGroup()
+    : L.layerGroup();
+
+map.addLayer(homeGroupLayer);
 
   L.control.layers(null, {
     "Prayers": prayerLayer,
