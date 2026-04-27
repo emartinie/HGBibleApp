@@ -53,44 +53,44 @@ console.log("🗺️ prayermap.js loaded");
   return null;
 }
 
-  function initMap() {
-    map = L.map(mapEl).setView([36.1, -87.4], 8);
+ function initMap() {
+  map = L.map(mapEl).setView([36.1, -87.4], 8);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors"
-    }).addTo(map);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(map);
 
-    prayerLayer = L.layerGroup().addTo(map);
-    homeGroupLayer = L.layerGroup().addTo(map);
+  prayerLayer = L.layerGroup().addTo(map);
+  homeGroupLayer = L.layerGroup().addTo(map);
 
-    // ✅ CORRECT placement
-    L.control.layers(null, {
-      "Prayers": prayerLayer,
-      "Home Groups": homeGroupLayer
-    }).addTo(map);
-      
-    });
+  L.control.layers(null, {
+    "Prayers": prayerLayer,
+    "Home Groups": homeGroupLayer
+  }).addTo(map);
 
-    console.log("✅ Prayer map initialized");
-  }
+  // ✅ click handler belongs INSIDE initMap
+  map.on("click", (e) => {
+    if (!addMode) return;
+    addMode = false;
+    openPrayerModal(e.latlng.lat, e.latlng.lng);
+  });
 
-      map.on("click", (e) => {
-      if (!addMode) return;
-      addMode = false;
-      openPrayerModal(e.latlng.lat, e.latlng.lng);
+  // ✅ popup handler belongs here (NOT nested in click)
+  map.on("popupopen", (e) => {
+    const btn = e.popup._contentNode.querySelector(".mark-prayed-btn");
+    if (!btn) return;
 
-      map.on("popupopen", (e) => {
-        const btn = e.popup._contentNode.querySelector(".mark-prayed-btn");
-        if (!btn) return;
-      
-        btn.addEventListener("click", async () => {
-          const id = btn.dataset.id;
-      
-          await updateDoc(doc(db, "prayers", id), {
-            prayed: true
-          });
-        });
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+
+      await updateDoc(doc(db, "prayers", id), {
+        prayed: true
       });
+    });
+  });
+
+  console.log("✅ Prayer map initialized");
+}
   // ======================
   // ADD PRAYER MARKER
   // ======================
