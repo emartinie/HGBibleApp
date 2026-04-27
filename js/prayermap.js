@@ -23,38 +23,7 @@ console.log("🗺️ prayermap.js loaded");
   const activeMarkers = {};
   const prayerData = {};
 
-  // ======================
-  // INIT MAP
-  // ======================
-  async function loadHomeGroups() {
-  try {
-    const res = await fetch('./data/HomeGroupsMap.geojson');
-    if (!res.ok) throw new Error("Failed to load HomeGroups");
 
-    const data = await res.json();
-
-    data.features.forEach(f => {
-      const coords = f.geometry.coordinates;
-
-      // GeoJSON = [lng, lat]
-      const lat = coords[1];
-      const lng = coords[0];
-
-      L.circleMarker([lat, lng], {
-        radius: 5,
-        fillColor: "#3b82f6",
-        color: "#000",
-        weight: 1,
-        fillOpacity: 0.8
-      }).addTo(map); // 👈 directly to map (no layers yet)
-    });
-
-    console.log("🏠 HomeGroups added:", data.features.length);
-
-  } catch (err) {
-    console.error("HomeGroups error:", err);
-  }
-}
   function initMap() {
     map = L.map(mapEl).setView([36.1, -87.4], 8);
 
