@@ -23,11 +23,53 @@ console.log("🗺️ prayermap.js loaded");
   const activeMarkers = {};
   const prayerData = {};
 
-  // ======================
-  // HELPERS (GLOBAL SAFE)
-  // ======================
+  function getHomeGroupsLatLng(feature) {
+  const raw = feature?.properties?.Coordinates;
+  if (!raw) return null;
 
-  function maskPrivateText(value) {
+  if (typeof raw === "string") {
+    const parts = raw.split(",").map(s => Number(s.trim()));
+    if (parts.length < 2) return null;
+
+    const lon = parts[0];
+    const lat = parts[1];
+
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+    return [lat, lon];
+  }
+
+  if (Array.isArray(raw) && raw.length >= 2) {
+    const lon = Number(raw[0]);
+    const lat = Number(raw[1]);
+
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+    return [lat, lon];
+  }
+
+  return null;
+}
+
+ function initMap() {
+  map = L.map(mapEl).setView([36.1, -87.4], 8);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(map);
+
+  prayerLayer = L.layerGroup().addTo(map);
+  homeGroupLayer =
+  typeof L.markerClusterGroup === "function"
+    ? L.markerClusterGroup()
+    : L.layerGroup();
+
+map.addLayer(homeGroupLayer);
+
+     // ✅ masking begin
+   function maskPrivateText(value) {
     if (!value) return "";
     const str = String(value);
     if (str.length <= 3) return str;
@@ -43,23 +85,30 @@ console.log("🗺️ prayermap.js loaded");
       .replace(/(Address:\s*)([^<\n]+)/gi, (_, prefix, value) => prefix + maskPrivateText(value.trim()));
   }
 
-  function getHomeGroupsLatLng(feature) {
+     function getHomeGroupsLatLng(feature) {
     const raw = feature?.properties?.Coordinates;
     if (!raw) return null;
 
     if (typeof raw === "string") {
       const parts = raw.split(",").map(s => Number(s.trim()));
       if (parts.length < 2) return null;
+
       const lon = parts[0];
       const lat = parts[1];
+
       if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+      if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
       return [lat, lon];
     }
 
     if (Array.isArray(raw) && raw.length >= 2) {
       const lon = Number(raw[0]);
       const lat = Number(raw[1]);
+
       if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+      if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
       return [lat, lon];
     }
 
@@ -68,75 +117,75 @@ console.log("🗺️ prayermap.js loaded");
 
   function labelFor(feature, i) {
     const p = feature?.properties || {};
-    return p.Name || p.name || p.Title || p.title || `Group ${i + 1}`;
+    return (
+      p.Name ||
+      p.name ||
+      p.Title ||
+      p.title ||
+      p.Group ||
+      p.group ||
+      `Marker ${i + 1}`
+    );
   }
 
   function popupFor(feature, i) {
     const p = feature?.properties || {};
     const name = labelFor(feature, i);
+    const message = p.Message || p.message || "";
     const description = maskDescription(p.description || p.Description || "");
+    const visibility = p.visibility ?? p.Visibility ?? "";
     const coords = maskDescription(p.Coordinates || "");
 
     return `
-      <div>
+      <div class="map-popup">
         <strong>${name}</strong>
-        ${description ? `<div style="margin-top:6px;">${description}</div>` : ""}
-        ${coords ? `<div style="font-size:.8rem;opacity:.7;">${coords}</div>` : ""}
+        ${message ? `<div style="margin-top:6px;"><em>${message}</em></div>` : ""}
+        ${!message && description ? `<div style="margin-top:6px;">${description}</div>` : ""}
+        ${visibility !== "" ? `<div style="margin-top:6px;opacity:.8;"><strong>Visibility:</strong> ${visibility}</div>` : ""}
+        ${coords ? `<div style="margin-top:6px;opacity:.7;font-size:.8rem;"><strong>Coordinates:</strong> ${coords}</div>` : ""}
       </div>
     `;
   }
+  // ✅ masking end
+  L.control.layers(null, {
+    "Prayers": prayerLayer,
+    "Home Groups": homeGroupLayer
+  }).addTo(map);
 
-  // ======================
-  // INIT MAP
-  // ======================
-  function initMap() {
-    map = L.map(mapEl).setView([36.1, -87.4], 8);
-    window.currentMap = map;
+  // ✅ click handler belongs INSIDE initMap
+  map.on("click", (e) => {
+    if (!addMode) return;
+    addMode = false;
+    openPrayerModal(e.latlng.lat, e.latlng.lng);
+  });
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors"
-    }).addTo(map);
+  // ✅ popup handler belongs here (NOT nested in click)
+  map.on("popupopen", (e) => {
+    const btn = e.popup._contentNode.querySelector(".mark-prayed-btn");
+    if (!btn) return;
 
-    prayerLayer = L.layerGroup().addTo(map);
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
 
-    homeGroupLayer =
-      typeof L.markerClusterGroup === "function"
-        ? L.markerClusterGroup()
-        : L.layerGroup();
-
-    map.addLayer(homeGroupLayer);
-
-    L.control.layers(null, {
-      "Prayers": prayerLayer,
-      "Home Groups": homeGroupLayer
-    }).addTo(map);
-
-    map.on("click", (e) => {
-      if (!addMode) return;
-      addMode = false;
-      openPrayerModal(e.latlng.lat, e.latlng.lng);
-    });
-
-    map.on("popupopen", (e) => {
-      const btn = e.popup._contentNode.querySelector(".mark-prayed-btn");
-      if (!btn) return;
-
-      btn.addEventListener("click", async () => {
-        const id = btn.dataset.id;
-        await updateDoc(doc(db, "prayers", id), { prayed: true });
+      await updateDoc(doc(db, "prayers", id), {
+        prayed: true
       });
     });
+  });
 
-    console.log("✅ Map initialized");
-  }
-
+  console.log("✅ Prayer map initialized");
+}
   // ======================
-  // PRAYER MARKERS
+  // ADD PRAYER MARKER
   // ======================
   function addMarker(prayer) {
     const lat = Number(prayer.lat);
     const lng = Number(prayer.lng);
-    if (isNaN(lat) || isNaN(lng)) return;
+
+    if (isNaN(lat) || isNaN(lng)) {
+      console.warn("⚠️ Invalid lat/lng:", prayer);
+      return;
+    }
 
     if (activeMarkers[prayer.id]) {
       activeMarkers[prayer.id].setLatLng([lat, lng]);
@@ -145,8 +194,8 @@ console.log("🗺️ prayermap.js loaded");
 
     const marker = L.circleMarker([lat, lng], {
       radius: 8,
-      fillColor: prayer.prayed ? "#22c55e" : "#f97316",
-      color: "#111",
+      fillColor: "#f97316",
+      color: "#111827",
       weight: 1,
       fillOpacity: 0.85
     }).addTo(prayerLayer);
@@ -154,17 +203,92 @@ console.log("🗺️ prayermap.js loaded");
     marker.bindPopup(`
       <strong>${prayer.name || "Anonymous"}</strong><br>
       <p>${prayer.message || ""}</p>
-      <button data-id="${prayer.id}" class="mark-prayed-btn">
-        ${prayer.prayed ? "🙏 Prayed" : "🙏 I Prayed"}
+      <button 
+        data-id="${prayer.id}" 
+        class="mark-prayed-btn mt-2 px-2 py-1 text-xs bg-blue-600 text-white rounded"
+      >
+        ${prayer.prayed ? "🙏 Prayed for" : "🙏 I Prayed"}
       </button>
     `);
 
-    activeMarkers[prayer.id] = marker;
     prayerData[prayer.id] = prayer;
+    activeMarkers[prayer.id] = marker;
   }
 
+  // ======================
+  // FILTER
+  // ======================
+  function filterMarkers(query) {
+    const q = query.toLowerCase();
+
+    Object.keys(activeMarkers).forEach((id) => {
+      const marker = activeMarkers[id];
+      const prayer = prayerData[id];
+
+      const text = `${prayer.name || ""} ${prayer.message || ""}`.toLowerCase();
+      const isPrayed = prayer.prayed === true;
+
+      marker.setStyle({
+        fillColor: isPrayed ? "#22c55e" : "#f97316"
+      });
+
+      if (!q || text.includes(q)) {
+        marker.addTo(prayerLayer);
+      } else {
+        prayerLayer.removeLayer(marker);
+      }
+    });
+  }
+
+  // ======================
+  // LOAD HOME GROUPS
+  // ======================
+async function loadHomeGroups() {
+  try {
+    const res = await fetch('./data/HomeGroupsMap.geojson');
+    if (!res.ok) throw new Error("Failed to load");
+
+    const data = await res.json();
+
+    const features = Array.isArray(data?.features) ? data.features : [];
+
+    features.forEach((feature, i) => {
+      const latlng = getHomeGroupsLatLng(feature);
+      if (!latlng) return;
+
+      const marker = L.circleMarker(latlng, {
+        radius: 6,
+        fillColor: "#3b82f6",
+        color: "#111827",
+        weight: 1,
+        fillOpacity: 0.9
+      });
+
+      const p = feature.properties || {};
+
+      marker.bindPopup(`
+        <strong>${p.Name || p.name || "Home Group"}</strong><br>
+        <p>${p.Description || p.description || ""}</p>
+      `);
+
+      homeGroupLayer.addLayer(marker); // 👈 THIS is key
+    });
+
+    console.log("🏠 HomeGroups loaded:", features.length);
+
+  } catch (err) {
+    console.error("HomeGroups error:", err);
+  }
+}
+
+
+  // ======================
+  // FIRESTORE LISTENER
+  // ======================
   function listenForPrayers() {
-    onSnapshot(collection(db, "prayers"), (snapshot) => {
+    const col = collection(db, "prayers");
+
+    onSnapshot(col, (snapshot) => {
       snapshot.docChanges().forEach((change) => {
         const id = change.doc.id;
         const data = change.doc.data();
@@ -174,43 +298,11 @@ console.log("🗺️ prayermap.js loaded");
         }
 
         if (change.type === "removed" && activeMarkers[id]) {
-          prayerLayer.removeLayer(activeMarkers[id]);
-          delete activeMarkers[id];
-        }
+      prayerLayer.removeLayer(activeMarkers[id]);
+      delete activeMarkers[id];
+    }
       });
     });
-  }
-
-  // ======================
-  // HOME GROUPS
-  // ======================
-  async function loadHomeGroups() {
-    try {
-      const res = await fetch("./data/HomeGroupsMap.geojson");
-      const data = await res.json();
-
-      const features = data.features || [];
-
-      features.forEach((feature, i) => {
-        const latlng = getHomeGroupsLatLng(feature);
-        if (!latlng) return;
-
-        const marker = L.circleMarker(latlng, {
-          radius: 6,
-          fillColor: "#3b82f6",
-          color: "#111",
-          weight: 1,
-          fillOpacity: 0.9
-        });
-
-        marker.bindPopup(popupFor(feature, i));
-        homeGroupLayer.addLayer(marker);
-      });
-
-      console.log("🏠 HomeGroups loaded:", features.length);
-    } catch (err) {
-      console.error("HomeGroups error:", err);
-    }
   }
 
   // ======================
@@ -236,30 +328,36 @@ console.log("🗺️ prayermap.js loaded");
     pendingLatLng = { lat, lng };
 
     const panel = document.getElementById("prayerPorchPanel");
+    const title = document.getElementById("prayerPorchTitle");
     const message = document.getElementById("prayerPorchMessage");
 
     if (!panel || !message) return;
 
+    title.textContent = "Add Prayer";
+
     message.innerHTML = `
-      <input id="prayerNameInput" placeholder="Name optional">
-      <textarea id="prayerMessageInput" placeholder="Prayer request"></textarea>
-      <button id="prayerSaveBtn">Save Prayer</button>
+      <input id="prayerNameInput" class="w-full mb-3 px-3 py-2 rounded bg-slate-800 text-white border border-slate-600" placeholder="Name optional">
+      <textarea id="prayerMessageInput" class="w-full px-3 py-2 rounded bg-slate-800 text-white border border-slate-600" rows="4" placeholder="Prayer request"></textarea>
+      <button id="prayerSaveBtn" class="mt-4 px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-500 text-white">
+        Save Prayer
+      </button>
     `;
 
     panel.classList.remove("hidden");
 
-    document.getElementById("prayerSaveBtn").onclick = async () => {
-      const name = document.getElementById("prayerNameInput").value;
-      const text = document.getElementById("prayerMessageInput").value;
+    document.getElementById("prayerSaveBtn")?.addEventListener("click", async () => {
+      const name = document.getElementById("prayerNameInput")?.value.trim();
+      const prayerText = document.getElementById("prayerMessageInput")?.value.trim();
 
-      await savePrayerMarker(name, text, lat, lng);
+      if (!pendingLatLng || !prayerText) return;
 
-      panel.classList.add("hidden");
+      await savePrayerMarker(name, prayerText, pendingLatLng.lat, pendingLatLng.lng);
+
       pendingLatLng = null;
-    };
+      panel.classList.add("hidden");
+    });
   }
 
-  
   // ======================
   // UI
   // ======================
@@ -280,31 +378,52 @@ console.log("🗺️ prayermap.js loaded");
     });
   }
 
-
-  // ======================
-  // LOCATE USER
-  // ======================
-  window.locateUser = function () {
-    if (!window.currentMap) return;
-
-    window.currentMap.locate({ setView: true, maxZoom: 11 });
-
-    window.currentMap.once("locationfound", (e) => {
-      L.marker(e.latlng).addTo(window.currentMap)
-        .bindPopup("📍 You are here")
-        .openPopup();
-    });
-  };
-
   // ======================
   // INIT
   // ======================
   function init() {
     initMap();
+    wireUi();
     listenForPrayers();
     loadHomeGroups();
   }
 
   init();
 
+
+    window.locateUser = function () {
+    if (!window.currentMap) return;
+
+    const activeMap = window.currentMap;
+
+    activeMap.locate({
+      setView: true,
+      maxZoom: 11,
+      enableHighAccuracy: true,
+      timeout: 10000
+    });
+
+    activeMap.once("locationfound", function (e) {
+      if (window.userLocationMarker) {
+        activeMap.removeLayer(window.userLocationMarker);
+      }
+
+      if (window.userLocationCircle) {
+        activeMap.removeLayer(window.userLocationCircle);
+      }
+
+      window.userLocationMarker = L.marker(e.latlng)
+        .addTo(activeMap)
+        .bindPopup("📍 You are here. Zoom out to find people near you.")
+        .openPopup();
+
+      window.userLocationCircle = L.circle(e.latlng, {
+        radius: e.accuracy || 30
+      }).addTo(activeMap);
+    });
+
+    activeMap.once("locationerror", function (e) {
+      console.warn("Geolocation error:", e.message);
+    });
+  };
 })();
