@@ -274,19 +274,36 @@ console.log("🗺️ prayermap.js loaded");
     });
   };
 
-  function wireUi() {
-  const btn = document.getElementById("prayerMapAddBtn");
+  //function wireUi() {
+  //const btn = document.getElementById("prayerMapAddBtn");
 
-  if (!btn) {
-    console.warn("❌ prayerMapAddBtn not found");
+  //if (!btn) {
+    //console.warn("❌ prayerMapAddBtn not found");
+    //return;
+  //}
+
+  //btn.onclick = () => {
+    //addMode = true;
+    //alert("Click the map where you want to place the prayer.");
+  //};
+//}
+
+  document.addEventListener("click", (e) => {
+  const target = e.target;
+
+  // ONLY handle the add button
+  if (target && target.id === "prayerMapAddBtn") {
+    e.stopPropagation(); // prevents modal interference
+    addMode = true;
+    alert("Click the map where you want to place the prayer.");
     return;
   }
 
-  btn.onclick = () => {
-    addMode = true;
-    alert("Click the map where you want to place the prayer.");
-  };
-}
+  // IGNORE clicks inside modal
+  if (target.closest("#prayerPorchPanel")) {
+    return;
+  }
+});
 
   // ======================
   // INIT
