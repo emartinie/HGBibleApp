@@ -301,11 +301,10 @@ function init() {
   wireUi();
 }
 
-    setTimeout(() => {
-  window.currentMap?.invalidateSize();
-}, 100);
-
 // run AFTER everything is defined
-init();
-
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
 
