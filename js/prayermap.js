@@ -259,6 +259,28 @@ console.log("🗺️ prayermap.js loaded");
     };
   }
 
+  
+  // ======================
+  // UI
+  // ======================
+  function wireUi() {
+    document.getElementById("prayerMapAddBtn")?.addEventListener("click", () => {
+      addMode = true;
+      alert("Click the map where you want to place the prayer.");
+    });
+
+    document.getElementById("prayerPorchCloseBtn")?.addEventListener("click", () => {
+      document.getElementById("prayerPorchPanel")?.classList.add("hidden");
+      pendingLatLng = null;
+      addMode = false;
+    });
+
+    document.getElementById("prayerMapSearch")?.addEventListener("input", (e) => {
+      filterMarkers(e.target.value);
+    });
+  }
+
+
   // ======================
   // LOCATE USER
   // ======================
