@@ -274,37 +274,15 @@ console.log("🗺️ prayermap.js loaded");
     });
   };
 
-// ======================
-// UI
-// ======================
-function wireUi() {
-  const btn = document.getElementById("prayerMapAddBtn");
-
-  if (!btn) {
-    console.warn("Button not found");
-    return;
+  // ======================
+  // INIT
+  // ======================
+  function init() {
+    initMap();
+    listenForPrayers();
+    loadHomeGroups();
   }
 
-  btn.onclick = () => {
-    addMode = true;
-    alert("Click the map where you want to place the prayer.");
-  };
-}
+  init();
 
-// ======================
-// INIT
-// ======================
-function init() {
-  initMap();
-  listenForPrayers();
-  loadHomeGroups();
-  wireUi();
-}
-
-    setTimeout(() => {
-  window.currentMap?.invalidateSize();
-}, 100);
-
-// run AFTER everything is defined
-init();
-
+})();
