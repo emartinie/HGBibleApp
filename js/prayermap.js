@@ -277,22 +277,18 @@ console.log("🗺️ prayermap.js loaded");
 // ======================
 // UI
 // ======================
-document.addEventListener("click", (e) => {
-  const target = e.target;
+function wireUi() {
+  const btn = document.getElementById("prayerMapAddBtn");
 
-  // ✅ ONLY trigger for the exact button
-  if (target?.id === "prayerMapAddBtn") {
-    e.stopPropagation(); // 🔑 prevents bleed
+  if (!btn) {
+    console.warn("Button not found");
+    return;
+  }
+
+  btn.onclick = () => {
     addMode = true;
     alert("Click the map where you want to place the prayer.");
-    return;
-  }
-
-  // 🚫 IGNORE clicks inside modal
-  if (target.closest("#prayerPorchPanel")) {
-    return;
-  }
-});
+  };
 }
 
 // ======================
