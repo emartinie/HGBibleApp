@@ -301,9 +301,11 @@ function init() {
   wireUi();
 }
 
+    setTimeout(() => {
+  window.currentMap?.invalidateSize();
+}, 100);
+
 // run AFTER everything is defined
 init();
 
-  setTimeout(() => {
-  window.currentMap?.invalidateSize();
-}, 100);
+
