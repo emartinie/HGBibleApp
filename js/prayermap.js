@@ -303,3 +303,7 @@ function init() {
 
 // run AFTER everything is defined
 init();
+
+  setTimeout(() => {
+  window.currentMap?.invalidateSize();
+}, 100);
