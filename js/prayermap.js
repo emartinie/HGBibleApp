@@ -274,18 +274,9 @@ console.log("🗺️ prayermap.js loaded");
     });
   };
 
-  // ======================
-  // INIT
-  // ======================
-  function init() {
-    initMap();
-    listenForPrayers();
-    loadHomeGroups();
-    wireUi();
-  }
-
-  init();
-
+// ======================
+// UI
+// ======================
 function wireUi() {
   document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "prayerMapAddBtn") {
@@ -295,4 +286,15 @@ function wireUi() {
   });
 }
 
-})();
+// ======================
+// INIT
+// ======================
+function init() {
+  initMap();
+  listenForPrayers();
+  loadHomeGroups();
+  wireUi();
+}
+
+// run AFTER everything is defined
+init();
