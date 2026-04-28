@@ -232,32 +232,40 @@ console.log("🗺️ prayermap.js loaded");
   // ======================
   // MODAL
   // ======================
-  function openPrayerModal(lat, lng) {
-    pendingLatLng = { lat, lng };
+function openPrayerModal(lat, lng) {
+  pendingLatLng = { lat, lng };
 
-    const panel = document.getElementById("prayerPorchPanel");
-    const message = document.getElementById("prayerPorchMessage");
+  const panel = document.getElementById("prayerPorchPanel");
+  const message = document.getElementById("prayerPorchMessage");
 
-    if (!panel || !message) return;
+  if (!panel || !message) return;
 
-    message.innerHTML = `
-      <input id="prayerNameInput" placeholder="Name optional">
-      <textarea id="prayerMessageInput" placeholder="Prayer request"></textarea>
-      <button id="prayerSaveBtn">Save Prayer</button>
-    `;
+  message.innerHTML = `
+    <input id="prayerNameInput" placeholder="Name optional">
+    <textarea id="prayerMessageInput" placeholder="Prayer request"></textarea>
+    <button id="prayerSaveBtn">Save Prayer</button>
+  `;
 
-    panel.classList.remove("hidden");
+  panel.classList.remove("hidden");
 
-    document.getElementById("prayerSaveBtn").onclick = async () => {
-      const name = document.getElementById("prayerNameInput").value;
-      const text = document.getElementById("prayerMessageInput").value;
+  // 🔑 disable map interaction while modal is open
+  map.dragging.disable();
+  map.scrollWheelZoom.disable();
 
-      await savePrayerMarker(name, text, lat, lng);
+  document.getElementById("prayerSaveBtn").onclick = async () => {
+    const name = document.getElementById("prayerNameInput").value;
+    const text = document.getElementById("prayerMessageInput").value;
 
-      panel.classList.add("hidden");
-      pendingLatLng = null;
-    };
-  }
+    await savePrayerMarker(name, text, lat, lng);
+
+    panel.classList.add("hidden");
+    pendingLatLng = null;
+
+    // 🔑 re-enable map
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+  };
+}
 
   // ======================
   // LOCATE USER
