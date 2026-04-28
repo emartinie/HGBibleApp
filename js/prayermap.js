@@ -312,7 +312,7 @@ function init() {
   initMap();
   listenForPrayers();
   loadHomeGroups();
-  wireUi(); // ← THIS is what you're missing
+ // wireUi(); // ← THIS is what you're missing
 }
 
   init();
