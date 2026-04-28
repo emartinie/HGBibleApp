@@ -274,21 +274,30 @@ console.log("🗺️ prayermap.js loaded");
     });
   };
 
+  function wireUi() {
+  const btn = document.getElementById("prayerMapAddBtn");
+
+  if (!btn) {
+    console.warn("❌ prayerMapAddBtn not found");
+    return;
+  }
+
+  btn.onclick = () => {
+    addMode = true;
+    alert("Click the map where you want to place the prayer.");
+  };
+}
+
   // ======================
   // INIT
   // ======================
-  function init() {
-    initMap();
-    listenForPrayers();
-    loadHomeGroups();
-  }
+function init() {
+  initMap();
+  listenForPrayers();
+  loadHomeGroups();
+  wireUi(); // ← THIS is what you're missing
+}
 
   init();
 
 })();
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init);
-} else {
-  init();
-}
