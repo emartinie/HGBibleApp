@@ -107,7 +107,7 @@
           Add Prayer
         </h2>
 
-        <p id="prayerPorchMessage" class="text-slate-300 leading-relaxed mb-4">
+        <div id="prayerPorchMessage" class="text-slate-300 ...">
           You're not alone here.
         </p>
 
@@ -123,6 +123,13 @@
 
   </div>
 </section>
+<div id="prayerPorchPanel" class="hidden">
+  <div id="prayerPorchMessage">
+    <input id="prayerNameInput" placeholder="Name optional">
+    <textarea id="prayerMessageInput" placeholder="Prayer request"></textarea>
+    <button id="prayerSaveBtn">Save Prayer</button>
+  </div>
+</div>
 <script>
   let selectedPoints = [];
 
