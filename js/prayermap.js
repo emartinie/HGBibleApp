@@ -7,6 +7,12 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+if (window.prayerMapInitialized) {
+  console.warn("prayermap already initialized");
+  return;
+}
+window.prayerMapInitialized = true;
+
 console.log("🗺️ prayermap.js loaded");
 
 (function () {
