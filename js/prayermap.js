@@ -115,6 +115,7 @@ console.log("🗺️ prayermap.js loaded");
       if (!addMode) return;
       addMode = false;
       openPrayerModal(e.latlng.lat, e.latlng.lng);
+        console.log("MAP CLICK", addMode);
     });
 
     map.on("popupopen", (e) => {
@@ -233,6 +234,7 @@ console.log("🗺️ prayermap.js loaded");
   // MODAL
   // ======================
 function openPrayerModal(lat, lng) {
+    console.log("OPENING MODAL");
   pendingLatLng = { lat, lng };
 
   const panel = document.getElementById("prayerPorchPanel");
@@ -296,19 +298,19 @@ function openPrayerModal(lat, lng) {
   //};
 //}
 
-  document.addEventListener("click", (e) => {
+document.addEventListener("click", (e) => {
   const target = e.target;
 
-  // ONLY handle the add button
   if (target && target.id === "prayerMapAddBtn") {
-    e.stopPropagation(); // prevents modal interference
+    console.log("BUTTON CLICKED");
+    e.stopPropagation();
     addMode = true;
-    alert("Click the map where you want to place the prayer.");
+    alert("Click the map where you want to place your prayer.");
     return;
   }
 
-  // IGNORE clicks inside modal
   if (target.closest("#prayerPorchPanel")) {
+    console.log("CLICK INSIDE MODAL");
     return;
   }
 });
