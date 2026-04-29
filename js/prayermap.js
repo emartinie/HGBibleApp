@@ -7,17 +7,22 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-if (window.prayerMapInitialized) {
-  console.warn("prayermap already initialized");
-  return;
-}
-window.prayerMapInitialized = true;
-
 console.log("🗺️ prayermap.js loaded");
 
 (function () {
+
+  if (window.prayerMapInitialized) {
+    console.warn("prayermap already initialized");
+    return;
+  }
+  window.prayerMapInitialized = true;
+
   const mapEl = document.getElementById("prayerMap");
   if (!mapEl || typeof L === "undefined") return;
+
+//(function () {
+  //const mapEl = document.getElementById("prayerMap");
+  //if (!mapEl || typeof L === "undefined") return;
 
   let map;
   let prayerLayer;
