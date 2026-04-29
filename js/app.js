@@ -94,10 +94,14 @@ window.loadFromSefaria = function(ref) {
   window.loadCard?.("sefaria");
 };
 
-  async function loadExtraScript(src) {
+async function loadExtraScript(src) {
   return new Promise((resolve, reject) => {
-    const existing = document.querySelector(`script[data-src="${src}"]`);
+    const existing = document.querySelector(
+      `script[src*="${src.replace('./', '')}"]`
+    );
+
     if (existing) {
+      console.log(`${src} already loaded`);
       resolve();
       return;
     }
@@ -105,8 +109,7 @@ window.loadFromSefaria = function(ref) {
     const script = document.createElement("script");
     script.src = `${src}?v=${Date.now()}`;
     script.defer = true;
-    script.dataset.src = src;
-    
+
     if (src.includes("prayermap.js") || src.includes("firebase-init.js")) {
       script.type = "module";
     }
