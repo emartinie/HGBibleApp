@@ -133,25 +133,29 @@ async function loadExtraScript(src) {
       const html = await res.text();
       loadedCardHost.innerHTML = html;
 
-      if (loadedScript) {
-        loadedScript.remove();
-        loadedScript = null;
-      }
+      if (cardName !== "prayermap") {
+  window.prayerMapInitialized = false;
+}
 
       if (cardName === "prayermap") {
   await loadExtraScript("js/prayerStore.dev.js");
 }
 
-      const script = document.createElement("script");
-      script.src = `js/${cardName}.js?v=${Date.now()}`;
-      script.defer = true;
-      
-      if (cardName === "prayermap") {
-        script.type = "module";
-      }
-      
-      document.body.appendChild(script);
-      loadedScript = script;
+      const existing = document.querySelector(
+  `script[src*="js/${cardName}.js"]`
+);
+
+if (!existing) {
+  const script = document.createElement("script");
+  script.src = `js/${cardName}.js?v=${Date.now()}`;
+  script.defer = true;
+
+  if (cardName === "prayermap") {
+    script.type = "module";
+  }
+
+  document.body.appendChild(script);
+}
 
       goToCard(1);
     } catch (err) {
