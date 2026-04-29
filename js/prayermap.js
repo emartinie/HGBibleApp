@@ -312,16 +312,17 @@ function openPrayerModal(lat, lng) {
 document.addEventListener("click", (e) => {
   const target = e.target;
 
-  if (target && target.id === "prayerMapAddBtn") {
+  if (target?.id === "prayerMapAddBtn") {
     console.log("BUTTON CLICKED");
-    e.stopPropagation();
     addMode = true;
     alert("Click the map where you want to place your prayer.");
     return;
   }
 
-  if (target.closest("#prayerPorchPanel")) {
-    console.log("CLICK INSIDE MODAL");
+  if (target?.id === "prayerPorchCloseBtn") {
+    document.getElementById("prayerPorchPanel").classList.add("hidden");
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
     return;
   }
 });
