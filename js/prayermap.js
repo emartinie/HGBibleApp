@@ -278,6 +278,7 @@ function openPrayerModal(lat, lng) {
 `;
 
   panel.classList.remove("hidden");
+  panel.classList.add("flex");
 
   // 🔑 disable map interaction while modal is open
   map.dragging.disable();
@@ -337,13 +338,16 @@ document.addEventListener("click", (e) => {
     return;
   }
 
-  if (target?.id === "prayerPorchCloseBtn") {
-    document.getElementById("prayerPorchPanel").classList.add("hidden");
-    map.dragging.enable();
-    map.scrollWheelZoom.enable();
-    return;
-  }
-});
+if (target?.id === "prayerPorchCloseBtn") {
+  const panel = document.getElementById("prayerPorchPanel");
+
+  panel.classList.add("hidden");
+  panel.classList.remove("flex");
+
+  map.dragging.enable();
+  map.scrollWheelZoom.enable();
+  return;
+}
 
   // ======================
   // INIT
