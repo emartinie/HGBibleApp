@@ -254,10 +254,28 @@ function openPrayerModal(lat, lng) {
   if (!panel || !message) return;
 
   message.innerHTML = `
-    <input id="prayerNameInput" placeholder="Name optional">
-    <textarea id="prayerMessageInput" placeholder="Prayer request"></textarea>
-    <button id="prayerSaveBtn">Save Prayer</button>
-  `;
+  <div class="flex flex-col gap-3">
+    <input
+      id="prayerNameInput"
+      placeholder="Name optional"
+      class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400"
+    />
+
+    <textarea
+      id="prayerMessageInput"
+      placeholder="Prayer request"
+      class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400 min-h-[120px]"
+    ></textarea>
+
+    <button
+      id="prayerSaveBtn"
+      type="button"
+      class="w-full px-4 py-3 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-medium"
+    >
+      Save Prayer
+    </button>
+  </div>
+`;
 
   panel.classList.remove("hidden");
 
