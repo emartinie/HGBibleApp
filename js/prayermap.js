@@ -291,6 +291,7 @@ function openPrayerModal(lat, lng) {
     await savePrayerMarker(name, text, lat, lng);
 
     panel.classList.add("hidden");
+    panel.classList.remove("flex");
     pendingLatLng = null;
 
     // 🔑 re-enable map
@@ -348,6 +349,8 @@ if (target?.id === "prayerPorchCloseBtn") {
   map.scrollWheelZoom.enable();
   return;
 }
+
+  });
 
   // ======================
   // INIT
