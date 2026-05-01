@@ -3,16 +3,16 @@ let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters, mainStageVideo, mainStageIframe, floatingPlayer;
 
 // --- Config ---
-const START_DATE = new Date("2024-10-19T00:00:00Z");
-const TOTAL_WEEKS = 52;
+//const START_DATE = new Date("2024-10-19T00:00:00Z");
+//const TOTAL_WEEKS = 52;
 
 // --- Helper: Current Week ---
-function getCurrentWeekNumber() {
-  const now = new Date();
-  const diffMs = now - START_DATE;
-  if (diffMs < 0) return 1; // before start date
-  return Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7)) % TOTAL_WEEKS + 1;
-}
+//function getCurrentWeekNumber() {
+  //const now = new Date();
+  //const diffMs = now - START_DATE;
+  //if (diffMs < 0) return 1; // before start date
+  //return Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7)) % TOTAL_WEEKS + 1;
+//}
 
   if (typeof renderCards === "function") renderCards(window.weeklyCommentary);
 
@@ -46,7 +46,9 @@ function populateWeekSelect() {
         opt.textContent = `Week ${i}`;
         weekSelect.appendChild(opt);
     }
-    weekSelect.value = getCurrentWeekNumber();
+    import { getWeekNumber } from "./weekEngine.js";
+
+weekSelect.value = getWeekNumber();
 }
 
 // --- Parse scripture from filename ---
