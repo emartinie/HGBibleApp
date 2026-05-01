@@ -1,3 +1,5 @@
+import { getWeekNumber } from "./weekEngine.js";
+
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters, mainStageVideo, mainStageIframe, floatingPlayer;
@@ -46,7 +48,6 @@ function populateWeekSelect() {
         opt.textContent = `Week ${i}`;
         weekSelect.appendChild(opt);
     }
-    import { getWeekNumber } from "./weekEngine.js";
 
 weekSelect.value = getWeekNumber();
 }
