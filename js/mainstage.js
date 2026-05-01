@@ -1,5 +1,4 @@
-import { getWeekNumber } from "./weekEngine.js";
-
+import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters, mainStageVideo, mainStageIframe, floatingPlayer;
