@@ -24,24 +24,71 @@
                 <h2 id="mainStageTitle" class="card-title" style="text-align: center;">Loading week data...</h2>
               </div>
 
-              <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
             </div>
 
             <div class="card-body">
-              <section id="frontPorch" class="hero-panel">
-                <div class="fp-kicker" onclick="toggleSection(this)">Front Porch ▼</div>
-                <h1 class="fp-title">A simple place to begin.</h1>
-                <p class="fp-sub">
-                  Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
-                </p>
+              <section id="quietWord" class="hero-panel">
+                <div class="fp-kicker" onclick="toggleSection(this)">Meditate ▼</div>
+      <!-- Gentle Devotional (placeholder) -->
+      <div class="mt-5">
+        <h3 class="text-slate-200 font-semibold mb-2">A quiet word</h3>
+        <p class="text-slate-300 leading-relaxed">
+          Ask God for light for the next step — not the whole staircase.
+          Let the Word be enough for today.
+        </p>
               </section>
 
-              <div id="nowPlaying">Now Playing: —</div>
+        <!-- Scripture Block -->
+        <div class="rounded-lg border border-slate-700 bg-slate-950/40 p-4">
+          <p class="text-slate-300 text-sm mb-2">Today’s One Psalm</p>
 
+          <p class="text-slate-200 font-medium">Psalm 119:105</p>
+          <p class="mt-2 italic text-slate-100 leading-relaxed">
+            “Your word is a lamp to my feet and a light to my path.”
+          </p>
+        </div>
+        <p class="mt-2 text-sm text-slate-400">Genesis Chapter 1 (Bereshit- בְּרֵאשִׁית)</p>
+
+                      <!-- Primary Action (placeholder only) -->
+        <div class="mt-4">
+          <button id="todayListenBtn" type="button"
+            class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium"
+            onclick="alert('You are bout to listen to Geneis 1 recorded by a real human.')">
+            ▶ Listen
+          </button>
+
+          <p class="text-xs text-slate-500 mt-2 text-center">
+            Simple. Holy. No pressure.
+          </p>
+        </div>
+
+
+      </div>
+              
               <section class="content-panel">
                 <div class="section-label" onclick="toggleSection(this)">Audio Playlist ▼</div>
                 <div id="mainStagePlaylist">
-                  <div class="empty-state">Playlist will appear here.</div>
+                  <div class="empty-state"><section id="todayCard" class="hg-panel">
+  <h2>🔥 Today</h2>
+      </div>
+
+    </div>
+<div id="todayDatePretty"></div>
+<div id="todayWeekInfo"></div>
+<div id="todaySpecialDay"></div>
+
+<div id="todayMeditationTitle"></div>
+<div id="todayMeditationQuestion"></div>
+<div id="todayMeditationRefs"></div>
+   ---------------------- 
+  <div id="todayDate"></div>
+  <div id="todayWeekInfo"></div>
+  <div id="todaySpecialDay"></div>
+
+  <div id="todayReadings"></div>
+  <div id="todayMeditation"></div>
+  <div id="todayHistory"></div>
+</section></div>
                 </div>
               </section>
 
@@ -67,40 +114,11 @@
               </section>
 
 -----------------------------------------------------------
-      <!-- Gentle Devotional (placeholder) -->
-      <div class="mt-5">
-        <h3 class="text-slate-200 font-semibold mb-2">A quiet word</h3>
-        <p class="text-slate-300 leading-relaxed">
-          Ask God for light for the next step — not the whole staircase.
-          Let the Word be enough for today.
-        </p>
-
-        <!-- Scripture Block -->
-        <div class="rounded-lg border border-slate-700 bg-slate-950/40 p-4">
-          <p class="text-slate-300 text-sm mb-2">Today’s One Psalm</p>
-
-          <p class="text-slate-200 font-medium">Psalm 119:105</p>
-          <p class="mt-2 italic text-slate-100 leading-relaxed">
-            “Your word is a lamp to my feet and a light to my path.”
-          </p>
-        </div>
-        <p class="mt-2 text-sm text-slate-400">Genesis Chapter 1 (Bereshit- בְּרֵאשִׁית)</p>
-
-        <!-- Primary Action (placeholder only) -->
-        <div class="mt-4">
-          <button id="todayListenBtn" type="button"
-            class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium"
-            onclick="alert('You are bout to listen to Geneis 1 recorded by a real human.')">
-            ▶ Listen
-          </button>
-
-          <p class="text-xs text-slate-500 mt-2 text-center">
-            Simple. Holy. No pressure.
-          </p>
-        </div>
 
 
-      </div>
+
+
+
 
 
       <!-- Go Deeper Toggle -->
@@ -119,27 +137,7 @@
       <!-- Left -->
       <div class="flex items-center gap-2 min-w-0">
         <img src="images/HGHouses.png" alt="HG" class="w-8 h-8 shrink-0" />
-<section id="todayCard" class="hg-panel">
-  <h2>🔥 Today</h2>
-      </div>
 
-    </div>
-<div id="todayDatePretty"></div>
-<div id="todayWeekInfo"></div>
-<div id="todaySpecialDay"></div>
-
-<div id="todayMeditationTitle"></div>
-<div id="todayMeditationQuestion"></div>
-<div id="todayMeditationRefs"></div>
-   ---------------------- 
-  <div id="todayDate"></div>
-  <div id="todayWeekInfo"></div>
-  <div id="todaySpecialDay"></div>
-
-  <div id="todayReadings"></div>
-  <div id="todayMeditation"></div>
-  <div id="todayHistory"></div>
-</section>
 
 
   <section id="todayCard" class="w-full max-w-md px-6">
