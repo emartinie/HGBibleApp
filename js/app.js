@@ -157,9 +157,9 @@ async function loadCard(cardName) {
       script.src = `js/${cardName}.js?v=${Date.now()}`;
       script.defer = true;
 
-      if (cardName === "prayermap") {
-        script.type = "module";
-      }
+      if (cardName === "prayermap" || cardName === "today") {
+  script.type = "module";
+}
 
       document.body.appendChild(script);
     }
