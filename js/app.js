@@ -123,56 +123,57 @@ async function loadExtraScript(src) {
   });
 }
 
-  async function loadCard(cardName) {
-    if (!loadedCardHost || !cardName) return;
+async function loadCard(cardName) {
+  if (!loadedCardHost || !cardName) return;
 
-    try {
-      loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
+  try {
+    loadedCardHost.innerHTML =
+      `<div class="empty-state">Loading ${cardName}...</div>`;
 
-      const res = await fetch(`cards/${cardName}.html`);
-      if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
+    const res = await fetch(`cards/${cardName}.html`);
+    if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
 
-      const html = await res.text();
-      loadedCardHost.innerHTML = html;
+    const html = await res.text();
+    loadedCardHost.innerHTML = html;
 
-      if (cardName !== "prayermap") {
-  window.prayerMapInitialized = false;
-}
+    if (cardName !== "prayermap") {
+      window.prayerMapInitialized = false;
+    }
+
+    if (cardName === "prayermap") {
+      await loadExtraScript("js/prayerStore.dev.js");
+    }
+
+    if (cardName === "today") {
+      initTodayCard();
+    }
+
+    const existing = document.querySelector(
+      `script[src*="js/${cardName}.js"]`
+    );
+
+    if (!existing) {
+      const script = document.createElement("script");
+      script.src = `js/${cardName}.js?v=${Date.now()}`;
+      script.defer = true;
 
       if (cardName === "prayermap") {
-  await loadExtraScript("js/prayerStore.dev.js");
+        script.type = "module";
+      }
 
-      if (cardName === "today") {
-  initTodayCard();
-}
-
-      const existing = document.querySelector(
-  `script[src*="js/${cardName}.js"]`
-);
-
-if (!existing) {
-  const script = document.createElement("script");
-  script.src = `js/${cardName}.js?v=${Date.now()}`;
-  script.defer = true;
-
-  if (cardName === "prayermap") {
-    script.type = "module";
-  }
-
-  document.body.appendChild(script);
-}
-
-      goToCard(1);
-    } catch (err) {
-      console.error("Card load failed:", err);
-      loadedCardHost.innerHTML = `
-        <div class="empty-state">
-          Could not load <strong>${cardName}</strong>.
-        </div>
-      `;
+      document.body.appendChild(script);
     }
-  }
 
+  } catch (err) {
+    console.error("Card load failed:", err);
+    loadedCardHost.innerHTML = `
+      <div class="empty-state">
+        Could not load <strong>${cardName}</strong>.
+      </div>
+    `;
+  }
+}
+  
   function wireCardSelector() {
     if (!cardSelector) return;
 
