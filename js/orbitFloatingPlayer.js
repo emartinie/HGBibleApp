@@ -10,7 +10,7 @@ function setupFloatingPlayer() {
   // Create container
   const player = document.createElement("div");
   player.id = "floatingPlayer";
-  player.innerHTML = "Hi. I'm Spark©<br>I do a LOT. But I'm<br> asleep.";
+  player.innerHTML = "Hi. I'm Spark©<br>I do a LOT. But I'm<br> asleep right now.";
 
   // Style it
   Object.assign(player.style, {
