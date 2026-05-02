@@ -1,46 +1,73 @@
-import { getWeekNumber } from "./weekEngine.js";
-
-export function initTodayCard() {
-  const todayData = getTodayData();
-  renderToday(todayData);
-}
-
-function getTodayData() {
+function initTodayCard() {
   const now = new Date();
 
-  return {
-    datePretty: now.toLocaleDateString(undefined, {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric"
-    }),
-    week: getWeekNumber(),
-    day: getDayOfWeek(),
-    sabbath: isSabbath()
-  };
-}
+  // safe fallback if week engine not ready
+  const weekNumber =
+    window.getWeekNumber ? window.getWeekNumber() : null;
 
-function getDayOfWeek() {
-  const day = new Date().getDay();
-  return day === 0 ? 7 : day;
-}
+  // ===== DATE =====
+  const prettyDate = now.toLocaleDateString(undefined, {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
 
-function isSabbath() {
-  return new Date().getDay() === 6;
-}
+  setText("todayDatePretty", prettyDate);
 
-function renderToday(data) {
-  setText("todayDatePretty", data.datePretty);
-  setText("todayWeekInfo", `Week ${data.week} • Day ${data.day}`);
+  if (weekNumber !== null) {
+    setText("todayWeekInfo", `Week ${weekNumber} • Day ${getDayOfWeek()}`);
+  }
+
+  // ===== SIMPLE "HOLY DAY" FLAG (hook for calendar later) =====
+  setText("todaySpecialDay", getSpecialDayLabel(now));
+
+  // ===== SCRIPTURE (temporary deterministic rotation) =====
+  const verses = [
+    ["Psalm 23:1", "The LORD is my shepherd; I shall not want."],
+    ["John 14:27", "Peace I leave with you; my peace I give you."],
+    ["Proverbs 3:5", "Trust in the LORD with all your heart."]
+  ];
+
+  const v = verses[now.getDate() % verses.length];
+
+  setText("todayVerseRef", v[0]);
+  setText("todayVerseText", `"${v[1]}"`);
+
+  // ===== MEDIATION (placeholder hook for week engine later) =====
   setText(
-    "todaySpecialDay",
-    data.sabbath ? "🕯 Sabbath" : ""
+    "todayMeditation",
+    "Let today’s portion be enough. Walk it, don’t rush it."
   );
+
+  // ===== LISTENER =====
+  const btn = document.getElementById("todayListenBtn");
+  if (btn) {
+    btn.onclick = () => {
+      alert("Play today's reading (hook into audio system later)");
+    };
+  }
 }
 
+// ---------- helpers ----------
 function setText(id, text) {
   const el = document.getElementById(id);
   if (el) el.textContent = text;
 }
+
+function getDayOfWeek() {
+  const d = new Date().getDay();
+  return d === 0 ? 7 : d;
+}
+
+function getSpecialDayLabel(now) {
+  const day = now.getDay();
+
+  if (day === 6) return "🕯 Sabbath approaching";
+  if (day === 0) return "🕯 Sabbath day";
+
+  return "";
+}
+
+// expose globally (IMPORTANT for your current loader system)
 window.initTodayCard = initTodayCard;
