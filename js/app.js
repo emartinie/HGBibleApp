@@ -96,11 +96,18 @@ window.loadFromSefaria = function(ref) {
   window.loadCard?.("sefaria");
 };
 
-async function loadExtraScript(src) {
+const MODULE_SCRIPTS = new Set([
+  "prayermap.js",
+  "today.js",
+  "firebase-init.js"
+]);
+
+function loadScript(src) {
   return new Promise((resolve, reject) => {
-    const existing = document.querySelector(
-      `script[src*="${src.replace('./', '')}"]`
-    );
+    const cleanSrc = src.replace("./", "");
+
+    const existing = Array.from(document.querySelectorAll("script"))
+      .find(s => s.src.includes(cleanSrc));
 
     if (existing) {
       console.log(`${src} already loaded`);
@@ -109,69 +116,19 @@ async function loadExtraScript(src) {
     }
 
     const script = document.createElement("script");
+
     script.src = `${src}?v=${Date.now()}`;
     script.defer = true;
 
-    if (src.includes("prayermap.js") || src.includes("firebase-init.js")) {
+    if (MODULE_SCRIPTS.has(cleanSrc.split("/").pop())) {
       script.type = "module";
     }
 
-    script.onload = resolve;
-    script.onerror = reject;
+    script.onload = () => resolve();
+    script.onerror = (err) => reject(err);
 
     document.body.appendChild(script);
   });
-}
-
-async function loadCard(cardName) {
-  if (!loadedCardHost || !cardName) return;
-
-  try {
-    loadedCardHost.innerHTML =
-      `<div class="empty-state">Loading ${cardName}...</div>`;
-
-    const res = await fetch(`cards/${cardName}.html`);
-    if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
-
-    const html = await res.text();
-    loadedCardHost.innerHTML = html;
-
-    if (cardName !== "prayermap") {
-      window.prayerMapInitialized = false;
-    }
-
-    if (cardName === "prayermap") {
-      await loadExtraScript("js/prayerStore.dev.js");
-    }
-
-    if (cardName === "today") {
-      initTodayCard();
-    }
-
-    const existing = document.querySelector(
-      `script[src*="js/${cardName}.js"]`
-    );
-
-    if (!existing) {
-      const script = document.createElement("script");
-      script.src = `js/${cardName}.js?v=${Date.now()}`;
-      script.defer = true;
-
-      if (cardName === "prayermap" || cardName === "today") {
-  script.type = "module";
-}
-
-      document.body.appendChild(script);
-    }
-
-  } catch (err) {
-    console.error("Card load failed:", err);
-    loadedCardHost.innerHTML = `
-      <div class="empty-state">
-        Could not load <strong>${cardName}</strong>.
-      </div>
-    `;
-  }
 }
   
   function wireCardSelector() {
