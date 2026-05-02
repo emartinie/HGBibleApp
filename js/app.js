@@ -183,7 +183,10 @@ async function loadCard(cardName) {
       initTodayCard?.();
     }
 
-    await loadScript(`js/${cardName}.js`);
+    await loadScript(`js/${cconst script = document.createElement("script");
+script.src = `js/${cardName}.js?v=${Date.now()}`;
+script.type = "module";
+document.body.appendChild(script);ardName}.js`);
 
   } catch (err) {
     console.error("Card load failed:", err);
