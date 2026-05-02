@@ -339,8 +339,13 @@ function openHolyDayDetails(key) {
 function getUpcomingHolyDay(calendarType) {
   const now = new Date();
   const items = CALENDAR_DATA[calendarType] || [];
-  return items.find(item => new Date(item.start) > now) || items[0] || null;
+const upcoming = items
+  .map(i => ({ ...i, time: new Date(i.start).getTime() }))
+  .filter(i => i.time > Date.now())
+  .sort((a, b) => a.time - b.time);
 }
+
+return upcoming[0] || items[items.length - 1];}
 
 function renderHolyDayList(calendarType) {
   const listEl = document.getElementById("holyDayList");
