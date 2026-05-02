@@ -1,176 +1,45 @@
-  <!-- TODAY Overlay -->
- <!-- <div id="todayOverlay" class="hidden fixed inset-0 bg-black/40 z-50">
-    <div>
-      <h2 class="text-xl font-semibold">Today</h2>
+<section id="todayCard" class="w-full max-w-md mx-auto px-4 py-6">
 
-    </div>
-    <div id="todayPanel" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-           w-[90%] max-w-md
-           bg-white dark:bg-slate-900
-           rounded-xl shadow-xl
-           p-6
-           opacity-0 scale-95 transition-all duration-300">
-      <h2 class="text-xl font-semibold mb-4">Today Only (relax)</h2>
-      <p id="todayDate" class="text-slate-400 text-sm mt-1"></p>
-      <p id="todaySabbath" class="text-slate-300 text-sm mb-4"></p>-->
-        <section id="todayCard" class="card">
-          <button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>
-             <div class="card-header">
+  <!-- Header -->
+  <div class="text-center mb-6">
+    <h1 class="text-2xl font-semibold text-white">Today</h1>
+    <p id="todayDatePretty" class="text-slate-400 text-sm mt-1"></p>
+    <p id="todayWeekInfo" class="text-slate-500 text-xs mt-1"></p>
+    <p id="todaySpecialDay" class="text-amber-400 text-sm mt-2"></p>
+  </div>
 
-              <div class="card-heading">
-                <div class="card-kicker">
-                  <p id="mainStageSub" class="hero-sub">Please wait while the weekly data loads.</p>
-                </div>
-                <h2 id="mainStageTitle" class="card-title" style="text-align: center;">Loading week data...</h2>
-              </div>
+  <!-- Main Card -->
+  <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 shadow-lg">
 
-            </div>
-
-            <div class="card-body">
-              <section id="quietWord" class="hero-panel">
-                <div class="fp-kicker" onclick="toggleSection(this)">Meditate ▼</div>
-      <!-- Gentle Devotional (placeholder) -->
-      <div class="mt-5">
-        <h3 class="text-slate-200 font-semibold mb-2">A quiet word</h3>
-        <p class="text-slate-300 leading-relaxed">
-          Ask God for light for the next step — not the whole staircase.
-          Let the Word be enough for today.
-        </p>
-              </section>
-
-        <!-- Scripture Block -->
-        <div class="rounded-lg border border-slate-700 bg-slate-950/40 p-4">
-          <p class="text-slate-300 text-sm mb-2">Today’s One Psalm</p>
-
-          <p class="text-slate-200 font-medium">Psalm 119:105</p>
-          <p class="mt-2 italic text-slate-100 leading-relaxed">
-            “Your word is a lamp to my feet and a light to my path.”
-          </p>
-        </div>
-        <p class="mt-2 text-sm text-slate-400">Genesis Chapter 1 (Bereshit- בְּרֵאשִׁית)</p>
-
-                      <!-- Primary Action (placeholder only) -->
-        <div class="mt-4">
-          <button id="todayListenBtn" type="button"
-            class="w-full py-3 rounded-lg bg-blue-600/90 hover:bg-blue-600 transition text-white font-medium"
-            onclick="alert('You are bout to listen to Geneis 1 recorded by a real human.')">
-            ▶ Listen
-          </button>
-
-          <p class="text-xs text-slate-500 mt-2 text-center">
-            Simple. Holy. No pressure.
-          </p>
-        </div>
-
-
-      </div>
-              
-              <section class="content-panel">
-                <div class="section-label" onclick="toggleSection(this)">Audio Playlist ▼</div>
-                <div id="mainStagePlaylist">
-                  <div class="empty-state"><section id="todayCard" class="hg-panel">
-  <h2>🔥 Today</h2>
-      </div>
-
-    </div>
-<div id="todayDatePretty"></div>
-<div id="todayWeekInfo"></div>
-<div id="todaySpecialDay"></div>
-
-<div id="todayMeditationTitle"></div>
-<div id="todayMeditationQuestion"></div>
-<div id="todayMeditationRefs"></div>
-  <div id="todayDate"></div>
-  <div id="todayWeekInfo"></div>
-  <div id="todaySpecialDay"></div>
-
-  <div id="todayReadings"></div>
-  <div id="todayMeditation"></div>
-  <div id="todayHistory"></div>
-</section></div>
-                </div>
-              </section>
-   ---------------------- 
-
-
-              <section class="content-panel">
-                <div class="section-label" onclick="toggleSection(this)">Chapter Outlines ▼</div>
-                <div id="mainStageChapters">
-                  <div class="empty-state">Outlines will appear here.</div>
-                </div>
-              </section>
-
-              <section class="content-panel">
-                <div class="section-label" onclick="toggleSection(this)">Video / Media ▼</div>
-                <div id="mainStageVideo">
-                  <div class="empty-state">Media will appear here.</div>
-                </div>
-              </section>
-
-              <section class="content-panel">
-                <div class="section-label" onclick="toggleSection(this)">Week Info Cards ▼</div>
-                <div id="cardsContainer">
-                  <div class="empty-state">The loader will drop dynamic week content here.</div>
-                </div>
-              </section>
-
-  <header class="sticky top-0 z-20 bg-slate-900/80 backdrop-blur border-b border-slate-800">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between px-3 py-2 gap-2">
-
-      <!-- Left -->
-      <div class="flex items-center gap-2 min-w-0">
-        <img src="images/HGHouses.png" alt="HG" class="w-8 h-8 shrink-0" />
-
-
-
-  <section id="todayCard" class="w-full max-w-md px-6">
-
-    <!-- Context Header -->
-    <div class="mb-6 text-center">
-      <h1 class="text-2xl font-semibold">Today</h1>
-      <p id="todayDatePretty" class="text-slate-400 text-sm"></p>
+    <!-- Meditation -->
+    <div class="mb-5">
+      <h2 class="text-slate-200 font-semibold mb-2">Meditation</h2>
+      <p class="text-slate-300 leading-relaxed text-sm" id="todayMeditation">
+        Ask for light for the next step, not the whole staircase.
+      </p>
     </div>
 
-    <!-- Main Card -->
-    <div class="bg-slate-800 rounded-xl p-6 shadow-lg border border-slate-700">
-
-      <h2 class="text-lg font-medium mb-3 text-slate-200">
-        Today’s Scripture
-      </h2>
-
-      <p id="todayVerseRef" class="text-slate-400 text-sm mb-2"></p>
-
-      <p id="todayVerseText" class="italic text-slate-200 mb-6"></p>
-
-      <!-- Primary Action -->
-      <button
-        id="todayActionBtn"
-        class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 transition text-white font-medium"
-      >
-        ▶ Listen
-      </button>
-
-      <!-- Upcoming Event -->
-      <div id="upcomingEvent" class="mt-4 text-sm text-slate-300"></div>
-
-      <!-- Go Deeper Toggle -->
-      <div class="mt-4 text-center">
-        <button
-          onclick="document.getElementById('deeper').classList.toggle('hidden')"
-          class="text-slate-400 text-sm hover:text-slate-200"
-        >
-          Go deeper →
-        </button>
-      </div>
-
-      <!-- Deeper Drawer -->
-      <div id="deeper" class="hidden mt-4 border-t border-slate-700 pt-4 text-sm text-slate-300">
-        <ul class="space-y-2">
-          <li>• Read full chapter</li>
-          <li>• View in Hebrew / Greek</li>
-          <li>• Study notes</li>
-        </ul>
-      </div>
-
+    <!-- Scripture -->
+    <div class="border border-slate-700 rounded-lg p-4 bg-slate-950/40 mb-5">
+      <p class="text-slate-400 text-xs mb-2">Today's Scripture</p>
+      <p id="todayVerseRef" class="text-slate-300 font-medium"></p>
+      <p id="todayVerseText" class="text-slate-200 italic mt-2"></p>
     </div>
-  </section>
+
+    <!-- Weekly context -->
+    <div class="text-sm text-slate-400 mb-4">
+      <div id="todayReadings"></div>
+    </div>
+
+    <!-- Action -->
+    <button id="todayListenBtn"
+      class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium">
+      ▶ Listen
+    </button>
+
+    <p class="text-center text-xs text-slate-500 mt-2">
+      One day. One portion. One step.
+    </p>
+
+  </div>
+</section>
