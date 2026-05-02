@@ -1,56 +1,65 @@
-  <!-- today JS -->
-    document.addEventListener("DOMContentLoaded", () => {
+import { getWeekNumber } from "./weekEngine.js";
 
-      // ===== DATE =====
-      const now = new Date();
-      const prettyDate = now.toLocaleDateString(undefined, {
-        weekday: "long",
-        month: "long",
-        day: "numeric"
-      });
+document.addEventListener("DOMContentLoaded", initToday);
 
-      document.getElementById("todayDatePretty").textContent = prettyDate;
+function initToday() {
+  const todayData = getTodayData();
+  renderToday(todayData);
+}
 
-      // ===== VERSE (placeholder logic) =====
-      const verses = [
-        {
-          ref: "Psalm 23:1",
-          text: "The LORD is my shepherd; I shall not want."
-        },
-        {
-          ref: "John 14:27",
-          text: "Peace I leave with you; my peace I give you."
-        },
-        {
-          ref: "Proverbs 3:5",
-          text: "Trust in the LORD with all your heart."
-        }
-      ];
+function getTodayData() {
+  const now = new Date();
 
-      // rotate by day
-      const index = now.getDate() % verses.length;
-      const verse = verses[index];
+  return {
+    datePretty: now.toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    }),
 
-      document.getElementById("todayVerseRef").textContent = verse.ref;
-      document.getElementById("todayVerseText").textContent = `"${verse.text}"`;
+    week: getWeekNumber(),
+    day: getDayOfWeek(),
 
-      // ===== UPCOMING EVENT (placeholder) =====
-      const upcomingEl = document.getElementById("upcomingEvent");
+    sabbath: isSabbath(),
 
-      // simple example (replace later with calendar / firestore)
-      const day = now.getDay();
+    meditation: {
+      title: "Thinking Through Scripture",
+      question:
+        "If the Torah is written on our hearts, why would obedience become obsolete?",
+      oldRef: "Jeremiah 31:33",
+      newRef: "Hebrews 8:10"
+    }
+  };
+}
 
-      if (day === 5) {
-        upcomingEl.textContent = "Sabbath begins at sunset.";
-      } else if (day === 6) {
-        upcomingEl.textContent = "Sabbath is today.";
-      } else {
-        upcomingEl.textContent = "";
-      }
+function getDayOfWeek() {
+  const day = new Date().getDay();
+  return day === 0 ? 7 : day; // Sunday=7, Monday=1 etc if desired
+}
 
-      // ===== ACTION BUTTON =====
-      document.getElementById("todayActionBtn").addEventListener("click", () => {
-        alert("Play / meditate / continue flow here.");
-      });
+function isSabbath() {
+  return new Date().getDay() === 6;
+}
 
-    });
+function renderToday(data) {
+  setText("todayDatePretty", data.datePretty);
+  setText("todayWeekInfo", `Week ${data.week} • Day ${data.day}`);
+
+  setText(
+    "todaySpecialDay",
+    data.sabbath ? "🕯 Sabbath" : "Ordinary Day"
+  );
+
+  setText("todayMeditationTitle", data.meditation.title);
+  setText("todayMeditationQuestion", data.meditation.question);
+  setText(
+    "todayMeditationRefs",
+    `${data.meditation.oldRef} | ${data.meditation.newRef}`
+  );
+}
+
+function setText(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
