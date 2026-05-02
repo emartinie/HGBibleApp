@@ -1,3 +1,5 @@
+import { initTodayCard } from "./today.js";
+
 (function () {
   const cardsRow = document.getElementById("cardsRow");
   const cards = Array.from(document.querySelectorAll(".card"));
@@ -139,6 +141,9 @@ async function loadExtraScript(src) {
 
       if (cardName === "prayermap") {
   await loadExtraScript("js/prayerStore.dev.js");
+
+      if (cardName === "today") {
+  initTodayCard();
 }
 
       const existing = document.querySelector(
