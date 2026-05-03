@@ -9,6 +9,12 @@ initializeTimeSystem()
   })
   .catch(console.error);
 
+console.time("FULL BOOT");
+await initializeTimeSystem();
+console.timeEnd("FULL BOOT");
+
+console.log("AFTER TIME INIT");
+
 // =====================
 // GLOBAL STATE
 // =====================
