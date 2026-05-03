@@ -73,26 +73,14 @@ function mergeTimeConfig(appConfig, userSettings) {
 // -----------------------------------
 
 export async function initializeTimeSystem() {
-  return new Promise((resolve, reject) => {
-   onAuthStateChanged(auth, async (user) => {
-  try {
-    const activeUser = user || { uid: "guest" };
+  const activeUser = auth.currentUser || { uid: "guest" };
 
-    const appConfig = await loadAppConfig();
-    const userSettings = await loadUserTimeSettings(activeUser.uid);
+  const appConfig = await loadAppConfig();
+  const userSettings = await loadUserTimeSettings(activeUser.uid);
 
-    const finalConfig = mergeTimeConfig(
-      appConfig,
-      userSettings
-    );
+  const finalConfig = mergeTimeConfig(appConfig, userSettings);
 
-    TimeEngine.configure(finalConfig);
+  TimeEngine.configure(finalConfig);
 
-    resolve(finalConfig);
-
-  } catch (err) {
-    reject(err);
-  }
-});
-  });
+  return finalConfig;
 }
