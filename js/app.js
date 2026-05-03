@@ -1,8 +1,9 @@
 import { initializeTimeSystem } from "./firebaseTimeLoader.js";
+import { TimeStore } from "./timeStore.js";
 
 initializeTimeSystem()
   .then(() => {
-    console.log("time ready");
+    TimeStore.start();
   })
   .catch(console.error);
 
