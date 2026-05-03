@@ -170,6 +170,9 @@ async function loadExtraScript(src) {
       const html = await res.text();
       loadedCardHost.innerHTML = html;
 
+        wireCardNavButtons();
+        syncCurrentCardOnScroll();
+
       if (cardName !== "prayermap") {
   window.prayerMapInitialized = false;
 }
@@ -274,7 +277,6 @@ if (!existing) {
     }, { passive: true });
   }
   
-  document.addEventListener("DOMContentLoaded", init);
 
   // =====================
 // URL LOAD
@@ -296,19 +298,19 @@ if (!existing) {
 }
 
 function init() {
-  wireCardNavButtons();
   wireSwipe();
   wireKeyboard();
   wireCardSelector();
   wireCardSelectorStepButtons();
-  syncCurrentCardOnScroll();
 
-  loadFromUrl(); // 👈 
+  loadFromUrl();
 
-if (!window.location.search.includes("card=")) {
-  goToCard(0);
-}}
+  if (!window.location.search.includes("card=")) {
+    goToCard(0);
+  }
+}
 
+  document.addEventListener("DOMContentLoaded", init);
 
 window.loadCard = loadCard;
   
