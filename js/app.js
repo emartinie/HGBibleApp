@@ -11,7 +11,6 @@ initializeCardRenderer();
 
 console.timeEnd("FULL BOOT");
 console.log("AFTER TIME INIT");
-console.log("AFTER TIME INIT");
 
 // =====================
 // GLOBAL STATE
