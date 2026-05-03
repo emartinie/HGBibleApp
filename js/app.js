@@ -2,17 +2,15 @@ import { initializeTimeSystem } from "./firebaseTimeLoader.js";
 import { TimeStore } from "./timeStore.js";
 import { initializeCardRenderer } from "./cardRenderer.js";
 
-initializeTimeSystem()
-  .then(() => {
-    TimeStore.start();
-    initializeCardRenderer();
-  })
-  .catch(console.error);
-
 console.time("FULL BOOT");
-await initializeTimeSystem();
-console.timeEnd("FULL BOOT");
 
+await initializeTimeSystem();
+
+TimeStore.start();
+initializeCardRenderer();
+
+console.timeEnd("FULL BOOT");
+console.log("AFTER TIME INIT");
 console.log("AFTER TIME INIT");
 
 // =====================
