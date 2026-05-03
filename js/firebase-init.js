@@ -16,3 +16,12 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 export { app, db, auth };
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    window.currentUser = user; // Real user
+  } else {
+    window.currentUser = { uid: 'guest' }; // Guest fallback
+  }
+  // After this, proceed to load data or continue app logic
+});
