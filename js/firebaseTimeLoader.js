@@ -36,26 +36,28 @@ async function loadUserTimeSettings(uid) {
   return snap.data();
 }
 
-function mergeTimeConfig(appConfig, userSettings = {}) {
+function mergeTimeConfig(appConfig, userSettings) {
+  const safeUser = userSettings || {};
+
   return {
     studyStart:
-      userSettings.studyStart || "2025-10-19",
+      safeUser.studyStart || "2025-10-19",
 
     rolloverMode:
-      userSettings.rolloverMode ||
+      safeUser.rolloverMode ||
       appConfig.defaultRollover ||
       "sunset",
 
     selectedCalendar:
-      userSettings.selectedCalendar ||
+      safeUser.selectedCalendar ||
       appConfig.defaultCalendar ||
       "gregorian",
 
     timezone:
-      userSettings.timezone || "America/Chicago",
+      safeUser.timezone || "America/Chicago",
 
     geo:
-      userSettings.geo || null,
+      safeUser.geo || null,
 
     cycleDays:
       appConfig.cycleDefaults?.cycleDays || 364,
