@@ -73,14 +73,24 @@ function mergeTimeConfig(appConfig, userSettings) {
 // -----------------------------------
 
 export async function initializeTimeSystem() {
+  console.time("⏱ initializeTimeSystem");
+
   const activeUser = auth.currentUser || { uid: "guest" };
 
+  console.time("appConfig");
   const appConfig = await loadAppConfig();
+  console.timeEnd("appConfig");
+
+  console.time("userSettings");
   const userSettings = await loadUserTimeSettings(activeUser.uid);
+  console.timeEnd("userSettings");
 
+  console.time("merge/configure");
   const finalConfig = mergeTimeConfig(appConfig, userSettings);
-
   TimeEngine.configure(finalConfig);
+  console.timeEnd("merge/configure");
+
+  console.timeEnd("⏱ initializeTimeSystem");
 
   return finalConfig;
 }
