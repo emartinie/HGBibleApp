@@ -1,3 +1,11 @@
+import { initializeTimeSystem } from "./firebaseTimeLoader.js";
+
+initializeTimeSystem()
+  .then(() => {
+    console.log("time ready");
+  })
+  .catch(console.error);
+
 // =====================
 // GLOBAL STATE
 // =====================
