@@ -48,15 +48,23 @@ console.log("AFTER TIME INIT");
 // =====================
 // NAV WIRING
 // =====================
-  function wireCardNavButtons() {
-    document.querySelectorAll(".next-card-btn").forEach(btn => {
-      btn.addEventListener("click", nextCard);
-    });
+function wireCardNavButtons() {
+  document.querySelectorAll(".next-card-btn").forEach(btn => {
+    btn.replaceWith(btn.cloneNode(true));
+  });
 
-    document.querySelectorAll(".prev-card-btn").forEach(btn => {
-      btn.addEventListener("click", prevCard);
-    });
-  }
+  document.querySelectorAll(".prev-card-btn").forEach(btn => {
+    btn.replaceWith(btn.cloneNode(true));
+  });
+
+  document.querySelectorAll(".next-card-btn").forEach(btn => {
+    btn.addEventListener("click", nextCard);
+  });
+
+  document.querySelectorAll(".prev-card-btn").forEach(btn => {
+    btn.addEventListener("click", prevCard);
+  });
+}
 
   function wireSwipe() {
     if (!cardsRow) return;
