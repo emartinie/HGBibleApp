@@ -88,12 +88,17 @@ function wireCardNavButtons() {
     });
   }
 
-  function wireKeyboard() {
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") nextCard();
-      if (e.key === "ArrowLeft") prevCard();
-    });
-  }
+let keyboardBound = false;
+
+function wireKeyboard() {
+  if (keyboardBound) return;
+  keyboardBound = true;
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") nextCard();
+    if (e.key === "ArrowLeft") prevCard();
+  });
+}
   
 // helper functions global
 //function scrollScriptureTop() {
@@ -268,6 +273,8 @@ if (!existing) {
       ticking = true;
     }, { passive: true });
   }
+  
+  document.addEventListener("DOMContentLoaded", init);
 
   // =====================
 // URL LOAD
@@ -302,7 +309,6 @@ if (!window.location.search.includes("card=")) {
   goToCard(0);
 }}
 
-  document.addEventListener("DOMContentLoaded", init);
 
 window.loadCard = loadCard;
   
