@@ -1,9 +1,11 @@
 import { initializeTimeSystem } from "./firebaseTimeLoader.js";
 import { TimeStore } from "./timeStore.js";
+import { initializeCardRenderer } from "./cardRenderer.js";
 
 initializeTimeSystem()
   .then(() => {
     TimeStore.start();
+    initializeCardRenderer();
   })
   .catch(console.error);
 
