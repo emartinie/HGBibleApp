@@ -6,8 +6,8 @@ console.time("FULL BOOT");
 
 await initializeTimeSystem();
 
-TimeStore.start();
 initializeCardRenderer();
+TimeStore.start();
 
 console.timeEnd("FULL BOOT");
 console.log("AFTER TIME INIT");
