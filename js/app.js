@@ -1,16 +1,23 @@
+console.log("🔥 app.js START");
+
 import { initializeTimeSystem } from "./firebaseTimeLoader.js";
 import { TimeStore } from "./timeStore.js";
 import { initializeCardRenderer } from "./cardRenderer.js";
 
-console.time("FULL BOOT");
+console.time("BOOT TRACE");
 
 await initializeTimeSystem();
+console.log("✔ time system ready");
 
 initializeCardRenderer();
-TimeStore.start();
+console.log("✔ card renderer init");
 
-console.timeEnd("FULL BOOT");
-console.log("AFTER TIME INIT");
+TimeStore.start();
+console.log("✔ time store started");
+
+console.timeEnd("BOOT TRACE");
+
+console.log("APP JS RUN ID:", Date.now());
 
 // =====================
 // GLOBAL STATE
@@ -207,7 +214,7 @@ if (!existing) {
 
   document.body.appendChild(script);
 }
-
+console.log("loadCard exists?", typeof window.loadCard);
       goToCard(1);
     } catch (err) {
       console.error("Card load failed:", err);
@@ -307,7 +314,7 @@ if (!existing) {
     loadCard(card);
   }
 }
-
+console.log("🔥 before card renderer init");
 function init() {
   wireSwipe();
   wireKeyboard();
