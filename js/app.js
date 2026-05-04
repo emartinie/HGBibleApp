@@ -38,39 +38,21 @@ function getCards() {
 // =====================
 // CARD NAVIGATION
 // =====================
-                   // function goToCard(index) {
-                  //  if (!cardsRow) return;
-                  
-                //    const cards = getCards();
-                  
-                //    if (!cards.length) return;
-                  
-               //     const clamped = Math.max(0, Math.min(index, cards.length - 1));
-                //    currentCardIndex = clamped;
-                  
-               //     cardsRow.scrollTo({
-              //        left: cards[clamped].offsetLeft,
-               //       behavior: "smooth"
-               //     });
-              //    }
-
-  function goToCard(index) {
+function goToCard(index) {
   console.log("GO TO CARD:", index);
 
-  if (!cardsRow) {
-    console.log("NO CARDS ROW");
-    return;
-  }
+  if (!cardsRow) return;
 
   const cards = getCards();
-const clamped = Math.max(0, Math.min(index, cards.length - 1));
+  if (!cards.length) return;
 
-currentCardIndex = clamped;
+  const clamped = Math.max(0, Math.min(index, cards.length - 1));
+  currentCardIndex = clamped;
 
-cardsRow.scrollTo({
-  left: cards[clamped].offsetLeft,
-  behavior: "smooth"
-});
+  cardsRow.scrollTo({
+    left: cards[clamped].offsetLeft,
+    behavior: "smooth"
+  });
 }
 
   function nextCard() {
