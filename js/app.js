@@ -265,33 +265,40 @@ console.log("loadCard exists?", typeof window.loadCard);
     }
   }
 
-  function syncCurrentCardOnScroll() {
-    if (!cardsRow || !cards.length) return;
+function syncCurrentCardOnScroll() {
+  if (!cardsRow) return;
 
-    let ticking = false;
-    cardsRow.addEventListener("scroll", () => {
-      if (ticking) return;
+  let ticking = false;
 
-      requestAnimationFrame(() => {
-        const left = cardsRow.scrollLeft;
-        let nearest = 0;
-        let nearestDist = Infinity;
+  cardsRow.addEventListener("scroll", () => {
+    if (ticking) return;
 
-        cards.forEach((card, i) => {
-          const dist = Math.abs(card.offsetLeft - left);
-          if (dist < nearestDist) {
-            nearestDist = dist;
-            nearest = i;
-          }
-        });
+    ticking = true;
 
-        currentCardIndex = nearest;
+    requestAnimationFrame(() => {
+      const cards = getCards();
+      if (!cards.length) {
         ticking = false;
+        return;
+      }
+
+      const left = cardsRow.scrollLeft;
+      let nearest = 0;
+      let nearestDist = Infinity;
+
+      cards.forEach((card, i) => {
+        const dist = Math.abs(card.offsetLeft - left);
+        if (dist < nearestDist) {
+          nearestDist = dist;
+          nearest = i;
+        }
       });
 
-      ticking = true;
-    }, { passive: true });
-  }
+      currentCardIndex = nearest;
+      ticking = false;
+    });
+  }, { passive: true });
+}
   
 
   // =====================
