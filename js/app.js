@@ -62,7 +62,15 @@ function getCards() {
     return;
   }
 
-  cardsRow.scrollLeft += 300;
+  const cards = getCards();
+const clamped = Math.max(0, Math.min(index, cards.length - 1));
+
+currentCardIndex = clamped;
+
+cardsRow.scrollTo({
+  left: cards[clamped].offsetLeft,
+  behavior: "smooth"
+});
 }
 
   function nextCard() {
