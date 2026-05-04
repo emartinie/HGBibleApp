@@ -1,6 +1,6 @@
 console.log("🔥 app.js START");
 
-//import { initializeTimeSystem } from "./firebaseTimeLoader.js";
+import { initializeTimeSystem } from "./firebaseTimeLoader.js";
 import { TimeStore } from "./timeStore.js";
 import { initializeCardRenderer } from "./cardRenderer.js";
 
