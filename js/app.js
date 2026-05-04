@@ -15,9 +15,12 @@ console.log("AFTER TIME INIT");
 // =====================
 // GLOBAL STATE
 // =====================
+function getCards() {
+  return Array.from(document.querySelectorAll(".card"));
+}
+
 (function () {
   const cardsRow = document.getElementById("cardsRow");
-  const cards = Array.from(document.querySelectorAll(".card"));
   const cardSelector = document.getElementById("cardSelector");
   const loadedCardHost = document.getElementById("loadedCardHost");
   const prevCardSelect = document.getElementById("prevCardSelect");
@@ -29,14 +32,20 @@ console.log("AFTER TIME INIT");
 // CARD NAVIGATION
 // =====================
   function goToCard(index) {
-    if (!cardsRow || !cards.length) return;
-    const clamped = Math.max(0, Math.min(index, cards.length - 1));
-    currentCardIndex = clamped;
-    cardsRow.scrollTo({
-      left: cards[clamped].offsetLeft,
-      behavior: "smooth"
-    });
-  }
+  if (!cardsRow) return;
+
+  const cards = getCards();
+
+  if (!cards.length) return;
+
+  const clamped = Math.max(0, Math.min(index, cards.length - 1));
+  currentCardIndex = clamped;
+
+  cardsRow.scrollTo({
+    left: cards[clamped].offsetLeft,
+    behavior: "smooth"
+  });
+}
 
   function nextCard() {
     goToCard(currentCardIndex + 1);
@@ -50,11 +59,11 @@ console.log("AFTER TIME INIT");
 // =====================
 function wireCardNavButtons() {
   document.querySelectorAll(".next-card-btn").forEach(btn => {
-    btn.replaceWith(btn.cloneNode(true));
+    btn.onclick = nextCard;
   });
 
   document.querySelectorAll(".prev-card-btn").forEach(btn => {
-    btn.replaceWith(btn.cloneNode(true));
+    btn.onclick = prevCard;
   });
 
   document.querySelectorAll(".next-card-btn").forEach(btn => {
@@ -170,8 +179,10 @@ async function loadExtraScript(src) {
       const html = await res.text();
       loadedCardHost.innerHTML = html;
 
+      requestAnimationFrame(() => {
         wireCardNavButtons();
         syncCurrentCardOnScroll();
+      });
 
       if (cardName !== "prayermap") {
   window.prayerMapInitialized = false;
