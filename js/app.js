@@ -38,20 +38,31 @@ function getCards() {
 // =====================
 // CARD NAVIGATION
 // =====================
+                   // function goToCard(index) {
+                  //  if (!cardsRow) return;
+                  
+                //    const cards = getCards();
+                  
+                //    if (!cards.length) return;
+                  
+               //     const clamped = Math.max(0, Math.min(index, cards.length - 1));
+                //    currentCardIndex = clamped;
+                  
+               //     cardsRow.scrollTo({
+              //        left: cards[clamped].offsetLeft,
+               //       behavior: "smooth"
+               //     });
+              //    }
+
   function goToCard(index) {
-  if (!cardsRow) return;
+  console.log("GO TO CARD:", index);
 
-  const cards = getCards();
+  if (!cardsRow) {
+    console.log("NO CARDS ROW");
+    return;
+  }
 
-  if (!cards.length) return;
-
-  const clamped = Math.max(0, Math.min(index, cards.length - 1));
-  currentCardIndex = clamped;
-
-  cardsRow.scrollTo({
-    left: cards[clamped].offsetLeft,
-    behavior: "smooth"
-  });
+  cardsRow.scrollLeft += 300;
 }
 
   function nextCard() {
