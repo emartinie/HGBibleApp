@@ -7,7 +7,7 @@ import {
 
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-//import { TimeEngine } from "./timeEngine.js";
+import { TimeEngine } from "./timeEngine.js";
 
 
 // -----------------------------------
