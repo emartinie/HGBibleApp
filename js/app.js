@@ -1,7 +1,7 @@
 console.log("🔥 app.js START");
 
 //import { initializeTimeSystem } from "./firebaseTimeLoader.js";
-//import { TimeStore } from "./timeStore.js";
+import { TimeStore } from "./timeStore.js";
 //import { initializeCardRenderer } from "./cardRenderer.js";
 
 console.time("BOOT TRACE");
@@ -12,7 +12,7 @@ console.log("✔ time system ready");
 //initializeCardRenderer();
 console.log("✔ card renderer init");
 
-//TimeStore.start();
+TimeStore.start();
 console.log("✔ time store started");
 
 console.timeEnd("BOOT TRACE");
