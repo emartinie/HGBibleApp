@@ -22,9 +22,6 @@ console.log("APP JS RUN ID:", Date.now());
 // =====================
 // GLOBAL STATE
 // =====================
-function getCards() {
-  return Array.from(document.querySelectorAll(".card"));
-}
 
 (function () {
   const cardsRow = document.getElementById("cardsRow");
@@ -38,13 +35,13 @@ function getCards() {
 // =====================
 // CARD NAVIGATION
 // =====================
+function getCards() {
+  return Array.from(document.querySelectorAll(".card"));
+}
+
 function goToCard(index) {
-  console.log("GO TO CARD:", index);
-
-  if (!cardsRow) return;
-
   const cards = getCards();
-  if (!cards.length) return;
+  if (!cards.length || !cardsRow) return;
 
   const clamped = Math.max(0, Math.min(index, cards.length - 1));
   currentCardIndex = clamped;
