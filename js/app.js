@@ -338,6 +338,23 @@ function init() {
 window.loadCard = loadCard;
 
   // =====================
+// GLOBAL TOGGLE SECTION
+// =====================
+window.toggleSection = function(label) {
+  const content = label.nextElementSibling;
+  if (!content) return;
+
+  const isHidden = content.style.display === "none";
+
+  content.style.display = isHidden ? "" : "none";
+
+  label.textContent = label.textContent.replace(
+    isHidden ? "▶" : "▼",
+    isHidden ? "▼" : "▶"
+  );
+};
+
+  // =====================
 // MANUAL CARD RELOAD
 // =====================
 function reloadCurrentCard() {
