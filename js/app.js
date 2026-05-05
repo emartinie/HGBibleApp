@@ -336,5 +336,42 @@ function init() {
   document.addEventListener("DOMContentLoaded", init);
 
 window.loadCard = loadCard;
+
+  // =====================
+// MANUAL CARD RELOAD
+// =====================
+function reloadCurrentCard() {
+  if (!cardSelector) return;
+
+  const currentCard = cardSelector.value;
+  if (!currentCard) return;
+
+  console.log("🔄 Reloading card:", currentCard);
+
+  // clear old DOM first
+  if (loadedCardHost) {
+    loadedCardHost.innerHTML = "";
+  }
+
+  // remove old card script
+  const oldScript = document.querySelector(
+    `script[src*="js/${currentCard}.js"]`
+  );
+
+  if (oldScript) {
+    oldScript.remove();
+    console.log(`🧹 Removed old script: ${currentCard}.js`);
+  }
+
+  // optional reset for map cards or one-time init cards
+  window.prayerMapInitialized = false;
+
+  // reload card fresh
+  loadCard(currentCard);
+}
+
+document
+  .getElementById("reloadCardBtn")
+  ?.addEventListener("click", reloadCurrentCard);
   
 })();
