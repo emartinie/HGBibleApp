@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function goHome() {
-    window.location.href = "/";
+    window.location.href = "/index.html";
     // or "/index.html" depending on your structure
   }
 
