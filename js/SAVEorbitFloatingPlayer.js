@@ -552,8 +552,8 @@ function destroyFloatingPlayer() {
   if (glowInterval) clearInterval(glowInterval);
   if (orbitInterval) clearInterval(orbitInterval);
 }
-})
+
 //registerResource("player", {
   //init: setupFloatingPlayer,
   //destroy: destroyFloatingPlayer
-
+//})
