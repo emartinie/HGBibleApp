@@ -26,7 +26,9 @@ const articles = [
   { title: "The Story", file: "the_story.html" },
   { title: "Understanding Denominations for Unity Sake", file: "understanding_denominations.html" },
   { title: "Where Did the Sabbath Go?", file: "where_did_the_sabbath_go.html" },
-  { title: "Who is Q for Christians?", file: "who_is_q_for_christians.html" }
+  { title: "Who is Q for Christians?", file: "who_is_q_for_christians.html" },
+  { title: "Hanukkah, and What I Believe", file: "a_note_on_trust.html" }
+
 ];
 
   const listEl = document.getElementById("articleList");
