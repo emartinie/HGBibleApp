@@ -584,6 +584,18 @@
       margin-top: 12px;
     }
 
+    #floating-player-root {
+  margin-top: 12px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+#floating-player-root.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
     @media (min-width: 720px) {
       #appShell {
         max-width: 520px;
