@@ -312,7 +312,7 @@ const shareBtn = btn("🔗","Share Track",()=>{
 
   // --- Dock Button ---
 const dockBtn = document.createElement("button");
-dockBtn.textContent = "⫶";
+dockBtn.textContent = "⫶", "Dock";
 Object.assign(dockBtn.style, {
       padding:"6px 10px",
       borderRadius:"9999px",
@@ -353,6 +353,8 @@ dockBtn.addEventListener("click", () => {
       justifyContent: "space-between",
       padding: "0 10px"
     });
+  
+    player.classList.add('active')
 
   } else {
     // Move player back to floating
@@ -373,6 +375,8 @@ host.appendChild(player);
       justifyContent: "center",
       padding: "0"
     });
+    
+    player.classList.add('inactive')
 
   }
 });
