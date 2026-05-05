@@ -2,7 +2,7 @@
   console.log("🌟 Orbit Face Manager initializing...");
 
   const logoSrc = "./images/HGHouses.png";
-  const videoSrc = "./videos/build_your_kingdom_here.mp4";
+  const videoSrc = "https://github.com/emartinie/MainStage/blob/main/videos/build_your_kingdom_here.mp4";
 
   let logoEl, videoEl, sonographEl;
   let showingVideo = false;
