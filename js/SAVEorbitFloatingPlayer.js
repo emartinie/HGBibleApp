@@ -553,7 +553,7 @@ function destroyFloatingPlayer() {
   if (orbitInterval) clearInterval(orbitInterval);
 }
 
-registerResource("player", {
+//registerResource("player", {
   //init: setupFloatingPlayer,
-  destroy: destroyFloatingPlayer
+  //destroy: destroyFloatingPlayer
 })
