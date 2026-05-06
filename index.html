@@ -701,7 +701,23 @@
   <button class="card-icon-btn utility" title="Help">?</button>
 
 </div>
-<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->          <div class="card-shell">
+<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
+          <div class="scripture-subbar">
+  <button id="scriptureSearchBtn" class="ui-btn">Go</button>
+  <button id="scriptureReloadBtn" class="ui-btn">Reload</button>
+  <button id="scripturePrevBtn" class="ui-btn">← Prev</button>
+  <button id="scriptureNextBtn" class="ui-btn">Next →</button>
+  <button id="copyScriptureBtn" class="ui-btn">Copy</button>
+  <button onclick="document.getElementById('scriptureContent').scrollTop = 0" class="ui-btn">↑ Top</button>
+
+  <button onclick="goToNT()" class="ui-btn">✝️ NT</button>
+  <button onclick="goBackToCommandments()" class="ui-btn">🔙 Cmd</button>
+  <button id="openBridgeBtn" class="ui-btn">Bridge</button>
+  <button id="openSefariaContextBtn" class="ui-btn">Sefaria</button>
+  <button id="ntHomeHeaderBtn" class="ui-btn">Notes</button>
+  <button id="ntQuotesHeaderBtn" class="ui-btn">Quotes</button>
+</div>
+          <div class="card-shell">
             <div class="card-header">
               <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
 
