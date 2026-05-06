@@ -50,7 +50,7 @@
 </style>
 
 <section class="hg-panel">
-  <div class="card-topbar">
+<div class="card-topbar">
 
   <!-- existing fullscreen -->
   <button class="card-fullscreen-btn card-icon-btn primary"
@@ -71,6 +71,59 @@
 
 </div>
 <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
+         <div class="card-topbar scripture-subnav">
+
+  <button class="card-icon-btn scripture" id="scriptureSearchBtn" title="Search">
+    ⌕
+  </button>
+
+  <button class="card-icon-btn scripture" id="scriptureReloadBtn" title="Reload">
+    ↻
+  </button>
+
+  <button class="card-icon-btn scripture" id="scripturePrevBtn" title="Previous Verse">
+    ←
+  </button>
+
+  <button class="card-icon-btn scripture" id="scriptureNextBtn" title="Next Verse">
+    →
+  </button>
+
+  <button class="card-icon-btn scripture" id="copyScriptureBtn" title="Copy">
+    ⧉
+  </button>
+
+  <button class="card-icon-btn scripture"
+          onclick="document.getElementById('scriptureContent').scrollTop = 0"
+          title="Top">
+    ↑
+  </button>
+
+  <button class="card-icon-btn scripture" onclick="goToNT()" title="New Testament">
+    ✝
+  </button>
+
+  <button class="card-icon-btn scripture" onclick="goBackToCommandments()" title="Commandments">
+    ⌘
+  </button>
+
+  <button class="card-icon-btn scripture" id="openBridgeBtn" title="Related Context">
+    ⛓
+  </button>
+
+  <button class="card-icon-btn scripture" id="openSefariaContextBtn" title="Jewish Context">
+    ✡
+  </button>
+
+  <button class="card-icon-btn scripture" id="ntHomeHeaderBtn" title="Notes">
+    ☰
+  </button>
+
+  <button class="card-icon-btn scripture" id="ntQuotesHeaderBtn" title="Quotes">
+    ❝
+  </button>
+
+</div>
   <div class="p-5 space-y-5 text-slate-100">
 
     <!-- HEADER -->
