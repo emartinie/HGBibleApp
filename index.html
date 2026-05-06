@@ -702,20 +702,58 @@
 
 </div>
 <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
-          <div class="scripture-subbar">
-  <button id="scriptureSearchBtn" class="ui-btn">Go</button>
-  <button id="scriptureReloadBtn" class="ui-btn">Reload</button>
-  <button id="scripturePrevBtn" class="ui-btn">← Prev</button>
-  <button id="scriptureNextBtn" class="ui-btn">Next →</button>
-  <button id="copyScriptureBtn" class="ui-btn">Copy</button>
-  <button onclick="document.getElementById('scriptureContent').scrollTop = 0" class="ui-btn">↑ Top</button>
+         <div class="card-topbar scripture-subnav">
 
-  <button onclick="goToNT()" class="ui-btn">✝️ NT</button>
-  <button onclick="goBackToCommandments()" class="ui-btn">🔙 Cmd</button>
-  <button id="openBridgeBtn" class="ui-btn">Bridge</button>
-  <button id="openSefariaContextBtn" class="ui-btn">Sefaria</button>
-  <button id="ntHomeHeaderBtn" class="ui-btn">Notes</button>
-  <button id="ntQuotesHeaderBtn" class="ui-btn">Quotes</button>
+  <button class="card-icon-btn scripture" id="scriptureSearchBtn" title="Search">
+    ⌕
+  </button>
+
+  <button class="card-icon-btn scripture" id="scriptureReloadBtn" title="Reload">
+    ↻
+  </button>
+
+  <button class="card-icon-btn scripture" id="scripturePrevBtn" title="Previous Verse">
+    ←
+  </button>
+
+  <button class="card-icon-btn scripture" id="scriptureNextBtn" title="Next Verse">
+    →
+  </button>
+
+  <button class="card-icon-btn scripture" id="copyScriptureBtn" title="Copy">
+    ⧉
+  </button>
+
+  <button class="card-icon-btn scripture"
+          onclick="document.getElementById('scriptureContent').scrollTop = 0"
+          title="Top">
+    ↑
+  </button>
+
+  <button class="card-icon-btn scripture" onclick="goToNT()" title="New Testament">
+    ✝
+  </button>
+
+  <button class="card-icon-btn scripture" onclick="goBackToCommandments()" title="Commandments">
+    ⌘
+  </button>
+
+  <button class="card-icon-btn scripture" id="openBridgeBtn" title="Related Context">
+    ⛓
+  </button>
+
+  <button class="card-icon-btn scripture" id="openSefariaContextBtn" title="Jewish Context">
+    ✡
+  </button>
+
+  <button class="card-icon-btn scripture" id="ntHomeHeaderBtn" title="Notes">
+    ☰
+  </button>
+
+  <button class="card-icon-btn scripture" id="ntQuotesHeaderBtn" title="Quotes">
+    ❝
+  </button>
+
 </div>
           <div class="card-shell">
             <div class="card-header">
