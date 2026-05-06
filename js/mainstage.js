@@ -1,3 +1,4 @@
+import { initWeeklyScriptureLoader } from "./weeklyScriptureLoader.js";
 import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
@@ -381,6 +382,7 @@ async function loadWeek(weekNum) {
 function init() {
   cacheDOM();
   populateWeekSelect();
+  initWeeklyScriptureLoader();
 
   // Set initial week globally
   window.currentWeek = parseInt(weekSelect.value, 10);
