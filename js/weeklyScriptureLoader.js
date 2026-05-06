@@ -1,4 +1,4 @@
-let currentWeek = 29;
+let currentWeek = null;
 let currentLang = "english";
 
 function getWeek() {
@@ -40,7 +40,17 @@ function setWeek(week) {
 }
 
 export function initWeeklyScriptureLoader() {
-  currentWeek = getWeek();
+  const resolved = getWeek();
+
+  if (!Number.isFinite(resolved)) {
+    console.error("Week engine not ready");
+    return;
+  }
+
+  currentWeek = resolved;
+
+  loadWeeklyScripture();
+}
 
   document.getElementById("langEnglishBtn")
     ?.addEventListener("click", () => setLanguage("english"));
@@ -52,13 +62,13 @@ export function initWeeklyScriptureLoader() {
     ?.addEventListener("click", () => setLanguage("greek"));
 
   document.getElementById("scripturePrevBtn")
-    ?.addEventListener("click", () => setWeek(currentWeek - 1));
-
+    ?.addEventListener("click", () => setWeek(getWeek() - 1));
+  
   document.getElementById("scriptureNextBtn")
-    ?.addEventListener("click", () => setWeek(currentWeek + 1));
+    ?.addEventListener("click", () => setWeek(getWeek() + 1));
 
   document.getElementById("scriptureReloadBtn")
     ?.addEventListener("click", loadWeeklyScripture);
 
-  loadWeeklyScripture();
+  //loadWeeklyScripture();
 }
