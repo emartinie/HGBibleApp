@@ -1,4 +1,4 @@
-let currentWeek;
+let currentWeek = 29;
 let currentLang = "english";
 
 function getWeek() {
