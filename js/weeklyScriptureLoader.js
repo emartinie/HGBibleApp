@@ -1,9 +1,10 @@
-let currentWeek = getWeek();
+let currentWeek;
+let currentLang = "english";
 
 function getWeek() {
   return typeof getSelectedWeekNumber === "function"
     ? getSelectedWeekNumber()
-    : (typeof getWeekNumber === "function" ? getWeekNumber() : null);
+    : 1;
 }
 
 async function loadWeeklyScripture() {
