@@ -799,18 +799,39 @@
               </section>
 
               <section class="content-panel">
-                <div class="section-label" onclick="toggleSection(this)">
-                  Weekly Scripture ▼
-                </div>
-              <div id="weeklyScriptureMeta" class="text-sm text-slate-400 mb-2">
-  Loading week...
-</div>
-                <div id="weeklyScriptureContainer">
-                  <div class="empty-state">
-                    Weekly scripture will load here.
-                  </div>
-                </div>
-              </section>
+  <div class="section-label" onclick="toggleSection(this)">
+    Weekly Scripture ▼
+  </div>
+
+  <div class="space-y-3">
+
+    <div class="flex items-center justify-between flex-wrap gap-2">
+      <div id="weeklyScriptureMeta" class="text-xs text-slate-400">
+        Loading week...
+      </div>
+
+      <div class="flex gap-2">
+        <button id="langEnglishBtn" class="ui-btn text-xs">EN</button>
+        <button id="langHebrewBtn" class="ui-btn text-xs">HE</button>
+        <button id="langGreekBtn" class="ui-btn text-xs">GR</button>
+        <button id="scriptureReloadBtn" class="ui-btn text-xs">↻</button>
+      </div>
+    </div>
+
+    <div
+      id="weeklyScriptureContainer"
+      class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed"
+    >
+      Loading scripture...
+    </div>
+
+    <div class="flex justify-between">
+      <button id="scripturePrevBtn" class="ui-btn text-xs">← Prev</button>
+      <button id="scriptureNextBtn" class="ui-btn text-xs">Next →</button>
+    </div>
+
+  </div>
+</section>
               
               <section class="content-panel">
                 <div class="section-label" onclick="toggleSection(this)">Chapter Outlines ▼</div>
