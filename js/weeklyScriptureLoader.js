@@ -49,9 +49,6 @@ export function initWeeklyScriptureLoader() {
 
   currentWeek = resolved;
 
-  loadWeeklyScripture();
-}
-
   document.getElementById("langEnglishBtn")
     ?.addEventListener("click", () => setLanguage("english"));
 
@@ -62,13 +59,13 @@ export function initWeeklyScriptureLoader() {
     ?.addEventListener("click", () => setLanguage("greek"));
 
   document.getElementById("scripturePrevBtn")
-    ?.addEventListener("click", () => setWeek(getWeek() - 1));
-  
+    ?.addEventListener("click", () => setWeek(currentWeek - 1));
+
   document.getElementById("scriptureNextBtn")
-    ?.addEventListener("click", () => setWeek(getWeek() + 1));
+    ?.addEventListener("click", () => setWeek(currentWeek + 1));
 
   document.getElementById("scriptureReloadBtn")
     ?.addEventListener("click", loadWeeklyScripture);
 
-  //loadWeeklyScripture();
-//}
+  loadWeeklyScripture();
+}
