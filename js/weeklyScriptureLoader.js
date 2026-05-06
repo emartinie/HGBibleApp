@@ -1,10 +1,10 @@
+import { getWeekNumber } from "./weekEngine.js";
+
 let currentWeek = null;
 let currentLang = "english";
 
 function getWeek() {
-  return typeof getSelectedWeekNumber === "function"
-    ? getSelectedWeekNumber()
-    : 1;
+  return getWeekNumber();
 }
 
 async function loadWeeklyScripture() {
