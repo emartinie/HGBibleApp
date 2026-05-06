@@ -71,4 +71,4 @@ export function initWeeklyScriptureLoader() {
     ?.addEventListener("click", loadWeeklyScripture);
 
   //loadWeeklyScripture();
-}
+//}
