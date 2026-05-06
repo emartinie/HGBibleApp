@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week 25 – Command!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Designed to look good inside the Reader Modal -->
+  <style>
+    body {
+      margin: 0;
+      padding: 1rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+    }
+    .week-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    h1, h2, h3 {
+      margin: 0.25rem 0;
+    }
+    h1 {
+      font-size: 1.6rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      color: #38bdf8;
+    }
+    .week-label {
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+    .reading-list {
+      margin: 0.75rem 0 1.25rem;
+      padding-left: 1.1rem;
+      font-size: 0.95rem;
+    }
+    .reading-list li {
+      margin: 0.2rem 0;
+    }
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.75rem 0 1.25rem;
+    }
+    .link-row a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.95));
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .link-row a span.icon {
+      font-size: 1.05rem;
+    }
+    .notice {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 1.1rem;
+    }
+    .glass-block {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.45);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .glass-block h2 {
+      border-bottom: 1px solid rgba(148, 163, 184, 0.45);
+      padding-bottom: 0.4rem;
+      margin-bottom: 0.4rem;
+      color: #38bdf8;
+    }
+    pre {
+      white-space: pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <main class="week-wrapper">
+    <div class="week-label">Week 25</div>
+    <h1>Command!</h1>
+    <h2>Read the Whole Bible in a Year, Every Year</h2>
+
+    
+      <ul class="reading-list">
+        <li><strong>Torah / Pentateuch:</strong> Leviticus 6:1-8:36</li>
+        <li><strong>Haftarah / Prophets &amp; Writings:</strong> II Ki 7:3-7:20</li>
+        <li><strong>Brit Chadashah / New Testament:</strong> Heb 10:1-18</li>
+      </ul>
+    
+
+    <div class="link-row">
+      <a href='https://www.biblegateway.com/passage/?search=Leviticus 6:1-8:36; II Ki 7:3-7:20; Heb 10:1-18&version=TLV' target='_blank' rel='noopener noreferrer'><span class='icon'>📖</span>TLV (BibleGateway)</a>
+      <a href='https://www.biblegateway.com/passage/?search=Leviticus 6:1-8:36; II Ki 7:3-7:20; Heb 10:1-18&version=SBLGNT' target='_blank' rel='noopener noreferrer'><span class='icon'>📜</span>SBLGNT (BibleGateway)</a>
+    </div>
+
+    <div class="notice">
+      Scripture text below is scraped from BibleGateway (KJV,SBLGNT) for prototype / personal study use.
+      TLV usage & full original-language integration will depend on permissions from the MJ Bible Society
+      and appropriate Hebrew/Greek text licenses.
+    </div>
+
+    <section class="glass-block">
+      <h2>English Text — TLV</h2>
+      <pre>10
+Σκιὰν γὰρ ἔχων ὁ νόμος τῶν μελλόντων ἀγαθῶν, οὐκ αὐτὴν τὴν εἰκόνα τῶν πραγμάτων, κατ’ ἐνιαυτὸν ταῖς αὐταῖς θυσίαις ἃς προσφέρουσιν εἰς τὸ διηνεκὲς οὐδέποτε
+δύναται τοὺς προσερχομένους τελειῶσαι·
+ἐπεὶ οὐκ ἂν ἐπαύσαντο προσφερόμεναι, διὰ τὸ μηδεμίαν ἔχειν ἔτι συνείδησιν ἁμαρτιῶν τοὺς λατρεύοντας ἅπαξ
+κεκαθαρισμένους;
+ἀλλ’ ἐν αὐταῖς ἀνάμνησις ἁμαρτιῶν κατ’ ἐνιαυτόν,
+ἀδύνατον γὰρ αἷμα ταύρων καὶ τράγων ἀφαιρεῖν ἁμαρτίας.
+διὸ εἰσερχόμενος εἰς τὸν κόσμον λέγει· Θυσίαν καὶ προσφορὰν οὐκ ἠθέλησας, σῶμα δὲ κατηρτίσω μοι·
+ὁλοκαυτώματα καὶ περὶ ἁμαρτίας οὐκ εὐδόκησας.
+τότε εἶπον· Ἰδοὺ ἥκω, ἐν κεφαλίδι βιβλίου γέγραπται περὶ ἐμοῦ, τοῦ ποιῆσαι, ὁ θεός, τὸ θέλημά σου.
+ἀνώτερον λέγων ὅτι
+Θυσίας καὶ προσφορὰς καὶ ὁλοκαυτώματα καὶ περὶ ἁμαρτίας οὐκ ἠθέλησας οὐδὲ εὐδόκησας, αἵτινες κατὰ
+νόμον προσφέρονται,
+τότε εἴρηκεν· Ἰδοὺ ἥκω τοῦ
+ποιῆσαι τὸ θέλημά σου· ἀναιρεῖ τὸ πρῶτον ἵνα τὸ δεύτερον στήσῃ.
+ἐν ᾧ θελήματι ἡγιασμένοι
+ἐσμὲν διὰ τῆς προσφορᾶς τοῦ σώματος Ἰησοῦ Χριστοῦ ἐφάπαξ.
+Καὶ πᾶς μὲν ἱερεὺς ἕστηκεν καθ’ ἡμέραν λειτουργῶν καὶ τὰς αὐτὰς πολλάκις προσφέρων θυσίας, αἵτινες οὐδέποτε δύνανται περιελεῖν ἁμαρτίας.
+οὗτος δὲ μίαν ὑπὲρ ἁμαρτιῶν προσενέγκας θυσίαν εἰς τὸ διηνεκὲς ἐκάθισεν ἐν δεξιᾷ τοῦ θεοῦ,
+τὸ λοιπὸν ἐκδεχόμενος ἕως τεθῶσιν οἱ ἐχθροὶ αὐτοῦ ὑποπόδιον τῶν ποδῶν αὐτοῦ,
+μιᾷ γὰρ προσφορᾷ τετελείωκεν εἰς τὸ διηνεκὲς τοὺς ἁγιαζομένους.
+μαρτυρεῖ δὲ ἡμῖν καὶ τὸ πνεῦμα τὸ ἅγιον, μετὰ γὰρ τὸ
+εἰρηκέναι·
+Αὕτη ἡ διαθήκη ἣν διαθήσομαι πρὸς αὐτοὺς μετὰ τὰς ἡμέρας ἐκείνας, λέγει κύριος, διδοὺς νόμους μου ἐπὶ καρδίας αὐτῶν, καὶ ἐπὶ
+τὴν διάνοιαν αὐτῶν ἐπιγράψω αὐτούς,
+καὶ τῶν ἁμαρτιῶν αὐτῶν καὶ τῶν ἀνομιῶν αὐτῶν οὐ μὴ
+μνησθήσομαι ἔτι·
+ὅπου δὲ ἄφεσις τούτων, οὐκέτι προσφορὰ περὶ ἁμαρτίας.
+Read full chapter
+Footnotes
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:1
+δύναται
+NIV ] δύνανται WH Treg RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:2
+κεκαθαρισμένους
+WH Treg NIV ] κεκαθαρμένους RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:8
+Θυσίας καὶ προσφορὰς
+WH Treg NIV ] Θυσίαν καὶ προσφορὰν RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:8
+νόμον
+WH Treg NIV ] τόν νόμον RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:9
+ποιῆσαι
+WH Treg NIV ] + ὁ θεός RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:10
+ἐσμὲν
+WH Treg NIV ] + οἱ RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:12
+οὗτος
+WH Treg NIV ] αὐτὸς RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:15
+εἰρηκέναι
+WH Treg NIV ] προειρηκέναι RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:16
+τὴν διάνοιαν
+WH Treg NIV ] τῶν διανοιῶν RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:17
+καὶ
+WH Treg RP NA ] ὕστερον λέγει καὶ NIV
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:17
+μνησθήσομαι
+WH Treg NIV ] μνησθῶ RP</pre>
+    </section>
+
+    <section class="glass-block">
+      <h2>Hebrew Text — (Prototype Placeholder)</h2>
+      <pre>📜 Hebrew text coming soon (original language integration phase).</pre>
+    </section>
+
+    <section class="glass-block">
+      <h2>Greek Text — (Prototype Placeholder)</h2>
+      <pre>10
+Σκιὰν γὰρ ἔχων ὁ νόμος τῶν μελλόντων ἀγαθῶν, οὐκ αὐτὴν τὴν εἰκόνα τῶν πραγμάτων, κατ’ ἐνιαυτὸν ταῖς αὐταῖς θυσίαις ἃς προσφέρουσιν εἰς τὸ διηνεκὲς οὐδέποτε
+δύναται τοὺς προσερχομένους τελειῶσαι·
+ἐπεὶ οὐκ ἂν ἐπαύσαντο προσφερόμεναι, διὰ τὸ μηδεμίαν ἔχειν ἔτι συνείδησιν ἁμαρτιῶν τοὺς λατρεύοντας ἅπαξ
+κεκαθαρισμένους;
+ἀλλ’ ἐν αὐταῖς ἀνάμνησις ἁμαρτιῶν κατ’ ἐνιαυτόν,
+ἀδύνατον γὰρ αἷμα ταύρων καὶ τράγων ἀφαιρεῖν ἁμαρτίας.
+διὸ εἰσερχόμενος εἰς τὸν κόσμον λέγει· Θυσίαν καὶ προσφορὰν οὐκ ἠθέλησας, σῶμα δὲ κατηρτίσω μοι·
+ὁλοκαυτώματα καὶ περὶ ἁμαρτίας οὐκ εὐδόκησας.
+τότε εἶπον· Ἰδοὺ ἥκω, ἐν κεφαλίδι βιβλίου γέγραπται περὶ ἐμοῦ, τοῦ ποιῆσαι, ὁ θεός, τὸ θέλημά σου.
+ἀνώτερον λέγων ὅτι
+Θυσίας καὶ προσφορὰς καὶ ὁλοκαυτώματα καὶ περὶ ἁμαρτίας οὐκ ἠθέλησας οὐδὲ εὐδόκησας, αἵτινες κατὰ
+νόμον προσφέρονται,
+τότε εἴρηκεν· Ἰδοὺ ἥκω τοῦ
+ποιῆσαι τὸ θέλημά σου· ἀναιρεῖ τὸ πρῶτον ἵνα τὸ δεύτερον στήσῃ.
+ἐν ᾧ θελήματι ἡγιασμένοι
+ἐσμὲν διὰ τῆς προσφορᾶς τοῦ σώματος Ἰησοῦ Χριστοῦ ἐφάπαξ.
+Καὶ πᾶς μὲν ἱερεὺς ἕστηκεν καθ’ ἡμέραν λειτουργῶν καὶ τὰς αὐτὰς πολλάκις προσφέρων θυσίας, αἵτινες οὐδέποτε δύνανται περιελεῖν ἁμαρτίας.
+οὗτος δὲ μίαν ὑπὲρ ἁμαρτιῶν προσενέγκας θυσίαν εἰς τὸ διηνεκὲς ἐκάθισεν ἐν δεξιᾷ τοῦ θεοῦ,
+τὸ λοιπὸν ἐκδεχόμενος ἕως τεθῶσιν οἱ ἐχθροὶ αὐτοῦ ὑποπόδιον τῶν ποδῶν αὐτοῦ,
+μιᾷ γὰρ προσφορᾷ τετελείωκεν εἰς τὸ διηνεκὲς τοὺς ἁγιαζομένους.
+μαρτυρεῖ δὲ ἡμῖν καὶ τὸ πνεῦμα τὸ ἅγιον, μετὰ γὰρ τὸ
+εἰρηκέναι·
+Αὕτη ἡ διαθήκη ἣν διαθήσομαι πρὸς αὐτοὺς μετὰ τὰς ἡμέρας ἐκείνας, λέγει κύριος, διδοὺς νόμους μου ἐπὶ καρδίας αὐτῶν, καὶ ἐπὶ
+τὴν διάνοιαν αὐτῶν ἐπιγράψω αὐτούς,
+καὶ τῶν ἁμαρτιῶν αὐτῶν καὶ τῶν ἀνομιῶν αὐτῶν οὐ μὴ
+μνησθήσομαι ἔτι·
+ὅπου δὲ ἄφεσις τούτων, οὐκέτι προσφορὰ περὶ ἁμαρτίας.
+Read full chapter
+Footnotes
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:1
+δύναται
+NIV ] δύνανται WH Treg RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:2
+κεκαθαρισμένους
+WH Treg NIV ] κεκαθαρμένους RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:8
+Θυσίας καὶ προσφορὰς
+WH Treg NIV ] Θυσίαν καὶ προσφορὰν RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:8
+νόμον
+WH Treg NIV ] τόν νόμον RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:9
+ποιῆσαι
+WH Treg NIV ] + ὁ θεός RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:10
+ἐσμὲν
+WH Treg NIV ] + οἱ RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:12
+οὗτος
+WH Treg NIV ] αὐτὸς RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:15
+εἰρηκέναι
+WH Treg NIV ] προειρηκέναι RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:16
+τὴν διάνοιαν
+WH Treg NIV ] τῶν διανοιῶν RP
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:17
+καὶ
+WH Treg RP NA ] ὕστερον λέγει καὶ NIV
+ΠΡΟΣ ΕΒΡΑΙΟΥΣ 10:17
+μνησθήσομαι
+WH Treg NIV ] μνησθῶ RP</pre>
+    </section>
+
+  </main>
+</body>
+</html>
