@@ -1,12 +1,13 @@
-(function () {
-  function getWeek() {
-    return typeof getSelectedWeekNumber === "function"
-      ? getSelectedWeekNumber()
-      : 1;
-  }
+import { getWeekNumber } from "./weekEngine.js";
 
-  async function loadCommentary() {
-    const week = getWeek();
+let currentWeek = null;
+
+function getWeek() {
+  return getWeekNumber();
+}
+
+function loadCommentary(week)
+  const week = getWeek();
 
     const meta = document.getElementById("commentaryMeta");
     const content = document.getElementById("commentaryContent");
@@ -37,8 +38,7 @@
       .getElementById("commentaryReloadBtn")
       ?.addEventListener("click", loadCommentary);
 
-    loadCommentary();
-  }
+    loadCommentary(currentWeek);  }
 
   init();
 })();
