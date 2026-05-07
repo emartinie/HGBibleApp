@@ -26,12 +26,26 @@ async function loadInterlinear() {
         </div>
 
         <div class="mb-3 text-right text-blue-300 text-xl leading-loose">
-          ${v.hebrew}
-        </div>
+  ${v.hebrew.split(" ").map(word => `
+    <span
+      class="cursor-pointer hover:text-orange-300 transition"
+      title="${word}"
+    >
+      ${word}
+    </span>
+  `).join(" ")}
+</div>
 
         <div class="text-purple-300 text-lg">
-          ${v.greek}
-        </div>
+  ${v.greek.split(" ").map(word => `
+    <span
+      class="cursor-pointer hover:text-orange-300 transition"
+      title="${word}"
+    >
+      ${word}
+    </span>
+  `).join(" ")}
+</div>
 
       </div>
     `).join("");
