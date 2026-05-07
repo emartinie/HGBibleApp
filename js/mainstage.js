@@ -206,18 +206,16 @@ playlist.forEach(track => {
   label.textContent = track.label;
 
   const scriptureText = parseScriptureFromFilename(track.src);
-
+  track.scriptureRef = scriptureText;
+  
   const scriptureSpan = document.createElement('span');
   scriptureSpan.className = "text-xs text-blue-300 hover:text-blue-200 underline cursor-pointer";
   scriptureSpan.textContent = scriptureText;
 
   scriptureSpan.addEventListener('click', () => {
-    // store reference for scripture system
-    localStorage.setItem("scriptureSearch", scriptureText);
-  
-    // jump to your scripture card
-    window.loadCard?.("scripture");
-  });
+  localStorage.setItem("scriptureSearch", track.scriptureRef);
+  window.loadCard?.("scripture");
+});
   
 playBtn.addEventListener('click', () => {
   // If clicking same track → toggle
