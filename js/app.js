@@ -206,16 +206,18 @@ if (!existing) {
   script.src = `js/${cardName}.js?v=${Date.now()}`;
   script.defer = true;
 
-  if (cardName === "prayermap") {
-    script.type = "module";
+if (!existing) {
+  const script = document.createElement("script");
+  script.src = `js/${cardName}.js?v=${Date.now()}`;
+  script.defer = true;
 
-  if (cardName === "commentary") {
+  if (cardName === "prayermap" || cardName === "commentary") {
     script.type = "module";
-    
   }
 
   document.body.appendChild(script);
 }
+  
 console.log("loadCard exists?", typeof window.loadCard);
       goToCard(1);
     } catch (err) {
