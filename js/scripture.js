@@ -4,6 +4,12 @@ async function loadInterlinear() {
   if (!container) return;
 
   container.innerHTML = "Loading interlinear...";
+  const storedRef = localStorage.getItem("scriptureSearch");
+
+const firstVerse =
+  storedRef && storedRef.includes("-")
+    ? storedRef.split("-")[0]
+    : storedRef;
 
   try {
     const res = await fetch("data/interlinear/week29.json");
@@ -18,7 +24,7 @@ async function loadInterlinear() {
       <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4">
         
         <div class="text-orange-300 font-semibold mb-2">
-          ${v.ref}
+          ${firstVerse || v.ref}
         </div>
 
         <div class="mb-3 text-lg">
