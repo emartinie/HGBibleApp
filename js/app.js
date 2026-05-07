@@ -208,6 +208,10 @@ if (!existing) {
 
   if (cardName === "prayermap") {
     script.type = "module";
+
+  if (cardName === "commentary") {
+    script.type = "module";
+    
   }
 
   document.body.appendChild(script);
