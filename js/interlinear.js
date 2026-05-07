@@ -47,4 +47,6 @@ async function loadInterlinear() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadInterlinear);
+//document.addEventListener("DOMContentLoaded", loadInterlinear);
+
+loadInterlinear();
