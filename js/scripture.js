@@ -1,5 +1,26 @@
 async function loadInterlinear() {
   const container = document.getElementById("interlinearContent");
+  const storedRef = localStorage.getItem("scriptureSearch");
+
+if (storedRef) {
+  loadScriptureFromRef(storedRef);
+}
+
+  function extractFirstVerse(ref) {
+  if (!ref) return "";
+  return ref.includes("-") ? ref.split("-")[0] : ref;
+}
+
+  function loadScriptureFromRef(ref) {
+  const firstVerse = extractFirstVerse(ref);
+
+  const meta = document.getElementById("scriptureMeta");
+  if (meta) meta.textContent = firstVerse;
+
+  renderInterlinear(firstVerse);
+}
+
+  
 
   if (!container) return;
 
@@ -14,41 +35,41 @@ async function loadInterlinear() {
 
     const data = await res.json();
 
-    container.innerHTML = data.verses.map(v => `
-      <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4">
+    //container.innerHTML = data.verses.map(v => `
+    //  <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4">
         
-        <div class="text-orange-300 font-semibold mb-2">
-          ${v.ref}
-        </div>
+   //     <div class="text-orange-300 font-semibold mb-2">
+     //     ${v.ref}
+   //     </div>
 
-        <div class="mb-3 text-lg">
-          ${v.english}
-        </div>
+   //     <div class="mb-3 text-lg">
+   //       ${v.english}
+  //      </div>
 
-        <div class="mb-3 text-right text-blue-300 text-xl leading-loose">
-  ${v.hebrew.split(" ").map(word => `
-    <span
-      class="cursor-pointer hover:text-orange-300 transition"
-      title="${word}"
-    >
-      ${word}
-    </span>
-  `).join(" ")}
-</div>
+   //     <div class="mb-3 text-right text-blue-300 text-xl leading-loose">
+//  ${v.hebrew.split(" ").map(word => `
+//    <span
+//      class="cursor-pointer hover:text-orange-300 transition"
+  //    title="${word}"
+//    >
+//      ${word}
+//    </span>
+//  `).join(" ")}
+//</div>
 
-        <div class="text-purple-300 text-lg">
-  ${v.greek.split(" ").map(word => `
-    <span
-      class="cursor-pointer hover:text-orange-300 transition"
-      title="${word}"
-    >
-      ${word}
-    </span>
-  `).join(" ")}
-</div>
+  //      <div class="text-purple-300 text-lg">
+//  ${v.greek.split(" ").map(word => `
+//    <span
+//      class="cursor-pointer hover:text-orange-300 transition"
+//      title="${word}"
+//    >
+//      ${word}
+//    </span>
+//  `).join(" ")}
+//</div>
 
-      </div>
-    `).join("");
+//      </div>
+//    `).join("");
 
   } catch (err) {
     console.error(err);
