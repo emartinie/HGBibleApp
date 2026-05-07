@@ -1,72 +1,69 @@
 async function loadInterlinear() {
   const container = document.getElementById("interlinearContent");
-
   if (!container) return;
 
-  container.innerHTML = "Loading interlinear...";
   const storedRef = localStorage.getItem("scriptureSearch");
 
-const firstVerse =
-  storedRef && storedRef.includes("-")
-    ? storedRef.split("-")[0]
-    : storedRef;
+  const firstVerse =
+    storedRef && storedRef.includes("-")
+      ? storedRef.split("-")[0]
+      : storedRef || "Leviticus 16:1";
 
-  try {
-    const res = await fetch("data/interlinear/week29.json");
+  container.innerHTML = `
+    <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4 space-y-5">
 
-    if (!res.ok) {
-      throw new Error("Missing interlinear JSON");
-    }
-
-    const data = await res.json();
-
-    container.innerHTML = data.verses.map(v => `
-      <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4">
-        
-        <div class="text-orange-300 font-semibold mb-2">
-          ${firstVerse || v.ref}
-        </div>
-
-        <div class="mb-3 text-lg">
-          ${v.english}
-        </div>
-
-        <div class="mb-3 text-right text-blue-300 text-xl leading-loose">
-  ${v.hebrew.split(" ").map(word => `
-    <span
-      class="cursor-pointer hover:text-orange-300 transition"
-      title="${word}"
-    >
-      ${word}
-    </span>
-  `).join(" ")}
-</div>
-
-        <div class="text-purple-300 text-lg">
-  ${v.greek.split(" ").map(word => `
-    <span
-      class="cursor-pointer hover:text-orange-300 transition"
-      title="${word}"
-    >
-      ${word}
-    </span>
-  `).join(" ")}
-</div>
-
+      <div class="text-orange-300 font-semibold text-lg border-b border-slate-700 pb-2">
+        ${firstVerse}
       </div>
-    `).join("");
 
-  } catch (err) {
-    console.error(err);
-
-    container.innerHTML = `
-      <div class="text-red-400">
-        Failed loading interlinear.
+      <div>
+        <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
+          English
+        </div>
+        <div class="text-slate-100 text-lg">
+          And the LORD spoke unto Moses after the death of the two sons of Aaron,
+          when they drew near before the LORD, and died.
+        </div>
       </div>
-    `;
-  }
+
+      <div>
+        <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
+          Hebrew
+        </div>
+        <div class="text-right text-blue-300 text-2xl leading-loose">
+          וַיְדַבֵּר יְהוָה אֶל־מֹשֶׁה אַחֲרֵי מוֹת שְׁנֵי בְנֵי אַהֲרֹן
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
+          Transliteration
+        </div>
+        <div class="text-purple-300 text-lg italic">
+          Vayedaber Adonai el-Moshe acharei mot shnei bnei Aharon
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
+          Greek
+        </div>
+        <div class="text-emerald-300 text-lg">
+          Καὶ ἐλάλησεν Κύριος πρὸς Μωυσῆν μετὰ τὸ τελευτῆσαι τοὺς δύο υἱοὺς Ααρών
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
+          Greek Transliteration
+        </div>
+        <div class="text-amber-200 text-base italic">
+          Kai elalēsen Kyrios pros Mōusēn meta to teleutēsai tous duo huious Aarōn
+        </div>
+      </div>
+
+    </div>
+  `;
 }
-
-//document.addEventListener("DOMContentLoaded", loadInterlinear);
 
 loadInterlinear();
