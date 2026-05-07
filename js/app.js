@@ -197,14 +197,9 @@ async function loadExtraScript(src) {
   await loadExtraScript("js/prayerStore.dev.js");
 }
 
-      const existing = document.querySelector(
+const existing = document.querySelector(
   `script[src*="js/${cardName}.js"]`
 );
-
-if (!existing) {
-  const script = document.createElement("script");
-  script.src = `js/${cardName}.js?v=${Date.now()}`;
-  script.defer = true;
 
 if (!existing) {
   const script = document.createElement("script");
