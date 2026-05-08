@@ -51,13 +51,13 @@ async function loadInterlinear() {
           Transliteration
         </div>
         <div class="text-purple-300 text-lg italic">
-          Vayedaber Adonai el-Moshe acharei mot shnei bnei Aharon
+          Vayidaber YHVH el-Moshe lemor. Daber el-kol-adat benei-Yisra’el ve’amarta alehem: Kedoshim tihiyu, ki kadosh ani YHVH Eloheychem
         </div>
       </div>
 
       <div>
         <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
-          Greek
+          Greek Septuagint
         </div>
         <div class="text-emerald-300 text-lg">
   ${`καὶ ἐλάλησεν κύριος πρὸς Μωυσῆν λέγων
@@ -80,7 +80,7 @@ async function loadInterlinear() {
           Greek Transliteration
         </div>
         <div class="text-amber-200 text-base italic">
-          Kai elalēsen Kyrios pros Mōusēn meta to teleutēsai tous duo huious Aarōn
+          kai elalēsen Kyrios pros Mōusēn legōn,lalēson tē synagōgē tōn huiōn Israēl kai ereis pros autous, Hagioi esesthe, hoti egō hagios Kyrios ho Theos hymōn.
         </div>
       </div>
 
