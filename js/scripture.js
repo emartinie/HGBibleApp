@@ -31,8 +31,18 @@ async function loadInterlinear() {
           Hebrew
         </div>
         <div class="text-right text-blue-300 text-2xl leading-loose">
-          וַיְדַבֵּר יְהוָה אֶל־מֹשֶׁה אַחֲרֵי מוֹת שְׁנֵי בְנֵי אַהֲרֹן
-        </div>
+  ${"וַיְדַבֵּר יְהוָה אֶל־מֹשֶׁה אַחֲרֵי מוֹת שְׁנֵי בְנֵי אַהֲרֹן"
+    .split(" ")
+    .map(word => `
+      <span
+        class="cursor-pointer hover:text-orange-300 transition"
+        title="${word}"
+      >
+        ${word}
+      </span>
+    `)
+    .join(" ")}
+</div>
       </div>
 
       <div>
