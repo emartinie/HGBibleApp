@@ -59,8 +59,18 @@ async function loadInterlinear() {
           Greek
         </div>
         <div class="text-emerald-300 text-lg">
-          Καὶ ἐλάλησεν Κύριος πρὸς Μωυσῆν μετὰ τὸ τελευτῆσαι τοὺς δύο υἱοὺς Ααρών
-        </div>
+  ${"Καὶ ἐλάλησεν Κύριος πρὸς Μωυσῆν μετὰ τὸ τελευτῆσαι τοὺς δύο υἱοὺς Ααρών"
+    .split(" ")
+    .map(word => `
+      <span
+        class="cursor-pointer hover:text-orange-300 transition"
+        title="${word}"
+      >
+        ${word}
+      </span>
+    `)
+    .join(" ")}
+</div>
       </div>
 
       <div>
