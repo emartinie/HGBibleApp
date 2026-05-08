@@ -21,8 +21,8 @@ async function loadInterlinear() {
           English
         </div>
         <div class="text-slate-100 text-lg">
-          And the LORD spoke unto Moses after the death of the two sons of Aaron,
-          when they drew near before the LORD, and died.
+          19 And the Lord spake unto Moses, saying,
+             Speak unto all the congregation of the children of Israel, and say unto them, Ye shall be holy: for I the Lord your God am holy.
         </div>
       </div>
 
@@ -31,7 +31,8 @@ async function loadInterlinear() {
           Hebrew
         </div>
         <div class="text-right text-blue-300 text-2xl leading-loose">
-  ${"וַיְדַבֵּר יְהוָה אֶל־מֹשֶׁה אַחֲרֵי מוֹת שְׁנֵי בְנֵי אַהֲרֹן"
+  ${"וַיְדַבֵּ֥ר יְהוָ֖ה אֶל־מֹשֶׁ֥ה לֵּאמֹֽר
+דַּבֵּ֞ר אֶל־כָּל־עֲדַ֧ת בְּנֵי־יִשְׂרָאֵ֛ל וְאָמַרְתָּ֥ אֲלֵהֶ֖ם קְדֹשִׁ֣ים תִּהְי֑וּ כִּ֣י קָד֔וֹשׁ אֲנִ֖י יְהוָ֥ה אֱלֹהֵיכֶֽם׃"
     .split(" ")
     .map(word => `
       <span
@@ -59,7 +60,8 @@ async function loadInterlinear() {
           Greek
         </div>
         <div class="text-emerald-300 text-lg">
-  ${"Καὶ ἐλάλησεν Κύριος πρὸς Μωυσῆν μετὰ τὸ τελευτῆσαι τοὺς δύο υἱοὺς Ααρών"
+  ${"καὶ ἐλάλησεν κύριος πρὸς Μωυσῆν λέγων
+    λάλησον τῇ συναγωγῇ τῶν υἱῶν Ισραηλ καὶ ἐρεῖς πρὸς αὐτούς ἅγιοι ἔσεσθε ὅτι ἐγὼ ἅγιος κύριος ὁ θεὸς ὑμῶν"
     .split(" ")
     .map(word => `
       <span
