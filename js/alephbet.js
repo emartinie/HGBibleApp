@@ -32,14 +32,17 @@
         const nameEl = document.getElementById("alephName");
         const soundEl = document.getElementById("alephSound");
 
-        function render() {
-          const l = ALEPHBET[index];
-          letterEl.textContent = l.letter;
-          nameEl.textContent = l.name;
-          soundEl.textContent = l.sound;
-          if (audio) globalAudio.pause(audio);
-          audio = new Audio(l.audio);
-        }
+            function render() {
+              const l = ALEPHBET[index];
+            
+              letterEl.textContent = l.letter;
+              nameEl.textContent = l.name;
+              soundEl.textContent = l.sound;
+            
+              if (audio) audio.pause();
+            
+              audio = new Audio(l.audio);
+            }
 
         document.getElementById("alephPrev").onclick = () => {
           index = (index - 1 + ALEPHBET.length) % ALEPHBET.length;
