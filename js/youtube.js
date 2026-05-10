@@ -42,7 +42,7 @@ function buildYoutubeCarousel() {
   const carousel = document.getElementById("youtubeCarousel");
   if (!carousel) return;
 
-  misslerPlaylist.forEach(video => {
+  youtubePlaylist.forEach(video => {
     const img = document.createElement("img");
     img.src = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
     img.alt = `Hour ${video.hour}`;
