@@ -1,4 +1,4 @@
-//  playlist
+// Playlist
 const youtubePlaylist = [
   { hour: 1, id: "9uIXzUEwrOg" },
   { hour: 2, id: "0Jd3crAKC3M" },
@@ -34,13 +34,14 @@ function loadYoutubeHour(hour) {
   if (!iframe) return console.warn("Player iframe not found");
 
   iframe.src = `https://www.youtube.com/embed/${video.id}?rel=0&autoplay=0`;
-  console.log("▶ Writing the Bible", hour, video.id);
+  console.log("▶ Loaded hour", hour, video.id);
 }
 
-// Generate thumbnail carousel
 function buildYoutubeCarousel() {
   const carousel = document.getElementById("youtubeCarousel");
   if (!carousel) return;
+
+  carousel.innerHTML = "";
 
   youtubePlaylist.forEach(video => {
     const img = document.createElement("img");
@@ -56,8 +57,5 @@ function buildYoutubeCarousel() {
 }
 
 // Initialize
-//window.addEventListener("DOMContentLoaded", () => {
-  buildYoutubeCarousel();
-  loadYoutubeHour(24); // autoplay Hour 24 by default
-//}
-//);
+buildYoutubeCarousel();
+loadYoutubeHour(24);
