@@ -6,7 +6,7 @@ const youtubePlaylist = [
   { hour: 4, id: "ExfQ3IN5BoU" },
   { hour: 6, id: "8q6FUlay-M8" },
   { hour: 5, id: "AsBgluFGz7Y" },
-  { hour: 7, id: "" },
+  { hour: 7, id: "yOJyI_zeEr8&t" },
   { hour: 8, id: "" },
   { hour: 9, id: "" },
   { hour: 10, id: "" },
