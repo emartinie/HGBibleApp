@@ -211,9 +211,15 @@ playlist.forEach(track => {
   const scriptureSpan = document.createElement('span');
   scriptureSpan.className = "text-xs text-blue-300 hover:text-blue-200 underline cursor-pointer";
   scriptureSpan.textContent = scriptureText;
+  scriptureSpan.dataset.ref = track.scriptureRef;
+  scriptureSpan.dataset.file = track.file || "";
+  scriptureSpan.dataset.criteria = track.criteria || "";
 
-  scriptureSpan.addEventListener('click', () => {
-  localStorage.setItem("scriptureSearch", track.scriptureRef);
+  scriptureSpan.addEventListener("click", () => {
+  localStorage.setItem("scriptureSearch", scriptureSpan.dataset.ref);
+  localStorage.setItem("selectedPassage", scriptureSpan.dataset.file);
+  localStorage.setItem("selectedCriteria", scriptureSpan.dataset.criteria);
+
   window.loadCard?.("scripture");
 });
   
