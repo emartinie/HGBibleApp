@@ -2,7 +2,9 @@ async function loadInterlinear() {
   const container = document.getElementById("interlinearContent");
   if (!container) return;
 
-  const storedRef = localStorage.getItem("scriptureSearch");
+const storedRef = localStorage.getItem("scriptureSearch");
+const storedPassage = localStorage.getItem("selectedPassage");
+const storedCriteria = localStorage.getItem("selectedCriteria");
 
   const firstVerse =
     storedRef && storedRef.includes("-")
