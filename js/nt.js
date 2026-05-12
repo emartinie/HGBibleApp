@@ -158,6 +158,26 @@
     if (el) el.textContent = text || "";
   }
 
+  function renderIntroduction(bookName, intro) {
+  setContextHeader(`${bookName} — Introduction`);
+  setSubContext("Book overview and study entry points.");
+
+  if (!root) return;
+
+  if (!intro?.rawText) {
+    root.innerHTML = "<p>No introduction available.</p>";
+    return;
+  }
+
+  const linkIntro = `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`;
+
+  root.innerHTML = `
+    <section class="reader-block reader-skin">
+      <pre>${escapeHtml(intro.rawText)}</pre>
+    </section>
+  `;
+}
+
 function renderNTLanding() {
   setContextHeader("My New Testament Notes");
   setSubContext("Choose a book and jump straight to the part you want.");
@@ -297,15 +317,15 @@ function loadBookTiles() {
       <div id="reviewQuestions"></div>
     `;
 
-    function renderIntroduction(bookName, intro) {
-  setContextHeader(`${bookName} — Introduction`);
-  setSubContext("Book overview and study entry points.");
+//    function renderIntroduction(bookName, intro) {
+//  setContextHeader(`${bookName} — Introduction`);
+//  setSubContext("Book overview and study entry points.");
 
-  if (!root) return;
+ // if (!root) return;
 
-  if (!intro?.rawText) {
-    root.innerHTML = "<p>No introduction available.</p>";
-    return;
+//  if (!intro?.rawText) {
+ //   root.innerHTML = "<p>No introduction available.</p>";
+ //   return;
   }
 
   const linkIntro = `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`;
@@ -518,6 +538,19 @@ function loadBookTiles() {
     document.getElementById("ntRetryBtn")?.addEventListener("click", () => {
       window.loadCard?.("nt");
     });
+
+        window.renderIntroduction = function (bookName, intro) {
+      console.warn("renderIntroduction called via fallback global");
+    
+      const el = document.getElementById("nt-root");
+      if (!el) return;
+    
+      el.innerHTML = `
+        <div style="color: #fbbf24;">
+          Introduction renderer is not wired correctly.
+        </div>
+      `;
+    };
 
     document.getElementById("ntHomeBtn")?.addEventListener("click", () => {
       const url = new URL(window.location.href);
