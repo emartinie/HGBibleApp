@@ -306,29 +306,7 @@ playBtn.addEventListener('click', () => {
     mainStageVideo.classList.add("hidden");
 }
 
-
     }
-  
-function getOrientationSlug() {
-  const text = document.getElementById("mainStageSub")?.textContent || "";
-  const parts = text.split("/");
-
-  if (parts.length >= 3) {
-    const transliterationPart = parts[2].split("|")[0].trim();
-
-    return transliterationPart
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, "");
-  }
-
-  return "kedoshim";
-}
-
-window.playOrientation = function () {
-  const slug = getOrientationSlug();
-  const audio = new Audio(`assets/sounds/voice/orientations/${slug}.mp3`);
-  audio.play();
-};
 
 // --- Chapter Outlines ---
 mainStageChapters.innerHTML = '';
@@ -374,6 +352,27 @@ Object.keys(outlines).forEach(chap => {
         mainStageVideo.classList.add("hidden");
     }
 }
+
+function getOrientationSlug() {
+  const text = document.getElementById("mainStageSub")?.textContent || "";
+  const parts = text.split("/");
+
+  if (parts.length >= 3) {
+    const transliterationPart = parts[2].split("|")[0].trim();
+
+    return transliterationPart
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
+  }
+
+  return "kedoshim";
+}
+
+window.playOrientation = function () {
+  const slug = getOrientationSlug();
+  const audio = new Audio(`assets/sounds/voice/orientations/${slug}.mp3`);
+  audio.play();
+};
 
 // --- Load Week ---
 async function loadWeek(weekNum) {
