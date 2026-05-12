@@ -89,5 +89,12 @@ const storedCriteria = localStorage.getItem("selectedCriteria");
     </div>
   `;
 }
+container.innerHTML = `
+  <div class="p-4">
+    <div>${storedRef}</div>
+    <div>${storedPassage}</div>
+    <div>${storedCriteria}</div>
+  </div>
+`;
 
 loadInterlinear();
