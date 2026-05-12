@@ -13,6 +13,11 @@ const storedCriteria = localStorage.getItem("selectedCriteria");
 
   container.innerHTML = `
     <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4 space-y-5">
+            <div class="p-4">
+    <div>${storedRef}</div>
+    <div>${storedPassage}</div>
+    <div>${storedCriteria}</div>
+  </div>
 
       <div class="text-orange-300 font-semibold text-lg border-b border-slate-700 pb-2">
         ${firstVerse}
@@ -85,11 +90,6 @@ const storedCriteria = localStorage.getItem("selectedCriteria");
           kai elalēsen Kyrios pros Mōusēn legōn,lalēson tē synagōgē tōn huiōn Israēl kai ereis pros autous, Hagioi esesthe, hoti egō hagios Kyrios ho Theos hymōn.
         </div>
       </div>
-        <div class="p-4">
-    <div>${storedRef}</div>
-    <div>${storedPassage}</div>
-    <div>${storedCriteria}</div>
-  </div>
 
     </div>
   `;
