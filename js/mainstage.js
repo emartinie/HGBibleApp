@@ -196,7 +196,7 @@ playlist.forEach(track => {
 
   const playBtn = document.createElement('button');
   playBtn.className = "flex items-center justify-center w-9 h-9 rounded-full border border-white/10 bg-white/10 text-white hover:bg-white/20 transition";
-  playBtn.textContent = "▶ Audio Bible";
+  playBtn.textContent = "▶ Audio";
 
   const textWrap = document.createElement('div');
   textWrap.className = "flex flex-col min-w-0";
