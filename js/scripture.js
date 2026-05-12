@@ -20,8 +20,16 @@ const storedCriteria = localStorage.getItem("selectedCriteria");
   </div>
 
       <div class="text-orange-300 font-semibold text-lg border-b border-slate-700 pb-2">
-        ${firstVerse}
-      </div>
+  ${firstVerse}
+</div>
+
+<div class="text-xs text-slate-400">
+  File: ${storedPassage || "none"}
+</div>
+
+<div class="text-xs text-orange-300 italic">
+  ${storedCriteria || "No criteria"}
+</div>
 
       <div>
         <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
