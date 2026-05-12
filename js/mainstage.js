@@ -308,27 +308,27 @@ playBtn.addEventListener('click', () => {
 
 
     }
-  function getOrientationSlug() {
+  
+function getOrientationSlug() {
   const text = document.getElementById("mainStageSub")?.textContent || "";
-
-  // Example:
-  // Holy Ones / קדושים / Kedoshim | קדושים
-
   const parts = text.split("/");
 
   if (parts.length >= 3) {
     const transliterationPart = parts[2].split("|")[0].trim();
-    return transliterationPart.toLowerCase();
+
+    return transliterationPart
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
   }
 
-  return "kedoshim"; // fallback
+  return "kedoshim";
 }
 
-function playOrientation() {
+window.playOrientation = function () {
   const slug = getOrientationSlug();
   const audio = new Audio(`assets/sounds/voice/orientations/${slug}.mp3`);
   audio.play();
-}
+};
 
 // --- Chapter Outlines ---
 mainStageChapters.innerHTML = '';
