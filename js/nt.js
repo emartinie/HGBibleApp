@@ -488,7 +488,7 @@ if (!book) {
     })
     .then(data => {
       if (view === "introduction") {
-        renderIntroduction(book, data.introduction);
+        renderIntroduction(bookKey, data.introduction);
         return;
       }
 
@@ -497,7 +497,7 @@ if (!book) {
         return;
       }
 
-      const ch = data.chapters[chapter];
+      const ch = data.chapters[String(chapter)];
       if (!ch) throw new Error("Chapter not found");
 
       renderChapter(book, chapter, ch, section);
