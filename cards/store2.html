@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Store</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  body {
+    background: #0b1220;
+  }
+</style>
+</head>
+
+<body class="text-white">
+
+<header class="p-6 border-b border-slate-700">
+  <h1 class="text-2xl font-bold text-cyan-300">Simple Store</h1>
+  <p class="text-slate-400 text-sm mt-1">Select an item and place an order request</p>
+</header>
+
+<main class="p-6 grid gap-6 grid-cols-1 md:grid-cols-3">
+
+  <!-- PRODUCT CARD -->
+  <div class="border border-slate-700 rounded-2xl p-4 bg-slate-900">
+    <img src="https://via.placeholder.com/400x250" class="rounded-xl mb-3"/>
+    <h2 class="text-lg font-semibold">Product One</h2>
+    <p class="text-slate-400 text-sm">$25.00</p>
+
+    <button onclick="openOrder('Product One')"
+      class="mt-3 w-full bg-cyan-600 hover:bg-cyan-500 py-2 rounded-xl">
+      Order
+    </button>
+  </div>
+
+  <div class="border border-slate-700 rounded-2xl p-4 bg-slate-900">
+    <img src="https://via.placeholder.com/400x250" class="rounded-xl mb-3"/>
+    <h2 class="text-lg font-semibold">Product Two</h2>
+    <p class="text-slate-400 text-sm">$30.00</p>
+
+    <button onclick="openOrder('Product Two')"
+      class="mt-3 w-full bg-cyan-600 hover:bg-cyan-500 py-2 rounded-xl">
+      Order
+    </button>
+  </div>
+
+  <div class="border border-slate-700 rounded-2xl p-4 bg-slate-900">
+    <img src="https://via.placeholder.com/400x250" class="rounded-xl mb-3"/>
+    <h2 class="text-lg font-semibold">Product Three</h2>
+    <p class="text-slate-400 text-sm">$18.00</p>
+
+    <button onclick="openOrder('Product Three')"
+      class="mt-3 w-full bg-cyan-600 hover:bg-cyan-500 py-2 rounded-xl">
+      Order
+    </button>
+  </div>
+
+  <div class="border border-slate-700 rounded-2xl p-4 bg-slate-900">
+    <img src="https://via.placeholder.com/400x250" class="rounded-xl mb-3"/>
+    <h2 class="text-lg font-semibold">Product Four</h2>
+    <p class="text-slate-400 text-sm">$12.00</p>
+
+    <button onclick="openOrder('Product Four')"
+      class="mt-3 w-full bg-cyan-600 hover:bg-cyan-500 py-2 rounded-xl">
+      Order
+    </button>
+  </div>
+
+  <div class="border border-slate-700 rounded-2xl p-4 bg-slate-900">
+    <img src="https://via.placeholder.com/400x250" class="rounded-xl mb-3"/>
+    <h2 class="text-lg font-semibold">Product Five</h2>
+    <p class="text-slate-400 text-sm">$50.00</p>
+
+    <button onclick="openOrder('Product Five')"
+      class="mt-3 w-full bg-cyan-600 hover:bg-cyan-500 py-2 rounded-xl">
+      Order
+    </button>
+  </div>
+
+</main>
+
+<!-- ORDER MODAL -->
+<div id="orderModal"
+     class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-6">
+
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md">
+
+    <h2 id="orderTitle" class="text-xl font-semibold text-cyan-300 mb-4">
+      Order Item
+    </h2>
+
+    <input id="name" placeholder="Your name"
+      class="w-full mb-3 px-3 py-2 rounded-lg bg-slate-800 border border-slate-700"/>
+
+    <input id="email" placeholder="Email"
+      class="w-full mb-3 px-3 py-2 rounded-lg bg-slate-800 border border-slate-700"/>
+
+    <textarea id="notes" placeholder="Notes (optional)"
+      class="w-full mb-3 px-3 py-2 rounded-lg bg-slate-800 border border-slate-700"></textarea>
+
+    <button onclick="submitOrder()"
+      class="w-full bg-green-600 hover:bg-green-500 py-2 rounded-xl">
+      Send Order Request
+    </button>
+
+    <button onclick="closeOrder()"
+      class="w-full mt-2 text-slate-400 text-sm">
+      Cancel
+    </button>
+
+  </div>
+</div>
+
+<script>
+let selectedProduct = "";
+
+function openOrder(product) {
+  selectedProduct = product;
+  document.getElementById("orderTitle").innerText = "Order: " + product;
+  document.getElementById("orderModal").classList.remove("hidden");
+}
+
+function closeOrder() {
+  document.getElementById("orderModal").classList.add("hidden");
+}
+
+function submitOrder() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const notes = document.getElementById("notes").value;
+
+  const subject = encodeURIComponent("Order Request: " + selectedProduct);
+  const body = encodeURIComponent(
+`Product: ${selectedProduct}
+Name: ${name}
+Email: ${email}
+Notes: ${notes}`
+  );
+
+  // simplest backend-free option:
+  window.location.href = `mailto:youremail@domain.com?subject=${subject}&body=${body}`;
+}
+</script>
+
+</body>
+</html>
