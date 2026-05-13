@@ -105,29 +105,41 @@ function getParams() {
   function buildPanelSection(title, rawText, linkHref) {
     const safeLink = escapeHtml(linkHref || "");
 
-    return `
-      <div class="space-y-3 text-left">
-        <div class="flex items-center justify-between gap-2">
-          <a href="${safeLink}" class="text-cyan-300 underline text-sm">Open full page ↗</a>
-          <button
-            class="px-3 py-1 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs"
-            onclick="navigator.clipboard?.writeText('${safeLink}')">
-            Copy link
-          </button>
-        </div>
+ return `
+  <div class="space-y-3 text-left">
 
-        <div class="rounded-xl bg-slate-950/40 border border-slate-700 p-4 max-h-[60vh] overflow-auto">
-          <div class="prose prose-invert max-w-none">
-            ${String(rawText || "")
-              .replace(/\r\n/g, "\n")
-              .replace(/[ \t]{2,}/g, " ")
-              .split(/\n\s*\n+/)
-              .map(p => `<p>${escapeHtml(p.trim())}</p>`)
-              .join("")}
-          </div>
-        </div>
+    <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-2">
+      
+      <a href="${safeLink}" 
+         class="text-cyan-300 underline text-sm hover:text-cyan-200 transition">
+        ↗ Open full page
+      </a>
+
+      <button
+        class="px-3 py-1 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs hover:bg-slate-700 transition"
+        onclick="navigator.clipboard?.writeText('${safeLink}')">
+        Copy link
+      </button>
+
+    </div>
+
+    <div class="rounded-xl bg-gradient-to-b from-slate-950/60 to-slate-900/40 border border-slate-700 p-4 max-h-[60vh] overflow-auto shadow-inner">
+
+      <div class="prose prose-invert max-w-none text-sm leading-relaxed">
+
+        ${String(rawText || "")
+          .replace(/\r\n/g, "\n")
+          .replace(/[ \t]{2,}/g, " ")
+          .split(/\n\s*\n+/)
+          .map(p => `<p class="mb-3">${escapeHtml(p.trim())}</p>`)
+          .join("")}
+
       </div>
-    `;
+
+    </div>
+
+  </div>
+`;
   }
 
   function interceptNTLinks() {
@@ -175,19 +187,31 @@ function renderNTLanding() {
 
   if (!root) return;
 
-  root.innerHTML = `
-    <section class="space-y-6">
-      <div id="nt-book-grid"
-           class="grid gap-4"
-           style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
-      </div>
+root.innerHTML = `
+  <section class="space-y-6">
+
+    <div class="text-center space-y-2 border-b border-slate-700 pb-4">
+      <h1 class="text-2xl font-bold text-cyan-200">
+        📖 My New Testament Notes
+      </h1>
 
       <p class="text-slate-400 text-sm">
-        Start with the introduction, jump into chapter 1, go straight to summary and review questions,
-        or leave yourself a reminder for future Jewish context tie-ins.
+        Choose a book and jump straight to the part you want.
       </p>
-    </section>
-  `;
+    </div>
+
+    <div id="nt-book-grid"
+         class="grid gap-4"
+         style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
+    </div>
+
+    <div class="rounded-xl border border-slate-700 bg-slate-900/40 p-4 text-sm text-slate-400 leading-relaxed">
+      Start with the introduction, jump into chapter 1, go straight to summary and review questions,
+      or leave yourself a reminder for future Jewish context tie-ins.
+    </div>
+
+  </section>
+`;
 
   loadBookTiles();
 }
@@ -211,40 +235,52 @@ function loadBookTiles() {
     const reviewLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
 
     const tile = document.createElement("div");
-    tile.className = "rounded-2xl border border-slate-700 bg-slate-900/70 p-4 shadow-lg";
+    tile.className = "group rounded-2xl border border-slate-700 bg-gradient-to-b from-slate-900/80 to-slate-950/60 p-4 shadow-lg hover:shadow-cyan-900/20 transition";
 
     tile.innerHTML = `
-      <div class="mb-3">
-        <div class="text-lg font-semibold text-cyan-200">${bookName}</div>
-        <div class="text-xs text-slate-400">Direct entry points</div>
-      </div>
+  <div class="mb-4 border-b border-slate-700 pb-3">
 
-      <div class="grid grid-cols-2 gap-2">
-        <a href="${introLink}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center">
-          Intro
-        </a>
+    <div class="text-lg font-semibold text-cyan-200 group-hover:text-cyan-100 transition">
+      ${bookName}
+    </div>
 
-        <a href="${ch1Link}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center">
-          Chapter 1
-        </a>
+    <div class="text-xs text-slate-400">
+      Direct entry points
+    </div>
 
-        <a href="${summaryLink}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center">
-          Summary
-        </a>
+  </div>
 
-        <a href="${reviewLink}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center">
-          Review
-        </a>
+  <div class="grid grid-cols-2 gap-2">
 
-        <button
-          type="button"
-          class="col-span-2 px-3 py-2 rounded-lg border border-cyan-700/40 bg-cyan-900/20 hover:bg-cyan-800/30 text-sm text-center text-cyan-200"
-          data-nt-hint="${bookName}">
-          Related Jewish Context
-        </button>
-      </div>
-    `;
+    <a href="${introLink}"
+       class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+      Intro
+    </a>
 
+    <a href="${ch1Link}"
+       class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+      Chapter 1
+    </a>
+
+    <a href="${summaryLink}"
+       class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+      Summary
+    </a>
+
+    <a href="${reviewLink}"
+       class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+      Review
+    </a>
+
+    <button
+      type="button"
+      class="col-span-2 px-3 py-2 rounded-lg border border-cyan-700/40 bg-cyan-900/20 hover:bg-cyan-800/30 text-sm text-center text-cyan-200 hover:text-white transition"
+      data-nt-hint="${bookName}">
+      Related Jewish Context
+    </button>
+
+  </div>
+`;
     grid.appendChild(tile);
   });
 
