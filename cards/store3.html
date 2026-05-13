@@ -2,99 +2,231 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Trusted Items</title>
+<title>Trusted Community Items</title>
+
 <style>
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
+  font-family: Arial, sans-serif;
   background: #f5f5f5;
 }
 
-.header {
+/* HEADER */
+header {
   background: #111;
   color: white;
-  padding: 20px;
+  padding: 18px;
   text-align: center;
-  font-size: 22px;
+  font-size: 20px;
 }
 
+/* GRID */
 .container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+  max-width: 1100px;
+  margin: auto;
   padding: 20px;
 }
 
+/* CARD */
 .card {
   background: white;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-radius: 14px;
+  margin-bottom: 25px;
+  padding: 16px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.08);
 }
 
-.card img {
-  width: 100%;
-  border-radius: 10px;
-}
-
+/* TITLE */
 .title {
-  font-size: 18px;
-  margin: 10px 0 5px;
+  font-size: 20px;
+  margin: 10px 0;
 }
 
+/* PRICE */
 .price {
-  color: #2a7;
+  color: #1a7;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
+/* CAROUSEL */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.carousel img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: none;
+  cursor: zoom-in;
+}
+
+.carousel img.active {
+  display: block;
+}
+
+/* ARROWS */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.left { left: 10px; }
+.right { right: 10px; }
+
+/* BUTTON */
 button {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
+  margin-top: 10px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #111;
   color: white;
-  cursor: pointer;
   font-size: 14px;
+  cursor: pointer;
 }
 
 button:hover {
   background: #333;
+}
+
+/* ZOOM MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 90%;
+  margin: auto;
+  display: block;
+  margin-top: 3%;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
+<header>
 Trusted Community Items
-</div>
+</header>
 
 <div class="container">
 
+  <!-- ITEM 1 -->
   <div class="card">
-    <img src="shofar.jpg">
+    <div class="carousel" data-index="0">
+      <button class="arrow left" onclick="moveSlide(this,-1)">&#10094;</button>
+
+      <img src="shofar1.jpg" class="active" onclick="zoom(this)">
+      <img src="shofar2.jpg" onclick="zoom(this)">
+      <img src="shofar3.jpg" onclick="zoom(this)">
+
+      <button class="arrow right" onclick="moveSlide(this,1)">&#10095;</button>
+    </div>
+
     <div class="title">Yemenite Shofar</div>
     <div class="price">$150</div>
-    <button onclick="location.href='pay.html?item=shofar'">Request Item</button>
+
+    <button onclick="location.href='pay.html?item=shofar'">
+      Request Item
+    </button>
   </div>
 
+  <!-- ITEM 2 -->
   <div class="card">
-    <img src="tallit.jpg">
+    <div class="carousel" data-index="0">
+      <button class="arrow left" onclick="moveSlide(this,-1)">&#10094;</button>
+
+      <img src="tallit1.jpg" class="active" onclick="zoom(this)">
+      <img src="tallit2.jpg" onclick="zoom(this)">
+
+      <button class="arrow right" onclick="moveSlide(this,1)">&#10095;</button>
+    </div>
+
     <div class="title">Tallit Prayer Shawl</div>
     <div class="price">$15–$25</div>
-    <button onclick="location.href='pay.html?item=tallit'">Request Item</button>
+
+    <button onclick="location.href='pay.html?item=tallit'">
+      Request Item
+    </button>
   </div>
 
+  <!-- ITEM 3 -->
   <div class="card">
-    <img src="tzitzit.jpg">
+    <div class="carousel" data-index="0">
+      <button class="arrow left" onclick="moveSlide(this,-1)">&#10094;</button>
+
+      <img src="tzitzit1.jpg" class="active" onclick="zoom(this)">
+      <img src="tzitzit2.jpg" onclick="zoom(this)">
+
+      <button class="arrow right" onclick="moveSlide(this,1)">&#10095;</button>
+    </div>
+
     <div class="title">Tzitzit with Torah Wrap</div>
     <div class="price">$17</div>
-    <button onclick="location.href='pay.html?item=tzitzit'">Request Item</button>
+
+    <button onclick="location.href='pay.html?item=tzitzit'">
+      Request Item
+    </button>
   </div>
 
 </div>
+
+<!-- ZOOM MODAL -->
+<div id="modal" class="modal" onclick="closeZoom()">
+  <img id="modalImg">
+</div>
+
+<script>
+
+/* CAROUSEL */
+function moveSlide(btn, dir) {
+  let carousel = btn.parentElement;
+  let images = carousel.querySelectorAll("img");
+  let index = parseInt(carousel.getAttribute("data-index"));
+
+  images[index].classList.remove("active");
+
+  index += dir;
+
+  if (index < 0) index = images.length - 1;
+  if (index >= images.length) index = 0;
+
+  images[index].classList.add("active");
+  carousel.setAttribute("data-index", index);
+}
+
+/* ZOOM */
+function zoom(img) {
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("modalImg").src = img.src;
+}
+
+function closeZoom() {
+  document.getElementById("modal").style.display = "none";
+}
+
+</script>
 
 </body>
 </html>
