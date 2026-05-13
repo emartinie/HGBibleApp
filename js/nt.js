@@ -1,11 +1,11 @@
-//(function () {
+(function () {
  // const params = new URLSearchParams(window.location.search);
   //const book = params.get("book");
  // const chapter = params.get("chapter");
  // const view = params.get("view");
  // const section = params.get("section");
-  //const NT_BASE = "cards/nt.html";
- // const root = document.getElementById("nt-root");
+  const NT_BASE = "cards/nt.html";
+  const root = document.getElementById("nt-root");
 
 function getParams() {
   const params = new URLSearchParams(window.location.search);
