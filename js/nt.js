@@ -1,11 +1,22 @@
-(function () {
+//(function () {
+ // const params = new URLSearchParams(window.location.search);
+  //const book = params.get("book");
+ // const chapter = params.get("chapter");
+ // const view = params.get("view");
+ // const section = params.get("section");
+  //const NT_BASE = "cards/nt.html";
+ // const root = document.getElementById("nt-root");
+
+function getParams() {
   const params = new URLSearchParams(window.location.search);
-  const book = params.get("book");
-  const chapter = params.get("chapter");
-  const view = params.get("view");
-  const section = params.get("section");
-  const NT_BASE = "cards/nt.html";
-  const root = document.getElementById("nt-root");
+
+  return {
+    book: params.get("book"),
+    chapter: params.get("chapter"),
+    view: params.get("view"),
+    section: params.get("section")
+  };
+}
 
   // ---------- HELPERS ----------
   function escapeHtml(str = "") {
@@ -458,12 +469,14 @@ function loadBookTiles() {
   }
 
   // ---------- INIT ----------
-  interceptNTLinks();
+interceptNTLinks();
 
-  if (!book) {
-    renderNTLanding();
-    return;
-  }
+const { book, chapter, view, section } = getParams();
+
+if (!book) {
+  renderNTLanding();
+  return;
+}
 
   const bookKey = book.toLowerCase();
   const jsonPath = `data/nt/${bookKey}.json`;
