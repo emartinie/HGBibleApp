@@ -514,6 +514,9 @@ if (!book) {
   return;
 }
 
+const bookKey = book.toLowerCase().replace(/\s+/g, "");
+const jsonPath = `data/nt/${bookKey}.json`;
+
 fetch(jsonPath)
   .then(res => {
     if (!res.ok) throw new Error("Failed to load book data");
