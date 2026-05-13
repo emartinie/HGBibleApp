@@ -297,53 +297,6 @@ function loadBookTiles() {
       <div id="reviewQuestions"></div>
     `;
 
-    function renderIntroduction(bookName, intro) {
-  setContextHeader(`${bookName} — Introduction`);
-  setSubContext("Book overview and study entry points.");
-
-  if (!root) return;
-
-  if (!intro?.rawText) {
-    root.innerHTML = "<p>No introduction available.</p>";
-    return;
-  }
-
-  const linkIntro = `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`;
-  const linkCh1 = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1`;
-  const linkSum = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary`;
-  const linkRQ = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
-
-  root.innerHTML = `
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold">Begin Study</h2>
-
-      <div class="flex gap-2 flex-wrap mt-3">
-        <a href="${linkCh1}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60">Read Chapter 1</a>
-        <a href="${linkSum}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60">Summary First</a>
-        <a href="${linkRQ}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60">Review Questions</a>
-
-        <button id="introPanelBtn"
-          class="px-3 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white">
-          Open Intro in Panel
-        </button>
-      </div>
-    </section>
-
-    <section class="reader-block reader-skin">
-      <pre>${escapeHtml(intro.rawText)}</pre>
-    </section>
-  `;
-
-  const btn = document.getElementById("introPanelBtn");
-  if (btn) {
-    btn.onclick = () => {
-      openPanel(
-        `${bookName} — Introduction`,
-        buildPanelSection(`${bookName} — Introduction`, intro.rawText, linkIntro)
-      );
-    };
-  }
-}
 
     renderChapterNav(bookName, chapterNum);
 
@@ -367,6 +320,66 @@ function loadBookTiles() {
       renderSection("reviewQuestions", "Review Questions", ch.reviewQuestions);
     }
   }
+
+  function renderIntroduction(bookName, intro) {
+  setContextHeader(`${bookName} — Introduction`);
+  setSubContext("Book overview and study entry points.");
+
+  if (!root) return;
+
+  if (!intro?.rawText) {
+    root.innerHTML = "<p>No introduction available.</p>";
+    return;
+  }
+
+  const linkIntro = `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`;
+  const linkCh1 = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1`;
+  const linkSum = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary`;
+  const linkRQ = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
+
+  root.innerHTML = `
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold">Begin Study</h2>
+
+      <div class="flex gap-2 flex-wrap mt-3">
+        <a href="${linkCh1}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60">
+          Read Chapter 1
+        </a>
+
+        <a href="${linkSum}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60">
+          Summary First
+        </a>
+
+        <a href="${linkRQ}" class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60">
+          Review Questions
+        </a>
+
+        <button id="introPanelBtn"
+          class="px-3 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white">
+          Open Intro in Panel
+        </button>
+      </div>
+    </section>
+
+    <section class="reader-block reader-skin">
+      <pre>${escapeHtml(intro.rawText)}</pre>
+    </section>
+  `;
+
+  const btn = document.getElementById("introPanelBtn");
+  if (btn) {
+    btn.onclick = () => {
+      openPanel(
+        `${bookName} — Introduction`,
+        buildPanelSection(
+          `${bookName} — Introduction`,
+          intro.rawText,
+          linkIntro
+        )
+      );
+    };
+  }
+}
 
   function renderChapterNav(bookName, chapterNum) {
     const nav = document.getElementById("chapter-nav");
