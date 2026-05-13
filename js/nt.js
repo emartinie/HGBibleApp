@@ -514,16 +514,21 @@ if (!book) {
   return;
 }
 
+fetch(jsonPath)
+  .then(res => {
+    if (!res.ok) throw new Error("Failed to load book data");
+    return res.json();
+  })
   .then(data => {
-  if (!root) return;
+    if (!root) return;
 
-  // 🧱 ALWAYS render a stable root shell first
-  root.innerHTML = `
-    <section class="space-y-4">
-      <div id="nt-header" class="border-b border-slate-700 pb-2 mb-4"></div>
-      <div id="nt-body"></div>
-    </section>
-  `;
+    // 🧱 ALWAYS render a stable root shell first
+    root.innerHTML = `
+      <section class="space-y-4">
+        <div id="nt-header" class="border-b border-slate-700 pb-2 mb-4"></div>
+        <div id="nt-body"></div>
+      </section>
+    `;
 
   const body = document.getElementById("nt-body");
 
