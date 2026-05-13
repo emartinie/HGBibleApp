@@ -478,7 +478,7 @@ if (!book) {
   return;
 }
 
-  const bookKey = book.toLowerCase();
+  const bookKey = book.toLowerCase().replace(/\s+/g, "");
   const jsonPath = `data/nt/${bookKey}.json`;
 
   fetch(jsonPath)
