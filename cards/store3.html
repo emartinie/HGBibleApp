@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Trusted Items</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+.header {
+  background: #111;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 18px;
+  margin: 10px 0 5px;
+}
+
+.price {
+  color: #2a7;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #111;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #333;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+Trusted Community Items
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <img src="shofar.jpg">
+    <div class="title">Yemenite Shofar</div>
+    <div class="price">$150</div>
+    <button onclick="location.href='pay.html?item=shofar'">Request Item</button>
+  </div>
+
+  <div class="card">
+    <img src="tallit.jpg">
+    <div class="title">Tallit Prayer Shawl</div>
+    <div class="price">$15–$25</div>
+    <button onclick="location.href='pay.html?item=tallit'">Request Item</button>
+  </div>
+
+  <div class="card">
+    <img src="tzitzit.jpg">
+    <div class="title">Tzitzit with Torah Wrap</div>
+    <div class="price">$17</div>
+    <button onclick="location.href='pay.html?item=tzitzit'">Request Item</button>
+  </div>
+
+</div>
+
+</body>
+</html>
