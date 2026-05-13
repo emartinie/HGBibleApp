@@ -27,6 +27,7 @@ console.log("🗺️ prayermap.js loaded");
   let map;
   let prayerLayer;
   let homeGroupLayer;
+  let feastLayer;
 
   let addMode = false;
   let pendingLatLng = null;
@@ -116,10 +117,14 @@ console.log("🗺️ prayermap.js loaded");
         : L.layerGroup();
 
     map.addLayer(homeGroupLayer);
+    
+    feastLayer = L.layerGroup();
+    map.addLayer(feastLayer);
 
     L.control.layers(null, {
       "Prayers": prayerLayer,
-      "Home Groups": homeGroupLayer
+      "Home Groups": homeGroupLayer,
+      "Feasts (2026–2027)": feastLayer
     }).addTo(map);
 
     map.on("click", (e) => {
@@ -224,6 +229,54 @@ console.log("🗺️ prayermap.js loaded");
       console.error("HomeGroups error:", err);
     }
   }
+
+    // ======================
+  // FEASTS
+  // ======================
+
+  async function loadFeasts() {
+  try {
+    const res = await fetch("./data/FeastsMap.geojson");
+    const data = await res.json();
+
+    const features = data.features || [];
+
+    features.forEach((feature, i) => {
+      const latlng = getHomeGroupsLatLng(feature);
+      if (!latlng) return;
+
+      const marker = L.circleMarker(latlng, {
+        radius: 7,
+        fillColor: "#facc15", // gold/yellow (feasts)
+        color: "#111",
+        weight: 1,
+        fillOpacity: 0.9
+      });
+
+      const name =
+        feature?.properties?.name ||
+        feature?.properties?.Name ||
+        `Feast ${i + 1}`;
+
+      const year =
+        feature?.properties?.year ||
+        "";
+
+      marker.bindPopup(`
+        <div>
+          <strong>${name}</strong>
+          ${year ? `<div style="opacity:.8;font-size:.85rem;">${year}</div>` : ""}
+        </div>
+      `);
+
+      feastLayer.addLayer(marker);
+    });
+
+    console.log("📅 Feasts loaded:", features.length);
+  } catch (err) {
+    console.error("Feasts error:", err);
+  }
+}
 
   // ======================
   // SAVE PRAYER
@@ -359,7 +412,7 @@ function init() {
   initMap();
   listenForPrayers();
   loadHomeGroups();
- // wireUi(); // ← THIS is what you're missing
+  loadFeasts();   // ← ADD THIS
 }
 
   init();
