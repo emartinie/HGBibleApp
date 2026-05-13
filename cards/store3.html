@@ -118,7 +118,80 @@ button:hover {
   margin-top: 3%;
 }
 </style>-->
+<style>
+  button:hover {
+  background: #333;
+}
 
+/* ZOOM MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 90%;
+  margin: auto;
+  display: block;
+  margin-top: 3%;
+}
+
+/* TITLE */
+.title {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+/* PRICE */
+.price {
+  color: #1a7;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* CAROUSEL */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.carousel img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: none;
+  cursor: zoom-in;
+}
+
+.carousel img.active {
+  display: block;
+}
+
+/* ARROWS */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.left { left: 10px; }
+.right { right: 10px; }  
+</style>
 
 <div class="container">
 
