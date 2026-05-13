@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Complete Request</title>
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+  margin: 0;
+}
+
+.box {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.section {
+  margin: 20px 0;
+}
+
+a.button {
+  display: block;
+  padding: 12px;
+  background: #111;
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+  margin: 10px 0;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Complete Your Request</h2>
+
+<p id="item">Loading item...</p>
+
+<div class="section">
+<strong>Step 1:</strong> Send payment using one of the options below
+</div>
+
+<a class="button" href="https://cash.app/yourtag">Pay with Cash App</a>
+<a class="button" href="https://venmo.com/yourtag">Pay with Venmo</a>
+<a class="button" href="https://paypal.me/yourlink">Pay with PayPal</a>
+
+<div class="section">
+<strong>Step 2:</strong> Include this item name in your payment note:
+<br><br>
+<code id="itemcode"></code>
+</div>
+
+<div class="section">
+<strong>Step 3:</strong> After payment, I manually place your order and ship it to you.
+</div>
+
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const item = params.get("item");
+
+document.getElementById("item").innerText = "You selected: " + item;
+document.getElementById("itemcode").innerText = item;
+</script>
+
+</body>
+</html>
