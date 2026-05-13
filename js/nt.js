@@ -478,68 +478,78 @@ if (!book) {
   return;
 }
 
-  const bookKey = book.toLowerCase().replace(/\s+/g, "");
-  const jsonPath = `data/nt/${bookKey}.json`;
+  .then(data => {
+  if (!root) return;
 
-  fetch(jsonPath)
-    .then(res => {
-      if (!res.ok) throw new Error("Failed to load book data");
-      return res.json();
-    })
-    .then(data => {
-      if (view === "introduction") {
-        renderIntroduction(bookKey, data.introduction);
-        return;
-      }
+  // 🧱 ALWAYS render a stable root shell first
+  root.innerHTML = `
+    <section class="space-y-4">
+      <div id="nt-header" class="border-b border-slate-700 pb-2 mb-4"></div>
+      <div id="nt-body"></div>
+    </section>
+  `;
 
-      if (!chapter) {
-        root.innerHTML = "<p class='text-slate-400'>Select a chapter.</p>";
-        return;
-      }
+  const body = document.getElementById("nt-body");
 
-      const ch = data.chapters[String(chapter)];
-      if (!ch) throw new Error("Chapter not found");
+  if (view === "introduction") {
+    renderIntroduction(book, data.introduction);
+    return;
+  }
 
-      renderChapter(book, chapter, ch, section);
+  if (!chapter) {
+    body.innerHTML = "<p class='text-slate-400'>Select a chapter.</p>";
+    return;
+  }
 
-      if (view === "panel" && section && ch[section]) {
-        const href =
-          `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(section)}`;
+  const ch = data.chapters[String(chapter)];
+  if (!ch) {
+    body.innerHTML = "<p class='text-red-400'>Chapter not found.</p>";
+    return;
+  }
 
-        openPanel(
-          `${book} — Ch ${chapter} — ${section}`,
-          buildPanelSection(`${book} — Ch ${chapter}`, ch[section], href)
-        );
-      }
-    })
+  renderChapter(book, chapter, ch, section);
 
+  if (view === "panel" && section && ch[section]) {
+    const href =
+      `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(section)}`;
+
+    openPanel(
+      `${book} — Ch ${chapter} — ${section}`,
+      buildPanelSection(`${book} — Ch ${chapter}`, ch[section], href)
+    );
+  }
+})
     .catch(err => {
   console.error(err);
 
   if (root) {
-    root.innerHTML = `
-      <section class="space-y-4">
-        <div class="rounded-2xl border border-red-500/40 bg-red-900/20 p-5">
-          <h2 class="text-lg font-semibold text-red-300">Something went wrong</h2>
+root.innerHTML = `
+  <section class="space-y-4 animate-pulse">
+    <div class="rounded-2xl border border-red-400/60 bg-gradient-to-br from-red-950/40 to-slate-900 p-6 shadow-xl">
+      
+      <h2 class="text-lg font-semibold text-red-200 flex items-center gap-2">
+        ⚠️ Something went wrong
+      </h2>
 
-          <p class="text-slate-300 text-sm mt-2">
-            We couldn’t load this content. It may be missing or temporarily unavailable.
-          </p>
+      <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+        We couldn’t load this content. It may be missing or temporarily unavailable.
+      </p>
 
-          <div class="mt-4 flex gap-2 flex-wrap">
-            <button id="ntRetryBtn"
-              class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm">
-              Try Again
-            </button>
+      <div class="mt-5 flex gap-3 flex-wrap">
+        <button id="ntRetryBtn"
+          class="px-4 py-2 rounded-lg border border-slate-600 hover:bg-slate-800/60 text-sm transition">
+          Try Again
+        </button>
 
-            <button id="ntHomeBtn"
-              class="px-3 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white text-sm">
-              Back to NT Landing
-            </button>
-          </div>
-        </div>
-      </section>
-    `;
+        <button id="ntHomeBtn"
+          class="px-4 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white text-sm shadow">
+          Back to NT Landing
+        </button>
+      </div>
+
+    </div>
+  </section>
+`;
 
     document.getElementById("ntRetryBtn")?.addEventListener("click", () => {
       window.loadCard?.("nt");
