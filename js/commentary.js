@@ -28,7 +28,7 @@ async function loadCommentary(week) {
   }
 }
 
-export function initCommentary() {
+ function initCommentary() {
   const reloadBtn = document.getElementById("commentaryReloadBtn");
   const week = getWeekNumber();
 
@@ -38,3 +38,9 @@ export function initCommentary() {
 
   loadCommentary(week);
 }
+
+function init() {
+  initCommentary();
+}
+
+init();
