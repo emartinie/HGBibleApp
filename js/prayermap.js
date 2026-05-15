@@ -29,7 +29,7 @@ console.log("🗺️ prayermap.js loaded");
   let homeGroupLayer;
   let feastLayer;
 
-  let addMode = false;
+  let addMode = null; // "prayer" | "feast" 
   let pendingLatLng = null;
 
   const activeMarkers = {};
@@ -38,6 +38,10 @@ console.log("🗺️ prayermap.js loaded");
   // ======================
   // HELPERS (GLOBAL SAFE)
   // ======================
+  function unlockMap() {
+  map.dragging.enable();
+  map.scrollWheelZoom.enable();
+}
 
   function maskPrivateText(value) {
     if (!value) return "";
@@ -128,7 +132,7 @@ console.log("🗺️ prayermap.js loaded");
     }).addTo(map);
 
     map.on("click", (e) => {
-      if (!addMode) return;
+      if (addMode !== "prayer" && addMode !== "feast") return;
     
       if (addMode === "prayer") {
         openPrayerModal(e.latlng.lat, e.latlng.lng);
@@ -460,12 +464,15 @@ function openFeastModal(lat, lng) {
 document.addEventListener("click", (e) => {
   const target = e.target;
 
-  if (target?.id === "prayerMapAddBtn") {
-    console.log("BUTTON CLICKED");
-    addMode = true;
-    alert("Click the map where you want to place your prayer.");
-    return;
-  }
+if (target?.id === "prayerMapAddBtn") {
+  addMode = "prayer";
+  alert("Click map where you want to place prayer.");
+}
+
+if (target?.id === "feastMapAddBtn") {
+  addMode = "feast";
+  alert("Click map where you want to place feast.");
+}
 
 if (target?.id === "prayerPorchCloseBtn") {
   const panel = document.getElementById("prayerPorchPanel");
