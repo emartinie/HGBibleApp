@@ -245,43 +245,53 @@ console.log("🗺️ prayermap.js loaded");
   // FEASTS
   // ======================
 
+  function listenForFeasts() {
+  onSnapshot(collection(db, "feasts"), (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      const id = change.doc.id;
+      const data = change.doc.data();
+
+      if (change.type === "added" || change.type === "modified") {
+        addFeastMarker({ id, ...data });
+      }
+
+      if (change.type === "removed" && activeFeasts[id]) {
+        feastLayer.removeLayer(activeFeasts[id]);
+        delete activeFeasts[id];
+      }
+    });
+  });
+}
+
   async function loadFeasts() {
   try {
-    const res = await fetch("./data/FeastsMap.geojson");
-    const data = await res.json();
+  const activeFeasts = {};
 
-    const features = data.features || [];
+function addFeastMarker(feast) {
+  const lat = Number(feast.lat);
+  const lng = Number(feast.lng);
+  if (isNaN(lat) || isNaN(lng)) return;
 
-    features.forEach((feature, i) => {
-      const latlng = getHomeGroupsLatLng(feature);
-      if (!latlng) return;
+  if (activeFeasts[feast.id]) {
+    activeFeasts[feast.id].setLatLng([lat, lng]);
+    return;
+  }
 
-      const marker = L.circleMarker(latlng, {
-        radius: 7,
-        fillColor: "#facc15", // gold/yellow (feasts)
-        color: "#111",
-        weight: 1,
-        fillOpacity: 0.9
-      });
+  const marker = L.circleMarker([lat, lng], {
+    radius: 7,
+    fillColor: "#facc15",
+    color: "#111",
+    weight: 1,
+    fillOpacity: 0.9
+  }).addTo(feastLayer);
 
-      const name =
-        feature?.properties?.name ||
-        feature?.properties?.Name ||
-        `Feast ${i + 1}`;
+  marker.bindPopup(`
+    <strong>${feast.name || "Anonymous"}</strong><br>
+    <small>${feast.feastType || ""}</small>
+  `);
 
-      const year =
-        feature?.properties?.year ||
-        "";
-
-      marker.bindPopup(`
-        <div>
-          <strong>${name}</strong>
-          ${year ? `<div style="opacity:.8;font-size:.85rem;">${year}</div>` : ""}
-        </div>
-      `);
-
-      feastLayer.addLayer(marker);
-    });
+  activeFeasts[feast.id] = marker;
+}
 
     console.log("📅 Feasts loaded:", features.length);
   } catch (err) {
