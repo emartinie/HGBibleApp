@@ -243,6 +243,21 @@ function openPrayerModal(lat, lng) {
   panel.classList.remove("hidden");
   panel.classList.add("flex");
 
+  const closeBtn = document.getElementById("prayerPorchCloseBtn");
+
+if (closeBtn) {
+  closeBtn.onclick = () => {
+    panel.classList.add("hidden");
+    panel.classList.remove("flex");
+
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+
+    pendingLatLng = null;
+    addMode = null;
+  };
+}
+
   // 🔑 disable map interaction while modal is open
   map.dragging.disable();
   map.scrollWheelZoom.disable();
@@ -297,6 +312,22 @@ function openFeastModal(lat, lng) {
   panel.classList.remove("hidden");
   panel.classList.add("flex");
 
+  const closeBtn = document.getElementById("prayerPorchCloseBtn");
+
+if (closeBtn) {
+  closeBtn.onclick = () => {
+    panel.classList.add("hidden");
+    panel.classList.remove("flex");
+
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+
+    pendingLatLng = null;
+    addMode = null;
+  };
+}
+
+    // 🔑 disable map interaction while modal is open
   map.dragging.disable();
   map.scrollWheelZoom.disable();
 
