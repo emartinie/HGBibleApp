@@ -32,76 +32,82 @@ console.log("🗺️ prayermap.js loaded");
   const activeMarkers = {};
   const activeFeasts = {};
 
-  // ======================
-  // HELPERS
-  // ======================
+// ======================
+// HELPERS (GLOBAL SAFE)
+// ======================
 
-  // ======================
-  // HELPERS (GLOBAL SAFE)
-  // ======================
+function maskPrivateText(value) {
+  if (!value) return "";
 
-  function maskPrivateText(value) {
-  function maskPrivateText(value) {
-    if (!value) return "";
-    const str = String(value);
-    if (str.length <= 3) return str;
-    return str.slice(0, 3) + "*".repeat(str.length - 3);
+  const str = String(value);
+  if (str.length <= 3) return str;
+
+  return str.slice(0, 3) + "*".repeat(str.length - 3);
+}
+
+function maskDescription(description) {
+  if (!description) return "";
+
+  return String(description)
+    .replace(
+      /([A-Z0-9._%+-]{4,}@[A-Z0-9.-]+\.[A-Z]{2,})/gi,
+      (m) => maskPrivateText(m)
+    )
+    .replace(
+      /(\+?\d[\d\-\s().]{6,}\d)/g,
+      (m) => maskPrivateText(m)
+    )
+    .replace(
+      /(Address:\s*)([^<\n]+)/gi,
+      (_, prefix, value) => prefix + maskPrivateText(value.trim())
+    );
+}
+
+function getHomeGroupsLatLng(feature) {
+  const raw = feature?.properties?.Coordinates;
+  if (!raw) return null;
+
+  if (typeof raw === "string") {
+    const parts = raw.split(",").map((s) => Number(s.trim()));
+    if (parts.length < 2) return null;
+
+    const lon = parts[0];
+    const lat = parts[1];
+
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    return [lat, lon];
   }
 
-  function maskDescription(description) {
-  function maskDescription(description) {
-    if (!description) return "";
+  if (Array.isArray(raw) && raw.length >= 2) {
+    const lon = Number(raw[0]);
+    const lat = Number(raw[1]);
 
-    return String(description)
-      .replace(/([A-Z0-9._%+-]{4,}@[A-Z0-9.-]+\.[A-Z]{2,})/gi, (m) => maskPrivateText(m))
-      .replace(/([A-Z0-9._%+-]{4,}@[A-Z0-9.-]+\.[A-Z]{2,})/gi, (m) => maskPrivateText(m))
-      .replace(/(\+?\d[\d\-\s().]{6,}\d)/g, (m) => maskPrivateText(m))
-      .replace(/(\+?\d[\d\-\s().]{6,}\d)/g, (m) => maskPrivateText(m))
-      .replace(/(Address:\s*)([^<\n]+)/gi, (_, prefix, value) => prefix + maskPrivateText(value.trim()));
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    return [lat, lon];
   }
 
-  function getHomeGroupsLatLng(feature) {
-    const raw = feature?.properties?.Coordinates;
-    if (!raw) return null;
+  return null;
+}
 
-    if (typeof raw === "string") {
-      const parts = raw.split(",").map(s => Number(s.trim()));
-      if (parts.length < 2) return null;
-      const lon = parts[0];
-      const lat = parts[1];
-      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-      return [lat, lon];
-    }
+function labelFor(feature, i) {
+  const p = feature?.properties || {};
+  return p.Name || p.name || p.Title || p.title || `Group ${i + 1}`;
+}
 
-    if (Array.isArray(raw) && raw.length >= 2) {
-      const lon = Number(raw[0]);
-      const lat = Number(raw[1]);
-      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-      return [lat, lon];
-    }
+function popupFor(feature, i) {
+  const p = feature?.properties || {};
+  const name = labelFor(feature, i);
+  const description = maskDescription(p.description || p.Description || "");
+  const coords = maskDescription(p.Coordinates || "");
 
-    return null;
-  }
-
-  function labelFor(feature, i) {
-    const p = feature?.properties || {};
-    return p.Name || p.name || p.Title || p.title || `Group ${i + 1}`;
-  }
-
-  function popupFor(feature, i) {
-    const p = feature?.properties || {};
-    const name = labelFor(feature, i);
-    const description = maskDescription(p.description || p.Description || "");
-    const coords = maskDescription(p.Coordinates || "");
-
-    return `
-      <div>
-        <strong>${name}</strong>
-        ${description ? `<div style="margin-top:6px;">${description}</div>` : ""}
-        ${coords ? `<div style="font-size:.8rem;opacity:.7;">${coords}</div>` : ""}
-      </div>
-    `;
-  }
+  return `
+    <div>
+      <strong>${name}</strong>
+      ${description ? `<div style="margin-top:6px;">${description}</div>` : ""}
+      ${coords ? `<div style="font-size:.8rem;opacity:.7;">${coords}</div>` : ""}
+    </div>
+  `;
+}
 
   // ======================
   // MAP INIT
