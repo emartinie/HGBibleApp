@@ -129,9 +129,16 @@ console.log("🗺️ prayermap.js loaded");
 
     map.on("click", (e) => {
       if (!addMode) return;
-      addMode = false;
-      openPrayerModal(e.latlng.lat, e.latlng.lng);
-        console.log("MAP CLICK", addMode);
+    
+      if (addMode === "prayer") {
+        openPrayerModal(e.latlng.lat, e.latlng.lng);
+      }
+    
+      if (addMode === "feast") {
+        openFeastModal(e.latlng.lat, e.latlng.lng);
+      }
+    
+      addMode = null;
     });
 
     map.on("popupopen", (e) => {
@@ -348,6 +355,74 @@ function openPrayerModal(lat, lng) {
     pendingLatLng = null;
 
     // 🔑 re-enable map
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+  };
+}
+
+  async function saveFeastMarker(name, feastType, lat, lng) {
+  await addDoc(collection(db, "feasts"), {
+    name: name || "Anonymous",
+    feastType: feastType || "Shavuot",
+    lat,
+    lng,
+    createdAt: serverTimestamp()
+  });
+}
+
+function openFeastModal(lat, lng) {
+  console.log("OPENING FEAST MODAL");
+
+  pendingLatLng = { lat, lng };
+
+  const panel = document.getElementById("prayerPorchPanel");
+  const message = document.getElementById("prayerPorchMessage");
+
+  if (!panel || !message) return;
+
+  message.innerHTML = `
+    <div class="flex flex-col gap-3">
+      <input
+        id="feastNameInput"
+        placeholder="Name optional"
+        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white"
+      />
+
+      <select
+        id="feastTypeInput"
+        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white"
+      >
+        <option value="Shavuot">Shavuot</option>
+        <option value="Sukkot">Sukkot</option>
+      </select>
+
+      <button
+        id="feastSaveBtn"
+        type="button"
+        class="w-full px-4 py-3 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-medium"
+      >
+        Save Feast Location
+      </button>
+    </div>
+  `;
+
+  panel.classList.remove("hidden");
+  panel.classList.add("flex");
+
+  map.dragging.disable();
+  map.scrollWheelZoom.disable();
+
+  document.getElementById("feastSaveBtn").onclick = async () => {
+    const name = document.getElementById("feastNameInput").value;
+    const feastType = document.getElementById("feastTypeInput").value;
+
+    await saveFeastMarker(name, feastType, lat, lng);
+
+    panel.classList.add("hidden");
+    panel.classList.remove("flex");
+
+    pendingLatLng = null;
+
     map.dragging.enable();
     map.scrollWheelZoom.enable();
   };
