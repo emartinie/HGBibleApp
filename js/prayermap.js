@@ -146,32 +146,120 @@ console.log("🗺️ prayermap.js loaded");
     });
   }
 
-  function openPrayerModal(lat, lng) {
-    const panel = document.getElementById("prayerPorchPanel");
-    const message = document.getElementById("prayerPorchMessage");
-    if (!panel || !message) return;
+// ======================
+// MODALS
+// ======================
 
-    message.innerHTML = `
-      <input id="prayerNameInput" placeholder="Name" />
-      <textarea id="prayerMessageInput" placeholder="Prayer"></textarea>
-      <button id="prayerSaveBtn">Save Prayer</button>
-    `;
+function openPrayerModal(lat, lng) {
+  const panel = document.getElementById("prayerPorchPanel");
+  const message = document.getElementById("prayerPorchMessage");
+  if (!panel || !message) return;
 
-    panel.classList.remove("hidden");
-    map.dragging.disable();
+  message.innerHTML = `
+    <div class="flex flex-col gap-3">
+      <input
+        id="prayerNameInput"
+        placeholder="Name optional"
+        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white"
+      />
 
-    document.getElementById("prayerSaveBtn").onclick = async () => {
-      await savePrayer(
-        lat,
-        lng,
-        document.getElementById("prayerNameInput").value,
-        document.getElementById("prayerMessageInput").value
-      );
+      <textarea
+        id="prayerMessageInput"
+        placeholder="Prayer request"
+        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white min-h-[120px]"
+      ></textarea>
 
-      panel.classList.add("hidden");
-      map.dragging.enable();
-    };
-  }
+      <button
+        id="prayerSaveBtn"
+        class="w-full px-4 py-3 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-medium"
+      >
+        Save Prayer
+      </button>
+    </div>
+  `;
+
+  panel.classList.remove("hidden");
+  panel.classList.add("flex");
+
+  map.dragging.disable();
+  map.scrollWheelZoom.disable();
+
+  document.getElementById("prayerSaveBtn").onclick = async () => {
+    const name = document.getElementById("prayerNameInput").value;
+    const messageText = document.getElementById("prayerMessageInput").value;
+
+    await addDoc(collection(db, "prayers"), {
+      name: name || "Anonymous",
+      message: messageText,
+      lat,
+      lng,
+      prayed: false,
+      createdAt: serverTimestamp()
+    });
+
+    panel.classList.add("hidden");
+    panel.classList.remove("flex");
+
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+  };
+}
+
+function openFeastModal(lat, lng) {
+  const panel = document.getElementById("prayerPorchPanel");
+  const message = document.getElementById("prayerPorchMessage");
+  if (!panel || !message) return;
+
+  message.innerHTML = `
+    <div class="flex flex-col gap-3">
+      <input
+        id="feastNameInput"
+        placeholder="Name optional"
+        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white"
+      />
+
+      <select
+        id="feastTypeInput"
+        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white"
+      >
+        <option value="Shavuot">Shavuot</option>
+        <option value="Sukkot">Sukkot</option>
+      </select>
+
+      <button
+        id="feastSaveBtn"
+        class="w-full px-4 py-3 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-medium"
+      >
+        Save Feast
+      </button>
+    </div>
+  `;
+
+  panel.classList.remove("hidden");
+  panel.classList.add("flex");
+
+  map.dragging.disable();
+  map.scrollWheelZoom.disable();
+
+  document.getElementById("feastSaveBtn").onclick = async () => {
+    const name = document.getElementById("feastNameInput").value;
+    const feastType = document.getElementById("feastTypeInput").value;
+
+    await addDoc(collection(db, "feasts"), {
+      name: name || "Anonymous",
+      feastType,
+      lat,
+      lng,
+      createdAt: serverTimestamp()
+    });
+
+    panel.classList.add("hidden");
+    panel.classList.remove("flex");
+
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+  };
+}
 
   // ======================
   // HOME GROUPS (RESTORED)
