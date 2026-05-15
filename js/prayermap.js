@@ -131,6 +131,13 @@ console.log("🗺️ prayermap.js loaded");
     console.log("✅ Map initialized");
   }
 
+  const res = await fetch("./data/HomeGroupsMap.geojson");
+
+if (!res.ok) {
+  console.error("HomeGroups fetch failed:", res.status);
+  return;
+}
+
   // ======================
   // PRAYERS
   // ======================
