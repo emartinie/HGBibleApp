@@ -317,6 +317,7 @@ console.log("🗺️ prayermap.js loaded");
     initMap();
     listenForPrayers();
     listenForFeasts();
+    loadHomeGroups();
   }
 
   init();
