@@ -181,6 +181,12 @@ function openPrayerModal(lat, lng) {
       Save Prayer
     </button>
   </div>
+            <button
+        id="prayerCloseBtn"
+        class="w-full px-4 py-3 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-medium"
+      >
+        Close Prayer
+      </button>
 `;
 
   panel.classList.remove("hidden");
@@ -232,6 +238,13 @@ function openFeastModal(lat, lng) {
         class="w-full px-4 py-3 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-medium"
       >
         Save Feast
+      </button>
+    </div>
+          <button
+        id="feastCloseBtn"
+        class="w-full px-4 py-3 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-medium"
+      >
+        Close Feast
       </button>
     </div>
   `;
