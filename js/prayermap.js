@@ -151,55 +151,56 @@ console.log("🗺️ prayermap.js loaded");
 // ======================
 
 function openPrayerModal(lat, lng) {
+    console.log("OPENING MODAL");
+  pendingLatLng = { lat, lng };
+
   const panel = document.getElementById("prayerPorchPanel");
   const message = document.getElementById("prayerPorchMessage");
+
   if (!panel || !message) return;
 
   message.innerHTML = `
-    <div class="flex flex-col gap-3">
-      <input
-        id="prayerNameInput"
-        placeholder="Name optional"
-        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white"
-      />
+  <div class="flex flex-col gap-3">
+    <input
+      id="prayerNameInput"
+      placeholder="Name optional"
+      class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400"
+    />
 
-      <textarea
-        id="prayerMessageInput"
-        placeholder="Prayer request"
-        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white min-h-[120px]"
-      ></textarea>
+    <textarea
+      id="prayerMessageInput"
+      placeholder="Prayer request"
+      class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400 min-h-[120px]"
+    ></textarea>
 
-      <button
-        id="prayerSaveBtn"
-        class="w-full px-4 py-3 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-medium"
-      >
-        Save Prayer
-      </button>
-    </div>
-  `;
+    <button
+      id="prayerSaveBtn"
+      type="button"
+      class="w-full px-4 py-3 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-medium"
+    >
+      Save Prayer
+    </button>
+  </div>
+`;
 
   panel.classList.remove("hidden");
   panel.classList.add("flex");
 
+  // 🔑 disable map interaction while modal is open
   map.dragging.disable();
   map.scrollWheelZoom.disable();
 
   document.getElementById("prayerSaveBtn").onclick = async () => {
     const name = document.getElementById("prayerNameInput").value;
-    const messageText = document.getElementById("prayerMessageInput").value;
+    const text = document.getElementById("prayerMessageInput").value;
 
-    await addDoc(collection(db, "prayers"), {
-      name: name || "Anonymous",
-      message: messageText,
-      lat,
-      lng,
-      prayed: false,
-      createdAt: serverTimestamp()
-    });
+    await savePrayerMarker(name, text, lat, lng);
 
     panel.classList.add("hidden");
     panel.classList.remove("flex");
+    pendingLatLng = null;
 
+    // 🔑 re-enable map
     map.dragging.enable();
     map.scrollWheelZoom.enable();
   };
