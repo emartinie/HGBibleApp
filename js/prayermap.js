@@ -1,6 +1,7 @@
 import { db } from "./firebase-init.js";
-import { doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
+  doc,
+  updateDoc,
   collection,
   onSnapshot,
   addDoc,
@@ -20,28 +21,22 @@ console.log("🗺️ prayermap.js loaded");
   const mapEl = document.getElementById("prayerMap");
   if (!mapEl || typeof L === "undefined") return;
 
-//(function () {
-  //const mapEl = document.getElementById("prayerMap");
-  //if (!mapEl || typeof L === "undefined") return;
-
   let map;
   let prayerLayer;
   let homeGroupLayer;
   let feastLayer;
 
-  let addMode = null; // "prayer" | "feast" 
+  let addMode = null; // "prayer" | "feast"
   let pendingLatLng = null;
 
   const activeMarkers = {};
   const prayerData = {};
 
+  const activeFeasts = {};
+
   // ======================
-  // HELPERS (GLOBAL SAFE)
+  // HELPERS
   // ======================
-  function unlockMap() {
-  map.dragging.enable();
-  map.scrollWheelZoom.enable();
-}
 
   function maskPrivateText(value) {
     if (!value) return "";
@@ -54,9 +49,9 @@ console.log("🗺️ prayermap.js loaded");
     if (!description) return "";
 
     return String(description)
-      .replace(/([A-Z0-9._%+-]{4,}@[A-Z0-9.-]+\.[A-Z]{2,})/gi, (m) => maskPrivateText(m))
-      .replace(/(\+?\d[\d\-\s().]{6,}\d)/g, (m) => maskPrivateText(m))
-      .replace(/(Address:\s*)([^<\n]+)/gi, (_, prefix, value) => prefix + maskPrivateText(value.trim()));
+      .replace(/([A-Z0-9._%+-]{4,}@[A-Z0-9.-]+\.[A-Z]{2,})/gi, m => maskPrivateText(m))
+      .replace(/(\+?\d[\d\-\s().]{6,}\d)/g, m => maskPrivateText(m))
+      .replace(/(Address:\s*)([^<\n]+)/gi, (_, p, v) => p + maskPrivateText(v.trim()));
   }
 
   function getHomeGroupsLatLng(feature) {
@@ -66,45 +61,30 @@ console.log("🗺️ prayermap.js loaded");
     if (typeof raw === "string") {
       const parts = raw.split(",").map(s => Number(s.trim()));
       if (parts.length < 2) return null;
-      const lon = parts[0];
-      const lat = parts[1];
-      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-      return [lat, lon];
+      return [parts[1], parts[0]];
     }
 
     if (Array.isArray(raw) && raw.length >= 2) {
-      const lon = Number(raw[0]);
-      const lat = Number(raw[1]);
-      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-      return [lat, lon];
+      return [Number(raw[1]), Number(raw[0])];
     }
 
     return null;
   }
 
-  function labelFor(feature, i) {
-    const p = feature?.properties || {};
-    return p.Name || p.name || p.Title || p.title || `Group ${i + 1}`;
-  }
-
   function popupFor(feature, i) {
     const p = feature?.properties || {};
-    const name = labelFor(feature, i);
-    const description = maskDescription(p.description || p.Description || "");
-    const coords = maskDescription(p.Coordinates || "");
-
     return `
       <div>
-        <strong>${name}</strong>
-        ${description ? `<div style="margin-top:6px;">${description}</div>` : ""}
-        ${coords ? `<div style="font-size:.8rem;opacity:.7;">${coords}</div>` : ""}
+        <strong>${p.Name || p.name || `Group ${i + 1}`}</strong>
+        ${p.Description ? `<div>${maskDescription(p.Description)}</div>` : ""}
       </div>
     `;
   }
 
   // ======================
-  // INIT MAP
+  // MAP INIT
   // ======================
+
   function initMap() {
     map = L.map(mapEl).setView([36.1, -87.4], 8);
     window.currentMap = map;
@@ -114,34 +94,26 @@ console.log("🗺️ prayermap.js loaded");
     }).addTo(map);
 
     prayerLayer = L.layerGroup().addTo(map);
-
-    homeGroupLayer =
-      typeof L.markerClusterGroup === "function"
-        ? L.markerClusterGroup()
-        : L.layerGroup();
-
-    map.addLayer(homeGroupLayer);
-    
-    feastLayer = L.layerGroup();
-    map.addLayer(feastLayer);
+    homeGroupLayer = L.layerGroup().addTo(map);
+    feastLayer = L.layerGroup().addTo(map);
 
     L.control.layers(null, {
       "Prayers": prayerLayer,
       "Home Groups": homeGroupLayer,
-      "Feasts (2026–2027)": feastLayer
+      "Feasts": feastLayer
     }).addTo(map);
 
     map.on("click", (e) => {
-      if (addMode !== "prayer" && addMode !== "feast") return;
-    
+      if (!addMode) return;
+
       if (addMode === "prayer") {
         openPrayerModal(e.latlng.lat, e.latlng.lng);
       }
-    
+
       if (addMode === "feast") {
         openFeastModal(e.latlng.lat, e.latlng.lng);
       }
-    
+
       addMode = null;
     });
 
@@ -150,8 +122,9 @@ console.log("🗺️ prayermap.js loaded");
       if (!btn) return;
 
       btn.addEventListener("click", async () => {
-        const id = btn.dataset.id;
-        await updateDoc(doc(db, "prayers", id), { prayed: true });
+        await updateDoc(doc(db, "prayers", btn.dataset.id), {
+          prayed: true
+        });
       });
     });
 
@@ -159,8 +132,9 @@ console.log("🗺️ prayermap.js loaded");
   }
 
   // ======================
-  // PRAYER MARKERS
+  // PRAYERS
   // ======================
+
   function addMarker(prayer) {
     const lat = Number(prayer.lat);
     const lng = Number(prayer.lng);
@@ -183,7 +157,7 @@ console.log("🗺️ prayermap.js loaded");
       <strong>${prayer.name || "Anonymous"}</strong><br>
       <p>${prayer.message || ""}</p>
       <button data-id="${prayer.id}" class="mark-prayed-btn">
-        ${prayer.prayed ? "🙏 Prayed" : "🙏 I Prayed"}
+        🙏 I Prayed
       </button>
     `);
 
@@ -192,12 +166,12 @@ console.log("🗺️ prayermap.js loaded");
   }
 
   function listenForPrayers() {
-    onSnapshot(collection(db, "prayers"), (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
+    onSnapshot(collection(db, "prayers"), snap => {
+      snap.docChanges().forEach(change => {
         const id = change.doc.id;
         const data = change.doc.data();
 
-        if (change.type === "added" || change.type === "modified") {
+        if (change.type !== "removed") {
           addMarker({ id, ...data });
         }
 
@@ -210,302 +184,140 @@ console.log("🗺️ prayermap.js loaded");
   }
 
   // ======================
-  // HOME GROUPS
+  // FEASTS (FIXED)
   // ======================
-  async function loadHomeGroups() {
-    try {
-      const res = await fetch("./data/HomeGroupsMap.geojson");
-      const data = await res.json();
 
-      const features = data.features || [];
+  function addFeastMarker(feast) {
+    const lat = Number(feast.lat);
+    const lng = Number(feast.lng);
+    if (isNaN(lat) || isNaN(lng)) return;
 
-      features.forEach((feature, i) => {
-        const latlng = getHomeGroupsLatLng(feature);
-        if (!latlng) return;
-
-        const marker = L.circleMarker(latlng, {
-          radius: 6,
-          fillColor: "#3b82f6",
-          color: "#111",
-          weight: 1,
-          fillOpacity: 0.9
-        });
-
-        marker.bindPopup(popupFor(feature, i));
-        homeGroupLayer.addLayer(marker);
-      });
-
-      console.log("🏠 HomeGroups loaded:", features.length);
-    } catch (err) {
-      console.error("HomeGroups error:", err);
+    if (activeFeasts[feast.id]) {
+      activeFeasts[feast.id].setLatLng([lat, lng]);
+      return;
     }
-  }
 
-    // ======================
-  // FEASTS
-  // ======================
+    const marker = L.circleMarker([lat, lng], {
+      radius: 7,
+      fillColor: "#facc15",
+      color: "#111",
+      weight: 1,
+      fillOpacity: 0.9
+    }).addTo(feastLayer);
+
+    marker.bindPopup(`
+      <strong>${feast.name || "Feast"}</strong><br>
+      <small>${feast.feastType || ""}</small>
+    `);
+
+    activeFeasts[feast.id] = marker;
+  }
 
   function listenForFeasts() {
-  onSnapshot(collection(db, "feasts"), (snapshot) => {
-    snapshot.docChanges().forEach((change) => {
-      const id = change.doc.id;
-      const data = change.doc.data();
+    onSnapshot(collection(db, "feasts"), snap => {
+      snap.docChanges().forEach(change => {
+        const id = change.doc.id;
+        const data = change.doc.data();
 
-      if (change.type === "added" || change.type === "modified") {
-        addFeastMarker({ id, ...data });
-      }
+        if (change.type !== "removed") {
+          addFeastMarker({ id, ...data });
+        }
 
-      if (change.type === "removed" && activeFeasts[id]) {
-        feastLayer.removeLayer(activeFeasts[id]);
-        delete activeFeasts[id];
-      }
-    });
-  });
-}
-
-  async function loadFeasts() {
-  try {
-  const activeFeasts = {};
-
-function addFeastMarker(feast) {
-  const lat = Number(feast.lat);
-  const lng = Number(feast.lng);
-  if (isNaN(lat) || isNaN(lng)) return;
-
-  if (activeFeasts[feast.id]) {
-    activeFeasts[feast.id].setLatLng([lat, lng]);
-    return;
-  }
-
-  const marker = L.circleMarker([lat, lng], {
-    radius: 7,
-    fillColor: "#facc15",
-    color: "#111",
-    weight: 1,
-    fillOpacity: 0.9
-  }).addTo(feastLayer);
-
-  marker.bindPopup(`
-    <strong>${feast.name || "Anonymous"}</strong><br>
-    <small>${feast.feastType || ""}</small>
-  `);
-
-  activeFeasts[feast.id] = marker;
-}
-
-    console.log("📅 Feasts loaded:", features.length);
-  } catch (err) {
-    console.error("Feasts error:", err);
-  }
-}
-
-  // ======================
-  // SAVE PRAYER
-  // ======================
-  async function savePrayerMarker(name, message, lat, lng) {
-    if (!message) return;
-
-    await addDoc(collection(db, "prayers"), {
-      name: name || "Anonymous",
-      message,
-      lat,
-      lng,
-      prayed: false,
-      createdAt: serverTimestamp()
+        if (change.type === "removed" && activeFeasts[id]) {
+          feastLayer.removeLayer(activeFeasts[id]);
+          delete activeFeasts[id];
+        }
+      });
     });
   }
 
   // ======================
-  // MODAL
+  // MODALS
   // ======================
-function openPrayerModal(lat, lng) {
-    console.log("OPENING MODAL");
-  pendingLatLng = { lat, lng };
 
-  const panel = document.getElementById("prayerPorchPanel");
-  const message = document.getElementById("prayerPorchMessage");
+  function openPrayerModal(lat, lng) {
+    const panel = document.getElementById("prayerPorchPanel");
+    const message = document.getElementById("prayerPorchMessage");
+    if (!panel || !message) return;
 
-  if (!panel || !message) return;
+    message.innerHTML = `
+      <input id="prayerNameInput" placeholder="Name" />
+      <textarea id="prayerMessageInput"></textarea>
+      <button id="prayerSaveBtn">Save Prayer</button>
+    `;
 
-  message.innerHTML = `
-  <div class="flex flex-col gap-3">
-    <input
-      id="prayerNameInput"
-      placeholder="Name optional"
-      class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400"
-    />
+    panel.classList.remove("hidden");
+    map.dragging.disable();
 
-    <textarea
-      id="prayerMessageInput"
-      placeholder="Prayer request"
-      class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400 min-h-[120px]"
-    ></textarea>
+    document.getElementById("prayerSaveBtn").onclick = async () => {
+      await addDoc(collection(db, "prayers"), {
+        name: document.getElementById("prayerNameInput").value,
+        message: document.getElementById("prayerMessageInput").value,
+        lat,
+        lng,
+        prayed: false,
+        createdAt: serverTimestamp()
+      });
 
-    <button
-      id="prayerSaveBtn"
-      type="button"
-      class="w-full px-4 py-3 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-medium"
-    >
-      Save Prayer
-    </button>
-  </div>
-`;
+      panel.classList.add("hidden");
+      map.dragging.enable();
+    };
+  }
 
-  panel.classList.remove("hidden");
-  panel.classList.add("flex");
+  function openFeastModal(lat, lng) {
+    const panel = document.getElementById("prayerPorchPanel");
+    const message = document.getElementById("prayerPorchMessage");
+    if (!panel || !message) return;
 
-  // 🔑 disable map interaction while modal is open
-  map.dragging.disable();
-  map.scrollWheelZoom.disable();
-
-  document.getElementById("prayerSaveBtn").onclick = async () => {
-    const name = document.getElementById("prayerNameInput").value;
-    const text = document.getElementById("prayerMessageInput").value;
-
-    await savePrayerMarker(name, text, lat, lng);
-
-    panel.classList.add("hidden");
-    panel.classList.remove("flex");
-    pendingLatLng = null;
-
-    // 🔑 re-enable map
-    map.dragging.enable();
-    map.scrollWheelZoom.enable();
-  };
-}
-
-  async function saveFeastMarker(name, feastType, lat, lng) {
-  await addDoc(collection(db, "feasts"), {
-    name: name || "Anonymous",
-    feastType: feastType || "Shavuot",
-    lat,
-    lng,
-    createdAt: serverTimestamp()
-  });
-}
-
-function openFeastModal(lat, lng) {
-  console.log("OPENING FEAST MODAL");
-
-  pendingLatLng = { lat, lng };
-
-  const panel = document.getElementById("prayerPorchPanel");
-  const message = document.getElementById("prayerPorchMessage");
-
-  if (!panel || !message) return;
-
-  message.innerHTML = `
-    <div class="flex flex-col gap-3">
-      <input
-        id="feastNameInput"
-        placeholder="Name optional"
-        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white"
-      />
-
-      <select
-        id="feastTypeInput"
-        class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white"
-      >
-        <option value="Shavuot">Shavuot</option>
-        <option value="Sukkot">Sukkot</option>
+    message.innerHTML = `
+      <input id="feastNameInput" />
+      <select id="feastTypeInput">
+        <option>Shavuot</option>
+        <option>Sukkot</option>
       </select>
+      <button id="feastSaveBtn">Save Feast</button>
+    `;
 
-      <button
-        id="feastSaveBtn"
-        type="button"
-        class="w-full px-4 py-3 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-medium"
-      >
-        Save Feast Location
-      </button>
-    </div>
-  `;
+    panel.classList.remove("hidden");
+    map.dragging.disable();
 
-  panel.classList.remove("hidden");
-  panel.classList.add("flex");
+    document.getElementById("feastSaveBtn").onclick = async () => {
+      await addDoc(collection(db, "feasts"), {
+        name: document.getElementById("feastNameInput").value,
+        feastType: document.getElementById("feastTypeInput").value,
+        lat,
+        lng,
+        createdAt: serverTimestamp()
+      });
 
-  map.dragging.disable();
-  map.scrollWheelZoom.disable();
-
-  document.getElementById("feastSaveBtn").onclick = async () => {
-    const name = document.getElementById("feastNameInput").value;
-    const feastType = document.getElementById("feastTypeInput").value;
-
-    await saveFeastMarker(name, feastType, lat, lng);
-
-    panel.classList.add("hidden");
-    panel.classList.remove("flex");
-
-    pendingLatLng = null;
-
-    map.dragging.enable();
-    map.scrollWheelZoom.enable();
-  };
-}
+      panel.classList.add("hidden");
+      map.dragging.enable();
+    };
+  }
 
   // ======================
-  // LOCATE USER
+  // UI EVENTS
   // ======================
-  window.locateUser = function () {
-    if (!window.currentMap) return;
 
-    window.currentMap.locate({ setView: true, maxZoom: 11 });
+  document.addEventListener("click", e => {
+    if (e.target?.id === "prayerMapAddBtn") {
+      addMode = "prayer";
+    }
 
-    window.currentMap.once("locationfound", (e) => {
-      L.marker(e.latlng).addTo(window.currentMap)
-        .bindPopup("📍 You are here")
-        .openPopup();
-    });
-  };
-
-  //function wireUi() {
-  //const btn = document.getElementById("prayerMapAddBtn");
-
-  //if (!btn) {
-    //console.warn("❌ prayerMapAddBtn not found");
-    //return;
-  //}
-
-  //btn.onclick = () => {
-    //addMode = true;
-    //alert("Click the map where you want to place the prayer.");
-  //};
-//}
-
-document.addEventListener("click", (e) => {
-  const target = e.target;
-
-if (target?.id === "prayerMapAddBtn") {
-  addMode = "prayer";
-  alert("Click map where you want to place prayer.");
-}
-
-if (target?.id === "feastMapAddBtn") {
-  addMode = "feast";
-  alert("Click map where you want to place feast.");
-}
-
-if (target?.id === "prayerPorchCloseBtn") {
-  const panel = document.getElementById("prayerPorchPanel");
-
-  panel.classList.add("hidden");
-  panel.classList.remove("flex");
-
-  map.dragging.enable();
-  map.scrollWheelZoom.enable();
-  return;
-}
-
+    if (e.target?.id === "feastMapAddBtn") {
+      addMode = "feast";
+    }
   });
 
   // ======================
   // INIT
   // ======================
-function init() {
-  initMap();
-  listenForPrayers();
-  loadHomeGroups();
-  loadFeasts();   // ← ADD THIS
-}
+
+  function init() {
+    initMap();
+    listenForPrayers();
+    listenForFeasts();
+  }
 
   init();
 
