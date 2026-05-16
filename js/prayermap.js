@@ -368,23 +368,21 @@ if (closeBtn) {
       const features = data.features || [];
 
       features.forEach((feature, i) => {
-        const latlng = getHomeGroupsLatLng(feature);
-        if (!latlng) return;
+  const latlng = getHomeGroupsLatLng(feature);
+  if (!latlng) return;
 
-        const marker = L.circleMarker(latlng, {
-          radius: 6,
-          fillColor: "#3b82f6",
-          color: "#111",
-          weight: 1,
-          fillOpacity: 0.9
-        });
+  const marker = L.circleMarker(latlng, {
+    radius: 6,
+    fillColor: "#3b82f6",
+    color: "#111",
+    weight: 1,
+    fillOpacity: 0.9
+  });
 
-        marker.bindPopup(`
-          <strong>${feature?.properties?.Name || `Group ${i + 1}`}</strong>
-        `);
+  marker.bindPopup(popupFor(feature, i));
 
-        homeGroupLayer.addLayer(marker);
-      });
+  homeGroupLayer.addLayer(marker);
+});
 
       console.log("🏠 HomeGroups loaded:", features.length);
 
