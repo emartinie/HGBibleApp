@@ -24,6 +24,56 @@
         { letter: "ת", name: "Tav", sound: "T" }
       ];
 
+      const paleoMap = {
+        "א": "𐤀",
+        "ב": "𐤁",
+        "ג": "𐤂",
+        "ד": "𐤃",
+        "ה": "𐤄",
+        "ו": "𐤅",
+        "ז": "𐤆",
+        "ח": "𐤇",
+        "ט": "𐤈",
+        "י": "𐤉",
+        "כ": "𐤊",
+        "ל": "𐤋",
+        "מ": "𐤌",
+        "נ": "𐤍",
+        "ס": "𐤎",
+        "ע": "𐤏",
+        "פ": "𐤐",
+        "צ": "𐤑",
+        "ק": "𐤒",
+        "ר": "𐤓",
+        "ש": "𐤔",
+        "ת": "𐤕"
+      };
+
+function setAlephScript(mode) {
+  document.querySelectorAll(".hebrew, .aleph-letter, #alephLetter")
+    .forEach(el => {
+      const original = el.getAttribute("data-original") || el.textContent;
+
+      if (!el.getAttribute("data-original")) {
+        el.setAttribute("data-original", original);
+      }
+
+      if (mode === "paleo") {
+        el.textContent = paleoMap[original] || original;
+      } else {
+        el.textContent = original;
+      }
+    });
+      }
+      
+      document.getElementById("scriptModernBtn")?.addEventListener("click", () => {
+        setAlephScript("modern");
+      });
+      
+      document.getElementById("scriptPaleoBtn")?.addEventListener("click", () => {
+        setAlephScript("paleo");
+      });
+
       (function () {
         let index = 0;
         let audio = null;
