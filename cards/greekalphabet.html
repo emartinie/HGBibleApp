@@ -1,74 +1,39 @@
 <section class="hg-card-module">
 
-  <header class="hg-card-head">
-    <h2 class="hg-card-title">Biblical Greek Alphabet</h2>
-    <p class="hg-card-sub">Koine Greek — language of the New Testament</p>
-  </header>
+  <div class="card-topbar">
+    <button class="card-icon-btn nav" id="greekPrev">‹</button>
+
+    <div class="card-icon-btn primary" style="pointer-events:none;">
+      Greek Alphabet
+    </div>
+
+    <button class="card-icon-btn nav" id="greekNext">›</button>
+  </div>
 
   <section class="hg-panel">
 
-    <div class="card-inner text-center">
+    <div id="greekViewer" class="flex items-center justify-center gap-6">
 
-      <div class="alephbet-strip">
+      <div id="greekCard"
+           class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
 
-        <div class="alephbet-page">
-
-          <div class="letter-card">
-            <div class="hebrew">Α α</div>
-            <div class="name">Alpha</div>
-            <div class="sound">a</div>
-          </div>
-
-          <div class="letter-card">
-            <div class="hebrew">Β β</div>
-            <div class="name">Beta</div>
-            <div class="sound">b</div>
-          </div>
-
-          <div class="letter-card">
-            <div class="hebrew">Γ γ</div>
-            <div class="name">Gamma</div>
-            <div class="sound">g / ng</div>
-          </div>
-
-          <div class="letter-card">
-            <div class="hebrew">Δ δ</div>
-            <div class="name">Delta</div>
-            <div class="sound">d</div>
-          </div>
-
-        </div>
-
-        <div class="alephbet-page">
-
-          <div class="letter-card">
-            <div class="hebrew">Ε ε</div>
-            <div class="name">Epsilon</div>
-            <div class="sound">e</div>
-          </div>
-
-          <div class="letter-card">
-            <div class="hebrew">Ζ ζ</div>
-            <div class="name">Zeta</div>
-            <div class="sound">z</div>
-          </div>
-
-          <div class="letter-card">
-            <div class="hebrew">Η η</div>
-            <div class="name">Eta</div>
-            <div class="sound">ē</div>
-          </div>
-
-          <div class="letter-card">
-            <div class="hebrew">Θ θ</div>
-            <div class="name">Theta</div>
-            <div class="sound">th</div>
-          </div>
-
+        <div id="greekLetter" class="aleph-letter mb-1">Α</div>
+        <div id="greekName" class="text-lg text-amber-100">Alpha</div>
+        <div id="greekSound" class="text-xs text-amber-300 mt-1">
+          A
         </div>
 
       </div>
 
+    </div>
+
+    <div class="flex justify-center gap-2 mt-4">
+      <button id="greekPlay" class="hg-btn">🔊 Letter</button>
+      <button id="greekAudioBtn" class="hg-btn">▶ Song</button>
+    </div>
+
+    <div class="text-xs text-slate-500 mt-3 italic text-center">
+      Take your time. Let it settle.
     </div>
 
   </section>
