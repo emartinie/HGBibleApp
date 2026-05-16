@@ -1,3 +1,27 @@
+const INTERLINEAR_VERSES = {
+  "Leviticus 21:1": {
+    english: "21 And the Lord said unto Moses...",
+    hebrew: "וַיֹּאמֶר יְהוָה...",
+    transliteration: "Vayomer Adonai...",
+    greek: "καὶ εἶπεν κύριος...",
+    greekTranslit: "kai eipen kyrios..."
+  },
+
+  "Ezekiel 44:15": {
+    english: "But the priests the Levites...",
+    hebrew: "וְהַכֹּהֲנִים...",
+    transliteration: "Veha-kohanim...",
+    greek: "οἱ δὲ ἱερεῖς...",
+    greekTranslit: "hoi de hiereis..."
+  },
+
+  "Matthew 26:2": {
+    english: "Ye know that after two days...",
+    greek: "Οἴδατε ὅτι μετὰ δύο ἡμέρας...",
+    greekTranslit: "Oidate hoti meta duo hemeras..."
+  }
+};
+
 async function loadInterlinear() {
   const container = document.getElementById("interlinearContent");
   if (!container) return;
@@ -7,10 +31,35 @@ const storedPassage = localStorage.getItem("selectedPassage");
 const storedCriteria = localStorage.getItem("selectedCriteria");
 
   const firstVerse =
-    storedRef && storedRef.includes("-")
-      ? storedRef.split("-")[0]
-      : storedRef || "Leviticus 16:1";
+  storedRef && storedRef.includes("-")
+    ? storedRef.split("-")[0]
+    : storedRef || "Leviticus 21:1";
 
+const verseData = INTERLINEAR_VERSES[firstVerse];
+
+//      ${verseData.english}
+ //     ${verseData.hebrew}
+//      ${verseData.transliteration}
+//      ${verseData.greek}
+//      ${verseData.greekTranslit}
+
+  //helper
+  function renderWordMap(text) {
+  if (!text) return "No translation available";
+
+  return text
+    .split(" ")
+    .map(word => `
+      <span
+        class="cursor-pointer hover:text-orange-300 transition"
+        title="${word}"
+      >
+        ${word}
+      </span>
+    `)
+    .join(" ");
+}
+  
   container.innerHTML = `
     <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4 space-y-5">
             <div class="p-4">
@@ -38,9 +87,8 @@ const storedCriteria = localStorage.getItem("selectedCriteria");
           English
         </div>
         <div class="text-slate-100 text-lg">
-          19 And the Lord spake unto Moses, saying,
-             Speak unto all the congregation of the children of Israel, and say unto them, Ye shall be holy: for I the Lord your God am holy.
-        </div>
+        ${verseData?.english || "No translation available"}
+      </div>
       </div>
 
       <div>
@@ -48,19 +96,20 @@ const storedCriteria = localStorage.getItem("selectedCriteria");
           Hebrew
         </div>
         <div class="text-right text-blue-300 text-2xl leading-loose">
-  ${`וַיְדַבֵּ֥ר יְהוָ֖ה אֶל־מֹשֶׁ֥ה לֵּאמֹֽר
-דַּבֵּ֞ר אֶל־כָּל־עֲדַ֧ת בְּנֵי־יִשְׂרָאֵ֛ל וְאָמַרְתָּ֥ אֲלֵהֶ֖ם קְדֹשִׁ֣ים תִּהְי֑וּ כִּ֣י קָד֔וֹשׁ אֲנִ֖י יְהוָ֥ה אֱלֹהֵיכֶֽם׃`
-    .split(" ")
-    .map(word => `
-      <span
-        class="cursor-pointer hover:text-orange-300 transition"
-        title="${word}"
-      >
-        ${word}
-      </span>
-    `)
-    .join(" ")}
-</div>
+      ${renderWordMap(verseData?.hebrew)}      
+      </div>
+ // ${`א  וַיֹּאמֶר יְהוָה אֶל-מֹשֶׁה, אֱמֹר אֶל-הַכֹּהֲנִים בְּנֵי אַהֲרֹן; וְאָמַרְתָּ אֲלֵהֶם, לְנֶפֶשׁ לֹא-יִטַּמָּא בְּעַמָּיו. `
+  //  .split(" ")
+  //  .map(word => `
+  //    <span
+  //      class="cursor-pointer hover:text-orange-300 transition"
+  //      title="${word}"
+ //     >
+   //     ${word}
+  //    </span>
+ //   `)
+ //   .join(" ")}
+//</div>
       </div>
 
       <div>
@@ -68,8 +117,8 @@ const storedCriteria = localStorage.getItem("selectedCriteria");
           Transliteration
         </div>
         <div class="text-purple-300 text-lg italic">
-          Vayidaber YHVH el-Moshe lemor. Daber el-kol-adat benei-Yisra’el ve’amarta alehem: Kedoshim tihiyu, ki kadosh ani YHVH Eloheychem
-        </div>
+            ${verseData?.greekTranslit || "No translation available"}
+      </div>
       </div>
 
       <div>
@@ -77,19 +126,22 @@ const storedCriteria = localStorage.getItem("selectedCriteria");
           Greek Septuagint
         </div>
         <div class="text-emerald-300 text-lg">
-  ${`καὶ ἐλάλησεν κύριος πρὸς Μωυσῆν λέγων
-    λάλησον τῇ συναγωγῇ τῶν υἱῶν Ισραηλ καὶ ἐρεῖς πρὸς αὐτούς ἅγιοι ἔσεσθε ὅτι ἐγὼ ἅγιος κύριος ὁ θεὸς ὑμῶν`
-    .split(" ")
-    .map(word => `
-      <span
-        class="cursor-pointer hover:text-orange-300 transition"
-        title="${word}"
-      >
-        ${word}
-      </span>
-    `)
-    .join(" ")}
-</div>
+        ${renderWordMap(verseData?.greek)}
+      </div>
+      
+// 
+//  ${`21καὶ εἶπεν κύριος πρὸς Μωυσῆν λέγων εἰπὸν τοῖς ἱερεῦσιν τοῖς υἱοῖς Ααρων καὶ ἐρεῖς πρὸς αὐτούς ἐν ταῖς ψυχαῖς οὐ μιανθήσονται ἐν τῷ ἔθνει αὐτῶν`
+ //   .split(" ")
+ //   .map(word => `
+ //     <span
+   //     class="cursor-pointer hover:text-orange-300 transition"
+    //    title="${word}"
+  //    >
+ //       ${word}
+  //    </span>
+ //   `)
+//    .join(" ")}
+//</div>
       </div>
 
       <div>
@@ -97,8 +149,8 @@ const storedCriteria = localStorage.getItem("selectedCriteria");
           Greek Transliteration
         </div>
         <div class="text-amber-200 text-base italic">
-          kai elalēsen Kyrios pros Mōusēn legōn,lalēson tē synagōgē tōn huiōn Israēl kai ereis pros autous, Hagioi esesthe, hoti egō hagios Kyrios ho Theos hymōn.
-        </div>
+          ${verseData?.greektransliteration || "No translation available"}
+      </div>
       </div>
 
     </div>
