@@ -1,4 +1,4 @@
-const GREEK = [
+const GREEK_ALPHABET = [
   { letter: "Α", name: "Alpha", sound: "A" },
   { letter: "Β", name: "Beta", sound: "B" },
   { letter: "Γ", name: "Gamma", sound: "G" },
@@ -35,7 +35,9 @@ const GREEK = [
   const soundEl = document.getElementById("greekSound");
 
   function render() {
-    const l = GREEK[index];
+    const l = GREEK_ALPHABET[index];
+
+    if (!l) return;
 
     letterEl.textContent = l.letter;
     nameEl.textContent = l.name;
@@ -44,18 +46,18 @@ const GREEK = [
     audio.pause();
   }
 
-  document.getElementById("greekPrev").onclick = () => {
-    index = (index - 1 + GREEK.length) % GREEK.length;
+  document.getElementById("greekPrev")?.addEventListener("click", () => {
+    index = (index - 1 + GREEK_ALPHABET.length) % GREEK_ALPHABET.length;
     render();
-  };
+  });
 
-  document.getElementById("greekNext").onclick = () => {
-    index = (index + 1) % GREEK.length;
+  document.getElementById("greekNext")?.addEventListener("click", () => {
+    index = (index + 1) % GREEK_ALPHABET.length;
     render();
-  };
+  });
 
   document.getElementById("greekPlay")?.addEventListener("click", () => {
-    const letter = GREEK[index].letter;
+    const letter = GREEK_ALPHABET[index].letter;
     audio.src = `assets/sounds/greek/${letter}.mp3`;
     audio.play();
   });
