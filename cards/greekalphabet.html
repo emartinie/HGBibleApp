@@ -12,28 +12,30 @@
 
   <section class="hg-panel">
 
-    <div id="greekViewer" class="flex items-center justify-center gap-6">
+    <div class="card-inner text-center">
 
-      <div id="greekCard"
-           class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
+      <div id="greekViewer" class="flex items-center justify-center gap-6">
 
-        <div id="greekLetter" class="aleph-letter mb-1">Α</div>
-        <div id="greekName" class="text-lg text-amber-100">Alpha</div>
-        <div id="greekSound" class="text-xs text-amber-300 mt-1">
-          A
+        <div id="greekCard"
+             class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
+
+          <div id="greekLetter" class="aleph-letter mb-1">Α</div>
+          <div id="greekName" class="text-lg text-amber-100">Alpha</div>
+          <div id="greekSound" class="text-xs text-amber-300 mt-1">A</div>
+
         </div>
 
       </div>
 
-    </div>
+      <div class="flex justify-center gap-2 mt-4">
+        <button id="greekPlay" class="hg-btn">🔊 Letter</button>
+        <button id="greekAudioBtn" class="hg-btn">▶ Song</button>
+      </div>
 
-    <div class="flex justify-center gap-2 mt-4">
-      <button id="greekPlay" class="hg-btn">🔊 Letter</button>
-      <button id="greekAudioBtn" class="hg-btn">▶ Song</button>
-    </div>
+      <div class="text-xs text-slate-500 mt-3 italic">
+        Take your time. Let it settle.
+      </div>
 
-    <div class="text-xs text-slate-500 mt-3 italic text-center">
-      Take your time. Let it settle.
     </div>
 
   </section>
