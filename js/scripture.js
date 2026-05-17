@@ -99,7 +99,7 @@ const verseData = INTERLINEAR_VERSES[firstVerse];
       ${renderWordMap(verseData?.hebrew)}      
       </div>
       </div>
-      `
+      
  // ${`א  וַיֹּאמֶר יְהוָה אֶל-מֹשֶׁה, אֱמֹר אֶל-הַכֹּהֲנִים בְּנֵי אַהֲרֹן; וְאָמַרְתָּ אֲלֵהֶם, לְנֶפֶשׁ לֹא-יִטַּמָּא בְּעַמָּיו. `
   //  .split(" ")
   //  .map(word => `
@@ -130,20 +130,7 @@ const verseData = INTERLINEAR_VERSES[firstVerse];
         <div class="text-emerald-300 text-lg">
         ${renderWordMap(verseData?.greek)}
       </div>
-      
-// 
-//  ${`21καὶ εἶπεν κύριος πρὸς Μωυσῆν λέγων εἰπὸν τοῖς ἱερεῦσιν τοῖς υἱοῖς Ααρων καὶ ἐρεῖς πρὸς αὐτούς ἐν ταῖς ψυχαῖς οὐ μιανθήσονται ἐν τῷ ἔθνει αὐτῶν`
- //   .split(" ")
- //   .map(word => `
- //     <span
-   //     class="cursor-pointer hover:text-orange-300 transition"
-    //    title="${word}"
-  //    >
- //       ${word}
-  //    </span>
- //   `)
-//    .join(" ")}
-//</div>
+
       </div>
 
       <div>
