@@ -38,23 +38,23 @@ async function loadInterlinear() {
 
   const verseData = INTERLINEAR_VERSES[firstVerse] || {};
 
-  function renderWordMap(text) {
-    if (!text) return "No translation available";
+function renderWordMap(words) {
+  if (!words?.length) return "No translation available";
 
-    return text
-      .split(" ")
-      .map(
-        word => `
-          <span
-            class="cursor-pointer hover:text-orange-300 transition"
-            title="${word}"
-          >
-            ${word}
-          </span>
-        `
-      )
-      .join(" ");
-  }
+  return words
+    .map(
+      item => `
+        <span
+          class="interlinear-word cursor-pointer hover:text-orange-300 transition"
+          data-word="${item.word}"
+          title="${item.translit || item.word}"
+        >
+          ${item.word}
+        </span>
+      `
+    )
+    .join(" ");
+}
 
   container.innerHTML = `
     <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4 space-y-5">
