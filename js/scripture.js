@@ -77,6 +77,17 @@ function renderWordMap(words) {
 }
 
   container.innerHTML = `
+        <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
+        Interlinear Study Translations
+      </div>
+
+      <div class="text-xs text-slate-400">
+        Verse Translation File: ${storedPassage || "none"}
+      </div>
+
+      <div class="text-xs text-orange-300 italic">
+        ${storedCriteria || "No recognizable criteria"}
+      </div>
     <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4 space-y-5">
 
       <div class="p-4">
@@ -87,18 +98,6 @@ function renderWordMap(words) {
 
       <div class="text-orange-300 font-semibold text-lg border-b border-slate-700 pb-2">
         ${firstVerse}
-      </div>
-
-      <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
-        Interlinear Study Translations
-      </div>
-
-      <div class="text-xs text-slate-400">
-        Verse Translation File: ${storedPassage || "none"}
-      </div>
-
-      <div class="text-xs text-orange-300 italic">
-        ${storedCriteria || "No recognizable criteria"}
       </div>
 
       <div>
