@@ -98,6 +98,8 @@ const verseData = INTERLINEAR_VERSES[firstVerse];
         <div class="text-right text-blue-300 text-2xl leading-loose">
       ${renderWordMap(verseData?.hebrew)}      
       </div>
+      </div>
+      `
  // ${`א  וַיֹּאמֶר יְהוָה אֶל-מֹשֶׁה, אֱמֹר אֶל-הַכֹּהֲנִים בְּנֵי אַהֲרֹן; וְאָמַרְתָּ אֲלֵהֶם, לְנֶפֶשׁ לֹא-יִטַּמָּא בְּעַמָּיו. `
   //  .split(" ")
   //  .map(word => `
