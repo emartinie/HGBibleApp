@@ -86,7 +86,7 @@ function renderWordMap(words) {
       </div>
 
       <div class="text-xs text-orange-300 italic">
-        ${storedCriteria || "No recognizable criteria"}
+        ${storedCriteria || "No more recognizable criteria to parse"}
       </div>
     <div class="bg-slate-900 border border-slate-700 rounded-xl p-4 mb-4 space-y-5">
 
