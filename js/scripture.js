@@ -121,7 +121,7 @@ function renderWordMap(words) {
 
       <div>
         <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
-          Transliteration
+          Hebrew Transliteration
         </div>
         <div class="text-purple-300 text-lg italic">
           ${verseData.transliteration || "No translation available"}
