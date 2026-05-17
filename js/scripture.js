@@ -17,7 +17,7 @@ const INTERLINEAR_VERSES = {
 
   "Matthew 26:2": {
     english: "Ye know that after two days...",
-    hebrew: "אַתֶּם יְדַעְתֶּם כִּי עוֹד יוֹמַיִם וְהַפֶּסַח בָּא וּבֶן־הָאָדָם יִמָּסֵר לְהִצָּלֵב׃"
+    hebrew: "אַתֶּם יְדַעְתֶּם כִּי עוֹד יוֹמַיִם וְהַפֶּסַח בָּא וּבֶן־הָאָדָם יִמָּסֵר לְהִצָּלֵב׃",
     greek: "Οἴδατε ὅτι μετὰ δύο ἡμέρας τὸ πάσχα γίνεται, καὶ ὁ υἱὸς τοῦ ἀνθρώπου παραδίδοται εἰς τὸ σταυρωθῆναι.",
     greekTranslit: "Oidate hoti meta dyo hēmeras to pascha ginetai, kai ho huios tou anthrōpou paradidotai eis to staurōthēnai."
   }
