@@ -112,7 +112,7 @@ const verseData = INTERLINEAR_VERSES[firstVerse];
  //   `)
  //   .join(" ")}
 //</div>
-      </div>
+    //  </div>
 
       <div>
         <div class="text-xs uppercase tracking-wider text-slate-400 mb-1">
