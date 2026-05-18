@@ -1,5 +1,6 @@
 (function () {
-const articles = [
+const articles = [ 
+  { title: "Who was Paul, or Rabbi Shaul?", file: "who_was_Paul.html" },                  
   { title: "Almost There, but Not Quite", file: "almost_there_but_not_quite.html" },
   { title: "Walking in Love", file: "debating_arguing_discussing_and_disagreeing_midrash.html" },
   { title: "First Article", file: "first_blog_post_the_second_commandment_and_the_second_ammendment.html" },
