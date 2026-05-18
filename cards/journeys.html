@@ -1,24 +1,47 @@
-<div class="journey-card">
-  <div class="journey-header">
-    <h2 id="journeyTitle">Journey Title</h2>
-    <p id="journeyDescription">Description of journey</p>
+<div class="journeys-container">
+
+  <!-- ===================== -->
+  <!-- JOURNEY SELECTOR -->
+  <!-- ===================== -->
+  <div class="journey-selector">
+    <h2>Select a Journey</h2>
+
+    <select id="journeySelect">
+      <option value="">-- Choose a Journey --</option>
+    </select>
+
+    <button id="startJourneyBtn">Start</button>
   </div>
 
-  <div class="journey-progress">
-    <div class="progress-bar">
-      <div id="progressFill"></div>
+  <hr/>
+
+  <!-- ===================== -->
+  <!-- ACTIVE JOURNEY VIEW -->
+  <!-- ===================== -->
+  <div class="journey-card" id="journeyCard" style="display:none;">
+
+    <div class="journey-header">
+      <h2 id="journeyTitle">Journey Title</h2>
+      <p id="journeyDescription">Description of journey</p>
     </div>
-    <small id="progressText">0 / 0 completed</small>
+
+    <div class="journey-progress">
+      <div class="progress-bar">
+        <div id="progressFill"></div>
+      </div>
+      <small id="progressText">0 / 0 completed</small>
+    </div>
+
+    <div class="journey-current-step">
+      <h3>Current Step</h3>
+      <div id="currentStepTitle"></div>
+    </div>
+
+    <div class="journey-actions">
+      <button id="markCompleteBtn">Mark Complete</button>
+      <button id="resetJourneyBtn">Reset</button>
+    </div>
+
   </div>
 
-  <div class="journey-current-step">
-    <h3>Current Step</h3>
-    <div id="currentStepTitle"></div>
-    <button id="continueBtn">Continue</button>
-  </div>
-
-  <div class="journey-actions">
-    <button id="markCompleteBtn">Mark Complete</button>
-    <button id="resetJourneyBtn">Reset</button>
-  </div>
 </div>
