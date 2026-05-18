@@ -1,69 +1,136 @@
 console.log("🔥 journeys.js loaded");
 
+// =====================
+// JOURNEY INDEX (registry)
+// =====================
 const JOURNEY_INDEX = [
   {
     id: "learn-to-pray",
+    title: "Learn to Pray",
     file: "data/journeys/learn-to-pray.json"
   },
   {
     id: "27-things-seminary",
+    title: "27 Things Seminary Missed",
     file: "data/journeys/27-things.json"
   }
 ];
 
-async function loadJourney(id) {
-  console.log("📦 loading journey:", id);
+// =====================
+// SIMPLE STATE (replace later with stateManager.js)
+// =====================
+const state = {
+  journeys: {
+    progress: {}
+  }
+};
 
+// =====================
+// LOAD JOURNEY JSON
+// =====================
+async function loadJourney(id) {
   const meta = JOURNEY_INDEX.find(j => j.id === id);
-  if (!meta) throw new Error("Journey not found");
+  if (!meta) throw new Error("Journey not found: " + id);
 
   const res = await fetch(meta.file);
+  if (!res.ok) throw new Error("Failed to load journey JSON");
+
   return await res.json();
 }
 
-function renderJourney(journey, state) {
-  console.log("🔥 renderJourney CALLED", journey);
-
-  const progress = state.journeys?.progress?.[journey.id] || {
+// =====================
+// RENDER JOURNEY
+// =====================
+function renderJourney(journey) {
+  const progress = state.journeys.progress[journey.id] || {
     completedSteps: [],
-    currentStep: journey.steps?.[0]?.id
+    currentStep: journey.steps?.[0]?.id || null
   };
 
   const completed = progress.completedSteps.length;
   const total = journey.steps.length;
 
-  const title = document.getElementById("journeyTitle");
-  const desc = document.getElementById("journeyDescription");
-  const progressText = document.getElementById("progressText");
-  const stepTitle = document.getElementById("currentStepTitle");
+  document.getElementById("journeyTitle").textContent = journey.title;
+  document.getElementById("journeyDescription").textContent = journey.description;
 
-  if (!title || !desc || !progressText || !stepTitle) {
-    console.warn("Journey DOM not ready yet");
-    return;
-  }
-
-  title.textContent = journey.title;
-  desc.textContent = journey.description;
-  progressText.textContent = `${completed} / ${total} completed`;
+  document.getElementById("progressText").textContent =
+    `${completed} / ${total} completed`;
 
   const step = journey.steps.find(s => s.id === progress.currentStep);
-  stepTitle.textContent = step?.title || "Start journey";
+
+  document.getElementById("currentStepTitle").textContent =
+    step?.title || "Start journey";
 }
 
-async function initJourney() {
-  const state = window.state || {
-    journeys: { progress: {} }
+// =====================
+// LOAD SELECTED JOURNEY
+// =====================
+async function startJourney(id) {
+  if (!id) return;
+
+  const journey = await loadJourney(id);
+
+  // ensure state bucket exists
+  if (!state.journeys.progress[id]) {
+    state.journeys.progress[id] = {
+      completedSteps: [],
+      currentStep: journey.steps?.[0]?.id || null
+    };
+  }
+
+  // show UI
+  document.getElementById("journeyCard").style.display = "block";
+
+  renderJourney(journey);
+
+  // wire buttons (simple behavior for now)
+  document.getElementById("markCompleteBtn").onclick = () => {
+    const progress = state.journeys.progress[id];
+
+    const stepId = progress.currentStep;
+    if (!progress.completedSteps.includes(stepId)) {
+      progress.completedSteps.push(stepId);
+    }
+
+    const currentIndex = journey.steps.findIndex(s => s.id === stepId);
+    const nextStep = journey.steps[currentIndex + 1];
+
+    progress.currentStep = nextStep?.id || stepId;
+
+    renderJourney(journey);
   };
 
-  const journey = await loadJourney("learn-to-pray");
+  document.getElementById("resetJourneyBtn").onclick = () => {
+    state.journeys.progress[id] = {
+      completedSteps: [],
+      currentStep: journey.steps?.[0]?.id || null
+    };
 
-  renderJourney(journey, state);
+    renderJourney(journey);
+  };
 }
 
-/**
- * IMPORTANT:
- * Do NOT use DOMContentLoaded inside dynamic loaders
- */
-requestAnimationFrame(() => {
-  initJourney();
+// =====================
+// INIT DROPDOWN
+// =====================
+function initSelector() {
+  const select = document.getElementById("journeySelect");
+
+  JOURNEY_INDEX.forEach(j => {
+    const opt = document.createElement("option");
+    opt.value = j.id;
+    opt.textContent = j.title;
+    select.appendChild(opt);
+  });
+
+  document.getElementById("startJourneyBtn").onclick = () => {
+    startJourney(select.value);
+  };
+}
+
+// =====================
+// BOOT
+// =====================
+document.addEventListener("DOMContentLoaded", () => {
+  initSelector();
 });
