@@ -311,14 +311,16 @@ function loadFromUrl() {
   const card = params.get("card");
   const file = params.get("file");
 
-  if (card) {
-    console.log("🌐 Loading card:", card);
-    loadCard(card);
-  }
-
+  // SET FILE FIRST
   if (file) {
     window.pendingArticleFile = file;
     console.log("📰 Pending article file:", file);
+  }
+
+  // LOAD CARD SECOND
+  if (card) {
+    console.log("🌐 Loading card:", card);
+    loadCard(card);
   }
 }
   
