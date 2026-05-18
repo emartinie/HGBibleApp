@@ -17,9 +17,22 @@ async function loadJourney(id) {
   return await res.json();
 }
 
-const journey = await loadJourney("learn-to-pray");
+async function initJourney() {
+  const state = window.state || {
+    progress: {
+      "learn-to-pray": {
+        completedSteps: [],
+        currentStep: null
+      }
+    }
+  };
 
-renderJourney(journey, state);
+  const journey = await loadJourney("learn-to-pray");
+
+  renderJourney(journey, state);
+}
+
+document.addEventListener("DOMContentLoaded", initJourney);
 
 function renderJourney(journey, state) {
   const progress = state.progress?.[journey.id] || {
