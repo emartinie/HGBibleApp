@@ -3,7 +3,7 @@ console.log("🔥 journeys.js loaded");
 // =====================
 // JOURNEY INDEX (registry)
 // =====================
-const JOURNEY_INDEX = [
+window.JOURNEY_INDEX = window.JOURNEY_INDEX || [
   {
     id: "learn-to-pray",
     title: "Learn to Pray",
@@ -29,7 +29,7 @@ const state = {
 // LOAD JOURNEY JSON
 // =====================
 async function loadJourney(id) {
-  const meta = JOURNEY_INDEX.find(j => j.id === id);
+  const meta = window.JOURNEY_INDEX.find(j => j.id === id);
   if (!meta) throw new Error("Journey not found: " + id);
 
   const res = await fetch(meta.file);
