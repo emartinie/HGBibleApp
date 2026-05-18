@@ -365,7 +365,7 @@ async function loadExtraScript(src) {
  //     const value = cardSelector.value;
 //      if (value) loadCard(value);
 //    });
-  }
+//  }
 
 //  function getSelectableOptions() {
 //    if (!cardSelector) return [];
