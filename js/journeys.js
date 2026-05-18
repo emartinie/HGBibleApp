@@ -1,5 +1,5 @@
-//journeys.js
-console.log("🔥 renderJourney file loaded");
+console.log("🔥 journeys.js loaded");
+
 const JOURNEY_INDEX = [
   {
     id: "learn-to-pray",
@@ -13,6 +13,7 @@ const JOURNEY_INDEX = [
 
 async function loadJourney(id) {
   console.log("📦 loading journey:", id);
+
   const meta = JOURNEY_INDEX.find(j => j.id === id);
   if (!meta) throw new Error("Journey not found");
 
@@ -20,38 +21,49 @@ async function loadJourney(id) {
   return await res.json();
 }
 
-async function initJourney() {
-  const state = window.state || {
-    progress: {
-      "learn-to-pray": {
-        completedSteps: [],
-        currentStep: null
-      }
-    }
-  };
-
-  const journey = await loadJourney("learn-to-pray");
-
-  function renderJourney(journey, state) {
-  console.log("🔥 renderJourney CALLED", journey, state);
-}
-
-requestAnimationFrame(initJourney);
-
 function renderJourney(journey, state) {
-  const progress = state.progress?.[journey.id] || {
+  console.log("🔥 renderJourney CALLED", journey);
+
+  const progress = state.journeys?.progress?.[journey.id] || {
     completedSteps: [],
-    currentStep: journey.steps[0]?.id
+    currentStep: journey.steps?.[0]?.id
   };
 
   const completed = progress.completedSteps.length;
   const total = journey.steps.length;
 
-  document.getElementById("journeyTitle").textContent = journey.title;
-  document.getElementById("journeyDescription").textContent = journey.description;
+  const title = document.getElementById("journeyTitle");
+  const desc = document.getElementById("journeyDescription");
+  const progressText = document.getElementById("progressText");
+  const stepTitle = document.getElementById("currentStepTitle");
 
-  document.getElementById("progressText").textContent = `${completed} / ${total} completed`;
+  if (!title || !desc || !progressText || !stepTitle) {
+    console.warn("Journey DOM not ready yet");
+    return;
+  }
+
+  title.textContent = journey.title;
+  desc.textContent = journey.description;
+  progressText.textContent = `${completed} / ${total} completed`;
 
   const step = journey.steps.find(s => s.id === progress.currentStep);
-  document.getElementById("currentStepTitle").textContent = step?.title || "Start journey";
+  stepTitle.textContent = step?.title || "Start journey";
 }
+
+async function initJourney() {
+  const state = window.state || {
+    journeys: { progress: {} }
+  };
+
+  const journey = await loadJourney("learn-to-pray");
+
+  renderJourney(journey, state);
+}
+
+/**
+ * IMPORTANT:
+ * Do NOT use DOMContentLoaded inside dynamic loaders
+ */
+requestAnimationFrame(() => {
+  initJourney();
+});
