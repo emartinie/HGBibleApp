@@ -456,9 +456,9 @@ async function loadExtraScript(src) {
 
 //  loadFromUrl();
 
-  if (!window.location.search.includes("card=")) {
-    goToCard(0);
-  }
+//  if (!window.location.search.includes("card=")) {
+//   goToCard(0);
+//  }
 //  async function loadCard(cardName) {
 //    if (!loadedCardHost || !cardName) return;
 
