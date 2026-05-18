@@ -76,10 +76,22 @@ function wire() {
   });
 }
 
-  function init() {
-    renderList();
-    wire();
+async function init() {
+  renderList();
+  wire();
+
+  if (window.pendingArticleFile) {
+    await loadArticle(window.pendingArticleFile);
+
+    const btn = listEl?.querySelector(
+      `[data-file="${window.pendingArticleFile}"]`
+    );
+
+    btn?.classList.add("active");
+
+    window.pendingArticleFile = null;
   }
+}
 
   init();
 })();
