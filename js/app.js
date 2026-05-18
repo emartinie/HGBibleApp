@@ -305,21 +305,23 @@ function syncCurrentCardOnScroll() {
   // =====================
 // URL LOAD
 // =====================
-  function loadFromUrl() {
+function loadFromUrl() {
   const params = new URLSearchParams(window.location.search);
+
   const card = params.get("card");
+  const article = params.get("article");
 
   if (card) {
     console.log("🌐 Loading from URL:", card);
-
-    // set dropdown so UI stays in sync
-    if (cardSelector) {
-      cardSelector.value = card;
-    }
-
     loadCard(card);
   }
+
+  if (article) {
+    window.pendingArticle = article;
+    console.log("📰 Pending article:", article);
+  }
 }
+  
 console.log("🔥 before card renderer init");
 function init() {
   wireSwipe();
