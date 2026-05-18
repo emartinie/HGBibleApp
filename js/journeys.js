@@ -1,3 +1,5 @@
+//journeys.js
+console.log("🔥 renderJourney file loaded");
 const JOURNEY_INDEX = [
   {
     id: "learn-to-pray",
@@ -10,6 +12,7 @@ const JOURNEY_INDEX = [
 ];
 
 async function loadJourney(id) {
+  console.log("📦 loading journey:", id);
   const meta = JOURNEY_INDEX.find(j => j.id === id);
   if (!meta) throw new Error("Journey not found");
 
@@ -29,10 +32,11 @@ async function initJourney() {
 
   const journey = await loadJourney("learn-to-pray");
 
-  renderJourney(journey, state);
+  function renderJourney(journey, state) {
+  console.log("🔥 renderJourney CALLED", journey, state);
 }
 
-document.addEventListener("DOMContentLoaded", initJourney);
+requestAnimationFrame(initJourney);
 
 function renderJourney(journey, state) {
   const progress = state.progress?.[journey.id] || {
