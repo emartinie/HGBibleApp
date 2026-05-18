@@ -92,3 +92,192 @@ state = {
     totalSessions: 0
   }
 };
+
+
+The mental model (this is the important part)
+STATE = your app’s memory
+
+Inside that memory you have folders:
+
+📁 identity
+
+Who is the user?
+
+📁 weeklyStudy
+
+What week are they on, what did they finish?
+
+📁 journeys
+
+Where are they in guided paths?
+
+📁 progress
+
+Have they read/seen content?
+
+📁 assessments
+
+Quiz tracking
+
+📁 preferences
+
+Settings
+
+📁 reminders
+
+Spiritual habits / nudges
+
+📁 location
+
+Radio / tower / geography
+
+📁 history
+
+Long-term stats
+
+That’s all “state domains” means:
+
+Buckets of memory, not code you must write right now.
+
+What you actually do with this (practical answer)
+
+You only use this when you ask:
+
+“Where should I store THIS piece of information?”
+
+Example:
+
+Question: “Did they finish this journey step?”
+
+You go:
+
+👉 journeys
+
+state.journeys.progress[journeyId].completedSteps
+Question: “Did they read this article?”
+
+You go:
+
+👉 progress
+
+state.progress.content[articleId].viewed
+Question: “What week are they on?”
+
+You go:
+
+👉 weeklyStudy
+
+state.weeklyStudy.currentWeekId
+Question: “Did they answer this quiz before?”
+
+You go:
+
+👉 assessments
+
+state.assessments.questions[questionId]
+That’s it.
+
+You are NOT building this all now.
+
+You are building a place to put things when you need them later.
+
+What you should NOT do
+
+Don’t:
+
+build all 9 sections immediately
+wire everything to Firestore
+refactor all cards
+migrate everything into state.js
+
+That’s where overwhelm comes from.
+
+What you SHOULD do (simple and real)
+
+Start with ONE thing only:
+
+Step 1: Journeys
+
+Why?
+
+Because you already said:
+
+this is the new system I want to build
+
+So:
+
+Your first real state object becomes:
+state = {
+  journeys: {
+    progress: {}
+  }
+}
+
+That’s it.
+
+Nothing else yet.
+
+Step 2: Use it once
+
+Example:
+
+state.journeys.progress["learn-to-pray"] = {
+  currentStep: "intro",
+  completedSteps: []
+};
+
+That’s your first real win.
+
+Step 3: Ignore everything else for now
+
+Weekly study, quizzes, radio, etc.
+
+Those are:
+
+“future drawers”
+
+Not today’s work.
+
+Why I showed you the full map earlier
+
+Not to overwhelm you.
+
+But to prevent this future problem:
+
+You build journeys… then realize they don’t fit weekly study…
+then weekly study doesn’t fit quizzes…
+then everything becomes inconsistent.
+
+The map is there so everything eventually fits together.
+
+Not so you build everything now.
+
+The simplest way to understand this entire concept
+
+Let me compress everything:
+
+Before:
+
+“You store data wherever the feature is”
+
+After:
+
+“You store ALL data in ONE place, organized by meaning”
+
+That’s it.
+
+That’s state management.
+
+Final grounding thought
+
+You are not behind.
+
+You are just at the transition point where:
+
+UI thinking (“cards, pages, loaders”)
+becomes
+system thinking (“memory, progress, identity”)
+
+That shift feels like confusion for everyone.
+
+But once it clicks, it becomes much simpler than what you’re doing now.
