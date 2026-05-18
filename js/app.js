@@ -588,7 +588,7 @@ async function loadExtraScript(src) {
 //  }, { passive: true });
 //}}
 
-  document.addEventListener("DOMContentLoaded", init);
+//  document.addEventListener("DOMContentLoaded", init);
 
   // =====================
 // GLOBAL TOGGLE SECTION
