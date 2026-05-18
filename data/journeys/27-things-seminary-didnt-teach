@@ -1,0 +1,26 @@
+{
+  "id": "27-things-seminary-didnt-teach",
+  "title": "27 Things I Didn't Learn in Seminary",
+  "description": "Key overlooked teachings across scripture, structured into a guided discovery path.",
+  "type": "journey",
+
+  "steps": [
+    {
+      "id": "kingdom-priority",
+      "title": "Seek First the Kingdom",
+      "scripture": "Matthew 6:33",
+      "type": "scripture-study"
+    },
+    {
+      "id": "law-and-grace",
+      "title": "Law and Grace Relationship",
+      "scripture": "Romans 6",
+      "type": "study"
+    }
+  ],
+
+  "assessment": {
+    "enabled": true,
+    "quizRef": "quizzes/seminary-27"
+  }
+}
