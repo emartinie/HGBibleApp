@@ -172,171 +172,423 @@ async function loadExtraScript(src) {
   // =====================
 // SCRIPT LOADER (UNIFIED)
 // =====================
-  async function loadCard(cardName) {
-    if (!loadedCardHost || !cardName) return;
+//  async function loadCard(cardName) {
+//    if (!loadedCardHost || !cardName) return;
 
-    try {
-      loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
+//    try {
+ //     loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
+//
+ //     const res = await fetch(`cards/${cardName}.html`);
+//      if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
 
-      const res = await fetch(`cards/${cardName}.html`);
-      if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
+//      const html = await res.text();
+//      loadedCardHost.innerHTML = html;
 
-      const html = await res.text();
-      loadedCardHost.innerHTML = html;
+//      requestAnimationFrame(() => {
+//        wireCardNavButtons();
+//        syncCurrentCardOnScroll();
+//      });
 
-      requestAnimationFrame(() => {
-        wireCardNavButtons();
-        syncCurrentCardOnScroll();
-      });
+//      if (cardName !== "prayermap") {
+//  window.prayerMapInitialized = false;
+//}
 
-      if (cardName !== "prayermap") {
-  window.prayerMapInitialized = false;
-}
+//      if (cardName === "prayermap") {
+//  await loadExtraScript("js/prayerStore.dev.js");
+//}
 
-      if (cardName === "prayermap") {
-  await loadExtraScript("js/prayerStore.dev.js");
-}
+//const existing = document.querySelector(
+//  `script[src*="js/${cardName}.js"]`
+//);
 
-const existing = document.querySelector(
-  `script[src*="js/${cardName}.js"]`
-);
+//if (!existing) {
+//  const script = document.createElement("script");
+//  script.src = `js/${cardName}.js?v=${Date.now()}`;
+//  script.defer = true;
 
-if (!existing) {
-  const script = document.createElement("script");
-  script.src = `js/${cardName}.js?v=${Date.now()}`;
-  script.defer = true;
+//  if (cardName === "prayermap" || cardName === "commentary") {
+//    script.type = "module";
+//  }
 
-  if (cardName === "prayermap" || cardName === "commentary") {
-    script.type = "module";
-  }
-
-  document.body.appendChild(script);
-}
+//  document.body.appendChild(script);
+//}
   
-console.log("loadCard exists?", typeof window.loadCard);
-      goToCard(1);
-    } catch (err) {
-      console.error("Card load failed:", err);
-      loadedCardHost.innerHTML = `
-        <div class="empty-state">
-          Could not load <strong>${cardName}</strong>.
-        </div>
-      `;
-    }
+//console.log("loadCard exists?", typeof window.loadCard);
+ //     goToCard(1);
+//    } catch (err) {
+//      console.error("Card load failed:", err);
+//      loadedCardHost.innerHTML = `
+//        <div class="empty-state">
+//          Could not load <strong>${cardName}</strong>.
+//        </div>
+//      `;
+//    }
+//  }
+
+//  function wireCardSelector() {
+//    if (!cardSelector) return;
+
+//    cardSelector.addEventListener("change", () => {
+ //     const value = cardSelector.value;
+//      if (value) loadCard(value);
+//    });
   }
 
-  function wireCardSelector() {
-    if (!cardSelector) return;
+//  function getSelectableOptions() {
+//    if (!cardSelector) return [];
+ //   return Array.from(cardSelector.options).filter(opt => opt.value);
+//  }
 
-    cardSelector.addEventListener("change", () => {
-      const value = cardSelector.value;
-      if (value) loadCard(value);
-    });
-  }
+//  function stepCardSelector(direction) {
+//    const options = getSelectableOptions();
+//    if (!options.length || !cardSelector) return;
 
-  function getSelectableOptions() {
-    if (!cardSelector) return [];
-    return Array.from(cardSelector.options).filter(opt => opt.value);
-  }
+//    const currentValue = cardSelector.value;
+//    let index = options.findIndex(opt => opt.value === currentValue);
 
-  function stepCardSelector(direction) {
-    const options = getSelectableOptions();
-    if (!options.length || !cardSelector) return;
+//    if (index === -1) {
+//      index = direction > 0 ? 0 : options.length - 1;
+//    } else {
+//      index = (index + direction + options.length) % options.length;
+//    }
 
-    const currentValue = cardSelector.value;
-    let index = options.findIndex(opt => opt.value === currentValue);
+//    cardSelector.value = options[index].value;
+//    cardSelector.dispatchEvent(new Event("change", { bubbles: true }));
+//  }
 
-    if (index === -1) {
-      index = direction > 0 ? 0 : options.length - 1;
-    } else {
-      index = (index + direction + options.length) % options.length;
-    }
+//  function wireCardSelectorStepButtons() {
+//    if (prevCardSelect) {
+//      prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
+//    }
 
-    cardSelector.value = options[index].value;
-    cardSelector.dispatchEvent(new Event("change", { bubbles: true }));
-  }
+//    if (nextCardSelect) {
+//      nextCardSelect.addEventListener("click", () => stepCardSelector(1));
+//    }
+//  }
 
-  function wireCardSelectorStepButtons() {
-    if (prevCardSelect) {
-      prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
-    }
+//function syncCurrentCardOnScroll() {
+//  if (!cardsRow) return;
 
-    if (nextCardSelect) {
-      nextCardSelect.addEventListener("click", () => stepCardSelector(1));
-    }
-  }
+//  let ticking = false;
 
-function syncCurrentCardOnScroll() {
-  if (!cardsRow) return;
+//  cardsRow.addEventListener("scroll", () => {
+//    if (ticking) return;
 
-  let ticking = false;
+//    ticking = true;
 
-  cardsRow.addEventListener("scroll", () => {
-    if (ticking) return;
+//    requestAnimationFrame(() => {
+ //     const cards = getCards();
+ //     if (!cards.length) {
+//        ticking = false;
+//        return;
+//      }
 
-    ticking = true;
+//      const left = cardsRow.scrollLeft;
+//      let nearest = 0;
+ //     let nearestDist = Infinity;
 
-    requestAnimationFrame(() => {
-      const cards = getCards();
-      if (!cards.length) {
-        ticking = false;
-        return;
-      }
+  //    cards.forEach((card, i) => {
+  //      const dist = Math.abs(card.offsetLeft - left);
+    //    if (dist < nearestDist) {
+    //      nearestDist = dist;
+    //      nearest = i;
+    //    }
+    //  });
 
-      const left = cardsRow.scrollLeft;
-      let nearest = 0;
-      let nearestDist = Infinity;
-
-      cards.forEach((card, i) => {
-        const dist = Math.abs(card.offsetLeft - left);
-        if (dist < nearestDist) {
-          nearestDist = dist;
-          nearest = i;
-        }
-      });
-
-      currentCardIndex = nearest;
-      ticking = false;
-    });
-  }, { passive: true });
-}
+    //  currentCardIndex = nearest;
+    //  ticking = false;
+  //  });
+//  }, { passive: true });
+//}
   
 
   // =====================
 // URL LOAD
 // =====================
-  function loadFromUrl() {
-  const params = new URLSearchParams(window.location.search);
-  const card = params.get("card");
+//  async function loadCard(cardName) {
+//    if (!loadedCardHost || !cardName) return;
 
-  if (card) {
-    console.log("🌐 Loading from URL:", card);
+//    try {
+ //     loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
+//
+ //     const res = await fetch(`cards/${cardName}.html`);
+//      if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
 
-    // set dropdown so UI stays in sync
-    if (cardSelector) {
-      cardSelector.value = card;
-    }
+//      const html = await res.text();
+//      loadedCardHost.innerHTML = html;
 
-    loadCard(card);
+//      requestAnimationFrame(() => {
+//        wireCardNavButtons();
+//        syncCurrentCardOnScroll();
+//      });
+
+//      if (cardName !== "prayermap") {
+//  window.prayerMapInitialized = false;
+//}
+
+//      if (cardName === "prayermap") {
+//  await loadExtraScript("js/prayerStore.dev.js");
+//}
+
+//const existing = document.querySelector(
+//  `script[src*="js/${cardName}.js"]`
+//);
+
+//if (!existing) {
+//  const script = document.createElement("script");
+//  script.src = `js/${cardName}.js?v=${Date.now()}`;
+//  script.defer = true;
+
+//  if (cardName === "prayermap" || cardName === "commentary") {
+//    script.type = "module";
+//  }
+
+//  document.body.appendChild(script);
+//}
+  
+//console.log("loadCard exists?", typeof window.loadCard);
+ //     goToCard(1);
+//    } catch (err) {
+//      console.error("Card load failed:", err);
+//      loadedCardHost.innerHTML = `
+//        <div class="empty-state">
+//          Could not load <strong>${cardName}</strong>.
+//        </div>
+//      `;
+//    }
+//  }
+
+//  function wireCardSelector() {
+//    if (!cardSelector) return;
+
+//    cardSelector.addEventListener("change", () => {
+ //     const value = cardSelector.value;
+//      if (value) loadCard(value);
+//    });
   }
-}
-console.log("🔥 before card renderer init");
-function init() {
-  wireSwipe();
-  wireKeyboard();
-  wireCardSelector();
-  wireCardSelectorStepButtons();
 
-  loadFromUrl();
+//  function getSelectableOptions() {
+//    if (!cardSelector) return [];
+ //   return Array.from(cardSelector.options).filter(opt => opt.value);
+//  }
+
+//  function stepCardSelector(direction) {
+//    const options = getSelectableOptions();
+//    if (!options.length || !cardSelector) return;
+
+//    const currentValue = cardSelector.value;
+//    let index = options.findIndex(opt => opt.value === currentValue);
+
+//    if (index === -1) {
+//      index = direction > 0 ? 0 : options.length - 1;
+//    } else {
+//      index = (index + direction + options.length) % options.length;
+//    }
+
+//    cardSelector.value = options[index].value;
+//    cardSelector.dispatchEvent(new Event("change", { bubbles: true }));
+//  }
+
+//  function wireCardSelectorStepButtons() {
+//    if (prevCardSelect) {
+//      prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
+//    }
+
+//    if (nextCardSelect) {
+//      nextCardSelect.addEventListener("click", () => stepCardSelector(1));
+//    }
+//  }
+
+//function syncCurrentCardOnScroll() {
+//  if (!cardsRow) return;
+
+//  let ticking = false;
+
+//  cardsRow.addEventListener("scroll", () => {
+//    if (ticking) return;
+
+//    ticking = true;
+
+//    requestAnimationFrame(() => {
+ //     const cards = getCards();
+ //     if (!cards.length) {
+//        ticking = false;
+//        return;
+//      }
+
+//      const left = cardsRow.scrollLeft;
+//      let nearest = 0;
+ //     let nearestDist = Infinity;
+
+  //    cards.forEach((card, i) => {
+  //      const dist = Math.abs(card.offsetLeft - left);
+    //    if (dist < nearestDist) {
+    //      nearestDist = dist;
+    //      nearest = i;
+    //    }
+    //  });
+
+    //  currentCardIndex = nearest;
+    //  ticking = false;
+  //  });
+//  }, { passive: true });
+//}  function loadFromUrl() {
+//   const params = new URLSearchParams(window.location.search);
+//   const card = params.get("card");
+
+//   if (card) {
+//     console.log("🌐 Loading from URL:", card);
+
+//     // set dropdown so UI stays in sync
+//     if (cardSelector) {
+//       cardSelector.value = card;
+//     }
+
+//     loadCard(card);
+//   }
+// }
+// console.log("🔥 before card renderer init");
+// function init() {
+//   wireSwipe();
+//   wireKeyboard();
+//   wireCardSelector();
+//   wireCardSelectorStepButtons();
+
+//  loadFromUrl();
 
   if (!window.location.search.includes("card=")) {
     goToCard(0);
   }
-}
+//  async function loadCard(cardName) {
+//    if (!loadedCardHost || !cardName) return;
+
+//    try {
+ //     loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
+//
+ //     const res = await fetch(`cards/${cardName}.html`);
+//      if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
+
+//      const html = await res.text();
+//      loadedCardHost.innerHTML = html;
+
+//      requestAnimationFrame(() => {
+//        wireCardNavButtons();
+//        syncCurrentCardOnScroll();
+//      });
+
+//      if (cardName !== "prayermap") {
+//  window.prayerMapInitialized = false;
+//}
+
+//      if (cardName === "prayermap") {
+//  await loadExtraScript("js/prayerStore.dev.js");
+//}
+
+//const existing = document.querySelector(
+//  `script[src*="js/${cardName}.js"]`
+//);
+
+//if (!existing) {
+//  const script = document.createElement("script");
+//  script.src = `js/${cardName}.js?v=${Date.now()}`;
+//  script.defer = true;
+
+//  if (cardName === "prayermap" || cardName === "commentary") {
+//    script.type = "module";
+//  }
+
+//  document.body.appendChild(script);
+//}
+  
+//console.log("loadCard exists?", typeof window.loadCard);
+ //     goToCard(1);
+//    } catch (err) {
+//      console.error("Card load failed:", err);
+//      loadedCardHost.innerHTML = `
+//        <div class="empty-state">
+//          Could not load <strong>${cardName}</strong>.
+//        </div>
+//      `;
+//    }
+//  }
+
+//  function wireCardSelector() {
+//    if (!cardSelector) return;
+
+//    cardSelector.addEventListener("change", () => {
+ //     const value = cardSelector.value;
+//      if (value) loadCard(value);
+//    });
+//  }
+
+//  function getSelectableOptions() {
+//    if (!cardSelector) return [];
+ //   return Array.from(cardSelector.options).filter(opt => opt.value);
+//  }
+
+//  function stepCardSelector(direction) {
+//    const options = getSelectableOptions();
+//    if (!options.length || !cardSelector) return;
+
+//    const currentValue = cardSelector.value;
+//    let index = options.findIndex(opt => opt.value === currentValue);
+
+//    if (index === -1) {
+//      index = direction > 0 ? 0 : options.length - 1;
+//    } else {
+//      index = (index + direction + options.length) % options.length;
+//    }
+
+//    cardSelector.value = options[index].value;
+//    cardSelector.dispatchEvent(new Event("change", { bubbles: true }));
+//  }
+
+//  function wireCardSelectorStepButtons() {
+//    if (prevCardSelect) {
+//      prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
+//    }
+
+//    if (nextCardSelect) {
+//      nextCardSelect.addEventListener("click", () => stepCardSelector(1));
+//    }
+//  }
+
+//function syncCurrentCardOnScroll() {
+//  if (!cardsRow) return;
+
+//  let ticking = false;
+
+//  cardsRow.addEventListener("scroll", () => {
+//    if (ticking) return;
+
+//    ticking = true;
+
+//    requestAnimationFrame(() => {
+ //     const cards = getCards();
+ //     if (!cards.length) {
+//        ticking = false;
+//        return;
+//      }
+
+//      const left = cardsRow.scrollLeft;
+//      let nearest = 0;
+ //     let nearestDist = Infinity;
+
+  //    cards.forEach((card, i) => {
+  //      const dist = Math.abs(card.offsetLeft - left);
+    //    if (dist < nearestDist) {
+    //      nearestDist = dist;
+    //      nearest = i;
+    //    }
+    //  });
+
+    //  currentCardIndex = nearest;
+    //  ticking = false;
+  //  });
+//  }, { passive: true });
+//}}
 
   document.addEventListener("DOMContentLoaded", init);
-
-window.loadCard = loadCard;
 
   // =====================
 // GLOBAL TOGGLE SECTION
@@ -358,28 +610,28 @@ window.toggleSection = function(label) {
   // =====================
 // MANUAL CARD RELOAD
 // =====================
-function reloadCurrentCard() {
-  if (!cardSelector) return;
+//function reloadCurrentCard() {
+//  if (!cardSelector) return;
 
-  const currentCard = cardSelector.value;
-  if (!currentCard) return;
+//  const currentCard = cardSelector.value;
+//  if (!currentCard) return;
 
-  console.log("🔄 Reloading card:", currentCard);
+//  console.log("🔄 Reloading card:", currentCard);
 
   // clear old DOM first
-  if (loadedCardHost) {
-    loadedCardHost.innerHTML = "";
-  }
+//  if (loadedCardHost) {
+ //   loadedCardHost.innerHTML = "";
+//  }
 
   // remove old card script
-  const oldScript = document.querySelector(
-    `script[src*="js/${currentCard}.js"]`
-  );
+//  const oldScript = document.querySelector(
+//    `script[src*="js/${currentCard}.js"]`
+//  );
 
-  if (oldScript) {
-    oldScript.remove();
-    console.log(`🧹 Removed old script: ${currentCard}.js`);
-  }
+//  if (oldScript) {
+//    oldScript.remove();
+//    console.log(`🧹 Removed old script: ${currentCard}.js`);
+//  }
 
   // optional reset for map cards or one-time init cards
   window.prayerMapInitialized = false;
