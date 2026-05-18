@@ -309,16 +309,16 @@ function loadFromUrl() {
   const params = new URLSearchParams(window.location.search);
 
   const card = params.get("card");
-  const article = params.get("article");
+  const file = params.get("file");
 
   if (card) {
-    console.log("🌐 Loading from URL:", card);
+    console.log("🌐 Loading card:", card);
     loadCard(card);
   }
 
-  if (article) {
-    window.pendingArticle = article;
-    console.log("📰 Pending article:", article);
+  if (file) {
+    window.pendingArticleFile = file;
+    console.log("📰 Pending article file:", file);
   }
 }
   
