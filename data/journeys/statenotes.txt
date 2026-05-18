@@ -1,0 +1,94 @@
+3. STATE DOMAINS (THIS IS YOUR REAL ARCHITECTURE CORE)
+
+This is the structure that matches EVERYTHING you described.
+
+Not card-based. DOMAIN-based.
+
+Core State Object
+state = {
+1. Identity (foundation layer)
+  identity: {
+    userId: null,
+    anonymousId: null,
+    profile: {},
+  },
+2. Weekly Study State (Main Stage system)
+  weeklyStudy: {
+    currentWeekId: null,
+    weeks: {
+      [weekId]: {
+        torah: { completed: false, progress: 0 },
+        gospel: { completed: false, progress: 0 },
+        commentary: { completed: false, progress: 0 }
+      }
+    }
+  },
+3. Journeys (your big new system)
+  journeys: {
+    progress: {
+      [journeyId]: {
+        currentStep: "",
+        completedSteps: [],
+        completed: false,
+        startedAt: null,
+        lastAccessed: null,
+        attempts: 0
+      }
+    }
+  },
+4. Content Progress (articles, commentary, teachers, etc.)
+  progress: {
+    content: {
+      [contentId]: {
+        viewed: true,
+        completed: false,
+        lastPosition: null,
+        lastReadAt: null
+      }
+    }
+  },
+5. Quizzes / Assessments
+  assessments: {
+    quizzes: {
+      [quizId]: {
+        attempts: 0,
+        bestScore: 0,
+        history: []
+      }
+    },
+
+    questions: {
+      [questionId]: {
+        seen: true,
+        correct: null,
+        attempts: 0
+      }
+    }
+  },
+6. Preferences (UI + study behavior)
+  preferences: {
+    scriptureSource: "default",
+    commentarySource: "sefaria",
+    autoplay: false,
+    theme: "light"
+  },
+7. Reminders / Spiritual practice tracking
+  reminders: {
+    prayer: {
+      enabled: true,
+      streak: 0,
+      lastCompleted: null
+    }
+  },
+8. Geography / Amateur radio system
+  location: {
+    nearestTower: null,
+    selectedRegion: null
+  },
+9. History / analytics-lite (optional but powerful)
+  history: {
+    journeysCompleted: [],
+    weeksCompleted: [],
+    totalSessions: 0
+  }
+};
