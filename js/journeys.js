@@ -40,7 +40,13 @@ async function loadJourney(id) {
   const res = await fetch(meta.file);
   if (!res.ok) throw new Error("Failed to load journey JSON");
 
-  return await res.json();
+  const text = await res.text();
+
+  if (!text.trim()) {
+    throw new Error(`Journey file is empty: ${meta.file}`);
+  }
+
+  return JSON.parse(text);
 }
 
 // =====================
