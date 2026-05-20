@@ -396,3 +396,54 @@ body.has-fullscreen-card {
     0 0 12px rgba(255, 210, 140, 0.7),
     0 0 28px rgba(255, 180, 90, 0.35);
 }
+
+.journeys-container {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+}
+
+.journey-card {
+  background: rgba(15, 23, 42, 0.85);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+}
+
+.journey-title, .journey-h2 {
+  margin-bottom: 0.5rem;
+}
+
+.journey-picker {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.journey-select {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.btn-primary {
+  background: #0891b2;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.btn-success {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
