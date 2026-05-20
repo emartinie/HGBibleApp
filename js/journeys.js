@@ -42,9 +42,14 @@ async function loadJourney(id) {
 
   const text = await res.text();
 
-  if (!text.trim()) {
-    throw new Error(`Journey file is empty: ${meta.file}`);
-  }
+if (!text.trim()) {
+  return {
+    id,
+    title: "Missing Journey",
+    description: "This journey has no content yet.",
+    steps: []
+  };
+}
 
   return JSON.parse(text);
 }
