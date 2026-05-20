@@ -72,7 +72,9 @@ function renderJourney(journey) {
   document.getElementById("progressText").textContent =
     `${completed} / ${total} completed`;
 
-  const step = journey.steps.find(s => s.id === progress.currentStep);
+  const step =
+  journey.steps.find(s => s.id === progress.currentStep)
+  || journey.steps[0];
 
   document.getElementById("currentStepTitle").textContent =
     step?.title || "Start journey";
