@@ -62,6 +62,7 @@ if (!text.trim()) {
 // =====================
 // RENDER JOURNEY
 // =====================
+console.log("Rendering step:", step.id);
 function renderJourney(journey) {
   const progress = state.journeys.progress[journey.id] || {
     completedSteps: [],
