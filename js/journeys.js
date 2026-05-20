@@ -77,27 +77,35 @@ function renderJourney(journey) {
   document.getElementById("progressText").textContent =
     `${completed} / ${total} completed`;
 
-  const step = journey.steps.find(
-  s => s.id === progress.currentStep
-);
 
-document.getElementById("currentStepTitle").textContent =
-  step?.title || "Start journey";
 
-document.getElementById("currentStepSummary").textContent =
+
+    const step =
+  journey.steps.find(s => s.id === progress.currentStep)
+  || journey.steps[0];
+  console.log(step);
+
+  document.getElementById("currentStepTitle").textContent =
+    step?.title || "Start journey";
+
+  document.getElementById("currentStepSummary").textContent =
   step?.summary || "";
 
-document.getElementById("currentStepArticle").innerHTML =
+  document.getElementById("currentStepArticle").innerHTML =
   step?.article
     ? `<a href="?card=articles&file=${step.article}">
          Open Teaching →
        </a>`
     : "";
 
-document.getElementById("currentStepReflection").innerHTML =
+  document.getElementById("currentStepReflection").innerHTML =
   step?.reflection?.map(r =>
     `<li>${r}</li>`
   ).join("") || "";
+
+  document.getElementById("currentStepContent").innerHTML =
+  step?.content || "";
+}
 
 // =====================
 // LOAD SELECTED JOURNEY
