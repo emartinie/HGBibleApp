@@ -15,10 +15,10 @@ window.JOURNEY_INDEX = window.JOURNEY_INDEX || [
     file: "data/journeys/27-things.json"
   },
     {
-    id: "27-things-seminary",
-    title: "Who was Paul?",
-    file: "who-was-paul.json"
-  }
+  id: "who-was-paul",
+  title: "Who Was Paul?",
+  file: "data/journeys/who-was-paul.json"
+}
 ];
 
 // =====================
