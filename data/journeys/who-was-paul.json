@@ -1,0 +1,120 @@
+{
+  "id": "who-was-paul",
+  "title": "Who Was Paul (Rav Shaul)?",
+  "description": "A guided study path exploring the historical, Jewish, theological, and apostolic identity of Rav Shaul (Paul).",
+  "category": "foundations",
+  "difficulty": "intermediate",
+
+  "tags": [
+    "Paul",
+    "Rav Shaul",
+    "Torah",
+    "New Testament",
+    "Jewish Context",
+    "Apostles",
+    "Messiah"
+  ],
+
+  "estimatedTime": "2-3 hours",
+
+  "steps": [
+    {
+      "id": "historical-identity",
+      "title": "Historical Identity",
+      "summary": "Who Paul was historically, ethnically, politically, and geographically.",
+      "article": "who_was_paul.html#historical-identity",
+      "reflection": [
+        "Why does Paul's Jewish identity matter?",
+        "Why is Roman citizenship significant?"
+      ]
+    },
+
+    {
+      "id": "education-and-formation",
+      "title": "Education and Formation",
+      "summary": "Paul's Pharisaic background and education under Gamaliel.",
+      "article": "who_was_paul.html#education-and-formation",
+      "reflection": [
+        "Why is Gamaliel important?",
+        "Would an untrained outsider speak the way Paul speaks?"
+      ]
+    },
+
+    {
+      "id": "before-following-yeshua",
+      "title": "Before Following Yeshua",
+      "summary": "Understanding Paul's original beliefs and zeal.",
+      "article": "who_was_paul.html#before-following-yeshua",
+      "reflection": [
+        "Why did Paul oppose the early Jesus movement?",
+        "What did covenant fidelity mean to him?"
+      ]
+    },
+
+    {
+      "id": "damascus-experience",
+      "title": "The Damascus Experience",
+      "summary": "Paul's encounter with the risen Messiah.",
+      "article": "who_was_paul.html#damascus-experience",
+      "reflection": [
+        "Did Paul describe this as leaving Judaism?",
+        "How did this event reinterpret Israel's story?"
+      ]
+    },
+
+    {
+      "id": "mission-to-the-gentiles",
+      "title": "Mission to the Gentiles",
+      "summary": "Paul's work among the nations and the formation of assemblies.",
+      "article": "who_was_paul.html#mission-to-the-gentiles",
+      "reflection": [
+        "What were ekklesia communities?",
+        "Why focus on Gentiles?"
+      ]
+    },
+
+    {
+      "id": "core-theological-ideas",
+      "title": "Central Theological Ideas",
+      "summary": "Messiah, Torah, faithfulness, and covenant inclusion.",
+      "article": "who_was_paul.html#core-theological-ideas",
+      "reflection": [
+        "What does pistis really mean?",
+        "Was Paul anti-Torah?"
+      ]
+    },
+
+    {
+      "id": "common-misunderstandings",
+      "title": "Major Misunderstandings",
+      "summary": "Modern assumptions versus historical realities.",
+      "article": "who_was_paul.html#common-misunderstandings",
+      "reflection": [
+        "Did Paul create a new religion?",
+        "How have modern readers misunderstood him?"
+      ]
+    },
+
+    {
+      "id": "identity-tension",
+      "title": "Identity Tension",
+      "summary": "The many identities Paul held simultaneously.",
+      "article": "who_was_paul.html#identity-tension",
+      "reflection": [
+        "Why is Paul difficult to interpret?",
+        "How do all his identities interact?"
+      ]
+    },
+
+    {
+      "id": "death-and-legacy",
+      "title": "Death and Legacy",
+      "summary": "Paul's martyrdom and lasting influence.",
+      "article": "who_was_paul.html#death-and-legacy",
+      "reflection": [
+        "Why did Paul's writings survive so prominently?",
+        "What legacy did he leave behind?"
+      ]
+    }
+  ]
+}
