@@ -3,45 +3,75 @@
   <!-- ===================== -->
   <!-- JOURNEY SELECTOR -->
   <!-- ===================== -->
-  <div class="journey-selector">
-    <h2>Select a Journey</h2>
+  <section class="journey-selector">
 
-    <select id="journeySelect">
-      <option value="">-- Choose a Journey --</option>
-    </select>
+    <h2 class="journey-title">Select a Journey</h2>
 
-    <button id="startJourneyBtn">Start</button>
-  </div>
+    <div class="journey-picker">
+      <select id="journeySelect" class="journey-select">
+        <option value="">-- Choose a Journey --</option>
+      </select>
 
-  <hr/>
+      <button id="startJourneyBtn" class="btn-primary">
+        Start Journey
+      </button>
+    </div>
+
+  </section>
+
+  <hr class="journey-divider"/>
 
   <!-- ===================== -->
   <!-- ACTIVE JOURNEY VIEW -->
   <!-- ===================== -->
-  <div class="journey-card" id="journeyCard" style="display:none;">
+  <section class="journey-card" id="journeyCard" style="display:none;">
 
-    <div class="journey-header">
-      <h2 id="journeyTitle">Journey Title</h2>
-      <p id="journeyDescription">Description of journey</p>
-    </div>
+    <!-- HEADER -->
+    <header class="journey-header">
 
-    <div class="journey-progress">
+      <h2 id="journeyTitle" class="journey-h2">Journey Title</h2>
+
+      <p id="journeyDescription" class="journey-description">
+        Description of journey
+      </p>
+
+    </header>
+
+    <!-- PROGRESS -->
+    <section class="journey-progress">
+
       <div class="progress-bar">
-        <div id="progressFill"></div>
+        <div id="progressFill" class="progress-fill"></div>
       </div>
-      <small id="progressText">0 / 0 completed</small>
-    </div>
 
-    <div class="journey-current-step">
-      <h3>Current Step</h3>
-      <div id="currentStepTitle"></div>
-    </div>
+      <div class="progress-meta">
+        <span id="progressText">0 / 0 completed</span>
+      </div>
 
-    <div class="journey-actions">
-      <button id="markCompleteBtn">Mark Complete</button>
-      <button id="resetJourneyBtn">Reset</button>
-    </div>
+    </section>
 
-  </div>
+    <!-- CURRENT STEP -->
+    <section class="journey-step">
+
+      <h3 class="step-label">Current Step</h3>
+
+      <div id="currentStepTitle" class="step-title"></div>
+
+    </section>
+
+    <!-- ACTIONS -->
+    <footer class="journey-actions">
+
+      <button id="markCompleteBtn" class="btn-success">
+        Mark Complete
+      </button>
+
+      <button id="resetJourneyBtn" class="btn-ghost">
+        Reset
+      </button>
+
+    </footer>
+
+  </section>
 
 </div>
