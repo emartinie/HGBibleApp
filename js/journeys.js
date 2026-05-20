@@ -18,6 +18,11 @@ window.JOURNEY_INDEX = window.JOURNEY_INDEX || [
   id: "who-was-paul",
   title: "Who Was Paul?",
   file: "data/journeys/who-was-paul.json"
+},
+   {
+  id: "ladder-of-jacob",
+  title: "Jacob’s ladder",
+  file: "data/journeys/ladder-of-jacob.json"
 }
 ];
 
