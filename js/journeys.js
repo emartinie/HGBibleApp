@@ -1,7 +1,7 @@
 console.log("🔥 journeys.js loaded");
 
 // =====================
-// JOURNEY INDEX (registry)
+// JOURNEY INDEX (registry) 
 // =====================
 window.JOURNEY_INDEX = window.JOURNEY_INDEX || [
   {
@@ -13,6 +13,11 @@ window.JOURNEY_INDEX = window.JOURNEY_INDEX || [
     id: "27-things-seminary",
     title: "27 Things Seminary Missed",
     file: "data/journeys/27-things.json"
+  },
+    {
+    id: "27-things-seminary",
+    title: "Who was Paul?",
+    file: "who-was-paul.json"
   }
 ];
 
