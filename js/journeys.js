@@ -131,6 +131,15 @@ function initSelector() {
 // =====================
 // BOOT
 // =====================
-document.addEventListener("DOMContentLoaded", () => {
+function bootJourneyCard() {
+  const select = document.getElementById("journeySelect");
+
+  if (!select) {
+    console.warn("journeySelect not ready");
+    return;
+  }
+
   initSelector();
-});
+}
+
+requestAnimationFrame(bootJourneyCard);
