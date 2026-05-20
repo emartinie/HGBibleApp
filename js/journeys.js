@@ -80,6 +80,7 @@ function renderJourney(journey) {
   const step =
   journey.steps.find(s => s.id === progress.currentStep)
   || journey.steps[0];
+  console.log(step);
 
   document.getElementById("currentStepTitle").textContent =
     step?.title || "Start journey";
