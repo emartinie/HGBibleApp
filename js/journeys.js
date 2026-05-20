@@ -83,6 +83,9 @@ function renderJourney(journey) {
 
   document.getElementById("currentStepTitle").textContent =
     step?.title || "Start journey";
+
+  document.getElementById("currentStepContent").innerHTML =
+  step?.content || "";
 }
 
 // =====================
