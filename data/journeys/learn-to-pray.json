@@ -1,1 +1,11 @@
-
+{
+  "id": "learn-to-pray",
+  "title": "Learn to Pray",
+  "description": "Journey placeholder",
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Start here"
+    }
+  ]
+}
