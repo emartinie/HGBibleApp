@@ -78,7 +78,14 @@ function renderJourney(journey) {
   document.getElementById("progressText").textContent =
     `${completed} / ${total} completed`;
 
+ const percent = total ? (completed / total) * 100 : 0;
+document.getElementById("progressFill").style.width = `${percent}%`;
 
+  const currentIndex =
+  journey.steps.findIndex(s => s.id === progress.currentStep);
+
+document.getElementById("currentStepNumber").textContent =
+  `Step ${currentIndex + 1} of ${total}`;
 
 
     const step =
