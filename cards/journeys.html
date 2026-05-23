@@ -6,17 +6,20 @@
   <section class="journey-selector">
 
     <h2 class="journey-title">
-      Select a Journey [🪜 Learning Path (Ladder of Jacob)]
+      Select a Journey
+      <span class="journey-subtitle">🪜 Learning Path (Ladder of Jacob)</span>
     </h2>
 
     <div class="journey-picker">
+
       <select id="journeySelect" class="journey-select">
-        <option value="">-- Choose a Journey step --</option>
+        <option value="">Choose a journey</option>
       </select>
 
       <button id="startJourneyBtn" class="btn-primary">
-        Start
+        Start Journey
       </button>
+
     </div>
 
   </section>
@@ -25,7 +28,6 @@
 
   <!-- ===================== -->
   <!-- ACTIVE JOURNEY VIEW -->
-  <!-- SINGLE SOURCE OF TRUTH -->
   <!-- ===================== -->
   <section class="card-shell" id="journeyCard" style="display:none;">
 
@@ -44,9 +46,9 @@
 
         <h1 id="currentStepTitle" class="text-xl flame"></h1>
 
-        <p id="journeyDescription" class="hero-sub"></p>
+        <div id="currentStepNumber" class="step-meta-text"></div>
 
-        <div id="currentStepNumber" class="text-xs text-slate-400"></div>
+        <p id="journeyDescription" class="hero-sub"></p>
 
       </div>
 
@@ -67,7 +69,7 @@
         </div>
 
         <div class="progress-meta">
-          <span id="progressText">0 / 0 completed</span>
+          <span id="progressText"></span>
         </div>
 
       </div>
@@ -91,7 +93,7 @@
     <div class="card-footer journey-actions">
 
       <button id="markCompleteBtn" class="btn-success">
-        Mark Step Complete
+        Complete Step
       </button>
 
       <button id="resetJourneyBtn" class="btn-ghost">
