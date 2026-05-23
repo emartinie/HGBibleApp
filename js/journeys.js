@@ -231,34 +231,72 @@ async function startJourney(id) {
   };
 }
 
-// =====================
-// INIT SELECTOR
-// =====================
 function initSelector() {
 
-  const select =
-    document.getElementById("journeySelect");
+  const list =
+    document.getElementById("journeyList");
 
-  if (!select) {
-    console.warn("journeySelect missing");
+  if (!list) {
+    console.warn("journeyList missing");
     return;
   }
 
-  JOURNEY_INDEX.forEach(j => {
+  list.innerHTML = "";
 
-    const opt =
-      document.createElement("option");
+  JOURNEY_INDEX.forEach(journey => {
 
-    opt.value = j.id;
-    opt.textContent = j.title;
+    const item =
+      document.createElement("button");
 
-    select.appendChild(opt);
+    item.className =
+      "journey-list-item";
+
+    item.innerHTML = `
+      <div class="journey-list-title">
+        ${journey.title}
+      </div>
+
+      <div class="journey-list-description">
+        ${journey.description || ""}
+      </div>
+    `;
+
+    item.onclick = () => {
+      startJourney(journey.id);
+    };
+
+    list.appendChild(item);
   });
-
-  document.getElementById("startJourneyBtn").onclick = () => {
-    startJourney(select.value);
-  };
 }
+
+// =====================
+// INIT SELECTOR
+// =====================
+//function initSelector() {
+
+  //const select =
+    //document.getElementById("journeySelect");
+
+  //if (!select) {
+    //console.warn("journeySelect missing");
+    //return;
+  //}
+
+  //JOURNEY_INDEX.forEach(j => {
+
+    //const opt =
+      //document.createElement("option");
+
+    //opt.value = j.id;
+   // opt.textContent = j.title;
+
+    //select.appendChild(opt);
+  //});
+
+  //document.getElementById("startJourneyBtn").onclick = () => {
+    //startJourney(select.value);
+  //};
+//}
 
 // =====================
 // BOOT
