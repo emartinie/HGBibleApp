@@ -24,6 +24,11 @@ window.JOURNEY_INDEX = window.JOURNEY_INDEX || [
     id: "ladder-of-jacob",
     title: "Jacob’s Ladder",
     file: "data/journeys/ladder-of-jacob.json"
+  },
+   {
+    id: "yeshua-red-letter-patterns",
+    title: "How Yeshua Structures His Speech",
+    file: "data/journeys/yeshua-red-letter-patterns.json"
   }
 ];
 
