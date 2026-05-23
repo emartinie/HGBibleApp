@@ -1,143 +1,91 @@
-<div class="journeys-container">
-<section class="content-panel">
+<section id="journeyCard" class="card">
 
-  <div class="section-label">
-    Journeys ▼
+  <!-- ===================== -->
+  <!-- TOPBAR (optional alignment with MainStage style) -->
+  <!-- ===================== -->
+  <div class="card-topbar">
+
+    <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous step">
+      ‹
+    </button>
+
+    <button class="card-nav-btn next-card-btn" type="button" aria-label="Next step">
+      ›
+    </button>
+
+    <button class="card-icon-btn utility" title="Reset Journey" id="resetJourneyBtn">
+      ↻
+    </button>
+
   </div>
 
-  <div
-    id="journeyList"
-    class="space-y-2"
-  ></div>
+  <!-- ===================== -->
+  <!-- HEADER -->
+  <!-- ===================== -->
+  <div class="card-header">
+
+    <div class="card-heading">
+
+      <div class="card-kicker">
+        <h2 id="journeyTitle" class="hero-sub"></h2>
+      </div>
+
+      <h1 id="currentStepTitle" class="text-xl flame"></h1>
+
+      <div id="currentStepNumber" class="step-meta-text"></div>
+
+      <p id="journeyDescription" class="hero-sub"></p>
+
+    </div>
+
+  </div>
+
+  <!-- ===================== -->
+  <!-- JOURNEY LIST (collapsed panel, like MainStage panels) -->
+  <!-- ===================== -->
+  <section class="content-panel">
+
+    <div class="section-label">
+      Journeys ▼
+    </div>
+
+    <div id="journeyList" class="space-y-2">
+      <!-- JS injects journey cards here -->
+    </div>
+
+  </section>
+
+  <!-- ===================== -->
+  <!-- BODY -->
+  <!-- ===================== -->
+  <div class="card-body">
+
+    <!-- PROGRESS -->
+    <div class="journey-progress">
+
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+
+      <div class="progress-meta">
+        <span id="progressText"></span>
+      </div>
+
+    </div>
+
+    <!-- STEP CONTENT -->
+    <section class="content-panel">
+
+      <div id="currentStepSummary" class="step-summary"></div>
+
+      <div id="currentStepArticle" class="step-article"></div>
+
+      <ul id="currentStepReflection" class="step-reflection"></ul>
+
+      <div id="currentStepContent" class="step-content"></div>
+
+    </section>
+
+  </div>
 
 </section>
-  <!-- ===================== -->
-<!-- JOURNEY LIST -->
-<!-- ===================== -->
-
-<!--<section class="content-panel">
-
-  <div class="section-label">
-    🪜 Journey Paths
-  </div>
-
-  <div class="space-y-3">
-
-    <!-- JOURNEY LIST -->
-    <!--<div
-      id="journeyList"
-      class="max-h-[30vh] overflow-y-auto space-y-2 border border-slate-700 rounded-lg p-2 bg-slate-900/50"
-    >-->
-
-      <!-- JS injects journey cards here -->
-
-    <!--</div>
-
-  </div>
-
-</section>-->
-  <!-- ===================== -->
-  <!-- JOURNEY SELECTOR -->
-  <!-- ===================== -->
-  <!--<section class="journey-selector">
-
-    <h2 class="journey-title">
-      Select a 
-      <span class="journey-subtitle">🪜 Learning Path (Ladder of Jacob)</span>
-    </h2>
-
-    <div class="journey-picker">
-
-      <select id="journeySelect" class="journey-select">
-        <option value="">Choose a journey</option>
-      </select>
-
-      <button id="startJourneyBtn" class="btn-primary">
-        Start
-      </button>
-
-    </div>
-
-  </section>
-
-  <hr class="journey-divider"/>-->
-
-  <!-- ===================== -->
-  <!-- ACTIVE JOURNEY VIEW -->
-  <!-- ===================== -->
-  <section class="card-shell" id="journeyCard" style="display:none;">
-
-    <!-- HEADER -->
-    <div class="card-header">
-
-      <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous step">
-        ‹
-      </button>
-
-      <div class="card-heading">
-
-        <div class="card-kicker">
-          <h2 id="journeyTitle" class="hero-sub"></h2>
-        </div>
-
-        <h1 id="currentStepTitle" class="text-xl flame"></h1>
-
-        <div id="currentStepNumber" class="step-meta-text"></div>
-
-        <p id="journeyDescription" class="hero-sub"></p>
-
-      </div>
-
-      <button class="card-nav-btn next-card-btn" type="button" aria-label="Next step">
-        ›
-      </button>
-
-    </div>
-
-    <!-- BODY -->
-    <div class="card-body">
-
-      <!-- PROGRESS -->
-      <div class="journey-progress">
-
-        <div class="progress-bar">
-          <div id="progressFill" class="progress-fill"></div>
-        </div>
-
-        <div class="progress-meta">
-          <span id="progressText"></span>
-        </div>
-
-      </div>
-
-      <!-- STEP CONTENT -->
-      <section class="content-panel">
-
-        <div id="currentStepSummary" class="step-summary"></div>
-
-        <div id="currentStepArticle" class="step-article"></div>
-
-        <ul id="currentStepReflection" class="step-reflection"></ul>
-
-        <div id="currentStepContent" class="step-content"></div>
-
-      </section>
-
-    </div>
-
-    <!-- FOOTER -->
-    <div class="card-footer journey-actions">
-
-      <button id="markCompleteBtn" class="btn-success">
-        Complete Step
-      </button>
-
-      <button id="resetJourneyBtn" class="btn-ghost">
-        Reset
-      </button>
-
-    </div>
-
-  </section>
-
-</div>
