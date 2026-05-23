@@ -1,15 +1,9 @@
-<!-- ===================================== -->
-<!-- DISCIPLESHIP QUIZZES CARD -->
-<!-- quizzes.html -->
-<!-- ===================================== -->
-
 <section id="quizCard" class="card">
 
-  <!-- TOPBAR -->
+  <!-- TOPBAR (UNCHANGED PATTERN) -->
   <div class="card-topbar">
 
-    <button class="card-fullscreen-btn card-icon-btn primary"
-            title="Expand Card">⛶</button>
+    <button class="card-fullscreen-btn card-icon-btn primary" title="Expand Card">⛶</button>
 
     <button class="card-icon-btn nav" title="Home">⌂</button>
     <button class="card-icon-btn nav" title="Previous">←</button>
@@ -26,112 +20,64 @@
 
   </div>
 
-  <!-- SUBTEXT -->
-  <div class="text-xs text-slate-500 italic text-center">
-    <p>
-      Augmented Discipleship — scripture-centered learning and self-assessment.
-    </p>
-  </div>
-
-  <!-- SHELL -->
+  <!-- ECHAD HEADER (MATCH MAINSTAGE STRUCTURE) -->
   <div class="card-shell">
 
-    <!-- HEADER -->
     <div class="card-header">
 
-      <button class="card-nav-btn prev-card-btn"
-              type="button"
-              aria-label="Previous Quiz">
-        ‹
-      </button>
+      <button class="card-nav-btn prev-card-btn" aria-label="Previous">‹</button>
 
       <div class="card-heading">
 
         <div class="card-kicker">
           <p class="hero-sub text-center">
-            New Testament Quiz System
+            Discipleship Engine • NT Question System
           </p>
         </div>
 
         <h2 class="text-xl flame text-center">
-          Scripture Review + Reflection
+          Scripture-Based Quizzing
         </h2>
+
+        <p class="hero-sub text-center">
+          Questions generated from New Testament study structures.
+        </p>
 
       </div>
 
-      <button class="card-nav-btn next-card-btn"
-              type="button"
-              aria-label="Next Quiz">
-        ›
-      </button>
+      <button class="card-nav-btn next-card-btn" aria-label="Next">›</button>
 
     </div>
 
-    <!-- BODY -->
+    <!-- BODY (ECHAD CONTENT PANELS ONLY) -->
     <div class="card-body">
 
-      <!-- QUIZ OVERVIEW -->
-      <section class="hero-panel">
-
-        <div class="fp-kicker">
-          Quiz Overview ▼
-        </div>
-
-        <h1 class="fp-title">
-          Learn through reflection, repetition, and scripture context.
-        </h1>
-
-        <p class="fp-sub">
-          Thousands of dynamically generated questions sourced directly from NT study JSONs.
-        </p>
-
-      </section>
-
-      <!-- QUIZ CATEGORIES -->
+      <!-- CATEGORY LIST (NO NEW SYSTEM, JUST VIEW) -->
       <section class="content-panel">
 
         <div class="section-label">
-          Quiz Categories ▼
+          Quiz Sets ▼
         </div>
 
-        <div id="quizCategoryList"
-             class="space-y-2">
-
-          <!-- injected by JS -->
-
-        </div>
+        <div id="quizCategoryList"></div>
 
       </section>
 
-      <!-- ACTIVE QUIZ -->
+      <!-- ACTIVE QUESTION VIEW -->
       <section class="content-panel">
 
         <div class="section-label">
-          Active Question ▼
+          Question ▼
         </div>
 
         <div id="quizViewer"
-             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-4">
+             class="step-content">
 
-          <!-- QUESTION -->
-          <div id="quizQuestion"
-               class="text-lg text-slate-100 font-semibold">
-            Select a quiz category...
-          </div>
+          <div id="quizQuestion"></div>
 
-          <!-- ANSWERS -->
-          <div id="quizAnswers"
-               class="space-y-2">
+          <div id="quizAnswers"></div>
 
-            <!-- JS injects answers -->
-
-          </div>
-
-          <!-- META -->
-          <div id="quizMeta"
-               class="text-xs text-slate-400 italic">
-            NT.js connected question system
-          </div>
+          <div id="quizMeta"></div>
 
         </div>
 
@@ -145,48 +91,30 @@
         </div>
 
         <div id="quizScripture"
-             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[40vh] overflow-y-auto text-sm leading-relaxed">
-
-          Related scripture will appear here.
-
+             class="step-article">
         </div>
 
       </section>
 
-      <!-- QUIZ PROGRESS -->
+      <!-- PROGRESS (PURE DISPLAY ONLY) -->
       <section class="content-panel">
 
         <div class="section-label">
           Progress ▼
         </div>
 
-        <div class="space-y-3">
+        <div class="progress-bar">
+          <div id="quizProgressFill" class="progress-fill"></div>
+        </div>
 
-          <div class="progress-bar">
-            <div id="quizProgressFill"
-                 class="progress-fill"
-                 style="width:0%;">
-            </div>
-          </div>
-
-          <div class="flex justify-between text-xs text-slate-400">
-
-            <span id="quizScore">
-              Score: 0%
-            </span>
-
-            <span id="quizCount">
-              0 / 0 completed
-            </span>
-
-          </div>
-
+        <div class="text-xs text-slate-400 flex justify-between">
+          <span id="quizScore"></span>
+          <span id="quizCount"></span>
         </div>
 
       </section>
 
     </div>
-
   </div>
 
 </section>
