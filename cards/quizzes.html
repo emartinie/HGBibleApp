@@ -1,102 +1,192 @@
-<!-- ============================= -->
-<!-- Card 8: Quiz Cards Container  -->
-<!-- ============================= -->
+<!-- ===================================== -->
+<!-- DISCIPLESHIP QUIZZES CARD -->
+<!-- quizzes.html -->
+<!-- ===================================== -->
+
 <section id="quizCard" class="card">
-<div class="card-topbar">
 
-  <!-- existing fullscreen -->
-  <button class="card-fullscreen-btn card-icon-btn primary"
-          title="Expand Card">⛶</button>
+  <!-- TOPBAR -->
+  <div class="card-topbar">
 
-  <button class="card-icon-btn nav" title="Home">⌂</button>
-  <button class="card-icon-btn nav" title="Previous">←</button>
-  <button class="card-icon-btn nav" title="Next">→</button>
+    <button class="card-fullscreen-btn card-icon-btn primary"
+            title="Expand Card">⛶</button>
 
-  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
-  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
+    <button class="card-icon-btn nav" title="Home">⌂</button>
+    <button class="card-icon-btn nav" title="Previous">←</button>
+    <button class="card-icon-btn nav" title="Next">→</button>
 
-  <button class="card-icon-btn utility" title="Search Card">⌕</button>
-  <button class="card-icon-btn utility" title="Bookmark">★</button>
-  <button class="card-icon-btn utility" title="Share">⇪</button>
-  <button class="card-icon-btn utility" title="Notes">✎</button>
-  <button class="card-icon-btn utility" title="Help">?</button>
+    <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
+    <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
 
-</div>
-<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->    <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
+    <button class="card-icon-btn utility" title="Search">⌕</button>
+    <button class="card-icon-btn utility" title="Bookmark">★</button>
+    <button class="card-icon-btn utility" title="Share">⇪</button>
+    <button class="card-icon-btn utility" title="Notes">✎</button>
+    <button class="card-icon-btn utility" title="Help">?</button>
 
-        <!-- Header (can clip) -->
-        <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
-            <button
-                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"
-                title="Prev card">
-                <!-- Heroicon: Chevron Left -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </button>
+  </div>
 
-            <div class="text-center">
-               <!-- <div class="label-pill text-slate-400">Card 8</div>
-                <h2 class="text-xl font-bold text-orange-300">
-                    Quizzes • ~20 Thousand NT Quiz Questions
-                </h2>
-            </div>
+  <!-- SUBTEXT -->
+  <div class="text-xs text-slate-500 italic text-center">
+    <p>
+      Augmented Discipleship — scripture-centered learning and self-assessment.
+    </p>
+  </div>
 
-            <button
-                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"
-                title="Next card">
-                <!-- Heroicon: Chevron Right -->
-              <!--  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>-->
-        </div> <!-- ✅ header CLOSED -->
+  <!-- SHELL -->
+  <div class="card-shell">
 
-        <!-- Body (must breathe) -->
-        <div class="card-inner">
-            <h3 class="text-lg font-semibold text-orange-300 mb-4">📘 Study Check</h3>
+    <!-- HEADER -->
+    <div class="card-header">
 
-            <p class="text-sm text-slate-300 text-center mb-4 max-w-xl mx-auto">
-                Thoughtful questions designed to test understanding, not speed.
-                These are for reflection, discussion, and honest self-assessment. There are also hundreds of questions
-                divided by every chapter in the New Testament.
-            </p>
+      <button class="card-nav-btn prev-card-btn"
+              type="button"
+              aria-label="Previous Quiz">
+        ‹
+      </button>
 
-            <div class="quiz-stack">
-                <div class="quiz-item">
-                    <div class="quiz-question">
-                        What is the biblical meaning of "repentance," and how does it differ from regret?
-                    </div>
-                    <div class="quiz-meta">Doctrine • Foundations</div>
-                </div>
+      <div class="card-heading">
 
-                <div class="quiz-item">
-                    <div class="quiz-question">
-                        In Scripture, is faith presented as belief alone, or belief expressed through action?
-                    </div>
-                    <div class="quiz-meta">Faith & Works • Theology</div>
-                </div>
-
-                <div class="quiz-item">
-                    <div class="quiz-question">
-                        How did the early ekklesia understand community, authority, and accountability?
-                    </div>
-                    <div class="quiz-meta">Church History • Ekklesia</div>
-                </div>
-
-                <div class="quiz-item">
-                    <div class="quiz-question">
-                        What is the difference between commandments given to Israel and instructions given to believers?
-                    </div>
-                    <div class="quiz-meta">Law • Covenant</div>
-                </div>
-            </div>
-
-            <div class="text-xs text-slate-400 text-center mt-4 italic">
-                Interactive quizzes coming soon…
-            </div>
+        <div class="card-kicker">
+          <p class="hero-sub text-center">
+            New Testament Quiz System
+          </p>
         </div>
+
+        <h2 class="text-xl flame text-center">
+          Scripture Review + Reflection
+        </h2>
+
+      </div>
+
+      <button class="card-nav-btn next-card-btn"
+              type="button"
+              aria-label="Next Quiz">
+        ›
+      </button>
+
     </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+
+      <!-- QUIZ OVERVIEW -->
+      <section class="hero-panel">
+
+        <div class="fp-kicker">
+          Quiz Overview ▼
+        </div>
+
+        <h1 class="fp-title">
+          Learn through reflection, repetition, and scripture context.
+        </h1>
+
+        <p class="fp-sub">
+          Thousands of dynamically generated questions sourced directly from NT study JSONs.
+        </p>
+
+      </section>
+
+      <!-- QUIZ CATEGORIES -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Quiz Categories ▼
+        </div>
+
+        <div id="quizCategoryList"
+             class="space-y-2">
+
+          <!-- injected by JS -->
+
+        </div>
+
+      </section>
+
+      <!-- ACTIVE QUIZ -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Active Question ▼
+        </div>
+
+        <div id="quizViewer"
+             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-4">
+
+          <!-- QUESTION -->
+          <div id="quizQuestion"
+               class="text-lg text-slate-100 font-semibold">
+            Select a quiz category...
+          </div>
+
+          <!-- ANSWERS -->
+          <div id="quizAnswers"
+               class="space-y-2">
+
+            <!-- JS injects answers -->
+
+          </div>
+
+          <!-- META -->
+          <div id="quizMeta"
+               class="text-xs text-slate-400 italic">
+            NT.js connected question system
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- SCRIPTURE CONTEXT -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Scripture Context ▼
+        </div>
+
+        <div id="quizScripture"
+             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[40vh] overflow-y-auto text-sm leading-relaxed">
+
+          Related scripture will appear here.
+
+        </div>
+
+      </section>
+
+      <!-- QUIZ PROGRESS -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Progress ▼
+        </div>
+
+        <div class="space-y-3">
+
+          <div class="progress-bar">
+            <div id="quizProgressFill"
+                 class="progress-fill"
+                 style="width:0%;">
+            </div>
+          </div>
+
+          <div class="flex justify-between text-xs text-slate-400">
+
+            <span id="quizScore">
+              Score: 0%
+            </span>
+
+            <span id="quizCount">
+              0 / 0 completed
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
 </section>
