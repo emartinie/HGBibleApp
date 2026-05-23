@@ -1,17 +1,18 @@
 {
-  "id": "yeshua-red-letter-patterns",
-  "title": "Red Letter Patterns of Yeshua",
-  "description": "A structured analysis of how Yeshua speaks across the four Gospels.",
+  "id": "yeshua-patterns",
+  "title": "Patterns of Yeshua",
   "steps": [
     {
-      "id": "speech-buckets",
-      "title": "How Yeshua Structures His Speech",
-      "summary": "Initial categorization of red-letter sayings into functional patterns.",
-      "reflection": [
-        "Why does Yeshua ask so many questions?",
-        "Why does He rarely answer directly?"
-      ]
+      "id": "what-did-jesus-say",
+      "title": "What Did Jesus Say?"
+    },
+    {
+      "id": "what-did-jesus-do",
+      "title": "What Did Jesus Do?"
+    },
+    {
+      "id": "what-would-jesus-do",
+      "title": "What Would Jesus Do?"
     }
   ]
 }
-
