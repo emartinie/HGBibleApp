@@ -1,410 +1,158 @@
-<section class="hg-card-module">
-<div class="card-topbar">
+<section id="bingoCard" class="card">
 
-  <!-- existing fullscreen -->
-  <button class="card-fullscreen-btn card-icon-btn primary"
-          title="Expand Card">⛶</button>
+  <!-- ===================== -->
+  <!-- TOPBAR (ECHAD STANDARD) -->
+  <!-- ===================== -->
+  <div class="card-topbar">
 
-  <button class="card-icon-btn nav" title="Home">⌂</button>
-  <button class="card-icon-btn nav" title="Previous">←</button>
-  <button class="card-icon-btn nav" title="Next">→</button>
+    <button class="card-fullscreen-btn card-icon-btn primary" title="Expand Card">⛶</button>
 
-  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
-  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
+    <button class="card-icon-btn nav" title="Home">⌂</button>
+    <button class="card-icon-btn nav" title="Previous">←</button>
+    <button class="card-icon-btn nav" title="Next">→</button>
 
-  <button class="card-icon-btn utility" title="Search Card">⌕</button>
-  <button class="card-icon-btn utility" title="Bookmark">★</button>
-  <button class="card-icon-btn utility" title="Share">⇪</button>
-  <button class="card-icon-btn utility" title="Notes">✎</button>
-  <button class="card-icon-btn utility" title="Help">?</button>
+    <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
+    <button class="card-icon-btn audio" title="Auto Caller">▶</button>
 
-</div>
-<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->  <style>
-    .hg-card-module{
-      color:#eef3ff;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
+    <button class="card-icon-btn utility" title="Search">⌕</button>
+    <button class="card-icon-btn utility" title="Share">⇪</button>
+    <button class="card-icon-btn utility" title="Help">?</button>
 
-    .hg-card-head{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-
-    .hg-card-kicker{
-      font-size:.72rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:#a8b2c7;
-    }
-
-    .hg-card-title{
-      margin:0;
-      font-size:1.15rem;
-      font-weight:800;
-      color:#ffe7b0;
-      line-height:1.1;
-    }
-
-    .hg-card-sub{
-      margin:0;
-      color:#a8b2c7;
-      font-size:.92rem;
-      line-height:1.45;
-    }
-
-    .hg-panel{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;
-      padding:14px;
-    }
-
-    .hg-section-label{
-      font-size:.72rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:#f3c878;
-      margin-bottom:8px;
-    }
-
-    .hg-empty{
-      color:#a8b2c7;
-      font-size:.92rem;
-      padding:14px;
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:14px;
-      text-align:center;
-    }
-
-    .hg-btn-row{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-
-    .hg-btn{
-      border:none;
-      border-radius:999px;
-      min-height:40px;
-      padding:0 14px;
-      background:rgba(255,255,255,.07);
-      color:#eef3ff;
-      border:1px solid rgba(255,255,255,.10);
-      font:inherit;
-      cursor:pointer;
-    }
-
-    .hg-scorebar{
-      display:flex;
-      justify-content:space-between;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-      padding:10px 12px;
-      border-radius:14px;
-      background:rgba(15,23,42,.75);
-      border:1px solid rgba(255,255,255,.08);
-      font-size:.9rem;
-    }
-
-    .hg-question-card,
-    .hg-hint-card,
-    .hg-answer-card{
-      position:relative;
-      overflow:hidden;
-      border-radius:22px;
-      padding:18px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(15,23,42,.72);
-      box-shadow:0 10px 24px rgba(0,0,0,.22);
-    }
-
-    .hg-question-card video{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      opacity:.25;
-      z-index:0;
-    }
-
-    .hg-question-inner{
-      position:relative;
-      z-index:1;
-    }
-
-    .hg-question-text{
-      font-size:1.2rem;
-      font-weight:700;
-      line-height:1.35;
-      margin-bottom:14px;
-    }
-
-    #choices{
-      display:grid;
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .hg-card-caption{
-      text-align:center;
-      font-size:1rem;
-      font-weight:700;
-      color:#ffe7b0;
-      margin-bottom:10px;
-    }
-
-    .hg-team-board{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      justify-content:center;
-      margin-top:12px;
-    }
-  </style>
-<div class="text-4xl font-extrabold text-cyan-300 text-center">
-                🅱️🅸🅱️🅻🅴 Bingo </div>
-              <div class="text-sm text-slate-400 text-center mt-4">
-                Want to host this with friends? Share this page.<br>
-			    <ul class="text-slate-300 text-sm leading-relaxed space-y-2">
-				    <li><strong>B</strong> → Numbers 1–15</li>
-				    <li><strong>I•</strong> → Numbers 16–30</li>
-				    <li><strong>B</strong> → Numbers 31–45</li>
-				    <li><strong>L</strong> → Numbers 46–60</li>
-				    <li><strong>E</strong> → Numbers 61–75</li>
-				  </ul></div>
-			<div class="hg-panel">
-		    <div class="hg-card-caption">Call History</div>
-
-              <div id="bingoHistory" class="flex flex-wrap gap-2 text-lg">
-              </div>
-              </div>
-				
-              <!-- Card body -->
-		  <section class="hg-panel">
-		    <div class="hg-card-caption">LeaderBoard</div>
-		
-		    <div id="scoreStatus" class="hg-scorebar">
-		      <div>🏆 <span id="scoreTop">5000</span> pts</div>
-		      <div>Team: <span id="topTeam">Zoe</span></div>
-		      <div>Bingos: <span id="qNum">10</span>/<span id="qTotal">10</span></div>
-		    </div>
-		  </section>
-			    <div class="hg-card-caption">Call:</div>
-              <div class="p-6 relative">
-                <div id="bingoCaller" class="text-center space-y-4">
-                  <div id="bingoDisplay" class="text-4xl font-extrabold text-cyan-300">
-                    Ready ?
-                  </div>
-                  <div id="bingoCurrent" class="text-6xl font-bold text-cyan-300 mb-4">
-                    —<br>
-                  </div>
-
-
-                </div>
-              </div>
-
-              <!-- Background video -->
-              <video autoplay muted loop playsinline
-                class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-                <source src="videos/bg-motion.mp4" type="video/mp4">
-              </video>
-              <div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700 flex justify-center gap-4">
-
-                <div class="flex justify-center gap-4">
-                  <button id="callNextBtn" class="px-4 py-2 bg-blue-600 text-white rounded">
-                    Call Next
-                  </button>
-
-
-                  <button id="autoCallBtn" class="px-4 py-2 bg-emerald-600 text-white rounded">
-                    Auto Call
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-
-
-
-
-
-<!-- <div id="bingoCaller" class="text-center space-y-4">
-  <div id="bingoDisplay" class="text-4xl font-extrabold text-orange-300">
-    Ready 
-  </div>
-<div id="bingoCurrent" class="text-4xl font-bold text-orange-300 mb-4">
-  —
-🅱️🅸🅱️🅻🅴 Bingo
-</div>
-
-<div id="bingoHistory" class="flex flex-wrap gap-2 text-lg">
-</div>
-
-  <div class="flex justify-center gap-4">
-    <button id="callNextBtn" class="px-4 py-2 bg-blue-600 text-white rounded">
-      Call Next
-    </button>
-
-
-    <button id="autoCallBtn" class="px-4 py-2 bg-emerald-600 text-white rounded">
-      Auto Call
-    </button>
-  </div>
-</div>-->
-
-  <!-- Background video -->
- <!--<video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover rounded-3xl -z-10 opacity-30">
-    <source src="videos/bg-motion.mp4" type="video/mp4">
-  </video>
-<div class="mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700">
-  <h3 class="text-lg font-semibold text-cyan-300 mb-2">
-    Bingo Cards
-  </h3>-->
-
-  <p class="text-slate-400 text-sm mb-3">
-    🖨️ Printable Cards (non-negotiable)
-	•	1 card
-	•	3 cards
-	•	6 cards
-	•	12 cards (serious players)
-Use any standard 1–75 Bingo card.  
-    Printable cards are available below if you need them. Bring your own Bingo cards or print ours — standard 75-ball BINGO rules apply. Cards are designed for standard bingo dobbers. 
-  </p>
-
-  <div class="flex flex-wrap gap-3">
-    <a href="/bingo/cards/Bible-Bingo-Card-1.pdf" target="_blank"
-       class="px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-500">
-      Card A (PDF)
-    </a>
-
-    <a href="/bingo/cards/Bible-Bingo-Card-2.pdf" target="_blank"
-       class="px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-500">
-      Card B (PDF)
-    </a>
-
-    <a href="/bingo/cards/Bible-Bingo-Card-Set.pdf" target="_blank"
-       class="px-4 py-2 rounded bg-emerald-600 text-white font-semibold hover:bg-emerald-500">
-      6-Card Print Sheet
-    </a>
-  </div>
-</div>
-<!--<section class="game-select">
-  <div class="game-card" data-game="trivia">
-    <h3>Bible Trivia</h3>
-    <p>Teams • Questions • Discussion</p>
   </div>
 
-  <div class="game-card" data-game="bingo">
-    <h3>Bible Bingo</h3>
-    <p>Caller • Cards • Prizes</p>
-  </div>
-</section>-->
-<!-- Bible Bingo Rules -->
-<div class="mt-6 rounded-2xl border border-slate-700 bg-slate-900/70 p-5 shadow-xl">
-  <h3 class="text-lg font-semibold text-cyan-300 mb-3 text-center">
-    Bible Bingo — How It Works
-  </h3>
+  <!-- ===================== -->
+  <!-- HEADER -->
+  <!-- ===================== -->
+  <div class="card-header">
 
-  <hr class="my-4 border-slate-700" />
+    <button class="card-nav-btn prev-card-btn" aria-label="Previous">‹</button>
 
-  <ul class="text-slate-300 text-sm leading-relaxed space-y-2">
-    <li>• Numbers are called randomly and never repeated.</li>
-    <li>• Players use their own Bingo cards (printed or handwritten).</li>
-    <li>• The app acts as the caller and scorekeeper only.</li>
-    <li>• No accounts, no syncing, no tracking.</li>
-    <li>• When you have Bingo, call it out clearly.</li>
-  </ul>
+    <div class="card-heading text-center">
 
-  <p class="mt-4 text-slate-400 text-xs italic text-center">
-    Designed for groups, gatherings, and shared spaces.
-  </p>
-</div>
+      <div class="card-kicker">
+        🅱🅸🅱🅻🅴 Bingo
+      </div>
 
+      <h1 class="text-xl flame">
+        Live Caller + Score + Boards
+      </h1>
 
-</div>
+      <p class="hero-sub">
+        One caller. Shared pace. No accounts. No pressure.
+      </p>
 
-  <section class="hg-panel">
-    <div class="hg-card-caption">Teams & Scores</div>
-
-    <div class="hg-btn-row">
-      <button id="bingo-add-team" class="hg-btn">+ Add Team</button>
     </div>
 
-    <p class="hg-card-sub" style="text-align:center; margin-top:12px;">
-      Add unlimited teams or players.
-    </p>
+    <button class="card-nav-btn next-card-btn" aria-label="Next">›</button>
 
-    <div id="bingo-board" class="hg-team-board"></div>
-  </section>
-
-</div>    
-<!--</div>
-The Vision (unchanged)
-
-Bible Bingo is communal, simple, and hosted.
-Not gamified chaos. Not kids-only. Not a dopamine slot machine.
-
-It’s:
-	•	One caller
-	•	Many people
-	•	Shared pace
-	•	Shared space
-	•	Scripture-adjacent, not distracting from Scripture
-
-That’s the non-negotiable.
-
-⸻
-
-What “Finished” Actually Means
-
-Not everything—just enough:
-
-1. Caller is authoritative
-	•	Clear B / I / B / L / E callout
-	•	Visual display (big, calm, readable)
-	•	Spoken call (My son’s voice is perfect for this)
-
-If this works, Bingo works.
-
-2. Pace feels human
-	•	Manual call ✅
-	•	Auto-call (slow, optional) ✅
-	•	Pause / resume (for conversation & prayer moments)
-
-Anything faster breaks the spirit of Bingo.
-
-⸻
-
-3. Zero pressure on players
-	•	No accounts
-	•	No tracking
-	•	No cheating prevention
-	•	No “win logic” yet
-
-People bring their own cards.
-The app is the room, not the referee.
-
-⸻
-
-4. A small, reverent Rules panel
-
-You already started this—and that matters.
-
-Rules do two things:
-	•	Set expectations
-	•	Calm anxiety
-
-They tell people: “You’re safe here. This is familiar.”
   </div>
-          </div>
-  
 
-        </section>-->
+  <!-- ===================== -->
+  <!-- BODY -->
+  <!-- ===================== -->
+  <div class="card-body">
+
+    <!-- ===================== -->
+    <!-- SCORE / STATUS (UNIFIED BAR) -->
+    <!-- ===================== -->
+    <section class="content-panel">
+
+      <div class="section-label">Status ▼</div>
+
+      <div id="scoreStatus" class="hg-scorebar">
+
+        <div>🏆 <span id="scoreTop">5000</span> pts</div>
+        <div>Team: <span id="topTeam">Zoe</span></div>
+        <div>Calls: <span id="qNum">0</span>/<span id="qTotal">75</span></div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- CALLER CORE -->
+    <!-- ===================== -->
+    <section class="content-panel">
+
+      <div class="section-label">Caller ▼</div>
+
+      <div class="p-6 relative text-center">
+
+        <div id="bingoDisplay" class="text-3xl font-bold text-cyan-300">
+          Ready
+        </div>
+
+        <div id="bingoCurrent" class="text-6xl font-extrabold text-cyan-300 mt-2">
+          —
+        </div>
+
+      </div>
+
+      <div class="hg-btn-row">
+        <button id="callNextBtn" class="hg-btn">Call Next</button>
+        <button id="autoCallBtn" class="hg-btn">Auto Call</button>
+      </div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- HISTORY -->
+    <!-- ===================== -->
+    <section class="content-panel">
+
+      <div class="section-label">Call History ▼</div>
+
+      <div id="bingoHistory" class="flex flex-wrap gap-2 text-lg"></div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- HINT / ANSWER (ECHAD PANELS) -->
+    <!-- ===================== -->
+    <section class="content-panel">
+
+      <div class="section-label">Rules & Flow ▼</div>
+
+      <div class="text-sm text-slate-400 space-y-2">
+        <p>Numbers are called sequentially and never repeated.</p>
+        <p>Players use physical or printed cards.</p>
+        <p>No accounts. No tracking. Shared room experience.</p>
+      </div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- TEAMS -->
+    <!-- ===================== -->
+    <section class="content-panel">
+
+      <div class="section-label">Teams & Scores ▼</div>
+
+      <div class="hg-btn-row">
+        <button id="bingo-add-team" class="hg-btn">+ Add Team</button>
+      </div>
+
+      <div id="bingo-board" class="hg-team-board"></div>
+
+    </section>
+
+    <!-- ===================== -->
+    <!-- PRINT / SHARES -->
+    <!-- ===================== -->
+    <section class="content-panel">
+
+      <div class="section-label">Print Cards ▼</div>
+
+      <div class="flex flex-wrap gap-3">
+
+        <a href="/bingo/cards/Bible-Bingo-Card-1.pdf" class="hg-btn" target="_blank">Card A</a>
+        <a href="/bingo/cards/Bible-Bingo-Card-2.pdf" class="hg-btn" target="_blank">Card B</a>
+        <a href="/bingo/cards/Bible-Bingo-Card-Set.pdf" class="hg-btn" target="_blank">6-Pack</a>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</section>
