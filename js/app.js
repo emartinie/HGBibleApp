@@ -345,18 +345,17 @@ window.loadCard = loadCard;
   // =====================
 // GLOBAL TOGGLE SECTION
 // =====================
-window.toggleSection = function(label) {
+window.toggleSection = function (label) {
   const content = label.nextElementSibling;
   if (!content) return;
 
   const isHidden = content.style.display === "none";
 
+  // toggle visibility
   content.style.display = isHidden ? "" : "none";
 
-  label.textContent = label.textContent.replace(
-    isHidden ? "▶" : "▼",
-    isHidden ? "▼" : "▶"
-  );
+  // safely swap only arrow symbol (last occurrence only)
+  label.textContent = label.textContent.replace(/[▼▶]$/, isHidden ? "▶" : "▼");
 };
 
   // =====================
