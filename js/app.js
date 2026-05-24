@@ -346,25 +346,23 @@ window.loadCard = loadCard;
 // GLOBAL TOGGLE SECTION
 // =====================
 window.toggleSection = function (label) {
-  const container = label.parentElement;
+  let panel = label.nextElementSibling;
 
-  // find first "real content block" after label
-  let content = label.nextElementSibling;
-
-  // safety: skip non-content nodes
-  while (content && !content.classList?.contains("content-panel")) {
-    content = content.nextElementSibling;
+  // If next sibling is NOT a panel, search forward safely
+  while (panel && !panel.classList.contains("content-panel")) {
+    panel = panel.nextElementSibling;
   }
 
-  if (!content) return;
+  if (!panel) return;
 
-  const isHidden = content.style.display === "none";
+  const isHidden = panel.style.display === "none";
 
-  content.style.display = isHidden ? "" : "none";
+  panel.style.display = isHidden ? "" : "none";
 
+  // optional arrow flip (safe fallback)
   label.textContent = label.textContent.replace(
     /[▼▶]$/,
-    isHidden ? "▶" : "▼"
+    isHidden ? "▼" : "▶"
   );
 };
 
