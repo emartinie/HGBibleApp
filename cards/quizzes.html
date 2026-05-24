@@ -1,6 +1,6 @@
 <section id="quizCard" class="card">
 
-  <!-- TOPBAR (UNCHANGED PATTERN) -->
+  <!-- TOPBAR -->
   <div class="card-topbar">
 
     <button class="card-fullscreen-btn card-icon-btn primary" title="Expand Card">⛶</button>
@@ -20,7 +20,7 @@
 
   </div>
 
-  <!-- ECHAD HEADER (MATCH MAINSTAGE STRUCTURE) -->
+  <!-- HEADER -->
   <div class="card-shell">
 
     <div class="card-header">
@@ -49,37 +49,38 @@
 
     </div>
 
-    <!-- BODY (ECHAD CONTENT PANELS ONLY) -->
+    <!-- BODY -->
     <div class="card-body">
 
-      <!-- CATEGORY LIST (NO NEW SYSTEM, JUST VIEW) -->
+      <!-- QUIZ SETS -->
       <section class="content-panel">
 
         <div class="section-label">
-          Quiz Sets ▼
+          Quiz Sets
         </div>
 
-        <div id="quizCategoryList"></div>
+        <div id="quizCategoryList">
+          Loading quiz sets...
+        </div>
 
       </section>
 
-      <!-- ACTIVE QUESTION VIEW -->
+      <!-- QUESTION -->
       <section class="content-panel">
 
-        <div class="section-label" onclick="toggleSection(this)" data-toggle>
-          Question ▼
+        <div class="section-label">
+          Question
         </div>
 
-        <div id="quizViewer"
-             class="step-content">
+        <div id="quizViewer" class="step-content">
 
           <div id="quizQuestion">
-          Question loads here...
-        </div>
+            Question loads here...
+          </div>
 
           <div id="quizAnswers">
-          Answers load here...
-        </div>
+            Answers load here...
+          </div>
 
           <div id="quizMeta"></div>
 
@@ -90,21 +91,21 @@
       <!-- SCRIPTURE CONTEXT -->
       <section class="content-panel">
 
-        <div class="section-label" onclick="toggleSection(this)" data-toggle>
-          Scripture Context ▼
+        <div class="section-label">
+          Scripture Context
         </div>
 
-        <div id="quizScripture"
-             class="step-article">
+        <div id="quizScripture" class="step-article">
+          Scripture context loads here...
         </div>
 
       </section>
 
-      <!-- PROGRESS (PURE DISPLAY ONLY) -->
+      <!-- PROGRESS -->
       <section class="content-panel">
 
-        <div class="section-label" onclick="toggleSection(this)" data-toggle>
-          Progress ▼
+        <div class="section-label">
+          Progress
         </div>
 
         <div class="progress-bar">
