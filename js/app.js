@@ -346,16 +346,26 @@ window.loadCard = loadCard;
 // GLOBAL TOGGLE SECTION
 // =====================
 window.toggleSection = function (label) {
-  const content = label.nextElementSibling;
+  const container = label.parentElement;
+
+  // find first "real content block" after label
+  let content = label.nextElementSibling;
+
+  // safety: skip non-content nodes
+  while (content && !content.classList?.contains("content-panel")) {
+    content = content.nextElementSibling;
+  }
+
   if (!content) return;
 
   const isHidden = content.style.display === "none";
 
-  // toggle visibility
   content.style.display = isHidden ? "" : "none";
 
-  // safely swap only arrow symbol (last occurrence only)
-  label.textContent = label.textContent.replace(/[▼▶]$/, isHidden ? "▶" : "▼");
+  label.textContent = label.textContent.replace(
+    /[▼▶]$/,
+    isHidden ? "▶" : "▼"
+  );
 };
 
   // =====================
