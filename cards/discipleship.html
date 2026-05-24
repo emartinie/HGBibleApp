@@ -1,164 +1,10 @@
 <section id="discipleshipCard" class="card">
 
-  <!-- ================================= -->
-  <!-- TOPBAR -->
-  <!-- ================================= -->
-  <div class="card-topbar">
-
-    <button class="card-fullscreen-btn card-icon-btn primary"
-            title="Expand Card">
-      ⛶
-    </button>
-
-    <button class="card-icon-btn nav" title="Home">
-      ⌂
-    </button>
-
-    <button class="card-icon-btn nav" title="Previous Module">
-      ←
-    </button>
-
-    <button class="card-icon-btn nav" title="Next Module">
-      →
-    </button>
-
-    <button class="card-icon-btn utility" title="Search">
-      ⌕
-    </button>
-
-    <button class="card-icon-btn utility" title="Bookmark">
-      ★
-    </button>
-
-    <button class="card-icon-btn utility" title="Share">
-      ⇪
-    </button>
-
-    <button class="card-icon-btn utility" title="Notes">
-      ✎
-    </button>
-
-  </div>
-
-  <!-- ================================= -->
-  <!-- SUBTEXT -->
-  <!-- ================================= -->
-  <div class="text-xs text-slate-500 italic text-center">
-    <p>
-      Augmented Discipleship — structured learning paths for growth, reflection, and action.
-    </p>
-  </div>
-
-  <!-- ================================= -->
-  <!-- SECONDARY TOPBAR -->
-  <!-- ================================= -->
-  <div class="card-topbar scripture-subnav">
-
-    <button class="card-icon-btn scripture" title="Reload">
-      ↻
-    </button>
-
-    <button class="card-icon-btn scripture" title="Previous Step">
-      ←
-    </button>
-
-    <button class="card-icon-btn scripture" title="Next Step">
-      →
-    </button>
-
-    <button class="card-icon-btn scripture" title="Progress">
-      ◔
-    </button>
-
-    <button class="card-icon-btn scripture" title="Overview">
-      ☰
-    </button>
-
-    <button class="card-icon-btn scripture" title="Reflection">
-      ❝
-    </button>
-
-  </div>
-
-    <!-- ===================== -->
-  <!-- HEADER -->
-  <!-- ===================== -->
-  <div class="card-header">
-
-    <div class="card-heading">
-
-      <div class="card-kicker">
-        <h2 id="journeyTitle" class="hero-sub"></h2>
-      </div>
-
-      <h1 id="currentStepTitle" class="text-xl flame"></h1>
-
-      <div id="currentStepNumber" class="step-meta-text"></div>
-
-      <p id="journeyDescription" class="hero-sub"></p>
-
-    </div>
-
-  </div>
-
-  <!-- ===================== -->
-  <!-- JOURNEY LIST (collapsed panel, like MainStage panels) -->
-  <!-- ===================== -->
-  <section class="content-panel">
-
-    <div class="section-label">
-      Journeys ▼
-    </div>
-
-    <div id="journeyList" class="space-y-2">
-      <!-- JS injects journey cards here -->
-    </div>
-
-  </section>
-
-  <!-- ===================== -->
-  <!-- BODY -->
-  <!-- ===================== -->
-  <div class="card-body">
-
-    <!-- PROGRESS -->
-    <div class="journey-progress">
-
-      <div class="progress-bar">
-        <div id="progressFill" class="progress-fill"></div>
-      </div>
-
-      <div class="progress-meta">
-        <span id="progressText"></span>
-      </div>
-
-    </div>
-
-    <!-- STEP CONTENT -->
-    <section class="content-panel">
-
-      <div id="currentStepSummary" class="step-summary"></div>
-
-      <div id="currentStepArticle" class="step-article"></div>
-
-      <ul id="currentStepReflection" class="step-reflection"></ul>
-
-      <div id="currentStepContent" class="step-content"></div>
-
-    </section>
-
-  </div>
-
-</section>
-
-  <!-- ================================= -->
-  <!-- CARD SHELL -->
-  <!-- ================================= -->
   <div class="card-shell">
 
-    <!-- ================================= -->
+    <!-- ========================= -->
     <!-- HEADER -->
-    <!-- ================================= -->
+    <!-- ========================= -->
     <div class="card-header">
 
       <button class="card-nav-btn prev-card-btn"
@@ -170,24 +16,24 @@
       <div class="card-heading">
 
         <div class="card-kicker">
-
           <p id="discipleshipSub"
-             class="hero-sub"
-             style="text-align:center;">
+             class="hero-sub text-center">
 
-            Journey Framework • Learning Modules • Guided Growth
+            Journey Framework • Guided Discipleship • Learning Modules
 
           </p>
-
         </div>
 
         <h2 id="discipleshipTitle"
-            class="text-xl flame"
-            style="text-align:center;">
+            class="text-xl flame text-center">
 
-          What Did Jesus Say?
+          What Did Yeshua Say?
 
         </h2>
+
+        <div id="moduleMeta"
+             class="step-meta-text text-center">
+        </div>
 
       </div>
 
@@ -199,9 +45,9 @@
 
     </div>
 
-    <!-- ================================= -->
-    <!-- ORIENTATION CARD -->
-    <!-- ================================= -->
+    <!-- ========================= -->
+    <!-- ORIENTATION -->
+    <!-- ========================= -->
     <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
 
       <div class="flex flex-col">
@@ -213,7 +59,7 @@
         <div id="orientationTitle"
              class="text-sm text-slate-200">
 
-          Red Letter Foundations • Sermon on the Mount
+          Loading discipleship journey...
 
         </div>
 
@@ -229,58 +75,52 @@
 
     </div>
 
-    <!-- ================================= -->
+    <!-- ========================= -->
     <!-- BODY -->
-    <!-- ================================= -->
+    <!-- ========================= -->
     <div class="card-body">
 
-      <!-- ================================= -->
       <!-- HERO -->
-      <!-- ================================= -->
       <section class="hero-panel">
 
         <div class="fp-kicker">
-          Front Porch ▼
+          Front Porch
         </div>
 
         <h1 class="fp-title">
-          A guided place to begin.
+          A structured place to begin.
         </h1>
 
         <p class="fp-sub">
 
-          Learning journeys, structured modules, reflection prompts,
-          assessments, and practical discipleship tools.
+          Guided journeys, layered learning, reflection,
+          assessment, and practical discipleship tools.
 
         </p>
 
       </section>
 
-      <!-- ================================= -->
-      <!-- JOURNEY LIST -->
-      <!-- ================================= -->
+      <!-- LEARNING PATHS -->
       <section class="content-panel">
 
-        <div class="section-label" onclick="toggleSection(this)" data-toggle>
-          Learning Paths ▼
+        <div class="section-label">
+          Learning Paths
         </div>
 
         <div id="journeyList"
-             class="space-y-2">
+             class="space-y-3">
 
-          <!-- JS injects paths -->
+          <!-- JS injects journey cards -->
 
         </div>
 
       </section>
 
-      <!-- ================================= -->
       <!-- MODULE OVERVIEW -->
-      <!-- ================================= -->
       <section class="content-panel">
 
-        <div class="section-label" onclick="toggleSection(this)" data-toggle>
-          Module Overview ▼
+        <div class="section-label">
+          Module Overview
         </div>
 
         <div id="moduleOverview"
@@ -292,42 +132,27 @@
 
       </section>
 
-      <!-- ================================= -->
       <!-- CURRENT MODULE -->
-      <!-- ================================= -->
       <section class="content-panel">
 
-        <div class="section-label" onclick="toggleSection(this)" data-toggle>
-          Current Module ▼
+        <div class="section-label">
+          Current Module
         </div>
 
-        <div class="space-y-4">
+        <div id="moduleContent"
+             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed">
 
-          <div id="moduleMeta"
-               class="text-xs text-slate-400">
-
-            Module 1 • Estimated Time: 12 minutes
-
-          </div>
-
-          <div id="moduleContent"
-               class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed">
-
-            Module content loads here...
-
-          </div>
+          Module content loads here...
 
         </div>
 
       </section>
 
-      <!-- ================================= -->
       <!-- REFLECTION -->
-      <!-- ================================= -->
       <section class="content-panel">
 
-        <div class="section-label" onclick="toggleSection(this)" data-toggle>
-          Reflection + Discussion ▼
+        <div class="section-label">
+          Reflection + Discussion
         </div>
 
         <div id="reflectionContainer"
@@ -343,20 +168,18 @@
 
       </section>
 
-      <!-- ================================= -->
       <!-- NOTES -->
-      <!-- ================================= -->
       <section class="content-panel">
 
-        <div class="section-label" onclick="toggleSection(this)" data-toggle>
-          Notes ▼
+        <div class="section-label">
+          Notes + Highlights
         </div>
 
         <div id="notesContainer">
 
           <div class="empty-state">
 
-            Personal notes and highlights will appear here.
+            Personal notes and highlights appear here.
 
           </div>
 
@@ -364,13 +187,11 @@
 
       </section>
 
-      <!-- ================================= -->
       <!-- RELATED MEDIA -->
-      <!-- ================================= -->
       <section class="content-panel">
 
-        <div class="section-label" onclick="toggleSection(this)" data-toggle>
-          Related Media ▼
+        <div class="section-label">
+          Related Media
         </div>
 
         <div id="mediaContainer">
@@ -379,6 +200,29 @@
 
             Audio, video, and supporting teachings appear here.
 
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- PROGRESS -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Journey Progress
+        </div>
+
+        <div class="journey-progress">
+
+          <div class="progress-bar">
+            <div id="progressFill"
+                 class="progress-fill">
+            </div>
+          </div>
+
+          <div class="progress-meta text-center">
+            <span id="progressText"></span>
           </div>
 
         </div>
