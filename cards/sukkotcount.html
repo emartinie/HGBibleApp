@@ -1,4 +1,4 @@
-<section class="hg-omer-card">
+<section class="hg-sukkot-card">
 <div class="card-topbar">
 
   <!-- existing fullscreen -->
@@ -20,27 +20,27 @@
 
 </div>
 <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->  <style>
-    .hg-omer-card {
+    .hg-sukkot-card {
       display: flex;
       flex-direction: column;
       gap: 12px;
       color: #eef3ff;
     }
 
-    .hg-omer-head {
+    .hg-sukkot-head {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
 
-    .hg-omer-kicker {
+    .hg-sukkot-kicker {
       font-size: 0.72rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #a8b2c7;
     }
 
-    .hg-omer-title-main {
+    .hg-sukkot-title-main {
       margin: 0;
       font-size: 1.15rem;
       font-weight: 800;
@@ -48,21 +48,21 @@
       line-height: 1.1;
     }
 
-    .hg-omer-sub {
+    .hg-sukkot-sub {
       margin: 0;
       color: #a8b2c7;
       font-size: 0.92rem;
       line-height: 1.45;
     }
 
-    .hg-omer-panel {
+    .hg-sukkot-panel {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.10);
       border-radius: 18px;
       padding: 14px;
     }
 
-    .hg-omer-big {
+    .hg-sukkot-big {
       font-size: 2.7rem;
       font-weight: 800;
       line-height: 1;
@@ -71,7 +71,7 @@
       margin-bottom: 8px;
     }
 
-    .hg-omer-title {
+    .hg-sukkot-title {
       text-align: center;
       font-size: 1rem;
       color: #f3c878;
@@ -79,7 +79,7 @@
       line-height: 1.35;
     }
 
-    .hg-omer-hebrew {
+    .hg-sukkot-hebrew {
       text-align: center;
       font-size: 1rem;
       color: #dbe8ff;
@@ -104,12 +104,12 @@
       transition: width 0.35s ease;
     }
 
-    .hg-omer-grid {
+    .hg-sukkot-grid {
       display: grid;
       gap: 10px;
     }
 
-    .hg-omer-chip {
+    .hg-sukkot-chip {
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.10);
       border-radius: 14px;
@@ -119,11 +119,11 @@
       line-height: 1.4;
     }
 
-    .hg-omer-chip strong {
+    .hg-sukkot-chip strong {
       color: #ffe7b0;
     }
 
-    .hg-omer-constellation-shell {
+    .hg-sukkot-constellation-shell {
       position: relative;
       min-height: 360px;
       border-radius: 18px;
@@ -133,7 +133,7 @@
       overflow: hidden;
     }
 
-    .hg-omer-lines {
+    .hg-sukkot-lines {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -141,28 +141,28 @@
       pointer-events: none;
     }
 
-    .omer-line {
+    .sukkot-line {
       stroke: rgba(255,255,255,0.16);
       stroke-width: 2.5;
       transition: 0.3s ease;
     }
 
-    .omer-line.done {
+    .sukkot-line.done {
       stroke: rgba(243,200,120,0.75);
     }
 
-    .omer-line.today {
+    .sukkot-line.today {
       stroke: rgba(255,174,0,1);
       stroke-width: 3.5;
     }
 
-    .hg-omer-constellation {
+    .hg-sukkot-constellation {
       position: relative;
       width: 100%;
       min-height: 360px;
     }
 
-    .omer-node {
+    .sukkot-node {
       position: absolute;
       transform: translate(-50%, -50%);
       width: 34px;
@@ -180,17 +180,17 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.18);
     }
 
-    .omer-node.week-start {
+    .sukkot-node.week-start {
       box-shadow: 0 0 0 2px rgba(243,200,120,0.16);
     }
 
-    .omer-node.done {
+    .sukkot-node.done {
       background: rgba(243,200,120,0.22);
       color: #fff4d7;
       border-color: rgba(243,200,120,0.45);
     }
 
-    .omer-node.today {
+    .sukkot-node.today {
       background: rgba(255,174,0,0.28);
       color: #fff;
       border-color: rgba(255,174,0,0.9);
@@ -199,11 +199,11 @@
         0 0 18px rgba(255,174,0,0.35);
     }
 
-    .omer-node.future {
+    .sukkot-node.future {
       opacity: 0.88;
     }
 
-    .omer-tooltip {
+    .sukkot-tooltip {
       position: absolute;
       left: 50%;
       bottom: calc(100% + 8px);
@@ -223,17 +223,17 @@
       z-index: 5;
     }
 
-    .omer-tooltip .he {
+    .sukkot-tooltip .he {
       display: block;
       margin-top: 4px;
       color: #f3c878;
     }
 
-    .omer-node:hover .omer-tooltip {
+    .sukkot-node:hover .sukkot-tooltip {
       opacity: 1;
     }
 
-    .hg-omer-meditation-title {
+    .hg-sukkot-meditation-title {
       margin: 0 0 8px;
       color: #ffe7b0;
       font-size: 1rem;
@@ -241,24 +241,24 @@
       line-height: 1.35;
     }
 
-    .hg-omer-note {
+    .hg-sukkot-note {
       color: #dbe8ff;
       font-size: 0.92rem;
       line-height: 1.5;
       margin-bottom: 10px;
     }
 
-    .hg-omer-note:last-child {
+    .hg-sukkot-note:last-child {
       margin-bottom: 0;
     }
 
     @media (max-width: 420px) {
-      .hg-omer-constellation-shell,
-      .hg-omer-constellation {
+      .hg-sukkot-constellation-shell,
+      .hg-sukkot-constellation {
         min-height: 320px;
       }
 
-      .omer-node {
+      .sukkot-node {
         width: 30px;
         height: 30px;
         font-size: 0.68rem;
@@ -266,43 +266,43 @@
     }
   </style>
 
-  <!--<header class="hg-omer-head">
-    <div class="hg-omer-kicker">Counting the Omer Loaded:</div>
-    <h2 class="hg-omer-title-main">Omer Counter</h2>
-    <p class="hg-omer-sub">
+  <!--<header class="hg-sukkot-head">
+    <div class="hg-sukkot-kicker">Counting the sukkot Loaded:</div>
+    <h2 class="hg-sukkot-title-main">sukkot Counter</h2>
+    <p class="hg-sukkot-sub">
       A mobile-first dynamic card for the current counting with constellation mapping and daily meditations.
     </p>
   </header>-->
 
-  <section class="hg-omer-panel">
-    <div id="omerDayNumber" class="hg-omer-big">--</div>
-    <div id="omerTitle" class="hg-omer-title">Loading Sukkot countdown...</div>
-    <div id="omerHebrew" class="hg-omer-hebrew">(סֻכּוֹת)</div>
+  <section class="hg-sukkot-panel">
+    <div id="sukkotDayNumber" class="hg-sukkot-big">--</div>
+    <div id="sukkotTitle" class="hg-sukkot-title">Loading Sukkot countdown...</div>
+    <div id="sukkotHebrew" class="hg-sukkot-hebrew">(סֻכּוֹת)</div>
 <p>Progress Bar:<p>
     <div class="hg-progress-wrap">
-      <div id="omerProgressBar" class="hg-progress-bar"></div>
+      <div id="sukkotProgressBar" class="hg-progress-bar"></div>
     </div>
 
-    <div class="hg-omer-grid">
-      <div id="omerWeekDay" class="hg-omer-chip"><strong>Week / Day:</strong> --</div>
-      <div id="omerSefirah" class="hg-omer-chip"><strong>Key Observation:</strong> --</div>
-      <div id="omerDetail" class="hg-omer-chip"><strong>Details:</strong> Counting details will appear here.</div>
+    <div class="hg-sukkot-grid">
+      <div id="sukkotWeekDay" class="hg-sukkot-chip"><strong>Week / Day:</strong> --</div>
+      <div id="sukkotSefirah" class="hg-sukkot-chip"><strong>Key Observation:</strong> --</div>
+      <div id="sukkotDetail" class="hg-sukkot-chip"><strong>Details:</strong> Counting details will appear here.</div>
     </div>
   </section>
 
-    <section class="hg-omer-panel">
-    <div class="hg-omer-kicker" style="margin-bottom:8px;">Meditations </div>
-    <h3 id="omerMeditationTitle" class="hg-omer-meditation-title">Loading meditation...</h3>
-    <div id="omerMeditationText" class="hg-omer-note">Meditation text will appear here.</div>
-    <div id="omerMeditationPrayer" class="hg-omer-note">Prayer text will appear here.</div>
-    <div id="omerMeditationScripture" class="hg-omer-note">Scripture thought will appear here.</div>
+    <section class="hg-sukkot-panel">
+    <div class="hg-sukkot-kicker" style="margin-bottom:8px;">Meditations </div>
+    <h3 id="sukkotMeditationTitle" class="hg-sukkot-meditation-title">Loading meditation...</h3>
+    <div id="sukkotMeditationText" class="hg-sukkot-note">Meditation text will appear here.</div>
+    <div id="sukkotMeditationPrayer" class="hg-sukkot-note">Prayer text will appear here.</div>
+    <div id="sukkotMeditationScripture" class="hg-sukkot-note">Scripture thought will appear here.</div>
   </section>
 
-  <section class="hg-omer-panel">
-    <div class="hg-omer-kicker" style="margin-bottom:8px;">Constellation Meditation Map</div>
-    <div class="hg-omer-constellation-shell">
-      <svg id="omerLines" class="hg-omer-lines" viewBox="0 0 700 700" preserveAspectRatio="none"></svg>
-      <div id="omerConstellation" class="hg-omer-constellation">test</div>
+  <section class="hg-sukkot-panel">
+    <div class="hg-sukkot-kicker" style="margin-bottom:8px;">Constellation Meditation Map</div>
+    <div class="hg-sukkot-constellation-shell">
+      <svg id="sukkotLines" class="hg-sukkot-lines" viewBox="0 0 700 700" preserveAspectRatio="none"></svg>
+      <div id="sukkotConstellation" class="hg-sukkot-constellation">test</div>
     </div>
   </section>
 
