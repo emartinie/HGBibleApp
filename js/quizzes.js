@@ -1,122 +1,217 @@
 (function () {
   const DATA_PATH = "data/quizzes/nt_questions.json";
 
+  // ---------- STATE ----------
+  let questions = [];
+  let filteredQuestions = [];
+  let currentIndex = 0;
+
+  let score = 0;
+  let viewed = 0;
+
+  let activeSet = null;
+
+  // ---------- ELEMENT CACHE ----------
   const els = {
     categoryList: document.getElementById("quizCategoryList"),
     question: document.getElementById("quizQuestion"),
     answers: document.getElementById("quizAnswers"),
-    meta: document.getElementById("quizMeta"),
     scripture: document.getElementById("quizScripture"),
-    progressFill: document.getElementById("quizProgressFill"),
+    progress: document.getElementById("quizProgressFill"),
     score: document.getElementById("quizScore"),
     count: document.getElementById("quizCount"),
-    prev: document.querySelector(".prev-card-btn"),
-    next: document.querySelector(".next-card-btn"),
+
+    prevBtn: document.querySelector(".prev-card-btn"),
+    nextBtn: document.querySelector(".next-card-btn"),
   };
 
-  let questions = [];
-  let index = 0;
-  let correct = 0;
+  // ---------- INIT ----------
+  init();
 
-  // ---------------- LOAD ----------------
-  async function load() {
+  async function init() {
+    await loadData();
+    buildQuizSets();
+    bindNav();
+    selectDefaultSet();
+  }
+
+  // ---------- LOAD DATA ----------
+  async function loadData() {
     try {
       const res = await fetch(DATA_PATH);
       questions = await res.json();
 
-      if (!questions.length) {
-        els.categoryList.innerText = "No quiz data found.";
-        return;
+      if (!Array.isArray(questions)) {
+        throw new Error("Quiz JSON is not an array");
       }
-
-      renderQuestion();
-      renderProgress();
-      bindNav();
-
-    } catch (e) {
-      console.error(e);
-      els.categoryList.innerText = "Failed to load quiz data.";
+    } catch (err) {
+      console.error(err);
+      if (els.categoryList) {
+        els.categoryList.innerHTML = "Failed to load quiz data.";
+      }
     }
   }
 
-  // ---------------- RENDER QUESTION ----------------
-  function renderQuestion() {
-    const q = questions[index];
+  // ---------- BUILD QUIZ SETS ----------
+  function buildQuizSets() {
+    if (!els.categoryList) return;
 
-    if (!q) return;
+    const sets = {};
 
-    els.question.innerHTML = `
-      <div class="text-lg font-semibold">
-        Q${q.id}: ${q.question || "Missing question"}
-      </div>
-    `;
+    questions.forEach(q => {
+      const setName = q.source || "unknown";
+      if (!sets[setName]) sets[setName] = [];
+      sets[setName].push(q);
+    });
 
-    els.answers.innerHTML = `
-      <div class="mt-2 text-slate-300">
-        ${q.answer ? q.answer : "<em>No answer provided</em>"}
-      </div>
+    els.categoryList.innerHTML = "";
 
-      <button id="revealBtn" class="mt-3 px-3 py-1 bg-slate-700 rounded">
-        Reveal / Toggle
-      </button>
-    `;
+    Object.keys(sets).forEach(setName => {
+      const btn = document.createElement("button");
+      btn.className = "quiz-set-btn";
+      btn.textContent = `${setName} (${sets[setName].length})`;
 
-    els.meta.innerHTML = `
-      <div class="text-xs text-slate-500 mt-2">
-        Source: ${q.source || "unknown"}
-      </div>
-    `;
-
-    els.scripture.innerHTML = `
-      <div class="text-sm text-slate-300 leading-relaxed">
-        ${q.scripture || "No scripture context available."}
-      </div>
-    `;
-
-    const btn = document.getElementById("revealBtn");
-    if (btn) {
       btn.onclick = () => {
-        els.answers.classList.toggle("hidden");
+        activeSet = setName;
+        filteredQuestions = sets[setName];
+        currentIndex = 0;
+
+        resetProgress();
+        renderQuestion();
+      };
+
+      els.categoryList.appendChild(btn);
+    });
+  }
+
+  // ---------- DEFAULT SET ----------
+  function selectDefaultSet() {
+    const firstSet = questions[0]?.source;
+    if (!firstSet) return;
+
+    const grouped = groupBySource();
+    activeSet = firstSet;
+    filteredQuestions = grouped[firstSet] || [];
+
+    renderQuestion();
+  }
+
+  function groupBySource() {
+    const map = {};
+    questions.forEach(q => {
+      const s = q.source || "unknown";
+      if (!map[s]) map[s] = [];
+      map[s].push(q);
+    });
+    return map;
+  }
+
+  // ---------- QUESTION RENDER ----------
+  function renderQuestion() {
+    if (!filteredQuestions.length) return;
+
+    const q = filteredQuestions[currentIndex];
+
+    if (els.question) {
+      els.question.innerHTML = `
+        <div class="text-lg font-semibold">
+          ${escape(q.question || "No question")}
+        </div>
+      `;
+    }
+
+    if (els.answers) {
+      els.answers.innerHTML = `
+        <div class="mt-2 text-slate-300">
+          ${q.answer ? escape(q.answer) : "No answer provided"}
+        </div>
+
+        <button id="revealBtn" class="mt-3 px-3 py-1 bg-cyan-700 rounded text-white text-sm">
+          Reveal / Toggle
+        </button>
+      `;
+    }
+
+    if (els.scripture) {
+      els.scripture.innerHTML = `
+        <div class="text-sm text-slate-400">
+          Source: ${escape(q.source || "unknown")}
+        </div>
+      `;
+    }
+
+    updateProgress();
+    bindReveal();
+  }
+
+  // ---------- NAV ----------
+  function bindNav() {
+    if (els.prevBtn) {
+      els.prevBtn.onclick = () => {
+        if (currentIndex > 0) {
+          currentIndex--;
+          renderQuestion();
+        }
+      };
+    }
+
+    if (els.nextBtn) {
+      els.nextBtn.onclick = () => {
+        if (currentIndex < filteredQuestions.length - 1) {
+          currentIndex++;
+          viewed++;
+          renderQuestion();
+        }
       };
     }
   }
 
-  // ---------------- PROGRESS ----------------
-  function renderProgress() {
-    const pct = ((index + 1) / questions.length) * 100;
+  function bindReveal() {
+    const btn = document.getElementById("revealBtn");
+    if (!btn) return;
 
-    if (els.progressFill) {
-      els.progressFill.style.width = pct + "%";
+    btn.onclick = () => {
+      const el = els.answers;
+      if (!el) return;
+
+      el.classList.toggle("hidden");
+
+      if (!el.classList.contains("hidden")) {
+        score++; // simplistic scoring hook
+        updateProgress();
+      }
+    };
+  }
+
+  // ---------- PROGRESS ----------
+  function resetProgress() {
+    score = 0;
+    viewed = 0;
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const total = filteredQuestions.length || 1;
+    const percent = Math.round((currentIndex / total) * 100);
+
+    if (els.progress) {
+      els.progress.style.width = `${percent}%`;
     }
 
     if (els.score) {
-      els.score.innerText = `Correct: ${correct}`;
+      els.score.textContent = `Score: ${score}`;
     }
 
     if (els.count) {
-      els.count.innerText = `Question ${index + 1} / ${questions.length}`;
+      els.count.textContent = `Question ${currentIndex + 1} / ${total}`;
     }
   }
 
-  // ---------------- NAV ----------------
-  function bindNav() {
-    if (els.prev) {
-      els.prev.onclick = () => {
-        index = Math.max(0, index - 1);
-        renderQuestion();
-        renderProgress();
-      };
-    }
-
-    if (els.next) {
-      els.next.onclick = () => {
-        index = Math.min(questions.length - 1, index + 1);
-        renderQuestion();
-        renderProgress();
-      };
-    }
+  // ---------- UTIL ----------
+  function escape(str = "") {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;");
   }
-
-  // ---------------- INIT ----------------
-  load();
 })();
