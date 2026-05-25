@@ -2,23 +2,28 @@
 
   const DATA_PATH = "data/sukkot/sukkot.json";
 
-  function set(id, val) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val ?? "";
+  let data = null;
+
+  function el(id) {
+    return document.getElementById(id);
+  }
+
+  function set(id, value) {
+    const node = el(id);
+    if (node) node.textContent = value ?? "";
   }
 
   function setBar(percent) {
-    const el = document.getElementById("sukkotProgressBar");
-    if (el) el.style.width = percent + "%";
+    const bar = el("sukkotProgressBar");
+    if (bar) bar.style.width = percent + "%";
   }
 
-  async function loadSukkot() {
+  async function load() {
     try {
-
       const res = await fetch(DATA_PATH);
-      const data = await res.json();
+      data = await res.json();
 
-      if (!data) throw new Error("No data");
+      if (!data) return;
 
       set("sukkotDayNumber", data.dayNumber);
       set("sukkotTitle", data.title);
@@ -28,21 +33,25 @@
       set("sukkotTheme", data.theme);
       set("sukkotDetail", data.detail);
 
-      set("sukkotMeditationTitle", data.meditation?.title);
-      set("sukkotMeditationText", data.meditation?.text);
-      set("sukkotMeditationPrayer", data.meditation?.prayer);
-      set("sukkotMeditationScripture", data.meditation?.scripture);
+      if (data.meditation) {
+        set("sukkotMeditationTitle", data.meditation.title);
+        set("sukkotMeditationText", data.meditation.text);
+        set("sukkotMeditationPrayer", data.meditation.prayer);
+        set("sukkotMeditationScripture", data.meditation.scripture);
+      }
 
-      const pct = (data.dayNumber / data.totalDays) * 100;
+      const pct = data.totalDays
+        ? (data.dayNumber / data.totalDays) * 100
+        : 0;
+
       setBar(pct);
 
-    } catch (err) {
-      console.error(err);
-
-      set("sukkotTitle", "Failed to load Sukkot data");
+    } catch (e) {
+      console.error("Sukkot load failed:", e);
+      set("sukkotTitle", "Failed to load Sukkot");
     }
   }
 
-  document.addEventListener("DOMContentLoaded", loadSukkot);
+  document.addEventListener("DOMContentLoaded", load);
 
 })();
