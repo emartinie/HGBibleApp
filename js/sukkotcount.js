@@ -1,6 +1,6 @@
 (function () {
 
-  const DATA_PATH = "data/sukkotcount.json";
+  const DATA_PATH = "data/sukkot/sukkot.json";
 
   const els = {
     dayNumber: document.getElementById("sukkotDayNumber"),
@@ -9,7 +9,7 @@
 
     progress: document.getElementById("sukkotProgressBar"),
 
-    weekDay: document.getElementById("sukkotWeekDay"),
+    phase: document.getElementById("sukkotPhase"),
     theme: document.getElementById("sukkotTheme"),
     detail: document.getElementById("sukkotDetail"),
 
@@ -19,73 +19,63 @@
     medScripture: document.getElementById("sukkotMeditationScripture")
   };
 
-  let data = null;
-
-  async function init() {
+  async function loadSukkot() {
     try {
       const res = await fetch(DATA_PATH);
-      data = await res.json();
 
-      if (!data) return renderError();
+      if (!res.ok) throw new Error("Missing Sukkot data file");
 
-      render();
-      bindNav();
+      const data = await res.json();
 
-    } catch (e) {
-      console.error(e);
-      renderError();
+      render(data);
+
+    } catch (err) {
+      console.warn("Sukkot load failed:", err);
+      renderFallback();
     }
   }
 
-  function render() {
+  function render(data = {}) {
 
-    const today =
-      data.current ||
-      data.today ||
-      data.days?.[0] ||
-      data;
+    // safe fallbacks
+    const day = data.day || "--";
+    const title = data.title || "Sukkot";
+    const hebrew = data.hebrew || "חג סוכות";
 
-    if (!today) return renderError();
+    const phase = data.phase || "--";
+    const theme = data.theme || "--";
+    const detail = data.detail || "No details loaded yet.";
 
-    els.dayNumber.textContent = today.day ?? "--";
-    els.title.textContent = today.title ?? "Sukkot";
-    els.hebrew.textContent = today.hebrew ?? "";
+    const meditation = data.meditation || {};
 
-    const total = data.totalDays || 1;
-    const percent = (today.day / total) * 100;
+    if (els.dayNumber) els.dayNumber.textContent = day;
+    if (els.title) els.title.textContent = title;
+    if (els.hebrew) els.hebrew.textContent = hebrew;
 
-    els.progress.style.width = `${percent}%`;
+    if (els.phase) els.phase.innerHTML = `<strong>Day / Phase:</strong> ${phase}`;
+    if (els.theme) els.theme.innerHTML = `<strong>Theme:</strong> ${theme}`;
+    if (els.detail) els.detail.innerHTML = `<strong>Details:</strong> ${detail}`;
 
-    els.weekDay.textContent = today.weekDay ?? "--";
-    els.theme.textContent = today.theme ?? "--";
-    els.detail.textContent = today.detail ?? "--";
+    if (els.medTitle) els.medTitle.textContent = meditation.title || "Meditation";
+    if (els.medText) els.medText.textContent = meditation.text || "";
+    if (els.medPrayer) els.medPrayer.textContent = meditation.prayer || "";
+    if (els.medScripture) els.medScripture.textContent = meditation.scripture || "";
 
-    els.medTitle.textContent = today.meditation?.title ?? "";
-    els.medText.textContent = today.meditation?.text ?? "";
-    els.medPrayer.textContent = today.meditation?.prayer ?? "";
-    els.medScripture.textContent = today.meditation?.scripture ?? "";
+    // simple progress (safe fallback)
+    if (els.progress) {
+      const pct = data.progress ?? 0;
+      els.progress.style.width = `${pct}%`;
+    }
   }
 
-  function renderError() {
-    if (els.title) els.title.textContent = "Failed to load Sukkot";
+  function renderFallback() {
+    if (els.title) els.title.textContent = "Sukkot (Offline / No Data)";
+    if (els.detail) els.detail.innerHTML = "Data file not loaded yet.";
+    if (els.medText) els.medText.textContent = "";
+    if (els.medPrayer) els.medPrayer.textContent = "";
+    if (els.medScripture) els.medScripture.textContent = "";
   }
 
-  function bindNav() {
-    const home = document.getElementById("sukkotHome");
-    const prev = document.getElementById("sukkotPrev");
-    const next = document.getElementById("sukkotNext");
-
-    if (home) home.onclick = () => window.loadCard?.("home");
-
-    if (prev) prev.onclick = () => {
-      console.log("Sukkot prev");
-    };
-
-    if (next) next.onclick = () => {
-      console.log("Sukkot next");
-    };
-  }
-
-  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", loadSukkot);
 
 })();
