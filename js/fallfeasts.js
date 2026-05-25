@@ -1,8 +1,8 @@
 (function () {
 
-  // =========================
-  // 1. DATES
-  // =========================
+  // =========================================================
+  // 1. FALL FEAST CALENDAR MODEL
+  // =========================================================
 
   const FALL = {
     YOM_TERUAH: new Date(2026, 8, 11),
@@ -15,32 +15,40 @@
   const SUNDOWN_HOUR = 19;
   const SUNDOWN_MIN = 30;
 
-  // =========================
-  // 2. DOM ELEMENTS
-  // =========================
+  // =========================================================
+  // 2. DOM HOOKS (single responsibility)
+  // =========================================================
 
-  const dayEl = document.getElementById("fallDayNumber");
-  const titleEl = document.getElementById("fallTitle");
-  const hebrewEl = document.getElementById("fallHebrew");
-  const progressEl = document.getElementById("fallProgressBar");
-  const detailEl = document.getElementById("fallDetail");
+  const el = {
+    day: document.getElementById("fallDayNumber"),
+    title: document.getElementById("fallTitle"),
+    hebrew: document.getElementById("fallHebrew"),
+    progress: document.getElementById("fallProgressBar"),
+    detail: document.getElementById("fallDetail"),
 
-  const meditationTitleEl = document.getElementById("fallMeditationTitle");
-  const meditationTextEl = document.getElementById("fallMeditationText");
-  const meditationPrayerEl = document.getElementById("fallMeditationPrayer");
-  const meditationScriptureEl = document.getElementById("fallMeditationScripture");
+    medTitle: document.getElementById("fallMeditationTitle"),
+    medText: document.getElementById("fallMeditationText"),
+    medPrayer: document.getElementById("fallMeditationPrayer"),
+    medScripture: document.getElementById("fallMeditationScripture"),
 
-  const constellationEl = document.getElementById("fallConstellation");
-  const linesEl = document.getElementById("fallLines");
+    constellation: document.getElementById("fallConstellation")
+  };
 
-  if (!dayEl) return;
+  if (!el.day || !el.title || !el.constellation) {
+    console.warn("Fall Feast card missing DOM elements");
+    return;
+  }
 
-  // =========================
+  // =========================================================
   // 3. HELPERS
-  // =========================
+  // =========================================================
 
   function startOfDay(d) {
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  }
+
+  function diffDays(a, b) {
+    return Math.floor((b - a) / 86400000);
   }
 
   function getEffectiveDate(now) {
@@ -61,83 +69,103 @@
     return startOfDay(now);
   }
 
-  function diffDays(a, b) {
-    return Math.floor((b - a) / 86400000);
+  function getToday() {
+    return getEffectiveDate(new Date());
   }
 
-  // =========================
-  // 4. PHASE DETECTOR
-  // =========================
+  // =========================================================
+  // 4. STATE SYSTEM (THIS IS THE CORE TRUTH)
+  // =========================================================
 
-  function getPhase(now) {
-    if (now < FALL.YOM_TERUAH) return "pre";
-    if (now < FALL.YOM_KIPPUR) return "awe";
-    if (now < FALL.SUKKOT) return "kippur";
-    if (now <= FALL.SUKKOT_END) return "sukkot";
-    if (now <= FALL.SHEMINI_ATZERET) return "shemini";
-    return "done";
+  function getPhase(date) {
+
+    if (date < FALL.YOM_TERUAH) return "PRE";
+
+    if (date < FALL.YOM_KIPPUR) return "TERUAH_TO_KIPPUR";
+
+    if (date < FALL.SUKKOT) return "KIPPUR_WINDOW";
+
+    if (date <= FALL.SUKKOT_END) return "SUKKOT";
+
+    if (date <= FALL.SHEMINI_ATZERET) return "SHEMINI";
+
+    return "COMPLETE";
   }
 
-  // =========================
-  // 5. MEDIATIONS
-  // =========================
+  // =========================================================
+  // 5. MEDITATION ENGINE (STATE DRIVEN)
+  // =========================================================
 
-  const meditations = {
-    pre: {
+  const MEDITATION = {
+    PRE: {
       title: "Prepare",
       text: "The season is approaching.",
       prayer: "Make my heart ready.",
       scripture: "Be watchful."
     },
-    awe: {
+
+    TERUAH_TO_KIPPUR: {
       title: "Awakening",
-      text: "Something is calling you back.",
-      prayer: "Turn my heart.",
+      text: "The trumpet has sounded. Return begins.",
+      prayer: "Turn my heart toward You.",
       scripture: "Return to Me."
     },
-    kippur: {
+
+    KIPPUR_WINDOW: {
       title: "Atonement",
-      text: "Release and cleansing.",
+      text: "Cleansing and realignment.",
       prayer: "Cleanse me.",
       scripture: "Create in me a clean heart."
     },
-    sukkot: {
+
+    SUKKOT: {
       title: "Dwelling",
-      text: "Presence is near.",
+      text: "Presence becomes near and tangible.",
       prayer: "Abide with me.",
       scripture: "He dwelt among us."
     },
-    shemini: {
-      title: "Stay",
-      text: "Do not rush away.",
+
+    SHEMINI: {
+      title: "Remain",
+      text: "Do not rush away from presence.",
       prayer: "Keep me near.",
       scripture: "Remain in Me."
     },
-    done: {
+
+    COMPLETE: {
       title: "Completion",
-      text: "The cycle is complete.",
+      text: "The cycle has closed.",
       prayer: "Seal the work.",
       scripture: "It is finished."
     }
   };
 
-  // =========================
-  // 6. CONSTELLATION (SIMPLE 6–7 NODES)
-  // =========================
+  function setMeditation(phase, daysLeft) {
+    const m = MEDITATION[phase];
+
+    el.medTitle.textContent = m.title;
+    el.medText.textContent = m.text;
+    el.medPrayer.textContent = "Prayer: " + m.prayer;
+    el.medScripture.textContent = "Scripture: " + m.scripture;
+  }
+
+  // =========================================================
+  // 6. CONSTELLATION (STATE-BASED, NOT DATE-BASED)
+  // =========================================================
 
   const nodes = [
-    "Start",
+    "Prepare",
     "Awake",
     "Return",
     "Cleanse",
     "Dwelling",
-    "Joy",
+    "Abide",
     "Completion"
   ];
 
   function renderConstellation(activeIndex) {
-    constellationEl.innerHTML = "";
-    linesEl.innerHTML = "";
+
+    el.constellation.innerHTML = "";
 
     nodes.forEach((label, i) => {
 
@@ -148,60 +176,71 @@
       if (i < activeIndex) node.classList.add("done");
       if (i === activeIndex) node.classList.add("today");
 
-      constellationEl.appendChild(node);
+      el.constellation.appendChild(node);
     });
   }
 
-  // =========================
-  // 7. RENDER
-  // =========================
+  // =========================================================
+  // 7. MAIN RENDER LOOP
+  // =========================================================
 
   function render() {
 
-    const now = new Date();
-    const effective = getEffectiveDate(now);
-    const phase = getPhase(effective);
+    const now = getToday();
+    const phase = getPhase(now);
+    const med = MEDITATION[phase];
 
-    const med = meditations[phase];
+    // -----------------------------------------
+    // PRE-SEASON COUNTDOWN
+    // -----------------------------------------
 
-    // BEFORE SEASON
-    if (phase === "pre") {
-      const daysUntil = diffDays(effective, FALL.YOM_TERUAH);
+    if (phase === "PRE") {
 
-      dayEl.textContent = daysUntil;
-      titleEl.textContent = `${daysUntil} days until Yom Teruah`;
-      hebrewEl.textContent = "עונת החגים";
+      const daysUntil = diffDays(now, FALL.YOM_TERUAH);
 
-      progressEl.style.width = "0%";
+      el.day.textContent = daysUntil;
+      el.title.textContent = `${daysUntil} days until Yom Teruah`;
+      el.hebrew.textContent = "עונת החגים";
 
-      meditationTitleEl.textContent = med.title;
-      meditationTextEl.textContent = med.text;
-      meditationPrayerEl.textContent = med.prayer;
-      meditationScriptureEl.textContent = med.scripture;
+      el.progress.style.width = "0%";
 
+      setMeditation(phase, daysUntil);
       renderConstellation(0);
+
+      el.detail.textContent = "Preparing for the season.";
+
       return;
     }
 
-    // IN SEASON
-    dayEl.textContent = phase.toUpperCase();
-    titleEl.textContent = med.title;
-    hebrewEl.textContent = "מועדי תשרי";
+    // -----------------------------------------
+    // IN-SEASON COUNTDOWN (optional anchor)
+    // -----------------------------------------
 
-    meditationTitleEl.textContent = med.title;
-    meditationTextEl.textContent = med.text;
-    meditationPrayerEl.textContent = med.prayer;
-    meditationScriptureEl.textContent = med.scripture;
+    let anchor = FALL.SUKKOT;
+    if (phase === "TERUAH_TO_KIPPUR") anchor = FALL.YOM_KIPPUR;
+    if (phase === "SUKKOT" || phase === "SHEMINI") anchor = FALL.SUKKOT_END;
+
+    const daysLeft = diffDays(now, anchor);
+
+    el.day.textContent = daysLeft;
+    el.title.textContent = `${med.title}`;
+    el.hebrew.textContent = "מועדי תשרי";
+
+    el.progress.style.width = `${Math.max(0, 100 - daysLeft)}%`;
+
+    el.detail.textContent = `Phase: ${phase}`;
+
+    setMeditation(phase, daysLeft);
 
     const indexMap = {
-      awe: 1,
-      kippur: 3,
-      sukkot: 5,
-      shemini: 6,
-      done: 6
+      TERUAH_TO_KIPPUR: 1,
+      KIPPUR_WINDOW: 3,
+      SUKKOT: 5,
+      SHEMINI: 6,
+      COMPLETE: 6
     };
 
-    renderConstellation(indexMap[phase] || 0);
+    renderConstellation(indexMap[phase] ?? 0);
   }
 
   render();
