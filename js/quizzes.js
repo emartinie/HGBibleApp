@@ -1,5 +1,5 @@
 (function () {
-  const DATA_PATH = "data/quiz.json"; // 👈 change this to your file
+  const DATA_PATH = "data/quizzes/nt_questions.json.json"; 
   const els = {};
 
   let questions = [];
