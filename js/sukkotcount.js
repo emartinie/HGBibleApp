@@ -1,79 +1,46 @@
 (function () {
 
-  const DATA_PATH = "data/sukkot/sukkot.json";
-
-  const els = {
-    dayNumber: document.getElementById("sukkotDayNumber"),
-    title: document.getElementById("sukkotTitle"),
-    hebrew: document.getElementById("sukkotHebrew"),
-
-    progress: document.getElementById("sukkotProgressBar"),
-
-    phase: document.getElementById("sukkotPhase"),
-    theme: document.getElementById("sukkotTheme"),
-    detail: document.getElementById("sukkotDetail"),
-
-    medTitle: document.getElementById("sukkotMeditationTitle"),
-    medText: document.getElementById("sukkotMeditationText"),
-    medPrayer: document.getElementById("sukkotMeditationPrayer"),
-    medScripture: document.getElementById("sukkotMeditationScripture")
-  };
-
-  async function loadSukkot() {
-    try {
-      const res = await fetch(DATA_PATH);
-
-      if (!res.ok) throw new Error("Missing Sukkot data file");
-
-      const data = await res.json();
-
-      render(data);
-
-    } catch (err) {
-      console.warn("Sukkot load failed:", err);
-      renderFallback();
-    }
+  function set(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value ?? "";
   }
 
-  function render(data = {}) {
-
-    // safe fallbacks
-    const day = data.day || "--";
-    const title = data.title || "Sukkot";
-    const hebrew = data.hebrew || "חג סוכות";
-
-    const phase = data.phase || "--";
-    const theme = data.theme || "--";
-    const detail = data.detail || "No details loaded yet.";
-
-    const meditation = data.meditation || {};
-
-    if (els.dayNumber) els.dayNumber.textContent = day;
-    if (els.title) els.title.textContent = title;
-    if (els.hebrew) els.hebrew.textContent = hebrew;
-
-    if (els.phase) els.phase.innerHTML = `<strong>Day / Phase:</strong> ${phase}`;
-    if (els.theme) els.theme.innerHTML = `<strong>Theme:</strong> ${theme}`;
-    if (els.detail) els.detail.innerHTML = `<strong>Details:</strong> ${detail}`;
-
-    if (els.medTitle) els.medTitle.textContent = meditation.title || "Meditation";
-    if (els.medText) els.medText.textContent = meditation.text || "";
-    if (els.medPrayer) els.medPrayer.textContent = meditation.prayer || "";
-    if (els.medScripture) els.medScripture.textContent = meditation.scripture || "";
-
-    // simple progress (safe fallback)
-    if (els.progress) {
-      const pct = data.progress ?? 0;
-      els.progress.style.width = `${pct}%`;
-    }
+  function setBar(percent) {
+    const bar = document.getElementById("omerProgressBar");
+    if (bar) bar.style.width = percent + "%";
   }
 
-  function renderFallback() {
-    if (els.title) els.title.textContent = "Sukkot (Offline / No Data)";
-    if (els.detail) els.detail.innerHTML = "Data file not loaded yet.";
-    if (els.medText) els.medText.textContent = "";
-    if (els.medPrayer) els.medPrayer.textContent = "";
-    if (els.medScripture) els.medScripture.textContent = "";
+  function loadSukkot() {
+
+    // TEMP DATA (replace later with JSON if needed)
+    const data = {
+      day: 1,
+      total: 7,
+      title: "Sukkot Cycle",
+      hebrew: "סוכות",
+      phase: "Day 1 / Dwelling",
+      theme: "Presence / Shelter",
+      detail: "Entering the festival cycle.",
+      meditationTitle: "Dwelling in Awareness",
+      meditation: "Sukkot reflects impermanence and divine shelter.",
+      prayer: "Let me dwell with awareness.",
+      scripture: "Leviticus 23:42"
+    };
+
+    set("omerDayNumber", data.day);
+    set("omerTitle", data.title);
+    set("omerHebrew", data.hebrew);
+
+    set("omerWeekDay", `Day ${data.day} / ${data.total}`);
+    set("omerSefirah", data.theme);
+    set("omerDetail", data.detail);
+
+    set("omerMeditationTitle", data.meditationTitle);
+    set("omerMeditationText", data.meditation);
+    set("omerMeditationPrayer", data.prayer);
+    set("omerMeditationScripture", data.scripture);
+
+    setBar((data.day / data.total) * 100);
   }
 
   document.addEventListener("DOMContentLoaded", loadSukkot);
