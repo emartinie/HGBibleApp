@@ -1,150 +1,122 @@
 (function () {
-  const DATA_PATH = "data/quizzes/nt_questions.json"; 
-  const els = {};
+  const DATA_PATH = "data/quizzes/nt_questions.json";
+
+  const els = {
+    categoryList: document.getElementById("quizCategoryList"),
+    question: document.getElementById("quizQuestion"),
+    answers: document.getElementById("quizAnswers"),
+    meta: document.getElementById("quizMeta"),
+    scripture: document.getElementById("quizScripture"),
+    progressFill: document.getElementById("quizProgressFill"),
+    score: document.getElementById("quizScore"),
+    count: document.getElementById("quizCount"),
+    prev: document.querySelector(".prev-card-btn"),
+    next: document.querySelector(".next-card-btn"),
+  };
 
   let questions = [];
   let index = 0;
   let correct = 0;
 
-  // -------------------------
-  // INIT
-  // -------------------------
-  document.addEventListener("DOMContentLoaded", init);
-
-  async function init() {
-    cacheElements();
-    bindNavButtons();
-    await loadQuizData();
-    render();
-  }
-
-  function cacheElements() {
-    els.categoryList = document.getElementById("quizCategoryList");
-    els.question = document.getElementById("quizQuestion");
-    els.answers = document.getElementById("quizAnswers");
-    els.meta = document.getElementById("quizMeta");
-
-    els.progressFill = document.getElementById("quizProgressFill");
-    els.score = document.getElementById("quizScore");
-    els.count = document.getElementById("quizCount");
-  }
-
-  function bindNavButtons() {
-    document.querySelector(".prev-card-btn")?.addEventListener("click", prev);
-    document.querySelector(".next-card-btn")?.addEventListener("click", next);
-  }
-
-  // -------------------------
-  // DATA LOADING
-  // -------------------------
-  async function loadQuizData() {
+  // ---------------- LOAD ----------------
+  async function load() {
     try {
       const res = await fetch(DATA_PATH);
-      const data = await res.json();
-
-      // supports either:
-      // 1) flat array
-      // 2) grouped sets
-      if (Array.isArray(data)) {
-        questions = data;
-      } else if (typeof data === "object") {
-        questions = Object.values(data).flat();
-      }
+      questions = await res.json();
 
       if (!questions.length) {
-        els.question.textContent = "No questions found.";
+        els.categoryList.innerText = "No quiz data found.";
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      els.question.textContent = "Failed to load quiz data.";
+
+      renderQuestion();
+      renderProgress();
+      bindNav();
+
+    } catch (e) {
+      console.error(e);
+      els.categoryList.innerText = "Failed to load quiz data.";
     }
   }
 
-  // -------------------------
-  // RENDER
-  // -------------------------
-  function render() {
-    renderQuestion();
-    renderProgress();
-    renderMeta();
-  }
-
+  // ---------------- RENDER QUESTION ----------------
   function renderQuestion() {
     const q = questions[index];
+
     if (!q) return;
 
     els.question.innerHTML = `
       <div class="text-lg font-semibold">
-        Q${q.id}: ${escape(q.question)}
+        Q${q.id}: ${q.question || "Missing question"}
       </div>
     `;
 
     els.answers.innerHTML = `
-      <div class="mt-2 text-green-300">
-        ${q.answer ? escape(q.answer) : "No answer yet"}
+      <div class="mt-2 text-slate-300">
+        ${q.answer ? q.answer : "<em>No answer provided</em>"}
       </div>
+
+      <button id="revealBtn" class="mt-3 px-3 py-1 bg-slate-700 rounded">
+        Reveal / Toggle
+      </button>
     `;
 
-    renderScriptureContext(q);
-  }
-
-  function renderScriptureContext(q) {
-    const el = document.getElementById("quizScripture");
-    if (!el) return;
-
-    el.innerHTML = q.scripture
-      ? `<p>${escape(q.scripture)}</p>`
-      : `<p class="text-slate-500">No scripture context provided.</p>`;
-  }
-
-  function renderProgress() {
-    const percent = questions.length
-      ? ((index + 1) / questions.length) * 100
-      : 0;
-
-    els.progressFill.style.width = percent + "%";
-
-    els.count.textContent = `${index + 1} / ${questions.length}`;
-    els.score.textContent = `Correct: ${correct}`;
-  }
-
-  function renderMeta() {
-    const q = questions[index];
-    if (!q) return;
-
     els.meta.innerHTML = `
-      <div class="text-xs text-slate-400 mt-2">
+      <div class="text-xs text-slate-500 mt-2">
         Source: ${q.source || "unknown"}
       </div>
     `;
-  }
 
-  // -------------------------
-  // NAVIGATION
-  // -------------------------
-  function next() {
-    if (index < questions.length - 1) {
-      index++;
-      render();
+    els.scripture.innerHTML = `
+      <div class="text-sm text-slate-300 leading-relaxed">
+        ${q.scripture || "No scripture context available."}
+      </div>
+    `;
+
+    const btn = document.getElementById("revealBtn");
+    if (btn) {
+      btn.onclick = () => {
+        els.answers.classList.toggle("hidden");
+      };
     }
   }
 
-  function prev() {
-    if (index > 0) {
-      index--;
-      render();
+  // ---------------- PROGRESS ----------------
+  function renderProgress() {
+    const pct = ((index + 1) / questions.length) * 100;
+
+    if (els.progressFill) {
+      els.progressFill.style.width = pct + "%";
+    }
+
+    if (els.score) {
+      els.score.innerText = `Correct: ${correct}`;
+    }
+
+    if (els.count) {
+      els.count.innerText = `Question ${index + 1} / ${questions.length}`;
     }
   }
 
-  // -------------------------
-  // HELPERS
-  // -------------------------
-  function escape(str = "") {
-    return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+  // ---------------- NAV ----------------
+  function bindNav() {
+    if (els.prev) {
+      els.prev.onclick = () => {
+        index = Math.max(0, index - 1);
+        renderQuestion();
+        renderProgress();
+      };
+    }
+
+    if (els.next) {
+      els.next.onclick = () => {
+        index = Math.min(questions.length - 1, index + 1);
+        renderQuestion();
+        renderProgress();
+      };
+    }
   }
+
+  // ---------------- INIT ----------------
+  load();
 })();
