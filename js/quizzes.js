@@ -1,23 +1,12 @@
 (function () {
   const DATA_PATH = "data/quizzes/nt_questions.json";
 
-  // ---------- STATE ----------
-  let questions = [];
-  let filteredQuestions = [];
-  let currentIndex = 0;
-
-  let score = 0;
-  let viewed = 0;
-
-  let activeSet = null;
-
-  // ---------- ELEMENT CACHE ----------
   const els = {
     categoryList: document.getElementById("quizCategoryList"),
     question: document.getElementById("quizQuestion"),
     answers: document.getElementById("quizAnswers"),
     scripture: document.getElementById("quizScripture"),
-    progress: document.getElementById("quizProgressFill"),
+    progressFill: document.getElementById("quizProgressFill"),
     score: document.getElementById("quizScore"),
     count: document.getElementById("quizCount"),
 
@@ -25,193 +14,138 @@
     nextBtn: document.querySelector(".next-card-btn"),
   };
 
-  // ---------- INIT ----------
-  init();
+  let questions = [];
+  let filtered = [];
+  let currentIndex = 0;
+  let score = 0;
+  let currentSet = null;
 
+  // ---------------------------
+  // INIT
+  // ---------------------------
   async function init() {
     await loadData();
     buildQuizSets();
     bindNav();
-    selectDefaultSet();
+    showQuestion();
   }
 
-  // ---------- LOAD DATA ----------
+  // ---------------------------
+  // LOAD DATA
+  // ---------------------------
   async function loadData() {
     try {
       const res = await fetch(DATA_PATH);
       questions = await res.json();
-
-      if (!Array.isArray(questions)) {
-        throw new Error("Quiz JSON is not an array");
-      }
-    } catch (err) {
-      console.error(err);
-      if (els.categoryList) {
-        els.categoryList.innerHTML = "Failed to load quiz data.";
-      }
+    } catch (e) {
+      console.error(e);
+      els.categoryList.innerText = "Failed to load quiz data.";
     }
   }
 
-  // ---------- BUILD QUIZ SETS ----------
+  // ---------------------------
+  // GROUP QUIZ SETS
+  // ---------------------------
   function buildQuizSets() {
-    if (!els.categoryList) return;
+    const groups = {};
 
-    const sets = {};
-
-    questions.forEach(q => {
-      const setName = q.source || "unknown";
-      if (!sets[setName]) sets[setName] = [];
-      sets[setName].push(q);
-    });
+    for (const q of questions) {
+      if (!groups[q.source]) groups[q.source] = [];
+      groups[q.source].push(q);
+    }
 
     els.categoryList.innerHTML = "";
 
-    Object.keys(sets).forEach(setName => {
+    Object.entries(groups).forEach(([source, items]) => {
       const btn = document.createElement("button");
-      btn.className = "quiz-set-btn";
-      btn.textContent = `${setName} (${sets[setName].length})`;
+      btn.className = "block w-full text-left p-2 border-b border-slate-700 hover:bg-slate-800/40";
+      btn.innerText = `${source} (${items.length})`;
 
       btn.onclick = () => {
-        activeSet = setName;
-        filteredQuestions = sets[setName];
+        currentSet = source;
+        filtered = items;
         currentIndex = 0;
-
-        resetProgress();
-        renderQuestion();
+        score = 0;
+        showQuestion();
       };
 
       els.categoryList.appendChild(btn);
     });
-  }
 
-  // ---------- DEFAULT SET ----------
-  function selectDefaultSet() {
-    const firstSet = questions[0]?.source;
-    if (!firstSet) return;
-
-    const grouped = groupBySource();
-    activeSet = firstSet;
-    filteredQuestions = grouped[firstSet] || [];
-
-    renderQuestion();
-  }
-
-  function groupBySource() {
-    const map = {};
-    questions.forEach(q => {
-      const s = q.source || "unknown";
-      if (!map[s]) map[s] = [];
-      map[s].push(q);
-    });
-    return map;
-  }
-
-  // ---------- QUESTION RENDER ----------
-  function renderQuestion() {
-    if (!filteredQuestions.length) return;
-
-    const q = filteredQuestions[currentIndex];
-
-    if (els.question) {
-      els.question.innerHTML = `
-        <div class="text-lg font-semibold">
-          ${escape(q.question || "No question")}
-        </div>
-      `;
-    }
-
-    if (els.answers) {
-      els.answers.innerHTML = `
-        <div class="mt-2 text-slate-300">
-          ${q.answer ? escape(q.answer) : "No answer provided"}
-        </div>
-
-        <button id="revealBtn" class="mt-3 px-3 py-1 bg-cyan-700 rounded text-white text-sm">
-          Reveal / Toggle
-        </button>
-      `;
-    }
-
-    if (els.scripture) {
-      els.scripture.innerHTML = `
-        <div class="text-sm text-slate-400">
-          Source: ${escape(q.source || "unknown")}
-        </div>
-      `;
-    }
-
-    updateProgress();
-    bindReveal();
-  }
-
-  // ---------- NAV ----------
-  function bindNav() {
-    if (els.prevBtn) {
-      els.prevBtn.onclick = () => {
-        if (currentIndex > 0) {
-          currentIndex--;
-          renderQuestion();
-        }
-      };
-    }
-
-    if (els.nextBtn) {
-      els.nextBtn.onclick = () => {
-        if (currentIndex < filteredQuestions.length - 1) {
-          currentIndex++;
-          viewed++;
-          renderQuestion();
-        }
-      };
+    // default load first set
+    const first = Object.entries(groups)[0];
+    if (first) {
+      currentSet = first[0];
+      filtered = first[1];
     }
   }
 
-  function bindReveal() {
-    const btn = document.getElementById("revealBtn");
-    if (!btn) return;
+  // ---------------------------
+  // RENDER QUESTION
+  // ---------------------------
+  function showQuestion() {
+    if (!filtered.length) return;
 
-    btn.onclick = () => {
-      const el = els.answers;
-      if (!el) return;
+    const q = filtered[currentIndex];
 
-      el.classList.toggle("hidden");
+    els.question.innerHTML = `
+      <div class="text-cyan-200 font-semibold">
+        Q${q.id}
+      </div>
+      <div class="mt-2">
+        ${q.question}
+      </div>
+    `;
 
-      if (!el.classList.contains("hidden")) {
-        score++; // simplistic scoring hook
-        updateProgress();
-      }
-    };
-  }
+    els.answers.innerHTML = `
+      <div class="text-slate-300 mt-2">
+        ${q.answer || "No answer provided"}
+      </div>
+    `;
 
-  // ---------- PROGRESS ----------
-  function resetProgress() {
-    score = 0;
-    viewed = 0;
+    els.scripture.innerHTML = `
+      <div class="text-sm text-slate-400">
+        Source: ${q.source || "unknown"}
+      </div>
+    `;
+
     updateProgress();
   }
 
+  // ---------------------------
+  // PROGRESS
+  // ---------------------------
   function updateProgress() {
-    const total = filteredQuestions.length || 1;
-    const percent = Math.round((currentIndex / total) * 100);
+    const total = filtered.length || 1;
+    const pct = ((currentIndex + 1) / total) * 100;
 
-    if (els.progress) {
-      els.progress.style.width = `${percent}%`;
-    }
+    els.progressFill.style.width = pct + "%";
 
-    if (els.score) {
-      els.score.textContent = `Score: ${score}`;
-    }
-
-    if (els.count) {
-      els.count.textContent = `Question ${currentIndex + 1} / ${total}`;
-    }
+    els.count.innerText = `Question ${currentIndex + 1} / ${total}`;
+    els.score.innerText = `Score: ${score}`;
   }
 
-  // ---------- UTIL ----------
-  function escape(str = "") {
-    return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;");
+  // ---------------------------
+  // NAVIGATION
+  // ---------------------------
+  function bindNav() {
+    els.nextBtn?.addEventListener("click", () => {
+      if (currentIndex < filtered.length - 1) {
+        currentIndex++;
+        showQuestion();
+      }
+    });
+
+    els.prevBtn?.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showQuestion();
+      }
+    });
   }
+
+  // ---------------------------
+  // START
+  // ---------------------------
+  init();
 })();
