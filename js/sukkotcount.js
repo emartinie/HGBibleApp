@@ -1,5 +1,5 @@
 (function () {
-  const SUKKOT_START = new Date(2026, 8, 25);  
+  const SUKKOT_START = new Date(2026, 5, 25);  
   const SUKKOT_END = new Date(2026, 9, 3);  
   const SUNDOWN_HOUR = 19;
   const SUNDOWN_MIN = 30;
