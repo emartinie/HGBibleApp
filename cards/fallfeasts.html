@@ -1,10 +1,19 @@
-<section id="fallfeastsCard" class="card">
-
-  <!-- HEADER -->
-
+<section id="fallfeastsCard" class="card"
 
 
   <div class="card-shell">
+  <div id="fallFeastState"
+     data-phase="pre"
+     data-active-feast="teruah">
+</div>
+
+  <div id="fallCountdownGroup">
+
+  <div data-countdown="teruah"></div>
+  <div data-countdown="kippur"></div>
+  <div data-countdown="sukkot"></div>
+
+</div>
 
     <!-- ========================= -->
     <!-- HEADER -->
@@ -44,7 +53,7 @@
     <!-- ========================= -->
     <!-- Feast State -->
     <!-- ========================= -->
-
+<div class="card-feast-state">
     <div class="feast-state-strip">
   <span class="state-pill active">Awakening,</span>
   <span class="state-pill">Repentance,</span>
@@ -72,7 +81,7 @@
       <div class="flex flex-col">
 
         <div class="text-xs uppercase tracking-wider text-slate-400">
-          Current Season
+          Current Season Focus
         </div>
 
         <div id="fallfeastsOrientationTitle"
@@ -95,6 +104,39 @@
 
         <div class="text-xs text-slate-400">
           Until Trumpets
+        </div>
+
+      </div>
+
+    </div>
+        <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
+
+      <div class="flex flex-col">
+
+        <div class="text-xs uppercase tracking-wider text-slate-400">
+          Next Season Focus
+        </div>
+
+        <div id="nextfallfeastsOrientationTitle"
+             class="text-sm text-slate-200">
+
+          Preparing for Yom Kippur...
+
+        </div>
+
+      </div>
+
+      <div class="text-right">
+
+        <div id="nextfallfeastsCountdown"
+             class="text-lg font-semibold text-white">
+
+          118 Days
+
+        </div>
+
+        <div class="text-xs text-slate-400">
+          Until Yom Kippur
         </div>
 
       </div>
