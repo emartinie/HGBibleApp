@@ -1,171 +1,236 @@
-<!-- fallfeast-card.html -->
-<div id="fallFeastCard" class="card-container">
+<section id="fallfeastsCard" class="card">
 
-  <!-- 🌌 HERO HEADER -->
-  <header class="hero-header">
-    <div class="hero-left">
-      <h1 id="fallTitle">Yom Teruah</h1>
-      <h2 id="fallHebrew">עונת החגים</h2>
-      <p id="fallPhase">Preparation Phase</p>
-    </div>
-    <div class="hero-right">
-      <div id="fallDayNumber" class="day-number">109</div>
-    </div>
-  </header>
+  <div class="card-shell">
 
-  <!-- 📉 PROGRESSION BAND -->
-  <div class="progress-band">
-    <div class="progress-bar-container">
-      <div id="fallProgressBar" class="progress-bar"></div>
+    <!-- ========================= -->
+    <!-- HEADER -->
+    <!-- ========================= -->
+    <div class="card-header">
+
+      <button class="card-nav-btn prev-card-btn"
+              type="button"
+              aria-label="Previous">
+        ‹
+      </button>
+
+      <div class="card-heading">
+
+        <div class="card-kicker">
+          <p id="fallfeastsSub"
+             class="hero-sub text-center">
+
+            Fall Framework • Guided Discipleship • Learning Modules
+
+          </p>
+        </div>
+
+        <h2 id="fallfeastsTitle"
+            class="text-xl flame text-center">
+
+          What Did Yeshua Say/ Do While Celebrating?
+
+        </h2>
+
+        <div id="fallfeastsmoduleMeta"
+             class="step-meta-text text-center">
+        </div>
+
+      </div>
+
+      <button class="card-nav-btn next-card-btn"
+              type="button"
+              aria-label="Next">
+        ›
+      </button>
+
     </div>
-    <div class="phase-info">
-      <span id="fallPhaseInfo">Days until Yom Teruah</span>
+
+    <!-- ========================= -->
+    <!-- ORIENTATION -->
+    <!-- ========================= -->
+    <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
+
+      <div class="flex flex-col">
+
+        <div class="text-xs uppercase tracking-wider text-slate-400">
+          Current Learning Path
+        </div>
+
+        <div id="fallfeastsorientationTitle"
+             class="text-sm text-slate-200">
+
+          Loading feast journey...
+
+        </div>
+
+      </div>
+
+      <button
+        class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 transition text-white"
+        title="Resume Learning">
+
+        ▶
+
+      </button>
+
     </div>
+
+    <!-- ========================= -->
+    <!-- BODY -->
+    <!-- ========================= -->
+    <div class="card-body">
+
+      <!-- HERO -->
+      <section class="hero-panel">
+
+        <div class="fp-kicker">
+          Front Porch
+        </div>
+
+        <h1 class="fp-title">
+          A structured place to begin.
+        </h1>
+
+        <p class="fp-sub">
+
+          Guided journeys, layered learning, reflection,
+          assessment, and practical discipleship tools.
+
+        </p>
+
+      </section>
+
+      <!-- LEARNING PATHS -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Learning Paths
+        </div>
+
+        <div id="journeyList"
+             class="space-y-3">
+
+          <!-- JS injects journey cards -->
+
+        </div>
+
+      </section>
+
+      <!-- MODULE OVERVIEW -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Module Overview
+        </div>
+
+        <div id="moduleOverview"
+             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 text-sm leading-relaxed">
+
+          Select a learning path to begin.
+
+        </div>
+
+      </section>
+
+      <!-- CURRENT MODULE -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Current Module
+        </div>
+
+        <div id="moduleContent"
+             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed">
+
+          Module content loads here...
+
+        </div>
+
+      </section>
+
+      <!-- REFLECTION -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Reflection + Discussion
+        </div>
+
+        <div id="reflectionContainer"
+             class="space-y-3">
+
+          <div class="empty-state">
+
+            Reflection prompts will appear here.
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- NOTES -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Notes + Highlights
+        </div>
+
+        <div id="notesContainer">
+
+          <div class="empty-state">
+
+            Personal notes and highlights appear here.
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- RELATED MEDIA -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Related Media
+        </div>
+
+        <div id="mediaContainer">
+
+          <div class="empty-state">
+
+            Audio, video, and supporting teachings appear here.
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- PROGRESS -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Journey Progress
+        </div>
+
+        <div class="feast-progress">
+
+          <div class="progress-bar">
+            <div id="progressFill"
+                 class="progress-fill">
+            </div>
+          </div>
+
+          <div class="progress-meta text-center">
+            <span id="progressText"></span>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
   </div>
 
-  <!-- 🧠 MEDITATION PANEL -->
-  <section class="meditation-panel">
-    <h3 id="fallMeditationTitle">Prepare</h3>
-    <p id="fallMeditationText">The season is approaching.</p>
-    <p id="fallMeditationPrayer">Prayer: Make my heart ready.</p>
-    <p id="fallMeditationScripture">Scripture: Be watchful.</p>
-  </section>
-
-  <!-- 🌌 CONSTELLATION PANEL -->
-  <section class="constellation-panel">
-    <div id="fallConstellation" class="constellation-nodes">
-      <!-- nodes rendered dynamically -->
-    </div>
-    <svg id="fallLines" class="constellation-lines"></svg>
-  </section>
-
-  <!-- 📖 SEASON CONTEXT PANEL -->
-  <section class="season-context">
-    <p><strong>Current Feast:</strong> Yom Teruah</p>
-    <p><strong>Next Feast:</strong> Yom Kippur</p>
-    <p><strong>Days Remaining:</strong> 109</p>
-    <p><strong>Spiritual Focus:</strong> Anticipation</p>
-  </section>
-
-  <!-- 🪶 FOOTER WHISPER -->
-  <footer class="footer-whisper">
-    <p>“Prepare the way. Remain awake. He tabernacles among us.”</p>
-  </footer>
-
-</div>
-
-<style>
-  /* =========================
-     ECHAD CARD STYLES
-     ========================= */
-
-  .card-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, #0a1f44, #1b375e);
-    border-radius: 16px;
-    color: #fdf6e3;
-    font-family: "Georgia", serif;
-    box-shadow: 0 0 40px rgba(0,0,0,0.5);
-  }
-
-  /* HERO HEADER */
-  .hero-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-  }
-
-  .hero-left h1 {
-    margin: 0; font-size: 2rem;
-  }
-  .hero-left h2 {
-    margin: 0; font-size: 1.2rem; color: #ffd700;
-  }
-  .hero-left p {
-    font-style: italic; color: #ccc;
-  }
-
-  .hero-right .day-number {
-    font-size: 3rem; font-weight: bold; color: #ffdf5d;
-  }
-
-  /* PROGRESSION BAND */
-  .progress-band {
-    margin: 1rem 0;
-  }
-  .progress-bar-container {
-    height: 12px;
-    width: 100%;
-    background: rgba(255,255,255,0.1);
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  .progress-bar {
-    height: 100%;
-    width: 0%;
-    background: #ffdf5d;
-    transition: width 0.3s ease;
-  }
-  .phase-info {
-    text-align: right; font-size: 0.9rem; color: #ccc;
-  }
-
-  /* MEDITATION PANEL */
-  .meditation-panel {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: 12px;
-    margin-bottom: 1rem;
-  }
-  .meditation-panel h3 {
-    margin-top: 0;
-    color: #ffd700;
-  }
-
-  /* CONSTELLATION PANEL */
-  .constellation-panel {
-    position: relative;
-    margin-bottom: 1rem;
-    height: 100px;
-  }
-  .constellation-nodes {
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-  }
-  .constellation-nodes .fall-node {
-    width: 24px;
-    height: 24px;
-    background: #ffdf5d;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 24px;
-    font-weight: bold;
-    color: #0a1f44;
-  }
-
-  .constellation-lines {
-    position: absolute;
-    top: 50%; left: 0;
-    width: 100%; height: 1px;
-    stroke: #ffdf5d; stroke-width: 2;
-  }
-
-  /* SEASON CONTEXT */
-  .season-context p {
-    margin: 0.2rem 0;
-    font-size: 0.95rem;
-  }
-
-  /* FOOTER */
-  .footer-whisper {
-    margin-top: 1rem;
-    font-style: italic;
-    color: #ccc;
-    text-align: center;
-  }
-</style>
+</section>
