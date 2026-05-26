@@ -19,7 +19,7 @@
           <p id="fallfeastsSub"
              class="hero-sub text-center">
 
-            Fall Framework • Guided Discipleship • Learning Modules
+            Fall Feasts • Pilgrimage Journey • Sacred Seasons
 
           </p>
         </div>
@@ -27,12 +27,15 @@
         <h2 id="fallfeastsTitle"
             class="text-xl flame text-center">
 
-          What Did Yeshua Say/ Do While Celebrating?
+          Journey Through the Fall Appointed Times
 
         </h2>
 
-        <div id="fallfeastsmoduleMeta"
+        <div id="fallfeastsMeta"
              class="step-meta-text text-center">
+
+          Yom Teruah → Yom Kippur → Sukkot → Shemini Atzeret
+
         </div>
 
       </div>
@@ -41,6 +44,7 @@
               type="button"
               aria-label="Next">
         ›
+
       </button>
 
     </div>
@@ -53,183 +57,298 @@
       <div class="flex flex-col">
 
         <div class="text-xs uppercase tracking-wider text-slate-400">
-          Current Learning Path
+          Current Season
         </div>
 
-        <div id="fallfeastsorientationTitle"
+        <div id="fallfeastsOrientationTitle"
              class="text-sm text-slate-200">
 
-          Loading feast journey...
+          Preparing for Yom Teruah...
 
         </div>
 
       </div>
 
-      <button
-        class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 transition text-white"
-        title="Resume Learning">
+      <div class="text-right">
 
-        ▶
+        <div id="fallfeastsCountdown"
+             class="text-lg font-semibold text-white">
 
-      </button>
+          109 Days
+
+        </div>
+
+        <div class="text-xs text-slate-400">
+          Until Trumpets
+        </div>
+
+      </div>
 
     </div>
 
     <!-- ========================= -->
-    <!-- BODY -->
+    <!-- HERO -->
     <!-- ========================= -->
-    <div class="card-body">
+    <section class="hero-panel">
 
-      <!-- HERO -->
-      <section class="hero-panel">
+      <div class="fp-kicker">
+        Sacred Journey
+      </div>
 
-        <div class="fp-kicker">
-          Front Porch
-        </div>
+      <h1 id="fallHeroTitle"
+          class="fp-title">
 
-        <h1 class="fp-title">
-          A structured place to begin.
-        </h1>
+        Prepare the Way
 
-        <p class="fp-sub">
+      </h1>
 
-          Guided journeys, layered learning, reflection,
-          assessment, and practical discipleship tools.
+      <p id="fallHeroSub"
+         class="fp-sub">
 
-        </p>
+        Move through awakening, repentance,
+        dwelling, joy, and sacred assembly.
 
-      </section>
+      </p>
 
-      <!-- LEARNING PATHS -->
-      <section class="content-panel">
+    </section>
 
-        <div class="section-label">
-          Learning Paths
-        </div>
+    <!-- ========================= -->
+    <!-- CONSTELLATION MAP -->
+    <!-- ========================= -->
+    <section class="content-panel">
 
-        <div id="journeyList"
-             class="space-y-3">
+      <div class="section-label">
+        Journey Map
+      </div>
 
-          <!-- JS injects journey cards -->
+      <div class="relative">
 
-        </div>
+        <svg id="fallLines"
+             class="absolute inset-0 w-full h-full pointer-events-none"
+             viewBox="0 0 700 700"
+             preserveAspectRatio="none">
+        </svg>
 
-      </section>
+        <div id="fallConstellation"
+             class="constellation-map">
 
-      <!-- MODULE OVERVIEW -->
-      <section class="content-panel">
-
-        <div class="section-label">
-          Module Overview
-        </div>
-
-        <div id="moduleOverview"
-             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 text-sm leading-relaxed">
-
-          Select a learning path to begin.
+          <!-- JS injects constellation nodes -->
 
         </div>
 
-      </section>
+      </div>
 
-      <!-- CURRENT MODULE -->
-      <section class="content-panel">
+    </section>
 
-        <div class="section-label">
-          Current Module
-        </div>
+    <!-- ========================= -->
+    <!-- CURRENT FEAST -->
+    <!-- ========================= -->
+    <section class="content-panel">
 
-        <div id="moduleContent"
-             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed">
+      <div class="section-label">
+        Current Feast Focus
+      </div>
 
-          Module content loads here...
+      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-3">
 
-        </div>
+        <div class="flex items-center justify-between">
 
-      </section>
+          <div>
 
-      <!-- REFLECTION -->
-      <section class="content-panel">
+            <div id="currentFeastName"
+                 class="text-lg font-semibold text-white">
 
-        <div class="section-label">
-          Reflection + Discussion
-        </div>
+              Yom Teruah
 
-        <div id="reflectionContainer"
-             class="space-y-3">
-
-          <div class="empty-state">
-
-            Reflection prompts will appear here.
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- NOTES -->
-      <section class="content-panel">
-
-        <div class="section-label">
-          Notes + Highlights
-        </div>
-
-        <div id="notesContainer">
-
-          <div class="empty-state">
-
-            Personal notes and highlights appear here.
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- RELATED MEDIA -->
-      <section class="content-panel">
-
-        <div class="section-label">
-          Related Media
-        </div>
-
-        <div id="mediaContainer">
-
-          <div class="empty-state">
-
-            Audio, video, and supporting teachings appear here.
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- PROGRESS -->
-      <section class="content-panel">
-
-        <div class="section-label">
-          Journey Progress
-        </div>
-
-        <div class="feast-progress">
-
-          <div class="progress-bar">
-            <div id="progressFill"
-                 class="progress-fill">
             </div>
+
+            <div id="currentFeastHebrew"
+                 class="text-sm text-slate-400">
+
+              יום תרועה
+
+            </div>
+
           </div>
 
-          <div class="progress-meta text-center">
-            <span id="progressText"></span>
+          <div id="currentFeastPhase"
+               class="text-xs uppercase tracking-wider text-amber-300">
+
+            Awakening
+
           </div>
 
         </div>
 
-      </section>
+        <div id="currentFeastDescription"
+             class="text-sm leading-relaxed text-slate-300">
 
-    </div>
+          The season of awakening and preparation begins.
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- MEDITATION -->
+    <!-- ========================= -->
+    <section class="content-panel">
+
+      <div class="section-label">
+        Meditation
+      </div>
+
+      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-4">
+
+        <div>
+
+          <div id="fallMeditationTitle"
+               class="text-base font-semibold text-white">
+
+            Prepare the Heart
+
+          </div>
+
+          <div id="fallMeditationText"
+               class="text-sm text-slate-300 mt-2 leading-relaxed">
+
+            The King calls His people to awaken.
+
+          </div>
+
+        </div>
+
+        <div class="border-t border-slate-700 pt-3">
+
+          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">
+            Prayer
+          </div>
+
+          <div id="fallMeditationPrayer"
+               class="text-sm italic text-slate-200">
+
+            Make my heart ready.
+
+          </div>
+
+        </div>
+
+        <div class="border-t border-slate-700 pt-3">
+
+          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">
+            Scripture
+          </div>
+
+          <div id="fallMeditationScripture"
+               class="text-sm text-slate-300">
+
+            “Awake, sleeper.”
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- TEACHINGS -->
+    <!-- ========================= -->
+    <section class="content-panel">
+
+      <div class="section-label">
+        Teachings + Themes
+      </div>
+
+      <div id="fallTeachings"
+           class="space-y-3">
+
+        <!-- teaching cards injected -->
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- DAILY PRACTICE -->
+    <!-- ========================= -->
+    <section class="content-panel">
+
+      <div class="section-label">
+        Practice + Reflection
+      </div>
+
+      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4">
+
+        <div id="fallPractice"
+             class="text-sm leading-relaxed text-slate-300">
+
+          Reflection prompts and spiritual practices appear here.
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- MEDIA -->
+    <!-- ========================= -->
+    <section class="content-panel">
+
+      <div class="section-label">
+        Audio + Media
+      </div>
+
+      <div id="fallMedia"
+           class="space-y-3">
+
+        <div class="empty-state">
+
+          Teachings, music, readings,
+          and guided audio appear here.
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- JOURNEY PROGRESS -->
+    <!-- ========================= -->
+    <section class="content-panel">
+
+      <div class="section-label">
+        Pilgrimage Progress
+      </div>
+
+      <div class="feast-progress">
+
+        <div class="progress-bar">
+
+          <div id="fallProgressFill"
+               class="progress-fill">
+          </div>
+
+        </div>
+
+        <div class="progress-meta text-center">
+
+          <span id="fallProgressText">
+
+            Preparing for the Fall Appointed Times
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
 
   </div>
 
