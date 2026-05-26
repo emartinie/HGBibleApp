@@ -429,7 +429,6 @@
     }
 
     .card {
-      flex: 0 0 100%;
       width: 100%;
       min-width: 100%;
       height: 100%;
@@ -440,9 +439,6 @@
     }
 
     .card-shell {
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
       min-height: 100%;
       display: flex;
       flex-direction: column;
@@ -616,11 +612,6 @@
 .card-icon-btn.scripture {
   font-size: 0.9rem;
   opacity: 0.9;
-}
-
-    .card {
-  flex: 0 0 100%;
-  box-sizing: border-box;
 }
   </style>
 </head>
@@ -855,12 +846,39 @@
             <div class="card-header">
               <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
 
-              
+              <div class="card-heading">
+                <div class="card-kicker">
+                  <p id="mainStageSub" class="hero-sub" style="text-align:center;">Please wait while the weekly data loads.</p>
+                </div>
+                <h2 id="mainStageTitle" class="text-xl flame" style="text-align:center;">
+                Loading week data...
+              </h2>
+              </div>
 
               <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
             </div>
 
-                          
+                          <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
+
+<div class="flex flex-col">
+  <div class="text-xs uppercase tracking-wider text-slate-400">
+    Orientation for Torah portion
+  </div>
+
+  <div id="orientationTitle" class="text-sm text-slate-200">
+    Loading study... Kedoshim. Click play.
+  </div>
+</div>
+
+<button
+  onclick="playOrientation()"
+  class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 transition text-white"
+  title="Play Orientation"
+>
+  ▶
+</button>
+
+</div>
 
             <div class="card-body">
               <section id="frontPorch" class="hero-panel">
@@ -871,37 +889,6 @@
                 </p>
               </section>
 
-              <div class="card-heading">
-                <div class="card-kicker">
-                  <p id="mainStageSub" class="hero-sub" style="text-align:center;">Please wait while the weekly data loads.</p>
-                </div>
-                <h2 id="mainStageTitle" class="text-xl flame" style="text-align:center;">
-                Loading week data...
-              </h2>
-              </div>
-
-              <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
-              
-              <div class="flex flex-col">
-                <div class="text-xs uppercase tracking-wider text-slate-400">
-                  Orientation for Torah portion
-                </div>
-              
-                <div id="orientationTitle" class="text-sm text-slate-200">
-                  Loading study... Kedoshim. Click play.
-                </div>
-              </div>
-              
-              <button
-                onclick="playOrientation()"
-                class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 transition text-white"
-                title="Play Orientation"
-              >
-                ▶
-              </button>
-              
-              </div>
-
               <div id="nowPlaying">Now Playing: —</div>
                <div id="floating-player-root"></div>
               <section class="content-panel">
@@ -910,7 +897,6 @@
                   <div class="empty-state">Playlist will appear here.</div>
                 </div>
               </section>
-              
 
               <section class="content-panel">
   <div class="section-label" onclick="toggleSection(this)">
