@@ -17,8 +17,6 @@ const indexMap = Object.fromEntries(
   // 1. FALL FEAST CALENDAR MODEL
   // =========================================================
 
-el.progress.style.width = `${phaseProgress[phase]}%`;
-
   const FALL = {
     YOM_TERUAH: new Date(2026, 8, 11),
     YOM_KIPPUR: new Date(2026, 8, 20),
@@ -236,6 +234,7 @@ el.progress.style.width = `${phaseProgress[phase]}%`;
       return;
     }
 
+    
     // -----------------------------------------
     // IN-SEASON COUNTDOWN (optional anchor)
     // -----------------------------------------
@@ -250,7 +249,7 @@ el.progress.style.width = `${phaseProgress[phase]}%`;
     el.title.textContent = `${med.title}`;
     el.hebrew.textContent = "מועדי תשרי";
 
-    el.progress.style.width = `${Math.max(0, 100 - daysLeft)}%`;
+    el.progress.style.width = `${phaseProgress[phase]}%`;
 
     el.detail.textContent = med.text;
 
