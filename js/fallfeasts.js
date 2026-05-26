@@ -1,8 +1,23 @@
+const phaseOrder = [
+  "PRE",
+  "TERUAH_TO_KIPPUR",
+  "KIPPUR_WINDOW",
+  "SUKKOT",
+  "SHEMINI",
+  "COMPLETE"
+];
+
+const indexMap = Object.fromEntries(
+  phaseOrder.map((p, i) => [p, i])
+);
+
 (function () {
 
   // =========================================================
   // 1. FALL FEAST CALENDAR MODEL
   // =========================================================
+
+el.progress.style.width = `${phaseProgress[phase]}%`;
 
   const FALL = {
     YOM_TERUAH: new Date(2026, 8, 11),
@@ -10,6 +25,15 @@
     SUKKOT: new Date(2026, 8, 25),
     SUKKOT_END: new Date(2026, 9, 3),
     SHEMINI_ATZERET: new Date(2026, 9, 3)
+  };
+
+  const phaseProgress = {
+    PRE: 0,
+    TERUAH_TO_KIPPUR: 25,
+    KIPPUR_WINDOW: 50,
+    SUKKOT: 80,
+    SHEMINI: 95,
+    COMPLETE: 100
   };
 
   const SUNDOWN_HOUR = 19;
@@ -228,7 +252,7 @@
 
     el.progress.style.width = `${Math.max(0, 100 - daysLeft)}%`;
 
-    el.detail.textContent = `Phase: ${phase}`;
+    el.detail.textContent = med.text;
 
     setMeditation(phase, daysLeft);
 
@@ -239,6 +263,8 @@
       SHEMINI: 6,
       COMPLETE: 6
     };
+
+    
 
     renderConstellation(indexMap[phase] ?? 0);
   }
