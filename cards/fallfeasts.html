@@ -1,10 +1,11 @@
 <section id="fallfeastsCard" class="card">
 
-  <div class="card-shell">
+  <div class="card-shell space-y-6">
 
     <!-- ========================= -->
     <!-- HEADER -->
     <!-- ========================= -->
+
     <div class="card-header">
 
       <button class="card-nav-btn prev-card-btn"
@@ -13,7 +14,7 @@
         ‹
       </button>
 
-      <div class="card-heading">
+      <div class="card-heading space-y-3">
 
         <div class="card-kicker">
           <p id="fallfeastsSub"
@@ -25,14 +26,14 @@
         </div>
 
         <h2 id="fallTitle"
-            class="text-xl flame text-center">
+            class="text-2xl flame text-center leading-tight">
 
           Journey Through the Fall Appointed Times
 
         </h2>
 
         <div id="fallfeastsMeta"
-             class="step-meta-text text-center">
+             class="step-meta-text text-center text-slate-400">
 
           Yom Teruah → Yom Kippur → Sukkot → Shemini Atzeret
 
@@ -44,771 +45,29 @@
               type="button"
               aria-label="Next">
         ›
-
       </button>
 
     </div>
-
-<!-- ===================================== -->
-<!-- FALL FEAST JS DEBUG / RENDER PANEL -->
-<!-- ===================================== -->
-
-<section class="content-panel">
-
-  <div class="section-label">
-    Feast Seasons (JS Render Test)
-  </div>
-
-        <div class="flex flex-col">
-
-        <div class="text-xs uppercase tracking-wider text-slate-400">
-          Current Season: Summer<br>Last Feast: Shavuot
-        </div>
-
-        <!--<div id="fallfeastsOrientationTitle"
-             class="text-sm text-slate-200">
-
-          Preparing for Yom Teruah...
-
-        </div>
-
-      </div>
-
-      <div class="text-right">-->
-
-        <!--<div id="fallfeastsCountdown"
-             class="text-lg font-semibold text-white">
-
-            <div id="fallDayNumber"
-           class="text-lg text-white font-semibold">
-        Loading...
-      </div>Days
-
-        </div>
-
-        <div class="text-xs text-slate-400">
-          Until Trumpets
-        </div>-->
-
-      </div>
-
-    </div>
-
-  <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-4">
-      <div class="section-label">
-    Fall Feasts (JS Render Test)
-  </div>
-
-    <!-- CURRENT FEAST -->
-    <div>
-      <div class="text-xs uppercase tracking-wider text-slate-500 mb-1">
-        Current Feast
-      </div>
-
-      <div id="fallfeastsOrientationTitle"
-           class="text-sm text-slate-200">
-        Loading...
-      </div>
-
-      <div id="fallfeastsCountdown"
-           class="text-lg font-semibold text-amber-300 mt-1">
-        --
-      </div>
-    </div>
-
-    <!-- NEXT FEAST -->
-    <div>
-      <div class="text-xs uppercase tracking-wider text-slate-500 mb-1">
-        Next Feast
-      </div>
-
-      <div id="nextfallfeastsOrientationTitle"
-           class="text-sm text-slate-200">
-        Loading...
-      </div>
-
-      <div id="nextfallfeastsCountdown"
-           class="text-lg font-semibold text-cyan-300 mt-1">
-        --
-      </div>
-    </div>
-
-    <!-- MEDITATION -->
-    <div class="border-t border-slate-700 pt-4">
-            <div class="text-xs uppercase tracking-wider text-slate-500 mb-1">
-        Meditation
-      </div>
-
-      <div id="fallMeditationTitle"
-           class="text-base font-semibold text-white">
-        Loading...
-      </div>
-
-         <div class="text-sm text-slate-500 mt-2"">
-      Prepare your heart by taking quiet moments to seek our God's presence, focusing your mind on His Word. A prepared heart is receptive, humble, and ready to receive His peace and guidance
-      </div>
-      
-      <div id="fallMeditationText"
-           class="text-sm text-slate-300 mt-2 leading-relaxed">
-        Loading...
-      </div>
-
-      <div id="fallMeditationPrayer"
-           class="text-sm italic text-slate-400 mt-3">
-        Loading...
-      </div>
-
-      <div class="text-sm text-slate-500 mt-2"">
-      Jeremiah 17:10 I Adonai search the heart, I try the mind, to give every man according to his ways, according to the fruit of his deeds.
-      </div>
-      
-      <div id="fallMeditationScripture"
-           class="text-sm text-slate-500 mt-2">
-        Loading...
-      </div>
-
-    </div>
-
-    <!-- PROGRESS -->
-    <div class="border-t border-slate-700 pt-4">
-
-      <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">
-        Season Progress
-      </div>
-
-      <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden">
-
-        <div id="fallProgressBar"
-             class="h-full bg-amber-400 transition-all duration-500"
-             style="width:0%">
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-      </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- ORIENTATION -->
-    <!-- ========================= -->
-    <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
-
-      <div class="flex flex-col">
-
-        <div class="text-xs uppercase tracking-wider text-slate-400">
-          Current Season Guidance
-        </div>
-
-        <div class="section-label">
-          Feast Seasons (JS Render Test)
-        </div>
-        
-    <!-- ========================= -->
-    <!-- HERO -->
-    <!-- ========================= -->
-    <section class="hero-panel">
-
-      <div class="fp-kicker space-y-4">
-        Sacred Journey
-      </div>
-
-      <h1 id="fallHeroTitle"
-          class="fp-title">
-
-        Prepare the Way
-
-      </h1>
-
-      <p id="fallHeroSub"
-         class="fp-sub">
-
-        Move through awakening, repentance,
-        dwelling, joy, and sacred assembly.
-
-      </p>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- CONSTELLATION MAP -->
-    <!-- ========================= -->
-    <section class="content-panel space-y-4">
-
-      <div class="section-label">
-        Journey Map
-      </div>
-
-      <div class="relative">
-
-        <svg id="fallLines"
-             class="absolute inset-0 w-full h-full pointer-events-none"
-             viewBox="0 0 700 700"
-             preserveAspectRatio="none">
-        </svg>
-
-        <div id="fallConstellation"
-             class="constellation-map">
-
-          <!-- JS injects constellation nodes -->
-          <!--<div id="fallConstellation"
-           class="text-lg text-white font-semibold">
-        Loading...
-      </div>-->
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- CURRENT FEAST -->
-    <!-- ========================= -->
-    <section class="content-panel">
-
-      <div class="section-label">
-        Current Feast Focus
-      </div>
-
-      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-3">
-
-        <div class="flex items-center justify-between">
-
-          <div>
-
-            <div id="currentFeastName"
-                 class="text-lg font-semibold text-white">
-
-              Yom Teruah
-
-            </div>
-
-            <div id="currentFeastHebrew"
-                 class="text-sm text-slate-400">
-              <div id="fallHebrew"
-           class="text-lg text-white font-semibold">
-        Loading...
-      </div>
-
-              יום תרועה
-
-            </div>
-
-          </div>
-
-          <div id="currentFeastPhase"
-               class="text-xs uppercase tracking-wider text-amber-300">
-
-            Awakening
-
-          </div>
-
-        </div>
-
-        <div id="currentFeastDescription"
-             class="text-sm leading-relaxed text-slate-300">
-
-          The season of awakening and preparation begins.
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- MEDITATION -->
-    <!-- ========================= -->
-    <section class="content-panel">
-
-      <div class="section-label">
-        Meditation
-      </div>
-
-      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-4">
-
-        <div>
-
-          <div id="fallMeditationTitle"
-               class="text-base font-semibold text-white">
-
-            Prepare the Heart
-
-          </div>
-
-          <div id="fallMeditationText"
-               class="text-sm text-slate-300 mt-2 leading-relaxed">
-
-            The King calls His people to awaken.
-
-          </div>
-
-        </div>
-
-        <div class="border-t border-slate-700 pt-3">
-
-          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">
-            Prayer
-          </div>
-
-          <div id="fallMeditationPrayer"
-               class="text-sm italic text-slate-200">
-
-            Make my heart ready.
-
-          </div>
-
-        </div>
-
-        <div class="border-t border-slate-700 pt-3">
-
-          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">
-            Scripture
-          </div>
-
-          <div id="fallMeditationScripture"
-               class="text-sm text-slate-300">
-
-            “Awake, sleeper.”
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- TEACHINGS -->
-    <!-- ========================= -->
-    <section class="content-panel">
-
-      <div class="section-label">
-        Teachings + Themes
-      </div>
-
-      <div id="fallTeachings"
-           class="space-y-3">
-
-        <!-- teaching cards injected -->
-
-      </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- DAILY PRACTICE -->
-    <!-- ========================= -->
-    <section class="content-panel">
-
-      <div class="section-label">
-        Practice + Reflection
-      </div>
-
-      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4">
-
-        <div id="fallPractice"
-             class="text-sm leading-relaxed text-slate-300">
-
-          Reflection prompts and spiritual practices appear here.
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- MEDIA -->
-    <!-- ========================= -->
-    <section class="content-panel">
-
-      <div class="section-label">
-        Audio + Media
-      </div>
-
-      <div id="fallMedia"
-           class="space-y-3">
-
-        <div class="empty-state">
-
-          Teachings, music, readings,
-          and guided audio appear here.
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- JOURNEY PROGRESS -->
-    <!-- ========================= -->
-    <section class="content-panel">
-
-      <div class="section-label">
-        Pilgrimage Progress
-      </div>
-
-      <div class="feast-progress">
-
-        <div class="progress-bar">
-
-          <div id="fallProgressFill"
-               class="progress-fill">
-          </div>
-
-        </div>
-
-        <div class="progress-meta text-center">
-
-          <span id="fallProgressText">
-
-            Preparing for the Fall Appointed Times
-
-          </span>
-          <div id="fallDetail"
-           class="text-lg text-white font-semibold">
-        Loading...
-      </div>
-
-        </div>
-        </div>
-
-</section>
- 
-    <!-- ===================================== -->
-<!-- FALL FEAST JS DEBUG / RENDER PANEL -->
-<!-- ===================================== -->
-    
-    <!--<div id="fallDetail"
-           class="text-lg text-white font-semibold">
-        Loading...
-      </div>
-
-    <div id="fallHebrew"
-           class="text-lg text-white font-semibold">
-        Loading...
-      </div>
-
-    <div id="fallDayNumber"
-           class="text-lg text-white font-semibold">
-        Loading...
-      </div>
-
-    <div id="fallConstellation"
-           class="text-lg text-white font-semibold">
-        Loading...
-      </div>
-
-<section class="content-panel">
-
-  <div class="section-label">
-    Fall Feast JS Render Test
-  </div>
-
-  <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-4">
-
-    <!-- TITLE -->
-  <!--  <div>
-      <div class="text-xs uppercase tracking-wider text-slate-500 mb-1">
-        Title
-      </div>
-
-      <div id="fallfeastsTitle"
-           class="text-lg text-white font-semibold">
-        Loading...
-      </div>
-    </div>
-
-    <!-- META -->
- <!--   <div>
-      <div class="text-xs uppercase tracking-wider text-slate-500 mb-1">
-        Meta
-      </div>
-
-      <div id="fallfeastsMeta"
-           class="text-sm text-slate-300">
-        Loading...
-      </div>
-    </div>
-
-    <!-- CURRENT FEAST -->
-   <!-- <div>
-      <div class="text-xs uppercase tracking-wider text-slate-500 mb-1">
-        Current Feast
-      </div>
-
-      <div id="fallfeastsOrientationTitle"
-           class="text-sm text-slate-200">
-        Loading...
-      </div>
-
-      <div id="fallfeastsCountdown"
-           class="text-lg font-semibold text-amber-300 mt-1">
-        --
-      </div>
-    </div>
-
-    <!-- NEXT FEAST -->
-  <!--  <div>
-      <div class="text-xs uppercase tracking-wider text-slate-500 mb-1">
-        Next Feast
-      </div>
-
-      <div id="nextfallfeastsOrientationTitle"
-           class="text-sm text-slate-200">
-        Loading...
-      </div>
-
-      <div id="nextfallfeastsCountdown"
-           class="text-lg font-semibold text-cyan-300 mt-1">
-        --
-      </div>
-    </div>
-
-    <!-- MEDITATION -->
-  <!--  <div class="border-t border-slate-700 pt-4">
-
-      <div id="fallMeditationTitle"
-           class="text-base font-semibold text-white">
-        Loading...
-      </div>
-
-      <div id="fallMeditationText"
-           class="text-sm text-slate-300 mt-2 leading-relaxed">
-        Loading...
-      </div>
-
-      <div id="fallMeditationPrayer"
-           class="text-sm italic text-slate-400 mt-3">
-        Loading...
-      </div>
-
-      <div id="fallMeditationScripture"
-           class="text-sm text-slate-500 mt-2">
-        Loading...
-      </div>
-
-    </div>
-
-    <!-- PROGRESS -->
-  <!--  <div class="border-t border-slate-700 pt-4">
-
-      <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">
-        Progress
-      </div>
-
-      <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden">
-
-        <div id="fallProgressBar"
-             class="h-full bg-amber-400 transition-all duration-500"
-             style="width:0%">
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-      </div>
-
-    </section>
-
-  </div>
-
-</section>
-
-<!--    -------------------------------------------
-
-<section id="fallfeastsCard" class="card">
-
-
-  <div class="card-shell">
-  <div id="fallFeastState"
-     data-phase="pre"
-     data-active-feast="teruah">
-</div>
-
-  <div id="fallCountdownGroup">
-
-  <div data-countdown="teruah"></div>
-  <div data-countdown="kippur"></div>
-  <div data-countdown="sukkot"></div>
-
-</div>
-
-    <!-- ========================= -->
-    <!-- HEADER -->
-    <!-- ========================= -->
-<!--    <div class="card-header">
-
-      <button class="card-nav-btn prev-card-btn"
-              type="button"
-              aria-label="Previous">
-        ‹
-      </button>
-
-      <div class="card-heading">
-
-        <div class="card-kicker">
-          <p id="fallfeastsSub"
-             class="hero-sub text-center">
-
-            Fall Feasts • Pilgrimage Journey • Sacred Seasons
-
-          </p>
-        </div>
-
-        <h2 id="fallfeastsTitle"
-            class="text-xl flame text-center">
-
-          Journey Through the Fall Appointed Times
-
-        </h2>
-
-        <div id="fallfeastsMeta"
-             class="step-meta-text text-center">
-
-          Yom Teruah → Yom Kippur → Sukkot → Shemini Atzeret
-
-        </div>
-    <!-- ========================= -->
-    <!-- Feast State -->
-    <!-- ========================= -->
-<!--<div class="card-feast-state">
-    <div class="feast-state-strip">
-  <span class="state-pill active">Awakening,</span>
-  <span class="state-pill">Repentance,</span>
-  <span class="state-pill">Dwelling,</span>
-  <span class="state-pill">Completion</span>
-</div>
-
-      </div>
-
-      <button class="card-nav-btn next-card-btn"
-              type="button"
-              aria-label="Next">
-        ›
-
-      </button>
-
-    </div>
-         
-
-    <!-- ========================= -->
-    <!-- ORIENTATION -->
-    <!-- ========================= -->
-    
- <!--   <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
-
-      <div class="flex flex-col">
-
-        <div class="text-xs uppercase tracking-wider text-slate-400">
-          Current Season Focus
-        </div>
-
-        <div id="fallfeastsOrientationTitle"
-             class="text-sm text-slate-200">
-
-          Preparing for Yom Teruah...
-
-        </div>
-
-      </div>
-
-      <div class="text-right">
-
-        <div id="fallfeastsCountdown"
-             class="text-lg font-semibold text-white">
-
-          109 Days
-
-        </div>
-
-        <div class="text-xs text-slate-400">
-          Until Trumpets
-        </div>
-
-      </div>
-
-    </div>
-        <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
-
-      <div class="flex flex-col">
-
-        <div class="text-xs uppercase tracking-wider text-slate-400">
-          Next Season Focus
-        </div>
-
-        <div id="nextfallfeastsOrientationTitle"
-             class="text-sm text-slate-200">
-
-          Preparing for Yom Kippur...
-
-        </div>
-
-      </div>
-
-      <div class="text-right">
-
-        <div id="nextfallfeastsCountdown"
-             class="text-lg font-semibold text-white">
-
-          118 Days
-
-        </div>
-
-        <div class="text-xs text-slate-400">
-          Until Yom Kippur
-        </div>
-
-      </div>
-
-    </div>
-
-    <section class="content-panel">
-
-  <div class="section-label">
-    Today’s Invitation
-  </div>
-
-  <div id="todaysInvitation"
-       class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 text-sm leading-relaxed">
-
-    Slow down long enough to notice what God may be trying to awaken in you.
-
-  </div>
-
-</section>
 
     <!-- ========================= -->
     <!-- HERO -->
     <!-- ========================= -->
-<!--    <section class="hero-panel">
+
+    <section class="hero-panel text-center py-8 space-y-4">
 
       <div class="fp-kicker">
         Sacred Journey
       </div>
 
       <h1 id="fallHeroTitle"
-          class="fp-title">
+          class="fp-title leading-tight">
 
         Prepare the Way
 
       </h1>
 
       <p id="fallHeroSub"
-         class="fp-sub">
+         class="fp-sub max-w-prose mx-auto leading-relaxed">
 
         Move through awakening, repentance,
         dwelling, joy, and sacred assembly.
@@ -818,15 +77,123 @@
     </section>
 
     <!-- ========================= -->
-    <!-- CONSTELLATION MAP -->
+    <!-- SEASON OVERVIEW -->
     <!-- ========================= -->
-<!--    <section class="content-panel">
+
+    <section class="content-panel space-y-5">
+
+      <div class="section-label mb-2">
+        Sacred Season Alignment
+      </div>
+
+      <div class="space-y-5">
+
+        <!-- CURRENT FEAST -->
+
+        <div class="space-y-2">
+
+          <div class="text-xs uppercase tracking-wider text-slate-500">
+            Current Feast
+          </div>
+
+          <div id="fallfeastsOrientationTitle"
+               class="text-lg text-white font-semibold">
+            Loading...
+          </div>
+
+          <div id="fallfeastsCountdown"
+               class="text-sm text-amber-300">
+            --
+          </div>
+
+        </div>
+
+        <!-- NEXT FEAST -->
+
+        <div class="space-y-2 pt-4 border-t border-slate-800">
+
+          <div class="text-xs uppercase tracking-wider text-slate-500">
+            Next Feast
+          </div>
+
+          <div id="nextfallfeastsOrientationTitle"
+               class="text-lg text-white font-semibold">
+            Loading...
+          </div>
+
+          <div id="nextfallfeastsCountdown"
+               class="text-sm text-cyan-300">
+            --
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- MEDITATION -->
+    <!-- ========================= -->
+
+    <section class="content-panel space-y-5">
+
+      <div class="section-label mb-2">
+        Meditation
+      </div>
+
+      <div class="space-y-4">
+
+        <div id="fallMeditationTitle"
+             class="text-xl text-white font-semibold">
+          Loading...
+        </div>
+
+        <div class="text-sm text-slate-500 leading-relaxed max-w-prose">
+
+          Prepare your heart by taking quiet moments
+          to seek God's presence, focusing your mind
+          on His Word.
+
+        </div>
+
+        <div id="fallMeditationText"
+             class="text-sm text-slate-300 leading-relaxed max-w-prose">
+          Loading...
+        </div>
+
+        <div id="fallMeditationPrayer"
+             class="text-sm italic text-slate-400 leading-relaxed">
+          Loading...
+        </div>
+
+        <div class="text-sm text-slate-500 leading-relaxed max-w-prose">
+
+          Jeremiah 17:10 —
+          “I Adonai search the heart, I try the mind...”
+
+        </div>
+
+        <div id="fallMeditationScripture"
+             class="text-sm text-slate-400">
+          Loading...
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================= -->
+    <!-- JOURNEY MAP -->
+    <!-- ========================= -->
+
+    <section class="content-panel space-y-5">
 
       <div class="section-label">
         Journey Map
       </div>
 
-      <div class="relative">
+      <div class="relative py-6">
 
         <svg id="fallLines"
              class="absolute inset-0 w-full h-full pointer-events-none"
@@ -837,9 +204,9 @@
         <div id="fallConstellation"
              class="constellation-map">
 
-          <!-- JS injects constellation nodes -->
+          <!-- JS injects nodes -->
 
-<!--        </div>
+        </div>
 
       </div>
 
@@ -848,20 +215,21 @@
     <!-- ========================= -->
     <!-- CURRENT FEAST -->
     <!-- ========================= -->
-<!--    <section class="content-panel">
+
+    <section class="content-panel space-y-5">
 
       <div class="section-label">
         Current Feast Focus
       </div>
 
-      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-3">
+      <div class="space-y-4">
 
-        <div class="flex items-center justify-between">
+        <div class="flex items-start justify-between gap-4">
 
-          <div>
+          <div class="space-y-1">
 
             <div id="currentFeastName"
-                 class="text-lg font-semibold text-white">
+                 class="text-xl font-semibold text-white">
 
               Yom Teruah
 
@@ -874,10 +242,15 @@
 
             </div>
 
+            <div id="fallHebrew"
+                 class="text-xs text-slate-500">
+              Loading...
+            </div>
+
           </div>
 
           <div id="currentFeastPhase"
-               class="text-xs uppercase tracking-wider text-amber-300">
+               class="text-xs uppercase tracking-wider text-amber-300 pt-1">
 
             Awakening
 
@@ -886,7 +259,7 @@
         </div>
 
         <div id="currentFeastDescription"
-             class="text-sm leading-relaxed text-slate-300">
+             class="text-sm leading-relaxed text-slate-300 max-w-prose">
 
           The season of awakening and preparation begins.
 
@@ -897,61 +270,37 @@
     </section>
 
     <!-- ========================= -->
-    <!-- MEDITATION -->
+    <!-- PROGRESS -->
     <!-- ========================= -->
-<!--    <section class="content-panel">
+
+    <section class="content-panel space-y-5">
 
       <div class="section-label">
-        Meditation
+        Pilgrimage Progress
       </div>
 
-      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 space-y-4">
+      <div class="space-y-3">
 
-        <div>
+        <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden">
 
-          <div id="fallMeditationTitle"
-               class="text-base font-semibold text-white">
-
-            Prepare the Heart
-
-          </div>
-
-          <div id="fallMeditationText"
-               class="text-sm text-slate-300 mt-2 leading-relaxed">
-
-            The King calls His people to awaken.
-
+          <div id="fallProgressBar"
+               class="h-full bg-amber-400 transition-all duration-700"
+               style="width:0%">
           </div>
 
         </div>
 
-        <div class="border-t border-slate-700 pt-3">
+        <div id="fallProgressText"
+             class="text-sm text-slate-400 text-center">
 
-          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">
-            Prayer
-          </div>
-
-          <div id="fallMeditationPrayer"
-               class="text-sm italic text-slate-200">
-
-            Make my heart ready.
-
-          </div>
+          Preparing for the Fall Appointed Times
 
         </div>
 
-        <div class="border-t border-slate-700 pt-3">
+        <div id="fallDetail"
+             class="text-xs text-slate-500 text-center">
 
-          <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">
-            Scripture
-          </div>
-
-          <div id="fallMeditationScripture"
-               class="text-sm text-slate-300">
-
-            “Awake, sleeper.”
-
-          </div>
+          Loading...
 
         </div>
 
@@ -960,40 +309,20 @@
     </section>
 
     <!-- ========================= -->
-    <!-- TEACHINGS -->
+    <!-- PRACTICE -->
     <!-- ========================= -->
-<!--    <section class="content-panel">
 
-      <div class="section-label">
-        Teachings + Themes
-      </div>
-
-      <div id="fallTeachings"
-           class="space-y-3">
-
-        <!-- teaching cards injected -->
-
-  <!--    </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- DAILY PRACTICE -->
-    <!-- ========================= -->
-<!--    <section class="content-panel">
+    <section class="content-panel space-y-4">
 
       <div class="section-label">
         Practice + Reflection
       </div>
 
-      <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4">
+      <div id="fallPractice"
+           class="text-sm leading-relaxed text-slate-300 max-w-prose">
 
-        <div id="fallPractice"
-             class="text-sm leading-relaxed text-slate-300">
-
-          Reflection prompts and spiritual practices appear here.
-
-        </div>
+        Reflection prompts and spiritual practices
+        appear here.
 
       </div>
 
@@ -1002,7 +331,8 @@
     <!-- ========================= -->
     <!-- MEDIA -->
     <!-- ========================= -->
-<!--    <section class="content-panel">
+
+    <section class="content-panel space-y-4">
 
       <div class="section-label">
         Audio + Media
@@ -1015,39 +345,6 @@
 
           Teachings, music, readings,
           and guided audio appear here.
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- JOURNEY PROGRESS -->
-    <!-- ========================= -->
-<!--    <section class="content-panel">
-
-      <div class="section-label">
-        Pilgrimage Progress
-      </div>
-
-      <div class="feast-progress">
-
-        <div class="progress-bar">
-
-          <div id="fallProgressFill"
-               class="progress-fill">
-          </div>
-
-        </div>
-
-        <div class="progress-meta text-center">
-
-          <span id="fallProgressText">
-
-            Preparing for the Fall Appointed Times
-
-          </span>
 
         </div>
 
