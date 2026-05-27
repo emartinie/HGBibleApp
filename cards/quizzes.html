@@ -36,11 +36,11 @@
         </div>
 
         <h2 class="text-xl flame text-center">
-          Scripture-Based Quizzing
+          New Testament study-Based Quizzing
         </h2>
 
         <p class="hero-sub text-center">
-          Questions generated from New Testament study structures.
+          Questions generated from New Testament study card
         </p>
 
       </div>
@@ -51,6 +51,32 @@
 
     <!-- BODY -->
     <div class="card-body">
+            <!-- PROGRESS -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Progress
+        </div>
+
+        <div class="progress-bar">
+          <div id="quizProgressFill" class="progress-fill"></div>
+        </div>
+
+        <div class="text-xs text-slate-400 flex justify-between">
+          <span id="quizScore"></span>
+          <span id="quizCount"></span>
+        </div>
+
+      </section>
+
+      <!-- QUESTION Control Panel -->
+            <section class="content-panel">
+
+        <div class="section-label">
+          Question Controls
+        </div>
+
+       </section>
 
       <!-- QUESTION -->
       <section class="content-panel">
@@ -64,6 +90,13 @@
           <div id="quizQuestion">
             Question loads here...
           </div>
+          
+      <!-- Answer -->
+      <section class="content-panel">
+
+        <div class="section-label">
+          Question
+        </div>
 
           <div id="quizAnswers">
             Answers load here...
@@ -101,23 +134,7 @@
 
       </section>
 
-      <!-- PROGRESS -->
-      <section class="content-panel">
 
-        <div class="section-label">
-          Progress
-        </div>
-
-        <div class="progress-bar">
-          <div id="quizProgressFill" class="progress-fill"></div>
-        </div>
-
-        <div class="text-xs text-slate-400 flex justify-between">
-          <span id="quizScore"></span>
-          <span id="quizCount"></span>
-        </div>
-
-      </section>
 
     </div>
   </div>
