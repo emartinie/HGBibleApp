@@ -192,7 +192,7 @@ root.innerHTML = `
 
     <div class="text-center space-y-2 border-b border-slate-700 pb-4">
       <h1 class="text-2xl font-bold text-cyan-200">
-        📖 My New Testament Notes
+        📖 My New Testament Research
       </h1>
 
       <p class="text-slate-400 text-sm">
@@ -207,7 +207,7 @@ root.innerHTML = `
 
     <div class="rounded-xl border border-slate-700 bg-slate-900/40 p-4 text-sm text-slate-400 leading-relaxed">
       Start with the introduction, jump into chapter 1, go straight to summary and review questions,
-      or leave yourself a reminder for future Jewish context tie-ins.
+      or leave yourself a reminder for future Jewish Research tie-ins. Make your own notes right next to my notes. Then copy/ paste them all together to build your own teachings. 
     </div>
 
   </section>
@@ -276,7 +276,7 @@ function loadBookTiles() {
       type="button"
       class="col-span-2 px-3 py-2 rounded-lg border border-cyan-700/40 bg-cyan-900/20 hover:bg-cyan-800/30 text-sm text-center text-cyan-200 hover:text-white transition"
       data-nt-hint="${bookName}">
-      Related Jewish Context
+      Related Jewish Research
     </button>
 
   </div>
@@ -295,16 +295,16 @@ function loadBookTiles() {
             <h2 class="text-xl font-semibold text-cyan-200 mb-2">${bookName} — Related Jewish Context</h2>
             <p class="text-slate-300">
               This is a placeholder for future cross-links, hints, thematic alignment,
-              and other connections between ${bookName} and Jewish texts or traditions.
+              and other connections between ${bookName} and Jewish texts or traditions that I am currently working on.
             </p>
             <p class="text-slate-400 text-sm mt-3">
-              Not wired yet — just making room for the future on purpose.
+              Not wired yet — just making room for the future on purpose. This is going to be one of the world's most complete, Whole-Bible apps ever made!
             </p>
 
             <div class="mt-4">
               <button id="ntBackToLanding"
                 class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm">
-                Back to NT Landing
+                Back to NT Research
               </button>
             </div>
           </div>
@@ -572,11 +572,11 @@ root.innerHTML = `
     <div class="rounded-2xl border border-red-400/60 bg-gradient-to-br from-red-950/40 to-slate-900 p-6 shadow-xl">
       
       <h2 class="text-lg font-semibold text-red-200 flex items-center gap-2">
-        ⚠️ Something went wrong
+        ⚠️ Something went wrong in the Matrix.
       </h2>
 
       <p class="text-slate-300 text-sm mt-3 leading-relaxed">
-        We couldn’t load this content. It may be missing or temporarily unavailable.
+        We couldn’t load this content. It may be kidnapped or temporarily insane.
       </p>
 
       <div class="mt-5 flex gap-3 flex-wrap">
@@ -587,7 +587,7 @@ root.innerHTML = `
 
         <button id="ntHomeBtn"
           class="px-4 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white text-sm shadow">
-          Back to NT Landing
+          Back to NT Research
         </button>
       </div>
 
