@@ -1,9 +1,19 @@
+function ntLog(label, data = null) {
+  console.log(`[NT] ${label}`, data ?? "");
+}
+
 const root = document.getElementById("nt-root");
 
 const headerZone = document.getElementById("nt-header");
 const navZone = document.getElementById("nt-nav");
 const contentZone = document.getElementById("nt-content");
 const panelZone = document.getElementById("nt-panel");
+
+ntLog("ROOT", root);
+ntLog("HEADER", headerZone);
+ntLog("NAV", navZone);
+ntLog("CONTENT", contentZone);
+ntLog("PANEL", panelZone);
 
 (function () {
 
@@ -332,6 +342,12 @@ function loadBookTiles() {
 }
   
   function renderChapter(bookName, chapterNum, ch, activeSection) {
+      ntLog("RENDER CHAPTER", {
+    bookName,
+    chapterNum,
+    activeSection,
+    ch
+  });
     setContextHeader(`${bookName} — Chapter ${chapterNum}`);
     setSubContext("Objectives, summary, outline, words to ponder, and review questions.");
 
@@ -372,6 +388,10 @@ function loadBookTiles() {
   }
 
   function renderIntroduction(bookName, intro) {
+  ntLog("RENDER INTRO", {
+    bookName,
+    intro
+  });
   setContextHeader(`${bookName} — Introduction`);
   setSubContext("Book overview and study entry points.");
 
@@ -511,6 +531,12 @@ function loadBookTiles() {
 interceptNTLinks();
 
 const { book, chapter, view, section } = getParams();
+  ntLog("PARAMS", {
+  book,
+  chapter,
+  view,
+  section
+});
 
 if (!book) {
   renderNTLanding();
@@ -519,6 +545,7 @@ if (!book) {
 
 const bookKey = book.toLowerCase().replace(/\s+/g, "");
 const jsonPath = `data/nt/${bookKey}.json`;
+  ntLog("FETCHING JSON", jsonPath);
 
 fetch(jsonPath)
   .then(res => {
@@ -526,6 +553,7 @@ fetch(jsonPath)
     return res.json();
   })
   .then(data => {
+    ntLog("JSON LOADED", data);
     if (!root) return;
 
   const body = contentZone;
@@ -540,6 +568,8 @@ fetch(jsonPath)
     return;
   }
 
+  ntLog("AVAILABLE CHAPTERS", Object.keys(data.chapters || {}));
+  ntLog("REQUESTED CHAPTER", chapter);  
   const ch = data.chapters[String(chapter)];
   if (!ch) {
     body.innerHTML = "<p class='text-red-400'>Chapter not found.</p>";
@@ -593,6 +623,19 @@ contentZone.innerHTML = `
     document.getElementById("ntRetryBtn")?.addEventListener("click", () => {
       window.loadCard?.("nt");
     });
+
+    window.addEventListener("error", (e) => {
+  console.error("[NT GLOBAL ERROR]", e.error);
+
+  if (contentZone) {
+    contentZone.innerHTML = `
+      <div class="p-6 rounded-xl bg-red-950/40 border border-red-500/30 text-red-200">
+        JavaScript crashed.<br/>
+        Open console for details.
+      </div>
+    `;
+  }
+});
 
     document.getElementById("ntHomeBtn")?.addEventListener("click", () => {
       const url = new URL(window.location.href);
