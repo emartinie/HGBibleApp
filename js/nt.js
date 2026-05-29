@@ -6,13 +6,9 @@ const contentZone = document.getElementById("nt-content");
 const panelZone = document.getElementById("nt-panel");
 
 (function () {
- // const params = new URLSearchParams(window.location.search);
-  //const book = params.get("book");
- // const chapter = params.get("chapter");
- // const view = params.get("view");
- // const section = params.get("section");
+
   const NT_BASE = "cards/nt.html";
-  const root = document.getElementById("nt-root");
+  
 
 function getParams() {
   const params = new URLSearchParams(window.location.search);
@@ -532,15 +528,7 @@ fetch(jsonPath)
   .then(data => {
     if (!root) return;
 
-    // 🧱 ALWAYS render a stable root shell first
-    contentZone.innerHTML = `
-      <section class="space-y-4">
-        <div id="nt-header" class="border-b border-slate-700 pb-2 mb-4"></div>
-        <div id="nt-body"></div>
-      </section>
-    `;
-
-  const body = document.getElementById("contentZone");
+  const body = contentZone;
 
   if (view === "introduction") {
     renderIntroduction(book, data.introduction);
