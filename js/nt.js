@@ -91,7 +91,7 @@ function getParams() {
     // Fallback: render INSIDE nt-root, not a new window
     if (!root) return;
 
-    root.innerHTML = `
+    contentZone.innerHTML = `
       <section class="space-y-4">
         <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-3">
           <h2 class="text-xl font-semibold">${escapeHtml(title)}</h2>
@@ -194,7 +194,7 @@ function renderNTLanding() {
 
   if (!root) return;
 
-root.innerHTML = `
+contentZone.innerHTML = `
   <section class="space-y-6">
 
     <div class="text-center space-y-2 border-b border-slate-700 pb-4">
@@ -296,7 +296,7 @@ function loadBookTiles() {
       const bookName = btn.getAttribute("data-nt-hint");
       if (!root) return;
 
-      root.innerHTML = `
+      contentZone.innerHTML = `
         <section class="space-y-4">
           <div class="rounded-2xl border border-slate-700 bg-slate-900/70 p-5">
             <h2 class="text-xl font-semibold text-cyan-200 mb-2">${bookName} — Related Jewish Context</h2>
@@ -341,7 +341,7 @@ function loadBookTiles() {
 
     if (!root) return;
 
-    root.innerHTML = `
+    contentZone.innerHTML = `
       <section id="chapter-nav" style="margin-bottom:1.5rem;"></section>
 
       <div id="objectives"></div>
@@ -391,7 +391,7 @@ function loadBookTiles() {
   const linkSum = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary`;
   const linkRQ = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
 
-  root.innerHTML = `
+  contentZone.innerHTML = `
     <section class="mb-6">
       <h2 class="text-xl font-semibold">Begin Study</h2>
 
@@ -533,14 +533,14 @@ fetch(jsonPath)
     if (!root) return;
 
     // 🧱 ALWAYS render a stable root shell first
-    root.innerHTML = `
+    contentZone.innerHTML = `
       <section class="space-y-4">
         <div id="nt-header" class="border-b border-slate-700 pb-2 mb-4"></div>
         <div id="nt-body"></div>
       </section>
     `;
 
-  const body = document.getElementById("nt-body");
+  const body = document.getElementById("contentZone");
 
   if (view === "introduction") {
     renderIntroduction(book, data.introduction);
@@ -574,7 +574,7 @@ fetch(jsonPath)
   console.error(err);
 
   if (root) {
-root.innerHTML = `
+contentZone.innerHTML = `
   <section class="space-y-4 animate-pulse">
     <div class="rounded-2xl border border-red-400/60 bg-gradient-to-br from-red-950/40 to-slate-900 p-6 shadow-xl">
       
