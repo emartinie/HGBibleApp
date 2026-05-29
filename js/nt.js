@@ -1,3 +1,10 @@
+const root = document.getElementById("nt-root");
+
+const headerZone = document.getElementById("nt-header");
+const navZone = document.getElementById("nt-nav");
+const contentZone = document.getElementById("nt-content");
+const panelZone = document.getElementById("nt-panel");
+
 (function () {
  // const params = new URLSearchParams(window.location.search);
   //const book = params.get("book");
