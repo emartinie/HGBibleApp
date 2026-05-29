@@ -258,7 +258,7 @@ function loadBookTiles() {
     </div>
 
     <div class="text-xs text-slate-400">
-      Direct entry points
+      Choose entry point:
     </div>
 
   </div>
