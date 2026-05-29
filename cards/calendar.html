@@ -152,109 +152,196 @@ while focusing on the meaning of the appointed times themselves.<br><button clas
  
   </section>
   
-  <!-- Holy Days List -->
-      <section class="content-panel">
-<section class="hg-panel">
+<!-- HOLY DAYS SYSTEM PANEL -->
+<section class="content-panel">
 
+  <!-- HEADER -->
+  <div class="border-b border-amber-500/20 pb-3 mb-4">
+    <h2 class="text-xl font-semibold text-amber-300 tracking-wide">
+      2026 Holy Days Cycle
+    </h2>
+    <p class="text-slate-400 text-sm mt-1">
+      Prophetic timeline markers (feasts as structured rhythm, not isolated events)
+    </p>
+  </div>
+
+  <!-- TOGGLE BUTTON -->
   <button
     type="button"
-    class="w-full flex items-center justify-between"
+    class="w-full flex items-center justify-between mb-4 px-3 py-2 rounded-xl bg-slate-900/40 border border-slate-700 hover:bg-slate-800/40 transition"
     onclick="toggleHolyDays(this)"
   >
-    <div class="hg-section-label text-left text-2xl font-bold text-amber-300">2026 Holy Days</div>
-    <span class="text-slate-400 text-sm">▼</span>
+    <span class="text-slate-200 font-medium">Show / Hide Feast Timeline</span>
+    <span class="text-slate-500 text-sm">▼</span>
   </button>
 
-  <div id="holyDayList" class="space-y-3 mt-3" style="display:none;">
-     
+  <!-- LIST -->
+  <div id="holyDayList" class="space-y-4" style="display:none;">
 
-      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <!-- PASSOVER -->
+    <div class="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
+
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_left,rgba(251,191,36,0.3),transparent_60%)]"></div>
+
+      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
         <div>
-          <section class="content-panel">
-          <h4 class="font-semibold text-lg">Passover</h4>
-          <p class="text-slate-300 text-sm">Begins at sundown on April 1, 2026</p>
-          <p class="text-slate-400 text-sm">Remembering deliverance from bondage.</p>
-        </div>
-        <div class="flex gap-2">
-          <button class="hg-btn" onclick="openHolyDayDetails('passover')">Info</button>
-          <button class="px-3 py-2 rounded bg-slate-700 hover:bg-slate-600" onclick="beginHolyDayExperience('passover')">Play</button>
-        </div>
-      </div>
+          <h4 class="text-lg font-semibold text-amber-200">Passover</h4>
 
-      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div>
-          <section class="content-panel">          
-          <h4 class="font-semibold text-lg">Feast of Unleavened Bread</h4>
-          <p class="text-slate-300 text-sm">April 2–8, 2026</p>
-          <p class="text-slate-400 text-sm">Leaving bondage behind and walking cleanly.</p>
-        </div>
-        <div class="flex gap-2">
-          <button class="hg-btn" onclick="openHolyDayDetails('unleavened_bread')">Info</button>
-        </div>
-      </div>
+          <p class="text-slate-300 text-sm">Begins April 1, 2026 (sundown)</p>
+          <p class="text-slate-500 text-sm mt-1">Deliverance from bondage • covenant memory point</p>
 
-      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div>
-          <section class="content-panel">          
-          <h4 class="font-semibold text-lg">First Fruits</h4>
-          <p class="text-slate-300 text-sm">Spring 2026</p>
-          <p class="text-slate-400 text-sm">The beginning of harvest and the promise of more to come.</p>
+          <div class="mt-2 text-xs text-slate-600">
+            Cycle Marker: Exodus Pattern
+          </div>
         </div>
-        <div class="flex gap-2">
-          <button class="hg-btn" onclick="openHolyDayDetails('first_fruits')">Info</button>
-        </div>
-      </div>
 
-      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div>
-          <section class="content-panel">          
-          <h4 class="font-semibold text-lg">Pentecost / Shavuot</h4>
-          <p class="text-slate-300 text-sm">Spring/Summer 2026</p>
-          <p class="text-slate-400 text-sm">Weeks fulfilled, covenant remembered, Spirit given.</p>
-        </div>
         <div class="flex gap-2">
-          <button class="hg-btn" onclick="openHolyDayDetails('pentecost')">Info</button>
+          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200 hover:bg-slate-700">
+            Info
+          </button>
+          <button class="px-3 py-1.5 rounded-lg bg-amber-700/20 border border-amber-500/30 text-amber-200 text-xs hover:bg-amber-700/30">
+            Play
+          </button>
         </div>
-      </div>
 
-      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div>
-          <section class="content-panel">          
-          <h4 class="font-semibold text-lg">Trumpets</h4>
-          <p class="text-slate-300 text-sm">September 12, 2026</p>
-          <p class="text-slate-400 text-sm">A call to awaken, gather, and prepare.</p>
-        </div>
-        <div class="flex gap-2">
-          <button class="hg-btn" onclick="openHolyDayDetails('trumpets')">Info</button>
-        </div>
       </div>
-
-      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div>
-          <section class="content-panel">          
-          <h4 class="font-semibold text-lg">Day of Atonement</h4>
-          <p class="text-slate-300 text-sm">Autumn 2026</p>
-          <p class="text-slate-400 text-sm">Repentance, mercy, and the seriousness of judgment.</p>
-        </div>
-        <div class="flex gap-2">
-          <button class="hg-btn" onclick="openHolyDayDetails('atonement')">Info</button>
-        </div>
-      </div>
-
-      <div class="hg-panel flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div>
-          <section class="content-panel">          
-          <h4 class="font-semibold text-lg">Tabernacles / Sukkot</h4>
-          <p class="text-slate-300 text-sm">Autumn 2026</p>
-          <p class="text-slate-400 text-sm">Dwelling, joy, and remembering the wilderness journey.</p>
-        </div>
-        <div class="flex gap-2">
-          <button class="hg-btn" onclick="openHolyDayDetails('tabernacles')">Info</button>
-        </div>
-      </div>
-
     </div>
-  </section>
+
+    <!-- UNLEAVENED BREAD -->
+    <div class="relative overflow-hidden rounded-2xl border border-slate-600/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
+
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top,rgba(148,163,184,0.25),transparent_60%)]"></div>
+
+      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+        <div>
+          <h4 class="text-lg font-semibold text-slate-200">Feast of Unleavened Bread</h4>
+          <p class="text-slate-300 text-sm">April 2–8, 2026</p>
+          <p class="text-slate-500 text-sm mt-1">Removal of leaven • walking clean pattern</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
+            Info
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FIRST FRUITS -->
+    <div class="relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
+
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_bottom,rgba(16,185,129,0.25),transparent_60%)]"></div>
+
+      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+        <div>
+          <h4 class="text-lg font-semibold text-emerald-300">First Fruits</h4>
+          <p class="text-slate-300 text-sm">Spring 2026</p>
+          <p class="text-slate-500 text-sm mt-1">Resurrection pattern • first harvest signal</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
+            Info
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PENTECOST -->
+    <div class="relative overflow-hidden rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
+
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.25),transparent_60%)]"></div>
+
+      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+        <div>
+          <h4 class="text-lg font-semibold text-cyan-300">Pentecost / Shavuot</h4>
+          <p class="text-slate-300 text-sm">Spring / Summer 2026</p>
+          <p class="text-slate-500 text-sm mt-1">Covenant completion • spirit outpouring marker</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
+            Info
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TRUMPETS -->
+    <div class="relative overflow-hidden rounded-2xl border border-yellow-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
+
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top,rgba(250,204,21,0.25),transparent_60%)]"></div>
+
+      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+        <div>
+          <h4 class="text-lg font-semibold text-yellow-200">Trumpets</h4>
+          <p class="text-slate-300 text-sm">September 12, 2026</p>
+          <p class="text-slate-500 text-sm mt-1">Awakening signal • gathering call pattern</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
+            Info
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ATONEMENT -->
+    <div class="relative overflow-hidden rounded-2xl border border-red-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
+
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(239,68,68,0.25),transparent_60%)]"></div>
+
+      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+        <div>
+          <h4 class="text-lg font-semibold text-red-300">Day of Atonement</h4>
+          <p class="text-slate-300 text-sm">Autumn 2026</p>
+          <p class="text-slate-500 text-sm mt-1">Judgment • mercy • cleansing threshold</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
+            Info
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TABERNACLES -->
+    <div class="relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
+
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_bottom,rgba(16,185,129,0.25),transparent_60%)]"></div>
+
+      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
+        <div>
+          <h4 class="text-lg font-semibold text-emerald-300">Tabernacles / Sukkot</h4>
+          <p class="text-slate-300 text-sm">Autumn 2026</p>
+          <p class="text-slate-500 text-sm mt-1">Dwelling pattern • wilderness remembrance</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
+            Info
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- SYSTEM OVERVIEW GRID (VISUAL MOCK) -->
 <section class="content-panel space-y-6">
