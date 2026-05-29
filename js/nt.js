@@ -6,7 +6,8 @@ function ntLog(label, data = null) {
   const NT_BASE = "cards/nt.html";
 
   const contentZone = document.getElementById("nt-content");
-
+  console.log("[NT INIT] contentZone exists?", !!contentZone, contentZone);
+  
   function getParams() {
     const params = new URLSearchParams(window.location.search);
 
@@ -18,31 +19,45 @@ function ntLog(label, data = null) {
     };
   }
 
-  function render() {
-    const { book, chapter, view, section } = getParams();
+function render() {
+  const { book, chapter, view, section } = getParams();
 
-    ntLog("ROUTE", { book, chapter, view, section });
+  debug("ROUTE", { book, chapter, view, section });
 
-    // 1. No book → landing
-    if (!book) {
-      renderLanding();
-      return;
-    }
+  if (!assertZone()) return;
 
-    // 2. introduction view
-    if (view === "introduction") {
-      renderIntroduction(book);
-      return;
-    }
+  // 1. No book → landing
+  if (!book) {
+    debug("ROUTE → LANDING");
+    renderLanding();
+    return;
+  }
 
-    // 3. chapter view
-    if (chapter) {
-      renderChapter(book, chapter, section);
-      return;
-    }
+  // 2. introduction view
+  if (view === "introduction") {
+    debug("ROUTE → INTRODUCTION", book);
+    renderIntroduction(book);
+    return;
+  }
 
-    // fallback
-    contentZone.innerHTML = `<div class="p-6 text-slate-400">Select a chapter</div>`;
+  // 3. chapter view
+  if (chapter) {
+    debug("ROUTE → CHAPTER", { book, chapter, section });
+    renderChapter(book, chapter, section);
+    return;
+  }
+
+  debug("ROUTE → FALLBACK (no chapter)");
+  contentZone.innerHTML = `<div class="p-6 text-slate-400">Select a chapter</div>`;
+}
+
+function assertZone() {
+  if (!contentZone) {
+    console.error("[NT FATAL] contentZone is missing (#nt-content)");
+    return false;
+  }
+  return true;
+}
   }
 
   function renderLanding() {
