@@ -53,7 +53,7 @@ function getParams() {
   }
 
   function copyToClipboard(text) {
-    ) return;
+    if (!text) return;
 
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).catch(() => {});
