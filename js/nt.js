@@ -22,6 +22,15 @@ ntLog("DOM READY", {
   root: !!root,
   content: !!contentZone
 });
+ntLog("BOOT SNAPSHOT", {
+  readyState: document.readyState,
+  url: window.location.href,
+  rootNow: !!document.getElementById("nt-root"),
+  contentNow: !!document.getElementById("nt-content"),
+  cachedRoot: !!root,
+  cachedContent: !!contentZone,
+  card: new URLSearchParams(window.location.search).get("card")
+});
 
 (function () {
 
@@ -110,7 +119,16 @@ function getParams() {
     }
 
     // Fallback: render INSIDE nt-root, not a new window
-    if (!root) return;
+    if (!root) {
+      ntLog("ABORT RENDER: missing root", {
+        source: "openPanel",
+        rootNow: !!document.getElementById("nt-root"),
+        contentNow: !!document.getElementById("nt-content"),
+        cachedRoot: !!root,
+        cachedContent: !!contentZone
+      });
+      return;
+    }
 
     contentZone.innerHTML = `
       <section class="space-y-4">
@@ -121,6 +139,10 @@ function getParams() {
         ${html}
       </section>
     `;
+    ntLog("CONTENT AFTER RENDER", {
+      source: "openPanel",
+      length: contentZone?.innerHTML?.length ?? 0
+    });
 
     const backBtn = document.getElementById("ntBackBtn");
     if (backBtn) {
@@ -225,7 +247,16 @@ function renderNTLanding() {
   setContextHeader("My New Testament Notes");
   setSubContext("Choose a book and jump straight to the part you want.");
 
-  if (!root) return;
+  if (!root) {
+    ntLog("ABORT RENDER: missing root", {
+      source: "renderNTLanding",
+      rootNow: !!document.getElementById("nt-root"),
+      contentNow: !!document.getElementById("nt-content"),
+      cachedRoot: !!root,
+      cachedContent: !!contentZone
+    });
+    return;
+  }
 
 contentZone.innerHTML = `
   <section class="space-y-6">
@@ -252,6 +283,10 @@ contentZone.innerHTML = `
 
   </section>
 `;
+  ntLog("CONTENT AFTER RENDER", {
+    source: "renderNTLanding",
+    length: contentZone?.innerHTML?.length ?? 0
+  });
 
   loadBookTiles();
 }
@@ -331,7 +366,16 @@ function loadBookTiles() {
   grid.querySelectorAll("[data-nt-hint]").forEach(btn => {
     btn.addEventListener("click", () => {
       const bookName = btn.getAttribute("data-nt-hint");
-      if (!root) return;
+      if (!root) {
+        ntLog("ABORT RENDER: missing root", {
+          source: "relatedJewishContext",
+          rootNow: !!document.getElementById("nt-root"),
+          contentNow: !!document.getElementById("nt-content"),
+          cachedRoot: !!root,
+          cachedContent: !!contentZone
+        });
+        return;
+      }
 
       contentZone.innerHTML = `
         <section class="space-y-4">
@@ -354,6 +398,10 @@ function loadBookTiles() {
           </div>
         </section>
       `;
+      ntLog("CONTENT AFTER RENDER", {
+        source: "relatedJewishContext",
+        length: contentZone?.innerHTML?.length ?? 0
+      });
 
       const backBtn = document.getElementById("ntBackToLanding");
       if (backBtn) {
@@ -387,7 +435,16 @@ function loadBookTiles() {
     setContextHeader(`${bookName} — Chapter ${chapterNum}`);
     setSubContext("Objectives, summary, outline, words to ponder, and review questions.");
 
-    if (!root) return;
+    if (!root) {
+      ntLog("ABORT RENDER: missing root", {
+        source: "renderChapter",
+        rootNow: !!document.getElementById("nt-root"),
+        contentNow: !!document.getElementById("nt-content"),
+        cachedRoot: !!root,
+        cachedContent: !!contentZone
+      });
+      return;
+    }
 
     contentZone.innerHTML = `
       <section id="chapter-nav" style="margin-bottom:1.5rem;"></section>
@@ -398,6 +455,10 @@ function loadBookTiles() {
       <div id="wordsToPonder"></div>
       <div id="reviewQuestions"></div>
     `;
+    ntLog("CONTENT AFTER RENDER", {
+      source: "renderChapterShell",
+      length: contentZone?.innerHTML?.length ?? 0
+    });
 
 
     renderChapterNav(bookName, chapterNum);
@@ -436,7 +497,16 @@ function loadBookTiles() {
   setContextHeader(`${bookName} — Introduction`);
   setSubContext("Book overview and study entry points.");
 
-  if (!root) return;
+  if (!root) {
+    ntLog("ABORT RENDER: missing root", {
+      source: "renderIntroduction",
+      rootNow: !!document.getElementById("nt-root"),
+      contentNow: !!document.getElementById("nt-content"),
+      cachedRoot: !!root,
+      cachedContent: !!contentZone
+    });
+    return;
+  }
 
   if (!intro?.rawText) {
     root.innerHTML = "<p>No introduction available.</p>";
@@ -476,6 +546,10 @@ function loadBookTiles() {
       <pre>${escapeHtml(intro.rawText)}</pre>
     </section>
   `;
+  ntLog("CONTENT AFTER RENDER", {
+    source: "renderIntroduction",
+    length: contentZone?.innerHTML?.length ?? 0
+  });
 
   const btn = document.getElementById("introPanelBtn");
   if (btn) {
@@ -529,17 +603,7 @@ function loadBookTiles() {
 
   function renderSection(id, title, text) {
     ntLog("RENDER SECTION", id);
-    if (!text) {
-  const el = document.getElementById(id);
-  if (el) {
-    el.innerHTML = `
-      <div class="p-3 text-red-400 border border-red-500/30 rounded">
-        Missing section: ${title}
-      </div>
-    `;
-  }
-  return;
-}
+    if (!text) return;
 
     const el = document.getElementById(id);
     if (!el) return;
@@ -574,6 +638,10 @@ function loadBookTiles() {
         ${bodyHTML}
       </div>
     `;
+    ntLog("CONTENT AFTER RENDER", {
+      source: `renderSection:${id}`,
+      length: el?.innerHTML?.length ?? 0
+    });
 
     el.querySelectorAll("[data-copy]").forEach(b => {
       b.onclick = () => copyToClipboard(b.getAttribute("data-copy"));
@@ -624,7 +692,16 @@ fetch(jsonPath)
   })
   .then(data => {
     ntLog("JSON LOADED", data);
-    if (!root) return;
+    if (!root) {
+      ntLog("ABORT RENDER: missing root", {
+        source: "fetchThen",
+        rootNow: !!document.getElementById("nt-root"),
+        contentNow: !!document.getElementById("nt-content"),
+        cachedRoot: !!root,
+        cachedContent: !!contentZone
+      });
+      return;
+    }
 
   const body = contentZone;
 
@@ -636,6 +713,10 @@ fetch(jsonPath)
   if (!chapter) {
     ntLog("RENDER DECISION", "fallback:no-chapter");
     body.innerHTML = "<p class='text-slate-400'>Select a chapter.</p>";
+    ntLog("CONTENT AFTER RENDER", {
+      source: "fallback:no-chapter",
+      length: body?.innerHTML?.length ?? 0
+    });
     return;
   }
 
@@ -645,6 +726,10 @@ fetch(jsonPath)
   if (!ch) {
     ntLog("RENDER DECISION", "fallback:chapter-not-found");
     body.innerHTML = "<p class='text-red-400'>Chapter not found.</p>";
+    ntLog("CONTENT AFTER RENDER", {
+      source: "fallback:chapter-not-found",
+      length: body?.innerHTML?.length ?? 0
+    });
     return;
   }
 
@@ -695,6 +780,10 @@ contentZone.innerHTML = `
     </div>
   </section>
 `;
+    ntLog("CONTENT AFTER RENDER", {
+      source: "fetchCatch",
+      length: contentZone?.innerHTML?.length ?? 0
+    });
 
     document.getElementById("ntRetryBtn")?.addEventListener("click", () => {
       window.loadCard?.("nt");
