@@ -139,10 +139,19 @@ function getParams() {
         ${html}
       </section>
     `;
+    
     ntLog("CONTENT AFTER RENDER", {
-      source: "openPanel",
+      source: `renderSection:${id}`,
       length: contentZone?.innerHTML?.length ?? 0
     });
+    
+    setTimeout(() => {
+      ntLog("CONTENT DELAYED CHECK", {
+        source: `renderSection:${id}`,
+        length: contentZone?.innerHTML?.length ?? 0,
+        exists: !!contentZone
+      });
+    }, 500);
 
     const backBtn = document.getElementById("ntBackBtn");
     if (backBtn) {
