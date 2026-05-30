@@ -2,6 +2,10 @@ function ntLog(label, data = null) {
   console.log(`[NT] ${label}`, data ?? "");
 }
 
+// =========================================================
+// CORE DOM / CONFIG
+// =========================================================
+
 const root = document.getElementById("nt-root");
 
 const headerZone = document.getElementById("nt-header");
@@ -14,6 +18,10 @@ ntLog("HEADER", headerZone);
 ntLog("NAV", navZone);
 ntLog("CONTENT", contentZone);
 ntLog("PANEL", panelZone);
+ntLog("DOM READY", {
+  root: !!root,
+  content: !!contentZone
+});
 
 (function () {
 
@@ -31,7 +39,10 @@ function getParams() {
   };
 }
 
-  // ---------- HELPERS ----------
+  // =========================================================
+  // UTILITIES
+  // =========================================================
+
   function escapeHtml(str = "") {
     return String(str)
       .replaceAll("&", "&amp;")
@@ -87,6 +98,10 @@ function getParams() {
   function hasPorchPanel() {
     return typeof window.openPorchPanel === "function";
   }
+
+  // =========================================================
+  // PANEL SYSTEM
+  // =========================================================
 
   function openPanel(title, html) {
     if (hasPorchPanel()) {
@@ -155,6 +170,10 @@ function getParams() {
 `;
   }
 
+  // =========================================================
+  // LINK INTERCEPT SYSTEM
+  // =========================================================
+
   function interceptNTLinks() {
     document.addEventListener("click", (e) => {
       const a = e.target.closest("a");
@@ -183,7 +202,10 @@ function getParams() {
     });
   }
 
-  // ---------- RENDERERS ----------
+  // =========================================================
+  // HEADER STATE
+  // =========================================================
+
   function setContextHeader(text) {
     const el = document.getElementById("nt-context");
     if (el) el.textContent = text;
@@ -194,7 +216,12 @@ function getParams() {
     if (el) el.textContent = text || "";
   }
 
+// =========================================================
+// LANDING PAGE
+// =========================================================
+
 function renderNTLanding() {
+  ntLog("RENDER DECISION", "landing");
   setContextHeader("My New Testament Notes");
   setSubContext("Choose a book and jump straight to the part you want.");
 
@@ -229,6 +256,10 @@ contentZone.innerHTML = `
   loadBookTiles();
 }
 
+// =========================================================
+// BOOK GRID
+// =========================================================
+
 function loadBookTiles() {
   const books = [
     "Matthew","Mark","Luke","John","Acts","Romans",
@@ -258,7 +289,7 @@ function loadBookTiles() {
     </div>
 
     <div class="text-xs text-slate-400">
-      Choose entry point:
+      Direct entry points
     </div>
 
   </div>
@@ -341,7 +372,12 @@ function loadBookTiles() {
   });
 }
   
+  // =========================================================
+  // CHAPTER RENDERING
+  // =========================================================
+
   function renderChapter(bookName, chapterNum, ch, activeSection) {
+      ntLog("RENDER DECISION", "chapter");
       ntLog("RENDER CHAPTER", {
     bookName,
     chapterNum,
@@ -387,7 +423,12 @@ function loadBookTiles() {
     }
   }
 
+  // =========================================================
+  // INTRODUCTION
+  // =========================================================
+
   function renderIntroduction(bookName, intro) {
+  ntLog("RENDER DECISION", "introduction");
   ntLog("RENDER INTRO", {
     bookName,
     intro
@@ -451,6 +492,10 @@ function loadBookTiles() {
   }
 }
 
+  // =========================================================
+  // NAVIGATION
+  // =========================================================
+
   function renderChapterNav(bookName, chapterNum) {
     const nav = document.getElementById("chapter-nav");
     if (!nav) return;
@@ -478,7 +523,12 @@ function loadBookTiles() {
     `;
   }
 
+  // =========================================================
+  // SECTION RENDERER
+  // =========================================================
+
   function renderSection(id, title, text) {
+    ntLog("RENDER SECTION", id);
     if (!text) return;
 
     const el = document.getElementById(id);
@@ -527,11 +577,20 @@ function loadBookTiles() {
     });
   }
 
-  // ---------- INIT ----------
+  // =========================================================
+  // INIT
+  // =========================================================
+
 interceptNTLinks();
 
 const { book, chapter, view, section } = getParams();
   ntLog("PARAMS", {
+  book,
+  chapter,
+  view,
+  section
+});
+  ntLog("ROUTE RESOLUTION", {
   book,
   chapter,
   view,
@@ -550,6 +609,7 @@ const jsonPath = `data/nt/${bookKey}.json`;
 fetch(jsonPath)
   .then(res => {
     if (!res.ok) throw new Error("Failed to load book data");
+    ntLog("FETCH SUCCESS", jsonPath);
     return res.json();
   })
   .then(data => {
@@ -564,6 +624,7 @@ fetch(jsonPath)
   }
 
   if (!chapter) {
+    ntLog("RENDER DECISION", "fallback:no-chapter");
     body.innerHTML = "<p class='text-slate-400'>Select a chapter.</p>";
     return;
   }
@@ -572,6 +633,7 @@ fetch(jsonPath)
   ntLog("REQUESTED CHAPTER", chapter);  
   const ch = data.chapters[String(chapter)];
   if (!ch) {
+    ntLog("RENDER DECISION", "fallback:chapter-not-found");
     body.innerHTML = "<p class='text-red-400'>Chapter not found.</p>";
     return;
   }
@@ -590,6 +652,10 @@ fetch(jsonPath)
 })
     .catch(err => {
   console.error(err);
+  ntLog("FETCH FAILURE", {
+    path: jsonPath,
+    message: err?.message
+  });
 
   if (root) {
 contentZone.innerHTML = `
