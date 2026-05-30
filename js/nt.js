@@ -53,7 +53,7 @@ function getParams() {
   }
 
   function copyToClipboard(text) {
-    if (!text) return;
+    ) return;
 
     if (navigator.clipboard?.writeText) {
       navigator.clipboard.writeText(text).catch(() => {});
@@ -529,7 +529,17 @@ function loadBookTiles() {
 
   function renderSection(id, title, text) {
     ntLog("RENDER SECTION", id);
-    if (!text) return;
+    if (!text) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.innerHTML = `
+      <div class="p-3 text-red-400 border border-red-500/30 rounded">
+        Missing section: ${title}
+      </div>
+    `;
+  }
+  return;
+}
 
     const el = document.getElementById(id);
     if (!el) return;
