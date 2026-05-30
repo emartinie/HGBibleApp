@@ -484,6 +484,51 @@ function loadBookTiles() {
     }
   }
 
+  (function initSefariaButton() {
+  const btn = document.getElementById("sefariaBtn");
+  const panel = document.getElementById("sefaria-panel");
+
+  if (!btn || !panel) {
+    console.warn("[Sefaria] UI not found");
+    return;
+  }
+
+  btn.addEventListener("click", async () => {
+    try {
+      const book = window.ntBook || "Revelation";
+      const chapter = window.ntChapter || "1";
+
+      panel.classList.remove("hidden");
+      panel.innerHTML = "Loading Jewish context...";
+
+      const url = `https://www.sefaria.org/api/texts/${encodeURIComponent(book)}.${chapter}?lang=bi`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!res.ok || !data?.text?.length) {
+        panel.innerHTML = "No Sefaria data found.";
+        return;
+      }
+
+      panel.innerHTML = `
+        <div class="space-y-2">
+          <div class="font-bold mb-2">Jewish Context</div>
+          ${data.text.map((t, i) => `
+            <div class="text-sm">
+              <span class="text-gray-400 mr-2">${i + 1}</span>
+              ${t || ""}
+            </div>
+          `).join("")}
+        </div>
+      `;
+
+    } catch (err) {
+      console.error("[Sefaria] error:", err);
+      panel.innerHTML = "Failed to load Jewish context.";
+    }
+  });
+})();
+
   // =========================================================
   // INTRODUCTION
   // =========================================================
