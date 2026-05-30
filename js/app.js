@@ -125,9 +125,7 @@ function wireKeyboard() {
   if (ref) {
     localStorage.setItem("ntSearch", ref);
   }
- if (window.currentCard !== "nt") {
   window.loadCard?.("nt");
-}
 };
 
 window.goBackToCommandments = function () {
@@ -175,13 +173,6 @@ async function loadExtraScript(src) {
 // SCRIPT LOADER (UNIFIED)
 // =====================
   async function loadCard(cardName) {
-    if (window.currentCard === cardName) {
-  console.warn("🛑 blocked duplicate loadCard:", cardName);
-  return;
-}
-
-window.currentCard = cardName;
-    
     if (!loadedCardHost || !cardName) return;
 
     try {
@@ -386,31 +377,30 @@ function reloadCurrentCard() {
 
   console.log("🔄 Reloading card:", currentCard);
 
-  // FORCE reload (this is the whole point of this function)
+  // clear old DOM first
   if (loadedCardHost) {
     loadedCardHost.innerHTML = "";
   }
 
+  // remove old card script
   const oldScript = document.querySelector(
     `script[src*="js/${currentCard}.js"]`
   );
 
   if (oldScript) {
     oldScript.remove();
+    console.log(`🧹 Removed old script: ${currentCard}.js`);
   }
 
+  // optional reset for map cards or one-time init cards
   window.prayerMapInitialized = false;
 
+  // reload card fresh
   loadCard(currentCard);
 }
 
 document
- if (!window.__reloadBound) {
-  document
-    .getElementById("reloadCardBtn")
-    ?.addEventListener("click", reloadCurrentCard);
-
-  window.__reloadBound = true;
-}
+  .getElementById("reloadCardBtn")
+  ?.addEventListener("click", reloadCurrentCard);
   
 })();
