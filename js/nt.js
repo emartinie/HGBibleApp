@@ -139,19 +139,10 @@ function getParams() {
         ${html}
       </section>
     `;
-    
     ntLog("CONTENT AFTER RENDER", {
-      source: `renderSection:${id}`,
+      source: "openPanel",
       length: contentZone?.innerHTML?.length ?? 0
     });
-    
-    setTimeout(() => {
-      ntLog("CONTENT DELAYED CHECK", {
-        source: `renderSection:${id}`,
-        length: contentZone?.innerHTML?.length ?? 0,
-        exists: !!contentZone
-      });
-    }, 500);
 
     const backBtn = document.getElementById("ntBackBtn");
     if (backBtn) {
@@ -647,6 +638,12 @@ function loadBookTiles() {
         ${bodyHTML}
       </div>
     `;
+    ntLog("SECTION TARGET", {
+      id,
+      offsetHeight: el.offsetHeight,
+      scrollHeight: el.scrollHeight,
+      innerHTML: el.innerHTML.length
+    });
     ntLog("CONTENT AFTER RENDER", {
       source: `renderSection:${id}`,
       length: el?.innerHTML?.length ?? 0
