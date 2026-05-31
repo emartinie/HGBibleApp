@@ -6,12 +6,12 @@ function ntLog(label, data = null) {
 // CORE DOM / CONFIG
 // =========================================================
 
-const root = document.getElementById("nt-root");
+var root = document.getElementById("nt-root");
 
-const headerZone = document.getElementById("nt-header");
-const navZone = document.getElementById("nt-nav");
-const contentZone = document.getElementById("nt-content");
-const panelZone = document.getElementById("nt-panel");
+var headerZone = document.getElementById("nt-header");
+var navZone = document.getElementById("nt-nav");
+var contentZone = document.getElementById("nt-content");
+var panelZone = document.getElementById("nt-panel");
 
 ntLog("ROOT", root);
 ntLog("HEADER", headerZone);
