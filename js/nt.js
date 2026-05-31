@@ -129,15 +129,86 @@ function getParams() {
 
   function renderIntertextConnectionsForText(text) {
     const sourceText = String(text || "");
-    const matches = intertextEdges.filter(edge => sourceText.includes(edge.from));
+    const matches = intertextEdges
+      .map((edge, index) => ({ edge, index }))
+      .filter(item => sourceText.includes(item.edge.from));
     if (!matches.length) return "";
 
     return `
       <div class="mt-2 rounded-lg border border-cyan-700/40 bg-cyan-950/20 p-3 text-sm">
         <div class="font-semibold text-cyan-200 mb-1">Intertext Connections</div>
         <ul class="list-disc pl-5 text-slate-300">
-          ${matches.map(edge => `<li>${escapeHtml(edge.to)} (${escapeHtml(edge.type)})</li>`).join("")}
+          ${matches.map(({ edge, index }) => `
+            <li>
+              <button type="button" class="reader-chip" data-intertext-index="${index}">
+                ${escapeHtml(edge.to)} (${escapeHtml(edge.type)})
+              </button>
+            </li>
+          `).join("")}
         </ul>
+      </div>
+    `;
+  }
+
+  function buildNTUrl(nextParams = {}) {
+    const params = new URLSearchParams();
+    const current = getParams();
+
+    ["book", "chapter", "view", "section"].forEach(key => {
+      let val = current[key];
+      if (Object.prototype.hasOwnProperty.call(nextParams, key)) {
+        val = nextParams[key];
+      }
+      if (val) params.set(key, val);
+    });
+
+    const query = params.toString();
+    return query ? `${NT_BASE}?${query}` : NT_BASE;
+  }
+
+  function buildPanelNav(context = {}) {
+    const bookName = context.book || book;
+    const chapterNum = context.chapter || chapter;
+    const sectionId = context.section || section;
+    const viewName = context.view || view;
+
+    if (!bookName && !chapterNum && !sectionId && !viewName) return "";
+
+    const chNum = Number(chapterNum);
+    const prevChapter = chapterNum && chNum > 1
+      ? `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum - 1, view: viewName, section: sectionId })}">Previous</a>`
+      : `<span class="reader-chip opacity-40">Previous</span>`;
+
+    const nextChapter = chapterNum && (!context.maxChapter || chNum < Number(context.maxChapter))
+      ? `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum + 1, view: viewName, section: sectionId })}">Next</a>`
+      : chapterNum ? `<span class="reader-chip opacity-40">Next</span>` : "";
+
+    return `
+      <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-2">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button type="button" class="reader-chip" data-nt-back="true">Back</button>
+          <a class="reader-chip" href="${buildNTUrl({ book: null, chapter: null, view: null, section: null })}">NT Landing</a>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          ${chapterNum ? prevChapter : ""}
+          ${nextChapter}
+        </div>
+      </div>
+    `;
+  }
+
+  function buildContextFooter(context = {}) {
+    const parts = [
+      context.book || book,
+      context.chapter ? `Chapter ${context.chapter}` : (chapter ? `Chapter ${chapter}` : ""),
+      context.section || section || ""
+    ].filter(Boolean);
+
+    if (!parts.length) return "";
+
+    return `
+      <div class="border-t border-slate-700 pt-2 text-xs text-slate-400">
+        ${parts.map(escapeHtml).join(" / ")}
       </div>
     `;
   }
@@ -213,11 +284,13 @@ function getParams() {
     }
   }
 
-  function buildPanelSection(title, rawText, linkHref) {
+  function buildPanelSection(title, rawText, linkHref, context = {}) {
     const safeLink = escapeHtml(linkHref || "");
 
  return `
   <div class="space-y-3 text-left">
+
+    ${buildPanelNav(context)}
 
     <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-2">
       
@@ -249,6 +322,8 @@ function getParams() {
 
     </div>
 
+    ${buildContextFooter(context)}
+
   </div>
 `;
   }
@@ -258,7 +333,18 @@ function getParams() {
   // =========================================================
 
   function interceptNTLinks() {
+    if (window.__ntLinksIntercepted) return;
+    window.__ntLinksIntercepted = true;
+
     document.addEventListener("click", (e) => {
+      const back = e.target.closest("[data-nt-back]");
+      if (back) {
+        e.preventDefault();
+        if (window.history.length > 1) window.history.back();
+        else window.loadCard?.("nt");
+        return;
+      }
+
       const a = e.target.closest("a");
       if (!a) return;
 
@@ -478,7 +564,7 @@ function loadBookTiles() {
   // CHAPTER RENDERING
   // =========================================================
 
-  function renderChapter(bookName, chapterNum, ch, activeSection) {
+  function renderChapter(bookName, chapterNum, ch, activeSection, chapterKeys = []) {
       ntLog("RENDER DECISION", "chapter");
       ntLog("RENDER CHAPTER", {
     bookName,
@@ -506,7 +592,7 @@ function loadBookTiles() {
     });
 
 
-    renderChapterNav(bookName, chapterNum);
+    renderChapterNav(bookName, chapterNum, chapterKeys, activeSection);
 
     if (!activeSection || activeSection === "objectives") {
       renderSection("objectives", "Objectives", ch.objectives);
@@ -595,7 +681,11 @@ function loadBookTiles() {
         buildPanelSection(
           `${bookName} — Introduction`,
           intro.rawText,
-          linkIntro
+          linkIntro,
+          {
+            book: bookName,
+            view: "introduction"
+          }
         )
       );
     };
@@ -606,31 +696,44 @@ function loadBookTiles() {
   // NAVIGATION
   // =========================================================
 
-  function renderChapterNav(bookName, chapterNum) {
+  function renderChapterNav(bookName, chapterNum, chapterKeys = [], activeSection = null) {
     const nav = document.getElementById("chapter-nav");
     if (!nav) return;
 
     const chNum = Number(chapterNum);
+    const maxChapter = chapterKeys.length
+      ? Math.max(...chapterKeys.map(Number).filter(Number.isFinite))
+      : null;
 
     const prev = chNum > 1
-      ? `<a href="${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=${chNum - 1}">← Previous</a>`
-      : `<span style="opacity:0.4;">← Previous</span>`;
+      ? `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum - 1, section: activeSection || null, view: null })}">← Previous</a>`
+      : `<span class="reader-chip opacity-40">← Previous</span>`;
 
-    const next = `<a href="${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=${chNum + 1}">Next →</a>`;
+    const next = !maxChapter || chNum < maxChapter
+      ? `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum + 1, section: activeSection || null, view: null })}">Next →</a>`
+      : `<span class="reader-chip opacity-40">Next →</span>`;
 
     nav.innerHTML = `
       <div style="
         display:flex;
         justify-content:space-between;
         align-items:center;
+        gap:0.75rem;
         border-bottom:1px solid #334155;
         padding-bottom:0.75rem;
       ">
-        <div>${prev}</div>
-        <div style="font-weight:600;">Chapter ${chNum}</div>
-        <div>${next}</div>
+        <div class="flex items-center gap-2">${prev}</div>
+        <div style="font-weight:600;">${escapeHtml(bookName)} Chapter ${chNum}</div>
+        <div class="flex items-center gap-2">
+          <button type="button" class="reader-chip" data-sefaria-open="true">Open in Sefaria</button>
+          ${next}
+        </div>
       </div>
     `;
+
+    nav.querySelector("[data-sefaria-open]")?.addEventListener("click", () => {
+      openSefariaFromNT(bookName, chNum);
+    });
   }
 
   // =========================================================
@@ -669,6 +772,7 @@ function loadBookTiles() {
         <div class="flex items-center gap-2">
           <a href="${href}" class="reader-chip">Link</a>
           <button class="reader-chip" data-copy="${escapeHtml(href)}">Copy</button>
+          <button class="reader-chip" data-sefaria-section="true">Open in Sefaria</button>
           <button class="reader-chip bg-cyan-700/80 border-cyan-500/30" data-panel="${escapeHtml(id)}">Panel</button>
         </div>
       </div>
@@ -692,10 +796,39 @@ function loadBookTiles() {
       b.onclick = () => copyToClipboard(b.getAttribute("data-copy"));
     });
 
+    el.querySelectorAll("[data-sefaria-section]").forEach(b => {
+      b.onclick = () => openSefariaFromNT(book, chapter);
+    });
+
+    el.querySelectorAll("[data-intertext-index]").forEach(b => {
+      b.onclick = () => {
+        const edge = intertextEdges[Number(b.getAttribute("data-intertext-index"))];
+        if (!edge) return;
+
+        openPanel(
+          `${edge.from} → ${edge.to}`,
+          `
+            ${buildPanelNav({ book, chapter, section: id })}
+            <div class="space-y-3 text-sm">
+              <div><span class="text-slate-400">From:</span> ${escapeHtml(edge.from)}</div>
+              <div><span class="text-slate-400">To:</span> ${escapeHtml(edge.to)}</div>
+              <div><span class="text-slate-400">Type:</span> ${escapeHtml(edge.type)}</div>
+              ${edge.context ? `<div><span class="text-slate-400">Context:</span> ${escapeHtml(edge.context)}</div>` : ""}
+            </div>
+            ${buildContextFooter({ book, chapter, section: id })}
+          `
+        );
+      };
+    });
+
     el.querySelectorAll("[data-panel]").forEach(b => {
       b.onclick = () => openPanel(
         `${book} — Ch ${chapter} — ${title}`,
-        buildPanelSection(`${book} — Ch ${chapter} — ${title}`, text, href)
+        buildPanelSection(`${book} — Ch ${chapter} — ${title}`, text, href, {
+          book,
+          chapter,
+          section: id
+        })
       );
     });
   }
@@ -769,7 +902,8 @@ fetch(jsonPath)
     return;
   }
 
-  renderChapter(book, chapter, ch, section);
+  const chapterKeys = Object.keys(data.chapters || {});
+  renderChapter(book, chapter, ch, section, chapterKeys);
 
   if (view === "panel" && section && ch[section]) {
     const href =
@@ -777,7 +911,14 @@ fetch(jsonPath)
 
     openPanel(
       `${book} — Ch ${chapter} — ${section}`,
-      buildPanelSection(`${book} — Ch ${chapter}`, ch[section], href)
+      buildPanelSection(`${book} — Ch ${chapter}`, ch[section], href, {
+        book,
+        chapter,
+        section,
+        maxChapter: chapterKeys.length
+          ? Math.max(...chapterKeys.map(Number).filter(Number.isFinite))
+          : null
+      })
     );
   }
 })
