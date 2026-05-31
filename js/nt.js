@@ -201,7 +201,7 @@ function getParams() {
     const parts = [
       context.book || book,
       context.chapter ? `Chapter ${context.chapter}` : (chapter ? `Chapter ${chapter}` : ""),
-      context.section || section || ""
+      context.sectionLabel || context.section || section || ""
     ].filter(Boolean);
 
     if (!parts.length) return "";
@@ -211,6 +211,16 @@ function getParams() {
         ${parts.map(escapeHtml).join(" / ")}
       </div>
     `;
+  }
+
+  function getSectionLabel(sectionId) {
+    return ({
+      objectives: "Objectives",
+      summary: "Summary",
+      outline: "Outline",
+      wordsToPonder: "Words to Ponder",
+      reviewQuestions: "Review Questions"
+    })[sectionId] || sectionId || "";
   }
 
   function returnToNTView() {
@@ -292,6 +302,14 @@ function getParams() {
 
   function buildPanelSection(title, rawText, linkHref, context = {}) {
     const safeLink = escapeHtml(linkHref || "");
+    const panelParagraphs = String(rawText || "")
+      .replace(/\r\n/g, "\n")
+      .replace(/[ \t]{2,}/g, " ")
+      .split(/\n\s*\n+/)
+      .map(p => p.trim())
+      .filter(Boolean)
+      .map(p => `<p class="mb-3">${escapeHtml(p)}</p>`)
+      .join("");
 
  return `
   <div class="space-y-3 text-left">
@@ -317,12 +335,7 @@ function getParams() {
 
       <div class="prose prose-invert max-w-none text-sm leading-relaxed">
 
-        ${String(rawText || "")
-          .replace(/\r\n/g, "\n")
-          .replace(/[ \t]{2,}/g, " ")
-          .split(/\n\s*\n+/)
-          .map(p => `<p class="mb-3">${escapeHtml(p.trim())}</p>`)
-          .join("")}
+        ${panelParagraphs || `<p class="mb-3 text-slate-400">No panel content available.</p>`}
 
       </div>
 
@@ -510,6 +523,18 @@ function loadBookTiles() {
     btn.addEventListener("click", () => {
       const bookName = btn.getAttribute("data-nt-hint");
       openSefariaFromNT(bookName, 1);
+      openPanel(
+        `${bookName} — Related Jewish Context`,
+        buildPanelSection(
+          `${bookName} — Related Jewish Context`,
+          `This is a placeholder for future cross-links, hints, thematic alignment, and other connections between ${bookName} and Jewish texts or traditions.\n\nNot wired yet — just making room for the future on purpose.`,
+          `${NT_BASE}?book=${encodeURIComponent(bookName)}`,
+          {
+            book: bookName,
+            sectionLabel: "Related Jewish Context"
+          }
+        )
+      );
       return;
       if (!root) {
         ntLog("ABORT RENDER: missing root", {
@@ -689,6 +714,7 @@ function loadBookTiles() {
           linkIntro,
           {
             book: bookName,
+            sectionLabel: "Introduction",
             view: "introduction"
           }
         )
@@ -820,7 +846,7 @@ function loadBookTiles() {
               <div><span class="text-slate-400">Type:</span> ${escapeHtml(edge.type)}</div>
               ${edge.context ? `<div><span class="text-slate-400">Context:</span> ${escapeHtml(edge.context)}</div>` : ""}
             </div>
-            ${buildContextFooter({ book, chapter, section: id })}
+            ${buildContextFooter({ book, chapter, section: id, sectionLabel: getSectionLabel(id) })}
           `
         );
       };
@@ -832,7 +858,8 @@ function loadBookTiles() {
         buildPanelSection(`${book} — Ch ${chapter} — ${title}`, text, href, {
           book,
           chapter,
-          section: id
+          section: id,
+          sectionLabel: title
         })
       );
     });
@@ -913,13 +940,15 @@ fetch(jsonPath)
   if (view === "panel" && section && ch[section]) {
     const href =
       `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(section)}`;
+    const sectionTitle = getSectionLabel(section);
 
     openPanel(
-      `${book} — Ch ${chapter} — ${section}`,
-      buildPanelSection(`${book} — Ch ${chapter}`, ch[section], href, {
+      `${book} — Ch ${chapter} — ${sectionTitle}`,
+      buildPanelSection(`${book} — Ch ${chapter} — ${sectionTitle}`, ch[section], href, {
         book,
         chapter,
         section,
+        sectionLabel: sectionTitle,
         maxChapter: chapterKeys.length
           ? Math.max(...chapterKeys.map(Number).filter(Number.isFinite))
           : null
