@@ -267,13 +267,62 @@ function getParams() {
     }));
   }
 
+  function openIntertextPanel(edge, context = {}) {
+    if (!edge) return;
+
+    openPanel(
+      `${edge.from} → ${edge.to}`,
+      `
+        ${buildPanelNav(context)}
+        <div class="space-y-3 text-sm">
+          <div><span class="text-slate-400">From:</span> ${escapeHtml(edge.from)}</div>
+          <div><span class="text-slate-400">To:</span> ${escapeHtml(edge.to)}</div>
+          <div><span class="text-slate-400">Type:</span> ${escapeHtml(edge.type)}</div>
+          ${edge.context ? `<div><span class="text-slate-400">Context:</span> ${escapeHtml(edge.context)}</div>` : ""}
+        </div>
+        ${buildContextFooter({
+          book: context.book,
+          chapter: context.chapter,
+          section: context.section,
+          sectionLabel: context.sectionLabel
+        })}
+      `
+    );
+  }
+
+  function bindPanelInteractions(scope = document, context = {}) {
+    scope.querySelectorAll("[data-panel-copy]").forEach(btn => {
+      btn.onclick = () => copyToClipboard(btn.getAttribute("data-panel-copy"));
+    });
+
+    scope.querySelectorAll("[data-sefaria-panel]").forEach(btn => {
+      btn.onclick = () => openSefariaFromNT(
+        btn.getAttribute("data-sefaria-book") || context.book || book,
+        btn.getAttribute("data-sefaria-chapter") || context.chapter || chapter || 1
+      );
+    });
+
+    scope.querySelectorAll("[data-intertext-index]").forEach(btn => {
+      btn.onclick = () => {
+        const edge = intertextEdges[Number(btn.getAttribute("data-intertext-index"))];
+        openIntertextPanel(edge, {
+          book: context.book || book,
+          chapter: context.chapter || chapter,
+          section: context.section || section,
+          sectionLabel: context.sectionLabel || getSectionLabel(context.section || section)
+        });
+      };
+    });
+  }
+
   // =========================================================
   // PANEL SYSTEM
   // =========================================================
 
-  function openPanel(title, html) {
+  function openPanel(title, html, context = {}) {
     if (hasPorchPanel()) {
       window.openPorchPanel(title, html);
+      requestAnimationFrame(() => bindPanelInteractions(document, context));
       return;
     }
 
@@ -298,6 +347,8 @@ function getParams() {
     if (backBtn) {
       backBtn.onclick = returnToNTView;
     }
+
+    bindPanelInteractions(contentZone, context);
   }
 
   function buildPanelSection(title, rawText, linkHref, context = {}) {
