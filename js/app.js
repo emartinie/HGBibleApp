@@ -32,6 +32,7 @@ console.log("APP JS RUN ID:", Date.now());
 
   let currentCardIndex = 0;
   let loadedScript = null;
+  let loadCardRequestId = 0;
 // =====================
 // CARD NAVIGATION
 // =====================
@@ -174,6 +175,7 @@ async function loadExtraScript(src) {
 // =====================
   async function loadCard(cardName) {
     if (!loadedCardHost || !cardName) return;
+    const requestId = ++loadCardRequestId;
 
     try {
       loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
@@ -182,6 +184,7 @@ async function loadExtraScript(src) {
       if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
 
       const html = await res.text();
+      if (requestId !== loadCardRequestId) return;
       loadedCardHost.innerHTML = html;
 
       requestAnimationFrame(() => {
@@ -195,6 +198,7 @@ async function loadExtraScript(src) {
 
       if (cardName === "prayermap") {
   await loadExtraScript("js/prayerStore.dev.js");
+  if (requestId !== loadCardRequestId) return;
 }
 
 if (cardName === "nt") {
@@ -208,6 +212,7 @@ const existing = document.querySelector(
 );
 
 if (!existing) {
+  if (requestId !== loadCardRequestId) return;
   const script = document.createElement("script");
   script.src = `js/${cardName}.js?v=${Date.now()}`;
   script.defer = true;
@@ -222,6 +227,7 @@ if (!existing) {
 console.log("loadCard exists?", typeof window.loadCard);
       goToCard(1);
     } catch (err) {
+      if (requestId !== loadCardRequestId) return;
       console.error("Card load failed:", err);
       loadedCardHost.innerHTML = `
         <div class="empty-state">
