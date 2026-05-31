@@ -176,6 +176,7 @@ async function loadExtraScript(src) {
   async function loadCard(cardName) {
     if (!loadedCardHost || !cardName) return;
     const requestId = ++loadCardRequestId;
+    console.log("[CARD] render entry", { cardName, requestId });
 
     try {
       loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
@@ -184,8 +185,16 @@ async function loadExtraScript(src) {
       if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
 
       const html = await res.text();
-      if (requestId !== loadCardRequestId) return;
+      if (requestId !== loadCardRequestId) {
+        console.log("[CARD] stale render skipped", { cardName, requestId });
+        return;
+      }
       loadedCardHost.innerHTML = html;
+      console.log("[CARD] host replaced", {
+        cardName,
+        requestId,
+        length: loadedCardHost.innerHTML.length
+      });
 
       requestAnimationFrame(() => {
         wireCardNavButtons();
@@ -198,13 +207,19 @@ async function loadExtraScript(src) {
 
       if (cardName === "prayermap") {
   await loadExtraScript("js/prayerStore.dev.js");
-  if (requestId !== loadCardRequestId) return;
+  if (requestId !== loadCardRequestId) {
+    console.log("[CARD] stale render skipped", { cardName, requestId });
+    return;
+  }
 }
 
 if (cardName === "nt") {
   document
     .querySelectorAll(`script[src*="js/nt.js"]`)
-    .forEach(script => script.remove());
+    .forEach(script => {
+      script.remove();
+      console.log("[CARD] script removed", { cardName, src: script.src });
+    });
 }
 
 const existing = document.querySelector(
@@ -212,22 +227,32 @@ const existing = document.querySelector(
 );
 
 if (!existing) {
-  if (requestId !== loadCardRequestId) return;
+  if (requestId !== loadCardRequestId) {
+    console.log("[CARD] stale script injection skipped", { cardName, requestId });
+    return;
+  }
   const script = document.createElement("script");
   script.src = `js/${cardName}.js?v=${Date.now()}`;
   script.defer = true;
+  script.onload = () => console.log("[CARD] script loaded", { cardName, src: script.src });
+  script.onerror = () => console.error("[CARD] script failed", { cardName, src: script.src });
 
   if (cardName === "prayermap" || cardName === "commentary") {
     script.type = "module";
   }
 
   document.body.appendChild(script);
+  console.log("[CARD] script injected", { cardName, src: script.src });
 }
   
 console.log("loadCard exists?", typeof window.loadCard);
+      console.log("[CARD] render completion", { cardName, requestId });
       goToCard(1);
     } catch (err) {
-      if (requestId !== loadCardRequestId) return;
+      if (requestId !== loadCardRequestId) {
+        console.log("[CARD] stale failure skipped", { cardName, requestId });
+        return;
+      }
       console.error("Card load failed:", err);
       loadedCardHost.innerHTML = `
         <div class="empty-state">
