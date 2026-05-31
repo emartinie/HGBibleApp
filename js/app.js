@@ -197,6 +197,12 @@ async function loadExtraScript(src) {
   await loadExtraScript("js/prayerStore.dev.js");
 }
 
+if (cardName === "nt") {
+  document
+    .querySelectorAll(`script[src*="js/nt.js"]`)
+    .forEach(script => script.remove());
+}
+
 const existing = document.querySelector(
   `script[src*="js/${cardName}.js"]`
 );
