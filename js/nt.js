@@ -448,8 +448,8 @@ function loadBookTiles() {
   books.forEach(bookName => {
     const introLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`;
     const ch1Link = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1`;
-    const summaryLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary`;
-    const reviewLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
+    const summaryLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary&view=panel`;
+    const reviewLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions&view=panel`;
 
     const tile = document.createElement("div");
     tile.className = "group rounded-2xl border border-slate-700 bg-gradient-to-b from-slate-900/80 to-slate-950/60 p-4 shadow-lg hover:shadow-cyan-900/20 transition";
@@ -637,8 +637,8 @@ function loadBookTiles() {
 
   const linkIntro = `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`;
   const linkCh1 = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1`;
-  const linkSum = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary`;
-  const linkRQ = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
+  const linkSum = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary&view=panel`;
+  const linkRQ = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions&view=panel`;
 
   contentZone.innerHTML = `
     <section class="mb-6">
@@ -747,7 +747,7 @@ function loadBookTiles() {
     const el = document.getElementById(id);
     if (!el) return;
 
-    const href = `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(id)}`;
+    const href = `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(id)}&view=panel`;
 
     const paragraphs = String(text)
       .replace(/\r\n/g, "\n")
@@ -905,7 +905,7 @@ fetch(jsonPath)
   const chapterKeys = Object.keys(data.chapters || {});
   renderChapter(book, chapter, ch, section, chapterKeys);
 
-  if (view === "panel" && section && ch[section]) {
+  if (section && ch[section]) {
     const href =
       `${NT_BASE}?book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&section=${encodeURIComponent(section)}`;
 
