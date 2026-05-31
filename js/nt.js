@@ -415,6 +415,7 @@ function loadBookTiles() {
     btn.addEventListener("click", () => {
       const bookName = btn.getAttribute("data-nt-hint");
       openSefariaFromNT(bookName, 1);
+      return;
       if (!root) {
         ntLog("ABORT RENDER: missing root", {
           source: "relatedJewishContext",
