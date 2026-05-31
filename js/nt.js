@@ -213,6 +213,14 @@ function getParams() {
     `;
   }
 
+  function returnToNTView() {
+    const url = new URL(window.location.href);
+    url.searchParams.set("card", "nt");
+    url.searchParams.delete("view");
+    window.history.replaceState({}, "", url);
+    window.loadCard?.("nt");
+  }
+
   function hasPorchPanel() {
     return typeof window.openPorchPanel === "function";
   }
@@ -278,9 +286,7 @@ function getParams() {
 
     const backBtn = document.getElementById("ntBackBtn");
     if (backBtn) {
-      backBtn.onclick = () => {
-        window.loadCard?.("nt");
-      };
+      backBtn.onclick = returnToNTView;
     }
   }
 
@@ -340,8 +346,7 @@ function getParams() {
       const back = e.target.closest("[data-nt-back]");
       if (back) {
         e.preventDefault();
-        if (window.history.length > 1) window.history.back();
-        else window.loadCard?.("nt");
+        returnToNTView();
         return;
       }
 
