@@ -35,6 +35,29 @@ ntLog("BOOT SNAPSHOT", {
 (function () {
 
   const NT_BASE = "cards/nt.html";
+  const intertextEdges = [
+    {
+      "from": "Matthew 1:23",
+      "to": "Isaiah 7:14",
+      "type": "prophecy",
+      "context": "Matthew 1:23 cites Isaiah 7:14 (Immanuel prophecy)",
+      "meta": null
+    },
+    {
+      "from": "Matthew 2:6",
+      "to": "Micah 5:2",
+      "type": "citation",
+      "context": "Matthew 2:6 references Micah 5:2 Bethlehem prophecy",
+      "meta": null
+    },
+    {
+      "from": "Matthew 2:15",
+      "to": "Hosea 11:1",
+      "type": "citation",
+      "context": "Matthew 2:15 references Hosea 11:1 (Out of Egypt)",
+      "meta": null
+    }
+  ];
   
 
 function getParams() {
@@ -104,8 +127,33 @@ function getParams() {
     return `<ol>${items.map(q => `<li>${escapeHtml(q)}</li>`).join("")}</ol>`;
   }
 
+  function renderIntertextConnectionsForText(text) {
+    const sourceText = String(text || "");
+    const matches = intertextEdges.filter(edge => sourceText.includes(edge.from));
+    if (!matches.length) return "";
+
+    return `
+      <div class="mt-2 rounded-lg border border-cyan-700/40 bg-cyan-950/20 p-3 text-sm">
+        <div class="font-semibold text-cyan-200 mb-1">Intertext Connections</div>
+        <ul class="list-disc pl-5 text-slate-300">
+          ${matches.map(edge => `<li>${escapeHtml(edge.to)} (${escapeHtml(edge.type)})</li>`).join("")}
+        </ul>
+      </div>
+    `;
+  }
+
   function hasPorchPanel() {
     return typeof window.openPorchPanel === "function";
+  }
+
+  function openSefariaFromNT(bookName, chapterNum) {
+    window.dispatchEvent(new CustomEvent("sefaria:open", {
+      detail: {
+        book: bookName,
+        chapter: Number(chapterNum),
+        verse: null
+      }
+    }));
   }
 
   // =========================================================
@@ -366,6 +414,7 @@ function loadBookTiles() {
   grid.querySelectorAll("[data-nt-hint]").forEach(btn => {
     btn.addEventListener("click", () => {
       const bookName = btn.getAttribute("data-nt-hint");
+      openSefariaFromNT(bookName, 1);
       if (!root) {
         ntLog("ABORT RENDER: missing root", {
           source: "relatedJewishContext",
@@ -483,51 +532,6 @@ function loadBookTiles() {
       renderSection("reviewQuestions", "Review Questions", ch.reviewQuestions);
     }
   }
-
-  (function initSefariaButton() {
-  const btn = document.getElementById("sefariaBtn");
-  const panel = document.getElementById("sefaria-panel");
-
-  if (!btn || !panel) {
-    console.warn("[Sefaria] UI not found");
-    return;
-  }
-
-  btn.addEventListener("click", async () => {
-    try {
-      const book = window.ntBook || "Revelation";
-      const chapter = window.ntChapter || "1";
-
-      panel.classList.remove("hidden");
-      panel.innerHTML = "Loading Jewish context...";
-
-      const url = `https://www.sefaria.org/api/texts/${encodeURIComponent(book)}.${chapter}?lang=bi`;
-      const res = await fetch(url);
-      const data = await res.json();
-
-      if (!res.ok || !data?.text?.length) {
-        panel.innerHTML = "No Sefaria data found.";
-        return;
-      }
-
-      panel.innerHTML = `
-        <div class="space-y-2">
-          <div class="font-bold mb-2">Jewish Context</div>
-          ${data.text.map((t, i) => `
-            <div class="text-sm">
-              <span class="text-gray-400 mr-2">${i + 1}</span>
-              ${t || ""}
-            </div>
-          `).join("")}
-        </div>
-      `;
-
-    } catch (err) {
-      console.error("[Sefaria] error:", err);
-      panel.innerHTML = "Failed to load Jewish context.";
-    }
-  });
-})();
 
   // =========================================================
   // INTRODUCTION
@@ -659,7 +663,10 @@ function loadBookTiles() {
       .replace(/\r\n/g, "\n")
       .replace(/[ \t]{2,}/g, " ")
       .split(/\n\s*\n+/)
-      .map(p => `<p>${escapeHtml(p.trim())}</p>`)
+      .map(p => {
+        const paragraphText = p.trim();
+        return `<p>${escapeHtml(paragraphText)}</p>${renderIntertextConnectionsForText(paragraphText)}`;
+      })
       .join("");
 
     let bodyHTML = paragraphs;
