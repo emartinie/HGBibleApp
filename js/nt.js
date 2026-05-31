@@ -146,6 +146,28 @@ function getParams() {
     return typeof window.openPorchPanel === "function";
   }
 
+  function hasNTMount(source) {
+    const ok = !!root && !!contentZone;
+    if (!ok) {
+      ntLog("ABORT RENDER: missing NT mount", {
+        source,
+        rootNow: !!document.getElementById("nt-root"),
+        contentNow: !!document.getElementById("nt-content"),
+        cachedRoot: !!root,
+        cachedContent: !!contentZone
+      });
+
+      if (root) {
+        root.innerHTML = `
+          <div class="p-6 rounded-xl bg-red-950/40 border border-red-500/30 text-red-200">
+            NT mount incomplete.
+          </div>
+        `;
+      }
+    }
+    return ok;
+  }
+
   function openSefariaFromNT(bookName, chapterNum) {
     window.dispatchEvent(new CustomEvent("sefaria:open", {
       detail: {
@@ -167,16 +189,7 @@ function getParams() {
     }
 
     // Fallback: render INSIDE nt-root, not a new window
-    if (!root) {
-      ntLog("ABORT RENDER: missing root", {
-        source: "openPanel",
-        rootNow: !!document.getElementById("nt-root"),
-        contentNow: !!document.getElementById("nt-content"),
-        cachedRoot: !!root,
-        cachedContent: !!contentZone
-      });
-      return;
-    }
+    if (!hasNTMount("openPanel")) return;
 
     contentZone.innerHTML = `
       <section class="space-y-4">
@@ -295,16 +308,7 @@ function renderNTLanding() {
   setContextHeader("My New Testament Notes");
   setSubContext("Choose a book and jump straight to the part you want.");
 
-  if (!root) {
-    ntLog("ABORT RENDER: missing root", {
-      source: "renderNTLanding",
-      rootNow: !!document.getElementById("nt-root"),
-      contentNow: !!document.getElementById("nt-content"),
-      cachedRoot: !!root,
-      cachedContent: !!contentZone
-    });
-    return;
-  }
+  if (!hasNTMount("renderNTLanding")) return;
 
 contentZone.innerHTML = `
   <section class="space-y-6">
@@ -485,16 +489,7 @@ function loadBookTiles() {
     setContextHeader(`${bookName} — Chapter ${chapterNum}`);
     setSubContext("Objectives, summary, outline, words to ponder, and review questions.");
 
-    if (!root) {
-      ntLog("ABORT RENDER: missing root", {
-        source: "renderChapter",
-        rootNow: !!document.getElementById("nt-root"),
-        contentNow: !!document.getElementById("nt-content"),
-        cachedRoot: !!root,
-        cachedContent: !!contentZone
-      });
-      return;
-    }
+    if (!hasNTMount("renderChapter")) return;
 
     contentZone.innerHTML = `
       <section id="chapter-nav" style="margin-bottom:1.5rem;"></section>
@@ -547,19 +542,10 @@ function loadBookTiles() {
   setContextHeader(`${bookName} — Introduction`);
   setSubContext("Book overview and study entry points.");
 
-  if (!root) {
-    ntLog("ABORT RENDER: missing root", {
-      source: "renderIntroduction",
-      rootNow: !!document.getElementById("nt-root"),
-      contentNow: !!document.getElementById("nt-content"),
-      cachedRoot: !!root,
-      cachedContent: !!contentZone
-    });
-    return;
-  }
+  if (!hasNTMount("renderIntroduction")) return;
 
   if (!intro?.rawText) {
-    root.innerHTML = "<p>No introduction available.</p>";
+    contentZone.innerHTML = "<p>No introduction available.</p>";
     return;
   }
 
@@ -751,16 +737,7 @@ fetch(jsonPath)
   })
   .then(data => {
     ntLog("JSON LOADED", data);
-    if (!root) {
-      ntLog("ABORT RENDER: missing root", {
-        source: "fetchThen",
-        rootNow: !!document.getElementById("nt-root"),
-        contentNow: !!document.getElementById("nt-content"),
-        cachedRoot: !!root,
-        cachedContent: !!contentZone
-      });
-      return;
-    }
+    if (!hasNTMount("fetchThen")) return;
 
   const body = contentZone;
 
@@ -811,7 +788,7 @@ fetch(jsonPath)
     message: err?.message
   });
 
-  if (root) {
+  if (hasNTMount("fetchCatch")) {
 contentZone.innerHTML = `
   <section class="space-y-4 animate-pulse">
     <div class="rounded-2xl border border-red-400/60 bg-gradient-to-br from-red-950/40 to-slate-900 p-6 shadow-xl">
