@@ -1,5 +1,7 @@
-
+console.log("sources.js executed");
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOMContentLoaded callback fired");
+});
 
   // Quick Access buttons
   document.getElementById("openIntertextBtn")?.addEventListener("click", () => {
