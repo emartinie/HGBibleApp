@@ -1,4 +1,5 @@
 console.log("sources.js executed");
+console.log("sources init");
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOMContentLoaded callback fired");
 });
