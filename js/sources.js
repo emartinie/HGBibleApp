@@ -4,35 +4,35 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
   // Quick Access buttons
-  document.getElementById("openIntertextBtn")?.addEventListener("click", () => {
-    window.dispatchEvent(new CustomEvent("open-intertext"));
-  });
+console.log("sources init");
 
-  document.getElementById("openNtReaderBtn")?.addEventListener("click", () => {
-    window.dispatchEvent(new CustomEvent("open-nt-reader"));
-  });
+document.getElementById("openIntertextBtn")?.addEventListener("click", () => {
+  window.dispatchEvent(new CustomEvent("open-intertext"));
+});
 
-  // Reference loader
-  document.getElementById("loadBtn")?.addEventListener("click", () => {
-    const val = document.getElementById("referenceSelect")?.value;
-    window.dispatchEvent(new CustomEvent("load-reference", { detail: val }));
-  });
+document.getElementById("openNtReaderBtn")?.addEventListener("click", () => {
+  window.dispatchEvent(new CustomEvent("open-nt-reader"));
+});
 
-  // Toggle sections
-  const toggles = {
-    toggleJewish: "jewishSection",
-    toggleNT: "ntSection",
-    toggleFathers: "fathersSection",
-    toggleDSS: "dssSection",
-    togglePeople: "peopleSection"
-  };
+document.getElementById("loadBtn")?.addEventListener("click", () => {
+  const val = document.getElementById("referenceSelect")?.value;
+  window.dispatchEvent(new CustomEvent("load-reference", { detail: val }));
+});
 
-  Object.entries(toggles).forEach(([btnId, sectionId]) => {
-    document.getElementById(btnId)?.addEventListener("click", () => {
-      const el = document.getElementById(sectionId);
-      if (!el) return;
-      el.classList.toggle("hidden");
-    });
+const toggles = {
+  toggleJewish: "jewishSection",
+  toggleNT: "ntSection",
+  toggleFathers: "fathersSection",
+  toggleDSS: "dssSection",
+  togglePeople: "peopleSection"
+};
+
+Object.entries(toggles).forEach(([btnId, sectionId]) => {
+  document.getElementById(btnId)?.addEventListener("click", () => {
+    document.getElementById(sectionId)?.classList.toggle("hidden");
   });
+});
+
+console.log("sources listeners attached");
 
 });
