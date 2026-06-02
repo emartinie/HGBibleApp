@@ -223,6 +223,26 @@ function getParams() {
     })[sectionId] || sectionId || "";
   }
 
+  function renderContextStrip(bundle) {
+    if (!bundle) return "";
+
+    const items = [
+      "NT",
+      bundle.intertext ? "Intertext available" : "Intertext pending",
+      bundle.sefaria ? "Sefaria witness available" : "Sefaria witness pending"
+    ];
+
+    return `
+      <div class="nt-context-strip flex flex-wrap gap-2 text-xs text-slate-300 mb-3">
+        ${items.map(item => `
+          <div class="rounded-lg border border-slate-700 bg-slate-900/60 px-2 py-1">
+            ${escapeHtml(item)}
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
   function returnToNTView() {
     const url = new URL(window.location.href);
     url.searchParams.set("card", "nt");
@@ -587,56 +607,6 @@ function loadBookTiles() {
         )
       );
       return;
-      if (!root) {
-        ntLog("ABORT RENDER: missing root", {
-          source: "relatedJewishContext",
-          rootNow: !!document.getElementById("nt-root"),
-          contentNow: !!document.getElementById("nt-content"),
-          cachedRoot: !!root,
-          cachedContent: !!contentZone
-        });
-        return;
-      }
-
-      contentZone.innerHTML = `
-        <section class="space-y-4">
-          <div class="rounded-2xl border border-slate-700 bg-slate-900/70 p-5">
-            <h2 class="text-xl font-semibold text-cyan-200 mb-2">${bookName} — Related Jewish Context</h2>
-            <p class="text-slate-300">
-              This is a placeholder for future cross-links, hints, thematic alignment,
-              and other connections between ${bookName} and Jewish texts or traditions.
-            </p>
-            <p class="text-slate-400 text-sm mt-3">
-              Not wired yet — just making room for the future on purpose.
-            </p>
-
-            <div class="mt-4">
-              <button id="ntBackToLanding"
-                class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm">
-                Back to NT Landing
-              </button>
-            </div>
-          </div>
-        </section>
-      `;
-      ntLog("CONTENT AFTER RENDER", {
-        source: "relatedJewishContext",
-        length: contentZone?.innerHTML?.length ?? 0
-      });
-
-      const backBtn = document.getElementById("ntBackToLanding");
-      if (backBtn) {
-        backBtn.addEventListener("click", () => {
-          const url = new URL(window.location.href);
-          url.searchParams.set("card", "nt");
-          url.searchParams.delete("book");
-          url.searchParams.delete("chapter");
-          url.searchParams.delete("view");
-          url.searchParams.delete("section");
-          window.history.replaceState({}, "", url);
-          window.loadCard?.("nt");
-        });
-      }
     });
   });
 }
@@ -645,7 +615,7 @@ function loadBookTiles() {
   // CHAPTER RENDERING
   // =========================================================
 
-  function renderChapter(bookName, chapterNum, ch, activeSection, chapterKeys = []) {
+  function renderChapter(bookName, chapterNum, ch, activeSection, chapterKeys = [], contextBundle = null) {
       ntLog("RENDER DECISION", "chapter");
       ntLog("RENDER CHAPTER", {
     bookName,
@@ -673,26 +643,21 @@ function loadBookTiles() {
     });
 
 
-    renderChapterNav(bookName, chapterNum, chapterKeys, activeSection);
+    const sectionList = [
+      ["objectives", "Objectives", ch.objectives],
+      ["summary", "Summary", ch.summary],
+      ["outline", "Outline", ch.outline],
+      ["wordsToPonder", "Words to Ponder", ch.wordsToPonder],
+      ["reviewQuestions", "Review Questions", ch.reviewQuestions]
+    ];
+    const visibleSection =
+      sectionList.find(([id, , text]) => id === activeSection && text) ||
+      sectionList.find(([, , text]) => text);
 
-    if (!activeSection || activeSection === "objectives") {
-      renderSection("objectives", "Objectives", ch.objectives);
-    }
+    renderChapterNav(bookName, chapterNum, chapterKeys, visibleSection?.[0] || activeSection);
 
-    if (!activeSection || activeSection === "summary") {
-      renderSection("summary", "Summary", ch.summary);
-    }
-
-    if (!activeSection || activeSection === "outline") {
-      renderSection("outline", "Outline", ch.outline);
-    }
-
-    if (!activeSection || activeSection === "wordsToPonder") {
-      renderSection("wordsToPonder", "Words to Ponder", ch.wordsToPonder);
-    }
-
-    if (!activeSection || activeSection === "reviewQuestions") {
-      renderSection("reviewQuestions", "Review Questions", ch.reviewQuestions);
+    if (visibleSection) {
+      renderSection(visibleSection[0], visibleSection[1], visibleSection[2], contextBundle);
     }
   }
 
@@ -700,7 +665,7 @@ function loadBookTiles() {
   // INTRODUCTION
   // =========================================================
 
-  function renderIntroduction(bookName, intro) {
+  function renderIntroduction(bookName, intro, contextBundle = null) {
   ntLog("RENDER DECISION", "introduction");
   ntLog("RENDER INTRO", {
     bookName,
@@ -746,6 +711,7 @@ function loadBookTiles() {
     </section>
 
     <section class="reader-block reader-skin">
+      ${renderContextStrip(contextBundle)}
       <pre>${escapeHtml(intro.rawText)}</pre>
     </section>
   `;
@@ -822,7 +788,7 @@ function loadBookTiles() {
   // SECTION RENDERER
   // =========================================================
 
-  function renderSection(id, title, text) {
+  function renderSection(id, title, text, contextBundle = null) {
     ntLog("RENDER SECTION", id);
     if (!text) return;
 
@@ -849,6 +815,8 @@ function loadBookTiles() {
     }
 
     el.innerHTML = `
+      ${renderContextStrip(contextBundle)}
+
       <div class="flex items-center justify-between gap-2 mb-3">
         <h2 class="text-xl font-semibold text-cyan-200">${title}</h2>
         <div class="flex items-center gap-2">
@@ -955,10 +923,19 @@ fetch(jsonPath)
     ntLog("JSON LOADED", data);
     if (!hasNTMount("fetchThen")) return;
 
+  const contextBundle = {
+    nt: data,
+    intertext: window.intertextData || null,
+    sefaria: window.sefariaData || null
+  };
+
+  window.getIntertextContext = () => contextBundle.intertext;
+  window.getSefariaContext = () => contextBundle.sefaria;
+
   const body = contentZone;
 
   if (view === "introduction") {
-    renderIntroduction(book, data.introduction);
+    renderIntroduction(book, data.introduction, contextBundle);
     return;
   }
 
@@ -986,7 +963,7 @@ fetch(jsonPath)
   }
 
   const chapterKeys = Object.keys(data.chapters || {});
-  renderChapter(book, chapter, ch, section, chapterKeys);
+  renderChapter(book, chapter, ch, section, chapterKeys, contextBundle);
 
   if (view === "panel" && section && ch[section]) {
     const href =
