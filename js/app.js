@@ -2,7 +2,7 @@ console.log("🔥 app.js START");
 
 import { initializeTimeSystem } from "./firebaseTimeLoader.js";
 import { TimeStore } from "./timeStore.js";
-import { initializeCardRenderer } from "./cardRenderer.js";
+//import { initializeCardRenderer } from "./cardRenderer.js";
 
 console.time("BOOT TRACE");
 
