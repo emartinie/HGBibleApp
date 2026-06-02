@@ -9,8 +9,8 @@ console.time("BOOT TRACE");
 //await initializeTimeSystem();
 console.log("✔ time system ready");
 
-initializeCardRenderer();
-console.log("✔ card renderer init");
+//initializeCardRenderer();
+//console.log("✔ card renderer init");
 
 TimeStore.start();
 console.log("✔ time store started");
