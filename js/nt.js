@@ -551,7 +551,7 @@ function loadBookTiles() {
     </div>
 
     <div class="text-xs text-slate-400">
-      Direct entry points
+      NT Sections/ Sources:
     </div>
 
   </div>
@@ -598,7 +598,7 @@ function loadBookTiles() {
         `${bookName} — Related Jewish Context`,
         buildPanelSection(
           `${bookName} — Related Jewish Context`,
-          `This is a placeholder for future cross-links, hints, thematic alignment, and other connections between ${bookName} and Jewish texts or traditions.\n\nNot wired yet — just making room for the future on purpose.`,
+          `This is a placeholder for future cross-links, hints, thematic alignment, and other connections between ${bookName} and Jewish texts or traditions rarely studied by christians or theologians.\n\nNot wired yet — just making room for the future on purpose.`,
           `${NT_BASE}?book=${encodeURIComponent(bookName)}`,
           {
             book: bookName,
