@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0905" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="description" content="A sacred study workspace for scriptural research, intertext, and Jewish sources." />
+<title>StudyHub — The Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --ink:        #0a0905;
+  --ink-2:      #111008;
+  --ink-3:      #1a1810;
+  --vellum:     #f5f0e8;
+  --vellum-2:   #ede8dc;
+  --gold:       #d4ae52;
+  --gold-2:     #ecd47e;
+  --gold-3:     #b8962a;
+  --ember:      #c45c2a;
+  --ember-2:    #e07040;
+  --cyan-pale:  #7ec8d8;
+  --slate:      #8090a8;
+  --slate-2:    #4a5568;
+
+  /* TEXT — lifted for mobile readability */
+  --text-body:  #d4ccb8;   /* was #ccc4b0 — slightly warmer, brighter */
+  --text-dim:   #a89880;   /* was #7a7060 — primary lift, now ~5.2:1 contrast */
+  --text-muted: #7a6e5e;   /* new mid-tier for truly secondary info */
+  --text-ghost: #584e3e;   /* was #3a3428 — lifted so decorative marks are visible */
+
+  --border:     rgba(201,168,76,0.18);
+  --border-2:   rgba(201,168,76,0.35);
+
+  /* GLOW tokens — used selectively on headings & accents */
+  --glow-gold:       0 0 18px rgba(212,174,82,0.45),
+                     0 0 40px rgba(212,174,82,0.18);
+  --glow-gold-soft:  0 0 12px rgba(212,174,82,0.30);
+  --glow-ember:      0 0 16px rgba(196,92,42,0.40),
+                     0 0 32px rgba(196,92,42,0.18);
+  --glow-ember-soft: 0 0 10px rgba(196,92,42,0.28);
+  --glow-cyan:       0 0 14px rgba(126,200,216,0.38),
+                     0 0 30px rgba(126,200,216,0.14);
+  --glow-text-gold:  0 0 14px rgba(212,174,82,0.55); /* for text-shadow */
+  --glow-text-ember: 0 0 12px rgba(224,112,64,0.50);
+
+  --card-bg:    rgba(20,18,12,0.92);
+  --nav-h:      64px;
+  --safe-top:   env(safe-area-inset-top, 0px);
+  --safe-bot:   env(safe-area-inset-bottom, 0px);
+  --safe-left:  env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --radius:     2px;
+  --radius-lg:  6px;
+}
+
+/* ============================================================
+   RESET + BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: var(--ink);
+  color: var(--text-body);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ============================================================
+   GRAIN OVERLAY
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============================================================
+   AMBIENT LIGHT
+   ============================================================ */
+.ambient {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+}
+.ambient-1 {
+  width: 700px; height: 700px;
+  top: -200px; left: -100px;
+  background: radial-gradient(circle, rgba(201,168,76,0.055) 0%, transparent 65%);
+  animation: drift1 18s ease-in-out infinite alternate;
+}
+.ambient-2 {
+  width: 600px; height: 600px;
+  bottom: -150px; right: -100px;
+  background: radial-gradient(circle, rgba(196,92,42,0.05) 0%, transparent 65%);
+  animation: drift2 22s ease-in-out infinite alternate;
+}
+.ambient-3 {
+  width: 400px; height: 400px;
+  top: 40%; left: 50%;
+  transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(126,200,216,0.03) 0%, transparent 70%);
+  animation: drift3 28s ease-in-out infinite alternate;
+}
+@keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(60px,40px) scale(1.1); } }
+@keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-40px,-60px) scale(1.08); } }
+@keyframes drift3 { from { transform: translate(-50%,-50%) scale(1); } to { transform: translate(-48%,-52%) scale(1.05); } }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: calc(var(--nav-h) + var(--safe-top));
+  padding-top: var(--safe-top);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: max(2rem, calc(var(--safe-left) + 1rem));
+  padding-right: max(2rem, calc(var(--safe-right) + 1rem));
+  background: linear-gradient(to bottom, rgba(10,9,5,0.97) 0%, rgba(10,9,5,0.0) 100%);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s, background 0.4s;
+}
+nav.scrolled {
+  background: rgba(10,9,5,0.97);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(12px);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.nav-logo-mark {
+  font-family: 'Cormorant SC', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.nav-logo-sub {
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.45rem 1.1rem;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  color: var(--gold);
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.nav-cta:hover {
+  background: rgba(201,168,76,0.08);
+  border-color: var(--gold);
+}
+
+/* Mobile nav */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--text-dim);
+  transition: transform 0.3s, opacity 0.3s, background 0.2s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--gold); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--gold); }
+
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: calc(var(--nav-h) + var(--safe-top));
+  left: 0; right: 0;
+  background: rgba(10,9,5,0.98);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem 2rem;
+  z-index: 99;
+  backdrop-filter: blur(16px);
+}
+.nav-drawer.open { display: block; }
+.nav-drawer ul { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+.nav-drawer a {
+  font-family: 'Cormorant SC', serif;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-drawer a:hover { color: var(--gold); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--nav-h) + var(--safe-top) + 3rem) 2rem 4rem;
+  z-index: 1;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s ease forwards;
+}
+.hero-eyebrow span {
+  display: inline-block;
+  padding: 0.3rem 1rem;
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  background: rgba(212,174,82,0.06);
+  text-shadow: var(--glow-text-gold);
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 9vw, 8rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  color: var(--vellum);
+  text-shadow: 0 0 60px rgba(212,174,82,0.12);
+  margin-bottom: 0.2em;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.35s ease forwards;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 300;
+  text-shadow: var(--glow-text-gold);
+}
+
+.hero-title-rule {
+  width: 1px;
+  height: 3rem;
+  background: linear-gradient(to bottom, transparent, var(--gold-3), transparent);
+  margin: 1.5rem auto;
+  opacity: 0;
+  animation: fadeIn 1s 0.6s ease forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 4vw, 1.45rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-body);
+  max-width: 480px;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s ease forwards;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.85s ease forwards;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2rem;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0 rgba(201,168,76,0);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  min-height: 48px;
+}
+.btn-primary:hover {
+  background: var(--gold-2);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.22);
+}
+.btn-primary:active {
+  background: var(--gold-3);
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--text-body);
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  min-height: 48px;
+}
+.btn-secondary:hover {
+  border-color: rgba(201,168,76,0.5);
+  color: var(--gold);
+  transform: translateY(-1px);
+}
+.btn-secondary:active {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: scale(0.98);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 1s 1.4s ease forwards;
+}
+@media (max-height: 600px) { .hero-scroll { display: none; } }
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold-3), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+.hero-scroll-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
+  color: var(--text-ghost);
+  text-transform: uppercase;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+/* ============================================================
+   DIVIDER
+   ============================================================ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.section-divider-mark {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--text-ghost);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   CARD SYSTEM
+   ============================================================ */
+.cards-section {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 2rem 6rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.cards-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.cards-header-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-3);
+  margin-bottom: 1.2rem;
+}
+.cards-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  color: var(--vellum);
+  line-height: 1.1;
+}
+.cards-header h2 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+/* Card grid — asymmetric */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.5px;
+}
+
+.study-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.35s, transform 0.25s;
+  text-decoration: none;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+}
+.study-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.study-card:hover,
+.study-card:active { border-color: var(--border-2); }
+.study-card:active { transform: scale(0.99); }
+.study-card:hover::before,
+.study-card:active::before { opacity: 1; }
+
+/* Card spanning */
+.card-span-2 { grid-column: span 2; }
+.card-tall { grid-row: span 2; }
+
+.card-inner {
+  padding: 2.5rem 2.5rem 3rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  opacity: 0.8;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.study-card:hover .card-icon,
+.study-card:active .card-icon { opacity: 1; transform: scale(1.08); }
+
+.card-number {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-ghost);
+  letter-spacing: 0.15em;
+}
+
+.card-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-weight: 400;
+  color: var(--vellum);
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+.card-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.card-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+.card-footer-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-ghost);
+}
+.card-arrow {
+  width: 28px; height: 28px;
+  border: 1px solid var(--border-2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-3);
+  font-size: 0.75rem;
+  transition: border-color 0.3s, color 0.3s, transform 0.3s, background 0.3s;
+}
+.study-card:hover .card-arrow,
+.study-card:active .card-arrow {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateX(2px);
+  background: rgba(201,168,76,0.06);
+}
+
+/* Card accent lines */
+.card-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold-3), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.study-card:hover .card-accent,
+.study-card:active .card-accent { opacity: 1; }
+
+/* Card-specific color accents */
+.card-nt .card-icon { filter: drop-shadow(0 0 8px rgba(126,200,216,0.4)); }
+.card-nt:hover { border-color: rgba(126,200,216,0.2); }
+.card-nt:hover .card-accent { background: linear-gradient(to right, transparent, rgba(126,200,216,0.5), transparent); }
+
+.card-sefaria .card-icon { filter: drop-shadow(0 0 8px rgba(201,168,76,0.4)); }
+
+.card-intertext .card-icon { filter: drop-shadow(0 0 8px rgba(196,92,42,0.4)); }
+.card-intertext:hover { border-color: rgba(196,92,42,0.2); }
+.card-intertext:hover .card-accent { background: linear-gradient(to right, transparent, rgba(196,92,42,0.5), transparent); }
+
+.card-sources .card-inner { min-height: 200px; }
+
+/* ============================================================
+   FEATURE STRIP
+   ============================================================ */
+.feature-strip {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 2rem;
+  background: var(--ink-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.feature-strip-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+}
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.feature-glyph {
+  font-size: 1.25rem;
+  opacity: 0.7;
+}
+.feature-name {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--vellum-2);
+  text-transform: uppercase;
+}
+.feature-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   ABOUT / PHILOSOPHY
+   ============================================================ */
+.philosophy {
+  position: relative;
+  z-index: 1;
+  padding: clamp(3rem, 8vw, 7rem) 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+.philosophy-rule {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+.philosophy-rule::before,
+.philosophy-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.philosophy-rule-glyph {
+  color: var(--gold-3);
+  font-size: 1rem;
+}
+
+.philosophy-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 5.5vw, 2.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--vellum);
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+.philosophy-quote strong {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gold);
+}
+.philosophy-attribution {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-ghost);
+}
+
+.philosophy-body {
+  margin-top: 3.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  text-align: left;
+}
+.philosophy-block h3 {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-3);
+  margin-bottom: 1rem;
+}
+.philosophy-block p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.75;
+}
+
+/* ============================================================
+   STATUS PANEL (shows system findings transparently)
+   ============================================================ */
+.status-section {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 2rem 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.status-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.status-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--vellum);
+}
+.status-legend {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.legend-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.dot-live    { background: #4ade80; }
+.dot-partial { background: var(--gold); }
+.dot-planned { background: var(--slate-2); }
+.dot-broken  { background: var(--ember); }
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.status-card {
+  background: var(--ink-2);
+  padding: 1.75rem 2rem;
+  position: relative;
+}
+.status-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.status-card-name {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--vellum);
+  text-transform: uppercase;
+}
+.status-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 100px;
+}
+.badge-live    { background: rgba(74,222,128,0.1); color: #4ade80; border: 1px solid rgba(74,222,128,0.2); }
+.badge-partial { background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid var(--border-2); }
+.badge-planned { background: rgba(74,85,104,0.2); color: var(--slate); border: 1px solid rgba(74,85,104,0.3); }
+.badge-broken  { background: rgba(196,92,42,0.1); color: var(--ember-2); border: 1px solid rgba(196,92,42,0.2); }
+
+.status-card-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+.status-connections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.connection-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text-ghost);
+}
+.connection-tag.active { border-color: rgba(74,222,128,0.2); color: rgba(74,222,128,0.6); }
+.connection-tag.broken { border-color: rgba(196,92,42,0.2); color: rgba(196,92,42,0.6); }
+.connection-tag.pending { border-color: rgba(201,168,76,0.15); color: rgba(201,168,76,0.4); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem;
+  background: var(--ink-2);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.footer-brand {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: var(--gold-3);
+  text-transform: uppercase;
+}
+.footer-copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--text-ghost);
+  text-transform: uppercase;
+}
+.footer-verse {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-ghost);
+}
+
+/* ============================================================
+   CARD HOST (where cards inject)
+   ============================================================ */
+#loadedCardHost {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--ink);
+  overflow-y: auto;
+  animation: panelSlide 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+#loadedCardHost.active { display: block; }
+
+@keyframes panelSlide {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.panel-close {
+  position: fixed;
+  top: calc(1.25rem + var(--safe-top));
+  right: max(1.5rem, calc(var(--safe-right) + 1rem));
+  z-index: 300;
+  width: 44px; height: 44px;
+  border: 1px solid var(--border-2);
+  border-radius: 50%;
+  background: rgba(10,9,5,0.9);
+  color: var(--gold-3);
+  font-size: 1rem;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  backdrop-filter: blur(8px);
+  -webkit-tap-highlight-color: transparent;
+}
+.panel-close.active { display: flex; }
+.panel-close:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+
+/* ============================================================
+   CARDS ROW (horizontal scroll)
+   ============================================================ */
+#cardsRow {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+#cardsRow::-webkit-scrollbar { display: none; }
+#cardsRow > * { scroll-snap-align: start; min-width: 100vw; }
+
+/* ============================================================
+   CARD TOPBAR (global shell — matches existing system)
+   ============================================================ */
+.card-topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 1rem;
+  background: rgba(10,9,5,0.95);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  flex-wrap: wrap;
+}
+.card-icon-btn {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (max-width: 900px) {
+  .card-icon-btn { width: 40px; height: 40px; font-size: 0.95rem; }
+}
+.card-icon-btn:hover { border-color: var(--border-2); color: var(--gold); background: rgba(201,168,76,0.05); }
+.card-icon-btn.primary { color: var(--gold-3); border-color: var(--border-2); }
+.card-icon-btn.primary:hover { color: var(--gold); background: rgba(201,168,76,0.08); }
+
+/* ============================================================
+   UI UTILITY CLASSES
+   ============================================================ */
+.ui-btn {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.ui-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+
+.hg-panel {
+  min-height: 100dvh;
+  background: var(--ink);
+  color: var(--text-body);
+}
+
+.hg-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-ghost);
+  padding: 0.25rem 0;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--text-dim);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Scroll-reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* ── Tablet / large phone ── */
+@media (max-width: 900px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+  .card-span-2 { grid-column: span 1; }
+  .card-tall   { grid-row: span 1; }
+
+  .feature-strip-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .philosophy-body { grid-template-columns: 1fr; gap: 2rem; }
+  .status-grid { grid-template-columns: 1fr; }
+
+  /* Bigger tap targets for buttons */
+  .btn-primary, .btn-secondary {
+    padding: 1rem 2rem;
+    min-height: 52px;
+  }
+  .ui-btn { min-height: 44px; padding: 0.65rem 1.2rem; }
+}
+
+/* ── Small phone (390px iPhone range) ── */
+@media (max-width: 560px) {
+  nav {
+    padding-left: max(1.25rem, calc(var(--safe-left) + 0.75rem));
+    padding-right: max(1.25rem, calc(var(--safe-right) + 0.75rem));
+  }
+
+  .nav-logo-sub { display: none; } /* too crowded on tiny screens */
+
+  .cards-section  { padding: 3rem 1.25rem 4rem; }
+  .status-section { padding: 3rem 1.25rem 4rem; }
+  .feature-strip  { padding: 2.5rem 1.25rem; }
+
+  .cards-header { margin-bottom: 2rem; }
+  .cards-header h2 { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+
+  .card-inner { padding: 1.5rem 1.25rem 1.75rem; }
+  .card-number { top: 1.25rem; right: 1.25rem; }
+  .card-desc { font-size: 0.9rem; }
+
+  .hero {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-bottom: 3rem;
+  }
+  .hero-title-rule { height: 2rem; margin: 1rem auto; }
+  .hero-subtitle { margin-bottom: 2rem; font-size: 1rem; }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 280px;
+  }
+  .btn-primary, .btn-secondary {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .philosophy { padding: 2.5rem 1.25rem; }
+  .philosophy-quote { font-size: clamp(1.2rem, 6vw, 1.8rem); }
+  .philosophy-rule { margin-bottom: 2rem; }
+
+  .status-header h2 { font-size: 1.4rem; }
+  .status-legend { gap: 0.75rem; }
+  .status-card { padding: 1.25rem; }
+
+  .feature-strip-inner { grid-template-columns: 1fr; gap: 1.75rem; }
+
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  footer { padding-bottom: calc(1.5rem + var(--safe-bot)); }
+
+  /* Section dividers tighter */
+  .section-divider { padding: 0 1.25rem; }
+}
+
+/* ── Very small / old phones (320px) ── */
+@media (max-width: 360px) {
+  .hero-title { font-size: 2.4rem; }
+  .card-title { font-size: 1.25rem; }
+  .hero-eyebrow span { font-size: 0.58rem; letter-spacing: 0.2em; }
+}
+
+/* ── Landscape mobile ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--nav-h) + var(--safe-top) + 1.5rem);
+    padding-bottom: 2rem;
+  }
+  .hero-title { font-size: clamp(2rem, 6vh, 4rem); line-height: 1; }
+  .hero-title-rule { display: none; }
+  .hero-subtitle { margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .hero-actions { flex-direction: row; }
+}
+
+/* ── Reduce motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .ambient-1, .ambient-2, .ambient-3 { animation: none; }
+}
+
+/* ============================================================
+   CARD SELECTOR (hidden but wired for app.js)
+   ============================================================ */
+#cardSelector { display: none; }
+#prevCardSelect, #nextCardSelect { display: none; }
+#reloadCardBtn { display: none; }
+</style>
+</head>
+
+<body>
+
+<!-- Ambient light -->
+<div class="ambient ambient-1"></div>
+<div class="ambient ambient-2"></div>
+<div class="ambient ambient-3"></div>
+
+<!-- Hidden card infrastructure (wired to app.js) -->
+<select id="cardSelector">
+  <option value="">Select</option>
+  <option value="studyhub">StudyHub</option>
+  <option value="nt">NT Reader</option>
+  <option value="sefaria">Sefaria</option>
+  <option value="intertext-quotes">Intertext Quotes</option>
+  <option value="sources">Sources</option>
+</select>
+<button id="prevCardSelect"></button>
+<button id="nextCardSelect"></button>
+<button id="reloadCardBtn"></button>
+
+<!-- Panel close button -->
+<button class="panel-close" id="panelCloseBtn" aria-label="Close panel">✕</button>
+
+<!-- Card host (injected by app.js) -->
+<div id="loadedCardHost"></div>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav id="mainNav">
+  <div class="nav-brand">
+    <span class="nav-logo-mark">StudyHub</span>
+    <span class="nav-logo-sub">The Table</span>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="#cards">Study Cards</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#system">System</a></li>
+  </ul>
+
+  <a class="nav-cta" href="#cards">Open the Table</a>
+
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="navDrawer">
+  <ul>
+    <li><a href="#cards">Study Cards</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#system">System</a></li>
+  </ul>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow">
+    <span>A Sacred Study Workspace</span>
+  </div>
+
+  <h1 class="hero-title">
+    Let the<br /><em>Word</em><br />speak first.
+  </h1>
+
+  <div class="hero-title-rule"></div>
+
+  <p class="hero-subtitle">
+    A kitchen table for scripture, intertext, and ancient witness —
+    without the noise.
+  </p>
+
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="openCard('studyhub')">
+      <span>↗</span> Open the Table
+    </button>
+    <button class="btn-secondary" onclick="openCard('nt')">
+      ✝ NT Reader
+    </button>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <div class="hero-scroll-label">Scroll</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CARDS SECTION
+     ============================================================ -->
+<section class="cards-section" id="cards">
+  <div class="cards-header reveal">
+    <div class="cards-header-label">Study Systems</div>
+    <h2>Every tool at <em>the table.</em></h2>
+  </div>
+
+  <div class="card-grid">
+
+    <!-- NT Reader — tall, spans -->
+    <div class="study-card card-nt card-tall reveal reveal-delay-1" onclick="openCard('nt')" role="button" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="card-inner">
+        <div>
+          <span class="card-icon">✝</span>
+          <span class="card-number">01</span>
+          <span class="card-tag">Scripture</span>
+          <h3 class="card-title">NT<br /><em>Reader</em></h3>
+          <p class="card-desc">
+            Navigate the New Testament by book, chapter, and section.
+            Inline intertext chips. Direct passage links.
+            Context-aware from the first verse.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-label">Open Reader</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- StudyHub -->
+    <div class="study-card card-hub reveal reveal-delay-2" onclick="openCard('studyhub')" role="button" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="card-inner">
+        <div>
+          <span class="card-icon">☕</span>
+          <span class="card-number">02</span>
+          <span class="card-tag">Hub</span>
+          <h3 class="card-title">Study<em>Hub</em></h3>
+          <p class="card-desc">
+            The primary entry point. Week-aware navigation,
+            sermon prep, and a shared table for study sessions.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-label">Open Hub</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sefaria -->
+    <div class="study-card card-sefaria reveal reveal-delay-3" onclick="openCard('sefaria')" role="button" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="card-inner">
+        <div>
+          <span class="card-icon">✡</span>
+          <span class="card-number">03</span>
+          <span class="card-tag">Jewish Context</span>
+          <h3 class="card-title">Sefaria<br /><em>Sources</em></h3>
+          <p class="card-desc">
+            Hebrew Scriptures and rabbinic tradition via the Sefaria API.
+            Chapter navigation, session persistence, passage sync.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-label">Open Sefaria</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intertext Quotes — wide -->
+    <div class="study-card card-intertext card-span-2 reveal reveal-delay-2" onclick="openCard('intertext-quotes')" role="button" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="card-inner">
+        <div>
+          <span class="card-icon">⛓</span>
+          <span class="card-number">04</span>
+          <span class="card-tag">Intertextual</span>
+          <h3 class="card-title">NT–OT <em>Quotations</em></h3>
+          <p class="card-desc">
+            Explicit New Testament quotations of the Hebrew Scriptures,
+            showing Masoretic Text and Septuagint witnesses side by side.
+            Filter by NT book. Expand individual witnesses.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-label">View Quotations</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sources — full width -->
+    <div class="study-card card-sources card-span-2 reveal reveal-delay-3" onclick="openCard('sources')" role="button" tabindex="0">
+      <div class="card-accent"></div>
+      <div class="card-inner">
+        <div>
+          <span class="card-icon">📜</span>
+          <span class="card-number">05</span>
+          <span class="card-tag">Multi-Tradition</span>
+          <h3 class="card-title">Scriptural <em>Sources</em></h3>
+          <p class="card-desc">
+            Jewish tradition, NT usage, Early Christian witness,
+            Dead Sea Scrolls, and the People's witness — gathered
+            around a single reference.
+          </p>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-label">Open Sources</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder — coming -->
+    <div class="study-card reveal reveal-delay-4" style="cursor:default;">
+      <div class="card-inner" style="min-height:200px;">
+        <div>
+          <span class="card-icon" style="opacity:0.3;">✎</span>
+          <span class="card-number">06</span>
+          <span class="card-tag">Coming</span>
+          <h3 class="card-title" style="color:var(--text-ghost);">Prep <em>Table</em></h3>
+          <p class="card-desc" style="opacity:0.5;">
+            Observation, interpretation, correlation, application.
+            The sermon prep workspace.
+          </p>
+        </div>
+        <div class="card-footer" style="opacity:0.3;">
+          <span class="card-footer-label">In Development</span>
+          <span class="card-arrow" style="opacity:0.3;">—</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /card-grid -->
+</section>
+
+<!-- ============================================================
+     FEATURE STRIP
+     ============================================================ -->
+<div class="section-divider reveal">
+  <span class="section-divider-mark">Architecture</span>
+</div>
+
+<div class="feature-strip">
+  <div class="feature-strip-inner">
+    <div class="feature-item reveal reveal-delay-1">
+      <span class="feature-glyph">⚡</span>
+      <span class="feature-name">Card System</span>
+      <p class="feature-desc">Independent study tools that load on demand, each with its own script and HTML context.</p>
+    </div>
+    <div class="feature-item reveal reveal-delay-2">
+      <span class="feature-glyph">🔗</span>
+      <span class="feature-name">Cross-Card Bridge</span>
+      <p class="feature-desc">Passages flow between the NT reader, Sefaria, and Intertext through a shared event and storage layer.</p>
+    </div>
+    <div class="feature-item reveal reveal-delay-3">
+      <span class="feature-glyph">✡</span>
+      <span class="feature-name">Sefaria API</span>
+      <p class="feature-desc">Live access to Hebrew Scriptures and rabbinic literature via the Sefaria public API with session persistence.</p>
+    </div>
+    <div class="feature-item reveal reveal-delay-4">
+      <span class="feature-glyph">📱</span>
+      <span class="feature-name">Mobile-First PWA</span>
+      <p class="feature-desc">Swipe navigation, touch-optimized controls, offline-ready architecture, installable on any device.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PHILOSOPHY
+     ============================================================ -->
+<section class="philosophy" id="philosophy">
+  <div class="philosophy-rule reveal">
+    <span class="philosophy-rule-glyph">✦</span>
+  </div>
+
+  <blockquote class="philosophy-quote reveal">
+    "Scripture was <strong>lived</strong> before it was analyzed."
+  </blockquote>
+  <div class="philosophy-attribution reveal">— Sources Card, on the witness of God's people</div>
+
+  <div class="philosophy-body">
+    <div class="philosophy-block reveal reveal-delay-1">
+      <h3>The Premise</h3>
+      <p>
+        Every serious study of the New Testament eventually arrives at
+        a Hebrew source, a Jewish parallel, a textual echo that only
+        makes sense in its original context. This workspace was built
+        for that moment — when you need to hold two traditions in your
+        hands at once.
+      </p>
+    </div>
+    <div class="philosophy-block reveal reveal-delay-2">
+      <h3>The Method</h3>
+      <p>
+        The tools here do not interpret for you. They place witnesses
+        alongside each other. The Masoretic text beside the Septuagint.
+        The NT quotation beside its Hebrew source. The rabbinic reading
+        beside the apostolic one. The Word speaks first.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SYSTEM STATUS
+     ============================================================ -->
+<div class="section-divider reveal">
+  <span class="section-divider-mark">System Status</span>
+</div>
+
+<section class="status-section" id="system">
+  <div class="status-header reveal">
+    <h2>Connection Map</h2>
+    <div class="status-legend">
+      <div class="legend-item"><div class="legend-dot dot-live"></div> Live</div>
+      <div class="legend-item"><div class="legend-dot dot-partial"></div> Partial</div>
+      <div class="legend-item"><div class="legend-dot dot-planned"></div> Planned</div>
+      <div class="legend-item"><div class="legend-dot dot-broken"></div> Broken</div>
+    </div>
+  </div>
+
+  <div class="status-grid">
+
+    <div class="status-card reveal">
+      <div class="status-card-top">
+        <span class="status-card-name">app.js</span>
+        <span class="status-badge badge-live">Live</span>
+      </div>
+      <p class="status-card-desc">Card loader, navigation shell, URL routing, swipe + keyboard.</p>
+      <div class="status-connections">
+        <span class="connection-tag active">loadCard</span>
+        <span class="connection-tag active">URL params</span>
+        <span class="connection-tag active">localStorage bridge</span>
+        <span class="connection-tag pending">sefaria:open listener</span>
+      </div>
+    </div>
+
+    <div class="status-card reveal reveal-delay-1">
+      <div class="status-card-top">
+        <span class="status-card-name">NT Reader</span>
+        <span class="status-badge badge-partial">Partial</span>
+      </div>
+      <p class="status-card-desc">Book grid, chapter nav, section reader, inline intertext chips.</p>
+      <div class="status-connections">
+        <span class="connection-tag active">book/chapter routing</span>
+        <span class="connection-tag active">intertextEdges (3)</span>
+        <span class="connection-tag broken">sefaria:open → silence</span>
+        <span class="connection-tag pending">window.intertextData</span>
+      </div>
+    </div>
+
+    <div class="status-card reveal reveal-delay-2">
+      <div class="status-card-top">
+        <span class="status-card-name">Sefaria</span>
+        <span class="status-badge badge-partial">Partial</span>
+      </div>
+      <p class="status-card-desc">Live Hebrew Scriptures via Sefaria API. Session persistence. Chapter navigation.</p>
+      <div class="status-connections">
+        <span class="connection-tag active">API fetch</span>
+        <span class="connection-tag active">sefariaLastRef</span>
+        <span class="connection-tag pending">sefariaJump (no writer)</span>
+        <span class="connection-tag broken">sefaria:open (no listener)</span>
+      </div>
+    </div>
+
+    <div class="status-card reveal">
+      <div class="status-card-top">
+        <span class="status-card-name">Intertext</span>
+        <span class="status-badge badge-live">Live</span>
+      </div>
+      <p class="status-card-desc">NT–OT quotation browser. MT and LXX witnesses. Book filter. Side-by-side view.</p>
+      <div class="status-connections">
+        <span class="connection-tag active">JSON dataset</span>
+        <span class="connection-tag active">book filter</span>
+        <span class="connection-tag pending">window.intertextData</span>
+        <span class="connection-tag pending">passage filter</span>
+      </div>
+    </div>
+
+    <div class="status-card reveal reveal-delay-1">
+      <div class="status-card-top">
+        <span class="status-card-name">Sources</span>
+        <span class="status-badge badge-broken">Broken</span>
+      </div>
+      <p class="status-card-desc">Multi-tradition aggregator. Toggle sections. Reference selector.</p>
+      <div class="status-connections">
+        <span class="connection-tag active">section toggles</span>
+        <span class="connection-tag broken">open-intertext → silence</span>
+        <span class="connection-tag broken">open-nt-reader → silence</span>
+        <span class="connection-tag broken">load-reference → silence</span>
+      </div>
+    </div>
+
+    <div class="status-card reveal reveal-delay-2">
+      <div class="status-card-top">
+        <span class="status-card-name">StudyHub</span>
+        <span class="status-badge badge-partial">Partial</span>
+      </div>
+      <p class="status-card-desc">Session hub. Week-aware context. Navigation to all cards.</p>
+      <div class="status-connections">
+        <span class="connection-tag active">card navigation</span>
+        <span class="connection-tag active">URL hygiene</span>
+        <span class="connection-tag broken">getSelectedWeekNumber</span>
+        <span class="connection-tag planned">week → passage map</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-brand">StudyHub — The Table</span>
+    <span class="footer-verse">"Let the Word speak first."</span>
+    <span class="footer-copy">HomeGroups.Org</span>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JS
+     ============================================================ -->
+<script>
+// ── Nav scroll state ──────────────────────────────────────────
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// ── Mobile nav ────────────────────────────────────────────────
+const hamburger = document.getElementById('navHamburger');
+const drawer    = document.getElementById('navDrawer');
+hamburger.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+});
+drawer.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    hamburger.classList.remove('open');
+  });
+});
+
+// ── Scroll reveal ─────────────────────────────────────────────
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObs.observe(el));
+
+// ── Card panel open / close ───────────────────────────────────
+const host      = document.getElementById('loadedCardHost');
+const closeBtn  = document.getElementById('panelCloseBtn');
+
+function openCard(name) {
+  // Sync the hidden selector so app.js stays in control
+  const sel = document.getElementById('cardSelector');
+  if (sel) { sel.value = name; sel.dispatchEvent(new Event('change', { bubbles: true })); }
+
+  host.classList.add('active');
+  closeBtn.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  // Expose loadCard to the app.js system; it wires itself on DOMContentLoaded
+  if (typeof window.loadCard === 'function') {
+    window.loadCard(name);
+  }
+}
+
+function closePanel() {
+  host.classList.remove('active');
+  closeBtn.classList.remove('active');
+  host.innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+closeBtn.addEventListener('click', closePanel);
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && host.classList.contains('active')) closePanel();
+});
+
+// ── URL-driven open on load ───────────────────────────────────
+// (app.js handles this via loadFromUrl — this is the visual shell layer)
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const card = params.get('card');
+  if (card) {
+    // Small delay so app.js can assign window.loadCard first
+    setTimeout(() => openCard(card), 80);
+  }
+});
+
+// ── Card keyboard accessibility ───────────────────────────────
+document.querySelectorAll('[role="button"]').forEach(el => {
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      el.click();
+    }
+  });
+});
+
+// ── PWA install prompt ────────────────────────────────────────
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+</script>
+
+<!-- Service worker registration -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+</script>
+
+</body>
+</html>
