@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0905" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="description" content="A sacred study workspace for scriptural research, intertext, and Jewish sources." />
+<title>HGSpark — The Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --ink:        #0a0905;
+  --ink-2:      #111008;
+  --ink-3:      #1a1810;
+  --vellum:     #f5f0e8;
+  --vellum-2:   #ede8dc;
+  --gold:       #d4ae52;
+  --gold-2:     #ecd47e;
+  --gold-3:     #b8962a;
+  --ember:      #c45c2a;
+  --ember-2:    #e07040;
+  --cyan-pale:  #7ec8d8;
+  --slate:      #8090a8;
+  --slate-2:    #4a5568;
+
+  /* TEXT — tuned for mobile readability */
+  --text-body:  #d4ccb8;
+  --text-dim:   #a89880;
+  --text-muted: #7a6e5e;
+  --text-ghost: #584e3e;
+
+  --border:   rgba(201,168,76,0.18);
+  --border-2: rgba(201,168,76,0.35);
+
+  /* GLOW */
+  --glow-gold:       0 0 18px rgba(212,174,82,0.45), 0 0 40px rgba(212,174,82,0.18);
+  --glow-gold-soft:  0 0 12px rgba(212,174,82,0.30);
+  --glow-ember:      0 0 16px rgba(196,92,42,0.40),  0 0 32px rgba(196,92,42,0.18);
+  --glow-ember-soft: 0 0 10px rgba(196,92,42,0.28);
+  --glow-cyan:       0 0 14px rgba(126,200,216,0.38), 0 0 30px rgba(126,200,216,0.14);
+  --glow-text-gold:  0 0 14px rgba(212,174,82,0.55);
+  --glow-text-ember: 0 0 12px rgba(224,112,64,0.50);
+
+  --card-bg:    rgba(20,18,12,0.92);
+  --nav-h:      56px;
+  --safe-top:   env(safe-area-inset-top,    0px);
+  --safe-bot:   env(safe-area-inset-bottom, 0px);
+  --safe-left:  env(safe-area-inset-left,   0px);
+  --safe-right: env(safe-area-inset-right,  0px);
+  --radius:     2px;
+  --radius-lg:  6px;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: var(--ink);
+  color: var(--text-body);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ============================================================
+   GRAIN OVERLAY
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============================================================
+   AMBIENT LIGHT
+   ============================================================ */
+.ambient { position: fixed; pointer-events: none; z-index: 0; }
+.ambient-1 {
+  width: 600px; height: 600px; top: -150px; left: -80px;
+  background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 65%);
+  animation: drift1 18s ease-in-out infinite alternate;
+}
+.ambient-2 {
+  width: 500px; height: 500px; bottom: -100px; right: -80px;
+  background: radial-gradient(circle, rgba(196,92,42,0.045) 0%, transparent 65%);
+  animation: drift2 22s ease-in-out infinite alternate;
+}
+@keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(50px,35px); } }
+@keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-35px,-50px); } }
+
+/* ============================================================
+   EXISTING APP TOOLBAR (preserves your working app exactly)
+   ============================================================ */
+#appShell {
+  position: relative;
+  z-index: 1;
+}
+
+#topBar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(10,9,5,0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  padding-top: var(--safe-top);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem max(1rem, calc(var(--safe-left) + 0.5rem));
+  min-height: var(--nav-h);
+  flex-wrap: wrap;
+}
+
+/* Week selector row */
+.toolbar .ui-select {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  background: rgba(20,18,12,0.9);
+  color: var(--text-body);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.7rem;
+  min-height: 36px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.toolbar .ui-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  background: rgba(20,18,12,0.8);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.7rem;
+  min-height: 36px;
+  min-width: 36px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.toolbar .ui-btn:hover,
+.toolbar .ui-btn:active { border-color: var(--border-2); color: var(--gold); }
+
+.flame {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-shadow: var(--glow-text-gold);
+  margin-left: auto;
+}
+.spark-logo { font-size: 1.1rem; }
+
+/* Card selector row */
+.card-selector-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 0.4rem max(1rem, calc(var(--safe-left) + 0.5rem));
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+}
+
+.ui-select.card-picker {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  background: rgba(20,18,12,0.9);
+  color: var(--text-body);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.6rem;
+  min-height: 38px;
+  flex: 1;
+  max-width: 260px;
+  cursor: pointer;
+}
+.ui-select.card-picker option,
+.ui-select.card-picker optgroup {
+  background: #111008;
+  color: #d4ccb8;
+}
+
+.nav-btn, #prevCardSelect, #nextCardSelect, #reloadCardBtn, #installAppBtn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  background: rgba(20,18,12,0.8);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.65rem;
+  min-height: 38px;
+  min-width: 38px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.nav-btn:hover, .nav-btn:active,
+#prevCardSelect:hover, #prevCardSelect:active,
+#nextCardSelect:hover, #nextCardSelect:active,
+#reloadCardBtn:hover, #reloadCardBtn:active { border-color: var(--border-2); color: var(--gold); }
+
+/* ============================================================
+   VIEWPORT & CARDS ROW (your existing card scroll system)
+   ============================================================ */
+#viewport {
+  position: relative;
+  z-index: 1;
+}
+
+#cardsRow {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+#cardsRow::-webkit-scrollbar { display: none; }
+#cardsRow > .card {
+  scroll-snap-align: start;
+  min-width: 100vw;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   MAIN STAGE CARD (your existing card — minimal restyling)
+   ============================================================ */
+#mainStageCard {
+  background: var(--ink);
+  padding-bottom: 2rem;
+}
+
+.card-topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.6rem 0.75rem;
+  background: rgba(10,9,5,0.95);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: calc(var(--nav-h) + var(--safe-top));
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  flex-wrap: wrap;
+  overflow-x: auto;
+}
+
+.card-icon-btn {
+  width: 34px; height: 34px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.card-icon-btn:hover,
+.card-icon-btn:active { border-color: var(--border-2); color: var(--gold); background: rgba(201,168,76,0.05); }
+.card-icon-btn.primary { color: var(--gold-3); border-color: var(--border-2); }
+.card-icon-btn.primary:hover,
+.card-icon-btn.primary:active { color: var(--gold); background: rgba(201,168,76,0.08); }
+
+@media (max-width: 560px) {
+  .card-icon-btn { width: 38px; height: 38px; }
+}
+
+.card-shell { padding: 0; }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  gap: 0.5rem;
+}
+
+.card-nav-btn {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.card-nav-btn:active { color: var(--gold); border-color: var(--border-2); }
+
+.card-heading { flex: 1; text-align: center; }
+.card-kicker { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.2rem; }
+
+#mainStageTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+  font-weight: 400;
+  color: var(--gold);
+  text-shadow: var(--glow-text-gold);
+  line-height: 1.2;
+}
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* Orientation card */
+.orientation-card {
+  margin: 0.5rem 1rem;
+  background: rgba(20,18,12,0.8);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.orientation-card .text-xs { font-size: 0.7rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
+#orientationTitle { font-size: 0.88rem; color: var(--text-body); margin-top: 0.2rem; }
+.orientation-card button {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-2);
+  background: rgba(212,174,82,0.08);
+  color: var(--gold);
+  font-size: 0.85rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.orientation-card button:active { background: rgba(212,174,82,0.18); }
+
+/* Card body sections */
+.card-body { padding: 0 0 1rem; }
+
+.content-panel {
+  border-top: 1px solid var(--border);
+  margin-top: 0.25rem;
+}
+
+.section-label {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s;
+}
+.section-label:active { color: var(--gold); }
+
+.hg-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-ghost);
+  padding: 0.25rem 0;
+}
+
+/* Front porch */
+.hero-panel { padding: 1.25rem 1rem 0.75rem; }
+.fp-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-3);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+.fp-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 300;
+  color: var(--vellum);
+  text-shadow: 0 0 40px rgba(212,174,82,0.1);
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+.fp-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+/* Now playing */
+#nowPlaying {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  padding: 0.4rem 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Scripture container */
+#weeklyScriptureContainer {
+  background: rgba(20,18,12,0.7);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin: 0 1rem;
+}
+#weeklyScriptureMeta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding: 0 1rem;
+}
+
+/* Scripture buttons */
+#langEnglishBtn, #langHebrewBtn, #langGreekBtn,
+#scripturePrevBtn, #scriptureNextBtn,
+button.ui-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  background: rgba(20,18,12,0.8);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.35rem 0.75rem;
+  min-height: 34px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+button.ui-btn:hover, button.ui-btn:active { border-color: var(--border-2); color: var(--gold); }
+
+/* Playlist / chapters / video / cardsContainer placeholders */
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+#mainStagePlaylist,
+#mainStageChapters,
+#mainStageVideo,
+#cardsContainer { padding: 0.5rem 1rem 1rem; }
+
+/* Video embeds */
+.sp-embed-player {
+  margin: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+/* ============================================================
+   DYNAMIC CARD (where app.js injects loaded cards)
+   ============================================================ */
+#dynamicCard {
+  background: var(--ink);
+  min-height: 100dvh;
+}
+
+#loadedCardHost {
+  min-height: 200px;
+}
+
+/* ============================================================
+   GLOBAL UI UTILITIES (used by injected cards)
+   ============================================================ */
+.ui-btn {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-body);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.ui-btn:hover, .ui-btn:active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+
+.hg-panel { min-height: 100dvh; background: var(--ink); color: var(--text-body); }
+
+/* Tailwind-compatible utility shims (used by injected card HTML) */
+.text-xl    { font-size: 1.25rem; line-height: 1.75rem; }
+.text-xs    { font-size: 0.75rem; line-height: 1rem; }
+.text-sm    { font-size: 0.875rem; line-height: 1.25rem; }
+.text-2xl   { font-size: 1.5rem; line-height: 2rem; }
+.text-3xl   { font-size: 1.875rem; line-height: 2.25rem; }
+.font-semibold { font-weight: 600; }
+.font-medium   { font-weight: 500; }
+.italic        { font-style: italic; }
+.text-center   { text-align: center; }
+.hidden        { display: none !important; }
+.flex          { display: flex; }
+.flex-col      { flex-direction: column; }
+.items-center  { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2         { gap: 0.5rem; }
+.gap-3         { gap: 0.75rem; }
+.gap-4         { gap: 1rem; }
+.flex-wrap     { flex-wrap: wrap; }
+.w-full        { width: 100%; }
+.p-4           { padding: 1rem; }
+.p-5           { padding: 1.25rem; }
+.p-6           { padding: 1.5rem; }
+.mt-1          { margin-top: 0.25rem; }
+.mt-2          { margin-top: 0.5rem; }
+.mt-3          { margin-top: 0.75rem; }
+.mt-4          { margin-top: 1rem; }
+.mb-2          { margin-bottom: 0.5rem; }
+.mb-3          { margin-bottom: 0.75rem; }
+.space-y-3 > * + * { margin-top: 0.75rem; }
+.space-y-4 > * + * { margin-top: 1rem; }
+.space-y-6 > * + * { margin-top: 1.5rem; }
+.rounded-xl    { border-radius: 0.75rem; }
+.rounded-2xl   { border-radius: 1rem; }
+.rounded-lg    { border-radius: 0.5rem; }
+.border        { border-width: 1px; }
+.border-t      { border-top-width: 1px; }
+.overflow-y-auto { overflow-y: auto; }
+.max-w-4xl     { max-width: 56rem; }
+.mx-auto       { margin-left: auto; margin-right: auto; }
+.px-4          { padding-left: 1rem; padding-right: 1rem; }
+.py-8          { padding-top: 2rem; padding-bottom: 2rem; }
+.leading-relaxed { line-height: 1.625; }
+.opacity-70    { opacity: 0.7; }
+
+/* Tailwind color shims */
+.text-slate-100 { color: #f1f5f9; }
+.text-slate-200 { color: #e2e8f0; }
+.text-slate-300 { color: #cbd5e1; }
+.text-slate-400 { color: #94a3b8; }
+.text-slate-500 { color: #64748b; }
+.text-orange-300{ color: #fdba74; }
+.text-cyan-300  { color: #67e8f9; }
+.text-cyan-400  { color: #22d3ee; }
+.text-red-400   { color: #f87171; }
+.bg-slate-800   { background-color: #1e293b; }
+.bg-slate-900   { background-color: #0f172a; }
+.border-slate-700 { border-color: #334155; }
+.border-slate-600 { border-color: #475569; }
+.bg-slate-800\/60 { background-color: rgba(30,41,59,0.6); }
+.bg-slate-900\/70 { background-color: rgba(15,23,42,0.7); }
+.max-h-\[60vh\] { max-height: 60vh; }
+.max-h-\[70vh\] { max-height: 70vh; }
+.sm\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.sm\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid          { display: grid; }
+.gap-3         { gap: 0.75rem; }
+.uppercase     { text-transform: uppercase; }
+.tracking-wide { letter-spacing: 0.025em; }
+.tracking-wider{ letter-spacing: 0.05em; }
+.space-y-2 > * + * { margin-top: 0.5rem; }
+
+/* ============================================================
+   LANDING — HERO
+   ============================================================ */
+#landing {
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.75rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s ease forwards;
+}
+.hero-eyebrow span {
+  display: inline-block;
+  padding: 0.28rem 0.9rem;
+  border: 1px solid var(--border-2);
+  border-radius: 100px;
+  background: rgba(212,174,82,0.06);
+  text-shadow: var(--glow-text-gold);
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 10vw, 7rem);
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--vellum);
+  text-shadow: 0 0 60px rgba(212,174,82,0.1);
+  margin-bottom: 0.15em;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.35s ease forwards;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+  text-shadow: var(--glow-text-gold);
+}
+
+.hero-rule {
+  width: 1px; height: 2.5rem;
+  background: linear-gradient(to bottom, transparent, var(--gold-3), transparent);
+  margin: 1.25rem auto;
+  opacity: 0;
+  animation: fadeIn 1s 0.6s ease forwards;
+}
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 4vw, 1.35rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-body);
+  max-width: 420px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s ease forwards;
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 260px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.85s ease forwards;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  min-height: 50px;
+  transition: background 0.2s, transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.btn-primary:active { background: var(--gold-3); transform: scale(0.98); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  background: transparent;
+  color: var(--text-body);
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  min-height: 50px;
+  transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.btn-secondary:active { border-color: var(--gold); color: var(--gold); transform: scale(0.98); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  opacity: 0;
+  animation: fadeIn 1s 1.4s ease forwards;
+}
+@media (max-height: 600px) { .hero-scroll { display: none; } }
+.hero-scroll-line {
+  width: 1px; height: 32px;
+  background: linear-gradient(to bottom, var(--gold-3), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+.hero-scroll-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  color: var(--text-ghost);
+  text-transform: uppercase;
+}
+@keyframes scrollPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+/* ============================================================
+   LANDING — SECTION DIVIDER
+   ============================================================ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-divider::before, .section-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.section-divider-mark {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  color: var(--text-ghost);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   LANDING — STUDY CARDS GRID
+   ============================================================ */
+.cards-section {
+  position: relative; z-index: 1;
+  padding: 3.5rem 1.25rem 4rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.cards-header { text-align: center; margin-bottom: 2.5rem; }
+.cards-header-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-3);
+  margin-bottom: 0.9rem;
+}
+.cards-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.7rem, 6vw, 3rem);
+  font-weight: 300;
+  color: var(--vellum);
+  line-height: 1.1;
+}
+.cards-header h2 em { font-style: italic; color: var(--gold); text-shadow: var(--glow-text-gold); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border);
+}
+
+.study-card {
+  position: relative;
+  background: var(--card-bg);
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.25s;
+}
+.study-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(212,174,82,0.05) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.study-card:active { background: rgba(28,24,16,0.98); }
+.study-card:active::before { opacity: 1; }
+
+.card-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold-3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.study-card:active .card-accent { opacity: 1; }
+
+.card-inner {
+  padding: 1.5rem 1.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+  position: relative; z-index: 1;
+}
+
+.card-icon {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  display: block;
+  opacity: 0.85;
+}
+.study-card:active .card-icon { opacity: 1; }
+
+.card-number {
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--text-ghost);
+  letter-spacing: 0.12em;
+}
+
+.card-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.6rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.35rem, 5vw, 1.7rem);
+  font-weight: 400;
+  color: var(--vellum);
+  line-height: 1.1;
+  margin-bottom: 0.6rem;
+}
+.card-title em { font-style: italic; color: var(--gold); text-shadow: var(--glow-text-gold); }
+
+.card-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.92rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.55;
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.card-footer-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-ghost);
+}
+.card-arrow {
+  width: 28px; height: 28px;
+  border: 1px solid var(--border-2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-3);
+  font-size: 0.72rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+.study-card:active .card-arrow { border-color: var(--gold); color: var(--gold); }
+
+/* card color identities */
+.card-nt .card-icon        { filter: drop-shadow(0 0 7px rgba(126,200,216,0.5)); }
+.card-intertext .card-icon { filter: drop-shadow(0 0 7px rgba(196,92,42,0.5)); }
+.card-sefaria .card-icon   { filter: drop-shadow(0 0 7px rgba(212,174,82,0.5)); }
+
+/* ============================================================
+   LANDING — FEATURE STRIP
+   ============================================================ */
+.feature-strip {
+  position: relative; z-index: 1;
+  padding: 2.5rem 1.25rem;
+  background: var(--ink-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.feature-strip-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+}
+.feature-item { display: flex; flex-direction: column; gap: 0.5rem; }
+.feature-glyph { font-size: 1.15rem; opacity: 0.75; }
+.feature-name {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--vellum-2);
+}
+.feature-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem; font-style: italic;
+  color: var(--text-dim); line-height: 1.5;
+}
+
+/* ============================================================
+   LANDING — PHILOSOPHY
+   ============================================================ */
+.philosophy {
+  position: relative; z-index: 1;
+  padding: clamp(2.5rem, 7vw, 5rem) 1.5rem;
+  max-width: 800px; margin: 0 auto;
+  text-align: center;
+}
+.philosophy-rule {
+  display: flex; align-items: center; gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+.philosophy-rule::before, .philosophy-rule::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.philosophy-rule-glyph { color: var(--gold-3); font-size: 0.9rem; }
+.philosophy-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 5.5vw, 2rem);
+  font-weight: 300; font-style: italic;
+  color: var(--vellum); line-height: 1.45;
+  margin-bottom: 1.25rem;
+}
+.philosophy-quote strong { font-style: normal; font-weight: 400; color: var(--gold); text-shadow: var(--glow-text-gold); }
+.philosophy-attribution {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--text-ghost);
+}
+.philosophy-body {
+  margin-top: 2.5rem;
+  text-align: left;
+  display: flex; flex-direction: column; gap: 1.75rem;
+}
+.philosophy-block h3 {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.75rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold-3);
+  margin-bottom: 0.6rem;
+}
+.philosophy-block p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.97rem; font-weight: 300;
+  color: var(--text-dim); line-height: 1.72;
+}
+
+/* ============================================================
+   LANDING — STATUS / CONNECTION MAP
+   ============================================================ */
+.status-section {
+  position: relative; z-index: 1;
+  padding: 3rem 1.25rem 4rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.status-header {
+  display: flex; align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap; gap: 0.75rem;
+}
+.status-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 300; color: var(--vellum);
+}
+.status-legend { display: flex; gap: 1rem; flex-wrap: wrap; }
+.legend-item {
+  display: flex; align-items: center; gap: 0.35rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-dim);
+}
+.legend-dot { width: 6px; height: 6px; border-radius: 50%; }
+.dot-live    { background: #4ade80; }
+.dot-partial { background: var(--gold); }
+.dot-planned { background: var(--slate-2); }
+.dot-broken  { background: var(--ember); }
+
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border);
+}
+.status-card {
+  background: var(--ink-2);
+  padding: 1.25rem;
+}
+.status-card-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; margin-bottom: 0.75rem;
+}
+.status-card-name {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.82rem; font-weight: 500;
+  letter-spacing: 0.14em; color: var(--vellum);
+  text-transform: uppercase;
+}
+.status-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.54rem; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.5rem; border-radius: 100px;
+}
+.badge-live    { background: rgba(74,222,128,0.1);  color: #4ade80;         border: 1px solid rgba(74,222,128,0.2); }
+.badge-partial { background: rgba(201,168,76,0.1);  color: var(--gold);     border: 1px solid var(--border-2); }
+.badge-planned { background: rgba(74,85,104,0.2);   color: var(--slate);    border: 1px solid rgba(74,85,104,0.3); }
+.badge-broken  { background: rgba(196,92,42,0.1);   color: var(--ember-2);  border: 1px solid rgba(196,92,42,0.2); }
+
+.status-card-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem; font-style: italic;
+  color: var(--text-dim); line-height: 1.5; margin-bottom: 1rem;
+}
+.status-connections { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.connection-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.54rem; letter-spacing: 0.08em;
+  padding: 0.12rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 2px; color: var(--text-ghost);
+}
+.connection-tag.active  { border-color: rgba(74,222,128,0.2);  color: rgba(74,222,128,0.65); }
+.connection-tag.broken  { border-color: rgba(196,92,42,0.25);  color: rgba(196,92,42,0.65); }
+.connection-tag.pending { border-color: rgba(201,168,76,0.18); color: rgba(201,168,76,0.45); }
+
+/* ============================================================
+   LANDING — FOOTER
+   ============================================================ */
+#landing-footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  padding-bottom: calc(2rem + var(--safe-bot));
+  background: var(--ink-2);
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 0.6rem;
+}
+.footer-brand {
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.85rem; letter-spacing: 0.18em;
+  color: var(--gold-3); text-transform: uppercase;
+}
+.footer-verse {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem; font-style: italic;
+  color: var(--text-ghost);
+}
+.footer-copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem; letter-spacing: 0.14em;
+  color: var(--text-ghost); text-transform: uppercase;
+}
+
+/* ============================================================
+   MINI INFO MODAL (your existing modal)
+   ============================================================ */
+#miniModal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  z-index: 9997;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#miniModal.open { display: flex; }
+.mini-modal-inner {
+  background: rgba(17,16,8,0.96);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  max-width: min(420px, 90vw);
+  width: 100%;
+  position: relative;
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
+#miniModalTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 400;
+  color: var(--cyan-pale);
+  text-shadow: var(--glow-cyan);
+  margin-bottom: 0.75rem;
+}
+#miniModalContent {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem; color: var(--text-body); line-height: 1.6;
+}
+#miniModalDeeperBtn {
+  display: block; margin-top: 1.25rem;
+  padding: 0.6rem 1.25rem;
+  background: rgba(126,200,216,0.12);
+  border: 1px solid rgba(126,200,216,0.3);
+  border-radius: var(--radius);
+  color: var(--cyan-pale);
+  font-family: 'Cormorant SC', serif;
+  font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s;
+}
+#miniModalDeeperBtn:active { background: rgba(126,200,216,0.22); }
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================================================
+   TABLET / DESKTOP UPGRADES
+   ============================================================ */
+@media (min-width: 640px) {
+  .card-grid { grid-template-columns: 1fr 1fr; }
+  .feature-strip-inner { grid-template-columns: repeat(4, 1fr); gap: 2.5rem; }
+  .philosophy-body { flex-direction: row; gap: 2.5rem; }
+  .status-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-actions { flex-direction: row; max-width: none; width: auto; }
+}
+@media (min-width: 900px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+  .status-grid { grid-template-columns: repeat(3, 1fr); }
+  .cards-section { padding: 5rem 2rem 6rem; }
+  .status-section { padding: 4rem 2rem 5rem; }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+  .ambient-1, .ambient-2 { animation: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Ambient light -->
+<div class="ambient ambient-1"></div>
+<div class="ambient ambient-2"></div>
+
+<!-- ============================================================
+     APP SHELL — your existing working app lives here
+     app.js, mainstage.js, topNav.js all target elements inside
+     ============================================================ -->
+<div id="appShell">
+
+  <!-- TOP BAR (week selector, nav — owned by topNav.js / mainstage.js) -->
+  <header id="topBar">
+    <div class="toolbar">
+      <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
+      <select id="weekSelect" class="ui-select" aria-label="Select week">
+        <option>Week 1</option>
+      </select>
+      <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
+      <div class="flame">HGSpark©</div>
+      <div class="spark-logo">🔥</div>
+    </div>
+
+    <!-- Card selector row -->
+    <div class="card-selector-row">
+      <button id="reloadCardBtn" class="nav-btn" aria-label="Reload card">↻</button>
+      <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
+
+      <select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
+        <option value="">Select Card</option>
+        <optgroup label="🌿 Daily Walk">
+          <option value="today">🔥 Today</option>
+          <option value="calendar">🗓 Appointed Times</option>
+          <option value="springfeasts">🌾 Spring Feasts</option>
+          <option value="fallfeasts">🌾 Fall Feasts</option>
+          <option value="sukkotcount">🌾 Sukkot Count</option>
+          <option value="listen">🎧 Listen</option>
+        </optgroup>
+        <optgroup label="📖 Scripture &amp; Study">
+          <option value="scriptureapi">🔎 Scripture Search</option>
+          <option value="interlinear">✨ Interlinear</option>
+          <option value="scripture">📜 Scripture Explorer</option>
+          <option value="bible">📚 Bible Tools</option>
+          <option value="sefaria">🏺 Jewish Research</option>
+          <option value="sources">🏺 All Sources</option>
+          <option value="commandments">⚖️ Commandments</option>
+          <option value="intertext-quotes">🕊️ Intertext Explorer</option>
+        </optgroup>
+        <optgroup label="🧭 Guided Journeys">
+          <option value="studyhub">👥 Study Hub</option>
+          <option value="discipleship">🪜 Learning Paths</option>
+          <option value="quizzes">🧠 Assessments</option>
+          <option value="trivia">🏆 Trivia Arena</option>
+          <option value="prezis">⛶ Prezis</option>
+        </optgroup>
+        <optgroup label="✍️ Teachings &amp; Writings">
+          <option value="articles">📚 Articles</option>
+          <option value="commentary">📝 Weekly Commentary</option>
+          <option value="nt">✝️ NT Research Notes</option>
+          <option value="origins">🌌 Origins</option>
+          <option value="jesus">👑 Who Is Yeshua?</option>
+        </optgroup>
+        <optgroup label="🎙 Teaching Media">
+          <option value="podcast">🔥 Podcast</option>
+          <option value="missler">✨ Chuck Missler Archive</option>
+        </optgroup>
+        <optgroup label="🤝 Community">
+          <option value="prayermap">🙏 Prayer Map</option>
+        </optgroup>
+        <optgroup label="📡 Preparedness">
+          <option value="beready">🚨 Be Ready</option>
+          <option value="amateurradio">📻 Amateur Radio</option>
+          <option value="radiomap">🧭 Radio Network Map</option>
+        </optgroup>
+        <optgroup label="🎮 Interactive Learning">
+          <option value="alephbet">🗣 Language Lab — Hebrew</option>
+          <option value="greekalphabet">🗣 Language Lab — Greek</option>
+          <option value="biblebingo">🎲 Bible Bingo</option>
+          <option value="jeopardy">⚡ Bible Challenge</option>
+        </optgroup>
+        <option value="stewardship-card">📂 Stewardship</option>
+        <option value="store">🌱 Store</option>
+      </select>
+
+      <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
+      <button id="installAppBtn" class="ui-btn" type="button" hidden aria-label="Install app">⬇</button>
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT — horizontal card scroll (owned by app.js) -->
+  <main id="viewport">
+    <div id="cardsRow">
+
+      <!-- ── CARD 1: Main Stage (your full existing card) ── -->
+      <section id="mainStageCard" class="card">
+
+        <div class="card-topbar">
+          <button class="card-fullscreen-btn card-icon-btn primary" title="Expand Card">⛶</button>
+          <button class="card-icon-btn nav" title="Home">⌂</button>
+          <button class="card-icon-btn nav" title="Previous">←</button>
+          <button class="card-icon-btn nav" title="Next">→</button>
+          <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
+          <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
+          <button class="card-icon-btn utility" title="Search Card">⌕</button>
+          <button class="card-icon-btn utility" title="Bookmark">★</button>
+          <button class="card-icon-btn utility" title="Share">⇪</button>
+          <button class="card-icon-btn utility" title="Notes">✎</button>
+          <button class="card-icon-btn utility" title="Help">?</button>
+        </div>
+
+        <div class="text-xs text-slate-500 italic text-center" style="padding:0.4rem 1rem;">
+          Augmented Discipleship — 1st century foundations. 22nd century tools.
+        </div>
+
+        <div class="card-topbar scripture-subnav">
+          <button class="card-icon-btn scripture" id="scriptureSearchBtn" title="Search">⌕</button>
+          <button class="card-icon-btn scripture" id="scriptureReloadBtn" title="Reload">↻</button>
+          <button class="card-icon-btn scripture" id="scripturePrevBtn" title="Previous Verse">←</button>
+          <button class="card-icon-btn scripture" id="scriptureNextBtn" title="Next Verse">→</button>
+          <button class="card-icon-btn scripture" id="copyScriptureBtn" title="Copy">⧉</button>
+          <button class="card-icon-btn scripture"
+                  onclick="document.getElementById('scriptureContent')?.scrollTop=0"
+                  title="Top">↑</button>
+          <button class="card-icon-btn scripture" onclick="goToNT()" title="New Testament">✝</button>
+          <button class="card-icon-btn scripture" onclick="goBackToCommandments()" title="Commandments">⌘</button>
+          <button class="card-icon-btn scripture" id="openBridgeBtn" title="Related Context">⛓</button>
+          <button class="card-icon-btn scripture" id="openSefariaContextBtn" title="Jewish Context">✡</button>
+          <button class="card-icon-btn scripture" id="ntHomeHeaderBtn" title="Notes">☰</button>
+          <button class="card-icon-btn scripture" id="ntQuotesHeaderBtn" title="Quotes">❝</button>
+        </div>
+
+        <div class="card-shell">
+          <div class="card-header">
+            <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
+            <div class="card-heading">
+              <div class="card-kicker">
+                <p id="mainStageSub" class="hero-sub" style="text-align:center;">
+                  Please wait while the weekly data loads.
+                </p>
+              </div>
+              <h2 id="mainStageTitle" class="text-xl flame" style="text-align:center;">
+                Loading week data...
+              </h2>
+            </div>
+            <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
+          </div>
+
+          <!-- Orientation -->
+          <div class="orientation-card">
+            <div>
+              <div class="text-xs" style="text-transform:uppercase;letter-spacing:0.1em;">
+                Orientation for Torah portion
+              </div>
+              <div id="orientationTitle">Loading study... Click play.</div>
+            </div>
+            <button onclick="playOrientation()" title="Play Orientation">▶</button>
+          </div>
+
+          <div class="card-body">
+
+            <section id="frontPorch" class="hero-panel">
+              <div class="fp-kicker" onclick="toggleSection(this)">Front Porch ▼</div>
+              <h1 class="fp-title">A simple place to begin.</h1>
+              <p class="fp-sub">
+                Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
+              </p>
+            </section>
+
+            <div id="nowPlaying">Now Playing: —</div>
+            <div id="floating-player-root"></div>
+
+            <section class="content-panel">
+              <div class="section-label" onclick="toggleSection(this)">Audio Playlist + Interlinear text ▼</div>
+              <div id="mainStagePlaylist">
+                <div class="empty-state">Playlist will appear here.</div>
+              </div>
+            </section>
+
+            <section class="content-panel">
+              <div class="section-label" onclick="toggleSection(this)">Weekly Scripture ▼</div>
+              <div style="padding:0.5rem 1rem 0.75rem;">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.5rem;">
+                  <div id="weeklyScriptureMeta">Loading week...</div>
+                  <div style="display:flex;gap:0.4rem;">
+                    <button id="langEnglishBtn" class="ui-btn">EN</button>
+                    <button id="langHebrewBtn"  class="ui-btn">HE</button>
+                    <button id="langGreekBtn"   class="ui-btn">GR</button>
+                  </div>
+                </div>
+                <div id="weeklyScriptureContainer">Loading scripture...</div>
+                <div style="display:flex;justify-content:space-between;margin-top:0.5rem;">
+                  <button id="scripturePrevBtn" class="ui-btn">← Prev</button>
+                  <button id="scriptureNextBtn" class="ui-btn">Next →</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="content-panel">
+              <div class="section-label" onclick="toggleSection(this)">Chapter Outlines ▼</div>
+              <div id="mainStageChapters">
+                <div class="empty-state">Outlines will appear here.</div>
+              </div>
+            </section>
+
+            <section class="content-panel">
+              <div class="section-label" onclick="toggleSection(this)">Video / Media ▼</div>
+              <div class="sp-embed-player" style="position:relative;width:100%;padding-top:56.25%;height:0;">
+                <script src="https://go.screenpal.com/player/appearance/cOhQVzntlWj"></script>
+                <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no"
+                  src="https://go.screenpal.com/player/cOhQVzntlWj?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1"
+                  allowfullscreen="true"></iframe>
+              </div>
+              <div class="sp-embed-player" style="position:relative;width:100%;padding-top:56.25%;height:0;margin-top:0.75rem;">
+                <script src="https://go.screenpal.com/player/appearance/cOhQe1ntIfR"></script>
+                <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no"
+                  src="https://go.screenpal.com/player/cOhQe1ntIfR?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1"
+                  allowfullscreen="true"></iframe>
+              </div>
+              <div class="sp-embed-player" style="position:relative;width:100%;padding-top:56.25%;height:0;margin-top:0.75rem;">
+                <script src="https://go.screenpal.com/player/appearance/cOhQePntIj4"></script>
+                <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no"
+                  src="https://go.screenpal.com/player/cOhQePntIj4?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1"
+                  allowfullscreen="true"></iframe>
+              </div>
+              <div id="mainStageVideo">
+                <div class="empty-state">Media will appear here.</div>
+              </div>
+            </section>
+
+            <section class="content-panel">
+              <div class="section-label" onclick="toggleSection(this)">Week Info Cards ▼</div>
+              <div id="cardsContainer">
+                <div class="empty-state">The loader will drop dynamic week content here.</div>
+              </div>
+            </section>
+
+          </div><!-- /card-body -->
+        </div><!-- /card-shell -->
+      </section><!-- /#mainStageCard -->
+
+      <!-- ── CARD 2: Dynamic loader target (app.js injects here) ── -->
+      <section id="dynamicCard" class="card">
+        <div id="loadedCardHost">
+          <div class="empty-state">Select a card above to load it here.</div>
+        </div>
+      </section>
+
+    </div><!-- /#cardsRow -->
+  </main>
+
+</div><!-- /#appShell -->
+
+<!-- ============================================================
+     LANDING PAGE (beautiful shell — scrolled to below the app)
+     Users who want to explore the system scroll down to find this.
+     Deep-link users land directly in the app above.
+     ============================================================ -->
+<div id="landing" aria-label="About this application">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow"><span>A Sacred Study Workspace</span></div>
+    <h1 class="hero-title">Let the<br /><em>Word</em><br />speak first.</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-subtitle">
+      A kitchen table for scripture, intertext, and ancient witness — without the noise.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary"  onclick="scrollToApp()">↑ Open the Table</button>
+      <button class="btn-secondary" onclick="loadAndScroll('nt')">✝ NT Reader</button>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <div class="hero-scroll-label">Explore</div>
+    </div>
+  </section>
+
+  <!-- STUDY CARDS -->
+  <section class="cards-section" id="cards">
+    <div class="cards-header reveal">
+      <div class="cards-header-label">Study Systems</div>
+      <h2>Every tool at <em>the table.</em></h2>
+    </div>
+    <div class="card-grid">
+
+      <div class="study-card card-nt reveal reveal-delay-1" onclick="loadAndScroll('nt')" role="button" tabindex="0">
+        <div class="card-accent"></div>
+        <div class="card-inner">
+          <div>
+            <span class="card-icon">✝</span>
+            <span class="card-number">01</span>
+            <span class="card-tag">Scripture</span>
+            <h3 class="card-title">NT <em>Reader</em></h3>
+            <p class="card-desc">Navigate the New Testament by book, chapter, and section. Inline intertext chips.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-footer-label">Open Reader</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="study-card card-hub reveal reveal-delay-2" onclick="loadAndScroll('studyhub')" role="button" tabindex="0">
+        <div class="card-accent"></div>
+        <div class="card-inner">
+          <div>
+            <span class="card-icon">☕</span>
+            <span class="card-number">02</span>
+            <span class="card-tag">Hub</span>
+            <h3 class="card-title">Study<em>Hub</em></h3>
+            <p class="card-desc">Week-aware navigation, sermon prep, and your primary study entry point.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-footer-label">Open Hub</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="study-card card-sefaria reveal reveal-delay-3" onclick="loadAndScroll('sefaria')" role="button" tabindex="0">
+        <div class="card-accent"></div>
+        <div class="card-inner">
+          <div>
+            <span class="card-icon">✡</span>
+            <span class="card-number">03</span>
+            <span class="card-tag">Jewish Context</span>
+            <h3 class="card-title">Sefaria <em>Sources</em></h3>
+            <p class="card-desc">Hebrew Scriptures and rabbinic tradition. Chapter navigation, session persistence.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-footer-label">Open Sefaria</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="study-card card-intertext reveal reveal-delay-2" onclick="loadAndScroll('intertext-quotes')" role="button" tabindex="0">
+        <div class="card-accent"></div>
+        <div class="card-inner">
+          <div>
+            <span class="card-icon">⛓</span>
+            <span class="card-number">04</span>
+            <span class="card-tag">Intertextual</span>
+            <h3 class="card-title">NT–OT <em>Quotations</em></h3>
+            <p class="card-desc">Explicit NT quotations with MT and LXX witnesses. Filter by book, expand witnesses.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-footer-label">View Quotations</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="study-card reveal reveal-delay-3" onclick="loadAndScroll('sources')" role="button" tabindex="0">
+        <div class="card-accent"></div>
+        <div class="card-inner">
+          <div>
+            <span class="card-icon">📜</span>
+            <span class="card-number">05</span>
+            <span class="card-tag">Multi-Tradition</span>
+            <h3 class="card-title">Scriptural <em>Sources</em></h3>
+            <p class="card-desc">Jewish, NT usage, Early Christian, Dead Sea Scrolls — around a single reference.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-footer-label">Open Sources</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="study-card reveal reveal-delay-4" style="cursor:default;">
+        <div class="card-inner">
+          <div>
+            <span class="card-icon" style="opacity:0.3;">✎</span>
+            <span class="card-number">06</span>
+            <span class="card-tag">Coming</span>
+            <h3 class="card-title" style="color:var(--text-ghost);">Prep <em>Table</em></h3>
+            <p class="card-desc" style="opacity:0.45;">Observation, interpretation, correlation, application.</p>
+          </div>
+          <div class="card-footer" style="opacity:0.3;">
+            <span class="card-footer-label">In Development</span>
+            <span class="card-arrow">—</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider reveal"><span class="section-divider-mark">Architecture</span></div>
+
+  <!-- FEATURE STRIP -->
+  <div class="feature-strip">
+    <div class="feature-strip-inner">
+      <div class="feature-item reveal reveal-delay-1">
+        <span class="feature-glyph">⚡</span>
+        <span class="feature-name">Card System</span>
+        <p class="feature-desc">Independent study tools that load on demand, each with its own script and HTML context.</p>
+      </div>
+      <div class="feature-item reveal reveal-delay-2">
+        <span class="feature-glyph">🔗</span>
+        <span class="feature-name">Cross-Card Bridge</span>
+        <p class="feature-desc">Passages flow between NT reader, Sefaria, and Intertext through a shared event layer.</p>
+      </div>
+      <div class="feature-item reveal reveal-delay-3">
+        <span class="feature-glyph">✡</span>
+        <span class="feature-name">Sefaria API</span>
+        <p class="feature-desc">Live Hebrew Scriptures and rabbinic literature with session persistence.</p>
+      </div>
+      <div class="feature-item reveal reveal-delay-4">
+        <span class="feature-glyph">📱</span>
+        <span class="feature-name">Mobile-First PWA</span>
+        <p class="feature-desc">Swipe navigation, touch-optimized, offline-ready, installable on any device.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy" id="philosophy">
+    <div class="philosophy-rule reveal">
+      <span class="philosophy-rule-glyph">✦</span>
+    </div>
+    <blockquote class="philosophy-quote reveal">
+      "Scripture was <strong>lived</strong> before it was analyzed."
+    </blockquote>
+    <div class="philosophy-attribution reveal">— Sources Card, on the witness of God's people</div>
+    <div class="philosophy-body">
+      <div class="philosophy-block reveal reveal-delay-1">
+        <h3>The Premise</h3>
+        <p>Every serious study of the New Testament eventually arrives at a Hebrew source, a Jewish parallel, a textual echo. This workspace was built for that moment — when you need to hold two traditions at once.</p>
+      </div>
+      <div class="philosophy-block reveal reveal-delay-2">
+        <h3>The Method</h3>
+        <p>The tools here do not interpret for you. They place witnesses alongside each other. The Masoretic text beside the Septuagint. The NT quotation beside its Hebrew source. The Word speaks first.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider reveal"><span class="section-divider-mark">System Status</span></div>
+
+  <!-- STATUS -->
+  <section class="status-section" id="system">
+    <div class="status-header reveal">
+      <h2>Connection Map</h2>
+      <div class="status-legend">
+        <div class="legend-item"><div class="legend-dot dot-live"></div>Live</div>
+        <div class="legend-item"><div class="legend-dot dot-partial"></div>Partial</div>
+        <div class="legend-item"><div class="legend-dot dot-planned"></div>Planned</div>
+        <div class="legend-item"><div class="legend-dot dot-broken"></div>Broken</div>
+      </div>
+    </div>
+    <div class="status-grid">
+
+      <div class="status-card reveal">
+        <div class="status-card-top">
+          <span class="status-card-name">app.js</span>
+          <span class="status-badge badge-live">Live</span>
+        </div>
+        <p class="status-card-desc">Card loader, navigation shell, URL routing, swipe + keyboard.</p>
+        <div class="status-connections">
+          <span class="connection-tag active">loadCard</span>
+          <span class="connection-tag active">URL params</span>
+          <span class="connection-tag active">localStorage bridge</span>
+          <span class="connection-tag pending">sefaria:open listener</span>
+        </div>
+      </div>
+
+      <div class="status-card reveal reveal-delay-1">
+        <div class="status-card-top">
+          <span class="status-card-name">NT Reader</span>
+          <span class="status-badge badge-partial">Partial</span>
+        </div>
+        <p class="status-card-desc">Book grid, chapter nav, section reader, inline intertext chips.</p>
+        <div class="status-connections">
+          <span class="connection-tag active">book/chapter routing</span>
+          <span class="connection-tag active">intertextEdges (3)</span>
+          <span class="connection-tag broken">sefaria:open → silence</span>
+          <span class="connection-tag pending">window.intertextData</span>
+        </div>
+      </div>
+
+      <div class="status-card reveal reveal-delay-2">
+        <div class="status-card-top">
+          <span class="status-card-name">Sefaria</span>
+          <span class="status-badge badge-partial">Partial</span>
+        </div>
+        <p class="status-card-desc">Live Hebrew Scriptures via Sefaria API. Session persistence.</p>
+        <div class="status-connections">
+          <span class="connection-tag active">API fetch</span>
+          <span class="connection-tag active">sefariaLastRef</span>
+          <span class="connection-tag pending">sefariaJump (no writer)</span>
+          <span class="connection-tag broken">sefaria:open (no listener)</span>
+        </div>
+      </div>
+
+      <div class="status-card reveal">
+        <div class="status-card-top">
+          <span class="status-card-name">Intertext</span>
+          <span class="status-badge badge-live">Live</span>
+        </div>
+        <p class="status-card-desc">NT–OT quotation browser. MT and LXX witnesses. Book filter.</p>
+        <div class="status-connections">
+          <span class="connection-tag active">JSON dataset</span>
+          <span class="connection-tag active">book filter</span>
+          <span class="connection-tag pending">window.intertextData</span>
+          <span class="connection-tag pending">passage filter</span>
+        </div>
+      </div>
+
+      <div class="status-card reveal reveal-delay-1">
+        <div class="status-card-top">
+          <span class="status-card-name">Sources</span>
+          <span class="status-badge badge-broken">Broken</span>
+        </div>
+        <p class="status-card-desc">Multi-tradition aggregator. Toggle sections. Reference selector.</p>
+        <div class="status-connections">
+          <span class="connection-tag active">section toggles</span>
+          <span class="connection-tag broken">open-intertext → silence</span>
+          <span class="connection-tag broken">open-nt-reader → silence</span>
+          <span class="connection-tag broken">load-reference → silence</span>
+        </div>
+      </div>
+
+      <div class="status-card reveal reveal-delay-2">
+        <div class="status-card-top">
+          <span class="status-card-name">StudyHub</span>
+          <span class="status-badge badge-partial">Partial</span>
+        </div>
+        <p class="status-card-desc">Session hub. Week-aware context. Navigation to all cards.</p>
+        <div class="status-connections">
+          <span class="connection-tag active">card navigation</span>
+          <span class="connection-tag active">URL hygiene</span>
+          <span class="connection-tag broken">getSelectedWeekNumber</span>
+          <span class="connection-tag planned">week → passage map</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="landing-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">HGSpark — The Table</span>
+      <span class="footer-verse">"Let the Word speak first."</span>
+      <span class="footer-copy">HomeGroups.Org</span>
+    </div>
+  </footer>
+
+</div><!-- /#landing -->
+
+<!-- ============================================================
+     MINI INFO MODAL (your existing modal, restyled)
+     ============================================================ -->
+<div id="miniModal" role="dialog" aria-modal="true">
+  <div class="mini-modal-inner">
+    <button onclick="closeMiniModal()"
+      style="position:absolute;top:0.75rem;right:1rem;background:none;border:none;color:var(--text-dim);font-size:1.1rem;cursor:pointer;line-height:1;">
+      ✕
+    </button>
+    <div id="miniModalTitle"></div>
+    <div id="miniModalContent"></div>
+    <button id="miniModalDeeperBtn">Go Deeper</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+
+<!-- PWA install prompt -->
+<script>
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  const btn = document.getElementById('installAppBtn');
+  if (btn) btn.hidden = false;
+});
+document.getElementById('installAppBtn')?.addEventListener('click', async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  const btn = document.getElementById('installAppBtn');
+  if (btn) btn.hidden = true;
+});
+</script>
+
+<!-- Mini modal helpers (expected by your existing card scripts) -->
+<script>
+function closeMiniModal() {
+  document.getElementById('miniModal').classList.remove('open');
+}
+function openMiniModal(title, content) {
+  document.getElementById('miniModalTitle').textContent = title || '';
+  document.getElementById('miniModalContent').innerHTML = content || '';
+  document.getElementById('miniModal').classList.add('open');
+}
+</script>
+
+<!-- Landing JS: scroll reveal, card buttons, utility functions -->
+<script>
+// ── Scroll reveal ─────────────────────────────────────────────
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+revealEls.forEach(el => revealObs.observe(el));
+
+// ── Navigate up to the app and load a card ────────────────────
+// This is the CLEAN connection: select a card in the dropdown,
+// let app.js handle everything (it owns loadCard), then scroll up.
+function loadAndScroll(cardName) {
+  // 1. Set the selector — app.js listens to its 'change' event
+  const sel = document.getElementById('cardSelector');
+  if (sel) {
+    sel.value = cardName;
+    sel.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  // 2. Scroll up to the app so the user sees the loaded card
+  scrollToApp();
+}
+
+function scrollToApp() {
+  document.getElementById('appShell').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── Card keyboard accessibility ───────────────────────────────
+document.querySelectorAll('[role="button"]').forEach(el => {
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+  });
+});
+
+// ── toggleSection (used by existing card sections) ────────────
+window.toggleSection = function(label) {
+  let panel = label.nextElementSibling;
+  while (panel && !panel.classList.contains('content-panel')) {
+    panel = panel.nextElementSibling;
+  }
+  if (!panel) return;
+  const isHidden = panel.style.display === 'none';
+  panel.style.display = isHidden ? '' : 'none';
+  label.textContent = label.textContent.replace(/[▼▶]$/, isHidden ? '▼' : '▶');
+};
+</script>
+
+<!-- Service worker -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+</script>
+
+<!-- ── YOUR EXISTING SCRIPTS — untouched, in original order ── -->
+<script type="module" src="js/mainstage.js"></script>
+<script src="js/fullscreen.js"></script>
+<script type="module" src="js/app.js"></script>
+<script src="js/SAVEorbitFloatingPlayer.js"></script>
+<script src="js/bullseyeMedia.js"></script>
+<script type="module" src="js/topNav.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+</body>
+</html>
