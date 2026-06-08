@@ -1,0 +1,124 @@
+<!-- 
+  CARD TEMPLATE: SIMPLE CONTENT CARD
+  =====================================
+  Use this for cards with hero + collapsible sections
+  Examples: Today, Scripture, Articles, Disciplines
+  
+  Key CSS Classes:
+  - .card-hero: Featured content section
+  - .card-section: Grouped content
+  - .section-title: Clickable header (toggles content)
+  - .content-panel: Individual content block
+  
+  This card automatically integrates with the app shell.
+  No inline styles needed — use CSS classes from index.html
+-->
+
+<div class="card-inner">
+  
+  <!-- HERO SECTION: Featured moment -->
+  <div class="card-hero">
+    <div class="card-hero-kicker">Optional subheading</div>
+    <h1 class="card-hero-title">Main Title Here</h1>
+    <p class="card-hero-subtitle">
+      Brief context or description. Use this for the "why" of this card.
+    </p>
+  </div>
+
+  <!-- CONTENT SECTION 1: Collapsible -->
+  <div class="card-section">
+    <div class="section-title">
+      📖 Section One
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-content">
+      <!-- PANEL: Individual content block -->
+      <div class="content-panel">
+        <div class="content-panel-title">Panel Title</div>
+        <div class="content-panel-body">
+          Panel content goes here. Rich text, paragraphs, anything.
+          Uses the warm text color from the design system.
+        </div>
+      </div>
+
+      <!-- PANEL: Multiple panels per section -->
+      <div class="content-panel">
+        <div class="content-panel-body">
+          Panels can exist without titles too.
+          Just use content-panel-body directly.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT SECTION 2: Another collapsible -->
+  <div class="card-section">
+    <div class="section-title">
+      ✨ Section Two
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-content">
+      <div class="content-panel">
+        <div class="content-panel-title">Subsection</div>
+        <div class="content-panel-body">
+          Stack multiple sections for complex cards.
+          The collapsible functionality is built-in.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT SECTION 3: With empty state -->
+  <div class="card-section">
+    <div class="section-title">
+      🎧 Resources
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-content">
+      <div class="empty-state">
+        <div class="empty-state-icon">🎙️</div>
+        <div class="empty-state-text">
+          No resources available yet.
+          Check back soon!
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--
+  USAGE NOTES:
+  
+  1. HERO SECTION is always visible
+     - .card-hero-kicker: Small label (optional)
+     - .card-hero-title: Large, readable title
+     - .card-hero-subtitle: Context
+  
+  2. COLLAPSIBLE SECTIONS
+     - Click .section-title to toggle .section-content
+     - .section-toggle indicator flips automatically
+     - Multiple panels can go in one section
+  
+  3. PANELS (.content-panel)
+     - Use for individual content blocks
+     - .content-panel-title: Optional accent bar
+     - .content-panel-body: Main text
+     - Stack multiple panels per section
+  
+  4. EMPTY STATES
+     - Use .empty-state for missing data
+     - .empty-state-icon: Large emoji/icon
+     - .empty-state-text: Explanation
+  
+  5. TEXT UTILITIES
+     - .text-sm, .text-xs: Smaller text
+     - .text-muted: Tertiary color
+     - .text-accent: Primary copper color
+  
+  6. STYLING
+     - No inline styles needed
+     - All spacing/colors from CSS variables
+     - Typography is automatic
+     - Responsive built-in
+-->
