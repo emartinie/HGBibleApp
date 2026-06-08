@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#0f0f1e">
+  <meta name="theme-color" content="#1a1410">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="HGSpark — Scripture study. Reimagined.">
+  <meta name="description" content="HGSpark — Scripture study. Deep. Intentional. Real.">
   
   <title>HGSpark 🔥</title>
   <link rel="icon" type="image/png" href="images/HGHouses.png">
@@ -14,31 +14,37 @@
 
   <style>
     /* ============================================================
-       DESIGN TOKENS & RESET
+       DESIGN TOKENS: FIRELIT STUDY DESK
        ============================================================ */
     :root {
-      /* COLOR PALETTE */
-      --bg-primary: #0f0f1e;
-      --bg-secondary: #1a1a2e;
-      --bg-tertiary: #25254a;
-      --bg-surface: rgba(26, 26, 46, 0.7);
+      /* WARM, STUDIED PALETTE */
+      --bg-primary: #1a1410;
+      --bg-secondary: #2a2419;
+      --bg-tertiary: #3a3428;
+      --bg-surface: rgba(42, 36, 25, 0.65);
       
-      --text-primary: #f0f0f5;
-      --text-secondary: #a8a8c0;
-      --text-tertiary: #6b6b80;
+      --text-primary: #e8dcc8;
+      --text-secondary: #b8a89a;
+      --text-tertiary: #8a7968;
       
-      --accent-primary: #7c5cff;
-      --accent-secondary: #ff6b9d;
-      --accent-tertiary: #ffa347;
+      /* FIRELIT ACCENTS */
+      --accent-primary: #c97a3a;
+      --accent-secondary: #d4a574;
+      --accent-tertiary: #e8b896;
       
-      --accent-success: #00d084;
-      --accent-warning: #ffc107;
-      --accent-danger: #ff4757;
+      /* VOYAGER TECH HINTS */
+      --accent-tech: #5a9db3;
+      --accent-tech-light: #7fb3c8;
       
-      /* EFFECTS */
-      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      --glow-accent: 0 0 20px rgba(124, 92, 255, 0.3);
-      --glow-secondary: 0 0 15px rgba(255, 107, 157, 0.25);
+      /* STATUS COLORS */
+      --accent-success: #7db881;
+      --accent-warning: #d4a574;
+      --accent-danger: #c97a3a;
+      
+      /* EFFECTS: FIRELIT GLOW */
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --glow-copper: 0 0 24px rgba(201, 122, 58, 0.25);
+      --glow-amber: 0 0 20px rgba(212, 165, 116, 0.15);
       
       /* SPACING */
       --sp-xs: 0.25rem;
@@ -83,7 +89,7 @@
     }
 
     /* ============================================================
-       ANIMATIONS
+       ANIMATIONS: WARM & INTENTIONAL
        ============================================================ */
     @keyframes slideInUp {
       from {
@@ -106,18 +112,14 @@
       50% { opacity: 0.6; }
     }
 
-    @keyframes shimmer {
-      0% {
-        background-position: -1000px 0;
-      }
-      100% {
-        background-position: 1000px 0;
-      }
+    @keyframes glow {
+      0%, 100% { box-shadow: var(--glow-copper); }
+      50% { box-shadow: var(--glow-amber); }
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-4px); }
     }
 
     /* ============================================================
@@ -135,7 +137,7 @@
       background: var(--bg-primary);
     }
 
-    /* Background gradient effect */
+    /* Firelit background: warmth underneath */
     #app::before {
       content: '';
       position: fixed;
@@ -143,8 +145,9 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(circle at 20% 80%, rgba(124, 92, 255, 0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 20%, rgba(255, 107, 157, 0.08) 0%, transparent 50%);
+      background: 
+        radial-gradient(circle at 15% 85%, rgba(201, 122, 58, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 85% 15%, rgba(212, 165, 116, 0.08) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
     }
@@ -155,14 +158,14 @@
     }
 
     /* ============================================================
-       HEADER / TOP BAR
+       HEADER / TOP BAR: STUDY DESK WORKSPACE
        ============================================================ */
     #header {
       flex-shrink: 0;
       padding: var(--safe-top) var(--sp-md) var(--sp-md);
-      background: rgba(15, 15, 30, 0.8);
+      background: rgba(26, 20, 16, 0.85);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(124, 92, 255, 0.1);
+      border-bottom: 1px solid rgba(201, 122, 58, 0.15);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -174,7 +177,7 @@
     .header-left {
       display: flex;
       align-items: center;
-      gap: var(--sp-sm);
+      gap: var(--sp-md);
       flex: 1;
     }
 
@@ -182,11 +185,9 @@
       font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent-primary);
       animation: float 3s ease-in-out infinite;
+      text-shadow: 0 0 12px rgba(201, 122, 58, 0.2);
     }
 
     .week-selector {
@@ -195,18 +196,19 @@
       gap: var(--sp-sm);
       padding: var(--sp-sm) var(--sp-md);
       background: var(--bg-surface);
-      border: 1px solid rgba(124, 92, 255, 0.2);
+      border: 1px solid rgba(201, 122, 58, 0.15);
       border-radius: var(--radius-md);
       font-size: 0.875rem;
       color: var(--text-secondary);
       transition: all 0.3s ease;
       min-width: 120px;
+      backdrop-filter: blur(8px);
     }
 
     .week-selector:hover {
-      background: rgba(124, 92, 255, 0.1);
-      border-color: var(--accent-primary);
-      color: var(--accent-primary);
+      background: rgba(201, 122, 58, 0.08);
+      border-color: rgba(201, 122, 58, 0.3);
+      color: var(--accent-secondary);
     }
 
     .week-selector select {
@@ -223,6 +225,11 @@
       outline: none;
     }
 
+    .week-selector select option {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
     .header-right {
       display: flex;
       align-items: center;
@@ -234,7 +241,7 @@
       height: 40px;
       border-radius: var(--radius-md);
       background: transparent;
-      border: 1px solid rgba(124, 92, 255, 0.2);
+      border: 1px solid rgba(201, 122, 58, 0.15);
       color: var(--text-secondary);
       cursor: pointer;
       display: flex;
@@ -248,10 +255,9 @@
 
     .btn-icon:active,
     .btn-icon:hover {
-      background: rgba(124, 92, 255, 0.1);
-      border-color: var(--accent-primary);
+      background: rgba(201, 122, 58, 0.08);
+      border-color: rgba(201, 122, 58, 0.3);
       color: var(--accent-primary);
-      transform: scale(0.95);
     }
 
     /* ============================================================
@@ -295,7 +301,6 @@
       flex-direction: column;
     }
 
-    /* Card content wrapper */
     .card-inner {
       flex: 1;
       display: flex;
@@ -305,24 +310,26 @@
     }
 
     /* ============================================================
-       CARD: HERO SECTION
+       CARD: HERO SECTION (FIRELIT MOMENT)
        ============================================================ */
     .card-hero {
       padding: var(--sp-lg);
-      background: linear-gradient(135deg, rgba(124, 92, 255, 0.1) 0%, rgba(255, 107, 157, 0.05) 100%);
-      border: 1px solid rgba(124, 92, 255, 0.2);
+      background: 
+        linear-gradient(135deg, rgba(201, 122, 58, 0.12) 0%, rgba(212, 165, 116, 0.08) 100%);
+      border: 1px solid rgba(201, 122, 58, 0.2);
       border-radius: var(--radius-lg);
       backdrop-filter: blur(12px);
-      box-shadow: var(--glass-shadow);
+      box-shadow: var(--glass-shadow), var(--glow-copper);
     }
 
     .card-hero-kicker {
       font-size: 0.75rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent-tertiary);
+      color: var(--accent-secondary);
       margin-bottom: var(--sp-sm);
       font-weight: 600;
+      opacity: 0.9;
     }
 
     .card-hero-title {
@@ -331,13 +338,14 @@
       line-height: 1.2;
       margin-bottom: var(--sp-md);
       color: var(--text-primary);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .card-hero-subtitle {
       font-size: 1rem;
       line-height: 1.6;
       color: var(--text-secondary);
-      max-width: 80%;
+      max-width: 90%;
     }
 
     /* ============================================================
@@ -371,6 +379,7 @@
     .section-toggle {
       font-size: 0.75rem;
       transition: transform 0.3s ease;
+      opacity: 0.7;
     }
 
     .section-toggle.collapsed {
@@ -385,20 +394,22 @@
     }
 
     /* ============================================================
-       CARD: CONTENT PANEL
+       CARD: CONTENT PANEL (STUDIED, LAYERED)
        ============================================================ */
     .content-panel {
       padding: var(--sp-lg);
-      background: rgba(26, 26, 46, 0.6);
-      border: 1px solid rgba(124, 92, 255, 0.1);
+      background: rgba(42, 36, 25, 0.6);
+      border: 1px solid rgba(201, 122, 58, 0.15);
       border-radius: var(--radius-lg);
       backdrop-filter: blur(8px);
       transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     }
 
     .content-panel:hover {
-      background: rgba(26, 26, 46, 0.8);
-      border-color: rgba(124, 92, 255, 0.2);
+      background: rgba(42, 36, 25, 0.75);
+      border-color: rgba(201, 122, 58, 0.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), var(--glow-copper);
     }
 
     .content-panel-title {
@@ -419,6 +430,7 @@
       height: 16px;
       background: var(--accent-primary);
       border-radius: 2px;
+      box-shadow: 0 0 8px rgba(201, 122, 58, 0.3);
     }
 
     .content-panel-body {
@@ -428,21 +440,22 @@
     }
 
     /* ============================================================
-       BOTTOM NAVIGATION
+       BOTTOM NAVIGATION: TOOLS AT HAND
        ============================================================ */
     #footer {
       flex-shrink: 0;
       padding: var(--sp-md);
       padding-bottom: calc(var(--sp-md) + var(--safe-bottom));
-      background: rgba(15, 15, 30, 0.8);
+      background: rgba(26, 20, 16, 0.85);
       backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(124, 92, 255, 0.1);
+      border-top: 1px solid rgba(201, 122, 58, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: var(--sp-sm);
       animation: slideInUp 0.6s ease-out;
       min-height: 72px;
+      flex-wrap: wrap;
     }
 
     .nav-group {
@@ -456,7 +469,7 @@
       height: 44px;
       border-radius: var(--radius-md);
       background: transparent;
-      border: 1px solid rgba(124, 92, 255, 0.2);
+      border: 1px solid rgba(201, 122, 58, 0.2);
       color: var(--text-secondary);
       cursor: pointer;
       display: flex;
@@ -471,17 +484,18 @@
 
     .btn-nav:active,
     .btn-nav:hover {
-      background: linear-gradient(135deg, rgba(124, 92, 255, 0.2), rgba(255, 107, 157, 0.1));
-      border-color: var(--accent-primary);
+      background: rgba(201, 122, 58, 0.1);
+      border-color: rgba(201, 122, 58, 0.4);
       color: var(--accent-primary);
       transform: scale(1.05);
+      box-shadow: var(--glow-copper);
     }
 
     .btn-nav.primary {
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-      border: none;
-      color: var(--bg-primary);
-      box-shadow: var(--glow-accent);
+      background: linear-gradient(135deg, rgba(201, 122, 58, 0.4), rgba(212, 165, 116, 0.2));
+      border: 1px solid rgba(201, 122, 58, 0.4);
+      color: var(--accent-secondary);
+      box-shadow: var(--glow-copper);
     }
 
     .btn-nav.primary:active {
@@ -494,7 +508,7 @@
       max-width: 280px;
       padding: var(--sp-sm) var(--sp-md);
       background: var(--bg-surface);
-      border: 1px solid rgba(124, 92, 255, 0.2);
+      border: 1px solid rgba(201, 122, 58, 0.15);
       border-radius: var(--radius-md);
       color: var(--text-primary);
       font-size: 0.875rem;
@@ -503,17 +517,19 @@
       transition: all 0.2s ease;
       -webkit-appearance: none;
       appearance: none;
+      backdrop-filter: blur(8px);
     }
 
     .card-selector:focus {
       outline: none;
-      background: rgba(124, 92, 255, 0.1);
-      border-color: var(--accent-primary);
+      background: rgba(201, 122, 58, 0.08);
+      border-color: rgba(201, 122, 58, 0.3);
+      color: var(--text-primary);
     }
 
     .card-selector:hover {
-      background: rgba(124, 92, 255, 0.08);
-      border-color: var(--accent-primary);
+      background: rgba(201, 122, 58, 0.08);
+      border-color: rgba(201, 122, 58, 0.3);
     }
 
     .card-selector option {
@@ -522,7 +538,7 @@
     }
 
     /* ============================================================
-       LOADING STATE
+       LOADING & EMPTY STATES
        ============================================================ */
     .loading {
       display: flex;
@@ -538,9 +554,10 @@
       width: 12px;
       height: 12px;
       margin-left: var(--sp-sm);
-      background: linear-gradient(90deg, var(--accent-primary) 0%, transparent 100%);
+      background: var(--accent-primary);
       border-radius: 50%;
       animation: pulse 1.5s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(201, 122, 58, 0.4);
     }
 
     .empty-state {
@@ -596,23 +613,8 @@
         font-size: clamp(1.5rem, 5vw, 2rem);
       }
 
-      #footer {
-        flex-wrap: wrap;
-        gap: var(--sp-xs);
-      }
-
       .card-selector {
         min-width: 100px;
-      }
-    }
-
-    /* ============================================================
-       SUPPORT FOR NOTCHES & DYNAMIC ISLANDS
-       ============================================================ */
-    @supports (padding: max(0px)) {
-      body {
-        padding-left: max(var(--safe-left), var(--sp-md));
-        padding-right: max(var(--safe-right), var(--sp-md));
       }
     }
   </style>
@@ -647,23 +649,23 @@
         <section class="card" id="mainCard">
           <div class="card-inner">
             <div class="card-hero">
-              <div class="card-hero-kicker">This Week's Focus</div>
+              <div class="card-hero-kicker">This Week's Portion</div>
               <h1 class="card-hero-title">Parashat Kedoshim</h1>
               <p class="card-hero-subtitle">
-                Leviticus 19:1–20:27 • A call to holiness and sacred living.
+                Leviticus 19:1–20:27 • Called to holiness. Deep covenant living.
               </p>
             </div>
 
             <div class="card-section">
               <div class="section-title">
-                📖 Weekly Scripture
+                📖 Torah Text
                 <span class="section-toggle">▼</span>
               </div>
               <div class="section-content">
                 <div class="content-panel">
-                  <div class="content-panel-title">Torah Portion</div>
+                  <div class="content-panel-title">The Portion</div>
                   <div class="content-panel-body">
-                    Parashat Kedoshim teaches the foundations of ethical living and covenant relationship. It encompasses the laws of holiness, the treatment of the poor and elderly, honest weights and measures, and the commandment to love your neighbor as yourself.
+                    Kedoshim, "the holy ones," centers Israel's calling: to embody holiness in everyday life—justice, honesty, compassion. The laws are not abstract rules but the texture of covenant relationship with the Divine and each other.
                   </div>
                 </div>
               </div>
@@ -677,12 +679,14 @@
               <div class="section-content">
                 <div class="content-panel">
                   <div class="content-panel-body">
-                    <strong>Leviticus 19:2</strong> — "Speak to the entire assembly of Israel and say to them: 'Be holy because I, the Lord your God, am holy.'"
+                    <strong>Leviticus 19:2</strong><br>
+                    "Be holy, for I, the Lord your God, am holy."
                   </div>
                 </div>
                 <div class="content-panel">
                   <div class="content-panel-body">
-                    <strong>Leviticus 19:18</strong> — "Love your neighbor as yourself. I am the Lord."
+                    <strong>Leviticus 19:18</strong><br>
+                    "Love your neighbor as yourself. I am the Lord."
                   </div>
                 </div>
               </div>
@@ -690,13 +694,13 @@
 
             <div class="card-section">
               <div class="section-title">
-                🎧 Audio & Resources
+                🎧 Resources
                 <span class="section-toggle">▼</span>
               </div>
               <div class="section-content">
                 <div class="empty-state">
-                  <div class="empty-state-icon">🎙️</div>
-                  <div class="empty-state-text">Audio resources will load here.</div>
+                  <div class="empty-state-icon">📚</div>
+                  <div class="empty-state-text">Your study materials will appear here.</div>
                 </div>
               </div>
             </div>
@@ -719,7 +723,7 @@
         <button class="btn-nav" id="nextBtn" title="Next card">→</button>
       </div>
       <select id="cardSelector" class="card-selector" aria-label="Select card">
-        <option value="">Choose a card...</option>
+        <option value="">Choose study...</option>
         <option value="today">🔥 Today</option>
         <option value="calendar">🗓 Calendar</option>
         <option value="scripture">📖 Scripture</option>
@@ -770,6 +774,20 @@
         this.elements.weekSelect.addEventListener('change', (e) => {
           this.state.currentWeek = parseInt(e.target.value);
           console.log('Week changed to:', this.state.currentWeek);
+        });
+
+        // Collapsible sections
+        document.addEventListener('click', (e) => {
+          if (e.target.closest('.section-title')) {
+            const title = e.target.closest('.section-title');
+            const toggle = title.querySelector('.section-toggle');
+            const content = title.nextElementSibling;
+            
+            if (toggle && content) {
+              toggle.classList.toggle('collapsed');
+              content.style.display = content.style.display === 'none' ? '' : 'none';
+            }
+          }
         });
       },
 
