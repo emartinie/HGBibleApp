@@ -1,896 +1,1133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#0d0d15">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="HGSpark — Scripture study. Deep. Intentional. Real.">
-  
-  <title>HGSpark 🔥</title>
-  <link rel="icon" type="image/png" href="images/HGHouses.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="manifest" href="manifest.json">
 
+  <meta property="og:title" content="HGSpark©🔥Bible Study App" />
+  <meta property="og:description" content="A structured, cyclical, text-first system for learning Scripture deeply." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://HomeGroups.Org" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/omer1.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/omer2.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Player.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/calendar2.png" />
+  <meta property="og:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/map4.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HGSpark©🔥Bible Study App" />
+  <meta name="twitter:description" content="A structured, cyclical, text-first system for learning Scripture deeply." />
+  <meta name="twitter:image" content="https://emartinie.github.io/MainStage/images/App-Screenshots/Home.png" />
+
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="description" content="A structured, cyclical, text-first system for learning Scripture deeply." />
+  <meta name="author" content="Eddie Martinie" />
+  <meta name="theme-color" content="#4a5568">
+
+  <title>HGSpark©🔥Bible Study App</title>
+  <link rel="icon" type="image/x-icon" href="https://emartinie.github.io/MainStage/images/HGHouses.png">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="./css/fullscreen.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+
   <style>
-    /* ============================================================
-       DESIGN TOKENS: CHARCOAL + GLASS + FIRELIT
-       ============================================================ */
     :root {
-      /* CHARCOAL BACKGROUNDS */
-      --bg-primary: #0d0d15;
-      --bg-secondary: #161620;
-      --bg-tertiary: #1f1f2e;
-      --bg-surface: rgba(22, 22, 32, 0.7);
-      
-      /* WARM, STUDIED TEXT */
-      --text-primary: #e8dcc8;
-      --text-secondary: #b8a89a;
-      --text-tertiary: #7a6f63;
-      
-      /* FIRELIT COPPER ACCENTS */
-      --accent-primary: #c97a3a;
-      --accent-secondary: #d4a574;
-      --accent-tertiary: #e8b896;
-      
-      /* VOYAGER TECH HINTS */
-      --accent-tech: #5a9db3;
-      --accent-tech-light: #7fb3c8;
-      
-      /* STATUS COLORS */
-      --accent-success: #7db881;
-      --accent-warning: #d4a574;
-      --accent-danger: #c97a3a;
-      
-      /* EFFECTS: SUBTLE, GLASSY */
-      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      --glow-copper: 0 0 24px rgba(201, 122, 58, 0.20);
-      --glow-amber: 0 0 20px rgba(212, 165, 116, 0.12);
-      
-      /* SPACING */
-      --sp-xs: 0.25rem;
-      --sp-sm: 0.5rem;
-      --sp-md: 1rem;
-      --sp-lg: 1.5rem;
-      --sp-xl: 2rem;
-      
-      /* RADIUS */
-      --radius-sm: 6px;
-      --radius-md: 12px;
-      --radius-lg: 20px;
-      --radius-xl: 28px;
-      
-      /* SAFE AREAS */
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
-      --safe-left: env(safe-area-inset-left, 0px);
-      --safe-right: env(safe-area-inset-right, 0px);
+      color-scheme: dark;
+      --bg-0:#06070b;
+      --bg-1:#0d111b;
+      --bg-2:#141b2a;
+      --panel:rgba(14,18,28,.82);
+      --panel-2:rgba(22,29,43,.78);
+      --line:rgba(255,255,255,.10);
+      --soft:rgba(255,255,255,.06);
+      --text:#eef3ff;
+      --muted:#a8b2c7;
+      --gold:#f3c878;
+      --gold-2:#ffdf9c;
+      --accent:#7cc7ff;
+      --shadow:0 18px 50px rgba(0,0,0,.42);
+      --radius-xl:28px;
+      --radius-lg:20px;
+      --radius-md:14px;
+      --header-h:64px;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
+      margin: 0;
+      padding: 0;
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top, rgba(243,200,120,.10), transparent 28%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-0));
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.5;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    /* ============================================================
-       ANIMATIONS: INTENTIONAL, SMOOTH
-       ============================================================ */
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-    }
-
-    /* ============================================================
-       LAYOUT: APP SHELL
-       ============================================================ */
-    #app {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: var(--bg-primary);
-    }
-
-    /* Subtle gradient backdrop */
-    #app::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 15% 85%, rgba(201, 122, 58, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 85% 15%, rgba(212, 165, 116, 0.05) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    #app > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ============================================================
-       HEADER / TOP BAR: STUDY DESK WORKSPACE
-       ============================================================ */
-    #header {
-      flex-shrink: 0;
-      padding: var(--safe-top) var(--sp-md) var(--sp-md);
-      background: rgba(13, 13, 21, 0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201, 122, 58, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--sp-md);
-      min-height: 64px;
-      animation: slideInUp 0.6s ease-out;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: var(--sp-md);
-      flex: 1;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--accent-primary);
-      animation: float 3s ease-in-out infinite;
-      text-shadow: 0 0 12px rgba(201, 122, 58, 0.15);
-    }
-
-    .week-selector {
-      display: flex;
-      align-items: center;
-      gap: var(--sp-sm);
-      padding: var(--sp-sm) var(--sp-md);
-      background: var(--bg-surface);
-      border: 1px solid rgba(201, 122, 58, 0.12);
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      transition: all 0.3s ease;
-      min-width: 120px;
-      backdrop-filter: blur(8px);
-    }
-
-    .week-selector:hover {
-      background: rgba(201, 122, 58, 0.06);
-      border-color: rgba(201, 122, 58, 0.25);
-      color: var(--accent-secondary);
-    }
-
-    .week-selector select {
-      background: transparent;
-      border: none;
-      color: inherit;
-      font-family: inherit;
-      font-size: 0.875rem;
-      cursor: pointer;
-      flex: 1;
-    }
-
-    .week-selector select:focus {
-      outline: none;
-    }
-
-    .week-selector select option {
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: var(--sp-sm);
-    }
-
-    .btn-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-md);
-      background: transparent;
-      border: 1px solid rgba(201, 122, 58, 0.12);
-      color: var(--text-secondary);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      transition: all 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-
-    .btn-icon:active,
-    .btn-icon:hover {
-      background: rgba(201, 122, 58, 0.08);
-      border-color: rgba(201, 122, 58, 0.25);
-      color: var(--accent-primary);
-    }
-
-    /* ============================================================
-       VIEWPORT / CARDS CONTAINER
-       ============================================================ */
-    #viewport {
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
       overflow: hidden;
     }
 
-    #cardsContainer {
+    button, select {
+      font: inherit;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      position: relative;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #EAF6FF;
+    }
+
+    .page-subtitle {
+      margin-top: 0.75rem;
+      color: rgba(234, 246, 255, 0.6);
+      font-size: 1rem;
+    }
+
+    .page-body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .page-footer {
+      margin-top: 3rem;
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    .flame {
+      font-size: 14px;
+      font-weight: 900;
+      background: linear-gradient(180deg, #fff5cc, #ffae00, #ff3d00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ignite-button {
+      padding: 4px 14px;
+      font-size: 14px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(90deg, #fff5cc, #ffae00, #ff3d00);
+      color: white;
+      font-weight: bold;
+      transition: all 0.4s ease;
+    }
+
+    .ignite-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 150, 0, 0.6);
+    }
+
+    body.ignited {
+      background: radial-gradient(circle at center, #3b0000 0%, #000000 80%);
+      z-index: 99999;
+    }
+
+    body.ignited .background-glow {
+      animation: burst 2s forwards;
+      z-index: 99999;
+    }
+
+    body.ignited .flame-s {
+      transform: scale(1.2);
+      text-shadow:
+        0 0 20px rgba(255, 255, 200, 1),
+        0 0 60px rgba(255, 100, 0, 0.9);
+      z-index: 99999;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes burst {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    @keyframes divineFlicker {
+      0% {
+        transform: scale(1);
+        text-shadow:
+          0 0 10px rgba(255, 180, 0, 0.6),
+          0 0 20px rgba(255, 80, 0, 0.4);
+      }
+      50% {
+        transform: scale(1.03);
+        text-shadow:
+          0 0 25px rgba(255, 220, 120, 1),
+          0 0 60px rgba(255, 80, 0, 0.9);
+      }
+      100% {
+        transform: scale(1);
+        text-shadow:
+          0 0 10px rgba(255, 180, 0, 0.6),
+          0 0 20px rgba(255, 80, 0, 0.4);
+      }
+    }
+
+    .sparks-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 9999;
+    }
+
+    .spark {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: orange;
+      animation: spark-float 1s forwards;
+      z-index: 9999;
+    }
+
+    @keyframes spark-float {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-120px);
+      }
+    }
+
+    .leaflet-popup-content-wrapper {
+      background: #0f172a;
+      color: #e5e7eb;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .radio-div-icon-wrap {
+      background: transparent;
+      border: none;
+    }
+
+    .map-shell button,
+    .map-shell input {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: #e5e7eb;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .map-shell button:hover {
+      background: rgba(255,255,255,0.14);
+    }
+
+    .map-popup {
+      line-height: 1.4;
+      min-width: 180px;
+    }
+
+    .radio-marker {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 12px;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.35);
+      box-shadow: 0 0 12px rgba(0,0,0,0.35);
+      backdrop-filter: blur(4px);
+    }
+
+    .radio-marker.repeater { background: rgba(59,130,246,0.92); }
+    .radio-marker.simplex  { background: rgba(249,115,22,0.92); }
+    .radio-marker.family   { background: rgba(168,85,247,0.92); }
+    .radio-marker.default  { background: rgba(100,116,139,0.92); }
+
+    #appShell {
+      width: 100%;
+      height: 100vh;
+      padding:
+        max(12px, env(safe-area-inset-top))
+        12px
+        max(12px, env(safe-area-inset-bottom))
+        12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #topBar {
+      min-height: var(--header-h);
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 10px 12px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .ui-btn,
+    .ui-select {
+      appearance: none;
+      border: none;
+      outline: none;
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      min-height: 42px;
+      padding: 0 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.22);
+    }
+
+    .ui-btn {
+      cursor: pointer;
+      min-width: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+
+    .ui-select {
+      min-width: 0;
+    }
+
+    #weekSelect {
+      width: auto;
+      max-width: 140px;
+      flex: 0 1 auto;
+    }
+
+    .card-picker {
+      width: auto;
+      min-width: 0;
+      max-width: calc(100vw - 120px);
+      flex: 0 1 auto;
+    }
+
+    #frontPorch {
+      background:
+        linear-gradient(180deg, rgba(255,231,178,.07), rgba(255,255,255,.03)),
+        var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 18px 16px;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+    }
+
+    .fp-kicker {
+      font-size: .73rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .fp-title {
+      font-size: 1.35rem;
+      line-height: 1.06;
+      margin: 0 0 8px;
+      font-weight: 800;
+      color: #fff6de;
+    }
+
+    .fp-sub {
+      color: var(--muted);
+      margin: 0;
+      font-size: .96rem;
+      line-height: 1.45;
+    }
+
+    #viewport {
+      position: relative;
       flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)),
+        rgba(7,10,17,.72);
+      box-shadow: var(--shadow);
+    }
+
+    #cardsRow {
+      width: 100%;
+      height: 100%;
+      display: flex;
       overflow-x: auto;
       overflow-y: hidden;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      display: flex;
     }
 
-    #cardsContainer::-webkit-scrollbar {
+    #cardsRow::-webkit-scrollbar {
       display: none;
     }
 
     .card {
-      flex: 0 0 100%;
       width: 100%;
-      min-height: 0;
+      min-width: 100%;
+      height: 100%;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
+      padding: 12px;
       overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: var(--sp-md);
-      padding-top: var(--sp-lg);
-      padding-bottom: calc(var(--sp-lg) + var(--safe-bottom));
+      overflow-x: hidden;
+    }
+
+    .card-shell {
+      min-height: 100%;
       display: flex;
       flex-direction: column;
+      gap: 12px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02)),
+        rgba(13,17,27,.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 14px;
     }
 
-    .card-inner {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-lg);
-      animation: slideInUp 0.5s ease-out 0.1s both;
-    }
-
-    /* ============================================================
-       CARD: HERO SECTION (FEATURED MOMENT)
-       ============================================================ */
-    .card-hero {
-      padding: var(--sp-lg);
-      background: 
-        linear-gradient(135deg, rgba(201, 122, 58, 0.10) 0%, rgba(212, 165, 116, 0.05) 100%);
-      border: 1px solid rgba(201, 122, 58, 0.15);
-      border-radius: var(--radius-lg);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--glass-shadow), var(--glow-copper);
-    }
-
-    .card-hero-kicker {
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent-secondary);
-      margin-bottom: var(--sp-sm);
-      font-weight: 600;
-      opacity: 0.85;
-    }
-
-    .card-hero-title {
-      font-size: clamp(1.75rem, 6vw, 2.5rem);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: var(--sp-md);
-      color: var(--text-primary);
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .card-hero-subtitle {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: var(--text-secondary);
-      max-width: 90%;
-    }
-
-    /* ============================================================
-       CARD: CONTENT SECTIONS
-       ============================================================ */
-    .card-section {
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-md);
-    }
-
-    .section-title {
-      font-size: 0.875rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent-primary);
-      font-weight: 600;
-      display: flex;
+    .card-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .card-nav-btn {
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      border: 1px solid var(--line);
       cursor: pointer;
-      user-select: none;
-      padding: var(--sp-sm) 0;
-      transition: color 0.2s ease;
+      font-size: 1.1rem;
+      font-weight: 700;
     }
 
-    .section-title:hover {
-      color: var(--accent-secondary);
+    .card-heading {
+      text-align: center;
+      min-width: 0;
     }
 
-    .section-toggle {
-      font-size: 0.75rem;
-      transition: transform 0.3s ease;
-      opacity: 0.7;
+    .card-kicker {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--muted);
+      margin-bottom: 4px;
     }
 
-    .section-toggle.collapsed {
-      transform: rotate(-90deg);
+    .card-title {
+      margin: 0;
+      font-size: 1.05rem;
+      color: #ffe7b0;
+      font-weight: 800;
     }
 
-    .section-content {
+    .card-body {
       display: flex;
       flex-direction: column;
-      gap: var(--sp-md);
-      animation: slideInUp 0.3s ease-out;
+      gap: 12px;
+      min-height: 0;
     }
 
-    /* ============================================================
-       CARD: CONTENT PANEL (GLASS, STUDIED)
-       ============================================================ */
+    .hero-panel,
     .content-panel {
-      padding: var(--sp-lg);
-      background: rgba(22, 22, 32, 0.5);
-      border: 1px solid rgba(201, 122, 58, 0.12);
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
       border-radius: var(--radius-lg);
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+      padding: 14px;
     }
 
-    .content-panel:hover {
-      background: rgba(22, 22, 32, 0.65);
-      border-color: rgba(201, 122, 58, 0.20);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), var(--glow-copper);
+    .hero-title {
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+      color: #fff4d7;
     }
 
-    .content-panel-title {
-      font-size: 0.875rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
+    .hero-sub {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .section-label {
+      font-size: .74rem;
       text-transform: uppercase;
-      color: var(--accent-primary);
-      margin-bottom: var(--sp-md);
+      letter-spacing: .12em;
+      color: var(--gold);
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    #nowPlaying {
+      font-size: .88rem;
+      color: #dbe8ff;
+      background: rgba(124,199,255,.08);
+      border: 1px solid rgba(124,199,255,.18);
+      border-radius: 14px;
+      padding: 10px 12px;
+      min-height: 42px;
       display: flex;
       align-items: center;
-      gap: var(--sp-sm);
     }
 
-    .content-panel-title::before {
-      content: '';
-      width: 3px;
-      height: 16px;
-      background: var(--accent-primary);
-      border-radius: 2px;
-      box-shadow: 0 0 8px rgba(201, 122, 58, 0.25);
-    }
-
-    .content-panel-body {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-    }
-
-    /* ============================================================
-       BOTTOM NAVIGATION: TOOLS AT HAND
-       ============================================================ */
-    #footer {
-      flex-shrink: 0;
-      padding: var(--sp-md);
-      padding-bottom: calc(var(--sp-md) + var(--safe-bottom));
-      background: rgba(13, 13, 21, 0.9);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(201, 122, 58, 0.12);
+    #mainStagePlaylist,
+    #mainStageChapters,
+    #cardsContainer {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--sp-sm);
-      animation: slideInUp 0.6s ease-out;
-      min-height: 72px;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
-    .nav-group {
-      display: flex;
-      gap: var(--sp-sm);
-      align-items: center;
+    .chip {
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: .82rem;
+      color: var(--muted);
     }
 
-    .btn-nav {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
-      background: transparent;
-      border: 1px solid rgba(201, 122, 58, 0.15);
-      color: var(--text-secondary);
-      cursor: pointer;
+    #mainStageVideo {
+      min-height: 72px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-
-    .btn-nav:active,
-    .btn-nav:hover {
-      background: rgba(201, 122, 58, 0.08);
-      border-color: rgba(201, 122, 58, 0.30);
-      color: var(--accent-primary);
-      transform: scale(1.05);
-      box-shadow: var(--glow-copper);
-    }
-
-    .btn-nav.primary {
-      background: rgba(201, 122, 58, 0.15);
-      border: 1px solid rgba(201, 122, 58, 0.30);
-      color: var(--accent-secondary);
-      box-shadow: var(--glow-copper);
-    }
-
-    .btn-nav.primary:active {
-      transform: scale(0.95);
-    }
-
-    .card-selector {
-      flex: 1;
-      min-width: 120px;
-      max-width: 280px;
-      padding: var(--sp-sm) var(--sp-md);
-      background: var(--bg-surface);
-      border: 1px solid rgba(201, 122, 58, 0.12);
-      border-radius: var(--radius-md);
-      color: var(--text-primary);
-      font-size: 0.875rem;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      -webkit-appearance: none;
-      appearance: none;
-      backdrop-filter: blur(8px);
-    }
-
-    .card-selector:focus {
-      outline: none;
-      background: rgba(201, 122, 58, 0.08);
-      border-color: rgba(201, 122, 58, 0.25);
-      color: var(--text-primary);
-    }
-
-    .card-selector:hover {
-      background: rgba(201, 122, 58, 0.08);
-      border-color: rgba(201, 122, 58, 0.25);
-    }
-
-    .card-selector option {
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-    }
-
-    /* ============================================================
-       LOADING & EMPTY STATES
-       ============================================================ */
-    .loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 200px;
-      color: var(--text-tertiary);
-      font-size: 0.95rem;
-    }
-
-    .loading::after {
-      content: '';
-      width: 12px;
-      height: 12px;
-      margin-left: var(--sp-sm);
-      background: var(--accent-primary);
-      border-radius: 50%;
-      animation: pulse 1.5s ease-in-out infinite;
-      box-shadow: 0 0 8px rgba(201, 122, 58, 0.3);
+      text-align: center;
     }
 
     .empty-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 300px;
-      padding: var(--sp-lg);
+      color: var(--muted);
+      font-size: .92rem;
       text-align: center;
-      color: var(--text-tertiary);
+      padding: 22px 14px;
+      border: 1px dashed rgba(255,255,255,.12);
+      border-radius: 16px;
     }
 
-    .empty-state-icon {
-      font-size: 3rem;
-      margin-bottom: var(--sp-md);
-      opacity: 0.5;
+    #floating-player-root {
+      margin-top: 12px;
     }
 
-    .empty-state-text {
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
+   /* #floating-player-root {
+  margin-top: 12px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}*/
 
-    /* ============================================================
-       UTILITY CLASSES
-       ============================================================ */
-    .text-sm { font-size: 0.875rem; }
-    .text-xs { font-size: 0.75rem; }
-    .text-muted { color: var(--text-tertiary); }
-    .text-accent { color: var(--accent-primary); }
+/*#floating-player-root.active {
+  transform: translateY(0);
+  opacity: 1;
+}*/
 
-    .hidden { display: none !important; }
-
-    /* ============================================================
-       RESPONSIVE ADJUSTMENTS
-       ============================================================ */
-    @media (max-width: 640px) {
-      #header {
-        flex-wrap: wrap;
-      }
-
-      .week-selector {
-        min-width: 100px;
-        font-size: 0.8rem;
-      }
-
-      .logo {
-        font-size: 1.25rem;
-      }
-
-      .card-hero-title {
-        font-size: clamp(1.5rem, 5vw, 2rem);
-      }
-
-      .card-selector {
-        min-width: 100px;
+    @media (min-width: 720px) {
+      #appShell {
+        max-width: 520px;
+        margin: 0 auto;
       }
     }
+
+    .scripture-subnav {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  margin-top: 0.25rem;
+  padding-top: 0.35rem;
+}
+
+.card-icon-btn.scripture {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
   </style>
 </head>
 
 <body>
-  <div id="app">
-    <!-- HEADER -->
-    <header id="header">
-      <div class="header-left">
-        <div class="logo">HGSpark 🔥</div>
-        <div class="week-selector">
-          <select id="weekSelect" aria-label="Select week">
-            <option value="1">Week 1</option>
-            <option value="2">Week 2</option>
-            <option value="3">Week 3</option>
-            <option value="4">Week 4</option>
-            <option value="5">Week 5</option>
-            <option value="6">Week 6</option>
-          </select>
-        </div>
-      </div>
-      <div class="header-right">
-        <button class="btn-icon" id="settingsBtn" title="Settings">⚙️</button>
+  <div id="appShell">
+
+    <header id="topBar">
+      <div class="toolbar">
+                <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
+        <select id="weekSelect" class="ui-select" aria-label="Select week">
+          <option>Week 1</option>
+        </select>
+
+        <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
+
+        <div class="flame">HGSpark©</div>
+        <div class="spark-logo">🔥</div>
       </div>
     </header>
+    <div style="margin-top:12px; display:flex; justify-content:center; gap:8px; align-items:center; flex-wrap:wrap;">
+      <button id="reloadCardBtn" class="nav-btn">
+  ↻
+</button>
+      <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
 
-    <!-- MAIN VIEWPORT -->
-    <div id="viewport">
-      <div id="cardsContainer">
-        <!-- MAIN STAGE CARD -->
-        <section class="card" id="mainCard">
-          <div class="card-inner">
-            <div class="card-hero">
-              <div class="card-hero-kicker">This Week's Portion</div>
-              <h1 class="card-hero-title">Parashat Kedoshim</h1>
-              <p class="card-hero-subtitle">
-                Leviticus 19:1–20:27 • Called to holiness. Deep covenant living.
-              </p>
+      <!--<select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
+        <option value="">Select Card</option>
+          <optgroup label="Appointed Times">
+        <option value="omercount" title="Count the days of the Omer">🌿 Omer Count</option>
+        <option value="today" title="Just for today">🔥Today</option>
+        <option value="calendar" title="Prophetic & Appointed times">📅 Calendar</option>
+       <!-- <option value="map">📍 Map</option> -->
+       <!-- <option value="prayermap" title="Find friends and pray for each other">🙏 Prayer Map</option>
+        <!--<option value="frontporch" title="Just relax>Front Porch</option>-->
+         <!-- <optgroup label="Textual Tools">
+        <option value="scriptureapi" title="Search Scripture">🔎 Search Scripture</option>
+        <option value="interlinear" title="Interlinear">✨ Interlinear</option>
+        <option value="bible" title="More Scripture tools">📖 Bible Card</option>
+        <option value="scripture">📖 Scripture Card</option>
+        <option value="commandments" title="Commandments in the Bible">📜 Commandments</option>
+        <option value="sefaria" title="Jewish texts">📖 Sages Card</option>
+        <option value="intertext-quotes" title="Old Testaments verses in New Testament">🕊️ Intertext Quotes</option>
+        <option value="sources" title="Sources of learning">🌱 Sources</option>                
+        <option value="studyhub" title="Study together">🪑 Study Hub</option>
+        <option value="journeys" title="Study together">🪑 Journeys</option>
+           <optgroup label="My Writings">            
+        <option value="origins" title="Creation & evolution/ adaptation">🤲 Origins</option>  
+        <option value="nt" title="New Testament study focus">✝️ NT Notes</option>            
+        <option value="commentary" title="All of my commentary of Weekly studies">📝 Commentary</option>
+        <option value="articles" title="Articles I have written">📚 Articles</option>            
+          <optgroup label="Fun & Games">
+        <option value="alephbet" title="Learn Hebrew & Greek">🗣 Alephbet</option>
+        <option value="trivia" title="5000 Bible questions for teams">🏆 Trivia</option>
+        <option value="biblebingo" title="Bible Bingo for fun">🅱️ Bingo</option>
+        <option value="jeopardy" title="Bible Jeopardy for fun">🤝 Jeopardy</option>
+        <option value="quizzes" title="20 thousand NT quiz questions">📘 Quizzes</option>       
+          <optgroup label="Preparedness">            
+        <option value="beready" title="Emergency preparedness">🚨 Be-Ready</option>
+        <option value="amateurradio" title="Emergency communications">📡 Amateur Radio</option>
+        <option value="radiomap" title="Radio tower locations & frequencies">🧭 Radio Map</option>  
+          <optgroup label="Teaching Tools">            
+        <option value="missler" title="Chuck Missler">✨ Chuck Missler</option>
+        <option value="prezis" title="Visual teaching tools">⛶ Prezis</option>
+        <option value="podcast" title="Bible teachings (audio)">🔥 Podcast</option>
+        <option value="jesus" title="Know the Father & Son of Creation">"jesus"</option>
+        <option value="listen" title="Text-to-Speech">🎧 Listen</option>
+        <option value="stewardship-card" title="Help me keep doing this">📂 Stewardship</option>
+        <option value="store" title="Help me keep doing this">🌱 Store</option>
+
+            <!-- <option value="lastomercount">Last Omer Count</option>
+        <option value="oldomercount">Old Omer Count</option> -->
+        <!--<option value="test" title="Count the days of the Omer>TEST</option>  -->
+      <!--</select>-->
+
+            <select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
+        <option value="">Select Card</option>
+            <!--  <optgroup label="⭐ Start Here (shortcuts)">
+              <option value="today">🔥 Today</option>
+              <option value="journeys">🪜 Learning Paths</option>
+              <option value="jesus">👑 Who Is Yeshua?</option>
+        </optgroup>-->
+              <optgroup label="🌿 Daily Walk">
+              <option value="today">🔥 Today</option>
+              <option value="calendar">🗓 Appointed Times</option>
+              <option value="springfeasts">🌾Spring Feasts</option>
+              <option value="fallfeasts">🌾Fall Feasts</option>
+             <!-- <option value="omercount">🌾 Omer Count</option>-->
+             <option value="sukkotcount">🌾 Sukkot Count</option>
+              <option value="listen">🎧 Listen</option>
+        </optgroup>
+              <optgroup label="📖 Scripture & Study">
+              <option value="scriptureapi">🔎 Scripture Search</option>
+              <option value="interlinear">✨ Interlinear</option>
+              <option value="scripture">📜 Scripture Explorer</option>
+              <option value="bible">📚 Bible Tools</option>
+              <option value="sefaria">🏺 Jewish Research</option>
+              <option value="sources">🏺 All Sources</option>
+              <option value="commandments">⚖️ Commandments</option>
+              <option value="intertext-quotes">🕊️ Intertext Explorer</option>
+        </optgroup>
+              <optgroup label="🧭 Guided Journeys">
+              <option value="studyhub">👥 Study Hub</option>
+              <option value="discipleship">🪜 Learning Paths (Ladder of Jacob)</option>                
+              <option value="quizzes">🧠 Assessments</option>
+              <option value="trivia">🏆 Trivia Arena</option>
+              <option value="prezis" title="Visual teaching tools">⛶ Prezis</option>
+                
+       </optgroup>
+              <optgroup label="✍️ Teachings & Writings">
+            <option value="articles">📚 Articles</option>
+            <option value="commentary">📝 Weekly Commentary</option>
+            <option value="nt">✝️ NT Research Notes</option>
+            <option value="origins">🌌 Origins</option>
+            <option value="jesus">👑 Who Is Yeshua?</option>
+      </optgroup>
+              <optgroup label="🎙 Teaching Media">
+            <option value="podcast">🔥 Podcast</option>
+            <option value="prezis">🖥 Visual Teachings</option>
+            <option value="missler">✨ Chuck Missler Archive</option>
+     </optgroup>
+            <optgroup label="🤝 Community">
+            <option value="prayermap">🙏 Prayer Map</option>
+            <!--<option value="">✨Later:</option>
+            <option value="">✨ groups</option>
+            <option value="">✨ discussions</option>
+            <option value="">✨ fellowship</option>
+            <option value="">✨ live study</option>-->
+    </optgroup>
+              <optgroup label="📡 Preparedness">
+          <option value="beready">🚨 Be Ready</option>
+          <option value="amateurradio">📻 Amateur Radio</option>
+          <option value="radiomap">🧭 Radio Network Map</option>
+   </optgroup>
+              <optgroup label="🎮 Interactive Learning">
+          <option value="alephbet">🗣 Language Lab-Hebrew</option>
+          <option value="greekalphabet">🗣 Language Lab-Greek</option>
+          <option value="biblebingo">🎲 Bible Bingo</option>
+          <option value="jeopardy">⚡ Bible Challenge</option>
+  </optgroup>
+        <option value="stewardship-card" title="Help me keep doing this">📂 Stewardship</option>
+        <option value="store" title="Help me keep doing this">🌱 Store</option>
+              <option value="jesus" title="Know the Father & Son of Creation">"jesus"</option>
+              </select>   
+      
+      <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button><button id="installAppBtn" class="ui-btn" type="button" hidden>
+  ⬇
+</button>
+    </div>
+
+    <main id="viewport">
+      <div id="cardsRow">
+
+        <section id="mainStageCard" class="card">
+<div class="card-topbar">
+
+  <!-- existing fullscreen -->
+  <button class="card-fullscreen-btn card-icon-btn primary"
+          title="Expand Card">⛶</button>
+
+  <button class="card-icon-btn nav" title="Home">⌂</button>
+  <button class="card-icon-btn nav" title="Previous">←</button>
+  <button class="card-icon-btn nav" title="Next">→</button>
+
+  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
+  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
+
+  <button class="card-icon-btn utility" title="Search Card">⌕</button>
+  <button class="card-icon-btn utility" title="Bookmark">★</button>
+  <button class="card-icon-btn utility" title="Share">⇪</button>
+  <button class="card-icon-btn utility" title="Notes">✎</button>
+  <button class="card-icon-btn utility" title="Help">?</button>
+
+</div>
+    <div class="text-xs text-slate-500 italic text-center">
+  <p>Augmented Discipleship — 1st century foundations. 22nd century tools.</p>
+</div>
+<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
+         <div class="card-topbar scripture-subnav">
+
+  <button class="card-icon-btn scripture" id="scriptureSearchBtn" title="Search">
+    ⌕
+  </button>
+
+  <button class="card-icon-btn scripture" id="scriptureReloadBtn" title="Reload">
+    ↻
+  </button>
+
+  <button class="card-icon-btn scripture" id="scripturePrevBtn" title="Previous Verse">
+    ←
+  </button>
+
+  <button class="card-icon-btn scripture" id="scriptureNextBtn" title="Next Verse">
+    →
+  </button>
+
+  <button class="card-icon-btn scripture" id="copyScriptureBtn" title="Copy">
+    ⧉
+  </button>
+
+  <button class="card-icon-btn scripture"
+          onclick="document.getElementById('scriptureContent').scrollTop = 0"
+          title="Top">
+    ↑
+  </button>
+
+  <button class="card-icon-btn scripture" onclick="goToNT()" title="New Testament">
+    ✝
+  </button>
+
+  <button class="card-icon-btn scripture" onclick="goBackToCommandments()" title="Commandments">
+    ⌘
+  </button>
+
+  <button class="card-icon-btn scripture" id="openBridgeBtn" title="Related Context">
+    ⛓
+  </button>
+
+  <button class="card-icon-btn scripture" id="openSefariaContextBtn" title="Jewish Context">
+    ✡
+  </button>
+
+  <button class="card-icon-btn scripture" id="ntHomeHeaderBtn" title="Notes">
+    ☰
+  </button>
+
+  <button class="card-icon-btn scripture" id="ntQuotesHeaderBtn" title="Quotes">
+    ❝
+  </button>
+
+</div>
+          <div class="card-shell">
+            <div class="card-header">
+              <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
+
+              <div class="card-heading">
+                <div class="card-kicker">
+                  <p id="mainStageSub" class="hero-sub" style="text-align:center;">Please wait while the weekly data loads.</p>
+                </div>
+                <h2 id="mainStageTitle" class="text-xl flame" style="text-align:center;">
+                Loading week data...
+              </h2>
+              </div>
+
+              <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
             </div>
 
-            <div class="card-section">
-              <div class="section-title">
-                📖 Torah Text
-                <span class="section-toggle">▼</span>
-              </div>
-              <div class="section-content">
-                <div class="content-panel">
-                  <div class="content-panel-title">The Portion</div>
-                  <div class="content-panel-body">
-                    Kedoshim, "the holy ones," centers Israel's calling: to embody holiness in everyday life—justice, honesty, compassion. The laws are not abstract rules but the texture of covenant relationship with the Divine and each other.
-                  </div>
-                </div>
-              </div>
-            </div>
+                          <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
 
-            <div class="card-section">
-              <div class="section-title">
-                ✨ Key Verses
-                <span class="section-toggle">▼</span>
-              </div>
-              <div class="section-content">
-                <div class="content-panel">
-                  <div class="content-panel-body">
-                    <strong>Leviticus 19:2</strong><br>
-                    "Be holy, for I, the Lord your God, am holy."
-                  </div>
-                </div>
-                <div class="content-panel">
-                  <div class="content-panel-body">
-                    <strong>Leviticus 19:18</strong><br>
-                    "Love your neighbor as yourself. I am the Lord."
-                  </div>
-                </div>
-              </div>
-            </div>
+<div class="flex flex-col">
+  <div class="text-xs uppercase tracking-wider text-slate-400">
+    Orientation for Torah portion
+  </div>
 
-            <div class="card-section">
-              <div class="section-title">
-                🎧 Resources
-                <span class="section-toggle">▼</span>
-              </div>
-              <div class="section-content">
-                <div class="empty-state">
-                  <div class="empty-state-icon">📚</div>
-                  <div class="empty-state-text">Your study materials will appear here.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+  <div id="orientationTitle" class="text-sm text-slate-200">
+    Loading study... Kedoshim. Click play.
+  </div>
+</div>
 
-        <!-- DYNAMIC CARD SLOT -->
-        <section class="card" id="dynamicCard">
-          <div class="card-inner">
-            <div class="loading">Loading card...</div>
-          </div>
-        </section>
+<button
+  onclick="playOrientation()"
+  class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 transition text-white"
+  title="Play Orientation"
+>
+  ▶
+</button>
+
+</div>
+
+            <div class="card-body">
+              <section id="frontPorch" class="hero-panel">
+                <div class="fp-kicker" onclick="toggleSection(this)">Front Porch ▼</div>
+                <h1 class="fp-title">A simple place to begin.</h1>
+                <p class="fp-sub">
+                  Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
+                </p>
+              </section>
+
+              <div id="nowPlaying">Now Playing: —</div>
+               <div id="floating-player-root"></div>
+              <section class="content-panel">
+                <div class="section-label" onclick="toggleSection(this)">Audio Playlist + Interlinear text ▼</div>
+                <div id="mainStagePlaylist">
+                  <div class="empty-state">Playlist will appear here.</div>
+                </div>
+              </section>
+
+              <section class="content-panel">
+  <div class="section-label" onclick="toggleSection(this)">
+    Weekly Scripture ▼
+  </div>
+
+  <div class="space-y-3">
+
+    <div class="flex items-center justify-between flex-wrap gap-2">
+      <div id="weeklyScriptureMeta" class="text-xs text-slate-400">
+        Loading week...
+      </div>
+
+      <div class="flex gap-2">
+        <button id="langEnglishBtn" class="ui-btn text-xs">EN</button>
+        <button id="langHebrewBtn" class="ui-btn text-xs">HE</button>
+        <button id="langGreekBtn" class="ui-btn text-xs">GR</button>
+        <button id="scriptureReloadBtn" class="ui-btn text-xs">↻</button>
       </div>
     </div>
 
-    <!-- FOOTER / NAVIGATION -->
-    <footer id="footer">
-      <div class="nav-group">
-        <button class="btn-nav" id="prevBtn" title="Previous card">←</button>
-        <button class="btn-nav" id="nextBtn" title="Next card">→</button>
-      </div>
-      <select id="cardSelector" class="card-selector" aria-label="Select card">
-        <option value="">Choose study...</option>
-        <option value="today">🔥 Today</option>
-        <option value="calendar">🗓 Calendar</option>
-        <option value="scripture">📖 Scripture</option>
-        <option value="trivia">🏆 Trivia</option>
-        <option value="articles">📚 Articles</option>
-      </select>
-      <button class="btn-nav primary" id="reloadBtn" title="Reload">↻</button>
-    </footer>
+    <div
+      id="weeklyScriptureContainer"
+      class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed"
+    >
+      Loading scripture...
+    </div>
+
+    <div class="flex justify-between">
+      <button id="scripturePrevBtn" class="ui-btn text-xs">← Prev</button>
+      <button id="scriptureNextBtn" class="ui-btn text-xs">Next →</button>
+    </div>
+
+  </div>
+</section>
+              
+              <section class="content-panel">
+                <div class="section-label" onclick="toggleSection(this)">Chapter Outlines ▼</div>
+                <div id="mainStageChapters">
+                  <div class="empty-state">Outlines will appear here.</div>
+                </div>
+              </section>
+
+              <section class="content-panel">
+                <div class="section-label" onclick="toggleSection(this)">Video / Media ▼</div>
+                <div class="sp-embed-player" data-id="cOhQVzntlWj" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQVzntlWj"></script><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"  scrolling="no" src="https://go.screenpal.com/player/cOhQVzntlWj?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
+                  <div class="sp-embed-player" data-id="cOhQe1ntIfR" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQe1ntIfR"></script><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"  scrolling="no" src="https://go.screenpal.com/player/cOhQe1ntIfR?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
+                <div class="sp-embed-player" data-id="cOhQePntIj4" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQePntIj4"></script><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"  scrolling="no" src="https://go.screenpal.com/player/cOhQePntIj4?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
+                <div id="mainStageVideo">
+                  <div class="empty-state">Media will appear here.</div>
+                </div>
+              </section>
+
+              <section class="content-panel">
+                <div class="section-label" onclick="toggleSection(this)">Week Info Cards ▼</div>
+                <div id="cardsContainer">
+                  <div class="empty-state">The loader will drop dynamic week content here.</div>
+                </div>
+              </section>
+              </div>
+              </div>
+              </section>
+              <!--<section id="scriptureSection" class="hg-panel max-w-4xl mx-auto my-6">
+
+  <div class="flex items-center justify-between p-4 border-b border-white/10">
+    <h2 class="text-xl font-semibold text-orange-300">📖 Scripture</h2>
+
+    <div class="flex gap-2">
+      <button id="scriptureReloadBtn" class="ui-btn">Reload</button>
+      <button id="scriptureNextBtn" class="ui-btn">Next</button>
+    </div>
   </div>
 
-  <script>
-    // =====================
-    // APP INITIALIZATION
-    // =====================
-    const app = {
-      state: {
-        currentCardIndex: 0,
-        currentWeek: 1,
-        currentCard: null,
-        loadingCardRequest: 0,
-      },
+  <div class="p-5 space-y-4 text-slate-100">
 
-      elements: {
-        app: document.getElementById('app'),
-        cardsContainer: document.getElementById('cardsContainer'),
-        mainCard: document.getElementById('mainCard'),
-        dynamicCard: document.getElementById('dynamicCard'),
-        cardSelector: document.getElementById('cardSelector'),
-        prevBtn: document.getElementById('prevBtn'),
-        nextBtn: document.getElementById('nextBtn'),
-        reloadBtn: document.getElementById('reloadBtn'),
-        weekSelect: document.getElementById('weekSelect'),
-        settingsBtn: document.getElementById('settingsBtn'),
-      },
+    <div id="scriptureMeta" class="text-sm text-slate-400"></div>
 
-      init() {
-        this.setupEventListeners();
-        this.setupTouchGestures();
-        this.setupKeyboard();
-        this.loadFromURL();
-      },
+    <div class="flex gap-2 flex-wrap">
+      <button class="ui-btn" onclick="goToNT()">✝️ NT View</button>
+      <button class="ui-btn" onclick="goBackToCommandments()">🔙 Commandments</button>
+    </div>
 
-      setupEventListeners() {
-        this.elements.prevBtn.addEventListener('click', () => this.navigateCard(-1));
-        this.elements.nextBtn.addEventListener('click', () => this.navigateCard(1));
-        this.elements.reloadBtn.addEventListener('click', () => this.reloadCurrentCard());
-        this.elements.cardSelector.addEventListener('change', (e) => this.loadCard(e.target.value));
-        this.elements.weekSelect.addEventListener('change', (e) => {
-          this.state.currentWeek = parseInt(e.target.value);
-          console.log('Week changed to:', this.state.currentWeek);
-        });
+    <div
+      id="scriptureContent"
+      class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed"
+    >
+      Loading scripture...
+    </div>
+      <button class="ui-btn" onclick="scrollScriptureTop()">↑ Top</button>
+  </div>
 
-        // Collapsible sections
-        document.addEventListener('click', (e) => {
-          if (e.target.closest('.section-title')) {
-            const title = e.target.closest('.section-title');
-            const toggle = title.querySelector('.section-toggle');
-            const content = title.nextElementSibling;
-            
-            if (toggle && content) {
-              toggle.classList.toggle('collapsed');
-              content.style.display = content.style.display === 'none' ? '' : 'none';
-            }
-          }
-        });
-      },
+</section>-->
 
-      setupTouchGestures() {
-        let touchStartX = 0;
-        let touchDeltaX = 0;
 
-        this.elements.cardsContainer.addEventListener('touchstart', (e) => {
-          touchStartX = e.touches[0].clientX;
-          touchDeltaX = 0;
-        }, { passive: true });
+        <!-- Card 2: Dynamic Loader Target -->
+       <section id="dynamicCard" class="card">
+  <!--<div class="card-shell">-->
 
-        this.elements.cardsContainer.addEventListener('touchmove', (e) => {
-          touchDeltaX = e.touches[0].clientX - touchStartX;
-        }, { passive: true });
+    <div id="loadedCardHost">
+      <div class="empty-state">
+        The loader can drop dynamic card content here.
+      </div>
+    </div>
 
-        this.elements.cardsContainer.addEventListener('touchend', () => {
-          if (Math.abs(touchDeltaX) > 40) {
-            touchDeltaX < 0 ? this.navigateCard(1) : this.navigateCard(-1);
-          }
-        });
-      },
+  </div>
+</section>
 
-      setupKeyboard() {
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowLeft') this.navigateCard(-1);
-          if (e.key === 'ArrowRight') this.navigateCard(1);
-        });
-      },
+              
+        <!--<section id="dynamicCard" class="card">
+          <div class="card-shell">
+            <div class="card-header">
+              <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>-->
 
-      navigateCard(direction) {
-        const maxIndex = 1;
-        const newIndex = Math.max(0, Math.min(this.state.currentCardIndex + direction, maxIndex));
-        this.state.currentCardIndex = newIndex;
+              <!--<div class="card-heading">
+                <div class="card-kicker">Dynamic Content</div>
+                <h2 class="card-title">Automatic Card Data</h2>
+              </div>-->
 
-        const scrollPosition = newIndex * this.elements.cardsContainer.offsetWidth;
-        this.elements.cardsContainer.scrollTo({
-          left: scrollPosition,
-          behavior: 'smooth',
-        });
-      },
-
-      async loadCard(cardName) {
-        if (!cardName) return;
-
-        const requestId = ++this.state.loadingCardRequest;
-        console.log('🔄 Loading card:', cardName);
-
-        try {
-          this.elements.dynamicCard.innerHTML = '<div class="loading">Loading ' + cardName + '...</div>';
-
-          const response = await fetch(`cards/${cardName}.html`);
-          if (!response.ok) throw new Error(`Failed to load card: ${cardName}`);
-
-          if (requestId !== this.state.loadingCardRequest) return;
-
-          const html = await response.text();
-          this.elements.dynamicCard.innerHTML = html;
-          this.state.currentCard = cardName;
-
-          // Navigate to dynamic card
-          this.navigateCard(1);
-
-          // Load card-specific script
-          this.loadCardScript(cardName);
-        } catch (err) {
-          console.error('Card load error:', err);
-          this.elements.dynamicCard.innerHTML = `
-            <div class="empty-state">
-              <div class="empty-state-icon">⚠️</div>
-              <div class="empty-state-text">Could not load <strong>${cardName}</strong>.</div>
+           <!--   <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
             </div>
-          `;
-        }
-      },
 
-      async loadCardScript(cardName) {
-        try {
-          const script = document.createElement('script');
-          script.src = `js/${cardName}.js?v=${Date.now()}`;
-          script.defer = true;
-          document.body.appendChild(script);
-        } catch (err) {
-          console.error('Script load error:', err);
-        }
-      },
+            <div class="card-body">
+              <section class="content-panel">
+                <div class="section-label"></div>
+                <div id="loadedCardHost">
+                  <div class="empty-state">The loader can drop dynamic card content here.</div>
+                </div>-->
+            
+            <!--   <div class="card-body">
+              <section class="content-panel">
+                <div class="section-label">Week Cards</div>
+                <div id="loadedCardHost">
+                  <div class="empty-state">Select a card to load.</div>-->
+         <!--       </div>
+              </section>
+            </div>
+          </div>
+        </section>
 
-      reloadCurrentCard() {
-        if (this.state.currentCard) {
-          this.loadCard(this.state.currentCard);
-        }
-      },
+      </div>
+    </main>
+  </div>        -->
 
-      loadFromURL() {
-        const params = new URLSearchParams(window.location.search);
-        const card = params.get('card');
-        if (card) this.loadCard(card);
-      },
-    };
+       <!-- <section id="dynamicCard" class="card">
+          <div class="card-shell">
+            <div class="card-header">
+              <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
 
-    // Initialize app when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-      app.init();
-    });
+              <div class="card-heading">
+                <div class="card-kicker">Dynamic Cards</div>
+              <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
+            </div>                
+                <div id="loadedCardHost">
+                  <div class="empty-state">Your loader can drop extra card content here.</div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
 
-    // Expose globally for card scripts
-    window.app = app;
-  </script>
+      </div>
+    </main>
+  </div>-->
+    <!--<script src="js/cardloader.js"></script>-->
+  <script type="module" src="js/mainstage.js"></script>
+  <!--<script src="js/scripture.js"></script>-->
+  <script src="js/fullscreen.js"></script>
+  <script type="module" src="js/app.js"></script>
+<!--<script type="module" src="js/firebase-init.js"></script>
+  <!--<script src="js/prayerStore.dev.js"></script>-->
+  <!--<script src="js/loadCommentary.js"></script>-->
+  <!--<script src="js/orbitFloatingPlayer.js"></script>-->
+    <script src="js/SAVEorbitFloatingPlayer.js"></script>
+<script src="js/bullseyeMedia.js"></script>
+  <script type="module" src="js/topNav.js"></script>
+
+  
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+    <!-- MINI INFO MODAL -->
+<div id="miniModal"
+  class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9997] hidden items-center justify-center">
+
+  <div class="bg-gray-900/90 text-white rounded-2xl p-5 max-w-md w-[90%] shadow-2xl relative">
+
+    <button onclick="closeMiniModal()"
+      class="absolute top-2 right-3 text-xl text-slate-400 hover:text-white">
+      ✕
+    </button>
+
+    <h3 id="miniModalTitle" class="text-xl font-bold text-cyan-300 mb-2"></h3>
+
+    <div id="miniModalContent" class="text-sm text-slate-200 space-y-2"></div>
+
+<div id="miniModalContent" class="text-sm text-slate-200 space-y-2"></div>
+
+<div class="mt-4 flex justify-center">
+  <button id="miniModalDeeperBtn"
+    class="px-4 py-2 rounded bg-cyan-600 hover:bg-cyan-500 text-white font-semibold">
+    Go Deeper
+  </button>
+</div>
+    
+<script>
+    let deferredInstallPrompt = null;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+
+  const btn = document.getElementById("installAppBtn");
+  if (btn) btn.hidden = false;
+});
+
+document.getElementById("installAppBtn")?.addEventListener("click", async () => {
+  if (!deferredInstallPrompt) return;
+
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+
+  deferredInstallPrompt = null;
+
+  const btn = document.getElementById("installAppBtn");
+  if (btn) btn.hidden = true;
+});
+    </script>
+
+  </div>
+</div>
 </body>
 </html>
