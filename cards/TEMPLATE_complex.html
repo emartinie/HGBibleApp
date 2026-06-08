@@ -1,0 +1,231 @@
+<!-- 
+  CARD TEMPLATE: COMPLEX DATA CARD
+  ================================
+  Use this for cards with custom layouts, data grids, lists
+  Examples: Calendar, Maps, Trivia, Commentary, Quiz
+  
+  Key Principles:
+  - Still use semantic HTML
+  - Use CSS variables for colors/spacing
+  - Wrap in .card-inner for proper layout
+  - Can have custom sections beyond the standard template
+  
+  CSS Variable Reference (use in inline styles if needed):
+  - --bg-primary: #0d0d15
+  - --bg-secondary: #161620
+  - --bg-tertiary: #1f1f2e
+  - --bg-surface: rgba(22, 22, 32, 0.7)
+  - --text-primary: #e8dcc8
+  - --text-secondary: #b8a89a
+  - --text-tertiary: #7a6f63
+  - --accent-primary: #c97a3a
+  - --accent-secondary: #d4a574
+  - --accent-tertiary: #e8b896
+  - --sp-sm: 0.5rem
+  - --sp-md: 1rem
+  - --sp-lg: 1.5rem
+-->
+
+<div class="card-inner">
+
+  <!-- HERO SECTION: Optional for complex cards -->
+  <div class="card-hero">
+    <div class="card-hero-kicker">Custom Data Card</div>
+    <h1 class="card-hero-title">Complex Layout Example</h1>
+    <p class="card-hero-subtitle">
+      This template shows how to build custom layouts while staying consistent.
+    </p>
+  </div>
+
+  <!-- SECTION 1: Custom Grid/List -->
+  <div class="card-section">
+    <div class="section-title">
+      📅 Data Grid Example
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-content">
+      <!-- Custom layout: grid or list -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md);">
+        
+        <div class="content-panel">
+          <div class="content-panel-title">Cell 1</div>
+          <div class="content-panel-body">
+            Data or content here
+          </div>
+        </div>
+
+        <div class="content-panel">
+          <div class="content-panel-title">Cell 2</div>
+          <div class="content-panel-body">
+            Data or content here
+          </div>
+        </div>
+
+        <div class="content-panel">
+          <div class="content-panel-title">Cell 3</div>
+          <div class="content-panel-body">
+            Data or content here
+          </div>
+        </div>
+
+        <div class="content-panel">
+          <div class="content-panel-title">Cell 4</div>
+          <div class="content-panel-body">
+            Data or content here
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Custom List -->
+  <div class="card-section">
+    <div class="section-title">
+      📝 Custom List
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-content">
+      <!-- List with custom styling -->
+      <div style="display: flex; flex-direction: column; gap: var(--sp-md);">
+        
+        <div style="
+          padding: var(--sp-md);
+          background: var(--bg-surface);
+          border: 1px solid rgba(201, 122, 58, 0.12);
+          border-radius: var(--radius-md);
+          backdrop-filter: blur(8px);
+        ">
+          <div style="color: var(--accent-primary); font-weight: 600; margin-bottom: 0.5rem;">
+            List Item 1
+          </div>
+          <div style="color: var(--text-secondary); font-size: 0.9rem;">
+            Description or data for this item
+          </div>
+        </div>
+
+        <div style="
+          padding: var(--sp-md);
+          background: var(--bg-surface);
+          border: 1px solid rgba(201, 122, 58, 0.12);
+          border-radius: var(--radius-md);
+          backdrop-filter: blur(8px);
+        ">
+          <div style="color: var(--accent-primary); font-weight: 600; margin-bottom: 0.5rem;">
+            List Item 2
+          </div>
+          <div style="color: var(--text-secondary); font-size: 0.9rem;">
+            Description or data for this item
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Interactive Elements -->
+  <div class="card-section">
+    <div class="section-title">
+      🎮 Interactive Section
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-content">
+      <div class="content-panel">
+        <!-- Buttons using design system -->
+        <div style="display: flex; gap: var(--sp-sm); flex-wrap: wrap;">
+          <button style="
+            padding: var(--sp-sm) var(--sp-md);
+            background: rgba(201, 122, 58, 0.15);
+            border: 1px solid rgba(201, 122, 58, 0.30);
+            border-radius: var(--radius-md);
+            color: var(--accent-secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+          " onmouseover="this.style.background='rgba(201, 122, 58, 0.25)'" onmouseout="this.style.background='rgba(201, 122, 58, 0.15)'">
+            Action 1
+          </button>
+
+          <button style="
+            padding: var(--sp-sm) var(--sp-md);
+            background: rgba(201, 122, 58, 0.15);
+            border: 1px solid rgba(201, 122, 58, 0.30);
+            border-radius: var(--radius-md);
+            color: var(--accent-secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+          " onmouseover="this.style.background='rgba(201, 122, 58, 0.25)'" onmouseout="this.style.background='rgba(201, 122, 58, 0.15)'">
+            Action 2
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Using text utilities -->
+  <div class="card-section">
+    <div class="section-title">
+      📖 Typography Examples
+      <span class="section-toggle">▼</span>
+    </div>
+    <div class="section-content">
+      <div class="content-panel">
+        <div style="color: var(--text-primary); margin-bottom: var(--sp-md);">
+          <strong>Primary text</strong> — Large, warm, readable
+        </div>
+        <div class="text-sm" style="color: var(--text-secondary); margin-bottom: var(--sp-md);">
+          <strong>Secondary text (.text-sm)</strong> — Smaller, still warm
+        </div>
+        <div class="text-xs text-muted">
+          <strong>Tertiary text (.text-xs .text-muted)</strong> — Smallest, muted
+        </div>
+        <div class="text-accent" style="margin-top: var(--sp-md);">
+          <strong>.text-accent</strong> — Uses copper primary color
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--
+  DESIGN PRINCIPLES FOR COMPLEX CARDS:
+  
+  1. USE CSS VARIABLES
+     - Always reference --bg-primary, --text-primary, etc.
+     - Never hardcode colors
+     - Maintains consistency with app shell
+  
+  2. GRID/LIST PATTERNS
+     - Use flexbox or CSS Grid
+     - Gap: use var(--sp-md) or var(--sp-lg)
+     - For repeating items, use .content-panel
+  
+  3. INTERACTIVE ELEMENTS
+     - Buttons: use background: rgba(201, 122, 58, 0.15)
+     - Hover: increase opacity or change border
+     - Always use var(--radius-md) for borders
+  
+  4. TYPOGRAPHY HIERARCHY
+     - Primary: var(--text-primary) — Main content
+     - Secondary: var(--text-secondary) — Supporting info
+     - Tertiary: var(--text-tertiary) — Hints, labels
+     - Accent: var(--accent-primary) — Highlights
+  
+  5. SPACING
+     - Use CSS variables: --sp-sm, --sp-md, --sp-lg
+     - Consistent gaps throughout
+     - Padding inside panels: var(--sp-md)
+  
+  6. STRUCTURE
+     - Wrap everything in .card-inner
+     - Use .card-section for major groups
+     - Use .content-panel for repeating elements
+     - Optional .card-hero for context
+  
+  7. PERFORMANCE
+     - Minimize inline styles (use classes when possible)
+     - Use backdrop-filter: blur(8px) for glass effect
+     - Keep animations smooth (transition: 0.2s)
+-->
