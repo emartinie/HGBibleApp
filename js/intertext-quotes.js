@@ -1,24 +1,58 @@
 fetch("data/intertext/nt_ot_quotes.json")
   .then(r => r.json())
-  .then(data => init(data));
+  .then(data => {
+    window.intertextData = data;
+    init(data);
+  });
 
 function init(data) {
   populateBookFilter(data);
+  renderDatasetSummary(data);
   renderQuotes(data);
 
-  document.getElementById("bookFilter").addEventListener("change", e => {
-    renderQuotes(data, e.target.value);
-  });
+  const bookFilter = document.getElementById("bookFilter");
+  const expandAll = document.getElementById("expandAll");
 
-  document.getElementById("expandAll").addEventListener("click", () => {
-    document
-      .querySelectorAll(".witnesses")
-      .forEach(w => w.classList.remove("hidden"));
-  });
+  if (bookFilter) {
+    bookFilter.addEventListener("change", e => {
+      renderQuotes(data, e.target.value);
+    });
+  }
+
+  if (expandAll) {
+    expandAll.addEventListener("click", () => {
+      document
+        .querySelectorAll(".witnesses")
+        .forEach(w => w.classList.remove("hidden"));
+    });
+  }
+}
+
+function renderDatasetSummary(data) {
+  const totalEl = document.querySelector("[data-intertext-total]");
+  const ntEl = document.querySelector("[data-intertext-sample-nt]");
+  const lxxEl = document.querySelector("[data-intertext-sample-lxx]");
+  const mtEl = document.querySelector("[data-intertext-sample-mt]");
+
+  if (!totalEl && !ntEl && !lxxEl && !mtEl) return;
+
+  const entries = Object.values(data || {});
+  const sample = entries.find(entry => entry?.nt?.text);
+  const concise = text => {
+    const value = String(text || "");
+    return value.length > 120 ? `${value.slice(0, 120)}...` : value;
+  };
+
+  if (totalEl) totalEl.textContent = String(entries.length);
+  if (ntEl) ntEl.textContent = concise(sample?.nt?.text) || "No sample available.";
+  if (lxxEl) lxxEl.textContent = concise(sample?.ot?.lxx?.text) || "No LXX witness available.";
+  if (mtEl) mtEl.textContent = concise(sample?.ot?.masoretic?.text) || "No Masoretic witness available.";
 }
 
 function renderQuotes(data, bookFilter = "") {
   const root = document.getElementById("nt-quotes");
+  if (!root) return;
+
   root.innerHTML = "";
 
   Object.values(data).forEach(entry => {
@@ -77,6 +111,8 @@ function renderWitness(label, data) {
 
 function populateBookFilter(data) {
   const select = document.getElementById("bookFilter");
+  if (!select) return;
+
   const books = new Set();
 
   Object.values(data).forEach(entry => {
