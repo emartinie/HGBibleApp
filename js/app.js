@@ -2,15 +2,15 @@ console.log("🔥 app.js START");
 
 import { initializeTimeSystem } from "./firebaseTimeLoader.js";
 import { TimeStore } from "./timeStore.js";
-import { initializeCardRenderer } from "./cardRenderer.js";
+//import { initializeCardRenderer } from "./cardRenderer.js";
 
 console.time("BOOT TRACE");
 
 //await initializeTimeSystem();
 console.log("✔ time system ready");
 
-initializeCardRenderer();
-console.log("✔ card renderer init");
+//initializeCardRenderer();
+//console.log("✔ card renderer init");
 
 TimeStore.start();
 console.log("✔ time store started");
@@ -33,7 +33,6 @@ console.log("APP JS RUN ID:", Date.now());
   let currentCardIndex = 0;
   let loadedScript = null;
   let loadCardRequestId = 0;
-  let scrollSyncBound = false;
 // =====================
 // CARD NAVIGATION
 // =====================
@@ -305,8 +304,7 @@ console.log("loadCard exists?", typeof window.loadCard);
   }
 
 function syncCurrentCardOnScroll() {
-  if (!cardsRow || scrollSyncBound) return;
-  scrollSyncBound = true;
+  if (!cardsRow) return;
 
   let ticking = false;
 
