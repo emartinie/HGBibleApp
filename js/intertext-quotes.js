@@ -61,6 +61,9 @@ function renderQuotes(data, bookFilter = "") {
 
     if (bookFilter && !ntText.startsWith(bookFilter)) return;
 
+    const ntWitness = splitWitnessText(ntText);
+    const hasNtRef = !!ntWitness.ref;
+
     const card = document.createElement("div");
     card.className =
       "border border-slate-700 rounded-lg bg-slate-900/40 p-5";
@@ -68,9 +71,15 @@ function renderQuotes(data, bookFilter = "") {
     card.innerHTML = `
       <div class="mb-3">
         <h3 class="text-lg font-semibold text-slate-200">
-          ${ntText.split("—")[0]}
+          ${hasNtRef ? ntWitness.ref : ntText.split("—")[0]}
         </h3>
-        <p class="text-slate-300 mt-2">${ntText}</p>
+        <div class="flex flex-wrap gap-2 text-xs text-slate-400 mt-2">
+          <span>NT Reference</span>
+          <span>NT Witness</span>
+          <span>Sources Preview</span>
+          <span>Sefaria Preview</span>
+        </div>
+        <p class="text-slate-300 mt-2">${hasNtRef ? ntWitness.body : ntText}</p>
       </div>
 
       <button class="text-sm text-cyan-400 toggle">
@@ -78,8 +87,8 @@ function renderQuotes(data, bookFilter = "") {
       </button>
 
       <div class="witnesses hidden mt-4 space-y-3">
-        ${renderWitness("Masoretic Text", entry.ot?.masoretic)}
-        ${renderWitness("Septuagint (LXX)", entry.ot?.lxx)}
+        ${renderWitness("Masoretic Witness", entry.ot?.masoretic)}
+        ${renderWitness("LXX Witness", entry.ot?.lxx)}
       </div>
     `;
 
@@ -93,6 +102,15 @@ function renderQuotes(data, bookFilter = "") {
 
     root.appendChild(card);
   });
+}
+
+function splitWitnessText(text) {
+  const value = String(text || "");
+  const match = value.match(/^([1-3]?\s?[A-Za-z]+(?:\s+[A-Za-z]+)*\s+\d+:\d+(?:-\d+)?)(?:\s+)?(.*)$/);
+  return {
+    ref: match ? match[1].trim() : "",
+    body: match ? match[2].trim() : value
+  };
 }
 
 
