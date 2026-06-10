@@ -69,17 +69,21 @@
     const list = document.createElement("div");
     list.className = "space-y-2";
 
-    commandments.slice(0, 3).forEach((cmd) => {
+    appendText(wrapper, "div", "Showing first 10 loaded commandments", "font-medium text-white");
+
+    commandments.slice(0, 10).forEach((cmd) => {
       const row = document.createElement("div");
       row.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3";
 
       appendText(row, "div", `${cmd.code || ""} - ${cmd.title || "Untitled commandment"}`, "font-medium text-white");
       appendText(row, "div", cmd.reference || "No reference listed", "text-xs text-slate-400");
+      appendText(row, "div", `${cmd.type || "unknown"} • ${cmd.category || "Uncategorized"}`, "text-xs text-slate-400");
 
       list.appendChild(row);
     });
 
     wrapper.appendChild(list);
+    appendText(wrapper, "div", "Full explorer coming soon", "text-xs text-slate-400");
     container.appendChild(wrapper);
     lastRenderedContainer = container;
   }
