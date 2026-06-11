@@ -126,16 +126,27 @@
     const wrapper = document.createElement("div");
     wrapper.className = "space-y-3";
 
-    appendText(wrapper, "h2", "Commandments Dataset Preview", "text-xl font-semibold text-orange-300");
+    appendText(wrapper, "h2", "\uD83D\uDCDC Commandments Dataset Preview", "text-xl font-semibold text-orange-300");
 
     const stats = document.createElement("div");
-    stats.className = "space-y-1 text-sm text-slate-200";
-    appendText(stats, "div", `${commandments.length} loaded commandments`);
-    appendText(stats, "div", `${positiveCount} positive / ${negativeCount} negative`);
-    appendText(stats, "div", `${scriptureLinkCount} with related scripture links`);
-    appendText(stats, "div", `${sefariaLinkCount} with Sefaria links`);
-    appendText(stats, "div", `${categoryCount} categories`);
-    appendText(stats, "div", `${themeCount} themes`);
+    stats.className = "grid gap-2";
+
+    function appendStatGroup(title, lines) {
+      const group = document.createElement("div");
+      group.className = "space-y-1 rounded-lg border border-slate-700 bg-slate-900/70 p-3";
+
+      appendText(group, "div", title, "text-xs font-semibold text-slate-400");
+      lines.forEach((line) => {
+        appendText(group, "div", line, "text-sm text-slate-200");
+      });
+
+      stats.appendChild(group);
+    }
+
+    appendStatGroup("Commandments", [`${commandments.length} loaded`]);
+    appendStatGroup("Types", [`${positiveCount} Positive`, `${negativeCount} Negative`]);
+    appendStatGroup("Connections", [`${scriptureLinkCount} Scripture Links`, `${sefariaLinkCount} Context References`]);
+    appendStatGroup("Topics", [`${categoryCount} Categories`, `${themeCount} Themes`]);
     wrapper.appendChild(stats);
 
     const filterBar = document.createElement("div");
