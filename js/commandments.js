@@ -1,5 +1,5 @@
 (function () {
-  const DATA_URL = "data/commandments/commandments (1).json";
+  const DATA_URL = "data/commandments/commandments.json";
   let commandmentsPromise = null;
   let lastRenderedContainer = null;
   let activeFilter = "All";
