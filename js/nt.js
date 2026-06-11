@@ -127,9 +127,51 @@ function getParams() {
     return `<ol>${items.map(q => `<li>${escapeHtml(q)}</li>`).join("")}</ol>`;
   }
 
+  function getIntertextDataEdges() {
+    const data = window.intertextData;
+    if (!data) return [];
+
+    return Object.values(data)
+      .map(entry => {
+        const ntText = entry?.nt?.text;
+        if (!ntText) return null;
+
+        const ntString = String(ntText);
+        const dashIndexes = [
+          ntString.indexOf("\u2014"),
+          ntString.indexOf("\u00e2\u20ac\u201d")
+        ].filter(index => index >= 0);
+        const firstDash = dashIndexes.length ? Math.min(...dashIndexes) : -1;
+        const from = (firstDash >= 0 ? ntString.slice(0, firstDash) : ntString).trim();
+        const refs = [
+          entry?.ot?.masoretic?.ref || deriveReferenceFromText(entry?.ot?.masoretic?.text),
+          entry?.ot?.lxx?.ref || deriveReferenceFromText(entry?.ot?.lxx?.text)
+        ].filter(Boolean);
+
+        return {
+          from: from || ntText,
+          to: refs.length ? refs.join(" / ") : "Hebrew Scripture witness",
+          type: "citation",
+          context: ntText,
+          meta: entry
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function deriveReferenceFromText(text) {
+    const match = String(text || "").match(/^([1-3]?\s?[A-Za-z]+(?:\s+[A-Za-z]+)*\s+\d+:\d+(?:-\d+)?)/);
+    return match ? match[1].trim() : "";
+  }
+
+  function getIntertextEdges() {
+    return intertextEdges.concat(getIntertextDataEdges());
+  }
+
   function renderIntertextConnectionsForText(text) {
     const sourceText = String(text || "");
-    const matches = intertextEdges
+    const edges = getIntertextEdges();
+    const matches = edges
       .map((edge, index) => ({ edge, index }))
       .filter(item => sourceText.includes(item.edge.from));
     if (!matches.length) return "";
@@ -324,7 +366,7 @@ function getParams() {
 
     scope.querySelectorAll("[data-intertext-index]").forEach(btn => {
       btn.onclick = () => {
-        const edge = intertextEdges[Number(btn.getAttribute("data-intertext-index"))];
+        const edge = getIntertextEdges()[Number(btn.getAttribute("data-intertext-index"))];
         openIntertextPanel(edge, {
           book: context.book || book,
           chapter: context.chapter || chapter,
@@ -653,8 +695,9 @@ function loadBookTiles() {
     const visibleSection =
       sectionList.find(([id, , text]) => id === activeSection && text) ||
       sectionList.find(([, , text]) => text);
+    const availableSections = sectionList.filter(([, , text]) => text);
 
-    renderChapterNav(bookName, chapterNum, chapterKeys, visibleSection?.[0] || activeSection);
+    renderChapterNav(bookName, chapterNum, chapterKeys, visibleSection?.[0] || activeSection, availableSections);
 
     if (visibleSection) {
       renderSection(visibleSection[0], visibleSection[1], visibleSection[2], contextBundle);
@@ -744,7 +787,7 @@ function loadBookTiles() {
   // NAVIGATION
   // =========================================================
 
-  function renderChapterNav(bookName, chapterNum, chapterKeys = [], activeSection = null) {
+  function renderChapterNav(bookName, chapterNum, chapterKeys = [], activeSection = null, availableSections = []) {
     const nav = document.getElementById("chapter-nav");
     if (!nav) return;
 
@@ -761,14 +804,31 @@ function loadBookTiles() {
       ? `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum + 1, section: activeSection || null, view: null })}">Next →</a>`
       : `<span class="reader-chip opacity-40">Next →</span>`;
 
+    const sectionChips = availableSections
+      .map(([sectionId, label]) => {
+        const href = buildNTUrl({ book: bookName, chapter: chNum, section: sectionId, view: null });
+        const activeClass = sectionId === activeSection
+          ? " bg-cyan-700/80 border-cyan-500/30"
+          : "";
+
+        return `<a class="reader-chip${activeClass}" href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
+      })
+      .join("");
+
     nav.innerHTML = `
+      <div style="
+        display:flex;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0.75rem;
+        border-bottom:1px solid #334155;
+        padding-bottom:0.75rem;
+      ">
       <div style="
         display:flex;
         justify-content:space-between;
         align-items:center;
         gap:0.75rem;
-        border-bottom:1px solid #334155;
-        padding-bottom:0.75rem;
       ">
         <div class="flex items-center gap-2">${prev}</div>
         <div style="font-weight:600;">${escapeHtml(bookName)} Chapter ${chNum}</div>
@@ -776,6 +836,12 @@ function loadBookTiles() {
           <button type="button" class="reader-chip" data-sefaria-open="true">Open in Sefaria</button>
           ${next}
         </div>
+      </div>
+      ${sectionChips ? `
+        <div class="flex items-center gap-2 flex-wrap">
+          ${sectionChips}
+        </div>
+      ` : ""}
       </div>
     `;
 
@@ -852,7 +918,7 @@ function loadBookTiles() {
 
     el.querySelectorAll("[data-intertext-index]").forEach(b => {
       b.onclick = () => {
-        const edge = intertextEdges[Number(b.getAttribute("data-intertext-index"))];
+        const edge = getIntertextEdges()[Number(b.getAttribute("data-intertext-index"))];
         if (!edge) return;
 
         openPanel(
