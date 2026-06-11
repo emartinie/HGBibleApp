@@ -3,6 +3,7 @@
   let commandmentsPromise = null;
   let lastRenderedContainer = null;
   let activeFilter = "All";
+  let searchQuery = "";
   const FILTERS = [
     "All",
     "Positive",
@@ -88,6 +89,29 @@
     return filterName;
   }
 
+  function setFilterButtonClass(button, isActive) {
+    button.className = isActive
+      ? "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-white"
+      : "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-slate-400";
+  }
+
+  function searchCommandments(commandments, query) {
+    const normalizedQuery = query.trim().toLowerCase();
+    if (!normalizedQuery) return commandments;
+
+    return commandments.filter((cmd) => {
+      const searchableText = [
+        cmd.code,
+        cmd.title,
+        cmd.reference,
+        cmd.category,
+        Array.isArray(cmd.themes) ? cmd.themes.join(" ") : ""
+      ].join(" ").toLowerCase();
+
+      return searchableText.includes(normalizedQuery);
+    });
+  }
+
   function renderPreview(container, commandments) {
     const positiveCount = commandments.filter((cmd) => cmd.type === "positive").length;
     const negativeCount = commandments.filter((cmd) => cmd.type === "negative").length;
@@ -119,50 +143,92 @@
     FILTERS.forEach((filterName) => {
       const button = document.createElement("button");
       button.type = "button";
-      button.className = filterName === activeFilter
-        ? "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-white"
-        : "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-slate-400";
+      setFilterButtonClass(button, filterName === activeFilter);
       button.textContent = filterName;
       button.addEventListener("click", () => {
         activeFilter = filterName;
-        renderPreview(container, commandments);
+        filterBar.querySelectorAll("button").forEach((filterButton) => {
+          setFilterButtonClass(filterButton, filterButton.textContent === activeFilter);
+        });
+        updateResults();
       });
       filterBar.appendChild(button);
     });
 
     wrapper.appendChild(filterBar);
 
-    const filteredCommandments = filterCommandments(commandments, activeFilter);
-    const visibleCommandments = filteredCommandments.slice(0, 10);
-    const visibleCount = visibleCommandments.length;
-    const filterDescription = getFilterDescription(activeFilter);
+    const searchRow = document.createElement("div");
+    searchRow.className = "flex flex-wrap gap-2";
+
+    const searchInput = document.createElement("input");
+    searchInput.type = "search";
+    searchInput.placeholder = "Search loaded commandments";
+    searchInput.value = searchQuery;
+    searchInput.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-white";
+    searchInput.addEventListener("input", () => {
+      searchQuery = searchInput.value;
+      updateResults();
+    });
+
+    const clearButton = document.createElement("button");
+    clearButton.type = "button";
+    clearButton.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-slate-400";
+    clearButton.textContent = "Clear";
+    clearButton.addEventListener("click", () => {
+      searchQuery = "";
+      searchInput.value = "";
+      searchInput.focus();
+      updateResults();
+    });
+
+    searchRow.appendChild(searchInput);
+    searchRow.appendChild(clearButton);
+    wrapper.appendChild(searchRow);
+
+    const countLine = document.createElement("div");
+    countLine.className = "font-medium text-white";
+    wrapper.appendChild(countLine);
 
     const list = document.createElement("div");
     list.className = "space-y-2";
+    wrapper.appendChild(list);
 
-    appendText(
-      wrapper,
-      "div",
-      `Showing ${visibleCount} of ${filteredCommandments.length} ${filterDescription} commandments.`,
-      "font-medium text-white"
-    );
+    function updateResults() {
+      const filteredCommandments = filterCommandments(commandments, activeFilter);
+      const searchedCommandments = searchCommandments(filteredCommandments, searchQuery);
+      const visibleCommandments = searchedCommandments.slice(0, 10);
+      const visibleCount = visibleCommandments.length;
+      const filterDescription = getFilterDescription(activeFilter);
+      const trimmedQuery = searchQuery.trim();
 
-    if (!filteredCommandments.length) {
-      appendText(list, "div", "No commandments found for this filter.", "text-xs text-slate-400");
+      countLine.textContent = trimmedQuery
+        ? `Showing ${visibleCount} of ${searchedCommandments.length} ${filterDescription} commandments matching "${trimmedQuery}".`
+        : `Showing ${visibleCount} of ${filteredCommandments.length} ${filterDescription} commandments.`;
+
+      list.textContent = "";
+
+      if (!searchedCommandments.length) {
+        appendText(
+          list,
+          "div",
+          trimmedQuery ? "No commandments found for this search." : "No commandments found for this filter.",
+          "text-xs text-slate-400"
+        );
+      }
+
+      visibleCommandments.forEach((cmd) => {
+        const row = document.createElement("div");
+        row.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3";
+
+        appendText(row, "div", `${cmd.code || ""} - ${cmd.title || "Untitled commandment"}`, "font-medium text-white");
+        appendText(row, "div", cmd.reference || "No reference listed", "text-xs text-slate-400");
+        appendText(row, "div", `${cmd.type || "unknown"} • ${cmd.category || "Uncategorized"}`, "text-xs text-slate-400");
+
+        list.appendChild(row);
+      });
     }
 
-    visibleCommandments.forEach((cmd) => {
-      const row = document.createElement("div");
-      row.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3";
-
-      appendText(row, "div", `${cmd.code || ""} - ${cmd.title || "Untitled commandment"}`, "font-medium text-white");
-      appendText(row, "div", cmd.reference || "No reference listed", "text-xs text-slate-400");
-      appendText(row, "div", `${cmd.type || "unknown"} • ${cmd.category || "Uncategorized"}`, "text-xs text-slate-400");
-
-      list.appendChild(row);
-    });
-
-    wrapper.appendChild(list);
+    updateResults();
     appendText(wrapper, "div", "Full explorer coming soon", "text-xs text-slate-400");
     container.appendChild(wrapper);
     lastRenderedContainer = container;
