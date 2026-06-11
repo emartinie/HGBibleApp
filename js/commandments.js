@@ -1,5 +1,5 @@
 (function () {
-  const DATA_URL = "data/commandments/commandments.json";
+  const DATA_URL = "data/commandments/commandments (1).json";
   let commandmentsPromise = null;
   let lastRenderedContainer = null;
   let activeFilter = "All";
@@ -119,6 +119,7 @@
     const sefariaLinkCount = countWithList(commandments, "sefaria_links");
     const categoryCount = new Set(commandments.map((cmd) => cmd.category).filter(Boolean)).size;
     const themeCount = countUniqueFromList(commandments, "themes");
+    let visibleLimit = 10;
 
     container.textContent = "";
 
@@ -147,6 +148,7 @@
       button.textContent = filterName;
       button.addEventListener("click", () => {
         activeFilter = filterName;
+        visibleLimit = 10;
         filterBar.querySelectorAll("button").forEach((filterButton) => {
           setFilterButtonClass(filterButton, filterButton.textContent === activeFilter);
         });
@@ -167,6 +169,7 @@
     searchInput.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-white";
     searchInput.addEventListener("input", () => {
       searchQuery = searchInput.value;
+      visibleLimit = 10;
       updateResults();
     });
 
@@ -176,6 +179,7 @@
     clearButton.textContent = "Clear";
     clearButton.addEventListener("click", () => {
       searchQuery = "";
+      visibleLimit = 10;
       searchInput.value = "";
       searchInput.focus();
       updateResults();
@@ -196,7 +200,7 @@
     function updateResults() {
       const filteredCommandments = filterCommandments(commandments, activeFilter);
       const searchedCommandments = searchCommandments(filteredCommandments, searchQuery);
-      const visibleCommandments = searchedCommandments.slice(0, 10);
+      const visibleCommandments = searchedCommandments.slice(0, visibleLimit);
       const visibleCount = visibleCommandments.length;
       const filterDescription = getFilterDescription(activeFilter);
       const trimmedQuery = searchQuery.trim();
@@ -218,14 +222,27 @@
 
       visibleCommandments.forEach((cmd) => {
         const row = document.createElement("div");
-        row.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3";
+        row.className = "space-y-1 rounded-lg border border-slate-700 bg-slate-900/70 p-3";
 
-        appendText(row, "div", `${cmd.code || ""} - ${cmd.title || "Untitled commandment"}`, "font-medium text-white");
-        appendText(row, "div", cmd.reference || "No reference listed", "text-xs text-slate-400");
+        appendText(row, "div", cmd.title || "Untitled commandment", "font-semibold text-white");
+        appendText(row, "div", cmd.reference || "No reference listed", "text-xs text-slate-300");
         appendText(row, "div", `${cmd.type || "unknown"} • ${cmd.category || "Uncategorized"}`, "text-xs text-slate-400");
 
+        row.lastChild.textContent = `${cmd.code || "No code"} \u2022 ${cmd.type || "unknown"} \u2022 ${cmd.category || "Uncategorized"}`;
         list.appendChild(row);
       });
+
+      if (visibleCount < searchedCommandments.length) {
+        const showMoreButton = document.createElement("button");
+        showMoreButton.type = "button";
+        showMoreButton.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-slate-400";
+        showMoreButton.textContent = "Show 10 more";
+        showMoreButton.addEventListener("click", () => {
+          visibleLimit += 10;
+          updateResults();
+        });
+        list.appendChild(showMoreButton);
+      }
     }
 
     updateResults();
