@@ -229,6 +229,26 @@
         appendText(row, "div", `${cmd.type || "unknown"} • ${cmd.category || "Uncategorized"}`, "text-xs text-slate-400");
 
         row.lastChild.textContent = `${cmd.code || "No code"} \u2022 ${cmd.type || "unknown"} \u2022 ${cmd.category || "Uncategorized"}`;
+        if (Array.isArray(cmd.themes) && cmd.themes.length) {
+          const themes = document.createElement("div");
+          themes.className = "flex flex-wrap gap-2 pt-1";
+
+          cmd.themes.forEach((theme) => {
+            appendText(
+              themes,
+              "span",
+              theme,
+              "rounded-lg border border-slate-700 bg-slate-900/70 p-2 text-xs text-slate-300"
+            );
+          });
+
+          row.appendChild(themes);
+        }
+
+        if (cmd.commentary) {
+          appendText(row, "div", cmd.commentary, "text-xs text-slate-300");
+        }
+
         list.appendChild(row);
       });
 
