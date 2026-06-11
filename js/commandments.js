@@ -1,7 +1,20 @@
 (function () {
-  const DATA_URL = "data/commandments/commandments.json";
+  const DATA_URL = "data/commandments/commandments (1).json";
   let commandmentsPromise = null;
   let lastRenderedContainer = null;
+  let activeFilter = "All";
+  const FILTERS = [
+    "All",
+    "Positive",
+    "Negative",
+    "Sacrifices",
+    "Justice",
+    "Temple",
+    "Priests",
+    "Agriculture",
+    "Dietary",
+    "Business"
+  ];
 
   function loadCommandments() {
     if (!commandmentsPromise) {
@@ -41,6 +54,40 @@
     return values.size;
   }
 
+  function filterCommandments(commandments, filterName) {
+    if (filterName === "Positive") {
+      return commandments.filter((cmd) => cmd.type === "positive");
+    }
+
+    if (filterName === "Negative") {
+      return commandments.filter((cmd) => cmd.type === "negative");
+    }
+
+    if (filterName === "Business") {
+      return commandments.filter((cmd) => {
+        const category = String(cmd.category || "");
+        return category.includes("Loans") || category.includes("Business");
+      });
+    }
+
+    if (filterName === "Priests") {
+      return commandments.filter((cmd) => String(cmd.category || "").includes("Priest"));
+    }
+
+    if (filterName === "All") {
+      return commandments;
+    }
+
+    return commandments.filter((cmd) => String(cmd.category || "").includes(filterName));
+  }
+
+  function getFilterDescription(filterName) {
+    if (filterName === "All") return "loaded";
+    if (filterName === "Positive") return "positive";
+    if (filterName === "Negative") return "negative";
+    return filterName;
+  }
+
   function renderPreview(container, commandments) {
     const positiveCount = commandments.filter((cmd) => cmd.type === "positive").length;
     const negativeCount = commandments.filter((cmd) => cmd.type === "negative").length;
@@ -66,12 +113,45 @@
     appendText(stats, "div", `${themeCount} themes`);
     wrapper.appendChild(stats);
 
+    const filterBar = document.createElement("div");
+    filterBar.className = "flex flex-wrap gap-2";
+
+    FILTERS.forEach((filterName) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = filterName === activeFilter
+        ? "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-white"
+        : "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-slate-400";
+      button.textContent = filterName;
+      button.addEventListener("click", () => {
+        activeFilter = filterName;
+        renderPreview(container, commandments);
+      });
+      filterBar.appendChild(button);
+    });
+
+    wrapper.appendChild(filterBar);
+
+    const filteredCommandments = filterCommandments(commandments, activeFilter);
+    const visibleCommandments = filteredCommandments.slice(0, 10);
+    const visibleCount = visibleCommandments.length;
+    const filterDescription = getFilterDescription(activeFilter);
+
     const list = document.createElement("div");
     list.className = "space-y-2";
 
-    appendText(wrapper, "div", "Showing first 10 loaded commandments", "font-medium text-white");
+    appendText(
+      wrapper,
+      "div",
+      `Showing ${visibleCount} of ${filteredCommandments.length} ${filterDescription} commandments.`,
+      "font-medium text-white"
+    );
 
-    commandments.slice(0, 10).forEach((cmd) => {
+    if (!filteredCommandments.length) {
+      appendText(list, "div", "No commandments found for this filter.", "text-xs text-slate-400");
+    }
+
+    visibleCommandments.forEach((cmd) => {
       const row = document.createElement("div");
       row.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3";
 
