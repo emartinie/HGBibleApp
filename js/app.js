@@ -244,6 +244,10 @@ if (!existing) {
   document.body.appendChild(script);
   console.log("[CARD] script injected", { cardName, src: script.src });
 }
+
+if (cardName === "prezis" && typeof window.initPrezis === "function") {
+  window.initPrezis(loadedCardHost);
+}
   
 console.log("loadCard exists?", typeof window.loadCard);
       console.log("[CARD] render completion", { cardName, requestId });
