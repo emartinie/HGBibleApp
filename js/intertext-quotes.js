@@ -29,24 +29,72 @@ function init(data) {
 }
 
 function renderDatasetSummary(data) {
+  const summary = document.getElementById("intertextDatasetSummary");
   const totalEl = document.querySelector("[data-intertext-total]");
   const ntEl = document.querySelector("[data-intertext-sample-nt]");
   const lxxEl = document.querySelector("[data-intertext-sample-lxx]");
   const mtEl = document.querySelector("[data-intertext-sample-mt]");
 
-  if (!totalEl && !ntEl && !lxxEl && !mtEl) return;
+  if (!summary && !totalEl && !ntEl && !lxxEl && !mtEl) return;
 
   const entries = Object.values(data || {});
-  const sample = entries.find(entry => entry?.nt?.text);
-  const concise = text => {
-    const value = String(text || "");
-    return value.length > 120 ? `${value.slice(0, 120)}...` : value;
-  };
+  const ntWitnessCount = entries.filter(entry => entry?.nt?.text).length;
+  const lxxWitnessCount = entries.filter(entry => entry?.ot?.lxx?.text).length;
+  const masoreticWitnessCount = entries.filter(entry => entry?.ot?.masoretic?.text).length;
+  const ntBooks = new Set();
+
+  entries.forEach(entry => {
+    const ntText = String(entry?.nt?.text || "").trim();
+    const match = ntText.match(/^([1-3]?\s?[A-Za-z]+)/);
+    if (match) ntBooks.add(match[1]);
+  });
+
+  if (summary) {
+    summary.innerHTML = "";
+
+    const heading = document.createElement("div");
+    heading.className = "text-slate-200 font-semibold mb-2";
+    heading.textContent = "Intertext Dataset Preview";
+    summary.appendChild(heading);
+
+    const groups = document.createElement("div");
+    groups.className = "grid gap-2";
+
+    function appendSummaryGroup(title, lines) {
+      const group = document.createElement("div");
+      group.className = "space-y-1 rounded-lg border border-slate-700 bg-slate-900/70 p-3";
+
+      const label = document.createElement("div");
+      label.className = "text-xs font-semibold text-slate-400";
+      label.textContent = title;
+      group.appendChild(label);
+
+      lines.forEach(line => {
+        const item = document.createElement("div");
+        item.className = "text-sm text-slate-200";
+        item.textContent = line;
+        group.appendChild(item);
+      });
+
+      groups.appendChild(group);
+    }
+
+    appendSummaryGroup("Quotations", [`${entries.length} loaded entries`]);
+    appendSummaryGroup("Witnesses", [
+      `${ntWitnessCount} NT Witnesses`,
+      `${lxxWitnessCount} LXX Witnesses`,
+      `${masoreticWitnessCount} Masoretic Witnesses`
+    ]);
+    appendSummaryGroup("Scope", [`${ntBooks.size} NT Books`]);
+
+    summary.appendChild(groups);
+    return;
+  }
 
   if (totalEl) totalEl.textContent = String(entries.length);
-  if (ntEl) ntEl.textContent = concise(sample?.nt?.text) || "No sample available.";
-  if (lxxEl) lxxEl.textContent = concise(sample?.ot?.lxx?.text) || "No LXX witness available.";
-  if (mtEl) mtEl.textContent = concise(sample?.ot?.masoretic?.text) || "No Masoretic witness available.";
+  if (ntEl) ntEl.textContent = `${ntWitnessCount} NT Witnesses`;
+  if (lxxEl) lxxEl.textContent = `${lxxWitnessCount} LXX Witnesses`;
+  if (mtEl) mtEl.textContent = `${masoreticWitnessCount} Masoretic Witnesses`;
 }
 
 function renderQuotes(data, bookFilter = "") {
@@ -74,10 +122,10 @@ function renderQuotes(data, bookFilter = "") {
           ${hasNtRef ? ntWitness.ref : ntText.split("—")[0]}
         </h3>
         <div class="flex flex-wrap gap-2 text-xs text-slate-400 mt-2">
-          <span>NT Reference</span>
           <span>NT Witness</span>
-          <span>Sources Preview</span>
-          <span>Sefaria Preview</span>
+          <span>Hebrew Scripture Witnesses</span>
+          <span>Masoretic</span>
+          <span>LXX</span>
         </div>
         <p class="text-slate-300 mt-2">${hasNtRef ? ntWitness.body : ntText}</p>
       </div>
