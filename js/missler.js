@@ -1,63 +1,221 @@
-// Missler 24-hour playlist
-const misslerPlaylist = [
-  { hour: 1, id: "PZ3hESj__M8" },
-  { hour: 2, id: "0Jd3crAKC3M" },
-  { hour: 3, id: "0syohVIkDHc" },
-  { hour: 4, id: "4NWuM8aRuzE" },
-  { hour: 5, id: "S4mZushkYFE" },
-  { hour: 6, id: "bjjA-FDFmXQ" },
-  { hour: 7, id: "N3WCH5Xmqk8" },
-  { hour: 8, id: "qxk9KNhnjC4" },
-  { hour: 9, id: "o8AXk-zW-nQ" },
-  { hour: 10, id: "5YHHF9QfmF4" },
-  { hour: 11, id: "jwxppukQDLg" },
-  { hour: 12, id: "ZN-Yvhhix2o" },
-  { hour: 13, id: "Ud6pJaLLA8w" },
-  { hour: 14, id: "ZzDUjROQCEg" },
-  { hour: 15, id: "i9wAIjxBZtY" },
-  { hour: 16, id: "qZdPWmrV_ls" },
-  { hour: 17, id: "bgCA70Z1Y7g" },
-  { hour: 18, id: "NDnF08u_z64" },
-  { hour: 19, id: "ddS5ewO9Nys" },
-  { hour: 20, id: "Kron8S_h0Ds" },
-  { hour: 21, id: "qgv9-TN9F38" },
-  { hour: 22, id: "rB5tho_piro" },
-  { hour: 23, id: "kmBLLg_z_Wk" },
-  { hour: 24, id: "cM72PmSIURc" }
-];
+<section class="hg-card-module">
+<div class="card-topbar">
 
-function loadMisslerHour(hour) {
-  const video = misslerPlaylist.find(v => v.hour === hour);
-  if (!video) return console.warn("Hour not found:", hour);
+  <!-- existing fullscreen -->
+  <button class="card-fullscreen-btn card-icon-btn primary"
+          title="Expand Card">⛶</button>
 
-  const iframe = document.getElementById("misslerPlayer");
-  if (!iframe) return console.warn("Player iframe not found");
+  <button class="card-icon-btn nav" title="Home">⌂</button>
+  <button class="card-icon-btn nav" title="Previous">←</button>
+  <button class="card-icon-btn nav" title="Next">→</button>
 
-  iframe.src = `https://www.youtube.com/embed/${video.id}?rel=0&autoplay=0`;
-  console.log("▶ Playing Chuck Missler Hour", hour, video.id);
-}
+  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
+  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
 
-// Generate thumbnail carousel
-function buildMisslerCarousel() {
-  const carousel = document.getElementById("misslerCarousel");
-  if (!carousel) return;
+  <button class="card-icon-btn utility" title="Search Card">⌕</button>
+  <button class="card-icon-btn utility" title="Bookmark">★</button>
+  <button class="card-icon-btn utility" title="Share">⇪</button>
+  <button class="card-icon-btn utility" title="Notes">✎</button>
+  <button class="card-icon-btn utility" title="Help">?</button>
 
-  misslerPlaylist.forEach(video => {
-    const img = document.createElement("img");
-    img.src = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
-    img.alt = `Hour ${video.hour}`;
-    img.title = `Hour ${video.hour}`;
-    img.className =
-      "w-24 h-14 rounded cursor-pointer hover:scale-105 transition-transform";
+</div>
+<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
+<!-- ============================= -->
+<!-- Card 9: JSON Cards Container  -->
+<!-- ============================= -->
+<!--<section id="jsonContainer" class="card">
+    <div class="bg-slate-900/80 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden">
 
-    img.addEventListener("click", () => loadMisslerHour(video.hour));
-    carousel.appendChild(img);
-  });
-}
+        <!-- Header (can clip) -->
+       <!-- <div class="flex items-center justify-between px-4 py-3 bg-slate-900/90 border-b border-slate-700/80">
+            <button
+                class="prev-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"
+                title="Prev card">-->
+                <!-- Heroicon: Chevron Left -->
+                <!--<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>-->
 
-// Initialize
-//window.addEventListener("DOMContentLoaded", () => {
-  buildMisslerCarousel();
-  loadMisslerHour(24); // autoplay Hour 24 by default
-//}
-//);
+           <!--<div class="text-center">
+                <div class="label-pill text-slate-400">Card 9</div>
+                <h2 class="text-xl font-bold text-orange-300">
+                    Other Teachers Card • Chuck Missler, KHouse
+                </h2>
+            </div>
+
+            <button
+                class="next-card-btn bg-black/50 text-white p-3 rounded-full shadow-lg transition transform hover:scale-110 hover:drop-shadow-[0_0_6px_#fff2c2] hover:drop-shadow-[0_0_14px_#ffb347] hover:drop-shadow-[0_0_28px_#ff7a1a] hover:-rotate-6"
+                title="Next card">-->
+                <!-- Heroicon: Chevron Right -->
+                <!--<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>-->
+
+        <!-- Body (must breathe) -->
+        <div class="card-inner">
+
+            <!-- Chuck Missler Card -->
+            <div id="misslerCard" class="card-inner">
+			<div class="hg-panel">                
+		    <div class="hg-card-caption">Learn the Bible in 24 Hours - the best whole overview ever taught</div>
+                <p class="text-xs opacity-70 mt-3">
+                    Teaching by Chuck Missler – Koinonia House; A complete overview of Scripture from Genesis to Revelation in 24 hours.
+                </p>
+                
+                <h3 class="text-lg font-semibold mb-2"></h3>
+
+                <p class="text-xs mt-1 opacity-60">
+                    Chuck is one of my most beloved and respected teachers of my entire life. Find out why...<br>
+                </p>
+                <div>
+                    <!-- YouTube iframe player -->
+                    <iframe id="misslerPlayer" width="100%" height="300" src=""
+                        title="Chuck Missler – Learn the Bible in 24 Hours" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen class="rounded mb-3"></iframe>
+
+                    <!-- Carousel container -->
+			<div class="hg-panel">                                    
+                    <div id="misslerCarousel" class="flex overflow-x-auto gap-2 mt-3 pb-2"></div>
+                </div>
+            </div>
+
+            <!-- Source Toggles -->
+			<div class="hg-panel">                                
+            <section class="mb-10">
+                <h2 class="text-xl font-medium mb-4">Other Available Teachers</h2>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button id="toggleJewish" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                        Messianic<br> Whole Bible
+                    </button>
+
+                    <button id="toggleNT" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                        New Testament Teachers
+                    </button>
+
+                    <button id="toggleFathers" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                        Early Christian
+                    </button>
+
+                    <button id="toggleDSS" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                        Cutting Edge
+                    </button>
+
+                    <button id="togglePeople" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded text-left">
+                        Prophetic
+                    </button>
+                </div>
+            </section>
+
+            <p class="text-xs text-slate-400 mt-3">
+                Each source may be explored independently. Nothing is shown unless you choose it.
+            </p>
+
+            <!-- Jewish Sources -->
+            <section id="jewishSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">Jewish Sources</h3>
+                <div class="bg-slate-800 rounded-lg p-4 text-sm leading-relaxed">
+                    <p class="text-slate-300 mb-2">
+                        Jewish tradition preserves centuries of reflection on the Hebrew Scriptures.
+                        When available, select passages from these sources will appear here.
+                    </p>
+                    <div id="sefariaBox" class="text-slate-200">
+                        <p class="italic text-slate-400">
+                            This source is being carefully integrated and will appear here once stable.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NT Usage -->
+            <section id="ntSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">New Testament Usage of the Hebrew Scriptures</h3>
+                <div class="bg-slate-800 rounded-lg p-4 text-sm">
+                    <p class="text-slate-300 mb-2">
+                        The New Testament frequently quotes and alludes to the Hebrew Scriptures,
+                        sometimes following the Masoretic Text and sometimes the Septuagint.
+                    </p>
+                    <div id="ntQuoteBox">
+                        <p class="italic text-slate-400">
+                            References will appear here as they are added.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Church Fathers -->
+            <section id="fathersSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">Early Christian Witness</h3>
+                <div class="bg-slate-800 rounded-lg p-4 text-sm">
+                    <p class="text-slate-300 mb-2">
+                        Early Christian writers often reflect on Scripture in ways shaped by
+                        both Jewish tradition and the apostolic writings.
+                    </p>
+                    <p class="italic text-slate-400">
+                        This section is under careful development.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Dead Sea Scrolls -->
+            <section id="dssSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">Dead Sea Scrolls Witness</h3>
+                <div class="bg-slate-800 rounded-lg p-4 text-sm">
+                    <p class="text-slate-300 mb-2">
+                        The Dead Sea Scrolls preserve some of the earliest known manuscripts
+                        of the Hebrew Scriptures, copied centuries before the New Testament.
+                    </p>
+                    <div id="dssBox">
+                        <p class="italic text-slate-400">
+                            References from the Dead Sea Scrolls will appear here as they are carefully compiled.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Witness of the People of God -->
+            <section id="peopleSection" class="mb-12 hidden">
+                <h3 class="text-lg font-medium mb-3">Witness of the People of God</h3>
+                <div class="bg-slate-800 rounded-lg p-4 text-sm leading-relaxed">
+                    <p class="text-slate-300 mb-4">
+                        Scripture has been recognized, confessed, prayed, translated,
+                        and preserved within the life of God's people across generations.
+                        This witness reflects lived faithfulness rather than scholarly analysis.
+                    </p>
+                    <ul class="space-y-3 text-slate-200">
+                        <li>
+                            <span class="font-medium">Canon</span> — These writings were received
+                            as Scripture through use and trust, not imposed by force.
+                        </li>
+                        <li>
+                            <span class="font-medium">Creeds</span> — Core truths were confessed
+                            publicly, often under persecution, as a summary of shared faith.
+                        </li>
+                        <li>
+                            <span class="font-medium">Prayer & Liturgy</span> — Scripture shaped
+                            daily prayer, worship, and communal life.
+                        </li>
+                        <li>
+                            <span class="font-medium">Translation</span> — God's Word crossed
+                            languages so that people might hear and understand.
+                        </li>
+                        <li>
+                            <span class="font-medium">Preservation</span> — The text endured because
+                            it mattered enough to be copied, protected, and suffered for.
+                        </li>
+                    </ul>
+                    <p class="mt-4 italic text-slate-400">
+                        This witness reflects how Scripture was lived before it was analyzed.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+</section>
