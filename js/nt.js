@@ -583,7 +583,7 @@ function loadBookTiles() {
     const reviewLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
 
     const tile = document.createElement("div");
-    tile.className = "group rounded-2xl border border-slate-700 bg-gradient-to-b from-slate-900/80 to-slate-950/60 p-4 shadow-lg hover:shadow-cyan-900/20 transition";
+    tile.className = "nt-book-tile group rounded-2xl border border-slate-700 bg-gradient-to-b from-slate-900/80 to-slate-950/60 p-4 shadow-lg hover:shadow-cyan-900/20 transition";
 
     tile.innerHTML = `
   <div class="mb-4 border-b border-slate-700 pb-3">
