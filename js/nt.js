@@ -444,7 +444,7 @@ function getParams() {
 
     </div>
 
-    <div class="rounded-xl bg-gradient-to-b from-slate-950/60 to-slate-900/40 border border-slate-700 p-4 max-h-[60vh] overflow-auto shadow-inner">
+    <div class="rounded-xl bg-gradient-to-b from-slate-950/60 to-slate-900/40 border border-slate-700 p-4 max-h-[60vh] overflow-auto shadow-inner" style="max-height:min(60vh, calc(100vh - 14rem)); overflow-y:auto; -webkit-overflow-scrolling:touch;">
 
       <div class="prose prose-invert max-w-none text-sm leading-relaxed">
 
