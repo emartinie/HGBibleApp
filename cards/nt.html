@@ -48,49 +48,46 @@
     filter: grayscale(1);
   }
 
-  #nt-book-grid .nt-book-tile {
-    transform-origin: center;
-    will-change: transform;
+  #nt-book-wheel {
+    outline: none;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    #nt-book-grid .nt-book-tile:hover,
-    #nt-book-grid .nt-book-tile:focus-within {
-      animation: nt-book-wheel-pop 560ms cubic-bezier(0.2, 0.8, 0.2, 1) 1;
-    }
+  #nt-book-wheel .nt-wheel-window {
+    display: grid;
+    gap: 0.5rem;
   }
 
-  @media (hover: none), (pointer: coarse) {
-    #nt-book-grid .nt-book-tile:active,
-    #nt-book-grid .nt-book-tile:focus-within {
-      transform: translateY(-1px) rotateZ(0.5deg);
-    }
+  #nt-book-wheel .nt-wheel-item {
+    min-height: 3rem;
+    transform: scale(0.94);
+    opacity: 0.58;
+    transition:
+      transform 180ms ease,
+      opacity 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease,
+      color 180ms ease;
   }
 
-  @keyframes nt-book-wheel-pop {
-    0% {
-      transform: translateY(0) rotateZ(0deg) rotateY(0deg);
-    }
-    35% {
-      transform: translateY(-3px) rotateZ(-1.5deg) rotateY(9deg);
-    }
-    70% {
-      transform: translateY(-1px) rotateZ(1deg) rotateY(-5deg);
-    }
-    100% {
-      transform: translateY(0) rotateZ(0deg) rotateY(0deg);
-    }
+  #nt-book-wheel .nt-wheel-item.is-near {
+    transform: scale(0.98);
+    opacity: 0.78;
+  }
+
+  #nt-book-wheel .nt-wheel-item.is-active {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  #nt-book-wheel:focus-visible {
+    border-color: rgba(34, 211, 238, 0.55);
+    box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.18);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    #nt-book-grid .nt-book-tile,
-    #nt-book-grid .nt-book-tile:hover,
-    #nt-book-grid .nt-book-tile:focus-within,
-    #nt-book-grid .nt-book-tile:active {
-      animation: none;
-      transform: none;
+    #nt-book-wheel .nt-wheel-item {
       transition: none;
-      will-change: auto;
+      transform: none;
     }
   }
 </style>
