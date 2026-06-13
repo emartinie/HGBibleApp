@@ -614,6 +614,74 @@ function loadBookTiles() {
     };
   }
 
+  function getBookJsonPath(bookName) {
+    const bookKey = bookName.toLowerCase().replace(/\s+/g, "");
+    return `data/nt/${bookKey}.json`;
+  }
+
+  function getChapterOneSection(chapter, preferredSection = null) {
+    const sectionList = [
+      ["objectives", "Objectives", chapter?.objectives],
+      ["summary", "Summary", chapter?.summary],
+      ["outline", "Outline", chapter?.outline],
+      ["wordsToPonder", "Words to Ponder", chapter?.wordsToPonder],
+      ["reviewQuestions", "Review Questions", chapter?.reviewQuestions]
+    ];
+
+    return (
+      sectionList.find(([id, , text]) => id === preferredSection && text) ||
+      sectionList.find(([, , text]) => text)
+    );
+  }
+
+  async function openLandingActionPanel(action) {
+    const bookName = books[activeIndex];
+    const { introLink, ch1Link, summaryLink, reviewLink } = buildBookLinks(bookName);
+    const res = await fetch(getBookJsonPath(bookName));
+
+    if (!res.ok) throw new Error("Failed to load book data");
+
+    const data = await res.json();
+
+    if (action === "introduction") {
+      openPanel(
+        `${bookName} - Introduction`,
+        buildPanelSection(`${bookName} - Introduction`, data.introduction?.rawText, introLink, {
+          book: bookName,
+          sectionLabel: "Introduction",
+          view: "introduction"
+        })
+      );
+      return;
+    }
+
+    const chapterOne = data.chapters?.["1"];
+    const preferredSection = action === "summary"
+      ? "summary"
+      : action === "review"
+        ? "reviewQuestions"
+        : null;
+    const selectedSection = getChapterOneSection(chapterOne, preferredSection);
+    const sectionId = selectedSection?.[0] || preferredSection || "chapter1";
+    const sectionTitle = selectedSection?.[1] || "Chapter 1";
+    const sectionText = selectedSection?.[2] || "";
+    const linkHref = action === "summary"
+      ? summaryLink
+      : action === "review"
+        ? reviewLink
+        : ch1Link;
+
+    openPanel(
+      `${bookName} - Ch 1 - ${sectionTitle}`,
+      buildPanelSection(`${bookName} - Ch 1 - ${sectionTitle}`, sectionText, linkHref, {
+        book: bookName,
+        chapter: 1,
+        section: sectionId,
+        sectionLabel: sectionTitle
+      })
+    );
+  }
+
   function setActiveBook(index) {
     const nextIndex = clampIndex(index);
     if (nextIndex === activeIndex) return;
@@ -660,7 +728,6 @@ function loadBookTiles() {
 
   function renderActions() {
     const bookName = books[activeIndex];
-    const { introLink, ch1Link, summaryLink, reviewLink } = buildBookLinks(bookName);
 
     actions.innerHTML = `
       <div class="mb-4 border-b border-slate-700 pb-3">
@@ -674,25 +741,29 @@ function loadBookTiles() {
       </div>
 
       <div class="grid grid-cols-2 gap-2">
-        <a href="${introLink}"
-           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+        <button type="button"
+           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition"
+           data-nt-panel-action="introduction">
           Intro
-        </a>
+        </button>
 
-        <a href="${ch1Link}"
-           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+        <button type="button"
+           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition"
+           data-nt-panel-action="chapter1">
           Chapter 1
-        </a>
+        </button>
 
-        <a href="${summaryLink}"
-           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+        <button type="button"
+           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition"
+           data-nt-panel-action="summary">
           Summary
-        </a>
+        </button>
 
-        <a href="${reviewLink}"
-           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+        <button type="button"
+           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition"
+           data-nt-panel-action="review">
           Review
-        </a>
+        </button>
 
         <button
           type="button"
@@ -702,6 +773,19 @@ function loadBookTiles() {
         </button>
       </div>
     `;
+
+    actions.querySelectorAll("[data-nt-panel-action]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        openLandingActionPanel(btn.getAttribute("data-nt-panel-action"))
+          .catch(err => {
+            console.error(err);
+            openPanel(
+              "NT Panel",
+              `<p class="text-red-300 text-sm">Unable to load this NT content.</p>`
+            );
+          });
+      });
+    });
 
     actions.querySelector("[data-nt-hint]")?.addEventListener("click", () => {
       const activeBook = books[activeIndex];
