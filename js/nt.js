@@ -540,9 +540,29 @@ contentZone.innerHTML = `
       </p>
     </div>
 
-    <div id="nt-book-grid"
-         class="grid gap-4"
-         style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
+    <div id="nt-book-wheel"
+         class="rounded-2xl border border-slate-700 bg-gradient-to-b from-slate-900/80 to-slate-950/60 p-4 shadow-lg"
+         tabindex="0"
+         aria-label="New Testament book selector">
+      <button type="button"
+              class="reader-chip w-full justify-center"
+              data-nt-wheel-prev="true"
+              aria-label="Previous book">
+        Up
+      </button>
+
+      <div class="nt-wheel-window my-3" data-nt-wheel-window></div>
+
+      <button type="button"
+              class="reader-chip w-full justify-center"
+              data-nt-wheel-next="true"
+              aria-label="Next book">
+        Down
+      </button>
+    </div>
+
+    <div id="nt-book-actions"
+         class="rounded-2xl border border-slate-700 bg-slate-900/50 p-4 shadow-lg">
     </div>
 
     <div class="rounded-xl border border-slate-700 bg-slate-900/40 p-4 text-sm text-slate-400 leading-relaxed">
@@ -573,70 +593,184 @@ function loadBookTiles() {
     "1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"
   ];
 
-  const grid = document.getElementById("nt-book-grid");
-  if (!grid) return;
+  const wheel = document.getElementById("nt-book-wheel");
+  const wheelWindow = wheel?.querySelector("[data-nt-wheel-window]");
+  const actions = document.getElementById("nt-book-actions");
+  if (!wheel || !wheelWindow || !actions) return;
 
-  books.forEach(bookName => {
-    const introLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`;
-    const ch1Link = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1`;
-    const summaryLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary`;
-    const reviewLink = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`;
+  let activeIndex = 0;
+  let touchStartY = null;
 
-    const tile = document.createElement("div");
-    tile.className = "nt-book-tile group rounded-2xl border border-slate-700 bg-gradient-to-b from-slate-900/80 to-slate-950/60 p-4 shadow-lg hover:shadow-cyan-900/20 transition";
+  function clampIndex(index) {
+    return (index + books.length) % books.length;
+  }
 
-    tile.innerHTML = `
-  <div class="mb-4 border-b border-slate-700 pb-3">
+  function buildBookLinks(bookName) {
+    return {
+      introLink: `${NT_BASE}?book=${encodeURIComponent(bookName)}&view=introduction`,
+      ch1Link: `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1`,
+      summaryLink: `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=summary`,
+      reviewLink: `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=1&section=reviewQuestions`
+    };
+  }
 
-    <div class="text-lg font-semibold text-cyan-200 group-hover:text-cyan-100 transition">
-      ${bookName}
-    </div>
+  function setActiveBook(index) {
+    const nextIndex = clampIndex(index);
+    if (nextIndex === activeIndex) return;
 
-    <div class="text-xs text-slate-400">
-      NT Sections/ Sources:
-    </div>
+    activeIndex = nextIndex;
+    renderWheel();
+    renderActions();
+  }
 
-  </div>
+  function renderWheel() {
+    const visibleIndexes = [];
 
-  <div class="grid grid-cols-2 gap-2">
+    for (let offset = -2; offset <= 2; offset += 1) {
+      visibleIndexes.push(clampIndex(activeIndex + offset));
+    }
 
-    <a href="${introLink}"
-       class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
-      Intro
-    </a>
+    wheelWindow.innerHTML = visibleIndexes
+      .map((bookIndex, slotIndex) => {
+        const bookName = books[bookIndex];
+        const distance = Math.abs(slotIndex - 2);
+        const activeClass = bookIndex === activeIndex
+          ? " is-active border-cyan-500/60 bg-cyan-900/35 text-cyan-100 shadow-lg shadow-cyan-950/30"
+          : distance === 1
+            ? " is-near border-slate-600 bg-slate-900/70 text-slate-200 hover:bg-slate-800/80"
+            : " border-slate-700 bg-slate-950/40 text-slate-400 hover:bg-slate-900/70";
 
-    <a href="${ch1Link}"
-       class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
-      Chapter 1
-    </a>
+        return `
+          <button type="button"
+                  class="nt-wheel-item w-full rounded-xl border px-4 py-3 text-center text-sm font-semibold${activeClass}"
+                  data-nt-wheel-index="${bookIndex}"
+                  aria-current="${bookIndex === activeIndex ? "true" : "false"}">
+            ${escapeHtml(bookName)}
+          </button>
+        `;
+      })
+      .join("");
 
-    <a href="${summaryLink}"
-       class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
-      Summary
-    </a>
+    wheelWindow.querySelectorAll("[data-nt-wheel-index]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        setActiveBook(Number(btn.getAttribute("data-nt-wheel-index")));
+      });
+    });
+  }
 
-    <a href="${reviewLink}"
-       class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
-      Review
-    </a>
+  function renderActions() {
+    const bookName = books[activeIndex];
+    const { introLink, ch1Link, summaryLink, reviewLink } = buildBookLinks(bookName);
 
-    <button
-      type="button"
-      class="col-span-2 px-3 py-2 rounded-lg border border-cyan-700/40 bg-cyan-900/20 hover:bg-cyan-800/30 text-sm text-center text-cyan-200 hover:text-white transition"
-      data-nt-hint="${bookName}">
-      Related Jewish Context
-    </button>
+    actions.innerHTML = `
+      <div class="mb-4 border-b border-slate-700 pb-3">
+        <div class="text-lg font-semibold text-cyan-200">
+          ${escapeHtml(bookName)}
+        </div>
 
-  </div>
-`;
-    grid.appendChild(tile);
+        <div class="text-xs text-slate-400">
+          NT Sections/ Sources:
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <a href="${introLink}"
+           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+          Intro
+        </a>
+
+        <a href="${ch1Link}"
+           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+          Chapter 1
+        </a>
+
+        <a href="${summaryLink}"
+           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+          Summary
+        </a>
+
+        <a href="${reviewLink}"
+           class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition">
+          Review
+        </a>
+
+        <button
+          type="button"
+          class="col-span-2 px-3 py-2 rounded-lg border border-cyan-700/40 bg-cyan-900/20 hover:bg-cyan-800/30 text-sm text-center text-cyan-200 hover:text-white transition"
+          data-nt-hint="${escapeHtml(bookName)}">
+          Related Jewish Context
+        </button>
+      </div>
+    `;
+
+    actions.querySelector("[data-nt-hint]")?.addEventListener("click", () => {
+      const activeBook = books[activeIndex];
+      openSefariaFromNT(activeBook, 1);
+      openPanel(
+        `${activeBook} â€” Related Jewish Context`,
+        buildPanelSection(
+          `${activeBook} â€” Related Jewish Context`,
+          `This is a placeholder for future cross-links, hints, thematic alignment, and other connections between ${activeBook} and Jewish texts or traditions rarely studied by christians or theologians.\n\nNot wired yet â€” just making room for the future on purpose.`,
+          `${NT_BASE}?book=${encodeURIComponent(activeBook)}`,
+          {
+            book: activeBook,
+            sectionLabel: "Related Jewish Context"
+          }
+        )
+      );
+    });
+  }
+
+  wheel.querySelector("[data-nt-wheel-prev]")?.addEventListener("click", () => {
+    setActiveBook(activeIndex - 1);
   });
 
-  grid.querySelectorAll("[data-nt-hint]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const bookName = btn.getAttribute("data-nt-hint");
-      openSefariaFromNT(bookName, 1);
-      openPanel(
+  wheel.querySelector("[data-nt-wheel-next]")?.addEventListener("click", () => {
+    setActiveBook(activeIndex + 1);
+  });
+
+  wheel.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setActiveBook(activeIndex - 1);
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setActiveBook(activeIndex + 1);
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      setActiveBook(0);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      setActiveBook(books.length - 1);
+    }
+  });
+
+  wheel.addEventListener("wheel", (event) => {
+    if (Math.abs(event.deltaY) < 12) return;
+    event.preventDefault();
+    setActiveBook(activeIndex + (event.deltaY > 0 ? 1 : -1));
+  }, { passive: false });
+
+  wheel.addEventListener("touchstart", (event) => {
+    touchStartY = event.touches?.[0]?.clientY ?? null;
+  }, { passive: true });
+
+  wheel.addEventListener("touchend", (event) => {
+    if (touchStartY === null) return;
+
+    const touchEndY = event.changedTouches?.[0]?.clientY ?? touchStartY;
+    const deltaY = touchStartY - touchEndY;
+    touchStartY = null;
+
+    if (Math.abs(deltaY) < 30) return;
+    setActiveBook(activeIndex + (deltaY > 0 ? 1 : -1));
+  }, { passive: true });
+
+  renderWheel();
+  renderActions();
+}
+  /*
+
         `${bookName} — Related Jewish Context`,
         buildPanelSection(
           `${bookName} — Related Jewish Context`,
@@ -653,6 +787,8 @@ function loadBookTiles() {
   });
 }
   
+  */
+
   // =========================================================
   // CHAPTER RENDERING
   // =========================================================
