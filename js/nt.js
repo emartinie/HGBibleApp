@@ -215,6 +215,7 @@ function getParams() {
 
   function getChapterSection(chapterData, preferredSection = null) {
     const sectionList = [
+      ["rawText", "Objectives", chapterData?.rawText],
       ["objectives", "Objectives", chapterData?.objectives],
       ["summary", "Summary", chapterData?.summary],
       ["outline", "Outline", chapterData?.outline],
@@ -281,6 +282,7 @@ function getParams() {
 
   function getSectionLabel(sectionId) {
     return ({
+      rawText: "Objectives",
       objectives: "Objectives",
       summary: "Summary",
       outline: "Outline",
@@ -775,10 +777,10 @@ function loadBookTiles() {
       ? "summary"
       : action === "review"
         ? "reviewQuestions"
-        : null;
+        : "rawText";
     const selectedSection = getChapterOneSection(chapterOne, preferredSection);
     const sectionId = selectedSection?.[0] || preferredSection || "chapter1";
-    const sectionTitle = selectedSection?.[1] || "Chapter 1";
+    const sectionTitle = selectedSection?.[1] || "Objectives";
     const sectionText = selectedSection?.[2] || "";
     const linkHref = action === "summary"
       ? summaryLink
