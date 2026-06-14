@@ -16,7 +16,6 @@ async function loadCommentary(week) {
 
     const html = await res.text();
     content.innerHTML = html;
-
   } catch (err) {
     console.error("Commentary load error:", err);
 
@@ -28,19 +27,19 @@ async function loadCommentary(week) {
   }
 }
 
- function initCommentary() {
+function initCommentary() {
   const reloadBtn = document.getElementById("commentaryReloadBtn");
-  const week = getWeekNumber();
 
   reloadBtn?.addEventListener("click", () => {
     loadCommentary(getWeekNumber());
   });
 
-  loadCommentary(week);
+  window.addEventListener("weekChanged", (event) => {
+    const week = event.detail?.week || event.detail?.weekNumber || getWeekNumber();
+    loadCommentary(week);
+  });
+
+  loadCommentary(getWeekNumber());
 }
 
-function init() {
-  initCommentary();
-}
-
-init();
+initCommentary();
