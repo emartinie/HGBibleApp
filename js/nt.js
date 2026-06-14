@@ -491,8 +491,14 @@ function getParams() {
   // =========================================================
 
   function openPanel(title, html, context = {}) {
+    const panelHtml = `
+      <div class="nt-panel-scroll" data-nt-panel-scroll="true" style="height:min(72vh, calc(100vh - 9rem)); max-height:min(72vh, calc(100vh - 9rem)); min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain;">
+        ${html}
+      </div>
+    `;
+
     if (hasPorchPanel()) {
-      window.openPorchPanel(title, html);
+      window.openPorchPanel(title, panelHtml);
       requestAnimationFrame(() => {
         bindPanelInteractions(document, context);
         resetNTPanelScroll();
@@ -509,7 +515,7 @@ function getParams() {
           <h2 class="text-xl font-semibold">${escapeHtml(title)}</h2>
           <button id="ntBackBtn" class="reader-chip">Back</button>
         </div>
-        ${html}
+        ${panelHtml}
       </section>
     `;
     ntLog("CONTENT AFTER RENDER", {
@@ -538,7 +544,7 @@ function getParams() {
       .join("");
 
  return `
-  <div class="space-y-3 text-left" data-nt-panel-scroll="true" style="max-height:min(70vh, calc(100vh - 10rem)); overflow-y:auto; -webkit-overflow-scrolling:touch;">
+  <div class="space-y-3 text-left">
 
     ${buildPanelNav(context)}
 
@@ -557,7 +563,7 @@ function getParams() {
 
     </div>
 
-    <div class="rounded-xl bg-gradient-to-b from-slate-950/60 to-slate-900/40 border border-slate-700 p-4 max-h-[60vh] overflow-auto shadow-inner" style="max-height:min(60vh, calc(100vh - 14rem)); overflow-y:auto; -webkit-overflow-scrolling:touch;">
+    <div class="rounded-xl bg-gradient-to-b from-slate-950/60 to-slate-900/40 border border-slate-700 p-4 shadow-inner">
 
       <div class="prose prose-invert max-w-none text-sm leading-relaxed">
 
