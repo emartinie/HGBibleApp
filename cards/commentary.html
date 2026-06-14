@@ -1,3 +1,33 @@
+<style>
+.commentary-viewer {
+  padding: 1.5rem;
+}
+
+.commentary-viewer > * {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.commentary-viewer p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.commentary-viewer h2,
+.commentary-viewer h3 {
+  color: var(--gold);
+  margin-top: 2rem;
+  margin-bottom: .75rem;
+}
+
+.commentary-viewer blockquote {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid var(--gold);
+  background: rgba(255,255,255,.03);
+}
+  </style>
 <section class="hg-panel hg-section">
 <div class="card-topbar">
 
@@ -83,7 +113,7 @@
 
     <div
       id="commentaryContent"
-      class="hg-section bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed"
+      class="hg-section commentary-viewer max-h-[60vh] overflow-y-auto"
     >
       Loading commentary...
     </div>
