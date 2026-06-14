@@ -208,6 +208,26 @@ function getParams() {
     return query ? `${NT_BASE}?${query}` : NT_BASE;
   }
 
+  function getBookJsonPath(bookName) {
+    const bookKey = String(bookName || "").toLowerCase().replace(/\s+/g, "");
+    return `data/nt/${bookKey}.json`;
+  }
+
+  function getChapterSection(chapterData, preferredSection = null) {
+    const sectionList = [
+      ["objectives", "Objectives", chapterData?.objectives],
+      ["summary", "Summary", chapterData?.summary],
+      ["outline", "Outline", chapterData?.outline],
+      ["wordsToPonder", "Words to Ponder", chapterData?.wordsToPonder],
+      ["reviewQuestions", "Review Questions", chapterData?.reviewQuestions]
+    ];
+
+    return (
+      sectionList.find(([id, , text]) => id === preferredSection && text) ||
+      sectionList.find(([, , text]) => text)
+    );
+  }
+
   function buildPanelNav(context = {}) {
     const bookName = context.book || book;
     const chapterNum = context.chapter || chapter;
@@ -217,12 +237,17 @@ function getParams() {
     if (!bookName && !chapterNum && !sectionId && !viewName) return "";
 
     const chNum = Number(chapterNum);
+    const isPanelMode = context.panelMode === true;
     const prevChapter = chapterNum && chNum > 1
-      ? `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum - 1, view: viewName, section: sectionId })}">Previous</a>`
+      ? isPanelMode
+        ? `<button type="button" class="reader-chip" data-nt-panel-chapter="${chNum - 1}">Previous</button>`
+        : `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum - 1, view: viewName, section: sectionId })}">Previous</a>`
       : `<span class="reader-chip opacity-40">Previous</span>`;
 
     const nextChapter = chapterNum && (!context.maxChapter || chNum < Number(context.maxChapter))
-      ? `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum + 1, view: viewName, section: sectionId })}">Next</a>`
+      ? isPanelMode
+        ? `<button type="button" class="reader-chip" data-nt-panel-chapter="${chNum + 1}">Next</button>`
+        : `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum + 1, view: viewName, section: sectionId })}">Next</a>`
       : chapterNum ? `<span class="reader-chip opacity-40">Next</span>` : "";
 
     return `
@@ -302,6 +327,26 @@ function getParams() {
     });
   }
 
+  function resetNTPanelScroll() {
+    requestAnimationFrame(() => {
+      [
+        document.querySelector("[data-nt-panel-scroll]"),
+        document.querySelector("#nt-panel"),
+        document.querySelector("[data-porch-panel-body]"),
+        document.querySelector(".porch-panel-body"),
+        document.querySelector(".porch-panel"),
+        document.querySelector("#porchPanel")
+      ]
+        .filter(Boolean)
+        .forEach(el => {
+          el.scrollTop = 0;
+        });
+
+      if (contentZone) contentZone.scrollTop = 0;
+      if (root) root.scrollTop = 0;
+    });
+  }
+
   function hasPorchPanel() {
     return typeof window.openPorchPanel === "function";
   }
@@ -361,9 +406,64 @@ function getParams() {
     );
   }
 
+  async function openPanelChapterSection(context = {}, targetChapter) {
+    const bookName = context.book || book;
+    const chapterNum = Number(targetChapter);
+    const preferredSection = context.section || section || "objectives";
+
+    if (!bookName || !Number.isFinite(chapterNum) || chapterNum < 1) return;
+
+    const res = await fetch(getBookJsonPath(bookName));
+    if (!res.ok) throw new Error("Failed to load book data");
+
+    const data = await res.json();
+    const chapterData = data.chapters?.[String(chapterNum)];
+    if (!chapterData) throw new Error("Chapter not found");
+
+    const chapterKeys = Object.keys(data.chapters || {});
+    const maxChapter = chapterKeys.length
+      ? Math.max(...chapterKeys.map(Number).filter(Number.isFinite))
+      : null;
+    const selectedSection = getChapterSection(chapterData, preferredSection);
+    const sectionId = selectedSection?.[0] || preferredSection;
+    const sectionTitle = selectedSection?.[1] || getSectionLabel(sectionId);
+    const sectionText = selectedSection?.[2] || "";
+    const href = `${NT_BASE}?book=${encodeURIComponent(bookName)}&chapter=${encodeURIComponent(chapterNum)}&section=${encodeURIComponent(sectionId)}`;
+    const panelTitle = `${bookName} - Ch ${chapterNum} - ${sectionTitle}`;
+    const panelContext = {
+      book: bookName,
+      chapter: chapterNum,
+      section: sectionId,
+      sectionLabel: sectionTitle,
+      maxChapter,
+      panelMode: true
+    };
+
+    openPanel(
+      panelTitle,
+      buildPanelSection(panelTitle, sectionText, href, panelContext),
+      panelContext
+    );
+    resetNTPanelScroll();
+  }
+
   function bindPanelInteractions(scope = document, context = {}) {
     scope.querySelectorAll("[data-panel-copy]").forEach(btn => {
       btn.onclick = () => copyToClipboard(btn.getAttribute("data-panel-copy"));
+    });
+
+    scope.querySelectorAll("[data-nt-panel-chapter]").forEach(btn => {
+      btn.onclick = () => {
+        openPanelChapterSection(context, btn.getAttribute("data-nt-panel-chapter"))
+          .catch(err => {
+            console.error(err);
+            openPanel(
+              "NT Panel",
+              `<p class="text-red-300 text-sm">Unable to load this NT content.</p>`,
+              context
+            );
+          });
+      };
     });
 
     scope.querySelectorAll("[data-sefaria-panel]").forEach(btn => {
@@ -393,7 +493,10 @@ function getParams() {
   function openPanel(title, html, context = {}) {
     if (hasPorchPanel()) {
       window.openPorchPanel(title, html);
-      requestAnimationFrame(() => bindPanelInteractions(document, context));
+      requestAnimationFrame(() => {
+        bindPanelInteractions(document, context);
+        resetNTPanelScroll();
+      });
       return;
     }
 
@@ -420,6 +523,7 @@ function getParams() {
     }
 
     bindPanelInteractions(contentZone, context);
+    resetNTPanelScroll();
   }
 
   function buildPanelSection(title, rawText, linkHref, context = {}) {
@@ -434,7 +538,7 @@ function getParams() {
       .join("");
 
  return `
-  <div class="space-y-3 text-left">
+  <div class="space-y-3 text-left" data-nt-panel-scroll="true" style="max-height:min(70vh, calc(100vh - 10rem)); overflow-y:auto; -webkit-overflow-scrolling:touch;">
 
     ${buildPanelNav(context)}
 
@@ -575,7 +679,7 @@ contentZone.innerHTML = `
     </div>
 
     <div class="rounded-xl border border-slate-700 bg-slate-900/40 p-4 text-sm text-slate-400 leading-relaxed">
-      Start with the introduction, jump into chapter 1, go straight to summary and review questions,
+      Start with the introduction, jump into chapter objectives, go straight to summary and then review questions,
       or leave yourself a reminder for future Jewish context tie-ins.
     </div>
 
@@ -629,18 +733,7 @@ function loadBookTiles() {
   }
 
   function getChapterOneSection(chapter, preferredSection = null) {
-    const sectionList = [
-      ["objectives", "Objectives", chapter?.objectives],
-      ["summary", "Summary", chapter?.summary],
-      ["outline", "Outline", chapter?.outline],
-      ["wordsToPonder", "Words to Ponder", chapter?.wordsToPonder],
-      ["reviewQuestions", "Review Questions", chapter?.reviewQuestions]
-    ];
-
-    return (
-      sectionList.find(([id, , text]) => id === preferredSection && text) ||
-      sectionList.find(([, , text]) => text)
-    );
+    return getChapterSection(chapter, preferredSection);
   }
 
   async function openLandingActionPanel(action) {
@@ -651,15 +744,22 @@ function loadBookTiles() {
     if (!res.ok) throw new Error("Failed to load book data");
 
     const data = await res.json();
+    const chapterKeys = Object.keys(data.chapters || {});
+    const maxChapter = chapterKeys.length
+      ? Math.max(...chapterKeys.map(Number).filter(Number.isFinite))
+      : null;
 
     if (action === "introduction") {
+      const panelContext = {
+        book: bookName,
+        sectionLabel: "Introduction",
+        view: "introduction"
+      };
+
       openPanel(
         `${bookName} - Introduction`,
-        buildPanelSection(`${bookName} - Introduction`, data.introduction?.rawText, introLink, {
-          book: bookName,
-          sectionLabel: "Introduction",
-          view: "introduction"
-        })
+        buildPanelSection(`${bookName} - Introduction`, data.introduction?.rawText, introLink, panelContext),
+        panelContext
       );
       return;
     }
@@ -679,15 +779,19 @@ function loadBookTiles() {
       : action === "review"
         ? reviewLink
         : ch1Link;
+    const panelContext = {
+      book: bookName,
+      chapter: 1,
+      section: sectionId,
+      sectionLabel: sectionTitle,
+      maxChapter,
+      panelMode: true
+    };
 
     openPanel(
       `${bookName} - Ch 1 - ${sectionTitle}`,
-      buildPanelSection(`${bookName} - Ch 1 - ${sectionTitle}`, sectionText, linkHref, {
-        book: bookName,
-        chapter: 1,
-        section: sectionId,
-        sectionLabel: sectionTitle
-      })
+      buildPanelSection(`${bookName} - Ch 1 - ${sectionTitle}`, sectionText, linkHref, panelContext),
+      panelContext
     );
   }
 
@@ -1008,7 +1112,12 @@ function loadBookTiles() {
             sectionLabel: "Introduction",
             view: "introduction"
           }
-        )
+        ),
+        {
+          book: bookName,
+          sectionLabel: "Introduction",
+          view: "introduction"
+        }
       );
     };
   }
@@ -1276,7 +1385,8 @@ fetch(jsonPath)
         sectionLabel: sectionTitle,
         maxChapter: chapterKeys.length
           ? Math.max(...chapterKeys.map(Number).filter(Number.isFinite))
-          : null
+          : null,
+        panelMode: true
       })
     );
   }
