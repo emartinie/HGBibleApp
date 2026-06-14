@@ -228,7 +228,6 @@ function getParams() {
     return `
       <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-2">
         <div class="flex items-center gap-2 flex-wrap">
-          <button type="button" class="reader-chip" data-nt-back="true">Back</button>
           <a class="reader-chip" href="${buildNTUrl({ book: null, chapter: null, view: null, section: null })}">Start Over</a>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
@@ -291,6 +290,16 @@ function getParams() {
     url.searchParams.delete("view");
     window.history.replaceState({}, "", url);
     window.loadCard?.("nt");
+  }
+
+  function resetNTReaderScroll() {
+    requestAnimationFrame(() => {
+      contentZone?.scrollIntoView({ block: "start" });
+      contentZone?.closest(".card")?.scrollTo({ top: 0 });
+      document.getElementById("loadedCardHost")?.scrollTo?.({ top: 0 });
+      if (contentZone) contentZone.scrollTop = 0;
+      if (root) root.scrollTop = 0;
+    });
   }
 
   function hasPorchPanel() {
@@ -750,7 +759,7 @@ function loadBookTiles() {
         <button type="button"
            class="px-3 py-2 rounded-lg border border-slate-700 hover:bg-slate-800/60 text-sm text-center transition"
            data-nt-panel-action="chapter1">
-          Chapter 1
+          Objectives
         </button>
 
         <button type="button"
@@ -922,6 +931,8 @@ function loadBookTiles() {
     if (visibleSection) {
       renderSection(visibleSection[0], visibleSection[1], visibleSection[2], contextBundle);
     }
+
+    resetNTReaderScroll();
   }
 
   // =========================================================
