@@ -229,7 +229,7 @@ function getParams() {
       <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-2">
         <div class="flex items-center gap-2 flex-wrap">
           <button type="button" class="reader-chip" data-nt-back="true">Back</button>
-          <a class="reader-chip" href="${buildNTUrl({ book: null, chapter: null, view: null, section: null })}">NT Landing</a>
+          <a class="reader-chip" href="${buildNTUrl({ book: null, chapter: null, view: null, section: null })}">Start Over</a>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
           ${chapterNum ? prevChapter : ""}
@@ -1298,7 +1298,7 @@ contentZone.innerHTML = `
 
         <button id="ntHomeBtn"
           class="px-4 py-2 rounded-lg bg-cyan-700/90 hover:bg-cyan-600 text-white text-sm shadow">
-          Back to NT Landing
+          Start Over
         </button>
       </div>
 
