@@ -5,9 +5,34 @@ console.log("[Discipleship] loaded");
 // =====================
 window.JOURNEY_INDEX = [
   {
+    id: "learn-to-pray",
+    title: "Learn to Pray",
+    file: "data/journeys/learn-to-pray.json",
+    available: false
+  },
+  {
+    id: "27-things-seminary",
+    title: "27 Things",
+    file: "data/journeys/27-things.json",
+    available: false
+  },
+  {
     id: "who-was-paul",
     title: "Who Was Paul?",
-    file: "data/journeys/who-was-paul.json"
+    file: "data/journeys/who-was-paul.json",
+    available: true
+  },
+  {
+    id: "ladder-of-jacob",
+    title: "Ladder of Jacob",
+    file: "data/journeys/ladder-of-jacob.json",
+    available: false
+  },
+  {
+    id: "yeshua-red-letter-patterns",
+    title: "Yeshua Red Letter Patterns",
+    file: "data/journeys/yeshua-red-letter-patterns.json",
+    available: false
   }
 ];
 
@@ -220,12 +245,24 @@ function initSelector() {
   window.JOURNEY_INDEX.forEach(journey => {
     const item = document.createElement("button");
     item.type = "button";
-    item.className = "w-full rounded-xl border border-slate-700 bg-slate-900/70 p-3 text-left hover:bg-slate-800/80 transition";
+    item.disabled = !journey.available;
+    item.className = journey.available
+      ? "w-full rounded-xl border border-slate-700 bg-slate-900/70 p-3 text-left hover:bg-slate-800/80 transition"
+      : "w-full rounded-xl border border-slate-800 bg-slate-950/50 p-3 text-left opacity-60 cursor-not-allowed";
     item.innerHTML = `
-      <div class="font-semibold text-cyan-200">${escapeHtml(journey.title)}</div>
-      <div class="mt-1 text-xs text-slate-400">${escapeHtml(journey.file)}</div>
+      <div class="flex items-center justify-between gap-3">
+        <div class="font-semibold ${journey.available ? "text-cyan-200" : "text-slate-400"}">
+          ${escapeHtml(journey.title)}
+        </div>
+        ${journey.available
+          ? `<span class="text-xs text-cyan-300">Available</span>`
+          : `<span class="text-xs text-slate-500">Coming soon</span>`}
+      </div>
+      <div class="mt-1 text-xs text-slate-500">${escapeHtml(journey.file)}</div>
     `;
-    item.addEventListener("click", () => startJourney(journey.id));
+    if (journey.available) {
+      item.addEventListener("click", () => startJourney(journey.id));
+    }
     list.appendChild(item);
   });
 }
