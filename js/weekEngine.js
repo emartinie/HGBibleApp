@@ -1,10 +1,3 @@
-// Compatibility stub: restore the real production week engine when available.
-// Sandbox currently includes data/week49.json only, so boot to that week.
-export const TOTAL_WEEKS = 52;
-
-export function getWeekNumber() {
-  return 49;
-}
 export const START_DATE = new Date("2024-10-19T00:00:00Z");
 export const TOTAL_WEEKS = 52;
 const WEEK_MS = 1000 * 60 * 60 * 24 * 7;
