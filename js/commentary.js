@@ -1,5 +1,11 @@
 import { getWeekNumber } from "./weekEngine.js";
 
+let selectedWeek = null;
+
+function getSelectedWeek() {
+  return selectedWeek || getWeekNumber();
+}
+
 async function loadCommentary(week) {
   const meta = document.getElementById("commentaryMeta");
   const content = document.getElementById("commentaryContent");
@@ -27,19 +33,21 @@ async function loadCommentary(week) {
   }
 }
 
+function handleWeekChanged(event) {
+  selectedWeek = event.detail?.week || event.detail?.weekNumber || getWeekNumber();
+  loadCommentary(selectedWeek);
+}
+
 function initCommentary() {
   const reloadBtn = document.getElementById("commentaryReloadBtn");
 
   reloadBtn?.addEventListener("click", () => {
-    loadCommentary(getWeekNumber());
+    loadCommentary(getSelectedWeek());
   });
 
-  window.addEventListener("weekChanged", (event) => {
-    const week = event.detail?.week || event.detail?.weekNumber || getWeekNumber();
-    loadCommentary(week);
-  });
+  document.addEventListener("weekChanged", handleWeekChanged);
 
-  loadCommentary(getWeekNumber());
+  loadCommentary(getSelectedWeek());
 }
 
 initCommentary();
