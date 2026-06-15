@@ -256,7 +256,7 @@ function initSelector() {
         </div>
         ${journey.available
           ? `<span class="text-xs text-cyan-300">Available</span>`
-          : `<span class="text-xs text-slate-500">Coming soon</span>`}
+          : `<span class="text-xs text-slate-500">Locked</span>`}
       </div>
       <div class="mt-1 text-xs text-slate-500">${escapeHtml(journey.file)}</div>
     `;
