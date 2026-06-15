@@ -1,34 +1,13 @@
- 
-console.log("🔥 journeys.js loaded");
+console.log("[Discipleship] loaded");
 
 // =====================
-// JOURNEY INDEX (registry)
+// JOURNEY INDEX
 // =====================
-window.JOURNEY_INDEX = window.JOURNEY_INDEX || [
-  {
-    id: "learn-to-pray",
-    title: "Learn to Pray",
-    file: "data/journeys/learn-to-pray.json"
-  },
-  {
-    id: "27-things-seminary",
-    title: "27 Things Seminary Missed",
-    file: "data/journeys/27-things.json"
-  },
+window.JOURNEY_INDEX = [
   {
     id: "who-was-paul",
     title: "Who Was Paul?",
     file: "data/journeys/who-was-paul.json"
-  },
-  {
-    id: "ladder-of-jacob",
-    title: "Jacob’s Ladder",
-    file: "data/journeys/ladder-of-jacob.json"
-  },
-   {
-    id: "yeshua-red-letter-patterns",
-    title: "How Yeshua Structures His Speech",
-    file: "data/journeys/yeshua-red-letter-patterns.json"
   }
 ];
 
@@ -36,30 +15,45 @@ window.JOURNEY_INDEX = window.JOURNEY_INDEX || [
 // SIMPLE STATE
 // =====================
 const state = {
-  journeys: {
-    progress: {}
-  }
+  activeJourney: null,
+  currentStepIndex: 0,
+  completedSteps: []
 };
+
+function el(id) {
+  return document.getElementById(id);
+}
+
+function escapeHtml(str = "") {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function setHtml(id, html) {
+  const target = el(id);
+  if (target) target.innerHTML = html;
+}
+
+function setText(id, text) {
+  const target = el(id);
+  if (target) target.textContent = text || "";
+}
 
 // =====================
 // LOAD JOURNEY JSON
 // =====================
 async function loadJourney(id) {
-  const meta = window.JOURNEY_INDEX.find(j => j.id === id);
-
-  if (!meta) {
-    throw new Error("Journey not found: " + id);
-  }
+  const meta = window.JOURNEY_INDEX.find(journey => journey.id === id);
+  if (!meta) throw new Error("Journey not found: " + id);
 
   const res = await fetch(meta.file);
-
-  if (!res.ok) {
-    throw new Error(`Failed to load journey JSON: ${meta.file}`);
-  }
+  if (!res.ok) throw new Error(`Failed to load journey JSON: ${meta.file}`);
 
   const text = await res.text();
-
-  // empty file fallback
   if (!text.trim()) {
     return {
       id,
@@ -72,241 +66,173 @@ async function loadJourney(id) {
   return JSON.parse(text);
 }
 
-// =====================
-// RENDER CURRENT STEP
-// =====================
-function renderStep(step, currentIndex, total) {
+function renderOverview(journey) {
+  setText("discipleshipTitle", journey.title || "Discipleship Journey");
+  setText("orientationTitle", journey.title || "Selected journey");
 
-  console.log("Rendering step:", step?.id);
+  setHtml("moduleOverview", `
+    <div class="space-y-2">
+      <div class="text-base font-semibold text-cyan-200">
+        ${escapeHtml(journey.title || "Untitled Journey")}
+      </div>
+      <p class="text-slate-300">
+        ${escapeHtml(journey.description || "No journey description available.")}
+      </p>
+      <div class="flex flex-wrap gap-2 text-xs text-slate-400">
+        ${journey.category ? `<span class="reader-chip">${escapeHtml(journey.category)}</span>` : ""}
+        ${journey.difficulty ? `<span class="reader-chip">${escapeHtml(journey.difficulty)}</span>` : ""}
+        ${journey.estimatedTime ? `<span class="reader-chip">${escapeHtml(journey.estimatedTime)}</span>` : ""}
+      </div>
+    </div>
+  `);
+}
 
-  // step count
-  const stepNumber = document.getElementById("currentStepNumber");
+function renderStep(journey) {
+  const steps = Array.isArray(journey.steps) ? journey.steps : [];
+  const total = steps.length;
+  const currentIndex = Math.min(state.currentStepIndex, Math.max(total - 1, 0));
+  const step = steps[currentIndex];
 
-  if (stepNumber) {
-    stepNumber.textContent =
-      `Step ${currentIndex + 1} of ${total}`;
+  if (!step) {
+    setHtml("moduleContent", `<div class="empty-state">This journey has no steps yet.</div>`);
+    setHtml("reflectionContainer", `<div class="empty-state">Reflection prompts will appear here.</div>`);
+    setText("moduleMeta", "");
+    setText("progressText", "0 / 0 completed");
+    const fill = el("progressFill");
+    if (fill) fill.style.width = "0%";
+    return;
   }
 
-  // title
-  document.getElementById("currentStepTitle").textContent =
-    step?.title || "Start Journey";
+  const completed = state.completedSteps.length;
+  const percent = total ? ((currentIndex + 1) / total) * 100 : 0;
+  const articleHref = step.article
+    ? `?card=articles&file=${encodeURIComponent(step.article)}`
+    : "";
 
-  // summary
-  document.getElementById("currentStepSummary").textContent =
-    step?.summary || "";
+  setText("moduleMeta", `Step ${currentIndex + 1} of ${total}`);
+  setText("progressText", `Step ${currentIndex + 1} of ${total} - ${completed} completed`);
 
-  // article link
-  document.getElementById("currentStepArticle").innerHTML =
-    step?.article
-      ? `
-        <a href="?card=articles&file=${step.article}">
-          Open Teaching →
+  const fill = el("progressFill");
+  if (fill) fill.style.width = `${percent}%`;
+
+  setHtml("moduleContent", `
+    <div class="space-y-4">
+      <div>
+        <div class="text-xs uppercase tracking-wider text-slate-400">
+          Step ${currentIndex + 1} of ${total}
+        </div>
+        <h3 class="mt-1 text-lg font-semibold text-cyan-200">
+          ${escapeHtml(step.title || "Untitled Step")}
+        </h3>
+      </div>
+
+      <p class="text-slate-300">
+        ${escapeHtml(step.summary || "No summary available.")}
+      </p>
+
+      ${articleHref ? `
+        <a class="reader-chip inline-flex" href="${articleHref}">
+          Open Teaching ->
         </a>
-      `
-      : "";
+      ` : ""}
 
-  // reflections
-  document.getElementById("currentStepReflection").innerHTML =
-    step?.reflection?.length
-      ? step.reflection.map(r => `<li>${r}</li>`).join("")
-      : "";
+      ${step.content ? `
+        <div class="rounded-lg border border-slate-700 bg-slate-950/40 p-3">
+          ${step.content}
+        </div>
+      ` : ""}
 
-  // optional inline content
-  document.getElementById("currentStepContent").innerHTML =
-    step?.content || "";
-}
+      <div class="flex flex-wrap gap-2 border-t border-slate-700 pt-3">
+        <button type="button" class="reader-chip" data-journey-prev>Previous</button>
+        <button type="button" class="reader-chip" data-journey-complete>Mark Complete</button>
+        <button type="button" class="reader-chip" data-journey-next>Next</button>
+        <button type="button" class="reader-chip opacity-80" data-journey-reset>Reset</button>
+      </div>
+    </div>
+  `);
 
-// =====================
-// RENDER JOURNEY
-// =====================
-function renderJourney(journey) {
+  const reflections = Array.isArray(step.reflection) ? step.reflection : [];
+  setHtml("reflectionContainer", reflections.length
+    ? reflections.map(prompt => `
+        <div class="rounded-xl border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-300">
+          ${escapeHtml(prompt)}
+        </div>
+      `).join("")
+    : `<div class="empty-state">No reflection prompts for this step.</div>`
+  );
 
-  const progress = state.journeys.progress[journey.id] || {
-    completedSteps: [],
-    currentStep: journey.steps?.[0]?.id || null
-  };
+  setHtml("notesContainer", `<div class="empty-state">Personal notes are not wired yet.</div>`);
+  setHtml("mediaContainer", `<div class="empty-state">Related media is not attached to this journey yet.</div>`);
 
-  const completed = progress.completedSteps.length;
-  const total = journey.steps.length;
+  el("moduleContent")?.querySelector("[data-journey-prev]")?.addEventListener("click", () => {
+    state.currentStepIndex = Math.max(0, state.currentStepIndex - 1);
+    renderStep(journey);
+  });
 
-  // header
-  document.getElementById("journeyTitle").textContent =
-    journey.title;
+  el("moduleContent")?.querySelector("[data-journey-next]")?.addEventListener("click", () => {
+    state.currentStepIndex = Math.min(total - 1, state.currentStepIndex + 1);
+    renderStep(journey);
+  });
 
-  document.getElementById("journeyDescription").textContent =
-    journey.description;
-
-  // progress text
-  document.getElementById("progressText").textContent =
-    `${completed} / ${total} completed`;
-
-  // progress bar
-  const percent =
-    total ? (completed / total) * 100 : 0;
-
-  document.getElementById("progressFill").style.width =
-    `${percent}%`;
-
-  // current step
-  const currentIndex =
-    journey.steps.findIndex(
-      s => s.id === progress.currentStep
-    );
-
-  const step =
-    journey.steps[currentIndex] ||
-    journey.steps[0];
-
-  console.log("Step object:", step);
-
-  renderStep(step, currentIndex, total);
-}
-
-// =====================
-// LOAD SELECTED JOURNEY
-// =====================
-async function startJourney(id) {
-
-  if (!id) return;
-
-  const journey = await loadJourney(id);
-
-  // create progress bucket
-  if (!state.journeys.progress[id]) {
-
-    state.journeys.progress[id] = {
-      completedSteps: [],
-      currentStep: journey.steps?.[0]?.id || null
-    };
-  }
-
-  // show card
-  document.getElementById("journeyCard").style.display =
-    "block";
-
-  renderJourney(journey);
-
-  // =====================
-  // COMPLETE STEP
-  // =====================
-  document.getElementById("markCompleteBtn").onclick = () => {
-
-    const progress =
-      state.journeys.progress[id];
-
-    const stepId =
-      progress.currentStep;
-
-    // mark complete
-    if (!progress.completedSteps.includes(stepId)) {
-      progress.completedSteps.push(stepId);
+  el("moduleContent")?.querySelector("[data-journey-complete]")?.addEventListener("click", () => {
+    if (!state.completedSteps.includes(step.id)) {
+      state.completedSteps.push(step.id);
     }
+    state.currentStepIndex = Math.min(total - 1, state.currentStepIndex + 1);
+    renderStep(journey);
+  });
 
-    // next step
-    const currentIndex =
-      journey.steps.findIndex(
-        s => s.id === stepId
-      );
+  el("moduleContent")?.querySelector("[data-journey-reset]")?.addEventListener("click", () => {
+    state.currentStepIndex = 0;
+    state.completedSteps = [];
+    renderStep(journey);
+  });
+}
 
-    const nextStep =
-      journey.steps[currentIndex + 1];
+function renderJourney(journey) {
+  state.activeJourney = journey;
+  state.currentStepIndex = 0;
+  state.completedSteps = [];
 
-    progress.currentStep =
-      nextStep?.id || stepId;
+  renderOverview(journey);
+  renderStep(journey);
+}
 
+async function startJourney(id) {
+  try {
+    const journey = await loadJourney(id);
     renderJourney(journey);
-  };
-
-  // =====================
-  // RESET JOURNEY
-  // =====================
-  document.getElementById("resetJourneyBtn").onclick = () => {
-
-    state.journeys.progress[id] = {
-      completedSteps: [],
-      currentStep: journey.steps?.[0]?.id || null
-    };
-
-    renderJourney(journey);
-  };
+  } catch (err) {
+    console.error("[Discipleship] journey load failed", err);
+    setHtml("moduleOverview", `<p class="text-red-300">Unable to load this journey.</p>`);
+  }
 }
 
 function initSelector() {
-
-  const list =
-    document.getElementById("journeyList");
-
+  const list = el("journeyList");
   if (!list) {
-    console.warn("journeyList missing");
+    console.warn("[Discipleship] journeyList missing");
     return;
   }
 
   list.innerHTML = "";
 
-  JOURNEY_INDEX.forEach(journey => {
-
-    const item =
-      document.createElement("button");
-
-    item.className =
-      "journey-list-item";
-
+  window.JOURNEY_INDEX.forEach(journey => {
+    const item = document.createElement("button");
+    item.type = "button";
+    item.className = "w-full rounded-xl border border-slate-700 bg-slate-900/70 p-3 text-left hover:bg-slate-800/80 transition";
     item.innerHTML = `
-      <div class="journey-list-title">
-        ${journey.title}
-      </div>
-
-      <div class="journey-list-description">
-        ${journey.description || ""}
-      </div>
+      <div class="font-semibold text-cyan-200">${escapeHtml(journey.title)}</div>
+      <div class="mt-1 text-xs text-slate-400">${escapeHtml(journey.file)}</div>
     `;
-
-    item.onclick = () => {
-      startJourney(journey.id);
-    };
-
+    item.addEventListener("click", () => startJourney(journey.id));
     list.appendChild(item);
   });
 }
 
-// =====================
-// INIT SELECTOR
-// =====================
-//function initSelector() {
-
-  //const select =
-    //document.getElementById("journeySelect");
-
-  //if (!select) {
-    //console.warn("journeySelect missing");
-    //return;
-  //}
-
-  //JOURNEY_INDEX.forEach(j => {
-
-    //const opt =
-      //document.createElement("option");
-
-    //opt.value = j.id;
-   // opt.textContent = j.title;
-
-    //select.appendChild(opt);
-  //});
-
-  //document.getElementById("startJourneyBtn").onclick = () => {
-    //startJourney(select.value);
-  //};
-//}
-
-// =====================
-// BOOT
-// =====================
 function bootJourneyCard() {
-
-  console.log("🪜 bootJourneyCard");
-
+  console.log("[Discipleship] boot");
   initSelector();
 }
 
 requestAnimationFrame(bootJourneyCard);
-
