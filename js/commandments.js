@@ -1,5 +1,5 @@
 (function () {
-  const DATA_URL = "data/commandments/commandments (1).json";
+  const DATA_URL = "data/commandments/commandments.json";
   let commandmentsPromise = null;
   let lastRenderedContainer = null;
   let activeFilter = "All";
@@ -126,7 +126,7 @@
     const wrapper = document.createElement("div");
     wrapper.className = "space-y-3";
 
-    appendText(wrapper, "h2", "\uD83D\uDCDC Commandments Dataset Preview", "text-xl font-semibold text-orange-300");
+    appendText(wrapper, "h2", "\uD83D\uDCDC 613+ Commandments Dataset Preview", "text-xl font-semibold text-orange-300");
 
     const stats = document.createElement("div");
     stats.className = "grid gap-2";
