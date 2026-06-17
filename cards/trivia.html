@@ -1,9 +1,388 @@
-<section id="quizCard" class="card-shell hg-card-shell">
+<section id="quizCard" class="card-shell hg-card-shell trivia-lab-card">
+  <style>
+    #quizCard.trivia-lab-card {
+      --trivia-ink: #fffaf0;
+      --trivia-muted: rgba(255, 250, 240, 0.72);
+      --trivia-panel: rgba(19, 26, 31, 0.82);
+      --trivia-panel-strong: rgba(26, 34, 39, 0.94);
+      --trivia-border: rgba(242, 206, 128, 0.34);
+      --trivia-gold: #f2ce80;
+      --trivia-teal: #52d7c9;
+      --trivia-rose: #d97373;
+      --trivia-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      gap: 0.85rem;
+      padding: clamp(0.85rem, 3vw, 1.2rem);
+      color: var(--trivia-ink);
+      background:
+        radial-gradient(circle at top left, rgba(82, 215, 201, 0.18), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(242, 206, 128, 0.17), transparent 38%),
+        linear-gradient(145deg, #182025 0%, #101619 48%, #221d1b 100%);
+      border: 1px solid rgba(242, 206, 128, 0.22);
+      box-shadow: var(--trivia-shadow);
+      isolation: isolate;
+    }
+
+    #quizCard.trivia-lab-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 82%);
+    }
+
+    #quizCard .trivia-aurora {
+      position: absolute;
+      inset: -22% -18% auto auto;
+      width: 14rem;
+      height: 14rem;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle, rgba(82, 215, 201, 0.26), transparent 68%);
+      filter: blur(2px);
+      opacity: 0.8;
+    }
+
+    #quizCard .card-topbar,
+    #quizCard .content-panel,
+    #quizCard .card-body,
+    #quizCard .card-footer {
+      position: relative;
+      border: 1px solid var(--trivia-border);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.025)),
+        var(--trivia-panel);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    #quizCard .card-topbar {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem;
+      border-radius: 8px;
+    }
+
+    #quizCard .trivia-brand {
+      display: grid;
+      gap: 0.1rem;
+      min-width: 0;
+      margin-right: auto;
+      padding-left: 0.25rem;
+    }
+
+    #quizCard .trivia-kicker {
+      color: var(--trivia-teal);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    #quizCard .trivia-title {
+      color: var(--trivia-ink);
+      font-size: clamp(1rem, 5vw, 1.32rem);
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    #quizCard .card-icon-btn,
+    #quizCard .hg-btn {
+      min-height: 2.45rem;
+      border: 1px solid rgba(242, 206, 128, 0.34);
+      color: var(--trivia-ink);
+      background:
+        linear-gradient(180deg, rgba(242, 206, 128, 0.18), rgba(82, 215, 201, 0.08)),
+        rgba(255, 255, 255, 0.055);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: transform 140ms ease, border-color 140ms ease, background-color 140ms ease;
+    }
+
+    #quizCard .card-icon-btn {
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 2.45rem;
+      width: 2.45rem;
+      border-radius: 999px;
+    }
+
+    #quizCard .card-icon-btn:hover,
+    #quizCard .card-icon-btn:focus-visible,
+    #quizCard .hg-btn:hover,
+    #quizCard .hg-btn:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(82, 215, 201, 0.76);
+      outline: none;
+    }
+
+    #quizCard .trivia-score-panel {
+      padding: 0.55rem;
+      border-radius: 8px;
+    }
+
+    #quizCard #scoreStatus {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+      align-items: stretch;
+    }
+
+    #quizCard .trivia-stat {
+      display: grid;
+      gap: 0.1rem;
+      min-width: 0;
+      padding: 0.55rem 0.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    #quizCard .trivia-stat-label {
+      color: var(--trivia-muted);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    #quizCard .trivia-stat-value {
+      overflow: hidden;
+      color: var(--trivia-ink);
+      font-size: 0.96rem;
+      font-weight: 900;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #quizCard .card-body {
+      display: grid;
+      grid-template-columns: auto 1fr 1fr auto;
+      gap: 0.5rem;
+      padding: 0.62rem;
+      border-radius: 8px;
+    }
+
+    #quizCard .card-body .hg-btn {
+      width: 100%;
+      border-radius: 8px;
+      font-weight: 850;
+    }
+
+    #quizCard .trivia-focus {
+      overflow: hidden;
+      padding: 0;
+      border-radius: 8px;
+      background: var(--trivia-panel-strong);
+    }
+
+    #quizCard #questionsCard {
+      position: relative;
+      min-height: clamp(8.5rem, 38vw, 13rem);
+      overflow: hidden;
+      border-radius: 8px 8px 0 0;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(242, 206, 128, 0.36), transparent 28%),
+        linear-gradient(135deg, rgba(82, 215, 201, 0.24), rgba(0, 0, 0, 0.12));
+    }
+
+    #quizCard #questionsCard::after {
+      content: "Year Round Bible Challenge";
+      position: absolute;
+      left: 0.85rem;
+      bottom: 0.85rem;
+      padding: 0.35rem 0.58rem;
+      border: 1px solid rgba(242, 206, 128, 0.42);
+      border-radius: 8px;
+      color: var(--trivia-ink);
+      background: rgba(0, 0, 0, 0.42);
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    #quizCard #questionsCard video {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      object-fit: cover;
+      opacity: 0.46;
+      mix-blend-mode: screen;
+    }
+
+    #quizCard .hg-question-inner {
+      display: grid;
+      gap: 0.8rem;
+      padding: clamp(0.9rem, 3vw, 1.15rem);
+    }
+
+    #quizCard .hg-question-text {
+      border-left: 3px solid var(--trivia-gold);
+      padding: 0.15rem 0 0.15rem 0.8rem;
+      color: var(--trivia-ink);
+      font-size: clamp(1.05rem, 4.8vw, 1.45rem);
+      font-weight: 900;
+      line-height: 1.22;
+    }
+
+    #quizCard #choices {
+      display: grid;
+      gap: 0.58rem;
+    }
+
+    #quizCard #choices > * {
+      border-radius: 8px;
+    }
+
+    #quizCard .trivia-info-grid {
+      display: grid;
+      gap: 0.72rem;
+    }
+
+    #quizCard .trivia-mini-panel {
+      display: grid;
+      gap: 0.5rem;
+      padding: 0.85rem;
+      border-radius: 8px;
+    }
+
+    #quizCard .section-label {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.28rem 0.58rem;
+      border: 1px solid rgba(242, 206, 128, 0.28);
+      border-radius: 8px;
+      color: var(--trivia-gold);
+      background: rgba(0, 0, 0, 0.18);
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    #quizCard .section-label::before {
+      content: "";
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      background: var(--trivia-teal);
+      box-shadow: 0 0 10px rgba(82, 215, 201, 0.72);
+    }
+
+    #quizCard #hintCard,
+    #quizCard #answerCard {
+      min-height: 3.25rem;
+      padding: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      color: var(--trivia-muted);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    #quizCard #answerCard {
+      border-color: rgba(217, 115, 115, 0.34);
+    }
+
+    #quizCard .trivia-scoreboard {
+      display: grid;
+      gap: 0.7rem;
+      padding: 0.85rem;
+      border-radius: 8px;
+    }
+
+    #quizCard .hg-card-sub {
+      margin: 0;
+      color: var(--trivia-muted);
+      font-size: 0.9rem;
+    }
+
+    #quizCard #sb-board {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    #quizCard #sb-add-team {
+      justify-self: stretch;
+      border-radius: 8px;
+    }
+
+    #quizCard .card-footer {
+      min-height: 0.45rem;
+      padding: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(82, 215, 201, 0.42), rgba(242, 206, 128, 0.56), rgba(217, 115, 115, 0.34));
+    }
+
+    @media (min-width: 620px) {
+      #quizCard.trivia-lab-card {
+        gap: 1rem;
+      }
+
+      #quizCard .trivia-info-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      #quizCard .trivia-scoreboard {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+
+      #quizCard .trivia-scoreboard .section-label,
+      #quizCard .trivia-scoreboard .hg-card-sub,
+      #quizCard .trivia-scoreboard #sb-board {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 430px) {
+      #quizCard .card-topbar {
+        flex-wrap: wrap;
+      }
+
+      #quizCard .trivia-brand {
+        flex: 1 0 100%;
+      }
+
+      #quizCard #scoreStatus,
+      #quizCard .card-body {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #quizCard .card-icon-btn,
+      #quizCard .hg-btn {
+        transition: none;
+      }
+
+      #quizCard .card-icon-btn:hover,
+      #quizCard .card-icon-btn:focus-visible,
+      #quizCard .hg-btn:hover,
+      #quizCard .hg-btn:focus-visible {
+        transform: none;
+      }
+    }
+  </style>
+
+  <div class="trivia-aurora" aria-hidden="true"></div>
 
   <!-- ===================== -->
   <!-- TOP BAR (CONSISTENT SYSTEM HEADER) -->
   <!-- ===================== -->
   <div class="card-topbar">
+    <div class="trivia-brand" aria-hidden="true">
+      <span class="trivia-kicker">Sacred-Tech Arena</span>
+      <span class="trivia-title">Bible Trivia</span>
+    </div>
 
     <button class="card-icon-btn primary" title="Expand">⛶</button>
 
@@ -12,109 +391,97 @@
 
     <button class="card-icon-btn utility" title="Hint">💡</button>
     <button class="card-icon-btn utility" title="Reveal Answer">👁</button>
-
   </div>
 
   <!-- ===================== -->
   <!-- SCORE / PROGRESS STRIP -->
   <!-- ===================== -->
-    <div class="content-panel hg-panel hg-section">
-
+  <div class="content-panel hg-panel hg-section trivia-score-panel">
     <div id="scoreStatus" class="hg-scorebar echad-bar">
+      <div class="trivia-stat">
+        <span class="trivia-stat-label">Score</span>
+        <span class="trivia-stat-value"><span id="scoreTop">5000</span> pts</span>
+      </div>
 
-      <div>🏆 <span id="scoreTop">5000</span> pts</div>
+      <div class="trivia-stat">
+        <span class="trivia-stat-label">Team</span>
+        <span class="trivia-stat-value" id="topTeam">Zack</span>
+      </div>
 
-      <div>Team: <span id="topTeam">Zack</span></div>
-
-      <div>Q <span id="qNum">1</span>/<span id="qTotal">10</span></div>
-
+      <div class="trivia-stat">
+        <span class="trivia-stat-label">Question</span>
+        <span class="trivia-stat-value"><span id="qNum">1</span>/<span id="qTotal">10</span></span>
+      </div>
     </div>
-
   </div>
 
   <!-- ===================== -->
   <!-- MAIN QUESTION VIEW -->
   <!-- ===================== -->
   <div class="card-body">
-        <button id="prevBtn" class="hg-btn">◀</button>
+    <button id="prevBtn" class="hg-btn">◀</button>
     <button id="hintBtn" class="hg-btn">Show Hint</button>
     <button id="revealBtn" class="hg-btn">Show Answer</button>
     <button id="nextBtn" class="hg-btn">▶</button>
-
   </div>
 
-    <section class="content-panel hg-panel hg-section echad-focus">
+  <section class="content-panel hg-panel hg-section echad-focus trivia-focus">
+    <div id="questionsCard" class="hg-question-card echad-media">
+      <video autoplay muted loop playsinline>
+        <source src="videos/bg-motion.mp4" type="video/mp4">
+      </video>
+    </div>
 
-      <div id="questionsCard" class="hg-question-card echad-media">
-
-        <video autoplay muted loop playsinline>
-          <source src="videos/bg-motion.mp4" type="video/mp4">
-        </video>
-
+    <div class="hg-question-inner">
+      <div class="hg-question-text">
+        <span id="questionText">Loading question...</span>
       </div>
 
-      <div class="hg-question-inner">
+      <div id="choices"></div>
+    </div>
+  </section>
 
-        <div class="hg-question-text">
-          <span id="questionText">Loading question...</span>
-        </div>
-
-        <div id="choices"></div>
-
-      </div>
-
-    </section>
-
+  <div class="trivia-info-grid">
     <!-- ===================== -->
     <!-- HINT PANEL -->
     <!-- ===================== -->
-    <section class="content-panel hg-panel hg-section">
-
+    <section class="content-panel hg-panel hg-section trivia-mini-panel">
       <div class="section-label">Hint</div>
 
       <div id="hintCard" class="hg-hint-card">
         <em id="hintText">Hint will appear here.</em>
       </div>
-
     </section>
 
     <!-- ===================== -->
     <!-- ANSWER PANEL -->
     <!-- ===================== -->
-    <section class="content-panel hg-panel hg-section">
-
+    <section class="content-panel hg-panel hg-section trivia-mini-panel">
       <div class="section-label">Answer</div>
 
       <div id="answerCard" class="hg-answer-card">
         <em id="answerText">Answer will appear here.</em>
       </div>
-
     </section>
-
-    <!-- ===================== -->
-    <!-- TEAM SCOREBOARD -->
-    <!-- ===================== -->
-    <section class="content-panel hg-panel hg-section">
-
-      <div class="section-label">Teams & Scores</div>
-
-      <p class="hg-card-sub text-center">
-        Add unlimited teams or players.
-      </p>
-
-      <div id="sb-board" class="hg-team-board"></div>
-
-      <button id="sb-add-team" class="hg-btn">+ Add Team</button>
-
-    </section>
-
   </div>
+
+  <!-- ===================== -->
+  <!-- TEAM SCOREBOARD -->
+  <!-- ===================== -->
+  <section class="content-panel hg-panel hg-section trivia-scoreboard">
+    <div class="section-label">Teams & Scores</div>
+
+    <p class="hg-card-sub text-center">
+      Add unlimited teams or players.
+    </p>
+
+    <div id="sb-board" class="hg-team-board"></div>
+
+    <button id="sb-add-team" class="hg-btn">+ Add Team</button>
+  </section>
 
   <!-- ===================== -->
   <!-- FOOTER ACTION BAR -->
   <!-- ===================== -->
-  <div class="card-footer journey-actions hg-btn-row">
-
-
-
+  <div class="card-footer journey-actions hg-btn-row"></div>
 </section>
