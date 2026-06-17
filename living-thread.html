@@ -1,0 +1,508 @@
+<section class="living-thread-card hg-card-shell">
+  <style>
+    .living-thread-card {
+      --thread-ink: #fffaf0;
+      --thread-muted: rgba(255, 250, 240, 0.72);
+      --thread-dim: rgba(255, 250, 240, 0.52);
+      --thread-panel: rgba(10, 17, 24, 0.78);
+      --thread-panel-strong: rgba(12, 20, 28, 0.94);
+      --thread-line: rgba(111, 211, 210, 0.26);
+      --thread-gold: #f6c66f;
+      --thread-cyan: #6fd3d2;
+      --thread-green: #9ed27c;
+      --thread-rose: #dc8c82;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      gap: 0.9rem;
+      padding: 0.85rem;
+      color: var(--thread-ink);
+      background:
+        radial-gradient(circle at 8% 10%, rgba(111, 211, 210, 0.2), transparent 32%),
+        radial-gradient(circle at 88% 16%, rgba(246, 198, 111, 0.18), transparent 30%),
+        radial-gradient(circle at 54% 94%, rgba(158, 210, 124, 0.12), transparent 36%),
+        linear-gradient(145deg, #101821 0%, #090f16 48%, #211a14 100%);
+      border: 1px solid rgba(246, 198, 111, 0.22);
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
+      isolation: isolate;
+    }
+
+    .living-thread-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 30px 30px;
+      mask-image: linear-gradient(to bottom, #000, transparent 82%);
+    }
+
+    .living-thread-card::after {
+      content: "";
+      position: absolute;
+      top: 15rem;
+      bottom: 3rem;
+      left: 1.32rem;
+      width: 2px;
+      z-index: -1;
+      background: linear-gradient(to bottom, transparent, var(--thread-cyan), var(--thread-gold), transparent);
+      opacity: 0.65;
+    }
+
+    .living-thread-card .thread-panel,
+    .living-thread-card .thread-hero,
+    .living-thread-card .thread-step,
+    .living-thread-card .thread-orbit {
+      border: 1px solid var(--thread-line);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+        var(--thread-panel);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+    }
+
+    .living-thread-card .thread-hero {
+      display: grid;
+      gap: 0.9rem;
+      padding: 0.95rem;
+      background:
+        radial-gradient(circle at 78% 20%, rgba(111, 211, 210, 0.12), transparent 28%),
+        var(--thread-panel-strong);
+    }
+
+    .living-thread-card .thread-kicker,
+    .living-thread-card .thread-label {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 0.42rem;
+      padding: 0.28rem 0.55rem;
+      border: 1px solid rgba(111, 211, 210, 0.34);
+      border-radius: 8px;
+      color: var(--thread-cyan);
+      background: rgba(111, 211, 210, 0.08);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .living-thread-card .thread-kicker::before,
+    .living-thread-card .thread-label::before {
+      content: "";
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      background: var(--thread-cyan);
+      box-shadow: 0 0 12px rgba(111, 211, 210, 0.74);
+    }
+
+    .living-thread-card .thread-title {
+      margin: 0;
+      max-width: 12ch;
+      color: var(--thread-ink);
+      font-size: clamp(1.8rem, 9vw, 3.25rem);
+      font-weight: 950;
+      line-height: 0.96;
+    }
+
+    .living-thread-card .thread-copy {
+      margin: 0;
+      max-width: 46rem;
+      color: var(--thread-muted);
+      font-size: 0.96rem;
+      line-height: 1.58;
+    }
+
+    .living-thread-card .thread-orbit {
+      position: relative;
+      display: grid;
+      min-height: 15rem;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at center, rgba(246, 198, 111, 0.1), transparent 38%),
+        rgba(0, 0, 0, 0.16);
+    }
+
+    .living-thread-card .orbit-ring {
+      position: absolute;
+      inset: 1.2rem;
+      border: 1px solid rgba(246, 198, 111, 0.18);
+      border-radius: 999px;
+    }
+
+    .living-thread-card .orbit-ring:nth-child(2) {
+      inset: 2.65rem;
+      border-color: rgba(111, 211, 210, 0.2);
+    }
+
+    .living-thread-card .orbit-ring:nth-child(3) {
+      inset: 4.05rem;
+      border-color: rgba(158, 210, 124, 0.18);
+    }
+
+    .living-thread-card .orbit-core {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      width: min(9.5rem, 62vw);
+      height: min(9.5rem, 62vw);
+      place-items: center;
+      border: 1px solid rgba(246, 198, 111, 0.45);
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.18), transparent 30%),
+        linear-gradient(145deg, rgba(246, 198, 111, 0.23), rgba(111, 211, 210, 0.13)),
+        rgba(0, 0, 0, 0.28);
+      color: var(--thread-gold);
+      font-size: 1rem;
+      font-weight: 950;
+      text-align: center;
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
+    }
+
+    .living-thread-card .thread-path {
+      display: grid;
+      gap: 0.78rem;
+    }
+
+    .living-thread-card .thread-step {
+      position: relative;
+      display: grid;
+      gap: 0.62rem;
+      padding: 0.85rem;
+    }
+
+    .living-thread-card .thread-step::before {
+      content: attr(data-step);
+      position: absolute;
+      top: 0.82rem;
+      right: 0.82rem;
+      color: rgba(255, 250, 240, 0.26);
+      font-size: 1.45rem;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .living-thread-card .thread-step h3 {
+      margin: 0;
+      max-width: 18rem;
+      color: var(--thread-ink);
+      font-size: 1.06rem;
+      font-weight: 950;
+      line-height: 1.15;
+    }
+
+    .living-thread-card .thread-step p {
+      margin: 0;
+      color: var(--thread-muted);
+      font-size: 0.92rem;
+      line-height: 1.58;
+    }
+
+    .living-thread-card .thread-scripture {
+      padding: 0.75rem;
+      border-left: 3px solid var(--thread-gold);
+      border-radius: 8px;
+      color: var(--thread-ink);
+      background: rgba(0, 0, 0, 0.2);
+      font-size: 1rem;
+      line-height: 1.62;
+    }
+
+    .living-thread-card .thread-ref {
+      color: var(--thread-gold);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .living-thread-card .thread-witness-grid,
+    .living-thread-card .thread-language-grid,
+    .living-thread-card .thread-rhythm-grid {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .living-thread-card .thread-witness,
+    .living-thread-card .thread-root,
+    .living-thread-card .thread-rhythm,
+    .living-thread-card .thread-choice {
+      padding: 0.62rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .living-thread-card .thread-witness strong,
+    .living-thread-card .thread-root strong,
+    .living-thread-card .thread-rhythm strong,
+    .living-thread-card .thread-choice strong {
+      display: block;
+      color: var(--thread-gold);
+      font-size: 0.86rem;
+      line-height: 1.25;
+    }
+
+    .living-thread-card .thread-witness span,
+    .living-thread-card .thread-root span,
+    .living-thread-card .thread-rhythm span,
+    .living-thread-card .thread-choice span {
+      display: block;
+      color: var(--thread-muted);
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+
+    .living-thread-card .thread-language-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .living-thread-card .thread-root .glyph {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--thread-cyan);
+      font-size: 1.45rem;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .living-thread-card .thread-rhythm-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .living-thread-card .thread-quiz {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .living-thread-card .thread-choice {
+      color: var(--thread-muted);
+    }
+
+    .living-thread-card .thread-choice.is-called {
+      border-color: rgba(158, 210, 124, 0.42);
+      background: rgba(158, 210, 124, 0.09);
+    }
+
+    .living-thread-card .thread-practice {
+      display: grid;
+      gap: 0.55rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .living-thread-card .thread-practice li {
+      padding: 0.62rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      color: var(--thread-muted);
+      background: rgba(0, 0, 0, 0.18);
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .living-thread-card .thread-meditation {
+      padding: 0.85rem;
+      border: 1px solid rgba(246, 198, 111, 0.28);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at top right, rgba(246, 198, 111, 0.12), transparent 36%),
+        rgba(0, 0, 0, 0.2);
+      color: var(--thread-ink);
+      font-size: 1.05rem;
+      line-height: 1.62;
+    }
+
+    .living-thread-card .thread-note {
+      color: var(--thread-dim);
+      font-size: 0.78rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    @media (min-width: 720px) {
+      .living-thread-card {
+        padding: 1rem;
+      }
+
+      .living-thread-card::after {
+        left: 50%;
+      }
+
+      .living-thread-card .thread-hero {
+        grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.68fr);
+        align-items: center;
+      }
+
+      .living-thread-card .thread-path {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .living-thread-card .thread-step.thread-wide {
+        grid-column: 1 / -1;
+      }
+
+      .living-thread-card .thread-witness-grid,
+      .living-thread-card .thread-language-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 430px) {
+      .living-thread-card .thread-rhythm-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <!-- Prototype status note -->
+  <div class="thread-panel thread-note">
+    Sandbox concept art: standalone card only. It is meant to reveal a north star, not define production architecture.
+  </div>
+
+  <!-- Hero / Observatory frame -->
+  <header class="thread-hero">
+    <div>
+      <div class="thread-kicker">Bible Observatory Journey</div>
+      <h1 class="thread-title">The Living Thread</h1>
+      <p class="thread-copy">
+        One guided encounter where the day's reading, ancient witnesses, original language, sacred time, memory, practice, and meditation are no longer separate cards.
+      </p>
+    </div>
+
+    <div class="thread-orbit" aria-hidden="true">
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="orbit-core">Read<br>Trace<br>Walk</div>
+    </div>
+  </header>
+
+  <main class="thread-path">
+    <!-- Today's reading -->
+    <section class="thread-step thread-wide" data-step="01">
+      <div class="thread-label">Today's Reading</div>
+      <h3>The Word Opens The Day</h3>
+      <div class="thread-ref">John 1:51 • Genesis 28:12 • Psalm 27</div>
+      <div class="thread-scripture">
+        You will see heaven opened, and the angels of God ascending and descending upon the Son of Man.
+      </div>
+      <p>
+        The encounter begins with one passage, but the passage is treated like a doorway: text, memory, practice, and witness all open from here.
+      </p>
+    </section>
+
+    <!-- Intertext echoes -->
+    <section class="thread-step" data-step="02">
+      <div class="thread-label">Intertext Echoes</div>
+      <h3>The Passage Has Neighbors</h3>
+      <div class="thread-witness-grid">
+        <div class="thread-witness">
+          <strong>Genesis 28</strong>
+          <span>Jacob sees ascent, descent, covenant, place, fear, and promise.</span>
+        </div>
+        <div class="thread-witness">
+          <strong>John 1</strong>
+          <span>Jesus names himself as the meeting place of heaven and earth.</span>
+        </div>
+      </div>
+      <p>
+        The app's north star is not just cross-references. It is helping a reader feel the living conversation between texts.
+      </p>
+    </section>
+
+    <!-- Hebrew / Greek language roots -->
+    <section class="thread-step" data-step="03">
+      <div class="thread-label">Language Roots</div>
+      <h3>The Words Carry Worlds</h3>
+      <div class="thread-language-grid">
+        <div class="thread-root">
+          <span class="glyph">שמע</span>
+          <strong>Shama</strong>
+          <span>Hear, listen, obey: receiving sound as faithful response.</span>
+        </div>
+        <div class="thread-root">
+          <span class="glyph">λόγος</span>
+          <strong>Logos</strong>
+          <span>Word, reason, ordering speech: meaning made present.</span>
+        </div>
+      </div>
+      <p>
+        Language learning becomes devotional attention: not trivia, but a slower way to notice meaning.
+      </p>
+    </section>
+
+    <!-- Calendar / sacred-time position -->
+    <section class="thread-step" data-step="04">
+      <div class="thread-label">Sacred Time</div>
+      <h3>The Reading Lands In A Rhythm</h3>
+      <div class="thread-rhythm-grid">
+        <div class="thread-rhythm">
+          <strong>Today</strong>
+          <span>One portion</span>
+        </div>
+        <div class="thread-rhythm">
+          <strong>This Week</strong>
+          <span>Formation arc</span>
+        </div>
+        <div class="thread-rhythm">
+          <strong>This Year</strong>
+          <span>Whole Bible path</span>
+        </div>
+      </div>
+      <p>
+        Calendar is not decoration. It gives the study journey a pulse.
+      </p>
+    </section>
+
+    <!-- Quiz / reflection prompt -->
+    <section class="thread-step" data-step="05">
+      <div class="thread-label">Memory Prompt</div>
+      <h3>Do You See The Thread?</h3>
+      <div class="thread-quiz">
+        <div class="thread-choice">
+          <strong>Question</strong>
+          <span>What does Jacob's Ladder become when Jesus references it in John 1?</span>
+        </div>
+        <div class="thread-choice is-called">
+          <strong>Reflection Answer</strong>
+          <span>A living meeting point: heaven and earth, temple and mediator, promise and presence.</span>
+        </div>
+      </div>
+      <p>
+        Testing is not just scoring. It is retrieval, recognition, and formation.
+      </p>
+    </section>
+
+    <!-- Practice step -->
+    <section class="thread-step" data-step="06">
+      <div class="thread-label">Practice Step</div>
+      <h3>The Word Becomes A Walk</h3>
+      <ul class="thread-practice">
+        <li>Pause before one conversation today and silently pray: "Let me be a meeting place, not a wall."</li>
+        <li>Read Psalm 27 aloud once, slowly, without multitasking.</li>
+        <li>Write one sentence: Where did heaven and earth feel closest today?</li>
+      </ul>
+      <p>
+        The journey closes the loop: reading becomes attention, attention becomes obedience, obedience becomes witness.
+      </p>
+    </section>
+
+    <!-- Closing meditation -->
+    <section class="thread-step thread-wide" data-step="07">
+      <div class="thread-label">Closing Meditation</div>
+      <h3>Carry The Thread</h3>
+      <div class="thread-meditation">
+        The whole Bible is not a pile of fragments. It is a woven witness. Today, follow one thread far enough that it changes how you walk into the next room.
+      </div>
+      <p class="thread-note">
+        This prototype suggests a future HG mode where cards become stations inside one guided encounter.
+      </p>
+    </section>
+  </main>
+</section>
