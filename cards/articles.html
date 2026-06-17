@@ -1,56 +1,5 @@
-<style>
-.article-viewer {
-  padding: 1.5rem;
-}
 
-.article-viewer article {
-  max-width: 850px;
-  margin: 0 auto;
-  color: var(--text);
-  line-height: 1.8;
-}
-
-.article-viewer h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.article-viewer h2 {
-  font-size: 1.35rem;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
-  color: var(--gold);
-  border-bottom: 1px solid var(--line);
-  padding-bottom: .4rem;
-}
-
-.article-viewer p {
-  margin-bottom: 1rem;
-}
-
-.article-viewer blockquote {
-  margin: 1.5rem 0;
-  padding: 1rem 1.25rem;
-  border-left: 4px solid var(--gold);
-  background: rgba(255,255,255,.03);
-  border-radius: .5rem;
-  font-style: italic;
-}
-
-.article-viewer ul,
-.article-viewer ol {
-  margin: 1rem 0 1rem 1.5rem;
-}
-
-.article-viewer li {
-  margin-bottom: .5rem;
-}
-
-.article-viewer strong {
-  color: var(--gold);
-}
-  </style>
-  <section class="hg-panel hg-section flex flex-col h-full">
+<section class="hg-panel hg-section flex flex-col h-full">
 <input
   id="articleSearch"
   placeholder="Search articles..."
@@ -88,9 +37,9 @@
     <!-- VIEWER (main focus) -->
     <div
       id="articleViewer"
-      class="hg-section article-viewer flex-1 overflow-y-auto"
+      class="hg-section hg-reader flex-1 overflow-y-auto bg-slate-900 border border-slate-700 rounded-xl p-4 text-sm leading-relaxed"
     >
-      Select an article...
+      <div class="hg-empty">Select an article...</div>
     </div>
 
   </div>

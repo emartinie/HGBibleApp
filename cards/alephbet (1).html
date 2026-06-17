@@ -1,0 +1,237 @@
+<section class="hg-card-module hg-card-shell">
+
+
+  <header class="hg-card-head hg-card-header">
+   <!-- <div class="hg-card-kicker">Card Loaded.</div>
+    <h2 class="hg-card-title">Card Title</h2>
+    <p class="hg-card-sub">Short description goes here.</p>-->
+  </header>
+
+  <section class="hg-panel hg-section">
+<div class="card-topbar">
+
+  <!-- existing fullscreen -->
+  <button class="card-fullscreen-btn card-icon-btn primary"
+          title="Expand Card">⛶</button>
+
+  <button class="card-icon-btn nav" title="Home">⌂</button>
+  <button class="card-icon-btn nav" title="Previous">←</button>
+  <button class="card-icon-btn nav" title="Next">→</button>
+
+  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
+  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
+
+  <button class="card-icon-btn utility" title="Search Card">⌕</button>
+  <button class="card-icon-btn utility" title="Bookmark">★</button>
+  <button class="card-icon-btn utility" title="Share">⇪</button>
+  <button class="card-icon-btn utility" title="Notes">✎</button>
+  <button class="card-icon-btn utility" title="Help">?</button>
+
+</div>
+<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->   <!-- <div class="hg-section-label">Section</div>
+    <div class="hg-empty">Your content goes here.-->
+        <!-- Body (must breathe) -->
+        <div class="card-inner text-center">
+
+           <!-- <h2 class="text-lg font-semibold text-amber-200 mb-4">
+                The Alephbet
+            </h2>-->
+            <div class="flex justify-center mt-4">
+               <!-- <button id="alephAudioBtn" class="px-4 py-2 rounded-full text-sm
+                 bg-amber-500/20 border border-amber-400/40
+                 text-amber-200 hover:bg-amber-500/30 transition">-->  
+
+                    <!--▶ Play  Song
+                </button>-->
+            </div>
+
+            <p></p>
+          <div class="flex justify-center gap-2 mb-4">
+          <button class="hg-btn" id="scriptModernBtn">Modern Hebrew</button>
+          <button class="hg-btn" id="scriptPaleoBtn">Paleo-Hebrew</button>
+        </div>
+            <div id="alephbetViewer" class="flex items-center justify-center gap-6">
+                <button id="alephPrev" class="text-2xl text-slate-400 hover:text-white">‹</button>
+
+                <div id="alephCard" class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
+                    <div id="alephLetter" class="aleph-letter mb-1">א</div>
+                    <div id="alephName" class="text-lg text-amber-100">Aleph</div>
+                    <div id="alephSound" class="text-xs text-amber-300 mt-1">
+                        Silent / Ah
+                    </div>
+                </div>
+                <!--<button id="alephNext" class="hg-aleph-nav">-->
+                <button id="alephNext" class="text-2xl text-slate-400 hover:text-white">›</button>
+            </div>
+          
+              <button id="alephPlay" class="hg-btn">🔊 Letter</button>
+          <button id="alephAudioBtn" class="hg-btn">▶ Alephbet Song</button>
+            <!--<button id="alephPlay" class="mt-4 text-xs text-amber-300 hover:text-white">
+                🔊 Hear pronunciation
+            </button>-->
+
+            <div class="text-xs text-slate-500 mt-3 italic">
+                Take your time. Let it settle.
+            </div>
+
+            <div class="text-center mb-4">
+                <div class="label-pill text-slate-400">Practice writing</div>
+                <p class="text-sm text-slate-400 mt-1">
+                    No rush. No pressure. Just familiarity.
+                </p>
+
+                <!-- Horizontal pager -->
+                <div class="alephbet-strip">
+
+                    <!-- Page 1 -->
+                    <div class="alephbet-page">
+                        <div class="letter-card">
+                            <div class="hebrew">א</div>
+                            <div class="name">Aleph</div>
+                            <div class="sound">silent / breath</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ב</div>
+                            <div class="name">Bet</div>
+                            <div class="sound">b / v</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ג</div>
+                            <div class="name">Gimel</div>
+                            <div class="sound">g</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ד</div>
+                            <div class="name">Dalet</div>
+                            <div class="sound">d</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 2 -->
+                    <div class="alephbet-page">
+                        <div class="letter-card">
+                            <div class="hebrew">ה</div>
+                            <div class="name">He</div>
+                            <div class="sound">h</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ו</div>
+                            <div class="name">Vav</div>
+                            <div class="sound">v / o / u</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ז</div>
+                            <div class="name">Zayin</div>
+                            <div class="sound">z</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ח</div>
+                            <div class="name">Chet</div>
+                            <div class="sound">kh</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 3 -->
+                    <div class="alephbet-page">
+                        <div class="letter-card">
+                            <div class="hebrew">ט</div>
+                            <div class="name">Tet</div>
+                            <div class="sound">T</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">י</div>
+                            <div class="name">Yod</div>
+                            <div class="sound">Y</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">כ/ך</div>
+                            <div class="name">Kaph</div>
+                            <div class="sound">K / Kh</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ל</div>
+                            <div class="name">Lamed</div>
+                            <div class="sound">L</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 4 -->
+                    <div class="alephbet-page">
+                        <div class="letter-card">
+                            <div class="hebrew">מ/ם</div>
+                            <div class="name">Mem</div>
+                            <div class="sound">M</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">נ/ן</div>
+                            <div class="name">Nun</div>
+                            <div class="sound">N</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ס</div>
+                            <div class="name">Samekh</div>
+                            <div class="sound">S</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ע</div>
+                            <div class="name">Aiyin</div>
+                            <div class="sound">Silent / NG</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 5 -->
+                    <div class="alephbet-page">
+                        <div class="letter-card">
+                            <div class="hebrew">פ/ף</div>
+                            <div class="name">Pe</div>
+                            <div class="sound">P / F</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">צ/ץ</div>
+                            <div class="name">Tsadi</div>
+                            <div class="sound">Ts</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ק</div>
+                            <div class="name">Qof</div>
+                            <div class="sound">K</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ר</div>
+                            <div class="name">Resh</div>
+                            <div class="sound">R</div>
+                        </div>
+                    </div>
+
+                    <!-- Page 6 -->
+                    <div class="alephbet-page">
+                        <div class="letter-card">
+                            <div class="hebrew">ש</div>
+                            <div class="name">Shin</div>
+                            <div class="sound">Sh / S</div>
+                        </div>
+                        <div class="letter-card">
+                            <div class="hebrew">ת</div>
+                            <div class="name">Tav</div>
+                            <div class="sound">T</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p class="text-xs text-slate-500 text-center mt-4 italic">
+                    You are not required to learn anything.
+                    Familiarity comes naturally.
+                </p>
+            </div>
+
+            <div class="text-center text-xs text-slate-500 mt-4">
+                Swipe slowly. Let it settle.
+            </div>
+        </div>
+
+    </div>
+</section>
+</div>
+  </section>
+</section>
