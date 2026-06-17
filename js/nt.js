@@ -182,7 +182,7 @@ function getParams() {
         <ul class="list-disc pl-5 text-slate-300">
           ${matches.map(({ edge, index }) => `
             <li>
-              <button type="button" class="reader-chip" data-intertext-index="${index}">
+              <button type="button" class="reader-chip hg-chip" data-intertext-index="${index}">
                 ${escapeHtml(edge.to)} (${escapeHtml(edge.type)})
               </button>
             </li>
@@ -241,20 +241,20 @@ function getParams() {
     const isPanelMode = context.panelMode === true;
     const prevChapter = chapterNum && chNum > 1
       ? isPanelMode
-        ? `<button type="button" class="reader-chip" data-nt-panel-chapter="${chNum - 1}">Previous</button>`
-        : `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum - 1, view: viewName, section: sectionId })}">Previous</a>`
-      : `<span class="reader-chip opacity-40">Previous</span>`;
+        ? `<button type="button" class="reader-chip hg-chip" data-nt-panel-chapter="${chNum - 1}">Previous</button>`
+        : `<a class="reader-chip hg-chip" href="${buildNTUrl({ book: bookName, chapter: chNum - 1, view: viewName, section: sectionId })}">Previous</a>`
+      : `<span class="reader-chip hg-chip opacity-40">Previous</span>`;
 
     const nextChapter = chapterNum && (!context.maxChapter || chNum < Number(context.maxChapter))
       ? isPanelMode
-        ? `<button type="button" class="reader-chip" data-nt-panel-chapter="${chNum + 1}">Next</button>`
-        : `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum + 1, view: viewName, section: sectionId })}">Next</a>`
-      : chapterNum ? `<span class="reader-chip opacity-40">Next</span>` : "";
+        ? `<button type="button" class="reader-chip hg-chip" data-nt-panel-chapter="${chNum + 1}">Next</button>`
+        : `<a class="reader-chip hg-chip" href="${buildNTUrl({ book: bookName, chapter: chNum + 1, view: viewName, section: sectionId })}">Next</a>`
+      : chapterNum ? `<span class="reader-chip hg-chip opacity-40">Next</span>` : "";
 
     return `
       <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-2">
         <div class="flex items-center gap-2 flex-wrap">
-          <a class="reader-chip" href="${buildNTUrl({ book: null, chapter: null, view: null, section: null })}">Start Over</a>
+          <a class="reader-chip hg-chip" href="${buildNTUrl({ book: null, chapter: null, view: null, section: null })}">Start Over</a>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
           ${chapterNum ? prevChapter : ""}
@@ -515,7 +515,7 @@ function getParams() {
       <section class="space-y-4">
         <div class="flex items-center justify-between gap-2 border-b border-slate-700 pb-3">
           <h2 class="text-xl font-semibold">${escapeHtml(title)}</h2>
-          <button id="ntBackBtn" class="reader-chip">Back</button>
+          <button id="ntBackBtn" class="reader-chip hg-chip">Back</button>
         </div>
         ${panelHtml}
       </section>
@@ -666,7 +666,7 @@ contentZone.innerHTML = `
          tabindex="0"
          aria-label="New Testament book selector">
       <button type="button"
-              class="reader-chip w-full justify-center"
+              class="reader-chip hg-chip w-full justify-center"
               data-nt-wheel-prev="true"
               aria-label="Previous book">
         Up
@@ -675,7 +675,7 @@ contentZone.innerHTML = `
       <div class="nt-wheel-window my-3" data-nt-wheel-window></div>
 
       <button type="button"
-              class="reader-chip w-full justify-center"
+              class="reader-chip hg-chip w-full justify-center"
               data-nt-wheel-next="true"
               aria-label="Next book">
         Down
@@ -1145,12 +1145,12 @@ function loadBookTiles() {
       : null;
 
     const prev = chNum > 1
-      ? `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum - 1, section: activeSection || null, view: null })}">← Previous</a>`
-      : `<span class="reader-chip opacity-40">← Previous</span>`;
+      ? `<a class="reader-chip hg-chip" href="${buildNTUrl({ book: bookName, chapter: chNum - 1, section: activeSection || null, view: null })}">← Previous</a>`
+      : `<span class="reader-chip hg-chip opacity-40">← Previous</span>`;
 
     const next = !maxChapter || chNum < maxChapter
-      ? `<a class="reader-chip" href="${buildNTUrl({ book: bookName, chapter: chNum + 1, section: activeSection || null, view: null })}">Next →</a>`
-      : `<span class="reader-chip opacity-40">Next →</span>`;
+      ? `<a class="reader-chip hg-chip" href="${buildNTUrl({ book: bookName, chapter: chNum + 1, section: activeSection || null, view: null })}">Next →</a>`
+      : `<span class="reader-chip hg-chip opacity-40">Next →</span>`;
 
     const sectionChips = availableSections
       .map(([sectionId, label]) => {
@@ -1159,7 +1159,7 @@ function loadBookTiles() {
           ? " bg-cyan-700/80 border-cyan-500/30"
           : "";
 
-        return `<a class="reader-chip${activeClass}" href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
+        return `<a class="reader-chip hg-chip${activeClass}" href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
       })
       .join("");
 
@@ -1181,7 +1181,7 @@ function loadBookTiles() {
         <div class="flex items-center gap-2">${prev}</div>
         <div style="font-weight:600;">${escapeHtml(bookName)} Chapter ${chNum}</div>
         <div class="flex items-center gap-2">
-          <button type="button" class="reader-chip" data-sefaria-open="true">Open in Sefaria</button>
+          <button type="button" class="reader-chip hg-chip" data-sefaria-open="true">Open in Sefaria</button>
           ${next}
         </div>
       </div>
@@ -1234,10 +1234,10 @@ function loadBookTiles() {
       <div class="flex items-center justify-between gap-2 mb-3">
         <h2 class="text-xl font-semibold text-cyan-200">${title}</h2>
         <div class="flex items-center gap-2">
-          <a href="${href}" class="reader-chip">Link</a>
-          <button class="reader-chip" data-copy="${escapeHtml(href)}">Copy</button>
-          <button class="reader-chip" data-sefaria-section="true">Open in Sefaria</button>
-          <button class="reader-chip bg-cyan-700/80 border-cyan-500/30" data-panel="${escapeHtml(id)}">Panel</button>
+          <a href="${href}" class="reader-chip hg-chip">Link</a>
+          <button class="reader-chip hg-chip" data-copy="${escapeHtml(href)}">Copy</button>
+          <button class="reader-chip hg-chip" data-sefaria-section="true">Open in Sefaria</button>
+          <button class="reader-chip hg-chip bg-cyan-700/80 border-cyan-500/30" data-panel="${escapeHtml(id)}">Panel</button>
         </div>
       </div>
 

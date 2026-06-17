@@ -35,4 +35,3 @@ Object.entries(toggles).forEach(([btnId, sectionId]) => {
 });
 
 console.log("sources listeners attached");
-

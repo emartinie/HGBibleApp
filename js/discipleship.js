@@ -104,9 +104,9 @@ function renderOverview(journey) {
         ${escapeHtml(journey.description || "No journey description available.")}
       </p>
       <div class="flex flex-wrap gap-2 text-xs text-slate-400">
-        ${journey.category ? `<span class="reader-chip">${escapeHtml(journey.category)}</span>` : ""}
-        ${journey.difficulty ? `<span class="reader-chip">${escapeHtml(journey.difficulty)}</span>` : ""}
-        ${journey.estimatedTime ? `<span class="reader-chip">${escapeHtml(journey.estimatedTime)}</span>` : ""}
+        ${journey.category ? `<span class="reader-chip hg-chip">${escapeHtml(journey.category)}</span>` : ""}
+        ${journey.difficulty ? `<span class="reader-chip hg-chip">${escapeHtml(journey.difficulty)}</span>` : ""}
+        ${journey.estimatedTime ? `<span class="reader-chip hg-chip">${escapeHtml(journey.estimatedTime)}</span>` : ""}
       </div>
     </div>
   `);
@@ -119,8 +119,8 @@ function renderStep(journey) {
   const step = steps[currentIndex];
 
   if (!step) {
-    setHtml("moduleContent", `<div class="empty-state">This journey has no steps yet.</div>`);
-    setHtml("reflectionContainer", `<div class="empty-state">Reflection prompts will appear here.</div>`);
+    setHtml("moduleContent", `<div class="empty-state hg-empty">This journey has no steps yet.</div>`);
+    setHtml("reflectionContainer", `<div class="empty-state hg-empty">Reflection prompts will appear here.</div>`);
     setText("moduleMeta", "");
     setText("progressText", "0 / 0 completed");
     const fill = el("progressFill");
@@ -156,7 +156,7 @@ function renderStep(journey) {
       </p>
 
       ${articleHref ? `
-        <a class="reader-chip inline-flex" href="${articleHref}">
+        <a class="reader-chip hg-chip inline-flex" href="${articleHref}">
           Open Teaching ->
         </a>
       ` : ""}
@@ -168,10 +168,10 @@ function renderStep(journey) {
       ` : ""}
 
       <div class="flex flex-wrap gap-2 border-t border-slate-700 pt-3">
-        <button type="button" class="reader-chip" data-journey-prev>Previous</button>
-        <button type="button" class="reader-chip" data-journey-complete>Mark Complete</button>
-        <button type="button" class="reader-chip" data-journey-next>Next</button>
-        <button type="button" class="reader-chip opacity-80" data-journey-reset>Reset</button>
+        <button type="button" class="reader-chip hg-chip" data-journey-prev>Previous</button>
+        <button type="button" class="reader-chip hg-chip" data-journey-complete>Mark Complete</button>
+        <button type="button" class="reader-chip hg-chip" data-journey-next>Next</button>
+        <button type="button" class="reader-chip hg-chip opacity-80" data-journey-reset>Reset</button>
       </div>
     </div>
   `);
@@ -183,11 +183,11 @@ function renderStep(journey) {
           ${escapeHtml(prompt)}
         </div>
       `).join("")
-    : `<div class="empty-state">No reflection prompts for this step.</div>`
+    : `<div class="empty-state hg-empty">No reflection prompts for this step.</div>`
   );
 
-  setHtml("notesContainer", `<div class="empty-state">Personal notes are not wired yet.</div>`);
-  setHtml("mediaContainer", `<div class="empty-state">Related media is not attached to this journey yet.</div>`);
+  setHtml("notesContainer", `<div class="empty-state hg-empty">Personal notes are not wired yet.</div>`);
+  setHtml("mediaContainer", `<div class="empty-state hg-empty">Related media is not attached to this journey yet.</div>`);
 
   el("moduleContent")?.querySelector("[data-journey-prev]")?.addEventListener("click", () => {
     state.currentStepIndex = Math.max(0, state.currentStepIndex - 1);
@@ -256,7 +256,7 @@ function initSelector() {
         </div>
         ${journey.available
           ? `<span class="text-xs text-cyan-300">Available</span>`
-          : `<span class="text-xs text-slate-500">Locked</span>`}
+          : `<span class="text-xs text-slate-500">Coming soon</span>`}
       </div>
       <div class="mt-1 text-xs text-slate-500">${escapeHtml(journey.file)}</div>
     `;
