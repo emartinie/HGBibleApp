@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "category": "Eden & First Promise",
+    "title": "Seed of the Woman",
+    "ot": "Genesis 3:15",
+    "nt": ["Luke 1:35", "Matthew 1:18-20"],
+    "themes": ["Seed", "Birth", "Promise", "Redemption"],
+    "sefaria": "Genesis.3.15",
+    "notes": "Commonly discussed as the protoevangelium or first gospel promise."
+  },
+  {
+    "id": 2,
+    "category": "Eden & First Promise",
+    "title": "He will bruise the serpent’s head",
+    "ot": "Genesis 3:15",
+    "nt": ["Hebrews 2:14", "1 John 3:8"],
+    "themes": ["Victory", "Serpent", "Evil", "Redemption"],
+    "sefaria": "Genesis.3.15",
+    "notes": "Discussion-worthy as a victory-over-evil thread."
+  },
+  {
+    "id": 3,
+    "category": "Foreshadows & Types",
+    "title": "Bodily ascension illustrated",
+    "ot": "Genesis 5:24",
+    "nt": ["Mark 16:19"],
+    "themes": ["Ascension", "Taken", "Heaven"],
+    "sefaria": "Genesis.5.24",
+    "notes": "Typological rather than a direct prediction."
+  },
+  {
+    "id": 4,
+    "category": "Patriarchal Line",
+    "title": "The God of Shem and the line of Shem",
+    "ot": "Genesis 9:26-27",
+    "nt": ["Luke 3:36"],
+    "themes": ["Shem", "Lineage", "Nations"],
+    "sefaria": "Genesis.9.26",
+    "notes": "Genealogical and covenant-line discussion."
+  },
+  {
+    "id": 5,
+    "category": "Abrahamic Promise",
+    "title": "Abraham’s seed blesses all nations",
+    "ot": "Genesis 12:3",
+    "nt": ["Acts 3:25-26"],
+    "themes": ["Abraham", "Seed", "Nations", "Blessing"],
+    "sefaria": "Genesis.12.3",
+    "notes": "Strong covenantal thread connected to blessing the nations."
+  },
+  {
+    "id": 6,
+    "category": "Abrahamic Promise",
+    "title": "The promise made to Abraham’s Seed",
+    "ot": "Genesis 12:7",
+    "nt": ["Galatians 3:16"],
+    "themes": ["Promise", "Seed", "Inheritance"],
+    "sefaria": "Genesis.12.7",
+    "notes": "Paul’s reading of seed language is the key discussion point."
+  },
+  {
+    "id": 7,
+    "category": "Melchizedek Pattern",
+    "title": "Priest after Melchizedek",
+    "ot": "Genesis 14:18",
+    "nt": ["Hebrews 6:20"],
+    "themes": ["Priesthood", "Melchizedek", "Psalm 110"],
+    "sefaria": "Genesis.14.18",
+    "notes": "Best understood together with Psalm 110 and Hebrews."
+  },
+  {
+    "id": 8,
+    "category": "Melchizedek Pattern",
+    "title": "Melchizedek as king",
+    "ot": "Genesis 14:18",
+    "nt": ["Hebrews 7:2"],
+    "themes": ["King", "Priest", "Righteousness", "Peace"],
+    "sefaria": "Genesis.14.18",
+    "notes": "King-priest theme."
+  },
+  {
+    "id": 9,
+    "category": "Melchizedek Pattern",
+    "title": "Bread and wine foreshadowing",
+    "ot": "Genesis 14:18",
+    "nt": ["Matthew 26:26-29"],
+    "themes": ["Bread", "Wine", "Priesthood", "Table"],
+    "sefaria": "Genesis.14.18",
+    "notes": "Discussion-worthy typological connection."
+  },
+  {
+    "id": 10,
+    "category": "Patriarchal Line",
+    "title": "The Seed of Isaac",
+    "ot": "Genesis 17:19",
+    "nt": ["Romans 9:7"],
+    "themes": ["Isaac", "Seed", "Promise", "Election"],
+    "sefaria": "Genesis.17.19",
+    "notes": "Promise-line thread through Isaac."
+  }
+]
