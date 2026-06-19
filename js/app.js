@@ -364,6 +364,25 @@ function loadFromUrl() {
     loadCard(card);
   }
 }
+
+  function wireSefariaRoutingBridge() {
+  window.addEventListener("sefaria:open", (event) => {
+    const detail = event.detail || {};
+    const book = detail.book;
+
+    if (!book) return;
+
+    localStorage.setItem(
+      "sefariaJump",
+      JSON.stringify({
+        book,
+        chapter: detail.chapter || 1
+      })
+    );
+
+    loadCard("sefaria");
+  });
+}
   
 console.log("🔥 before card renderer init");
 function init() {
@@ -371,6 +390,7 @@ function init() {
   wireKeyboard();
   wireCardSelector();
   wireCardSelectorStepButtons();
+  wireSefariaRoutingBridge();
 
   loadFromUrl();
 
