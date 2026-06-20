@@ -4,6 +4,28 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("DOMContentLoaded callback fired");
 });
 
+const expectedSourceIds = [
+  "openIntertextBtn",
+  "openNtReaderBtn",
+  "loadBtn",
+  "referenceSelect",
+  "toggleJewish",
+  "jewishSection",
+  "toggleNT",
+  "ntSection",
+  "toggleFathers",
+  "fathersSection",
+  "toggleDSS",
+  "dssSection",
+  "togglePeople",
+  "peopleSection"
+];
+const missingSourceIds = expectedSourceIds.filter(id => !document.getElementById(id));
+
+if (missingSourceIds.length) {
+  console.warn(`[sources.js] Missing expected sources.html IDs: ${missingSourceIds.join(", ")}`);
+}
+
   // Quick Access buttons
 console.log("sources init");
 
