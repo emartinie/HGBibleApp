@@ -1,170 +1,525 @@
-  <section class="hg-panel hg-section">
-<div class="card-topbar">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Today Card — Clarity Prototype</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --today-ink: #fffaf0;
+      --today-muted: rgba(255, 250, 240, 0.72);
+      --today-panel: rgba(11, 18, 25, 0.84);
+      --today-line: rgba(246, 198, 111, 0.24);
+      --today-gold: #f6c66f;
+      --today-cyan: #75d8d5;
+      --today-green: #a7d98f;
+      --today-deep: #090f16;
+    }
 
-  <!-- existing fullscreen -->
-  <button class="card-fullscreen-btn card-icon-btn primary"
-          title="Expand Card">⛶</button>
+    * {
+      box-sizing: border-box;
+    }
 
-  <button class="card-icon-btn nav" title="Home">⌂</button>
-  <button class="card-icon-btn nav" title="Previous">←</button>
-  <button class="card-icon-btn nav" title="Next">→</button>
+    html {
+      background: #070b10;
+    }
 
-  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
-  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
+    body {
+      margin: 0;
+      padding: 0.75rem;
+      color: var(--today-ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(111, 211, 210, 0.12), transparent 30rem),
+        #070b10;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-  <button class="card-icon-btn utility" title="Search Card">⌕</button>
-  <button class="card-icon-btn utility" title="Bookmark">★</button>
-  <button class="card-icon-btn utility" title="Share">⇪</button>
-  <button class="card-icon-btn utility" title="Notes">✎</button>
-  <button class="card-icon-btn utility" title="Help">?</button>
+    button {
+      font: inherit;
+    }
 
-</div>
-<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
-         <div class="card-topbar scripture-subnav">
+    .today-orbit-card {
+      position: relative;
+      display: grid;
+      gap: 0.8rem;
+      width: min(100%, 880px);
+      margin: 0 auto;
+      padding: 0.75rem;
+      overflow: hidden;
+      isolation: isolate;
+      border: 1px solid rgba(246, 198, 111, 0.22);
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(111, 211, 210, 0.16), transparent 31%),
+        radial-gradient(circle at 88% 18%, rgba(246, 198, 111, 0.14), transparent 30%),
+        linear-gradient(145deg, #101820 0%, #090f16 48%, #201a14 100%);
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
+    }
 
-  <button class="card-icon-btn scripture" id="scriptureSearchBtn" title="Search">
-    ⌕
-  </button>
+    .today-orbit-card::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+      background-size: 30px 30px;
+      mask-image: linear-gradient(to bottom, #000, transparent 78%);
+    }
 
-  <button class="card-icon-btn scripture" id="scriptureReloadBtn" title="Reload">
-    ↻
-  </button>
+    .card-topbar {
+      display: flex;
+      gap: 0.42rem;
+      padding: 0.48rem;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      border: 1px solid var(--today-line);
+      border-radius: 8px;
+      background: rgba(11, 18, 25, 0.74);
+    }
 
-  <button class="card-icon-btn scripture" id="scripturePrevBtn" title="Previous Verse">
-    ←
-  </button>
+    .scripture-subnav {
+      border-color: rgba(111, 211, 210, 0.2);
+    }
 
-  <button class="card-icon-btn scripture" id="scriptureNextBtn" title="Next Verse">
-    →
-  </button>
+    .card-icon-btn,
+    #todayListenBtn {
+      min-width: 2.45rem;
+      min-height: 2.45rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(111, 211, 210, 0.3);
+      border-radius: 8px;
+      color: var(--today-ink);
+      background:
+        linear-gradient(180deg, rgba(111, 211, 210, 0.12), rgba(246, 198, 111, 0.07)),
+        rgba(255, 255, 255, 0.045);
+      cursor: pointer;
+    }
 
-  <button class="card-icon-btn scripture" id="copyScriptureBtn" title="Copy">
-    ⧉
-  </button>
+    .card-icon-btn:hover,
+    .card-icon-btn:focus-visible,
+    #todayListenBtn:hover,
+    #todayListenBtn:focus-visible {
+      border-color: rgba(246, 198, 111, 0.72);
+      outline: 2px solid transparent;
+    }
 
-  <button class="card-icon-btn scripture"
-          onclick="document.getElementById('scriptureContent').scrollTop = 0"
-          title="Top">
-    ↑
-  </button>
+    .today-hero,
+    .today-panel,
+    .today-step,
+    .today-support {
+      border: 1px solid var(--today-line);
+      border-radius: 10px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02)),
+        var(--today-panel);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+    }
 
-  <button class="card-icon-btn scripture" onclick="goToNT()" title="New Testament">
-    ✝
-  </button>
+    .today-hero {
+      display: grid;
+      gap: 0.85rem;
+      padding: 1rem;
+    }
 
-  <button class="card-icon-btn scripture" onclick="goBackToCommandments()" title="Commandments">
-    ⌘
-  </button>
+    .today-kicker {
+      margin: 0 0 0.45rem;
+      color: var(--today-cyan);
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-  <button class="card-icon-btn scripture" id="openBridgeBtn" title="Related Context">
-    ⛓
-  </button>
+    .today-title {
+      max-width: 16ch;
+      margin: 0;
+      color: var(--today-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 9vw, 3.2rem);
+      font-weight: 750;
+      line-height: 1;
+    }
 
-  <button class="card-icon-btn scripture" id="openSefariaContextBtn" title="Jewish Context">
-    ✡
-  </button>
+    .today-sub {
+      max-width: 58ch;
+      margin: 0.65rem 0 0;
+      color: var(--today-muted);
+      font-size: 0.96rem;
+      line-height: 1.55;
+    }
 
-  <button class="card-icon-btn scripture" id="ntHomeHeaderBtn" title="Notes">
-    ☰
-  </button>
+    .today-date-stack {
+      display: grid;
+      align-content: center;
+      gap: 0.26rem;
+      padding: 0.78rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9px;
+      background: rgba(0, 0, 0, 0.2);
+    }
 
-  <button class="card-icon-btn scripture" id="ntQuotesHeaderBtn" title="Quotes">
-    ❝
-  </button>
+    #todayDatePretty {
+      margin: 0;
+      color: var(--today-gold);
+      font-size: 1.08rem;
+      font-weight: 850;
+    }
 
-</div>
+    #todayWeekInfo,
+    #todaySpecialDay {
+      margin: 0;
+      color: var(--today-muted);
+      font-size: 0.82rem;
+    }
+
+    .today-path {
+      display: grid;
+      gap: 0.72rem;
+    }
+
+    .today-step {
+      display: grid;
+      gap: 0.65rem;
+      padding: 0.95rem;
+    }
+
+    .today-step.primary {
+      border-color: rgba(246, 198, 111, 0.48);
+      background:
+        linear-gradient(140deg, rgba(246, 198, 111, 0.11), rgba(111, 211, 210, 0.04)),
+        var(--today-panel);
+    }
+
+    .step-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .step-number {
+      display: inline-grid;
+      width: 1.8rem;
+      height: 1.8rem;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid rgba(246, 198, 111, 0.52);
+      border-radius: 999px;
+      color: #15100a;
+      background: var(--today-gold);
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .today-label {
+      margin: 0;
+      color: var(--today-cyan);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.055em;
+      text-transform: uppercase;
+    }
+
+    #todayVerseRef {
+      margin: 0;
+      color: var(--today-gold);
+      font-size: 0.9rem;
+      font-weight: 850;
+    }
+
+    #todayVerseText {
+      margin: 0;
+      color: var(--today-ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.12rem, 4.5vw, 1.35rem);
+      line-height: 1.58;
+    }
+
+    #todayMeditation,
+    #todayPractice {
+      margin: 0;
+      color: var(--today-ink);
+      font-size: 1rem;
+      line-height: 1.58;
+    }
+
+    #todayListenBtn {
+      width: 100%;
+      min-height: 3rem;
+      color: #15100a;
+      border-color: rgba(246, 198, 111, 0.62);
+      background: linear-gradient(180deg, #f9d88e, #eebc5d);
+      font-weight: 900;
+    }
+
+    .today-practice-list {
+      display: grid;
+      gap: 0.45rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .today-practice-list li {
+      padding: 0.58rem 0.65rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      color: var(--today-muted);
+      background: rgba(0, 0, 0, 0.16);
+      font-size: 0.86rem;
+      line-height: 1.4;
+    }
+
+    .today-practice-list li:first-child {
+      color: var(--today-ink);
+      border-color: rgba(167, 217, 143, 0.35);
+      background: rgba(167, 217, 143, 0.08);
+    }
+
+    .today-support {
+      display: grid;
+      gap: 0.7rem;
+      padding: 0.9rem;
+    }
+
+    .support-intro {
+      margin: -0.15rem 0 0;
+      color: var(--today-muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .today-support-grid {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .today-panel {
+      display: grid;
+      gap: 0.52rem;
+      padding: 0.78rem;
+    }
+
+    .today-panel p,
+    .today-panel div {
+      color: var(--today-muted);
+      line-height: 1.5;
+    }
+
+    .today-panel strong {
+      color: var(--today-gold);
+    }
+
+    .today-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .today-meta-grid > div {
+      min-height: 3rem;
+      padding: 0.55rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.16);
+      font-size: 0.82rem;
+    }
+
+    .today-meta-grid > div > div {
+      margin-top: 0.15rem;
+    }
+
+    .today-close {
+      margin: 0;
+      padding: 0.25rem 0.4rem 0.45rem;
+      color: var(--today-muted);
+      text-align: center;
+      font-size: 0.84rem;
+    }
+
+    @media (min-width: 720px) {
+      body {
+        padding: 1.25rem;
+      }
+
+      .today-orbit-card {
+        padding: 0.9rem;
+      }
+
+      .today-hero {
+        grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.58fr);
+        align-items: end;
+      }
+
+      .today-path {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .today-step.primary {
+        grid-column: 1 / -1;
+        grid-template-columns: minmax(0, 1fr) 13rem;
+        align-items: end;
+      }
+
+      .today-step.primary .step-copy {
+        display: grid;
+        gap: 0.65rem;
+      }
+
+      .today-support-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .today-support-grid .today-wide {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 430px) {
+      body {
+        padding: 0.42rem;
+      }
+
+      .today-orbit-card {
+        padding: 0.55rem;
+      }
+
+      .today-meta-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hg-panel hg-section today-orbit-card" aria-label="Today">
+    <div class="card-topbar" aria-label="Card controls">
+      <button class="card-fullscreen-btn card-icon-btn primary" title="Expand Card" aria-label="Expand card">⛶</button>
+      <button class="card-icon-btn nav" title="Home" aria-label="Home">⌂</button>
+      <button class="card-icon-btn nav" title="Previous" aria-label="Previous card">←</button>
+      <button class="card-icon-btn nav" title="Next" aria-label="Next card">→</button>
+      <button class="card-icon-btn audio" title="Audio Guide" aria-label="Audio guide">🎧</button>
+      <button class="card-icon-btn audio" title="Video Walkthrough" aria-label="Video walkthrough">▶</button>
+      <button class="card-icon-btn utility" title="Search Card" aria-label="Search card">⌕</button>
+      <button class="card-icon-btn utility" title="Bookmark" aria-label="Bookmark">★</button>
+      <button class="card-icon-btn utility" title="Share" aria-label="Share">⇪</button>
+      <button class="card-icon-btn utility" title="Notes" aria-label="Notes">✎</button>
+      <button class="card-icon-btn utility" title="Help" aria-label="Help">?</button>
     </div>
-<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->		    
-		<div class="card-heading">
 
-        <div class="card-kicker">
-          <p id="discipleshipSub"
-             class="hero-sub text-center">
+    <div class="card-topbar scripture-subnav" aria-label="Scripture controls">
+      <button class="card-icon-btn scripture" id="scriptureSearchBtn" title="Search" aria-label="Search Scripture">⌕</button>
+      <button class="card-icon-btn scripture" id="scriptureReloadBtn" title="Reload" aria-label="Reload Scripture">↻</button>
+      <button class="card-icon-btn scripture" id="scripturePrevBtn" title="Previous Verse" aria-label="Previous verse">←</button>
+      <button class="card-icon-btn scripture" id="scriptureNextBtn" title="Next Verse" aria-label="Next verse">→</button>
+      <button class="card-icon-btn scripture" id="copyScriptureBtn" title="Copy" aria-label="Copy Scripture">⧉</button>
+      <button class="card-icon-btn scripture" onclick="document.getElementById('scriptureContent')?.scrollTo({ top: 0, behavior: 'smooth' })" title="Top" aria-label="Scroll Scripture to top">↑</button>
+      <button class="card-icon-btn scripture" onclick="window.goToNT?.()" title="New Testament" aria-label="Open New Testament notes">✝</button>
+      <button class="card-icon-btn scripture" onclick="window.goBackToCommandments?.()" title="Commandments" aria-label="Open Commandments">⌘</button>
+      <button class="card-icon-btn scripture" id="openBridgeBtn" title="Related Context" aria-label="Open related context">⛓</button>
+      <button class="card-icon-btn scripture" id="openSefariaContextBtn" title="Jewish Context" aria-label="Open Jewish context">✡</button>
+      <button class="card-icon-btn scripture" id="ntHomeHeaderBtn" title="Notes" aria-label="Open notes">☰</button>
+      <button class="card-icon-btn scripture" id="ntQuotesHeaderBtn" title="Quotes" aria-label="Open quotations">❝</button>
+    </div>
 
-            Today Only • Guided Discipleship • Focused
+    <header class="today-hero">
+      <div>
+        <p class="today-kicker">Today · A simple place to begin</p>
+        <h1 class="today-title">Receive the Word. Take one faithful step.</h1>
+        <p class="today-sub">
+          Begin with today’s Scripture. Pause for reflection, then choose one practice to carry with you.
+        </p>
+      </div>
 
+      <div class="today-date-stack">
+        <p id="todayDatePretty">Sunday, June 21</p>
+        <p id="todayWeekInfo">Week 25 · Day 1</p>
+        <p id="todaySpecialDay">A quiet beginning for the week</p>
+      </div>
+    </header>
+
+    <main class="today-path" aria-label="Today's guided path">
+      <section class="today-step primary">
+        <div class="step-copy">
+          <div class="step-heading">
+            <span class="step-number" aria-hidden="true">1</span>
+            <h2 class="today-label">Read today’s Scripture</h2>
+          </div>
+          <p id="todayVerseRef">Psalm 27:1</p>
+          <p id="todayVerseText">
+            “The Lord is my light and my salvation—whom shall I fear? The Lord is the stronghold of my life—of whom shall I be afraid?”
           </p>
         </div>
+        <button id="todayListenBtn" type="button">▶ Listen to today’s passage</button>
+      </section>
 
-        <h2 <id="todayDatePretty"
-            class="text-xl flame text-center">
+      <section class="today-step">
+        <div class="step-heading">
+          <span class="step-number" aria-hidden="true">2</span>
+          <h2 class="today-label">Reflect</h2>
+        </div>
+        <p id="todayMeditation">Where do you need God’s light for the next faithful step—not the whole staircase?</p>
+      </section>
 
-          Today
+      <section class="today-step">
+        <div class="step-heading">
+          <span class="step-number" aria-hidden="true">3</span>
+          <h2 class="today-label">Practice</h2>
+        </div>
+        <p id="todayPractice">Choose one small act of trust and complete it before the day ends.</p>
+        <ul class="today-practice-list" aria-label="Practice prompts">
+          <li>Begin here: Read Psalm 27 aloud.</li>
+          <li>Reconcile with one person.</li>
+          <li>Give anonymously.</li>
+          <li>Fast from complaint until sunset.</li>
+        </ul>
+      </section>
+    </main>
 
-        </h2>
-        <!-- Header -->
-  <div class="text-center mb-6">
-    <h1 class="text-2xl font-semibold text-white">Today</h1>
-    <p id="todayDatePretty" class="text-slate-400 text-sm mt-1"></p>
-    <p id="todayWeekInfo" class="text-slate-500 text-xs mt-1"></p>
-    <p id="todaySpecialDay" class="text-amber-400 text-sm mt-2"></p>
-  </div>
-    <section class="content-panel hg-section">
-    <div class="section-label" onclick="toggleSection(this)">Today's Info ▼</div>
-<div class="empty-state">Info will appear here in about 30 seconds after ALL other calculations have finished.<div id="todayWeek"></div> <div id="todayDay"></div> <div id="todayCycle"></div> <div id="weekBounds"></div>
-    </div>
-  </div>
-</section>
-        <!-- Scripture -->
-    <div class="hg-section border border-slate-700 rounded-lg p-4 bg-slate-950/40 mb-5">
-      <p class="text-slate-400 text-xs mb-2">Today's Scripture</p>
-      <p id="todayVerseRef" class="text-slate-300 font-medium"></p>
-      <p id="todayVerseText" class="text-slate-200 italic mt-2"></p>
-    </div>
-<!-- Today in History -->
-<div class="hg-section border border-slate-700 rounded-lg p-4 bg-slate-950/40 mb-5">
-  <p class="text-slate-400 text-xs mb-2">Today in Judeo-Christian History</p>
-  <div id="todayHistory" class="text-slate-300 text-sm space-y-2">
-    <p>Loading historical events...</p>
-  </div>
-</div>
-    <div class="hg-section border border-slate-700 rounded-lg p-4 bg-slate-950/40 mb-5">
-  <p class="text-slate-400 text-xs mb-2">Biblical Calendar</p>
-  <div id="todayBiblicalSnapshot" class="text-slate-300 text-sm"></div>
-</div>
-    <div id="todayBiblicalSnapshot">
-  <p>Iyar 14 • Day 29 of Omer</p>
-  <p class="text-slate-500 text-xs mt-1">2 days until Shavuot preparation cycle</p>
-</div>
-    <div class="hg-section border border-slate-700 rounded-lg p-4 bg-slate-950/40 mb-5">
-  <p class="text-slate-400 text-xs mb-2">Word of the Day</p>
-  <div id="todayWord" class="text-slate-300 text-sm"></div>
-</div>
-    <div class="hg-section border border-slate-700 rounded-lg p-4 bg-slate-950/40 mb-5">
-  <p class="text-slate-400 text-xs mb-2">Practice Today</p>
-  <p id="todayPractice" class="text-slate-300 text-sm"></p>
-</div>
-    Reconcile with one person.
-Give anonymously.
-Read Psalm 27 aloud.
-Fast from complaint until sunset.
-
-  <!-- Main Card -->
-  <div class="hg-section bg-slate-900 border border-slate-700 rounded-xl p-5 shadow-lg">
-
-    <!-- Meditation -->
-    <div class="mb-5">
-      <h2 class="text-slate-200 font-semibold mb-2">Meditation</h2>
-      <p class="text-slate-300 leading-relaxed text-sm" id="todayMeditation">
-        Ask for light for the next step, not the whole staircase.
+    <section class="today-support" aria-labelledby="supportHeading">
+      <h2 class="today-label" id="supportHeading">Go deeper when you’re ready</h2>
+      <p class="support-intro">
+        These details support today’s reading. They come after the guided path so a first visit still feels manageable.
       </p>
-    </div>
 
+      <div class="today-support-grid">
+        <section class="today-panel today-wide">
+          <h3 class="today-label">Today’s Info</h3>
+          <div class="today-meta-grid">
+            <div><strong>Week</strong><div id="todayWeek">Week 25</div></div>
+            <div><strong>Day</strong><div id="todayDay">Day 1</div></div>
+            <div><strong>Cycle</strong><div id="todayCycle">Cycle Day 169</div></div>
+            <div><strong>Bounds</strong><div id="weekBounds">June 21–27</div></div>
+          </div>
+        </section>
 
-    <!-- Weekly context -->
-    <div class="text-sm text-slate-400 mb-4">
-      <div id="todayReadings"></div>
-    </div>
+        <section class="today-panel">
+          <h3 class="today-label">Biblical Calendar</h3>
+          <div id="todayBiblicalSnapshot">A brief sacred-time snapshot appears here.</div>
+        </section>
 
-    <!-- Action -->
-    <button id="todayListenBtn"
-      class="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium">
-      ▶ Listen
-    </button>
+        <section class="today-panel">
+          <h3 class="today-label">Weekly Context</h3>
+          <div id="todayReadings">The week’s connected readings appear here.</div>
+        </section>
 
-    <p class="text-center text-xs text-slate-500 mt-2">
-      One day. One portion. One step.
-    </p>
+        <section class="today-panel">
+          <h3 class="today-label">Today in Judeo-Christian History</h3>
+          <div id="todayHistory">
+            <p>A concise historical connection appears here.</p>
+          </div>
+        </section>
 
-  </div>
-</section>
+        <section class="today-panel">
+          <h3 class="today-label">Word of the Day</h3>
+          <div id="todayWord">A key biblical word and short definition appear here.</div>
+        </section>
+      </div>
+    </section>
+
+    <p class="today-close">One passage. One reflection. One faithful step.</p>
+  </section>
+</body>
+</html>
