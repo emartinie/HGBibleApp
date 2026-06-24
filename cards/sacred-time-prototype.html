@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sacred Time Prototype</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101417;
+      --panel: #172025;
+      --panel-soft: #1d2a31;
+      --ink: #f7f0df;
+      --muted: #b8c3c2;
+      --line: rgba(255, 255, 255, 0.12);
+      --gold: #e5b95a;
+      --blue: #65b8d6;
+      --green: #79b98a;
+      --rose: #d8818c;
+      --violet: #b79ae6;
+      --amber: #d79748;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(229, 185, 90, 0.08), transparent 320px),
+        radial-gradient(circle at top left, rgba(101, 184, 214, 0.12), transparent 320px),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    select,
+    input {
+      font: inherit;
+    }
+
+    .prototype-shell {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 18px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(23, 32, 37, 0.9);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 0;
+      font-size: clamp(2rem, 7vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat {
+      min-height: 82px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: rgba(16, 20, 23, 0.94);
+      backdrop-filter: blur(14px);
+    }
+
+    .control-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      color: var(--ink);
+      background: var(--panel);
+      padding: 9px 11px;
+    }
+
+    .field input::placeholder {
+      color: rgba(247, 240, 223, 0.46);
+    }
+
+    .view-actions,
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .toggle-btn,
+    .clear-btn {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: var(--panel-soft);
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .toggle-btn[aria-pressed="true"] {
+      border-color: rgba(229, 185, 90, 0.7);
+      background: rgba(229, 185, 90, 0.18);
+    }
+
+    .clear-btn {
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    .legend {
+      padding-top: 6px;
+      border-top: 1px solid var(--line);
+    }
+
+    .legend-item,
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 28px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.035);
+      padding: 5px 8px;
+      font-size: 0.78rem;
+    }
+
+    .mark {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--muted);
+    }
+
+    .mark.biblical,
+    .entry-card.biblical {
+      --accent: var(--blue);
+    }
+
+    .mark.tradition,
+    .entry-card.tradition {
+      --accent: var(--gold);
+    }
+
+    .mark.history,
+    .entry-card.history {
+      --accent: var(--green);
+    }
+
+    .mark.theological,
+    .entry-card.theological {
+      --accent: var(--violet);
+    }
+
+    .mark.review,
+    .entry-card.review {
+      --accent: var(--rose);
+    }
+
+    .mark.biblical,
+    .mark.tradition,
+    .mark.history,
+    .mark.theological,
+    .mark.review {
+      background: var(--accent);
+    }
+
+    .content-layout {
+      display: grid;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .timeline-rail {
+      display: none;
+      border: 1px solid var(--line);
+      background: rgba(23, 32, 37, 0.82);
+      padding: 14px;
+    }
+
+    .rail-title {
+      margin-bottom: 10px;
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .rail-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .rail-item {
+      display: grid;
+      grid-template-columns: 14px 1fr;
+      gap: 9px;
+      align-items: start;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .rail-dot {
+      width: 11px;
+      height: 11px;
+      margin-top: 4px;
+      border-radius: 999px;
+      background: var(--accent, var(--muted));
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04);
+    }
+
+    .rail-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 0.88rem;
+    }
+
+    .results-head {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 10px;
+    }
+
+    .results-head h2 {
+      margin-bottom: 0;
+      color: var(--gold);
+      font-size: 1.05rem;
+    }
+
+    .results-count {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .entry-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .entry-card {
+      --accent: var(--muted);
+      display: grid;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent);
+      background: rgba(23, 32, 37, 0.9);
+      padding: 15px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    .entry-card.compact {
+      gap: 10px;
+    }
+
+    .entry-top {
+      display: grid;
+      gap: 10px;
+    }
+
+    .entry-title {
+      margin-bottom: 4px;
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .entry-summary {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .signal {
+      justify-self: start;
+      border: 1px solid color-mix(in srgb, var(--accent), white 18%);
+      color: var(--ink);
+      background: color-mix(in srgb, var(--accent), transparent 78%);
+      padding: 7px 9px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .fact-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .fact {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.035);
+      padding: 10px;
+    }
+
+    .fact span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .fact strong {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink);
+      font-size: 0.92rem;
+      font-weight: 650;
+    }
+
+    .tag-row,
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 7px;
+      font-size: 0.76rem;
+    }
+
+    .note-panel {
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .note-panel strong {
+      color: var(--ink);
+    }
+
+    .empty-state,
+    .error-state {
+      border: 1px solid var(--line);
+      background: rgba(23, 32, 37, 0.9);
+      color: var(--muted);
+      padding: 18px;
+    }
+
+    .prototype-shell.timeline-mode .content-layout {
+      align-items: start;
+    }
+
+    .prototype-shell.timeline-mode .timeline-rail {
+      display: block;
+    }
+
+    @media (min-width: 720px) {
+      .hero {
+        grid-template-columns: 1fr 310px;
+        align-items: end;
+        padding: 30px;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .control-grid {
+        grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      }
+
+      .entry-top {
+        grid-template-columns: 1fr auto;
+      }
+
+      .fact-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 980px) {
+      .prototype-shell.timeline-mode .content-layout {
+        grid-template-columns: 280px 1fr;
+      }
+
+      .timeline-rail {
+        position: sticky;
+        top: 142px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="prototype-shell timeline-mode" id="sacredTimePrototype">
+    <section class="hero" aria-labelledby="prototypeTitle">
+      <div>
+        <p class="eyebrow">Prototype only</p>
+        <h1 id="prototypeTitle">Sacred Time and Biblical History</h1>
+        <p class="hero-copy">A first look at how appointed times, biblical events, traditions, and historical chronology might sit together without forcing every thread into the same kind of certainty.</p>
+      </div>
+      <div class="hero-stats" aria-label="Dataset summary">
+        <div class="stat">
+          <strong id="statEntries">--</strong>
+          <span>entries loaded</span>
+        </div>
+        <div class="stat">
+          <strong id="statCategories">--</strong>
+          <span>categories</span>
+        </div>
+        <div class="stat">
+          <strong id="statThemes">--</strong>
+          <span>themes</span>
+        </div>
+        <div class="stat">
+          <strong id="statReview">--</strong>
+          <span>need review</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="toolbar" aria-label="Sacred time controls">
+      <div class="control-grid">
+        <div class="field">
+          <label for="searchInput">Search</label>
+          <input id="searchInput" type="search" placeholder="Creation, Passover, Temple, Sinai">
+        </div>
+        <div class="field">
+          <label for="categoryFilter">Category</label>
+          <select id="categoryFilter">
+            <option value="">All categories</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="themeFilter">Theme</label>
+          <select id="themeFilter">
+            <option value="">All themes</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="certaintyFilter">Certainty</label>
+          <select id="certaintyFilter">
+            <option value="">All certainty labels</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="view-actions" aria-label="View controls">
+        <button class="toggle-btn" id="timelineViewBtn" type="button" aria-pressed="true">Timeline</button>
+        <button class="toggle-btn" id="listViewBtn" type="button" aria-pressed="false">List</button>
+        <button class="clear-btn" id="clearFiltersBtn" type="button">Clear filters</button>
+      </div>
+
+      <div class="legend" aria-label="Visual key">
+        <span class="legend-item"><span class="mark biblical"></span>Explicit biblical date</span>
+        <span class="legend-item"><span class="mark tradition"></span>Tradition</span>
+        <span class="legend-item"><span class="mark history"></span>Historical reconstruction</span>
+        <span class="legend-item"><span class="mark theological"></span>Theological association</span>
+        <span class="legend-item"><span class="mark review"></span>Disputed or needs review</span>
+      </div>
+    </section>
+
+    <section class="content-layout">
+      <aside class="timeline-rail" aria-label="Filtered timeline">
+        <div class="rail-title">Timeline path</div>
+        <div class="rail-list" id="timelineRail"></div>
+      </aside>
+
+      <section aria-live="polite">
+        <div class="results-head">
+          <h2>Dataset entries</h2>
+          <div class="results-count" id="resultsCount">Loading...</div>
+        </div>
+        <div class="entry-list" id="entryList"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="../js/sacred-time-prototype.js" defer></script>
+</body>
+</html>
