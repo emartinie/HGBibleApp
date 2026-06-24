@@ -1,0 +1,420 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hgbible.app/schemas/appointed-times.schema.json",
+  "title": "Sacred Time and Biblical History Event",
+  "description": "A proposed schema for connecting biblical history, appointed times, biblical calendar dates, traditional chronology, historical chronology, and Gregorian alignment where known.",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "category",
+    "date_type",
+    "scripture_refs",
+    "themes",
+    "description",
+    "chronology_confidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable machine-readable identifier, using lowercase kebab-case."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title for the event, appointed time, or tradition."
+    },
+    "category": {
+      "type": "array",
+      "description": "One or more broad groupings for filtering and visualization.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "creation",
+          "fall",
+          "patriarchs",
+          "exodus",
+          "sinai",
+          "wilderness",
+          "land",
+          "judges",
+          "united_kingdom",
+          "divided_kingdom",
+          "temple",
+          "exile",
+          "return",
+          "messiah",
+          "appointed_time",
+          "fast_day",
+          "biblical_calendar",
+          "historical_event",
+          "traditional_chronology"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "date_type": {
+      "type": "string",
+      "description": "How the date should be understood.",
+      "enum": [
+        "fixed_hebrew_date",
+        "relative_biblical_date",
+        "traditional_association",
+        "historical_reconstruction",
+        "gregorian_known",
+        "undated",
+        "disputed"
+      ]
+    },
+    "hebrew_date": {
+      "description": "Hebrew or biblical calendar date when stated, traditionally assigned, or reconstructed.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "month": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "day": {
+              "type": [
+                "integer",
+                "string",
+                "null"
+              ]
+            },
+            "month_number": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "calendar_basis": {
+              "type": "string",
+              "enum": [
+                "biblical_month_number",
+                "hebrew_civil",
+                "hebrew_religious",
+                "second_temple",
+                "rabbinic_fixed",
+                "traditional",
+                "unknown"
+              ]
+            },
+            "display": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "certainty": {
+              "$ref": "#/$defs/certainty"
+            },
+            "source_note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "calendar_basis",
+            "certainty"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "traditional_year": {
+      "description": "Traditional Anno Mundi or tradition-specific year label, when available.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "system": {
+              "type": "string",
+              "examples": [
+                "Seder Olam / rabbinic AM",
+                "traditional Jewish AM",
+                "Ussher",
+                "unknown"
+              ]
+            },
+            "value": {
+              "type": [
+                "string",
+                "integer",
+                "null"
+              ]
+            },
+            "label": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "certainty": {
+              "$ref": "#/$defs/certainty"
+            },
+            "source_note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "system",
+            "certainty"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "gregorian_date": {
+      "description": "Gregorian or proleptic Gregorian alignment where known or commonly reconstructed.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "year": {
+              "type": [
+                "integer",
+                "string",
+                "null"
+              ]
+            },
+            "month": {
+              "type": [
+                "integer",
+                "string",
+                "null"
+              ]
+            },
+            "day": {
+              "type": [
+                "integer",
+                "string",
+                "null"
+              ]
+            },
+            "display": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "era": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "BCE",
+                "CE",
+                null
+              ]
+            },
+            "certainty": {
+              "$ref": "#/$defs/certainty"
+            },
+            "source_note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "certainty"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "scripture_refs": {
+      "type": "array",
+      "description": "Primary biblical references connected to this entry.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "themes": {
+      "type": "array",
+      "description": "Short tags for study, timeline, and visualization.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "description": {
+      "type": "string",
+      "description": "Plain-language summary. Should not overstate chronology or theology."
+    },
+    "related_events": {
+      "type": "array",
+      "description": "IDs of other dataset entries related by sequence, theme, typology, or chronology.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "related_appointed_times": {
+      "type": "array",
+      "description": "IDs of appointed time entries connected to this entry.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "chronology_confidence": {
+      "$ref": "#/$defs/certainty"
+    },
+    "traditions": {
+      "type": "array",
+      "description": "Traditions, associations, or interpretive links. Use this for non-universal claims.",
+      "items": {
+        "$ref": "#/$defs/tradition"
+      },
+      "default": []
+    },
+    "viewpoints": {
+      "type": "array",
+      "description": "Competing or complementary chronology viewpoints that should be preserved.",
+      "items": {
+        "$ref": "#/$defs/viewpoint"
+      },
+      "default": []
+    },
+    "source_notes": {
+      "type": "array",
+      "description": "Human-readable source notes and links for research review.",
+      "items": {
+        "$ref": "#/$defs/source_note"
+      },
+      "default": []
+    },
+    "notes": {
+      "type": "string",
+      "description": "Owner-facing caution, unresolved questions, or data-entry notes.",
+      "default": ""
+    },
+    "status": {
+      "type": "string",
+      "description": "Editorial status of this dataset record.",
+      "enum": [
+        "draft",
+        "needs_review",
+        "owner_reviewed",
+        "approved"
+      ],
+      "default": "draft"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "certainty": {
+      "type": "string",
+      "enum": [
+        "explicit_biblical_date",
+        "strong_tradition",
+        "traditional",
+        "historical_consensus",
+        "historical_disputed",
+        "thematic_association",
+        "uncertain",
+        "unknown"
+      ]
+    },
+    "tradition": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "tradition": {
+          "type": "string"
+        },
+        "certainty": {
+          "$ref": "#/$defs/certainty"
+        },
+        "source_note": {
+          "type": "string"
+        },
+        "related_appointed_times": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        }
+      },
+      "required": [
+        "name",
+        "tradition",
+        "certainty",
+        "source_note"
+      ],
+      "additionalProperties": false
+    },
+    "viewpoint": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "certainty": {
+          "$ref": "#/$defs/certainty"
+        },
+        "source_note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "summary",
+        "certainty"
+      ],
+      "additionalProperties": false
+    },
+    "source_note": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "note"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,1997 @@
+{
+  "metadata": {
+    "dataset_name": "Sacred Time and Biblical History",
+    "version": "0.1.0-research-pass",
+    "purpose": "Proof-of-concept dataset connecting biblical history, appointed times, biblical calendar dates, traditional chronology, historical events, and Gregorian alignment where known.",
+    "editorial_warning": "This file intentionally preserves uncertainty. Traditional associations, historical reconstructions, and theological readings are labeled rather than flattened into fact claims.",
+    "schema": "appointed-times-schema.json"
+  },
+  "entries": [
+    {
+      "id": "creation-week",
+      "title": "Creation Week",
+      "category": [
+        "creation",
+        "biblical_calendar"
+      ],
+      "date_type": "undated",
+      "hebrew_date": null,
+      "traditional_year": {
+        "system": "traditional Jewish AM",
+        "value": 1,
+        "label": "Year 1 from creation in traditional Jewish year counting",
+        "certainty": "traditional",
+        "source_note": "Traditional Jewish calendar reckoning counts years from creation; exact handling of year 1 and Adam's creation differs in technical chronology discussions."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Genesis 1:1-2:3",
+        "Exodus 20:8-11"
+      ],
+      "themes": [
+        "creation",
+        "sabbath",
+        "order",
+        "time"
+      ],
+      "description": "The biblical opening of ordered time, creation, blessing, and Sabbath rest.",
+      "related_events": [
+        "adam-and-eve-created"
+      ],
+      "related_appointed_times": [
+        "weekly-sabbath",
+        "yom-teruah-rosh-hashanah"
+      ],
+      "chronology_confidence": "unknown",
+      "traditions": [
+        {
+          "name": "Creation and Tishrei tradition",
+          "tradition": "One rabbinic opinion associates creation with Tishrei; another tradition places creation in Nisan.",
+          "certainty": "traditional",
+          "source_note": "Babylonian Talmud, Rosh Hashanah 10b-11a discusses Tishrei and Nisan creation viewpoints.",
+          "related_appointed_times": [
+            "yom-teruah-rosh-hashanah"
+          ]
+        }
+      ],
+      "viewpoints": [
+        {
+          "label": "Tishrei creation view",
+          "summary": "Creation is associated with the autumn civil new year tradition.",
+          "certainty": "traditional",
+          "source_note": "Rabbinic discussion in Rosh Hashanah 10b-11a."
+        },
+        {
+          "label": "Nisan creation view",
+          "summary": "A competing rabbinic view associates creation with Nisan, the spring month of redemption.",
+          "certainty": "traditional",
+          "source_note": "Rabbinic discussion in Rosh Hashanah 10b-11a."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Genesis creation account",
+          "url": null,
+          "note": "Primary biblical text gives sequence but not a Gregorian date."
+        }
+      ],
+      "notes": "Keep creation chronology as theological and traditional, not as a forced modern date.",
+      "status": "draft"
+    },
+    {
+      "id": "adam-and-eve-created",
+      "title": "Adam and Eve Created",
+      "category": [
+        "creation",
+        "traditional_chronology"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Tishrei",
+        "day": 1,
+        "month_number": 7,
+        "calendar_basis": "traditional",
+        "display": "1 Tishrei",
+        "certainty": "traditional",
+        "source_note": "Common Jewish tradition associates the creation of humanity with Rosh Hashanah."
+      },
+      "traditional_year": {
+        "system": "traditional Jewish AM",
+        "value": 1,
+        "label": "Traditional creation-era reckoning",
+        "certainty": "traditional",
+        "source_note": "Traditional Jewish calendar reckoning."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Genesis 1:26-31",
+        "Genesis 2:7",
+        "Genesis 2:18-25"
+      ],
+      "themes": [
+        "humanity",
+        "image_of_god",
+        "beginnings",
+        "judgment"
+      ],
+      "description": "The creation of humanity in the image of God. The association with 1 Tishrei is traditional, not an explicit biblical date.",
+      "related_events": [
+        "creation-week",
+        "fall-in-eden"
+      ],
+      "related_appointed_times": [
+        "yom-teruah-rosh-hashanah"
+      ],
+      "chronology_confidence": "traditional",
+      "traditions": [
+        {
+          "name": "Rosh Hashanah as birthday of humanity",
+          "tradition": "Rosh Hashanah is commonly described in Jewish tradition as commemorating the creation of Adam and Eve or the beginning of humanity.",
+          "certainty": "traditional",
+          "source_note": "Tishrei/Rosh Hashanah tradition; see rabbinic discussions in Rosh Hashanah 10b-11a.",
+          "related_appointed_times": [
+            "yom-teruah-rosh-hashanah"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Tishrei tradition summary",
+          "url": "https://en.wikipedia.org/wiki/Tishrei",
+          "note": "Summarizes the tradition that 1 Tishrei is associated with Adam and Eve's creation according to one Talmudic opinion."
+        }
+      ],
+      "notes": "Useful for Today Card and Trumpets/Rosh Hashanah studies, but should be clearly marked as tradition.",
+      "status": "draft"
+    },
+    {
+      "id": "fall-in-eden",
+      "title": "Fall in Eden",
+      "category": [
+        "fall",
+        "biblical_calendar"
+      ],
+      "date_type": "undated",
+      "hebrew_date": null,
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Genesis 3:1-24",
+        "Romans 5:12-21"
+      ],
+      "themes": [
+        "sin",
+        "exile",
+        "promise",
+        "covering"
+      ],
+      "description": "The biblical account of human disobedience, exile from Eden, and the first promise of conflict between the serpent and the woman's seed.",
+      "related_events": [
+        "creation-week",
+        "messiah-resurrection-firstfruits"
+      ],
+      "related_appointed_times": [],
+      "chronology_confidence": "unknown",
+      "traditions": [],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Genesis fall account",
+          "url": null,
+          "note": "No Hebrew or Gregorian date is given in the biblical text."
+        }
+      ],
+      "notes": "Do not invent a festival date for this entry unless owner chooses to track a specific tradition later.",
+      "status": "draft"
+    },
+    {
+      "id": "flood-begins",
+      "title": "Flood Begins",
+      "category": [
+        "biblical_calendar",
+        "historical_event"
+      ],
+      "date_type": "relative_biblical_date",
+      "hebrew_date": {
+        "month": "Second month",
+        "day": 17,
+        "month_number": 2,
+        "calendar_basis": "biblical_month_number",
+        "display": "17th day of the 2nd month",
+        "certainty": "explicit_biblical_date",
+        "source_note": "Genesis 7:11 gives the day and month number, but calendar starting point is debated."
+      },
+      "traditional_year": {
+        "system": "traditional Jewish AM",
+        "value": 1656,
+        "label": "Traditional year of the Flood",
+        "certainty": "traditional",
+        "source_note": "Common traditional chronology places the Flood in AM 1656."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Genesis 7:11-24"
+      ],
+      "themes": [
+        "judgment",
+        "waters",
+        "preservation",
+        "covenant"
+      ],
+      "description": "The floodwaters begin in Noah's six hundredth year, on the seventeenth day of the second month.",
+      "related_events": [
+        "ark-rests"
+      ],
+      "related_appointed_times": [],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [],
+      "viewpoints": [
+        {
+          "label": "Nisan-based month numbering",
+          "summary": "If the biblical month count is read from Nisan, the second month is Iyar.",
+          "certainty": "uncertain",
+          "source_note": "Calendar-basis inference; Genesis gives month number, not the later month name."
+        },
+        {
+          "label": "Tishrei/civil-year reading",
+          "summary": "Some traditional readings align the second month in the flood narrative with Cheshvan.",
+          "certainty": "traditional",
+          "source_note": "Depends on how pre-Exodus month numbering is handled."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Genesis 7:11",
+          "url": null,
+          "note": "Primary biblical date: second month, seventeenth day."
+        }
+      ],
+      "notes": "This entry demonstrates why calendar_basis is needed.",
+      "status": "draft"
+    },
+    {
+      "id": "ark-rests",
+      "title": "Ark Rests on the Mountains of Ararat",
+      "category": [
+        "biblical_calendar",
+        "historical_event"
+      ],
+      "date_type": "relative_biblical_date",
+      "hebrew_date": {
+        "month": "Seventh month",
+        "day": 17,
+        "month_number": 7,
+        "calendar_basis": "biblical_month_number",
+        "display": "17th day of the 7th month",
+        "certainty": "explicit_biblical_date",
+        "source_note": "Genesis 8:4 gives the day and month number."
+      },
+      "traditional_year": {
+        "system": "traditional Jewish AM",
+        "value": 1656,
+        "label": "Traditional Flood year",
+        "certainty": "traditional",
+        "source_note": "Common traditional chronology."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Genesis 8:4"
+      ],
+      "themes": [
+        "rest",
+        "new_creation",
+        "deliverance"
+      ],
+      "description": "The ark comes to rest after the judgment waters, marking a movement toward renewed earth and covenant.",
+      "related_events": [
+        "flood-begins"
+      ],
+      "related_appointed_times": [],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [
+        {
+          "name": "Possible Firstfruits resonance",
+          "tradition": "Some biblical-theology readings notice a thematic resonance between the ark resting on a seventeenth day and later firstfruits/resurrection patterns, but this is not an explicit biblical appointment.",
+          "certainty": "thematic_association",
+          "source_note": "Interpretive pattern only; not entered as a firm date claim.",
+          "related_appointed_times": [
+            "firstfruits"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Genesis 8:4",
+          "url": null,
+          "note": "Primary biblical date: seventh month, seventeenth day."
+        }
+      ],
+      "notes": "Keep this as a cautious thematic link unless owner wants typology fields expanded.",
+      "status": "draft"
+    },
+    {
+      "id": "abraham-born-traditional",
+      "title": "Abraham Born - Traditional Chronology",
+      "category": [
+        "patriarchs",
+        "traditional_chronology"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": null,
+      "traditional_year": {
+        "system": "Seder Olam / rabbinic AM",
+        "value": 1948,
+        "label": "Traditional year often assigned to Abraham's birth",
+        "certainty": "traditional",
+        "source_note": "Common Jewish traditional chronology derives patriarchal years from Genesis genealogies and Seder Olam-style reckoning."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Genesis 11:26-32",
+        "Genesis 12:1-9"
+      ],
+      "themes": [
+        "patriarchs",
+        "calling",
+        "covenant",
+        "promise"
+      ],
+      "description": "A traditional chronology marker for Abraham's life, useful as an anchor for patriarchal timeline work.",
+      "related_events": [
+        "isaac-born-passover-tradition"
+      ],
+      "related_appointed_times": [],
+      "chronology_confidence": "traditional",
+      "traditions": [],
+      "viewpoints": [
+        {
+          "label": "Traditional Jewish chronology",
+          "summary": "Uses AM year labels derived from rabbinic chronology and biblical genealogical calculations.",
+          "certainty": "traditional",
+          "source_note": "Seder Olam-style chronology."
+        },
+        {
+          "label": "Academic historical chronology",
+          "summary": "Usually treats patriarchal dates as difficult to anchor to a precise Gregorian year.",
+          "certainty": "uncertain",
+          "source_note": "Historical reconstruction varies widely."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Seder Olam background",
+          "url": "https://en.wikipedia.org/wiki/Seder_Olam_Rabbah",
+          "note": "Summarizes rabbinic AM chronology and notes differences from modern calendar handling."
+        }
+      ],
+      "notes": "This record is a chronology marker, not a claim of Gregorian precision.",
+      "status": "draft"
+    },
+    {
+      "id": "isaac-born-passover-tradition",
+      "title": "Isaac Born - Passover Tradition",
+      "category": [
+        "patriarchs",
+        "traditional_chronology"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Nisan",
+        "day": 15,
+        "month_number": 1,
+        "calendar_basis": "traditional",
+        "display": "15 Nisan",
+        "certainty": "traditional",
+        "source_note": "A Jewish tradition associates Isaac's birth with 15 Nisan."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Genesis 17:15-21",
+        "Genesis 18:10-14",
+        "Genesis 21:1-7"
+      ],
+      "themes": [
+        "promise",
+        "birth",
+        "laughter",
+        "passover_association"
+      ],
+      "description": "Isaac's birth fulfills the promised son narrative. The 15 Nisan association is traditional rather than explicit in Genesis.",
+      "related_events": [
+        "abraham-born-traditional",
+        "exodus-passover"
+      ],
+      "related_appointed_times": [
+        "passover"
+      ],
+      "chronology_confidence": "traditional",
+      "traditions": [
+        {
+          "name": "Birth of Isaac on Passover",
+          "tradition": "Traditional Jewish chronologies often place Isaac's birth on 15 Nisan.",
+          "certainty": "traditional",
+          "source_note": "Nisan history summaries and rabbinic tradition preserve this association.",
+          "related_appointed_times": [
+            "passover"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Nisan traditional events",
+          "url": "https://en.wikipedia.org/wiki/Nisan",
+          "note": "Lists 15 Nisan tradition for Isaac's birth as a Jewish history/tradition entry."
+        }
+      ],
+      "notes": "Good example of a patriarchal event tied to an appointed time by tradition, not by explicit biblical date.",
+      "status": "draft"
+    },
+    {
+      "id": "akedah-rosh-hashanah-reading",
+      "title": "Binding of Isaac - Rosh Hashanah Reading Association",
+      "category": [
+        "patriarchs",
+        "traditional_chronology"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Tishrei",
+        "day": 1,
+        "month_number": 7,
+        "calendar_basis": "traditional",
+        "display": "Rosh Hashanah association",
+        "certainty": "thematic_association",
+        "source_note": "The Akedah is traditionally read on the second day of Rosh Hashanah; this is liturgical association, not an explicit event date."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Genesis 22:1-19"
+      ],
+      "themes": [
+        "testing",
+        "substitution",
+        "ram",
+        "faith"
+      ],
+      "description": "The binding of Isaac is deeply connected to Rosh Hashanah worship through synagogue reading and shofar themes, though Genesis does not date the event.",
+      "related_events": [
+        "isaac-born-passover-tradition"
+      ],
+      "related_appointed_times": [
+        "yom-teruah-rosh-hashanah"
+      ],
+      "chronology_confidence": "thematic_association",
+      "traditions": [
+        {
+          "name": "Akedah in Rosh Hashanah worship",
+          "tradition": "Genesis 22 is traditionally read in synagogue on Rosh Hashanah, linking the ram and shofar imagery with the day.",
+          "certainty": "strong_tradition",
+          "source_note": "Jewish liturgical practice; commonly noted in discussions of the Binding of Isaac.",
+          "related_appointed_times": [
+            "yom-teruah-rosh-hashanah"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Binding of Isaac worship note",
+          "url": "https://en.wikipedia.org/wiki/Binding_of_Isaac",
+          "note": "Summarizes that Genesis 22 is traditionally read on the second day of Rosh Hashanah."
+        }
+      ],
+      "notes": "Store as liturgical/thematic association, not historical date.",
+      "status": "draft"
+    },
+    {
+      "id": "passover",
+      "title": "Passover",
+      "category": [
+        "appointed_time",
+        "biblical_calendar",
+        "exodus"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Nisan",
+        "day": 14,
+        "month_number": 1,
+        "calendar_basis": "biblical_month_number",
+        "display": "14 Nisan at twilight; meal begins 15 Nisan",
+        "certainty": "explicit_biblical_date",
+        "source_note": "Exodus 12 and Leviticus 23 assign Passover to the first month, fourteenth day, at twilight."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Exodus 12:1-14",
+        "Leviticus 23:4-8",
+        "Numbers 9:1-14",
+        "Deuteronomy 16:1-8"
+      ],
+      "themes": [
+        "redemption",
+        "lamb",
+        "blood",
+        "deliverance",
+        "remembrance"
+      ],
+      "description": "The appointed time remembering the LORD's deliverance of Israel from Egypt through the Passover lamb and the sparing of the firstborn.",
+      "related_events": [
+        "exodus-passover",
+        "messiah-passover-crucifixion"
+      ],
+      "related_appointed_times": [
+        "unleavened-bread",
+        "firstfruits",
+        "shavuot"
+      ],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [],
+      "viewpoints": [
+        {
+          "label": "Biblical wording",
+          "summary": "Passover sacrifice is tied to 14 Nisan; the festival meal is eaten as the 15th begins.",
+          "certainty": "explicit_biblical_date",
+          "source_note": "Exodus 12; Leviticus 23."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Passover overview",
+          "url": "https://en.wikipedia.org/wiki/Passover",
+          "note": "Useful secondary overview of Passover date, biblical narrative, and Omer connection."
+        }
+      ],
+      "notes": "Future schema may separate sacrifice, seder/meal, and week of Unleavened Bread.",
+      "status": "draft"
+    },
+    {
+      "id": "exodus-passover",
+      "title": "The Exodus from Egypt",
+      "category": [
+        "exodus",
+        "historical_event",
+        "traditional_chronology"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Nisan",
+        "day": 15,
+        "month_number": 1,
+        "calendar_basis": "biblical_month_number",
+        "display": "15 Nisan",
+        "certainty": "explicit_biblical_date",
+        "source_note": "The departure follows the Passover night; Numbers 33:3 states Israel set out on the fifteenth day of the first month."
+      },
+      "traditional_year": {
+        "system": "Seder Olam / rabbinic AM",
+        "value": 2448,
+        "label": "Traditional Exodus year",
+        "certainty": "traditional",
+        "source_note": "Seder Olam-style Jewish chronology commonly labels the Exodus as AM 2448."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Exodus 12:29-42",
+        "Numbers 33:3",
+        "Deuteronomy 16:1"
+      ],
+      "themes": [
+        "deliverance",
+        "judgment",
+        "redemption",
+        "nation_birth"
+      ],
+      "description": "Israel leaves Egypt after the Passover judgment, beginning the journey toward Sinai and covenant.",
+      "related_events": [
+        "passover",
+        "red-sea-crossing-tradition",
+        "sinai-torah-given"
+      ],
+      "related_appointed_times": [
+        "passover",
+        "unleavened-bread"
+      ],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [],
+      "viewpoints": [
+        {
+          "label": "Traditional AM chronology",
+          "summary": "Labels the Exodus as AM 2448.",
+          "certainty": "traditional",
+          "source_note": "Seder Olam Rabbah tradition."
+        },
+        {
+          "label": "Historical Exodus dating",
+          "summary": "Academic and confessional chronologies vary; this proof of concept does not choose between early and late Exodus models.",
+          "certainty": "historical_disputed",
+          "source_note": "Requires owner review before Gregorian alignment."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Seder Olam background",
+          "url": "https://en.wikipedia.org/wiki/Seder_Olam_Rabbah",
+          "note": "Summarizes the traditional AM chronology and notes AM 2448 for the Exodus in Seder Olam reckoning."
+        }
+      ],
+      "notes": "Do not add a Gregorian year until the app chooses how to handle early/late Exodus chronologies.",
+      "status": "draft"
+    },
+    {
+      "id": "red-sea-crossing-tradition",
+      "title": "Crossing of the Sea - Seventh Day Tradition",
+      "category": [
+        "exodus",
+        "traditional_chronology"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Nisan",
+        "day": 21,
+        "month_number": 1,
+        "calendar_basis": "traditional",
+        "display": "21 Nisan",
+        "certainty": "traditional",
+        "source_note": "Jewish tradition commonly associates the sea crossing with the seventh day of Unleavened Bread."
+      },
+      "traditional_year": {
+        "system": "Seder Olam / rabbinic AM",
+        "value": 2448,
+        "label": "Traditional Exodus year",
+        "certainty": "traditional",
+        "source_note": "Tied to the traditional Exodus chronology."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Exodus 14:1-31",
+        "Exodus 15:1-21"
+      ],
+      "themes": [
+        "deliverance",
+        "sea",
+        "song",
+        "salvation"
+      ],
+      "description": "The crossing of the sea and the song of deliverance are traditionally connected with the seventh day of Unleavened Bread.",
+      "related_events": [
+        "exodus-passover"
+      ],
+      "related_appointed_times": [
+        "unleavened-bread"
+      ],
+      "chronology_confidence": "traditional",
+      "traditions": [
+        {
+          "name": "Seventh day sea crossing",
+          "tradition": "The seventh day of Passover/Unleavened Bread is traditionally associated with the crossing of the sea.",
+          "certainty": "traditional",
+          "source_note": "Traditional Jewish holiday association; verify primary rabbinic reference in full dataset phase.",
+          "related_appointed_times": [
+            "unleavened-bread"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Needs primary-source follow-up",
+          "url": null,
+          "note": "This association should be traced to primary rabbinic or liturgical sources before production use."
+        }
+      ],
+      "notes": "Marked traditional until source review is completed.",
+      "status": "needs_review"
+    },
+    {
+      "id": "shavuot",
+      "title": "Shavuot / Feast of Weeks",
+      "category": [
+        "appointed_time",
+        "biblical_calendar",
+        "sinai"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Sivan",
+        "day": 6,
+        "month_number": 3,
+        "calendar_basis": "rabbinic_fixed",
+        "display": "6 Sivan in the fixed rabbinic calendar",
+        "certainty": "strong_tradition",
+        "source_note": "Leviticus 23 gives a count from Firstfruits/Passover season; fixed Jewish observance places Shavuot on 6 Sivan."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Exodus 19:1-20:21",
+        "Leviticus 23:15-21",
+        "Deuteronomy 16:9-12",
+        "Acts 2:1-4"
+      ],
+      "themes": [
+        "weeks",
+        "harvest",
+        "torah",
+        "spirit",
+        "covenant"
+      ],
+      "description": "The Feast of Weeks marks the completion of the Omer count and is traditionally associated with the giving of the Torah at Sinai.",
+      "related_events": [
+        "sinai-torah-given"
+      ],
+      "related_appointed_times": [
+        "passover",
+        "firstfruits"
+      ],
+      "chronology_confidence": "strong_tradition",
+      "traditions": [
+        {
+          "name": "Giving of Torah",
+          "tradition": "Rabbinic tradition associates Shavuot with the revelation at Sinai, though the Torah does not explicitly name Shavuot as the date of the giving of the Torah.",
+          "certainty": "strong_tradition",
+          "source_note": "Shavuot tradition and Talmudic discussion preserve 6/7 Sivan viewpoints.",
+          "related_appointed_times": [
+            "shavuot"
+          ]
+        }
+      ],
+      "viewpoints": [
+        {
+          "label": "6 Sivan view",
+          "summary": "Most Talmudic sages associate the giving of Torah with 6 Sivan.",
+          "certainty": "traditional",
+          "source_note": "Shabbat 86b and later tradition."
+        },
+        {
+          "label": "7 Sivan view",
+          "summary": "Rabbi Yose's view places the giving of Torah on 7 Sivan.",
+          "certainty": "traditional",
+          "source_note": "Talmudic discussion summarized in Shavuot references."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Shavuot overview",
+          "url": "https://en.wikipedia.org/wiki/Shavuot",
+          "note": "Summarizes biblical harvest meaning, rabbinic Sinai association, and 6/7 Sivan dispute."
+        }
+      ],
+      "notes": "Important model case for preserving a fixed observance, a biblical count, and a traditional historical association.",
+      "status": "draft"
+    },
+    {
+      "id": "sinai-torah-given",
+      "title": "Torah Given at Sinai",
+      "category": [
+        "sinai",
+        "traditional_chronology"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Sivan",
+        "day": "6 or 7",
+        "month_number": 3,
+        "calendar_basis": "traditional",
+        "display": "6 Sivan in common tradition; 7 Sivan in Rabbi Yose's view",
+        "certainty": "traditional",
+        "source_note": "Talmudic discussion preserves more than one view."
+      },
+      "traditional_year": {
+        "system": "Seder Olam / rabbinic AM",
+        "value": 2448,
+        "label": "Traditional Sinai year",
+        "certainty": "traditional",
+        "source_note": "Tied to the traditional Exodus year."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Exodus 19:1-20:21",
+        "Deuteronomy 5:1-22"
+      ],
+      "themes": [
+        "revelation",
+        "covenant",
+        "torah",
+        "fire",
+        "voice"
+      ],
+      "description": "The covenant revelation at Sinai is traditionally linked to Shavuot, with preserved discussion over the exact date.",
+      "related_events": [
+        "exodus-passover",
+        "tablets-broken-seventeenth-tammuz",
+        "second-tablets-yom-kippur"
+      ],
+      "related_appointed_times": [
+        "shavuot"
+      ],
+      "chronology_confidence": "traditional",
+      "traditions": [
+        {
+          "name": "Sinai and Shavuot",
+          "tradition": "Shavuot is liturgically and traditionally called the season of the giving of the Torah.",
+          "certainty": "strong_tradition",
+          "source_note": "Common Jewish liturgy and rabbinic tradition.",
+          "related_appointed_times": [
+            "shavuot"
+          ]
+        }
+      ],
+      "viewpoints": [
+        {
+          "label": "Common Shavuot alignment",
+          "summary": "Torah given on 6 Sivan.",
+          "certainty": "traditional",
+          "source_note": "Majority traditional view."
+        },
+        {
+          "label": "Rabbi Yose alignment",
+          "summary": "Torah given on 7 Sivan.",
+          "certainty": "traditional",
+          "source_note": "Minority Talmudic view."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Shavuot and Sinai",
+          "url": "https://en.wikipedia.org/wiki/Shavuot",
+          "note": "Notes that the Torah does not explicitly date the giving of Torah to Shavuot and summarizes rabbinic views."
+        }
+      ],
+      "notes": "Do not collapse 6 and 7 Sivan into a single unqualified fact.",
+      "status": "draft"
+    },
+    {
+      "id": "tablets-broken-seventeenth-tammuz",
+      "title": "Tablets Broken after the Golden Calf",
+      "category": [
+        "sinai",
+        "fast_day",
+        "traditional_chronology"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Tammuz",
+        "day": 17,
+        "month_number": 4,
+        "calendar_basis": "traditional",
+        "display": "17 Tammuz",
+        "certainty": "strong_tradition",
+        "source_note": "Mishnah Ta'anit 4:6 lists the breaking of the tablets among calamities of 17 Tammuz."
+      },
+      "traditional_year": {
+        "system": "Seder Olam / rabbinic AM",
+        "value": 2448,
+        "label": "Traditional Sinai year",
+        "certainty": "traditional",
+        "source_note": "Tied to traditional Exodus/Sinai chronology."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Exodus 32:1-35"
+      ],
+      "themes": [
+        "idolatry",
+        "broken_covenant",
+        "intercession",
+        "fast"
+      ],
+      "description": "Moses breaks the tablets after the golden calf. Tradition connects this event with the fast of the seventeenth of Tammuz.",
+      "related_events": [
+        "sinai-torah-given",
+        "second-tablets-yom-kippur"
+      ],
+      "related_appointed_times": [
+        "seventeenth-of-tammuz"
+      ],
+      "chronology_confidence": "strong_tradition",
+      "traditions": [
+        {
+          "name": "Five calamities of 17 Tammuz",
+          "tradition": "The breaking of the tablets is one of the calamities traditionally assigned to 17 Tammuz.",
+          "certainty": "strong_tradition",
+          "source_note": "Mishnah Ta'anit 4:6.",
+          "related_appointed_times": [
+            "seventeenth-of-tammuz"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Seventeenth of Tammuz overview",
+          "url": "https://en.wikipedia.org/wiki/Seventeenth_of_Tammuz",
+          "note": "Summarizes Mishnah Ta'anit 4:6 and later fast-day traditions."
+        }
+      ],
+      "notes": "Good entry for linking fast-day calendar to Sinai narrative.",
+      "status": "draft"
+    },
+    {
+      "id": "second-tablets-yom-kippur",
+      "title": "Second Tablets and Forgiveness - Yom Kippur Tradition",
+      "category": [
+        "sinai",
+        "appointed_time",
+        "traditional_chronology"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Tishrei",
+        "day": 10,
+        "month_number": 7,
+        "calendar_basis": "traditional",
+        "display": "10 Tishrei",
+        "certainty": "traditional",
+        "source_note": "Jewish tradition connects Moses' return with the second tablets and divine forgiveness on Yom Kippur."
+      },
+      "traditional_year": {
+        "system": "Seder Olam / rabbinic AM",
+        "value": 2448,
+        "label": "Traditional Sinai year",
+        "certainty": "traditional",
+        "source_note": "Tied to traditional Exodus/Sinai chronology."
+      },
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Exodus 34:1-10",
+        "Leviticus 16:1-34",
+        "Leviticus 23:26-32"
+      ],
+      "themes": [
+        "atonement",
+        "forgiveness",
+        "covenant_renewal",
+        "mercy"
+      ],
+      "description": "Tradition connects Yom Kippur with Moses returning from Sinai with the second tablets and a message of forgiveness after the golden calf.",
+      "related_events": [
+        "tablets-broken-seventeenth-tammuz"
+      ],
+      "related_appointed_times": [
+        "yom-kippur"
+      ],
+      "chronology_confidence": "traditional",
+      "traditions": [
+        {
+          "name": "Second tablets on Yom Kippur",
+          "tradition": "Moses' return with the second tablets is traditionally associated with 10 Tishrei.",
+          "certainty": "traditional",
+          "source_note": "Common Jewish tradition; primary rabbinic source should be linked in a later pass.",
+          "related_appointed_times": [
+            "yom-kippur"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Needs primary-source follow-up",
+          "url": null,
+          "note": "The association is widely taught but should be traced to primary rabbinic citations before production use."
+        }
+      ],
+      "notes": "This entry should not replace Leviticus 16 as the primary biblical basis for Yom Kippur.",
+      "status": "needs_review"
+    },
+    {
+      "id": "spies-report-tisha-bav",
+      "title": "Spies' Report and Wilderness Judgment",
+      "category": [
+        "wilderness",
+        "fast_day",
+        "traditional_chronology"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Av",
+        "day": 9,
+        "month_number": 5,
+        "calendar_basis": "traditional",
+        "display": "9 Av",
+        "certainty": "strong_tradition",
+        "source_note": "Mishnah Ta'anit 4:6 lists the decree after the spies among calamities of 9 Av."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Numbers 13:1-14:45",
+        "Deuteronomy 1:19-46"
+      ],
+      "themes": [
+        "unbelief",
+        "land",
+        "mourning",
+        "judgment"
+      ],
+      "description": "The negative report of the spies and Israel's refusal to enter the land are traditionally connected with Tisha B'Av.",
+      "related_events": [
+        "entry-into-land"
+      ],
+      "related_appointed_times": [
+        "tisha-bav"
+      ],
+      "chronology_confidence": "strong_tradition",
+      "traditions": [
+        {
+          "name": "First calamity of 9 Av",
+          "tradition": "The spies' report and resulting wilderness judgment are listed among the calamities of 9 Av.",
+          "certainty": "strong_tradition",
+          "source_note": "Mishnah Ta'anit 4:6.",
+          "related_appointed_times": [
+            "tisha-bav"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Tisha B'Av overview",
+          "url": "https://en.wikipedia.org/wiki/Tisha_B%27Av",
+          "note": "Summarizes Mishnah Ta'anit 4:6 and the traditional five calamities of 9 Av."
+        }
+      ],
+      "notes": "Useful for connecting wilderness narrative to later Temple mourning.",
+      "status": "draft"
+    },
+    {
+      "id": "entry-into-land",
+      "title": "Israel Crosses the Jordan into the Land",
+      "category": [
+        "land",
+        "biblical_calendar"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Nisan",
+        "day": 10,
+        "month_number": 1,
+        "calendar_basis": "biblical_month_number",
+        "display": "10th day of the 1st month",
+        "certainty": "explicit_biblical_date",
+        "source_note": "Joshua 4:19 gives the tenth day of the first month."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Joshua 3:1-17",
+        "Joshua 4:19-24"
+      ],
+      "themes": [
+        "land",
+        "crossing",
+        "memorial",
+        "promise"
+      ],
+      "description": "Israel crosses the Jordan and camps at Gilgal on the tenth day of the first month.",
+      "related_events": [
+        "first-passover-in-land"
+      ],
+      "related_appointed_times": [
+        "passover"
+      ],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Joshua 4:19",
+          "url": null,
+          "note": "Primary biblical date."
+        }
+      ],
+      "notes": "Potential visual anchor for crossing/map timeline.",
+      "status": "draft"
+    },
+    {
+      "id": "first-passover-in-land",
+      "title": "First Passover in the Land",
+      "category": [
+        "land",
+        "appointed_time",
+        "biblical_calendar"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Nisan",
+        "day": 14,
+        "month_number": 1,
+        "calendar_basis": "biblical_month_number",
+        "display": "14 Nisan",
+        "certainty": "explicit_biblical_date",
+        "source_note": "Joshua 5:10 gives the fourteenth day of the month."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Joshua 5:10-12"
+      ],
+      "themes": [
+        "passover",
+        "land",
+        "manna_ceases",
+        "first_produce"
+      ],
+      "description": "Israel keeps Passover at Gilgal; the manna ceases after they eat from the produce of the land.",
+      "related_events": [
+        "entry-into-land"
+      ],
+      "related_appointed_times": [
+        "passover",
+        "unleavened-bread",
+        "firstfruits"
+      ],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Joshua 5:10-12",
+          "url": null,
+          "note": "Primary biblical text links Passover, land entry, and eating the produce of Canaan."
+        }
+      ],
+      "notes": "This entry bridges Calendar Card, land studies, and harvest themes.",
+      "status": "draft"
+    },
+    {
+      "id": "temple-dedication-sukkot",
+      "title": "Solomon's Temple Dedication and Sukkot Season",
+      "category": [
+        "temple",
+        "united_kingdom",
+        "appointed_time"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Tishrei / Ethanim",
+        "day": null,
+        "month_number": 7,
+        "calendar_basis": "biblical_month_number",
+        "display": "Seventh month, during a fourteen-day assembly",
+        "certainty": "explicit_biblical_date",
+        "source_note": "1 Kings 8 places the assembly in Ethanim, the seventh month; the exact starting day is interpreted from the dedication sequence."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "1 Kings 8:1-66",
+        "2 Chronicles 5:2-7:10"
+      ],
+      "themes": [
+        "temple",
+        "glory",
+        "sukkot",
+        "dedication",
+        "kingdom"
+      ],
+      "description": "Solomon gathers Israel in the seventh month for the dedication of the Temple, with the celebration overlapping the Sukkot season.",
+      "related_events": [
+        "tisha-bav-first-temple-destroyed"
+      ],
+      "related_appointed_times": [
+        "sukkot"
+      ],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [
+        {
+          "name": "Temple dedication and Sukkot",
+          "tradition": "The dedication is associated with the feast season in the seventh month, especially Sukkot.",
+          "certainty": "strong_tradition",
+          "source_note": "1 Kings 8:2, 65-66 and 2 Chronicles 7:8-10 connect the dedication with the seventh-month feast period.",
+          "related_appointed_times": [
+            "sukkot"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Biblical dedication texts",
+          "url": null,
+          "note": "Primary texts give the seventh month and feast context."
+        }
+      ],
+      "notes": "Later pass can add traditional date labels such as 8 Tishrei if owner approves source handling.",
+      "status": "draft"
+    },
+    {
+      "id": "tenth-tevet-siege-begins",
+      "title": "Babylonian Siege of Jerusalem Begins",
+      "category": [
+        "exile",
+        "fast_day",
+        "historical_event"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Tevet",
+        "day": 10,
+        "month_number": 10,
+        "calendar_basis": "biblical_month_number",
+        "display": "10 Tevet",
+        "certainty": "explicit_biblical_date",
+        "source_note": "2 Kings 25:1 and Ezekiel 24:1-2 give the tenth day of the tenth month."
+      },
+      "traditional_year": null,
+      "gregorian_date": {
+        "year": "588/587",
+        "month": null,
+        "day": null,
+        "display": "588/587 BCE, depending on regnal-year handling",
+        "era": "BCE",
+        "certainty": "historical_disputed",
+        "source_note": "Historical chronology varies slightly; the fast date remains fixed as 10 Tevet."
+      },
+      "scripture_refs": [
+        "2 Kings 25:1",
+        "Jeremiah 52:4",
+        "Ezekiel 24:1-2",
+        "Zechariah 8:19"
+      ],
+      "themes": [
+        "siege",
+        "exile",
+        "warning",
+        "fast"
+      ],
+      "description": "Nebuchadnezzar's siege of Jerusalem begins, later remembered in Jewish fasting as the fast of the tenth month.",
+      "related_events": [
+        "tisha-bav-first-temple-destroyed"
+      ],
+      "related_appointed_times": [
+        "tenth-of-tevet"
+      ],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Tenth of Tevet overview",
+          "url": "https://en.wikipedia.org/wiki/Tenth_of_Tevet",
+          "note": "Summarizes biblical basis and later fast observance."
+        }
+      ],
+      "notes": "Good entry for linking prophetic texts to fast-day cycle.",
+      "status": "draft"
+    },
+    {
+      "id": "tisha-bav-first-temple-destroyed",
+      "title": "First Temple Destroyed",
+      "category": [
+        "temple",
+        "exile",
+        "fast_day",
+        "historical_event"
+      ],
+      "date_type": "disputed",
+      "hebrew_date": {
+        "month": "Av",
+        "day": "7-10; traditionally mourned on 9 Av",
+        "month_number": 5,
+        "calendar_basis": "biblical_month_number",
+        "display": "9 Av fast association",
+        "certainty": "strong_tradition",
+        "source_note": "2 Kings 25:8 and Jeremiah 52:12 differ in wording/date emphasis; rabbinic tradition centers mourning on 9 Av."
+      },
+      "traditional_year": {
+        "system": "traditional Jewish AM",
+        "value": 3338,
+        "label": "Traditional Jewish year for First Temple destruction",
+        "certainty": "traditional",
+        "source_note": "Traditional Jewish chronology often gives 3338 AM / 423-422 BCE."
+      },
+      "gregorian_date": {
+        "year": "586/587",
+        "month": null,
+        "day": null,
+        "display": "586 or 587 BCE in many modern historical chronologies",
+        "era": "BCE",
+        "certainty": "historical_disputed",
+        "source_note": "Modern chronologies often place the destruction in 586 or 587 BCE; traditional Jewish chronology gives a later BCE label."
+      },
+      "scripture_refs": [
+        "2 Kings 25:8-21",
+        "Jeremiah 52:12-30",
+        "2 Chronicles 36:17-21"
+      ],
+      "themes": [
+        "temple",
+        "exile",
+        "mourning",
+        "judgment"
+      ],
+      "description": "The destruction of Solomon's Temple and the deepening of Judah's exile. The biblical texts, rabbinic fast date, traditional chronology, and modern historical chronology must be kept distinct.",
+      "related_events": [
+        "temple-dedication-sukkot",
+        "tenth-tevet-siege-begins",
+        "second-temple-destroyed"
+      ],
+      "related_appointed_times": [
+        "tisha-bav"
+      ],
+      "chronology_confidence": "historical_disputed",
+      "traditions": [
+        {
+          "name": "Tisha B'Av mourning",
+          "tradition": "The First Temple destruction is one of the central calamities mourned on Tisha B'Av.",
+          "certainty": "strong_tradition",
+          "source_note": "Mishnah Ta'anit 4:6 and later Jewish practice.",
+          "related_appointed_times": [
+            "tisha-bav"
+          ]
+        }
+      ],
+      "viewpoints": [
+        {
+          "label": "Traditional Jewish chronology",
+          "summary": "Often gives 3338 AM, approximately 423/422 BCE.",
+          "certainty": "traditional",
+          "source_note": "Traditional chronology differs from modern academic chronology."
+        },
+        {
+          "label": "Modern historical chronology",
+          "summary": "Often gives 586 or 587 BCE.",
+          "certainty": "historical_disputed",
+          "source_note": "Regnal-year and source handling varies."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Tisha B'Av overview",
+          "url": "https://en.wikipedia.org/wiki/Tisha_B%27Av",
+          "note": "Summarizes Temple destruction commemoration and biblical/rabbinic date issues."
+        }
+      ],
+      "notes": "This is a key stress-test entry for multiple chronology systems.",
+      "status": "draft"
+    },
+    {
+      "id": "return-under-cyrus",
+      "title": "Return under Cyrus",
+      "category": [
+        "return",
+        "historical_event"
+      ],
+      "date_type": "historical_reconstruction",
+      "hebrew_date": null,
+      "traditional_year": null,
+      "gregorian_date": {
+        "year": 538,
+        "month": null,
+        "day": null,
+        "display": "c. 538 BCE",
+        "era": "BCE",
+        "certainty": "historical_consensus",
+        "source_note": "Common historical date for Cyrus's decree after the Persian conquest of Babylon; exact biblical-calendar day not provided."
+      },
+      "scripture_refs": [
+        "Ezra 1:1-11",
+        "2 Chronicles 36:22-23",
+        "Isaiah 44:28-45:13"
+      ],
+      "themes": [
+        "return",
+        "restoration",
+        "decree",
+        "temple"
+      ],
+      "description": "Cyrus permits the return and the rebuilding of the house of the LORD in Jerusalem.",
+      "related_events": [
+        "second-temple-completed"
+      ],
+      "related_appointed_times": [],
+      "chronology_confidence": "historical_consensus",
+      "traditions": [],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Ezra return texts",
+          "url": null,
+          "note": "The biblical text does not give a Hebrew calendar day for the decree."
+        }
+      ],
+      "notes": "Gregorian year should be reviewed against chosen historical chronology source in full phase.",
+      "status": "draft"
+    },
+    {
+      "id": "second-temple-completed",
+      "title": "Second Temple Completed",
+      "category": [
+        "return",
+        "temple",
+        "biblical_calendar",
+        "historical_event"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Adar",
+        "day": 3,
+        "month_number": 12,
+        "calendar_basis": "biblical_month_number",
+        "display": "3 Adar, sixth year of Darius",
+        "certainty": "explicit_biblical_date",
+        "source_note": "Ezra 6:15 gives the third day of Adar in the sixth year of Darius."
+      },
+      "traditional_year": null,
+      "gregorian_date": {
+        "year": 515,
+        "month": null,
+        "day": null,
+        "display": "c. 515 BCE",
+        "era": "BCE",
+        "certainty": "historical_consensus",
+        "source_note": "Common historical alignment for Darius I's sixth year."
+      },
+      "scripture_refs": [
+        "Ezra 6:13-18"
+      ],
+      "themes": [
+        "temple",
+        "return",
+        "dedication",
+        "restoration"
+      ],
+      "description": "The returned community completes the Second Temple and dedicates it with offerings.",
+      "related_events": [
+        "return-under-cyrus",
+        "second-temple-destroyed"
+      ],
+      "related_appointed_times": [],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Ezra 6:15",
+          "url": null,
+          "note": "Primary biblical date."
+        }
+      ],
+      "notes": "Good example where biblical date and approximate historical year can coexist.",
+      "status": "draft"
+    },
+    {
+      "id": "messiah-passover-crucifixion",
+      "title": "Messiah's Death and Passover Season",
+      "category": [
+        "messiah",
+        "appointed_time",
+        "historical_event"
+      ],
+      "date_type": "disputed",
+      "hebrew_date": {
+        "month": "Nisan",
+        "day": "14 or 15, depending on Gospel chronology interpretation",
+        "month_number": 1,
+        "calendar_basis": "second_temple",
+        "display": "Passover season",
+        "certainty": "historical_disputed",
+        "source_note": "The Passion narratives clearly place the death of Jesus/Yeshua in Passover season; exact calendrical harmonization is debated."
+      },
+      "traditional_year": null,
+      "gregorian_date": {
+        "year": "30 or 33",
+        "month": null,
+        "day": null,
+        "display": "Often proposed as 30 or 33 CE",
+        "era": "CE",
+        "certainty": "historical_disputed",
+        "source_note": "Common reconstruction options; this dataset does not choose one in the first pass."
+      },
+      "scripture_refs": [
+        "Matthew 26:17-27:61",
+        "Mark 14:12-15:47",
+        "Luke 22:7-23:56",
+        "John 18:28-19:42",
+        "1 Corinthians 5:7"
+      ],
+      "themes": [
+        "messiah",
+        "passover",
+        "lamb",
+        "atonement",
+        "redemption"
+      ],
+      "description": "The New Testament places Messiah's death in the Passover season and interprets him through Passover lamb imagery. Exact calendrical alignment requires careful handling.",
+      "related_events": [
+        "passover",
+        "messiah-resurrection-firstfruits"
+      ],
+      "related_appointed_times": [
+        "passover",
+        "unleavened-bread"
+      ],
+      "chronology_confidence": "historical_disputed",
+      "traditions": [
+        {
+          "name": "Messiah as Passover",
+          "tradition": "Christian and Messianic readings connect Messiah's death with Passover deliverance and lamb imagery.",
+          "certainty": "strong_tradition",
+          "source_note": "1 Corinthians 5:7 explicitly uses Passover language; chronology details remain debated.",
+          "related_appointed_times": [
+            "passover"
+          ]
+        }
+      ],
+      "viewpoints": [
+        {
+          "label": "Synoptic chronology emphasis",
+          "summary": "The meal is presented with Passover meal language.",
+          "certainty": "historical_disputed",
+          "source_note": "Matthew, Mark, and Luke require careful comparison."
+        },
+        {
+          "label": "John chronology emphasis",
+          "summary": "John's timing is often read as aligning the death with preparation/passover lamb themes.",
+          "certainty": "historical_disputed",
+          "source_note": "John 18-19 requires careful comparison."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Passover overview",
+          "url": "https://en.wikipedia.org/wiki/Passover",
+          "note": "Background for Passover date and sacrifice; New Testament chronology needs dedicated sources in later phase."
+        }
+      ],
+      "notes": "Owner should decide how to represent Gospel chronology without forcing harmonization.",
+      "status": "needs_review"
+    },
+    {
+      "id": "firstfruits",
+      "title": "Firstfruits / Wave Sheaf",
+      "category": [
+        "appointed_time",
+        "biblical_calendar"
+      ],
+      "date_type": "disputed",
+      "hebrew_date": {
+        "month": "Nisan",
+        "day": "During Unleavened Bread; commonly 16 Nisan in rabbinic reckoning",
+        "month_number": 1,
+        "calendar_basis": "rabbinic_fixed",
+        "display": "Omer begins 16 Nisan in rabbinic practice",
+        "certainty": "traditional",
+        "source_note": "Leviticus 23 says the day after the Sabbath; later traditions differ on how Sabbath is read."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Leviticus 23:9-14",
+        "Joshua 5:10-12",
+        "1 Corinthians 15:20-23"
+      ],
+      "themes": [
+        "firstfruits",
+        "harvest",
+        "omer",
+        "resurrection"
+      ],
+      "description": "The first sheaf offering begins the harvest count toward Shavuot. Later Jewish and Christian readings differ in calendrical and theological emphasis.",
+      "related_events": [
+        "messiah-resurrection-firstfruits",
+        "first-passover-in-land"
+      ],
+      "related_appointed_times": [
+        "passover",
+        "unleavened-bread",
+        "shavuot"
+      ],
+      "chronology_confidence": "traditional",
+      "traditions": [
+        {
+          "name": "Rabbinic Omer start",
+          "tradition": "Rabbinic Judaism begins the Omer on 16 Nisan, the second night of Passover.",
+          "certainty": "strong_tradition",
+          "source_note": "Standard Jewish practice and Passover/Omer descriptions.",
+          "related_appointed_times": [
+            "shavuot"
+          ]
+        },
+        {
+          "name": "Resurrection firstfruits reading",
+          "tradition": "Christian and Messianic readings often connect Messiah's resurrection with firstfruits language.",
+          "certainty": "thematic_association",
+          "source_note": "1 Corinthians 15:20-23 calls Messiah the firstfruits of those who sleep.",
+          "related_appointed_times": [
+            "firstfruits"
+          ]
+        }
+      ],
+      "viewpoints": [
+        {
+          "label": "Rabbinic reading",
+          "summary": "The Sabbath in Leviticus 23 is read in relation to the festival, yielding a fixed 16 Nisan Omer start.",
+          "certainty": "strong_tradition",
+          "source_note": "Standard rabbinic practice."
+        },
+        {
+          "label": "Weekly Sabbath reading",
+          "summary": "Some groups read the Sabbath as the weekly Sabbath during Unleavened Bread, producing a Sunday Firstfruits count.",
+          "certainty": "traditional",
+          "source_note": "Preserved in non-rabbinic and some Christian/Messianic readings."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Passover Omer overview",
+          "url": "https://en.wikipedia.org/wiki/Passover",
+          "note": "Summarizes counting the Omer from 16 Nisan in Jewish practice."
+        },
+        {
+          "label": "First Fruits overview",
+          "url": "https://en.wikipedia.org/wiki/First_Fruits",
+          "note": "Summarizes biblical firstfruits and New Testament firstfruits language."
+        }
+      ],
+      "notes": "This entry needs careful UI support for multiple calendar traditions.",
+      "status": "draft"
+    },
+    {
+      "id": "messiah-resurrection-firstfruits",
+      "title": "Messiah's Resurrection and Firstfruits Association",
+      "category": [
+        "messiah",
+        "appointed_time",
+        "historical_event"
+      ],
+      "date_type": "traditional_association",
+      "hebrew_date": {
+        "month": "Nisan",
+        "day": "During Unleavened Bread / first day of the week after the crucifixion",
+        "month_number": 1,
+        "calendar_basis": "second_temple",
+        "display": "First day of the week; Firstfruits association in many readings",
+        "certainty": "thematic_association",
+        "source_note": "The Gospels state the resurrection was discovered on the first day of the week; Firstfruits linkage is theological and calendrical interpretation."
+      },
+      "traditional_year": null,
+      "gregorian_date": {
+        "year": "30 or 33",
+        "month": null,
+        "day": null,
+        "display": "Often tied to 30 or 33 CE Passion chronologies",
+        "era": "CE",
+        "certainty": "historical_disputed",
+        "source_note": "Depends on Passion chronology model."
+      },
+      "scripture_refs": [
+        "Matthew 28:1-10",
+        "Mark 16:1-8",
+        "Luke 24:1-12",
+        "John 20:1-18",
+        "1 Corinthians 15:20-23"
+      ],
+      "themes": [
+        "resurrection",
+        "firstfruits",
+        "new_creation",
+        "messiah"
+      ],
+      "description": "The New Testament witnesses the resurrection on the first day of the week and calls Messiah the firstfruits. The exact Hebrew date depends on Passion chronology and Firstfruits calendar interpretation.",
+      "related_events": [
+        "fall-in-eden",
+        "messiah-passover-crucifixion"
+      ],
+      "related_appointed_times": [
+        "firstfruits",
+        "unleavened-bread"
+      ],
+      "chronology_confidence": "thematic_association",
+      "traditions": [
+        {
+          "name": "Resurrection as Firstfruits",
+          "tradition": "Christian and Messianic interpretation commonly associates the resurrection with Firstfruits based on 1 Corinthians 15.",
+          "certainty": "thematic_association",
+          "source_note": "1 Corinthians 15:20-23 gives the firstfruits language; calendar alignment must be handled separately.",
+          "related_appointed_times": [
+            "firstfruits"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "First Fruits overview",
+          "url": "https://en.wikipedia.org/wiki/First_Fruits",
+          "note": "Notes 1 Corinthians' use of firstfruits language for Jesus' resurrection."
+        }
+      ],
+      "notes": "Do not present a single Nisan date until owner chooses chronology model.",
+      "status": "needs_review"
+    },
+    {
+      "id": "yom-teruah-rosh-hashanah",
+      "title": "Yom Teruah / Rosh Hashanah",
+      "category": [
+        "appointed_time",
+        "biblical_calendar"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Tishrei",
+        "day": 1,
+        "month_number": 7,
+        "calendar_basis": "biblical_month_number",
+        "display": "1 Tishrei",
+        "certainty": "explicit_biblical_date",
+        "source_note": "Leviticus 23 gives a memorial of blowing on the first day of the seventh month."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Leviticus 23:23-25",
+        "Numbers 29:1-6",
+        "Nehemiah 8:1-12"
+      ],
+      "themes": [
+        "shofar",
+        "remembrance",
+        "kingship",
+        "judgment",
+        "creation"
+      ],
+      "description": "The biblical day of trumpet/shofar blowing on the first day of the seventh month, later observed as Rosh Hashanah in rabbinic Judaism.",
+      "related_events": [
+        "adam-and-eve-created",
+        "akedah-rosh-hashanah-reading"
+      ],
+      "related_appointed_times": [
+        "yom-kippur",
+        "sukkot"
+      ],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [
+        {
+          "name": "Creation/humanity association",
+          "tradition": "Rosh Hashanah is traditionally associated with creation, especially the creation of humanity.",
+          "certainty": "traditional",
+          "source_note": "Rabbinic Tishrei creation tradition.",
+          "related_appointed_times": [
+            "yom-teruah-rosh-hashanah"
+          ]
+        }
+      ],
+      "viewpoints": [
+        {
+          "label": "Biblical festival name",
+          "summary": "The Torah emphasizes a day of blowing/remembrance on 1 Tishrei.",
+          "certainty": "explicit_biblical_date",
+          "source_note": "Leviticus 23; Numbers 29."
+        },
+        {
+          "label": "Rabbinic New Year observance",
+          "summary": "Rabbinic Judaism observes 1 Tishrei as Rosh Hashanah, the civil new year and day of judgment.",
+          "certainty": "strong_tradition",
+          "source_note": "Mishnah Rosh Hashanah and later Jewish practice."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Rosh Hashanah overview",
+          "url": "https://en.wikipedia.org/wiki/Rosh_Hashanah",
+          "note": "Summarizes biblical and rabbinic meanings."
+        }
+      ],
+      "notes": "Use both names where helpful; avoid erasing the biblical Yom Teruah language.",
+      "status": "draft"
+    },
+    {
+      "id": "yom-kippur",
+      "title": "Yom Kippur / Day of Atonement",
+      "category": [
+        "appointed_time",
+        "biblical_calendar"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Tishrei",
+        "day": 10,
+        "month_number": 7,
+        "calendar_basis": "biblical_month_number",
+        "display": "10 Tishrei",
+        "certainty": "explicit_biblical_date",
+        "source_note": "Leviticus 16 and 23 assign the Day of Atonement to the tenth day of the seventh month."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Leviticus 16:1-34",
+        "Leviticus 23:26-32",
+        "Numbers 29:7-11",
+        "Hebrews 9:1-14"
+      ],
+      "themes": [
+        "atonement",
+        "cleansing",
+        "high_priest",
+        "mercy",
+        "repentance"
+      ],
+      "description": "The appointed day of affliction, atonement, and sanctuary cleansing in the seventh month.",
+      "related_events": [
+        "second-tablets-yom-kippur"
+      ],
+      "related_appointed_times": [
+        "yom-teruah-rosh-hashanah",
+        "sukkot"
+      ],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [
+        {
+          "name": "Second tablets and forgiveness",
+          "tradition": "Tradition associates Yom Kippur with Moses' return with the second tablets after the golden calf.",
+          "certainty": "traditional",
+          "source_note": "Common Jewish teaching; needs primary citation review before production.",
+          "related_appointed_times": [
+            "yom-kippur"
+          ]
+        }
+      ],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Leviticus 16 and 23",
+          "url": null,
+          "note": "Primary biblical basis for the day."
+        }
+      ],
+      "notes": "Keep the appointed time itself separate from later associated Sinai tradition.",
+      "status": "draft"
+    },
+    {
+      "id": "sukkot",
+      "title": "Sukkot / Feast of Tabernacles",
+      "category": [
+        "appointed_time",
+        "biblical_calendar"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Tishrei",
+        "day": "15-21",
+        "month_number": 7,
+        "calendar_basis": "biblical_month_number",
+        "display": "15-21 Tishrei",
+        "certainty": "explicit_biblical_date",
+        "source_note": "Leviticus 23 gives the fifteenth day of the seventh month and a seven-day feast."
+      },
+      "traditional_year": null,
+      "gregorian_date": null,
+      "scripture_refs": [
+        "Leviticus 23:33-43",
+        "Numbers 29:12-38",
+        "Deuteronomy 16:13-15",
+        "Zechariah 14:16-19",
+        "John 7:1-39"
+      ],
+      "themes": [
+        "tabernacles",
+        "wilderness",
+        "joy",
+        "harvest",
+        "dwelling"
+      ],
+      "description": "The seventh-month feast of booths, remembering wilderness dwelling and celebrating harvest joy before the LORD.",
+      "related_events": [
+        "temple-dedication-sukkot"
+      ],
+      "related_appointed_times": [
+        "yom-teruah-rosh-hashanah",
+        "yom-kippur"
+      ],
+      "chronology_confidence": "explicit_biblical_date",
+      "traditions": [],
+      "viewpoints": [],
+      "source_notes": [
+        {
+          "label": "Leviticus 23",
+          "url": null,
+          "note": "Primary biblical date and command."
+        }
+      ],
+      "notes": "Future expansion can add Hoshana Rabbah, Shemini Atzeret, water-pouring tradition, and Temple-era practices.",
+      "status": "draft"
+    },
+    {
+      "id": "second-temple-destroyed",
+      "title": "Second Temple Destroyed",
+      "category": [
+        "temple",
+        "fast_day",
+        "historical_event"
+      ],
+      "date_type": "fixed_hebrew_date",
+      "hebrew_date": {
+        "month": "Av",
+        "day": 9,
+        "month_number": 5,
+        "calendar_basis": "traditional",
+        "display": "9 Av",
+        "certainty": "strong_tradition",
+        "source_note": "The destruction of the Second Temple is commemorated on Tisha B'Av."
+      },
+      "traditional_year": {
+        "system": "traditional Jewish AM",
+        "value": 3828,
+        "label": "Traditional Jewish year sometimes given for Second Temple destruction",
+        "certainty": "traditional",
+        "source_note": "Rabbinic chronology differs from standard historical CE dating."
+      },
+      "gregorian_date": {
+        "year": 70,
+        "month": 8,
+        "day": null,
+        "display": "70 CE; exact Julian/Gregorian day conversion varies in summaries",
+        "era": "CE",
+        "certainty": "historical_consensus",
+        "source_note": "Standard historical date for Roman destruction of Jerusalem and the Temple."
+      },
+      "scripture_refs": [
+        "Matthew 24:1-2",
+        "Luke 21:5-6"
+      ],
+      "themes": [
+        "temple",
+        "mourning",
+        "exile",
+        "rome"
+      ],
+      "description": "The Roman destruction of the Second Temple, remembered with the First Temple destruction on Tisha B'Av.",
+      "related_events": [
+        "tisha-bav-first-temple-destroyed",
+        "second-temple-completed"
+      ],
+      "related_appointed_times": [
+        "tisha-bav"
+      ],
+      "chronology_confidence": "historical_consensus",
+      "traditions": [
+        {
+          "name": "Tisha B'Av mourning",
+          "tradition": "The Second Temple destruction is one of the central calamities mourned on Tisha B'Av.",
+          "certainty": "strong_tradition",
+          "source_note": "Mishnah Ta'anit 4:6 and later Jewish practice.",
+          "related_appointed_times": [
+            "tisha-bav"
+          ]
+        }
+      ],
+      "viewpoints": [
+        {
+          "label": "Historical chronology",
+          "summary": "Commonly dated to 70 CE.",
+          "certainty": "historical_consensus",
+          "source_note": "Roman-period historical chronology."
+        },
+        {
+          "label": "Traditional rabbinic chronology",
+          "summary": "Some rabbinic chronology labels differ by two years or more from standard historical summaries.",
+          "certainty": "traditional",
+          "source_note": "See Second Temple and Seder Olam chronology notes."
+        }
+      ],
+      "source_notes": [
+        {
+          "label": "Tisha B'Av overview",
+          "url": "https://en.wikipedia.org/wiki/Tisha_B%27Av",
+          "note": "Summarizes commemoration of First and Second Temple destructions."
+        },
+        {
+          "label": "Second Temple overview",
+          "url": "https://en.wikipedia.org/wiki/Second_Temple",
+          "note": "Summarizes Second Temple chronology and rabbinic chronology differences."
+        }
+      ],
+      "notes": "Keep Jewish fast date, historical CE date, and traditional AM year as separate fields.",
+      "status": "draft"
+    }
+  ]
+}
