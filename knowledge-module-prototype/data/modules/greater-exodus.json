@@ -1,0 +1,403 @@
+{
+  "schemaVersion": "0.1.0",
+  "moduleType": "knowledge-theme",
+  "id": "theme.greater-exodus",
+  "slug": "greater-exodus",
+  "title": "Greater Exodus",
+  "status": "prototype",
+  "summary": {
+    "what": "A reusable biblical theme that compares the first Exodus from Egypt with prophetic expectations of a later, greater regathering, deliverance, purification, and covenant restoration.",
+    "whyItMatters": "The theme can connect Exodus, prophetic restoration texts, Revelation, Sacred Time, commandments, maps, and timeline events without rewriting the same material in each system.",
+    "boundaries": [
+      "This module records relationships and confidence labels; it does not decide a full eschatology.",
+      "Direct Scripture links are separated from typological, thematic, disputed, and speculative links.",
+      "Modern fulfillment claims are outside the core module unless added later as disputed source relationships."
+    ]
+  },
+  "primaryQuestions": [
+    "How does the first Exodus become a pattern for later deliverance?",
+    "Which prophets speak of a future regathering greater than the Exodus from Egypt?",
+    "Where does Revelation echo Exodus language, plague patterns, wilderness protection, tribes, and the Song of Moses?",
+    "Which parts are direct biblical connections and which are interpretive or disputed?"
+  ],
+  "tags": [
+    "exodus",
+    "restoration",
+    "regathering",
+    "revelation",
+    "israel",
+    "judah",
+    "tribes",
+    "wilderness",
+    "song-of-moses",
+    "sacred-time"
+  ],
+  "confidenceScale": {
+    "explicit": "Directly stated by the cited text.",
+    "strong": "Strong relationship based on direct wording, repeated biblical pattern, or close canonical link.",
+    "medium": "Reasonable thematic or typological relationship, but not directly stated.",
+    "disputed": "Recognized interpretive disagreement or multiple competing readings.",
+    "speculative": "Possible association requiring review before reuse in study surfaces."
+  },
+  "relationships": {
+    "scriptures": [
+      {
+        "id": "scripture.exodus.12.37-38",
+        "reference": "Exodus 12:37-38",
+        "label": "Israel and mixed multitude leave Egypt",
+        "relationshipType": "prototype-event",
+        "confidence": "explicit",
+        "note": "Baseline first-Exodus pattern: Israel plus mixed multitude."
+      },
+      {
+        "id": "scripture.exodus.14.13-14",
+        "reference": "Exodus 14:13-14",
+        "label": "The LORD fights while Israel holds peace",
+        "relationshipType": "deliverance-pattern",
+        "confidence": "strong",
+        "note": "Useful for silence/deliverance echoes, especially when paired cautiously with Revelation 8:1."
+      },
+      {
+        "id": "scripture.exodus.15.1-18",
+        "reference": "Exodus 15:1-18",
+        "label": "Song of Moses after deliverance",
+        "relationshipType": "direct-pattern-source",
+        "confidence": "strong",
+        "note": "Canonical source for later Song of Moses connections."
+      },
+      {
+        "id": "scripture.jeremiah.16.14-15",
+        "reference": "Jeremiah 16:14-15",
+        "label": "A future return greater than the Exodus from Egypt",
+        "relationshipType": "explicit-prophetic-comparison",
+        "confidence": "explicit",
+        "note": "Core Greater Exodus anchor text."
+      },
+      {
+        "id": "scripture.jeremiah.23.7-8",
+        "reference": "Jeremiah 23:7-8",
+        "label": "A future return that reframes the Exodus memory",
+        "relationshipType": "explicit-prophetic-comparison",
+        "confidence": "explicit",
+        "note": "Parallel to Jeremiah 16:14-15."
+      },
+      {
+        "id": "scripture.ezekiel.20.33-38",
+        "reference": "Ezekiel 20:33-38",
+        "label": "Gathering, wilderness judgment, and covenant discipline",
+        "relationshipType": "restoration-pattern",
+        "confidence": "strong",
+        "note": "Strong thematic relationship to wilderness purification."
+      },
+      {
+        "id": "scripture.hosea.2.14-23",
+        "reference": "Hosea 2:14-23",
+        "label": "Wilderness wooing and renewed covenant language",
+        "relationshipType": "restoration-pattern",
+        "confidence": "medium",
+        "note": "Important wilderness/covenant resonance."
+      },
+      {
+        "id": "scripture.isaiah.11.11-16",
+        "reference": "Isaiah 11:11-16",
+        "label": "Second recovery and highway imagery",
+        "relationshipType": "regathering-pattern",
+        "confidence": "strong",
+        "note": "Exodus-like return imagery across nations and geography."
+      }
+    ],
+    "relatedThemes": [
+      {
+        "id": "theme.exodus",
+        "title": "First Exodus",
+        "relationshipType": "source-pattern",
+        "confidence": "explicit"
+      },
+      {
+        "id": "theme.new-creation",
+        "title": "New Creation",
+        "relationshipType": "downstream-restoration",
+        "confidence": "medium"
+      },
+      {
+        "id": "theme.wilderness",
+        "title": "Wilderness Testing and Protection",
+        "relationshipType": "shared-pattern",
+        "confidence": "strong"
+      },
+      {
+        "id": "theme.covenant-renewal",
+        "title": "Covenant Renewal",
+        "relationshipType": "shared-pattern",
+        "confidence": "strong"
+      },
+      {
+        "id": "theme.song-of-moses",
+        "title": "Song of Moses",
+        "relationshipType": "liturgical-memory",
+        "confidence": "strong"
+      },
+      {
+        "id": "theme.twelve-tribes",
+        "title": "Twelve Tribes",
+        "relationshipType": "people-pattern",
+        "confidence": "strong"
+      }
+    ],
+    "sacredTime": [
+      {
+        "id": "moed.passover",
+        "title": "Passover",
+        "relationshipType": "first-exodus-anchor",
+        "confidence": "explicit",
+        "note": "The first Exodus is explicitly anchored to Passover."
+      },
+      {
+        "id": "moed.unleavened-bread",
+        "title": "Unleavened Bread",
+        "relationshipType": "first-exodus-anchor",
+        "confidence": "explicit",
+        "note": "Departure and unleavened bread are directly linked in Exodus."
+      },
+      {
+        "id": "moed.trumpets",
+        "title": "Yom Teruah / Trumpets",
+        "relationshipType": "revelation-judgment-association",
+        "confidence": "medium",
+        "note": "Useful for Revelation trumpet studies, but the Greater Exodus link is thematic."
+      },
+      {
+        "id": "moed.yom-kippur",
+        "title": "Yom Kippur / Day of Atonement",
+        "relationshipType": "purification-and-atonement-association",
+        "confidence": "medium",
+        "note": "Related through purification/judgment readings; exact fulfillment claims require review."
+      },
+      {
+        "id": "moed.sukkot",
+        "title": "Sukkot / Tabernacles",
+        "relationshipType": "wilderness-and-ingathering-association",
+        "confidence": "medium",
+        "note": "Wilderness dwelling and ingathering make this a reusable but not forced relationship."
+      }
+    ],
+    "timelineEvents": [
+      {
+        "id": "timeline.exodus-from-egypt",
+        "title": "Exodus from Egypt",
+        "relationshipType": "source-event",
+        "confidence": "explicit"
+      },
+      {
+        "id": "timeline.red-sea-crossing",
+        "title": "Sea Crossing",
+        "relationshipType": "deliverance-pattern",
+        "confidence": "strong"
+      },
+      {
+        "id": "timeline.sinai-covenant",
+        "title": "Sinai Covenant",
+        "relationshipType": "covenant-pattern",
+        "confidence": "strong"
+      },
+      {
+        "id": "timeline.kingdom-division",
+        "title": "Division of Israel and Judah",
+        "relationshipType": "restoration-background",
+        "confidence": "strong"
+      },
+      {
+        "id": "timeline.exile-scattering",
+        "title": "Exile and Scattering",
+        "relationshipType": "restoration-background",
+        "confidence": "strong"
+      },
+      {
+        "id": "timeline.future-regathering",
+        "title": "Future Regathering",
+        "relationshipType": "prophetic-expectation",
+        "confidence": "disputed",
+        "note": "Timeline placement depends on interpretive framework."
+      }
+    ],
+    "revelationChapters": [
+      {
+        "id": "nt.revelation.7",
+        "reference": "Revelation 7",
+        "label": "Sealing of tribes and great multitude",
+        "relationshipType": "tribes-and-deliverance-resonance",
+        "confidence": "medium"
+      },
+      {
+        "id": "nt.revelation.12",
+        "reference": "Revelation 12",
+        "label": "Woman, wilderness, dragon, remnant",
+        "relationshipType": "wilderness-and-remnant-resonance",
+        "confidence": "medium"
+      },
+      {
+        "id": "nt.revelation.14",
+        "reference": "Revelation 14",
+        "label": "Firstfruits, harvest, commandments, Babylon warning",
+        "relationshipType": "harvest-and-remnant-resonance",
+        "confidence": "medium",
+        "note": "Important future integration target; app data should confirm chapter 14 exists before linking."
+      },
+      {
+        "id": "nt.revelation.15",
+        "reference": "Revelation 15",
+        "label": "Song of Moses and Song of the Lamb",
+        "relationshipType": "direct-verbal-link",
+        "confidence": "explicit"
+      },
+      {
+        "id": "nt.revelation.16",
+        "reference": "Revelation 16",
+        "label": "Bowl judgments and plague echoes",
+        "relationshipType": "plague-pattern-resonance",
+        "confidence": "medium"
+      }
+    ],
+    "commandments": [
+      {
+        "id": "commandment.no-other-gods",
+        "title": "No Other Gods",
+        "relationshipType": "exodus-covenant-background",
+        "confidence": "strong"
+      },
+      {
+        "id": "commandment.sabbath",
+        "title": "Sabbath",
+        "relationshipType": "creation-exodus-covenant-background",
+        "confidence": "medium"
+      },
+      {
+        "id": "commandment.passover-unleavened-bread",
+        "title": "Passover and Unleavened Bread Observance",
+        "relationshipType": "exodus-memory",
+        "confidence": "strong"
+      },
+      {
+        "id": "commandment.keep-commandments-revelation",
+        "title": "Commandments in Revelation",
+        "relationshipType": "revelation-remnant-link",
+        "confidence": "explicit",
+        "note": "Anchors include Revelation 12:17, 14:12, and 22:14; interpretation of scope requires care."
+      }
+    ],
+    "intertext": [
+      {
+        "id": "intertext.exodus15-revelation15",
+        "from": "Exodus 15:1-18",
+        "to": "Revelation 15:3",
+        "relationshipType": "direct-phrase-theme",
+        "confidence": "explicit"
+      },
+      {
+        "id": "intertext.jeremiah16-greater-exodus",
+        "from": "Jeremiah 16:14-15",
+        "to": "Exodus 12-15",
+        "relationshipType": "explicit-prophetic-comparison",
+        "confidence": "explicit"
+      },
+      {
+        "id": "intertext.isaiah11-exodus-highway",
+        "from": "Isaiah 11:11-16",
+        "to": "Exodus 14",
+        "relationshipType": "return-as-exodus-pattern",
+        "confidence": "strong"
+      },
+      {
+        "id": "intertext.exodus-plagues-revelation-judgments",
+        "from": "Exodus 7-12",
+        "to": "Revelation 8-16",
+        "relationshipType": "plague-pattern-resonance",
+        "confidence": "medium"
+      }
+    ],
+    "sources": [
+      {
+        "id": "source.article.revelation-hebrew-roots",
+        "title": "The Book of Revelation Hebrew Roots",
+        "type": "local-article",
+        "path": "articles/the_Book_of_revelation_hebrew_roots.html",
+        "relationshipType": "module-discovery-source",
+        "confidence": "medium",
+        "note": "Useful for identifying module relationships; not itself treated as final commentary."
+      },
+      {
+        "id": "source.biblical.exodus",
+        "title": "Book of Exodus",
+        "type": "biblical-source",
+        "relationshipType": "primary-source",
+        "confidence": "explicit"
+      },
+      {
+        "id": "source.biblical.jeremiah",
+        "title": "Book of Jeremiah",
+        "type": "biblical-source",
+        "relationshipType": "primary-source",
+        "confidence": "explicit"
+      },
+      {
+        "id": "source.biblical.revelation",
+        "title": "Book of Revelation",
+        "type": "biblical-source",
+        "relationshipType": "primary-source",
+        "confidence": "explicit"
+      }
+    ],
+    "maps": [
+      {
+        "id": "map.egypt-to-wilderness",
+        "title": "Egypt to Wilderness Route",
+        "relationshipType": "first-exodus-geography",
+        "confidence": "strong"
+      },
+      {
+        "id": "map.scattering-and-regathering",
+        "title": "Scattering and Regathering",
+        "relationshipType": "prophetic-geography",
+        "confidence": "disputed",
+        "note": "Useful map layer, but specific routes and fulfillment geography need review."
+      },
+      {
+        "id": "map.revelation-asia-jerusalem-babylon",
+        "title": "Revelation Geography: Asia, Jerusalem, Babylon",
+        "relationshipType": "revelation-context",
+        "confidence": "medium"
+      }
+    ],
+    "orbitActions": [
+      {
+        "id": "orbit.open-greater-exodus-module",
+        "label": "Open Greater Exodus module",
+        "relationshipType": "contextual-learning-action",
+        "confidence": "strong"
+      },
+      {
+        "id": "orbit.continue-related-study",
+        "label": "Continue related study",
+        "relationshipType": "contextual-learning-action",
+        "confidence": "medium"
+      }
+    ]
+  },
+  "reviewQueue": [
+    {
+      "id": "review.greater-exodus-modern-fulfillment",
+      "label": "Modern fulfillment claims",
+      "reason": "The prototype intentionally excludes modern identification claims until sources and confidence rules are defined."
+    },
+    {
+      "id": "review.greater-exodus-revelation14",
+      "label": "Revelation 14 dependency",
+      "reason": "Revelation 14 is central to harvest/firstfruits/commandments links and should exist in NT data before integration."
+    },
+    {
+      "id": "review.greater-exodus-sacred-time-sequence",
+      "label": "Fall feast sequence claims",
+      "reason": "Sacred Time links should stay relationship-based unless the project later adds a disputed fulfillment timeline."
+    }
+  ]
+}
