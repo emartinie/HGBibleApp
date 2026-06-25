@@ -208,9 +208,13 @@ function getParams() {
     return query ? `${NT_BASE}?${query}` : NT_BASE;
   }
 
-  function getBookJsonPath(bookName) {
+  function getBookJsonKey(bookName) {
     const bookKey = String(bookName || "").toLowerCase().replace(/\s+/g, "");
-    return `data/nt/${bookKey}.json`;
+    return bookKey === "matthew" ? "mathew" : bookKey;
+  }
+
+  function getBookJsonPath(bookName) {
+    return `data/nt/${getBookJsonKey(bookName)}.json`;
   }
 
   function getChapterSection(chapterData, preferredSection = null) {
@@ -736,8 +740,7 @@ function loadBookTiles() {
   }
 
   function getBookJsonPath(bookName) {
-    const bookKey = bookName.toLowerCase().replace(/\s+/g, "");
-    return `data/nt/${bookKey}.json`;
+    return `data/nt/${getBookJsonKey(bookName)}.json`;
   }
 
   function getChapterOneSection(chapter, preferredSection = null) {
@@ -1019,6 +1022,7 @@ function loadBookTiles() {
       <div id="outline"></div>
       <div id="wordsToPonder"></div>
       <div id="reviewQuestions"></div>
+      <div id="rawText"></div>
     `;
     ntLog("CONTENT AFTER RENDER", {
       source: "renderChapterShell",
@@ -1031,7 +1035,8 @@ function loadBookTiles() {
       ["summary", "Summary", ch.summary],
       ["outline", "Outline", ch.outline],
       ["wordsToPonder", "Words to Ponder", ch.wordsToPonder],
-      ["reviewQuestions", "Review Questions", ch.reviewQuestions]
+      ["reviewQuestions", "Review Questions", ch.reviewQuestions],
+      ["rawText", "Chapter Text", ch.rawText]
     ];
     const visibleSection =
       sectionList.find(([id, , text]) => id === activeSection && text) ||
@@ -1323,8 +1328,7 @@ if (!book) {
   return;
 }
 
-const bookKey = book.toLowerCase().replace(/\s+/g, "");
-const jsonPath = `data/nt/${bookKey}.json`;
+const jsonPath = getBookJsonPath(book);
   ntLog("FETCHING JSON", jsonPath);
 
 fetch(jsonPath)

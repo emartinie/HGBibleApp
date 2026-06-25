@@ -33,6 +33,25 @@ console.log("APP JS RUN ID:", Date.now());
   let currentCardIndex = 0;
   let loadedScript = null;
   let loadCardRequestId = 0;
+  let scrollSyncBound = false;
+
+  const SCRIPTLESS_CARDS = new Set([
+    "frontporch",
+    "landingpage",
+    "map2",
+    "payment",
+    "sefarianew",
+    "store2",
+    "template",
+    "TEMPLATE_complex",
+    "TEMPLATE_simple",
+    "test"
+  ]);
+
+  const MODULE_CARDS = new Set([
+    "prayermap",
+    "commentary"
+  ]);
 // =====================
 // CARD NAVIGATION
 // =====================
@@ -70,14 +89,6 @@ function wireCardNavButtons() {
 
   document.querySelectorAll(".prev-card-btn").forEach(btn => {
     btn.onclick = prevCard;
-  });
-
-  document.querySelectorAll(".next-card-btn").forEach(btn => {
-    btn.addEventListener("click", nextCard);
-  });
-
-  document.querySelectorAll(".prev-card-btn").forEach(btn => {
-    btn.addEventListener("click", prevCard);
   });
 }
 
@@ -226,7 +237,7 @@ const existing = document.querySelector(
   `script[src*="js/${cardName}.js"]`
 );
 
-if (!existing) {
+if (!existing && !SCRIPTLESS_CARDS.has(cardName)) {
   if (requestId !== loadCardRequestId) {
     console.log("[CARD] stale script injection skipped", { cardName, requestId });
     return;
@@ -237,12 +248,14 @@ if (!existing) {
   script.onload = () => console.log("[CARD] script loaded", { cardName, src: script.src });
   script.onerror = () => console.error("[CARD] script failed", { cardName, src: script.src });
 
-  if (cardName === "prayermap" || cardName === "commentary") {
+  if (MODULE_CARDS.has(cardName)) {
     script.type = "module";
   }
 
   document.body.appendChild(script);
   console.log("[CARD] script injected", { cardName, src: script.src });
+} else if (SCRIPTLESS_CARDS.has(cardName)) {
+  console.log("[CARD] script skipped for static card", { cardName });
 }
 
 if (cardName === "prezis" && typeof window.initPrezis === "function") {
@@ -308,7 +321,8 @@ console.log("loadCard exists?", typeof window.loadCard);
   }
 
 function syncCurrentCardOnScroll() {
-  if (!cardsRow) return;
+  if (!cardsRow || scrollSyncBound) return;
+  scrollSyncBound = true;
 
   let ticking = false;
 

@@ -1,117 +1,118 @@
+// bullseyeMedia.js
 (function () {
-  console.log("🌟 Orbit Face Manager initializing...");
+  "use strict";
 
-  const logoSrc = "./images/HGHouses.png";
-  const videoSrc = "https://www.youtube.com/watch?v=Xh7kblHeBQI";
-  //const videoSrc = "https://github.com/emartinie/MainStage/blob/main/videos/build_your_kingdom_here.mp4";
+  const logoSrc = "images/HGHouses.png";
+  const videoSrc = "videos/bg-motion.mp4";
 
-  let logoEl, videoEl, sonographEl;
-  let showingVideo = false;
-  let showingSonograph = false;
-
-  const waitForPlayer = setInterval(() => {
+  function waitForPlayer() {
     const floatingPlayer = document.getElementById("floatingPlayer");
-    if (!floatingPlayer) return;
+    if (!floatingPlayer) {
+      window.setTimeout(waitForPlayer, 200);
+      return;
+    }
 
-    clearInterval(waitForPlayer);
-    console.log("✅ Floating player found, adding logo, video, and sonograph...");
+    if (window.__orbitPlayer) {
+      window.toggleOrbitVideo = window.__orbitPlayer.toggleVideo || window.toggleOrbitVideo;
+      window.toggleOrbitSonograph = window.__orbitPlayer.toggleSonograph || window.toggleOrbitSonograph;
+      return;
+    }
 
-    // --- Logo ---
-    logoEl = document.createElement("img");
+    installFallbackFace(floatingPlayer);
+  }
+
+  function installFallbackFace(floatingPlayer) {
+    if (document.getElementById("orbitLogo")) return;
+
+    const logoEl = document.createElement("img");
     logoEl.id = "orbitLogo";
     logoEl.src = logoSrc;
-    logoEl.style.position = "absolute";
-    logoEl.style.top = "50%";
-    logoEl.style.left = "50%";
-    logoEl.style.transform = "translate(-50%, -50%)";
-    logoEl.style.width = "150px";
-    logoEl.style.height = "140px";
-    logoEl.style.pointerEvents = "none";
-    logoEl.style.zIndex = "10000";
+    Object.assign(logoEl.style, {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "150px",
+      height: "140px",
+      objectFit: "contain",
+      pointerEvents: "none",
+      zIndex: "10000"
+    });
     floatingPlayer.appendChild(logoEl);
 
-    // --- Video ---
-    videoEl = document.createElement("video");
+    const videoEl = document.createElement("video");
     videoEl.id = "orbitVideo";
     videoEl.src = videoSrc;
     videoEl.autoplay = false;
-    videoEl.loop = false;
+    videoEl.loop = true;
     videoEl.muted = true;
     videoEl.playsInline = true;
-    videoEl.style.position = "absolute";
-    videoEl.style.borderRadius = "50%";
-    videoEl.style.objectFit = "cover";
-    videoEl.style.top = "50%";
-    videoEl.style.left = "50%";
-    videoEl.style.transform = "translate(-50%, -50%)";
-    videoEl.style.width = "190px";
-    videoEl.style.height = "190px";
-    videoEl.style.pointerEvents = "none";
-    videoEl.style.zIndex = "10000";
     videoEl.classList.add("hidden");
+    Object.assign(videoEl.style, {
+      position: "absolute",
+      borderRadius: "50%",
+      objectFit: "cover",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "190px",
+      height: "190px",
+      pointerEvents: "none",
+      zIndex: "10000"
+    });
     floatingPlayer.appendChild(videoEl);
 
-    // --- Sonograph (fake waveform) ---
-    sonographEl = document.createElement("canvas");
+    const sonographEl = document.createElement("canvas");
     sonographEl.id = "orbitSonograph";
     sonographEl.width = 200;
     sonographEl.height = 200;
-    sonographEl.style.position = "absolute";
-    sonographEl.style.top = "50%";
-    sonographEl.style.left = "50%";
-    sonographEl.style.transform = "translate(-50%, -50%)";
-    sonographEl.style.borderRadius = "50%";
-    sonographEl.style.pointerEvents = "none";
-    sonographEl.style.zIndex = "9999";
     sonographEl.classList.add("hidden");
+    Object.assign(sonographEl.style, {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      borderRadius: "50%",
+      pointerEvents: "none",
+      zIndex: "9999"
+    });
     floatingPlayer.appendChild(sonographEl);
 
-    const ctx = sonographEl.getContext("2d");
-    function drawFakeSonograph() {
-      if (sonographEl.classList.contains("hidden")) return;
+    let face = "logo";
+
+    function setFace(nextFace) {
+      face = nextFace;
+      logoEl.classList.toggle("hidden", face !== "logo");
+      videoEl.classList.toggle("hidden", face !== "video");
+      sonographEl.classList.toggle("hidden", face !== "sonograph");
+
+      if (face === "video") videoEl.play().catch(() => {});
+      else videoEl.pause();
+
+      if (face === "sonograph") drawSonograph();
+    }
+
+    function drawSonograph() {
+      if (face !== "sonograph") return;
+      const ctx = sonographEl.getContext("2d");
       ctx.clearRect(0, 0, sonographEl.width, sonographEl.height);
       const bars = 30;
       const barWidth = sonographEl.width / bars;
-      for (let i = 0; i < bars; i++) {
+      for (let i = 0; i < bars; i += 1) {
         const h = Math.random() * sonographEl.height * 0.6;
-        ctx.fillStyle = rgba(0, 200, 255, 0.7);
+        ctx.fillStyle = "rgba(0, 200, 255, 0.7)";
         ctx.fillRect(i * barWidth, sonographEl.height - h, barWidth * 0.8, h);
       }
-      requestAnimationFrame(drawFakeSonograph);
+      requestAnimationFrame(drawSonograph);
     }
 
-    // --- Toggle functions ---
-    function toggleVideo() {
-      showingVideo = !showingVideo;
-      if (showingVideo) {
-        logoEl.classList.add("hidden");
-        videoEl.classList.remove("hidden");
-        videoEl.play();
-        sonographEl.classList.add("hidden");
-      } else {
-        videoEl.pause();
-        videoEl.classList.add("hidden");
-        logoEl.classList.remove("hidden");
-      }
-    }
+    window.toggleOrbitVideo = () => setFace(face === "video" ? "logo" : "video");
+    window.toggleOrbitSonograph = () => setFace(face === "sonograph" ? "logo" : "sonograph");
+  }
 
-    function toggleSonograph() {
-      showingSonograph = !showingSonograph;
-      if (showingSonograph) {
-        logoEl.classList.add("hidden");
-        videoEl.classList.add("hidden");
-        sonographEl.classList.remove("hidden");
-        drawFakeSonograph();
-      } else {
-        sonographEl.classList.add("hidden");
-        logoEl.classList.remove("hidden");
-      }
-    }
-
-    // Expose toggles globally
-    window.toggleOrbitVideo = toggleVideo;
-    window.toggleOrbitSonograph = toggleSonograph;
-
-    console.log("ℹ Use toggleOrbitVideo() or toggleOrbitSonograph() in console.");
-  }, 200);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", waitForPlayer, { once: true });
+  } else {
+    waitForPlayer();
+  }
 })();
