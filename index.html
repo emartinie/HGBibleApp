@@ -633,11 +633,6 @@
 
     <header id="topBar">
       <div class="toolbar">
-        <button id="installAppBtn" class="ui-btn" type="button" hidden>
-  ⬇
-</button><button id="reloadCardBtn" class="nav-btn">
-  ↻
-</button>
                 <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
         <select id="weekSelect" class="ui-select" aria-label="Select week">
           <option>Week 1</option>
@@ -650,7 +645,9 @@
       </div>
     </header>
     <div style="margin-top:12px; display:flex; justify-content:center; gap:8px; align-items:center; flex-wrap:wrap;">
-      
+      <button id="reloadCardBtn" class="nav-btn">
+  ↻
+</button>
       <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
 
       <!--<select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
@@ -682,7 +679,6 @@
         <option value="alephbet" title="Learn Hebrew & Greek">🗣 Alephbet</option>
         <option value="trivia" title="5000 Bible questions for teams">🏆 Trivia</option>
         <option value="biblebingo" title="Bible Bingo for fun">🅱️ Bingo</option>
-        <option value="jeopardy" title="Bible Jeopardy for fun">🤝 Jeopardy</option>
         <option value="quizzes" title="20 thousand NT quiz questions">📘 Quizzes</option>       
           <optgroup label="Preparedness">            
         <option value="beready" title="Emergency preparedness">🚨 Be-Ready</option>
@@ -708,8 +704,7 @@
           <option value="today">🔥 Today</option>
           <option value="studyhub">🧭 Study Hub</option>
           <option value="discipleship">🪜 Learning Path</option>
-          <option value="jesus">👑 Who Is Yeshua?</option>sacred-time-prototype
-          <!--<option value="sacred-time-prototype">👑 Bible Timeline</option>-->
+          <option value="jesus">👑 Who Is Yeshua?</option>
         </optgroup>
         <optgroup label="📖 Bible Study">
           <option value="scriptureapi">🔎 Scripture Search</option>
@@ -726,7 +721,6 @@
         </optgroup>
         <optgroup label="🌙 Appointed Times">
           <option value="calendar">🗓 Calendar</option>
-          <option value="springfeasts">🌾 Spring Feasts</option>
           <option value="fallfeasts">🍂 Fall Feasts</option>
           <option value="sukkotcount">⛺ Sukkot Count</option>
         </optgroup>
@@ -743,7 +737,6 @@
           <option value="quizzes">🧪 Assessments</option>
           <option value="trivia">🏆 Trivia Arena</option>
           <option value="biblebingo">🎲 Bible Bingo</option>
-          <option value="jeopardy">⚡ Bible Challenge</option>
         </optgroup>
         <optgroup label="🗣 Language Lab">
           <option value="alephbet">🔤 Hebrew Lab</option>
@@ -765,7 +758,9 @@
       
       <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
       <button id="textSizePreferenceBtn" class="ui-btn" type="button" aria-label="Cycle reading text size" title="Reading text size">Text: Normal</button>
-      
+      <button id="installAppBtn" class="ui-btn" type="button" hidden>
+  ⬇
+</button>
     </div>
 
     <main id="viewport">
@@ -921,7 +916,7 @@
         <button id="langEnglishBtn" class="ui-btn text-xs">EN</button>
         <button id="langHebrewBtn" class="ui-btn text-xs">HE</button>
         <button id="langGreekBtn" class="ui-btn text-xs">GR</button>
-        <button id="scriptureReloadBtn" class="ui-btn text-xs">↻</button>
+        <button id="weeklyScriptureReloadBtn" class="ui-btn text-xs">↻</button>
       </div>
     </div>
 
@@ -933,8 +928,8 @@
     </div>
 
     <div class="flex justify-between">
-      <button id="scripturePrevBtn" class="ui-btn text-xs">← Prev</button>
-      <button id="scriptureNextBtn" class="ui-btn text-xs">Next →</button>
+      <button id="weeklyScripturePrevBtn" class="ui-btn text-xs">← Prev</button>
+      <button id="weeklyScriptureNextBtn" class="ui-btn text-xs">Next →</button>
     </div>
 
   </div>
@@ -1076,8 +1071,7 @@
 <!--<script type="module" src="js/firebase-init.js"></script>
   <!--<script src="js/prayerStore.dev.js"></script>-->
   <!--<script src="js/loadCommentary.js"></script>-->
-  <!--<script src="js/orbitFloatingPlayer.js"></script>-->
-    <script src="js/SAVEorbitFloatingPlayer.js"></script>
+  <script src="js/orbitFloatingPlayer.js"></script>
 <script src="js/bullseyeMedia.js"></script>
   <script type="module" src="js/topNav.js"></script>
 
@@ -1100,8 +1094,6 @@
     <h3 id="miniModalTitle" class="text-xl font-bold text-cyan-300 mb-2"></h3>
 
     <div id="miniModalContent" class="text-sm text-slate-200 space-y-2"></div>
-
-<div id="miniModalContent" class="text-sm text-slate-200 space-y-2"></div>
 
 <div class="mt-4 flex justify-center">
   <button id="miniModalDeeperBtn"
