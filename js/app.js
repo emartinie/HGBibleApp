@@ -34,6 +34,13 @@ console.log("APP JS RUN ID:", Date.now());
   let loadedScript = null;
   let loadCardRequestId = 0;
   let scrollSyncBound = false;
+  let activeCardName = null;
+  let appInitialized = false;
+  let swipeBound = false;
+  let cardSelectorBound = false;
+  let selectorStepBound = false;
+  let sefariaBridgeBound = false;
+  let reloadBound = false;
 
   const SCRIPTLESS_CARDS = new Set([
     "frontporch",
@@ -52,6 +59,25 @@ console.log("APP JS RUN ID:", Date.now());
     "prayermap",
     "commentary"
   ]);
+
+  const CARD_LIFECYCLE = {
+    beready: { init: "initBeReadyCard" },
+    calendar: { init: "initCalendarCard", cleanup: "destroyCalendarCard" },
+    commandments: { init: "initCommandmentsCard", cleanup: "destroyCommandmentsCard" },
+    "intertext-quotes": { init: "initIntertextQuotes" },
+    interlinear: { init: "initInterlinearCard" },
+    jesus: { init: "initJesusCard" },
+    listen: { init: "initListenCard" },
+    missler: { init: "initMissler", cleanup: "destroyMissler" },
+    nt: { forceReloadScript: true },
+    prayermap: { init: "initPrayerMapCard", cleanup: "destroyPrayerMapCard" },
+    prezis: { init: "initPrezis", cleanup: "destroyPrezis" },
+    radiomap: { init: "initRadioMapCard", cleanup: "destroyRadioMapCard" },
+    sources: { init: "initSourcesCard" },
+    "stewardship-card": { init: "initStewardshipCard" },
+    studyhub: { init: "initStudyHubCard" },
+    today: { init: "initTodayCard" }
+  };
 // =====================
 // CARD NAVIGATION
 // =====================
@@ -94,6 +120,8 @@ function wireCardNavButtons() {
 
   function wireSwipe() {
     if (!cardsRow) return;
+    if (swipeBound) return;
+    swipeBound = true;
 
     let startX = 0;
     let deltaX = 0;
@@ -181,6 +209,102 @@ async function loadExtraScript(src) {
   });
 }
 
+function getLifecycle(cardName) {
+  return CARD_LIFECYCLE[cardName] || {};
+}
+
+function findCardScript(cardName) {
+  return document.querySelector(`script[data-card-script="${cardName}"], script[src*="js/${cardName}.js"]`);
+}
+
+function removeCardScript(cardName) {
+  document
+    .querySelectorAll(`script[data-card-script="${cardName}"], script[src*="js/${cardName}.js"]`)
+    .forEach(script => {
+      script.remove();
+      console.log("[CARD] script removed", { cardName, src: script.src });
+    });
+}
+
+async function loadCardScript(cardName) {
+  if (SCRIPTLESS_CARDS.has(cardName)) {
+    console.log("[CARD] script skipped for static card", { cardName });
+    return;
+  }
+
+  const lifecycle = getLifecycle(cardName);
+
+  if (lifecycle.forceReloadScript) {
+    removeCardScript(cardName);
+  }
+
+  const existing = findCardScript(cardName);
+
+  if (existing) {
+    console.log("[CARD] script already present", { cardName, src: existing.src });
+    return;
+  }
+
+  await new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = `js/${cardName}.js?v=${Date.now()}`;
+    script.defer = true;
+    script.dataset.cardScript = cardName;
+    script.onload = () => {
+      console.log("[CARD] script loaded", { cardName, src: script.src });
+      resolve();
+    };
+    script.onerror = () => {
+      console.error("[CARD] script failed", { cardName, src: script.src });
+      reject(new Error(`Could not load js/${cardName}.js`));
+    };
+
+    if (MODULE_CARDS.has(cardName)) {
+      script.type = "module";
+    }
+
+    document.body.appendChild(script);
+    console.log("[CARD] script injected", { cardName, src: script.src });
+  });
+}
+
+async function runCardInit(cardName, requestId) {
+  const lifecycle = getLifecycle(cardName);
+
+  loadedCardHost?.dispatchEvent(new CustomEvent("card:init", {
+    bubbles: true,
+    detail: { cardName }
+  }));
+
+  if (!lifecycle.init || typeof window[lifecycle.init] !== "function") return;
+  if (requestId !== loadCardRequestId) return;
+
+  await window[lifecycle.init](loadedCardHost);
+  console.log("[CARD] init complete", { cardName, init: lifecycle.init });
+}
+
+function cleanupActiveCard() {
+  if (!activeCardName) return;
+
+  const lifecycle = getLifecycle(activeCardName);
+
+  loadedCardHost?.dispatchEvent(new CustomEvent("card:cleanup", {
+    bubbles: true,
+    detail: { cardName: activeCardName }
+  }));
+
+  if (lifecycle.cleanup && typeof window[lifecycle.cleanup] === "function") {
+    try {
+      window[lifecycle.cleanup](loadedCardHost);
+      console.log("[CARD] cleanup complete", { cardName: activeCardName, cleanup: lifecycle.cleanup });
+    } catch (err) {
+      console.warn("[CARD] cleanup failed", { cardName: activeCardName, err });
+    }
+  }
+
+  activeCardName = null;
+}
+
   // =====================
 // SCRIPT LOADER (UNIFIED)
 // =====================
@@ -190,6 +314,7 @@ async function loadExtraScript(src) {
     console.log("[CARD] render entry", { cardName, requestId });
 
     try {
+      cleanupActiveCard();
       loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
 
       const res = await fetch(`cards/${cardName}.html`);
@@ -201,6 +326,7 @@ async function loadExtraScript(src) {
         return;
       }
       loadedCardHost.innerHTML = html;
+      activeCardName = cardName;
       console.log("[CARD] host replaced", {
         cardName,
         requestId,
@@ -212,10 +338,6 @@ async function loadExtraScript(src) {
         syncCurrentCardOnScroll();
       });
 
-      if (cardName !== "prayermap") {
-  window.prayerMapInitialized = false;
-}
-
       if (cardName === "prayermap") {
   await loadExtraScript("js/prayerStore.dev.js");
   if (requestId !== loadCardRequestId) {
@@ -224,43 +346,13 @@ async function loadExtraScript(src) {
   }
 }
 
-if (cardName === "nt") {
-  document
-    .querySelectorAll(`script[src*="js/nt.js"]`)
-    .forEach(script => {
-      script.remove();
-      console.log("[CARD] script removed", { cardName, src: script.src });
-    });
-}
+      await loadCardScript(cardName);
+      if (requestId !== loadCardRequestId) {
+        console.log("[CARD] stale init skipped", { cardName, requestId });
+        return;
+      }
 
-const existing = document.querySelector(
-  `script[src*="js/${cardName}.js"]`
-);
-
-if (!existing && !SCRIPTLESS_CARDS.has(cardName)) {
-  if (requestId !== loadCardRequestId) {
-    console.log("[CARD] stale script injection skipped", { cardName, requestId });
-    return;
-  }
-  const script = document.createElement("script");
-  script.src = `js/${cardName}.js?v=${Date.now()}`;
-  script.defer = true;
-  script.onload = () => console.log("[CARD] script loaded", { cardName, src: script.src });
-  script.onerror = () => console.error("[CARD] script failed", { cardName, src: script.src });
-
-  if (MODULE_CARDS.has(cardName)) {
-    script.type = "module";
-  }
-
-  document.body.appendChild(script);
-  console.log("[CARD] script injected", { cardName, src: script.src });
-} else if (SCRIPTLESS_CARDS.has(cardName)) {
-  console.log("[CARD] script skipped for static card", { cardName });
-}
-
-if (cardName === "prezis" && typeof window.initPrezis === "function") {
-  window.initPrezis(loadedCardHost);
-}
+      await runCardInit(cardName, requestId);
   
 console.log("loadCard exists?", typeof window.loadCard);
       console.log("[CARD] render completion", { cardName, requestId });
@@ -281,6 +373,8 @@ console.log("loadCard exists?", typeof window.loadCard);
 
   function wireCardSelector() {
     if (!cardSelector) return;
+    if (cardSelectorBound) return;
+    cardSelectorBound = true;
 
     cardSelector.addEventListener("change", () => {
       const value = cardSelector.value;
@@ -311,6 +405,9 @@ console.log("loadCard exists?", typeof window.loadCard);
   }
 
   function wireCardSelectorStepButtons() {
+    if (selectorStepBound) return;
+    selectorStepBound = true;
+
     if (prevCardSelect) {
       prevCardSelect.addEventListener("click", () => stepCardSelector(-1));
     }
@@ -380,6 +477,9 @@ function loadFromUrl() {
 }
 
   function wireSefariaRoutingBridge() {
+  if (sefariaBridgeBound) return;
+  sefariaBridgeBound = true;
+
   window.addEventListener("sefaria:open", (event) => {
     const detail = event.detail || {};
     const book = detail.book;
@@ -400,6 +500,9 @@ function loadFromUrl() {
   
 console.log("🔥 before card renderer init");
 function init() {
+  if (appInitialized) return;
+  appInitialized = true;
+
   wireSwipe();
   wireKeyboard();
   wireCardSelector();
@@ -450,32 +553,19 @@ function reloadCurrentCard() {
   const currentCard = cardSelector.value;
   if (!currentCard) return;
 
+  cleanupActiveCard();
+  removeCardScript(currentCard);
+
   console.log("🔄 Reloading card:", currentCard);
-
-  // clear old DOM first
-  if (loadedCardHost) {
-    loadedCardHost.innerHTML = "";
-  }
-
-  // remove old card script
-  const oldScript = document.querySelector(
-    `script[src*="js/${currentCard}.js"]`
-  );
-
-  if (oldScript) {
-    oldScript.remove();
-    console.log(`🧹 Removed old script: ${currentCard}.js`);
-  }
-
-  // optional reset for map cards or one-time init cards
-  window.prayerMapInitialized = false;
 
   // reload card fresh
   loadCard(currentCard);
 }
 
-document
-  .getElementById("reloadCardBtn")
-  ?.addEventListener("click", reloadCurrentCard);
+const reloadCardBtn = document.getElementById("reloadCardBtn");
+if (reloadCardBtn && !reloadBound) {
+  reloadBound = true;
+  reloadCardBtn.addEventListener("click", reloadCurrentCard);
+}
   
 })();

@@ -1,59 +1,72 @@
-console.log("sources.js executed");
-console.log("sources init");
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOMContentLoaded callback fired");
-});
+(function () {
+  const expectedSourceIds = [
+    "openIntertextBtn",
+    "openNtReaderBtn",
+    "loadBtn",
+    "referenceSelect",
+    "toggleJewish",
+    "jewishSection",
+    "toggleNT",
+    "ntSection",
+    "toggleFathers",
+    "fathersSection",
+    "toggleDSS",
+    "dssSection",
+    "togglePeople",
+    "peopleSection"
+  ];
 
-const expectedSourceIds = [
-  "openIntertextBtn",
-  "openNtReaderBtn",
-  "loadBtn",
-  "referenceSelect",
-  "toggleJewish",
-  "jewishSection",
-  "toggleNT",
-  "ntSection",
-  "toggleFathers",
-  "fathersSection",
-  "toggleDSS",
-  "dssSection",
-  "togglePeople",
-  "peopleSection"
-];
-const missingSourceIds = expectedSourceIds.filter(id => !document.getElementById(id));
+  const toggles = {
+    toggleJewish: "jewishSection",
+    toggleNT: "ntSection",
+    toggleFathers: "fathersSection",
+    toggleDSS: "dssSection",
+    togglePeople: "peopleSection"
+  };
 
-if (missingSourceIds.length) {
-  console.warn(`[sources.js] Missing expected sources.html IDs: ${missingSourceIds.join(", ")}`);
-}
+  function initSourcesCard() {
+    const missingSourceIds = expectedSourceIds.filter(id => !document.getElementById(id));
 
-  // Quick Access buttons
-console.log("sources init");
+    if (missingSourceIds.length) {
+      console.warn(`[sources.js] Missing expected sources.html IDs: ${missingSourceIds.join(", ")}`);
+    }
 
-document.getElementById("openIntertextBtn")?.addEventListener("click", () => {
-  window.dispatchEvent(new CustomEvent("open-intertext"));
-});
+    const openIntertextBtn = document.getElementById("openIntertextBtn");
+    if (openIntertextBtn) {
+      openIntertextBtn.onclick = () => {
+        window.dispatchEvent(new CustomEvent("open-intertext"));
+        window.loadCard?.("intertext-quotes");
+      };
+    }
 
-document.getElementById("openNtReaderBtn")?.addEventListener("click", () => {
-  window.dispatchEvent(new CustomEvent("open-nt-reader"));
-});
+    const openNtReaderBtn = document.getElementById("openNtReaderBtn");
+    if (openNtReaderBtn) {
+      openNtReaderBtn.onclick = () => {
+        window.dispatchEvent(new CustomEvent("open-nt-reader"));
+        window.loadCard?.("nt");
+      };
+    }
 
-document.getElementById("loadBtn")?.addEventListener("click", () => {
-  const val = document.getElementById("referenceSelect")?.value;
-  window.dispatchEvent(new CustomEvent("load-reference", { detail: val }));
-});
+    const loadBtn = document.getElementById("loadBtn");
+    if (loadBtn) {
+      loadBtn.onclick = () => {
+        const val = document.getElementById("referenceSelect")?.value;
+        window.dispatchEvent(new CustomEvent("load-reference", { detail: val }));
+      };
+    }
 
-const toggles = {
-  toggleJewish: "jewishSection",
-  toggleNT: "ntSection",
-  toggleFathers: "fathersSection",
-  toggleDSS: "dssSection",
-  togglePeople: "peopleSection"
-};
+    Object.entries(toggles).forEach(([btnId, sectionId]) => {
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
 
-Object.entries(toggles).forEach(([btnId, sectionId]) => {
-  document.getElementById(btnId)?.addEventListener("click", () => {
-    document.getElementById(sectionId)?.classList.toggle("hidden");
-  });
-});
+      btn.onclick = () => {
+        document.getElementById(sectionId)?.classList.toggle("hidden");
+      };
+    });
 
-console.log("sources listeners attached");
+    console.log("[sources] listeners attached");
+  }
+
+  window.initSourcesCard = initSourcesCard;
+  initSourcesCard();
+})();

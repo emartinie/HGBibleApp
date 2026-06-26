@@ -36,9 +36,11 @@
   }
 
   function wireStudyHubButtons() {
-    document.getElementById("studyhubRefreshBtn")?.addEventListener("click", updateStudyHubContext);
+    const refreshBtn = document.getElementById("studyhubRefreshBtn");
+    if (refreshBtn) refreshBtn.onclick = updateStudyHubContext;
 
-    document.getElementById("openNtReaderBtn")?.addEventListener("click", () => {
+    const openNtReaderBtn = document.getElementById("openNtReaderBtn");
+    if (openNtReaderBtn) openNtReaderBtn.onclick = () => {
       setAppRoute({
         card: "nt",
         book: null,
@@ -47,19 +49,22 @@
         section: null
       });
       openCardByName("nt");
-    });
+    };
 
-    document.getElementById("openIntertextBtn")?.addEventListener("click", () => {
+    const openIntertextBtn = document.getElementById("openIntertextBtn");
+    if (openIntertextBtn) openIntertextBtn.onclick = () => {
       setAppRoute({ card: "intertext-quotes" });
       openCardByName("intertext-quotes");
-    });
+    };
 
-    document.getElementById("openSourcesBtn")?.addEventListener("click", () => {
+    const openSourcesBtn = document.getElementById("openSourcesBtn");
+    if (openSourcesBtn) openSourcesBtn.onclick = () => {
       setAppRoute({ card: "sources" });
       openCardByName("sources");
-    });
+    };
 
-    document.getElementById("openPrepNotesBtn")?.addEventListener("click", () => {
+    const openPrepNotesBtn = document.getElementById("openPrepNotesBtn");
+    if (openPrepNotesBtn) openPrepNotesBtn.onclick = () => {
       const ctx = getStudyContext();
 
       if (typeof window.openPorchPanel === "function") {
@@ -71,7 +76,7 @@
            </div>`
         );
       }
-    });
+    };
   }
 
   function initStudyHub() {
@@ -79,5 +84,6 @@
     wireStudyHubButtons();
   }
 
+  window.initStudyHubCard = initStudyHub;
   initStudyHub();
 })();

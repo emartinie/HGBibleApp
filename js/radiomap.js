@@ -1,31 +1,25 @@
 (function () {
-  const root = document.getElementById("radiomap");
-  if (!root) return;
-
-  const mapEl = root.querySelector("#map");
-  const zoneFilter = root.querySelector("#mapFilterZone");
-  const typeFilter = root.querySelector("#mapFilterType");
-  const statusFilter = root.querySelector("#mapFilterStatus");
-  const searchInput = root.querySelector("#mapFilterSearch");
-  const resetBtn = root.querySelector("#mapFilterReset");
-
-  let map;
+  let map = null;
   let markers = [];
 
-  function initMap() {
-    if (!mapEl) return;
+  function getEls() {
+    const root = document.getElementById("radiomap");
+    if (!root) return null;
 
-    map = L.map(mapEl).setView([36.1, -87.4], 10);
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors"
-    }).addTo(map);
-
-    console.log("🗺 Radio map initialized");
+    return {
+      root,
+      mapEl: root.querySelector("#map"),
+      zoneFilter: root.querySelector("#mapFilterZone"),
+      typeFilter: root.querySelector("#mapFilterType"),
+      statusFilter: root.querySelector("#mapFilterStatus"),
+      searchInput: root.querySelector("#mapFilterSearch"),
+      resetBtn: root.querySelector("#mapFilterReset")
+    };
   }
 
   function loadMarkers() {
-    // Placeholder for now
+    if (!map) return;
+
     const sample = [
       { lat: 36.1, lng: -87.4, zone: "dickson", type: "repeater", status: "active", label: "Dickson Repeater" },
       { lat: 36.3, lng: -86.8, zone: "field", type: "simplex", status: "planned", label: "Field Node" }
@@ -40,10 +34,13 @@
   }
 
   function applyFilters() {
-    const zone = zoneFilter.value;
-    const type = typeFilter.value;
-    const status = statusFilter.value;
-    const search = searchInput.value.toLowerCase();
+    const els = getEls();
+    if (!els || !map) return;
+
+    const zone = els.zoneFilter.value;
+    const type = els.typeFilter.value;
+    const status = els.statusFilter.value;
+    const search = els.searchInput.value.toLowerCase();
 
     markers.forEach(marker => {
       const m = marker.meta;
@@ -63,26 +60,54 @@
   }
 
   function resetFilters() {
-    zoneFilter.value = "all";
-    typeFilter.value = "all";
-    statusFilter.value = "all";
-    searchInput.value = "";
+    const els = getEls();
+    if (!els) return;
+
+    els.zoneFilter.value = "all";
+    els.typeFilter.value = "all";
+    els.statusFilter.value = "all";
+    els.searchInput.value = "";
     applyFilters();
   }
 
   function wireEvents() {
-    zoneFilter.addEventListener("change", applyFilters);
-    typeFilter.addEventListener("change", applyFilters);
-    statusFilter.addEventListener("change", applyFilters);
-    searchInput.addEventListener("input", applyFilters);
-    resetBtn.addEventListener("click", resetFilters);
+    const els = getEls();
+    if (!els) return;
+
+    els.zoneFilter.onchange = applyFilters;
+    els.typeFilter.onchange = applyFilters;
+    els.statusFilter.onchange = applyFilters;
+    els.searchInput.oninput = applyFilters;
+    els.resetBtn.onclick = resetFilters;
   }
 
-  function init() {
-    initMap();
+  function initRadioMapCard() {
+    const els = getEls();
+    if (!els || !els.mapEl || typeof L === "undefined") return;
+
+    destroyRadioMapCard();
+
+    map = L.map(els.mapEl).setView([36.1, -87.4], 10);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "OpenStreetMap contributors"
+    }).addTo(map);
+
     loadMarkers();
     wireEvents();
+    console.log("[radiomap] initialized");
   }
 
-  init();
+  function destroyRadioMapCard() {
+    markers = [];
+
+    if (map) {
+      map.remove();
+      map = null;
+    }
+  }
+
+  window.initRadioMapCard = initRadioMapCard;
+  window.destroyRadioMapCard = destroyRadioMapCard;
+  initRadioMapCard();
 })();

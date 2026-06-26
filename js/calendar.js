@@ -444,7 +444,10 @@ function beginHolyDayExperience(key) {
 function initCalendarCard() {
   const saved = localStorage.getItem("preferredCalendarType");
   setCalendarType(saved || "Hillel");
+  initCalendarOmerCounter();
 }
+
+let calendarOmerInterval = null;
 
 window.setCalendarType = setCalendarType;
 window.beginHolyDayExperience = beginHolyDayExperience;
@@ -453,9 +456,10 @@ window.openCalendarInfo = openCalendarInfo;
 window.openMiniModal = openMiniModal;
 window.closeMiniModal = closeMiniModal;
 window.initCalendarCard = initCalendarCard;
+window.destroyCalendarCard = destroyCalendarCard;
 
 
-(function () {
+function initCalendarOmerCounter() {
   // 2026 Omer: begins evening of Apr 2, ends night before May 20
   // This counter rolls over at local sundown (default 7:30 PM).
   const OMER_START = new Date(2026, 3, 3);   // Apr 2, 2026
@@ -463,9 +467,7 @@ window.initCalendarCard = initCalendarCard;
   const SUNDOWN_HOUR = 19;   // adjust if you want
   const SUNDOWN_MIN  = 30;   // adjust if you want
 
-  const dayEl = document.getElementById("omerDay");
-  const textEl = document.getElementById("omerText");
-  const detailEl = document.getElementById("omerDetail");
+  destroyCalendarCard();
 
   function startOfLocalDay(d) {
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -502,6 +504,11 @@ window.initCalendarCard = initCalendarCard;
   }
 
   function updateOmerCounter() {
+    const dayEl = document.getElementById("omerDay");
+    const textEl = document.getElementById("omerText");
+    const detailEl = document.getElementById("omerDetail");
+    if (!dayEl || !textEl || !detailEl) return;
+
     const now = new Date();
     const effectiveDate = getEffectiveDate(now);
 
@@ -540,5 +547,17 @@ window.initCalendarCard = initCalendarCard;
   updateOmerCounter();
 
   // Refresh every minute in case sundown passes while page is open
-  setInterval(updateOmerCounter, 60000);
-})();
+  calendarOmerInterval = setInterval(updateOmerCounter, 60000);
+}
+
+function destroyCalendarCard() {
+  if (countdownInterval) {
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+  }
+
+  if (calendarOmerInterval) {
+    clearInterval(calendarOmerInterval);
+    calendarOmerInterval = null;
+  }
+}

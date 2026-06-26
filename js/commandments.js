@@ -4,6 +4,7 @@
   let lastRenderedContainer = null;
   let activeFilter = "All";
   let searchQuery = "";
+  let observer = null;
   const FILTERS = [
     "All",
     "Positive",
@@ -299,12 +300,34 @@
 
   renderIfReady();
 
-  const observer = new MutationObserver(() => {
-    renderIfReady();
-  });
+  function ensureObserver() {
+    if (observer) return;
 
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
+    observer = new MutationObserver(() => {
+      renderIfReady();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  function initCommandmentsCard() {
+    renderIfReady();
+    ensureObserver();
+  }
+
+  function destroyCommandmentsCard() {
+    lastRenderedContainer = null;
+
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
+  }
+
+  window.initCommandmentsCard = initCommandmentsCard;
+  window.destroyCommandmentsCard = destroyCommandmentsCard;
+  ensureObserver();
 })();

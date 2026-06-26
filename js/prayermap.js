@@ -12,19 +12,14 @@ console.log("🗺️ prayermap.js loaded");
 
 (function () {
 
-  if (window.prayerMapInitialized) {
-    console.warn("prayermap already initialized");
-    return;
-  }
-  window.prayerMapInitialized = true;
-
-  const mapEl = document.getElementById("prayerMap");
-  if (!mapEl || typeof L === "undefined") return;
-
+  let mapEl = null;
   let map;
   let prayerLayer;
   let homeGroupLayer;
   let feastLayer;
+  let prayersUnsubscribe = null;
+  let feastsUnsubscribe = null;
+  let modeClickBound = false;
 
   let addMode = null; // "prayer" | "feast"
   let pendingLatLng = null;
@@ -174,7 +169,7 @@ function popupFor(feature, i) {
   }
 
   function listenForPrayers() {
-    onSnapshot(collection(db, "prayers"), snap => {
+    prayersUnsubscribe = onSnapshot(collection(db, "prayers"), snap => {
       snap.docChanges().forEach(change => {
         const id = change.doc.id;
         const data = change.doc.data();
@@ -422,7 +417,7 @@ if (closeBtn) {
   }
 
   function listenForFeasts() {
-    onSnapshot(collection(db, "feasts"), snap => {
+    feastsUnsubscribe = onSnapshot(collection(db, "feasts"), snap => {
       snap.docChanges().forEach(change => {
         const id = change.doc.id;
         const data = change.doc.data();
@@ -443,7 +438,7 @@ if (closeBtn) {
   // UI MODE SWITCH
   // ======================
 
-  document.addEventListener("click", (e) => {
+  function handleModeClick(e) {
     if (e.target?.id === "prayerMapAddBtn") {
       addMode = "prayer";
       alert("Click map for prayer");
@@ -453,19 +448,65 @@ if (closeBtn) {
       addMode = "feast";
       alert("Click map for feast");
     }
-  });
+  }
+
+  function wireModeClick() {
+    if (modeClickBound) return;
+    modeClickBound = true;
+    document.addEventListener("click", handleModeClick);
+  }
 
   // ======================
   // INIT
   // ======================
 
   function init() {
+    if (window.prayerMapInitialized) {
+      console.warn("prayermap already initialized");
+      return;
+    }
+
+    mapEl = document.getElementById("prayerMap");
+    if (!mapEl || typeof L === "undefined") return;
+
+    window.prayerMapInitialized = true;
+    wireModeClick();
     initMap();
     listenForPrayers();
     listenForFeasts();
     loadHomeGroups();
   }
 
+  function destroy() {
+    if (prayersUnsubscribe) {
+      prayersUnsubscribe();
+      prayersUnsubscribe = null;
+    }
+
+    if (feastsUnsubscribe) {
+      feastsUnsubscribe();
+      feastsUnsubscribe = null;
+    }
+
+    if (map) {
+      map.remove();
+      map = null;
+    }
+
+    mapEl = null;
+    prayerLayer = null;
+    homeGroupLayer = null;
+    feastLayer = null;
+    addMode = null;
+    pendingLatLng = null;
+    window.currentMap = null;
+    window.prayerMapInitialized = false;
+    document.removeEventListener("click", handleModeClick);
+    modeClickBound = false;
+  }
+
+  window.initPrayerMapCard = init;
+  window.destroyPrayerMapCard = destroy;
   init();
 
 })();
