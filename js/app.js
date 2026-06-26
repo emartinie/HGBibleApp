@@ -24,11 +24,11 @@ console.log("APP JS RUN ID:", Date.now());
 // =====================
 
 (function () {
-  const cardsRow = document.getElementById("cardsRow");
-  const cardSelector = document.getElementById("cardSelector");
-  const loadedCardHost = document.getElementById("loadedCardHost");
-  const prevCardSelect = document.getElementById("prevCardSelect");
-  const nextCardSelect = document.getElementById("nextCardSelect");
+  let cardsRow = document.getElementById("cardsRow");
+  let cardSelector = document.getElementById("cardSelector");
+  let loadedCardHost = document.getElementById("loadedCardHost");
+  let prevCardSelect = document.getElementById("prevCardSelect");
+  let nextCardSelect = document.getElementById("nextCardSelect");
 
   let currentCardIndex = 0;
   let loadedScript = null;
@@ -78,6 +78,14 @@ console.log("APP JS RUN ID:", Date.now());
     studyhub: { init: "initStudyHubCard" },
     today: { init: "initTodayCard" }
   };
+
+function refreshDomRefs() {
+  cardsRow = document.getElementById("cardsRow");
+  cardSelector = document.getElementById("cardSelector");
+  loadedCardHost = document.getElementById("loadedCardHost");
+  prevCardSelect = document.getElementById("prevCardSelect");
+  nextCardSelect = document.getElementById("nextCardSelect");
+}
 // =====================
 // CARD NAVIGATION
 // =====================
@@ -309,6 +317,7 @@ function cleanupActiveCard() {
 // SCRIPT LOADER (UNIFIED)
 // =====================
   async function loadCard(cardName) {
+    refreshDomRefs();
     if (!loadedCardHost || !cardName) return;
     const requestId = ++loadCardRequestId;
     console.log("[CARD] render entry", { cardName, requestId });
@@ -372,6 +381,7 @@ console.log("loadCard exists?", typeof window.loadCard);
   }
 
   function wireCardSelector() {
+    refreshDomRefs();
     if (!cardSelector) return;
     if (cardSelectorBound) return;
     cardSelectorBound = true;
@@ -501,13 +511,20 @@ function loadFromUrl() {
 console.log("🔥 before card renderer init");
 function init() {
   if (appInitialized) return;
-  appInitialized = true;
+  refreshDomRefs();
 
+  if (!cardSelector || !loadedCardHost) {
+    requestAnimationFrame(init);
+    return;
+  }
+
+  appInitialized = true;
   wireSwipe();
   wireKeyboard();
   wireCardSelector();
   wireCardSelectorStepButtons();
   wireSefariaRoutingBridge();
+  wireReloadButton();
 
   loadFromUrl();
 
@@ -516,7 +533,11 @@ function init() {
   }
 }
 
-  document.addEventListener("DOMContentLoaded", init);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init, { once: true });
+} else {
+  init();
+}
 
 window.loadCard = loadCard;
 
@@ -548,6 +569,7 @@ window.toggleSection = function (label) {
 // MANUAL CARD RELOAD
 // =====================
 function reloadCurrentCard() {
+  refreshDomRefs();
   if (!cardSelector) return;
 
   const currentCard = cardSelector.value;
@@ -562,8 +584,10 @@ function reloadCurrentCard() {
   loadCard(currentCard);
 }
 
-const reloadCardBtn = document.getElementById("reloadCardBtn");
-if (reloadCardBtn && !reloadBound) {
+function wireReloadButton() {
+  const reloadCardBtn = document.getElementById("reloadCardBtn");
+  if (!reloadCardBtn || reloadBound) return;
+
   reloadBound = true;
   reloadCardBtn.addEventListener("click", reloadCurrentCard);
 }
