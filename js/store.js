@@ -1,26 +1,131 @@
-function moveSlide(btn, dir) {
-  const card = btn.closest(".card");
-  const carousel = btn.closest(".carousel");
-  const images = carousel.querySelectorAll("img");
+(function () {
+  const STORE_EMAIL = "orders@homegroups.org";
 
-  let index = parseInt(carousel.getAttribute("data-index"));
+  let activeController = null;
+  let selectedItem = null;
 
-  images[index].classList.remove("active");
+  function getRoot(host) {
+    return host?.querySelector?.("#simpleStoreCard") || document.getElementById("simpleStoreCard");
+  }
 
-  index += dir;
+  function getEls(root) {
+    return {
+      root,
+      panel: root.querySelector("#storeRequestPanel"),
+      title: root.querySelector("#storeRequestTitle"),
+      meta: root.querySelector("#storeRequestMeta"),
+      name: root.querySelector("#storeName"),
+      contact: root.querySelector("#storeContact"),
+      notes: root.querySelector("#storeNotes"),
+      email: root.querySelector("#storeEmailBtn"),
+      close: root.querySelector("#storeCloseBtn"),
+      status: root.querySelector("#storeStatus")
+    };
+  }
 
-  if (index < 0) index = images.length - 1;
-  if (index >= images.length) index = 0;
+  function setStatus(els, message) {
+    if (els.status) els.status.textContent = message || "";
+  }
 
-  images[index].classList.add("active");
-  carousel.setAttribute("data-index", index);
-}
+  function openRequest(els, productCard) {
+    selectedItem = {
+      name: productCard.dataset.storeProduct || "Store item",
+      price: productCard.dataset.storePrice || "Price pending"
+    };
 
-function zoom(img) {
-  document.getElementById("store-modal").style.display = "block";
-  document.getElementById("store-modal-img").src = img.src;
-}
+    if (els.title) els.title.textContent = `Request: ${selectedItem.name}`;
+    if (els.meta) els.meta.textContent = `${selectedItem.price} • Availability, payment, and shipping are confirmed manually.`;
+    if (els.notes && !els.notes.value.trim()) els.notes.value = `I would like to request ${selectedItem.name}.`;
 
-function closeZoom() {
-  document.getElementById("store-modal").style.display = "none";
-}
+    els.panel?.classList.add("is-open");
+    setStatus(els, "Fill in your contact info, then create an email request.");
+    els.name?.focus();
+  }
+
+  function closeRequest(els) {
+    els.panel?.classList.remove("is-open");
+    setStatus(els, "");
+  }
+
+  function createEmail(els) {
+    if (!selectedItem) {
+      setStatus(els, "Choose an item first.");
+      return;
+    }
+
+    const name = els.name?.value.trim() || "";
+    const contact = els.contact?.value.trim() || "";
+    const notes = els.notes?.value.trim() || "";
+
+    const subject = encodeURIComponent(`Store Request: ${selectedItem.name}`);
+    const body = encodeURIComponent([
+      `Item: ${selectedItem.name}`,
+      `Price shown: ${selectedItem.price}`,
+      `Name: ${name}`,
+      `Contact: ${contact}`,
+      "",
+      "Notes:",
+      notes
+    ].join("\n"));
+
+    window.location.href = `mailto:${STORE_EMAIL}?subject=${subject}&body=${body}`;
+    setStatus(els, "Opening your email app with the request details.");
+  }
+
+  function previewImage(productCard) {
+    const img = productCard.querySelector("img");
+    if (!img?.src) return;
+    window.open(img.src, "_blank", "noopener,noreferrer");
+  }
+
+  function initStoreCard(host) {
+    destroyStoreCard();
+
+    const root = getRoot(host);
+    if (!root) return;
+
+    activeController = new AbortController();
+    const els = getEls(root);
+
+    root.querySelectorAll(".store-product").forEach(productCard => {
+      productCard.querySelector(".store-request-btn")?.addEventListener("click", () => {
+        openRequest(els, productCard);
+      }, { signal: activeController.signal });
+
+      productCard.querySelector(".store-preview-btn")?.addEventListener("click", () => {
+        previewImage(productCard);
+      }, { signal: activeController.signal });
+    });
+
+    els.close?.addEventListener("click", () => closeRequest(els), {
+      signal: activeController.signal
+    });
+
+    els.email?.addEventListener("click", () => createEmail(els), {
+      signal: activeController.signal
+    });
+  }
+
+  function destroyStoreCard() {
+    selectedItem = null;
+
+    if (activeController) {
+      activeController.abort();
+      activeController = null;
+    }
+  }
+
+  window.initStoreCard = initStoreCard;
+  window.destroyStoreCard = destroyStoreCard;
+
+  document.addEventListener("card:init", event => {
+    if (event.detail?.cardName === "store") {
+      initStoreCard(event.target);
+    }
+  });
+
+  queueMicrotask(() => {
+    const root = getRoot(document);
+    if (root) initStoreCard(root.closest("#loadedCardHost") || document);
+  });
+})();

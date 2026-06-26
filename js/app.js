@@ -64,6 +64,7 @@ console.log("APP JS RUN ID:", Date.now());
     beready: { init: "initBeReadyCard" },
     calendar: { init: "initCalendarCard", cleanup: "destroyCalendarCard" },
     commandments: { init: "initCommandmentsCard", cleanup: "destroyCommandmentsCard" },
+    greekalphabet: { init: "initGreekAlphabetCard", cleanup: "destroyGreekAlphabetCard" },
     "intertext-quotes": { init: "initIntertextQuotes" },
     interlinear: { init: "initInterlinearCard" },
     jesus: { init: "initJesusCard", cleanup: "destroyJesusCard" },
@@ -74,6 +75,7 @@ console.log("APP JS RUN ID:", Date.now());
     prezis: { init: "initPrezis", cleanup: "destroyPrezis" },
     radiomap: { init: "initRadioMapCard", cleanup: "destroyRadioMapCard" },
     sources: { init: "initSourcesCard" },
+    store: { init: "initStoreCard", cleanup: "destroyStoreCard" },
     "stewardship-card": { init: "initStewardshipCard" },
     studyhub: { init: "initStudyHubCard" },
     today: { init: "initTodayCard" },
@@ -327,7 +329,9 @@ function cleanupActiveCard() {
       cleanupActiveCard();
       loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
 
-      const res = await fetch(`cards/${cardName}.html`);
+      const res = await fetch(`cards/${cardName}.html?v=${Date.now()}`, {
+        cache: "no-store"
+      });
       if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
 
       const html = await res.text();
