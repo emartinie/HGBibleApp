@@ -1,222 +1,220 @@
-<section class="hg-card-module hg-card-shell">
+<section id="greekAlphabetCard" class="hg-card-module hg-card-shell greek-alphabet-card">
+  <style>
+    #greekAlphabetCard {
+      --greek-bg: #101820;
+      --greek-panel: rgba(18, 26, 34, 0.9);
+      --greek-panel-2: rgba(32, 41, 48, 0.82);
+      --greek-line: rgba(242, 206, 128, 0.28);
+      --greek-gold: #f2ce80;
+      --greek-cyan: #70d6d0;
+      --greek-text: #fff8e7;
+      --greek-muted: rgba(255, 248, 231, 0.72);
+      display: grid;
+      gap: 0.9rem;
+      color: var(--greek-text);
+      background:
+        radial-gradient(circle at top left, rgba(112, 214, 208, 0.18), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(242, 206, 128, 0.18), transparent 36%),
+        linear-gradient(145deg, #101820, #171b23 52%, #241f1a);
+      border: 1px solid rgba(242, 206, 128, 0.18);
+      border-radius: 8px;
+      padding: clamp(0.85rem, 3vw, 1.2rem);
+    }
 
-  <div class="card-topbar">
-    
+    #greekAlphabetCard .greek-panel {
+      border: 1px solid var(--greek-line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)), var(--greek-panel);
+    }
 
-    <div class="card-icon-btn primary" style="pointer-events:none;">
-    </div>
+    #greekAlphabetCard .greek-header {
+      display: grid;
+      gap: 0.25rem;
+      padding: 0.9rem;
+    }
 
-    
-  </div>
+    #greekAlphabetCard .greek-kicker {
+      color: var(--greek-cyan);
+      font-size: 0.72rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
 
-  <section class="orientation-block hg-panel hg-section p-4 my-4">
-    <h3 class="text-lg font-semibold text-amber-300">Begin with the Greek Letters</h3>
-    <p class="text-sm text-slate-300 mt-2">This card introduces the Greek alphabet one letter and sound at a time. It exists to make New Testament language study feel approachable before you begin working with words and grammar.</p>
-    <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Look at Alpha, say its name, and listen to its sound.</p>
+    #greekAlphabetCard .greek-title {
+      margin: 0;
+      color: var(--greek-text);
+      font-size: clamp(1.25rem, 6vw, 1.75rem);
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    #greekAlphabetCard .greek-sub {
+      margin: 0;
+      color: var(--greek-muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    #greekAlphabetCard .greek-stage {
+      display: grid;
+      grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
+      gap: 0.65rem;
+      align-items: stretch;
+      padding: 0.75rem;
+    }
+
+    #greekAlphabetCard .greek-letter-panel {
+      display: grid;
+      min-height: 15rem;
+      place-items: center;
+      border: 1px solid rgba(242, 206, 128, 0.34);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at center, rgba(242, 206, 128, 0.2), transparent 46%),
+        rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0 0 28px rgba(112, 214, 208, 0.12);
+    }
+
+    #greekAlphabetCard .greek-letter-stack {
+      display: grid;
+      gap: 0.35rem;
+      justify-items: center;
+      text-align: center;
+    }
+
+    #greekAlphabetCard #greekLetter {
+      color: var(--greek-gold);
+      font-size: clamp(4.5rem, 26vw, 8rem);
+      font-weight: 900;
+      line-height: 0.9;
+    }
+
+    #greekAlphabetCard #greekLower {
+      color: var(--greek-cyan);
+      font-size: clamp(2rem, 12vw, 3.5rem);
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    #greekAlphabetCard #greekName {
+      color: var(--greek-text);
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    #greekAlphabetCard .greek-meta {
+      color: var(--greek-muted);
+      font-size: 0.86rem;
+    }
+
+    #greekAlphabetCard .greek-nav-btn,
+    #greekAlphabetCard .greek-action {
+      min-height: 2.5rem;
+      border: 1px solid rgba(242, 206, 128, 0.32);
+      border-radius: 8px;
+      color: var(--greek-text);
+      background: rgba(255, 255, 255, 0.07);
+      font-weight: 850;
+    }
+
+    #greekAlphabetCard .greek-nav-btn {
+      font-size: 1.6rem;
+    }
+
+    #greekAlphabetCard .greek-nav-btn:hover,
+    #greekAlphabetCard .greek-nav-btn:focus-visible,
+    #greekAlphabetCard .greek-action:hover,
+    #greekAlphabetCard .greek-action:focus-visible {
+      border-color: rgba(112, 214, 208, 0.8);
+      outline: none;
+      background: rgba(112, 214, 208, 0.12);
+    }
+
+    #greekAlphabetCard .greek-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+      padding: 0 0.75rem 0.75rem;
+    }
+
+    #greekAlphabetCard .greek-note {
+      display: grid;
+      gap: 0.45rem;
+      padding: 0.85rem;
+    }
+
+    #greekAlphabetCard .greek-note strong {
+      color: var(--greek-gold);
+    }
+
+    #greekAlphabetCard .greek-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(3.25rem, 1fr));
+      gap: 0.4rem;
+      padding: 0.75rem;
+    }
+
+    #greekAlphabetCard .greek-tile {
+      min-height: 3.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      color: var(--greek-muted);
+      background: rgba(0, 0, 0, 0.18);
+      font-weight: 850;
+    }
+
+    #greekAlphabetCard .greek-tile.is-active {
+      border-color: rgba(242, 206, 128, 0.72);
+      color: var(--greek-text);
+      background: rgba(242, 206, 128, 0.16);
+    }
+
+    #greekAlphabetCard #greekStatus {
+      min-height: 1.3rem;
+      color: var(--greek-muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  </style>
+
+  <section class="greek-header greek-panel">
+    <div class="greek-kicker">Language Lab</div>
+    <h2 class="greek-title">Greek Alphabet</h2>
+    <p class="greek-sub">Learn the twenty-four Koine Greek letters used in the New Testament. Move one letter at a time, say the name out loud, then notice the sound before going on.</p>
   </section>
 
-  <section class="hg-panel hg-section">
+  <section class="greek-panel">
+    <div class="greek-stage">
+      <button id="greekPrev" class="greek-nav-btn" type="button" aria-label="Previous Greek letter">‹</button>
 
-    <div class="card-inner text-center">
-      
-      <div id="greekViewer" class="flex items-center justify-center gap-6">
-        <button class="card-icon-btn nav" id="greekPrev">‹</button>
-        <div id="greekCard"
-             class="aleph-glow w-48 h-48 flex flex-col items-center justify-center rounded-2xl">
-
-          <div id="greekLetter" class="aleph-letter mb-1">Α</div>
-          <div id="greekName" class="text-lg text-amber-100">Alpha</div>
-          <div id="greekSound" class="text-xs text-amber-300 mt-1">A</div>
-
+      <div class="greek-letter-panel" aria-live="polite">
+        <div class="greek-letter-stack">
+          <div id="greekLetter">Α</div>
+          <div id="greekLower">α</div>
+          <div id="greekName">Alpha</div>
+          <div class="greek-meta">Sound: <span id="greekSound">a as in father</span></div>
+          <div class="greek-meta">Transliteration: <span id="greekTranslit">a</span></div>
+          <div class="greek-meta"><span id="greekIndex">1</span> / 24</div>
         </div>
-      <button class="card-icon-btn nav" id="greekNext">›</button>
       </div>
 
-      <div class="flex justify-center gap-2 mt-4">
-        <button id="greekPlay" class="hg-btn">🔊 Letter</button>
-        <button id="greekAudioBtn" class="hg-btn">▶ Song</button>
-      </div>
-
-      <div class="text-xs text-slate-500 mt-3 italic">
-        Take your time. Let it settle.<br>    Biblical Hebrew
-
-Biblical Hebrew is:
-
-root-based
-symbolic
-layered
-concrete
-relational
-
-Words are often built from 3-letter roots that connect families of ideas together.
-
-Example:
-
-שָׁמַע (shama) means:
-hear
-listen
-obey
-
-English separates those into different concepts.
-
-Hebrew sees them as connected realities.
-
-So when Scripture says:
-
-“Hear, O Israel…”
-
-the implication is not merely “audibly detect sound.”
-
-It means:
-
-receive
-internalize
-respond faithfully
-
-That’s not “less precise.”
-It’s actually more integrated.
-
-Greek
-
-Koine Greek is often:
-
-analytical
-philosophical
-structurally precise
-conceptually nuanced
-
-Greek can distinguish between shades of meaning English collapses together.
-
-Classic example:
-
-ἀγάπη (agapē)
-φιλία (philia)
-ἔρως (eros)
-
-English says:
-
-love
-
-Greek asks:
-
-What kind?
-
-Covenantal?
-Brotherly?
-Romantic?
-Sacrificial?
-
-That’s increased precision in categorization.
-
-But English has strengths too
-
-English is:
-
-massively flexible
-adaptive
-hybridized
-context-rich
-technologically evolved
-
-English can absorb vocabulary from:
-
-Hebrew
-Greek
-Latin
-Germanic languages
-French
-Arabic
-and more
-
-That gives it enormous expressive range.
-
-The weakness is:
-
-modern English often favors efficiency and simplification
-theological vocabulary became institutionalized
-many ancient concepts were translated into flattened church terminology
-
-So sometimes English loses:
-
-covenantal texture
-layered symbolism
-poetic ambiguity
-root connections
-The deeper issue is worldview
-
-This is the real thing you keep bumping into.
-
-Hebrew thinking is often:
-
-relational
-covenantal
-embodied
-pattern-oriented
-
-Greek thinking is often:
-
-categorical
-logical
-metaphysical
-analytical
-
-Modern Western English thinking is often:
-
-industrial
-reductionist
-efficiency-driven
-disconnected from symbolic structure
-
-So sometimes the issue is not the language itself.
-
-It’s the civilization using it.
-
-Which connects directly to Jacob’s Ladder
-
-Jacob's Ladder is a perfect example.
-
-English readers often imagine:
-
-a literal ladder to heaven
-
-Hebrew readers encounter:
-
-connection between heaven and earth
-movement between realms
-covenant continuity
-ascent/descent
-sacred space
-divine encounter
-transformation
-mediation
-
-Then Jesus of Nazareth references it in John 1:
-
-angels ascending and descending upon the Son of Man
-
-He is effectively presenting himself as:
-
-the meeting point
-the bridge
-the access point
-the living temple
-the pathway between heaven and earth
-
-Which is exactly why your instinct about:
-
-journeys
-paths
-ascent
-growth
-steps
-teaching ladders
-discipleship progression
-
-…actually fits the biblical imagery remarkably well.
-      </div>
-
+      <button id="greekNext" class="greek-nav-btn" type="button" aria-label="Next Greek letter">›</button>
     </div>
 
+    <div class="greek-actions">
+      <button id="greekPlay" class="greek-action" type="button">Speak Letter</button>
+      <button id="greekAudioBtn" class="greek-action" type="button">Play Song</button>
+    </div>
 
+    <div id="greekStatus" role="status"></div>
+  </section>
+
+  <section class="greek-note greek-panel">
+    <p class="greek-sub"><strong>Reader’s aim:</strong> this is recognition training. You do not need grammar yet. First learn to see the letters without fear.</p>
+    <p class="greek-sub">Several letters look familiar because English inherited forms through Greek and Latin. Others need repetition. That is normal. Slow review wins here.</p>
+  </section>
+
+  <section class="greek-panel" aria-label="Greek alphabet quick picker">
+    <div id="greekAlphabetGrid" class="greek-grid"></div>
   </section>
 </section>
