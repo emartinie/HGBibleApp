@@ -184,6 +184,8 @@
 
     #quizCard #questionsCard {
       position: relative;
+      display: grid;
+      align-items: center;
       min-height: clamp(8.5rem, 38vw, 13rem);
       overflow: hidden;
       border-radius: 8px 8px 0 0;
@@ -195,6 +197,7 @@
     #quizCard #questionsCard::after {
       content: "Year Round Bible Challenge";
       position: absolute;
+      z-index: 2;
       left: 0.85rem;
       bottom: 0.85rem;
       padding: 0.35rem 0.58rem;
@@ -209,6 +212,9 @@
     }
 
     #quizCard #questionsCard video {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
       width: 100%;
       height: 100%;
       min-height: inherit;
@@ -218,6 +224,8 @@
     }
 
     #quizCard .hg-question-inner {
+      position: relative;
+      z-index: 1;
       display: grid;
       gap: 0.8rem;
       padding: clamp(0.9rem, 3vw, 1.15rem);
@@ -436,14 +444,14 @@
       <video autoplay muted loop playsinline>
         <source src="videos/bg-motion.mp4" type="video/mp4">
       </video>
-    </div>
 
-    <div class="hg-question-inner">
-      <div class="hg-question-text">
-        <span id="questionText">Loading questions...</span>
+      <div class="hg-question-inner">
+        <div class="hg-question-text">
+          <span id="questionText">Loading questions...</span>
+        </div>
+
+        <div id="choices"></div>
       </div>
-
-      <div id="choices"></div>
     </div>
   </section>
 
