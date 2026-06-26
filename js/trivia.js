@@ -33,12 +33,25 @@
 
   function loadQuestions() {
     if (!questionsPromise) {
-      questionsPromise = fetch(QUESTION_PATH)
-        .then(res => {
-          if (!res.ok) throw new Error(`Could not load ${QUESTION_PATH}`);
-          return res.json();
-        })
-        .then(data => Array.isArray(data) ? data : []);
+      questionsPromise = new Promise((resolve, reject) => {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => {
+          controller.abort();
+          reject(new Error(`Timed out loading ${QUESTION_PATH}`));
+        }, 8000);
+
+        fetch(QUESTION_PATH, { signal: controller.signal })
+          .then(res => {
+            if (!res.ok) throw new Error(`Could not load ${QUESTION_PATH}`);
+            return res.json();
+          })
+          .then(data => resolve(Array.isArray(data) ? data : []))
+          .catch(reject)
+          .finally(() => clearTimeout(timeout));
+      }).catch(err => {
+        questionsPromise = null;
+        throw err;
+      });
     }
 
     return questionsPromise;
@@ -151,7 +164,8 @@
     const root = getRoot(host);
     if (!root) return;
 
-    activeController = new AbortController();
+    const controller = new AbortController();
+    activeController = controller;
     const els = getEls(root);
 
     teams = [
@@ -165,7 +179,7 @@
 
     try {
       const questions = await loadQuestions();
-      if (!activeController) return;
+      if (activeController !== controller) return;
 
       currentIndex = questions.length ? Math.floor(Math.random() * questions.length) : 0;
       renderQuestion(els, questions);
@@ -212,4 +226,17 @@
 
   window.initTriviaCard = initTriviaCard;
   window.destroyTriviaCard = destroyTriviaCard;
+
+  document.addEventListener("card:init", event => {
+    if (event.detail?.cardName === "trivia") {
+      initTriviaCard(event.target);
+    }
+  });
+
+  queueMicrotask(() => {
+    const root = getRoot(document);
+    if (root && root.querySelector("#questionText")?.textContent.includes("Loading")) {
+      initTriviaCard(root.closest("#loadedCardHost") || document);
+    }
+  });
 })();
