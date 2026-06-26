@@ -39,6 +39,7 @@
 
     els.panel?.classList.add("is-open");
     setStatus(els, "Fill in your contact info, then create an email request.");
+    els.panel?.scrollIntoView({ behavior: "smooth", block: "start" });
     els.name?.focus();
   }
 
@@ -88,7 +89,8 @@
     const els = getEls(root);
 
     root.querySelectorAll(".store-product").forEach(productCard => {
-      productCard.querySelector(".store-request-btn")?.addEventListener("click", () => {
+      productCard.querySelector(".store-request-btn")?.addEventListener("click", event => {
+        event.preventDefault();
         openRequest(els, productCard);
       }, { signal: activeController.signal });
 
