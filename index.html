@@ -632,6 +632,9 @@
   <div id="appShell">
 
     <header id="topBar">
+      <button id="installAppBtn" class="ui-btn" type="button" hidden>
+  ⬇
+</button>
       <div class="toolbar">
                 <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
         <select id="weekSelect" class="ui-select" aria-label="Select week">
@@ -701,7 +704,6 @@
             <select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
         <option value="">Select Card</option>
         <optgroup label="⚡ Start Here">
-          <option value="today">🔥 Today</option>
           <option value="studyhub">🧭 Study Hub</option>
           <option value="discipleship">🪜 Learning Path</option>
           <option value="jesus">👑 Who Is Yeshua?</option>
@@ -753,14 +755,15 @@
         <optgroup label="🌱 Support">
           <option value="stewardship-card" title="Help me keep doing this">📂 Stewardship</option>
           <option value="store" title="Help me keep doing this">🌱 Store</option>
+          <option value="today">🔥 Today</option>
         </optgroup>
               </select>   
       
       <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
       <button id="textSizePreferenceBtn" class="ui-btn" type="button" aria-label="Cycle reading text size" title="Reading text size">Text: Normal</button>
-      <button id="installAppBtn" class="ui-btn" type="button" hidden>
+      <!--<button id="installAppBtn" class="ui-btn" type="button" hidden>
   ⬇
-</button>
+</button>-->
     </div>
 
     <main id="viewport">
