@@ -4,7 +4,7 @@
   let lastRenderedContainer = null;
   let activeFilter = "All";
   let searchQuery = "";
-  let observer = null;
+  let renderRequestId = 0;
   const FILTERS = [
     "All",
     "Positive",
@@ -284,6 +284,7 @@
   }
 
   async function renderIfReady() {
+    const requestId = ++renderRequestId;
     const container = document.getElementById("commandmentsList");
     if (!container || container === lastRenderedContainer) return;
 
@@ -291,43 +292,27 @@
 
     try {
       const commandments = await loadCommandments();
+      if (requestId !== renderRequestId) return;
+      if (!document.body.contains(container)) return;
+
       renderPreview(container, Array.isArray(commandments) ? commandments : []);
     } catch (err) {
+      if (requestId !== renderRequestId) return;
       container.textContent = "Failed to load commandments dataset.";
       console.error("[commandments] dataset preview failed", err);
     }
   }
 
-  renderIfReady();
-
-  function ensureObserver() {
-    if (observer) return;
-
-    observer = new MutationObserver(() => {
-      renderIfReady();
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  }
-
   function initCommandmentsCard() {
     renderIfReady();
-    ensureObserver();
   }
 
   function destroyCommandmentsCard() {
+    renderRequestId++;
     lastRenderedContainer = null;
-
-    if (observer) {
-      observer.disconnect();
-      observer = null;
-    }
   }
 
   window.initCommandmentsCard = initCommandmentsCard;
   window.destroyCommandmentsCard = destroyCommandmentsCard;
-  ensureObserver();
+  initCommandmentsCard();
 })();
