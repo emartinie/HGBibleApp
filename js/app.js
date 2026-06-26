@@ -76,7 +76,8 @@ console.log("APP JS RUN ID:", Date.now());
     sources: { init: "initSourcesCard" },
     "stewardship-card": { init: "initStewardshipCard" },
     studyhub: { init: "initStudyHubCard" },
-    today: { init: "initTodayCard" }
+    today: { init: "initTodayCard" },
+    trivia: { init: "initTriviaCard", cleanup: "destroyTriviaCard" }
   };
 
 function refreshDomRefs() {
