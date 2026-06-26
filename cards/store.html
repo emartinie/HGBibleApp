@@ -1,201 +1,311 @@
-<div id="trusted-store-widget">
+<section id="simpleStoreCard" class="hg-card-module hg-card-shell simple-store-card">
+  <style>
+    #simpleStoreCard {
+      --store-bg: #0f1720;
+      --store-panel: rgba(17, 24, 33, 0.92);
+      --store-panel-2: rgba(255, 255, 255, 0.055);
+      --store-line: rgba(255, 255, 255, 0.12);
+      --store-text: #f8fafc;
+      --store-muted: rgba(248, 250, 252, 0.72);
+      --store-gold: #f1c76b;
+      --store-green: #66d19e;
+      --store-blue: #7dd3fc;
+      display: grid;
+      gap: 0.9rem;
+      color: var(--store-text);
+      background:
+        radial-gradient(circle at top left, rgba(125, 211, 252, 0.14), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(241, 199, 107, 0.14), transparent 34%),
+        linear-gradient(145deg, #0f1720, #141b24 52%, #1f1a14);
+      border: 1px solid rgba(241, 199, 107, 0.18);
+      border-radius: 8px;
+      padding: clamp(0.85rem, 3vw, 1.15rem);
+    }
 
-<style>
-#trusted-store-widget {
-  font-family: Arial, sans-serif;
-}
+    #simpleStoreCard .store-panel {
+      border: 1px solid var(--store-line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)), var(--store-panel);
+    }
 
-/* HEADER */
-#trusted-store-widget .header {
-  background: #111;
-  color: white;
-  padding: 18px;
-  text-align: center;
-  font-size: 20px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
+    #simpleStoreCard .store-header {
+      display: grid;
+      gap: 0.32rem;
+      padding: 0.9rem;
+    }
 
-/* CONTAINER */
-#trusted-store-widget .container {
-  max-width: 1100px;
-  margin: auto;
-}
+    #simpleStoreCard .store-kicker {
+      color: var(--store-blue);
+      font-size: 0.72rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
 
-/* CARD */
-#trusted-store-widget .card {
-  background: white;
-  border-radius: 14px;
-  margin-bottom: 25px;
-  padding: 16px;
-  box-shadow: 0 2px 14px rgba(0,0,0,0.08);
-}
+    #simpleStoreCard .store-title {
+      margin: 0;
+      color: var(--store-text);
+      font-size: clamp(1.25rem, 6vw, 1.75rem);
+      font-weight: 900;
+      line-height: 1.08;
+    }
 
-/* TITLE */
-#trusted-store-widget .title {
-  font-size: 20px;
-  margin: 10px 0;
-}
+    #simpleStoreCard .store-copy {
+      margin: 0;
+      color: var(--store-muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
 
-/* PRICE */
-#trusted-store-widget .price {
-  color: #1a7;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+    #simpleStoreCard .store-grid {
+      display: grid;
+      gap: 0.8rem;
+    }
 
-/* CAROUSEL */
-#trusted-store-widget .carousel {
-  position: relative;
-  width: 100%;
-  height: 280px;
-  overflow: hidden;
-  border-radius: 12px;
-}
+    #simpleStoreCard .store-product {
+      overflow: hidden;
+      border: 1px solid var(--store-line);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.18);
+    }
 
-#trusted-store-widget .carousel img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  display: none;
-  cursor: zoom-in;
-}
+    #simpleStoreCard .store-image-wrap {
+      display: grid;
+      min-height: 13.5rem;
+      place-items: center;
+      background: #f8fafc;
+    }
 
-#trusted-store-widget .carousel img.active {
-  display: block;
-}
+    #simpleStoreCard .store-image-wrap img {
+      width: 100%;
+      height: 13.5rem;
+      object-fit: contain;
+      padding: 0.75rem;
+    }
 
-/* ARROWS */
-#trusted-store-widget .arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 8px 10px;
-  cursor: pointer;
-}
+    #simpleStoreCard .store-product-body {
+      display: grid;
+      gap: 0.55rem;
+      padding: 0.85rem;
+    }
 
-#trusted-store-widget .left { left: 10px; }
-#trusted-store-widget .right { right: 10px; }
+    #simpleStoreCard .store-product-title {
+      margin: 0;
+      color: var(--store-text);
+      font-size: 1.05rem;
+      font-weight: 900;
+      line-height: 1.18;
+    }
 
-/* BUTTON */
-#trusted-store-widget .btn {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 10px;
-  background: #111;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-}
+    #simpleStoreCard .store-price {
+      color: var(--store-green);
+      font-weight: 900;
+    }
 
-#trusted-store-widget .btn:hover {
-  background: #333;
-}
+    #simpleStoreCard .store-detail-list {
+      display: grid;
+      gap: 0.32rem;
+      margin: 0;
+      padding: 0;
+      color: var(--store-muted);
+      font-size: 0.85rem;
+      list-style: none;
+    }
 
-/* MODAL */
-#trusted-store-widget .modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-}
+    #simpleStoreCard .store-detail-list li::before {
+      content: "• ";
+      color: var(--store-gold);
+      font-weight: 900;
+    }
 
-#trusted-store-widget .modal img {
-  max-width: 90%;
-  max-height: 90%;
-  margin: auto;
-  display: block;
-  margin-top: 3%;
-}
-</style>
+    #simpleStoreCard .store-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 0.2rem;
+    }
 
-<!-- HEADER -->
-<div class="flame"></div>
+    #simpleStoreCard .store-btn {
+      min-height: 2.6rem;
+      border: 1px solid rgba(241, 199, 107, 0.34);
+      border-radius: 8px;
+      color: var(--store-text);
+      background: rgba(255, 255, 255, 0.07);
+      font-weight: 850;
+    }
 
-<section class="orientation-block" style="margin: 0 auto 16px; max-width: 1100px; padding: 16px; border-radius: 12px; background: #1f2937; color: #f8fafc;">
-  <h3 style="margin: 0; font-size: 18px;">Browse Practical Resources</h3>
-  <p style="margin: 8px 0 0; line-height: 1.5;">This card gathers items connected to study, worship, and practical community life. It exists to keep optional resources in one clear place without interrupting the main study experience.</p>
-  <p style="margin: 8px 0 0; color: #67e8f9;"><strong>Start here:</strong> Browse the first item and continue only if it genuinely serves a need.</p>
+    #simpleStoreCard .store-btn.primary {
+      color: #121212;
+      background: var(--store-gold);
+    }
+
+    #simpleStoreCard .store-btn:hover,
+    #simpleStoreCard .store-btn:focus-visible {
+      border-color: rgba(125, 211, 252, 0.82);
+      outline: none;
+    }
+
+    #simpleStoreCard .store-note {
+      display: grid;
+      gap: 0.42rem;
+      padding: 0.85rem;
+    }
+
+    #simpleStoreCard .store-request {
+      display: none;
+      gap: 0.7rem;
+      padding: 0.9rem;
+    }
+
+    #simpleStoreCard .store-request.is-open {
+      display: grid;
+    }
+
+    #simpleStoreCard .store-request-title {
+      margin: 0;
+      color: var(--store-gold);
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    #simpleStoreCard .store-field {
+      display: grid;
+      gap: 0.28rem;
+      color: var(--store-muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    #simpleStoreCard .store-field input,
+    #simpleStoreCard .store-field textarea {
+      width: 100%;
+      border: 1px solid var(--store-line);
+      border-radius: 8px;
+      padding: 0.72rem;
+      color: var(--store-text);
+      background: rgba(0, 0, 0, 0.22);
+      font-size: 0.95rem;
+      text-transform: none;
+    }
+
+    #simpleStoreCard .store-field textarea {
+      min-height: 6rem;
+      resize: vertical;
+    }
+
+    #simpleStoreCard .store-request-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    #simpleStoreCard #storeStatus {
+      min-height: 1.25rem;
+      color: var(--store-muted);
+      font-size: 0.82rem;
+    }
+
+    @media (min-width: 760px) {
+      #simpleStoreCard .store-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  </style>
+
+  <section class="store-header store-panel">
+    <div class="store-kicker">Resource Store</div>
+    <h2 class="store-title">Simple HG Store</h2>
+    <p class="store-copy">A small, practical store for optional study and worship resources. Choose an item, send a request, and handle payment/shipping manually until a real checkout is ready.</p>
+  </section>
+
+  <section class="store-grid" aria-label="Store products">
+    <article class="store-product" data-store-product="Yemenite Shofar" data-store-price="$150">
+      <div class="store-image-wrap">
+        <img src="images/store/shofar.jpg" alt="Yemenite shofar">
+      </div>
+      <div class="store-product-body">
+        <h3 class="store-product-title">Yemenite Shofar</h3>
+        <div class="store-price">$150</div>
+        <ul class="store-detail-list">
+          <li>Large ceremonial ram’s horn style</li>
+          <li>For feasts, teaching, and home worship</li>
+          <li>Manual request before payment</li>
+        </ul>
+        <div class="store-actions">
+          <button class="store-btn primary store-request-btn" type="button">Request</button>
+          <button class="store-btn store-preview-btn" type="button">Image</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="store-product" data-store-product="Tallit Prayer Shawl" data-store-price="$25">
+      <div class="store-image-wrap">
+        <img src="images/store/christian-prayer-shawl-tallit.jpg" alt="Tallit prayer shawl">
+      </div>
+      <div class="store-product-body">
+        <h3 class="store-product-title">Tallit Prayer Shawl</h3>
+        <div class="store-price">$25</div>
+        <ul class="store-detail-list">
+          <li>Simple prayer shawl resource</li>
+          <li>Useful for teaching biblical customs</li>
+          <li>Availability confirmed manually</li>
+        </ul>
+        <div class="store-actions">
+          <button class="store-btn primary store-request-btn" type="button">Request</button>
+          <button class="store-btn store-preview-btn" type="button">Image</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="store-product" data-store-product="Tzitzit with Torah Wrap" data-store-price="$17">
+      <div class="store-image-wrap">
+        <img src="images/store/torahtzitiot.jpg" alt="Tzitzit with Torah wrap">
+      </div>
+      <div class="store-product-body">
+        <h3 class="store-product-title">Tzitzit with Torah Wrap</h3>
+        <div class="store-price">$17</div>
+        <ul class="store-detail-list">
+          <li>Small study and practice resource</li>
+          <li>Compact item for home or group use</li>
+          <li>Request first, pay after confirmation</li>
+        </ul>
+        <div class="store-actions">
+          <button class="store-btn primary store-request-btn" type="button">Request</button>
+          <button class="store-btn store-preview-btn" type="button">Image</button>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section id="storeRequestPanel" class="store-request store-panel" aria-live="polite">
+    <h3 id="storeRequestTitle" class="store-request-title">Request an item</h3>
+    <p id="storeRequestMeta" class="store-copy"></p>
+
+    <label class="store-field">
+      Name
+      <input id="storeName" type="text" autocomplete="name">
+    </label>
+
+    <label class="store-field">
+      Email or phone
+      <input id="storeContact" type="text" autocomplete="email">
+    </label>
+
+    <label class="store-field">
+      Notes
+      <textarea id="storeNotes" placeholder="Quantity, shipping notes, or questions"></textarea>
+    </label>
+
+    <div class="store-request-actions">
+      <button id="storeEmailBtn" class="store-btn primary" type="button">Create Email</button>
+      <button id="storeCloseBtn" class="store-btn" type="button">Close</button>
+    </div>
+
+    <div id="storeStatus"></div>
+  </section>
+
+  <section class="store-note store-panel">
+    <p class="store-copy"><strong>Note:</strong> This is intentionally simple. It is not a full checkout system yet. It gives visitors a clean place to browse and request items while keeping payment and shipping manual.</p>
+  </section>
 </section>
-
-<div class="container">
-
-  <!-- ITEM 1 -->
-  <div class="card">
-
-    <div class="carousel" data-index="0">
-      <button class="arrow left" onclick="moveSlide(this,-1)">&#10094;</button>
-
-      <img src="https://homegroups.org/images/store/shofar.jpg" class="active" onclick="zoom(this)">
-      <img src="https://homegroups.org/images/store/shofar2.jpg" onclick="zoom(this)">
-      <img src="https://homegroups.org/images/store/shofar.jpg" onclick="zoom(this)">
-
-      <button class="arrow right" onclick="moveSlide(this,1)">&#10095;</button>
-    </div>
-
-    <div class="title">Yemenite Shofar</div>
-    <div class="price">$150</div>
-
-    <button class="btn" onclick="location.href='pay.html?item=shofar'">
-      Request Item
-    </button>
-  </div>
-
-  <!-- ITEM 2 -->
-  <div class="card">
-
-    <div class="carousel" data-index="0">
-      <button class="arrow left" onclick="moveSlide(this,-1)">&#10094;</button>
-
-      <img src="https://homegroups.org/images/store/christian-prayer-shawl-tallit.jpg" class="active" onclick="zoom(this)">
-      <img src="https://homegroups.org/images/store/christian-prayer-shawl-tallit.jpg" onclick="zoom(this)">
-
-      <button class="arrow right" onclick="moveSlide(this,1)">&#10095;</button>
-    </div>
-
-    <div class="title">Tallit Prayer Shawl</div>
-    <div class="price">$15–$25</div>
-
-    <button class="btn" onclick="location.href='pay.html?item=tallit'">
-      Request Item
-    </button>
-  </div>
-
-  <!-- ITEM 3 -->
-  <div class="card">
-
-    <div class="carousel" data-index="0">
-      <button class="arrow left" onclick="moveSlide(this,-1)">&#10094;</button>
-
-      <img src="https://homegroups.org/images/store/torahtzitiot.jpg" class="active" onclick="zoom(this)">
-      <img src="https://homegroups.org/images/store/torahtzitiot.jpg" onclick="zoom(this)">
-
-      <button class="arrow right" onclick="moveSlide(this,1)">&#10095;</button>
-    </div>
-
-    <div class="title">Tzitzit with Torah Wrap</div>
-    <div class="price">$17</div>
-
-    <button class="btn" onclick="location.href='pay.html?item=tzitzit'">
-      Request Item
-    </button>
-  </div>
-
-</div>
-
-<!-- MODAL -->
-<div id="store-modal" class="modal" onclick="closeZoom()">
-  <img id="store-modal-img">
-</div>
-
-</div>
-
