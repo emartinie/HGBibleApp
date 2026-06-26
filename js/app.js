@@ -393,11 +393,13 @@ console.log("loadCard exists?", typeof window.loadCard);
   }
 
   function getSelectableOptions() {
+    refreshDomRefs();
     if (!cardSelector) return [];
     return Array.from(cardSelector.options).filter(opt => opt.value);
   }
 
   function stepCardSelector(direction) {
+    refreshDomRefs();
     const options = getSelectableOptions();
     if (!options.length || !cardSelector) return;
 
