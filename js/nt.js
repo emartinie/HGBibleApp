@@ -389,6 +389,63 @@ function getParams() {
     }));
   }
 
+  function initJewishContextExcursion(bookName, chapterNum) {
+    const trigger = document.getElementById("sefariaBtn");
+    const excursion = document.getElementById("nt-excursion");
+    const readerHost = document.getElementById("nt-reader-host");
+    const closeButton = document.getElementById("nt-excursion-close");
+    const returnButton = document.getElementById("nt-excursion-return");
+    const contextText = document.getElementById("nt-excursion-context");
+    const readerCard = readerHost?.closest(".card");
+
+    if (!trigger || !excursion || !readerHost || !bookName || !chapterNum) return;
+
+    let savedScrollTop = 0;
+    let returnFocus = null;
+
+    contextText.textContent = `${bookName} · Chapter ${chapterNum}`;
+    trigger.hidden = false;
+
+    const closeExcursion = () => {
+      if (excursion.hidden) return;
+
+      excursion.hidden = true;
+      excursion.setAttribute("aria-hidden", "true");
+      readerHost.classList.remove("nt-excursion-active");
+
+      if (readerCard) {
+        readerCard.style.overflowY = "";
+        readerCard.scrollTop = savedScrollTop;
+        requestAnimationFrame(() => {
+          readerCard.scrollTop = savedScrollTop;
+        });
+      }
+
+      returnFocus?.focus();
+    };
+
+    const openExcursion = () => {
+      savedScrollTop = readerCard?.scrollTop || 0;
+      returnFocus = document.activeElement;
+      readerHost.classList.add("nt-excursion-active");
+      excursion.hidden = false;
+      excursion.setAttribute("aria-hidden", "false");
+
+      if (readerCard) readerCard.style.overflowY = "hidden";
+      closeButton?.focus();
+    };
+
+    trigger.addEventListener("click", openExcursion);
+    closeButton?.addEventListener("click", closeExcursion);
+    returnButton?.addEventListener("click", closeExcursion);
+    excursion.addEventListener("click", (event) => {
+      if (event.target === excursion) closeExcursion();
+    });
+    excursion.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeExcursion();
+    });
+  }
+
   function openIntertextPanel(edge, context = {}) {
     if (!edge) return;
 
@@ -1382,6 +1439,7 @@ fetch(jsonPath)
 
   const chapterKeys = Object.keys(data.chapters || {});
   renderChapter(book, chapter, ch, section, chapterKeys, contextBundle);
+  initJewishContextExcursion(book, chapter);
 
   if (view === "panel" && section && ch[section]) {
     const href =
