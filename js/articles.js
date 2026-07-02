@@ -1,7 +1,7 @@
 (function () {
-const articles = [ 
-  { title: "Who was Paul, or Rabbi Shaul?", file: "who_was_paul.html" },               
-  { title: "Food Laws?", file: "what_does_the_text_say_dietary_expectations .html" },
+const ARTICLES = [
+  { title: "Who was Paul, or Rabbi Shaul?", file: "who_was_paul.html" },
+  { title: "What Does the Text Say About Clean and Unclean Food?", file: "what_does_the_text_say_dietary_expectations.html" },
   { title: "Almost There, but Not Quite", file: "almost_there_but_not_quite.html" },
   { title: "Walking in Love", file: "debating_arguing_discussing_and_disagreeing_midrash.html" },
   { title: "First Article", file: "first_blog_post_the_second_commandment_and_the_second_ammendment.html" },
@@ -18,7 +18,7 @@ const articles = [
   { title: "Study Tools", file: "study_tools.html" },
   { title: "Surrendering Anger- by Wendy Roberts", file: "surrendering_anger.html" },
   { title: "Taking Our Country & Churches Back", file: "taking_our_churches_and_our_country_back.html" },
-  { title: "The Hebrew Roots of Revelation", file: "the_book_of_revelation_hebrew_roots.html" },
+  { title: "The Hebrew Roots of Revelation", file: "the_Book_of_revelation_hebrew_roots.html" },
   { title: "The Commandments of Jesus", file: "the_commandments_of_jesus.html" },
   { title: "The Hebrew Pages of the New Testament", file: "the_hebrew_pages_of_the_new_testament.html" },
   { title: "The Law is Dead?", file: "the_law_is_dead.html" },
@@ -34,65 +34,100 @@ const articles = [
 
 ];
 
-  const listEl = document.getElementById("articleList");
-  const viewer = document.getElementById("articleViewer");
+  let activeController = null;
 
-  function renderList() {
-    if (!listEl) return;
-
-    listEl.innerHTML = articles.map(a => `
-      <button class="ui-btn w-full text-left" data-file="${a.file}">
-        ${a.title}
-      </button>
-    `).join("");
+  function getEls(root = document) {
+    const scope = root && typeof root.querySelector === "function" ? root : document;
+    return {
+      list: scope.querySelector("#articleList"),
+      search: scope.querySelector("#articleSearch"),
+      viewer: scope.querySelector("#articleViewer")
+    };
   }
 
-  async function loadArticle(file) {
+  function renderList(listEl, query = "") {
+    if (!listEl) return;
+
+    const normalized = query.trim().toLowerCase();
+    const matches = ARTICLES.filter(article =>
+      !normalized || article.title.toLowerCase().includes(normalized)
+    );
+
+    listEl.innerHTML = matches.length ? matches.map(article => `
+      <button class="ui-btn w-full text-left" data-file="${article.file}">
+        ${article.title}
+      </button>
+    `).join("") : `<div class="hg-empty">No articles match your search.</div>`;
+  }
+
+  async function loadArticle(file, viewer) {
     if (!viewer) return;
+
+    const [fileName, anchor = ""] = String(file || "").split("#", 2);
 
     viewer.innerHTML = "Loading...";
 
     try {
-      const res = await fetch(`articles/${file}`);
+      const res = await fetch(`articles/${fileName}`);
       if (!res.ok) throw new Error();
 
       const html = await res.text();
       viewer.innerHTML = html;
+
+      if (anchor) {
+        const target = Array.from(viewer.querySelectorAll("[id]")).find(el => el.id === anchor);
+        target?.scrollIntoView({ block: "start" });
+      } else {
+        viewer.scrollTop = 0;
+      }
 
     } catch {
       viewer.innerHTML = `<div class="text-red-400">Failed to load article</div>`;
     }
   }
 
-function wire() {
-  listEl?.addEventListener("click", (e) => {
-    const btn = e.target.closest("button");
-    if (!btn) return;
+  async function initArticlesCard(root = document) {
+    destroyArticlesCard();
 
-    // highlight active
-    listEl.querySelectorAll("button").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+    const { list, search, viewer } = getEls(root);
+    if (!list || !viewer) return;
 
-    loadArticle(btn.dataset.file);
-  });
-}
+    activeController = new AbortController();
+    const { signal } = activeController;
 
-async function init() {
-  renderList();
-  wire();
+    renderList(list, search?.value || "");
 
-  if (window.pendingArticleFile) {
-    await loadArticle(window.pendingArticleFile);
+    search?.addEventListener("input", () => {
+      renderList(list, search.value);
+    }, { signal });
 
-    const btn = listEl?.querySelector(
-      `[data-file="${window.pendingArticleFile}"]`
-    );
+    list.addEventListener("click", event => {
+      const button = event.target.closest("button[data-file]");
+      if (!button) return;
 
-    btn?.classList.add("active");
+      list.querySelectorAll("button").forEach(item => item.classList.remove("active"));
+      button.classList.add("active");
+      loadArticle(button.dataset.file, viewer);
+    }, { signal });
 
-    window.pendingArticleFile = null;
+    if (window.pendingArticleFile) {
+      const pending = window.pendingArticleFile;
+      const fileName = pending.split("#", 1)[0];
+      await loadArticle(pending, viewer);
+
+      const button = Array.from(list.querySelectorAll("button[data-file]"))
+        .find(item => item.dataset.file === fileName);
+
+      button?.classList.add("active");
+      window.pendingArticleFile = null;
+    }
   }
-}
 
-  init();
+  function destroyArticlesCard() {
+    activeController?.abort();
+    activeController = null;
+  }
+
+  window.initArticlesCard = initArticlesCard;
+  window.destroyArticlesCard = destroyArticlesCard;
 })();

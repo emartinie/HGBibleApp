@@ -157,7 +157,7 @@ function renderStep(journey) {
 
       ${articleHref ? `
         <a class="reader-chip hg-chip inline-flex" href="${articleHref}">
-          Open Teaching ->
+          Open Full Teaching ->
         </a>
       ` : ""}
 
@@ -221,6 +221,7 @@ function renderJourney(journey) {
 
   renderOverview(journey);
   renderStep(journey);
+  updateResumeControl();
 }
 
 async function startJourney(id) {
@@ -256,9 +257,11 @@ function initSelector() {
         </div>
         ${journey.available
           ? `<span class="text-xs text-cyan-300">Available</span>`
-          : `<span class="text-xs text-slate-500">Coming soon</span>`}
+          : `<span class="text-xs text-slate-500">In review</span>`}
       </div>
-      <div class="mt-1 text-xs text-slate-500">${escapeHtml(journey.file)}</div>
+      <div class="mt-1 text-xs text-slate-500">
+        ${journey.available ? "Ready to begin" : "Journey material is being reviewed"}
+      </div>
     `;
     if (journey.available) {
       item.addEventListener("click", () => startJourney(journey.id));
@@ -267,9 +270,41 @@ function initSelector() {
   });
 }
 
-function bootJourneyCard() {
-  console.log("[Discipleship] boot");
-  initSelector();
+function updateResumeControl() {
+  const resumeBtn = el("resumeJourneyBtn");
+  if (!resumeBtn) return;
+
+  const canResume = !!state.activeJourney;
+  resumeBtn.disabled = !canResume;
+  resumeBtn.title = canResume
+    ? `Resume ${state.activeJourney.title || "journey"}`
+    : "Choose a journey to begin";
+  resumeBtn.onclick = canResume
+    ? () => {
+        renderOverview(state.activeJourney);
+        renderStep(state.activeJourney);
+      }
+    : null;
 }
 
-requestAnimationFrame(bootJourneyCard);
+function initDiscipleshipCard() {
+  console.log("[Discipleship] boot");
+  initSelector();
+  updateResumeControl();
+
+  if (state.activeJourney) {
+    renderOverview(state.activeJourney);
+    renderStep(state.activeJourney);
+  } else {
+    setText("discipleshipTitle", "Learning Paths");
+    setText("orientationTitle", "Choose a learning path to begin");
+    setText("moduleMeta", "");
+  }
+}
+
+function destroyDiscipleshipCard() {
+  // Journey state intentionally remains in memory so this-session resume works.
+}
+
+window.initDiscipleshipCard = initDiscipleshipCard;
+window.destroyDiscipleshipCard = destroyDiscipleshipCard;

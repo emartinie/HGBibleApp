@@ -61,9 +61,11 @@ console.log("APP JS RUN ID:", Date.now());
   ]);
 
   const CARD_LIFECYCLE = {
+    articles: { init: "initArticlesCard", cleanup: "destroyArticlesCard" },
     beready: { init: "initBeReadyCard" },
     calendar: { init: "initCalendarCard", cleanup: "destroyCalendarCard" },
     commandments: { init: "initCommandmentsCard", cleanup: "destroyCommandmentsCard" },
+    discipleship: { init: "initDiscipleshipCard", cleanup: "destroyDiscipleshipCard" },
     greekalphabet: { init: "initGreekAlphabetCard", cleanup: "destroyGreekAlphabetCard" },
     "intertext-quotes": { init: "initIntertextQuotes" },
     interlinear: { init: "initInterlinearCard" },
