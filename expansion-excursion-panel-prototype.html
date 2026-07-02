@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Expansion / Excursion Panel Prototype</title>
+<style>
+:root{color-scheme:light;--ink:#19231f;--muted:#65716b;--paper:#f5f0e5;--card:#fffdf8;--green:#264f42;--gold:#b98a43}
+*{box-sizing:border-box}body{margin:0;background:#d9ddd8;color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+button{font:inherit}.phone{position:relative;width:min(100%,430px);height:100dvh;margin:auto;overflow:hidden;background:var(--paper);box-shadow:0 0 40px #24342c35}
+.host{height:100%;overflow:auto;scroll-behavior:smooth}.host-inner{padding:20px 18px 110px}.eyebrow{color:var(--green);font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+h1{font:700 2.25rem/1.06 Georgia,serif;margin:.3rem 0 .8rem}.lead{font-size:1.08rem;color:#435049}.section{margin:28px 0}.section h2{font:700 1.35rem Georgia,serif}
+.trigger{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;margin:9px 0;padding:14px;border:1px solid #bfc9c2;border-radius:14px;background:var(--card);color:var(--green);font-weight:750}.trigger span:last-child{font-size:1.25rem}
+.host.excursion{filter:blur(3px);transform:scale(.995);pointer-events:none;user-select:none}.shade{position:absolute;inset:0;background:#10251dcc;opacity:0;pointer-events:none;transition:.2s}.shade.open{opacity:1;pointer-events:auto}
+.panel{position:absolute;z-index:2;left:10px;right:10px;bottom:10px;height:min(74%,620px);display:flex;flex-direction:column;background:var(--card);border-radius:22px;box-shadow:0 20px 60px #0008;transform:translateY(calc(100% + 20px));transition:transform .25s ease;overflow:hidden}.panel.open{transform:none}
+.handle{width:44px;height:5px;border-radius:9px;background:#c2c5c0;margin:9px auto 4px}.panel-head{display:flex;align-items:center;gap:10px;padding:4px 16px 12px;border-bottom:1px solid #e3ded3}.panel-title{min-width:0;flex:1}.panel-title small{display:block;color:var(--muted)}.panel-title strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.close{border:0;border-radius:50%;width:40px;height:40px;background:#ece8df;font-size:1.25rem}
+.deck{flex:1;overflow:auto;padding:18px}.companion{min-height:100%;display:flex;flex-direction:column}.kind{color:#8b642b;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.companion h2{font:700 1.7rem/1.12 Georgia,serif;margin:.35rem 0 1rem}.companion blockquote{margin:12px 0;padding-left:14px;border-left:3px solid var(--gold);font-family:Georgia,serif}.note{margin-top:auto;padding:12px;border-radius:12px;background:#f1ede4;color:#55615b;font-size:.9rem}
+.controls{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid #e3ded3}.nav{border:1px solid #b8c1bb;border-radius:12px;background:white;padding:10px;color:var(--green);font-weight:750}.nav:last-child{background:var(--green);color:white}.dots{display:flex;gap:5px}.dot{width:6px;height:6px;border-radius:50%;background:#c5c6c1}.dot.on{background:var(--green);transform:scale(1.35)}
+@media(max-width:375px){.host-inner{padding:16px 15px 90px}h1{font-size:2rem}.panel{left:6px;right:6px;bottom:6px;height:78%}.deck{padding:15px}.companion h2{font-size:1.45rem}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="phone">
+  <article class="host" id="host">
+    <div class="host-inner">
+      <div class="eyebrow">Test Host · Learning Path</div>
+      <h1>Who Was Paul?</h1>
+      <p class="lead">Paul was an apostle, teacher, traveler, and letter writer whose encounter with Jesus redirected the whole course of his life.</p>
+      <section class="section"><h2>A life between worlds</h2><p>Born in Tarsus and educated in Jerusalem, Paul moved between Jewish tradition and the wider Roman world. Those overlapping identities shaped both his ministry and the language of his letters.</p><p>Before becoming a witness to Jesus, Paul opposed the early believers. Acts presents his calling not as a small adjustment, but as a reversal: the persecutor becomes a servant of the message he once tried to silence.</p></section>
+      <button class="trigger" data-card="0"><span>Explore Jewish Context</span><span>＋</span></button>
+      <section class="section"><h2>Called and sent</h2><p>Paul understood his apostleship as a calling received rather than a status achieved. His journeys carried the gospel into cities connected by trade, migration, and Roman roads.</p><p>His letters were written into real tensions: divided churches, difficult questions, suffering communities, and believers learning how the good news reshaped ordinary life.</p></section>
+      <button class="trigger" data-card="1"><span>Open Related Scripture</span><span>＋</span></button>
+      <section class="section"><h2>Reading Paul well</h2><p>Paul is easiest to hear when we remember that his letters belong to conversations already in progress. Each passage has a local setting, yet continually points beyond itself toward Christ, the church, and faithful life.</p><p>Explore briefly without leaving this study. When you return, your exact place on the host will remain.</p></section>
+      <button class="trigger" data-card="4"><span>Pause for Reflection</span><span>＋</span></button>
+    </div>
+  </article>
+  <div class="shade" id="shade"></div>
+  <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="panelHeading">
+    <div class="handle"></div>
+    <header class="panel-head"><div class="panel-title"><small id="count">1 of 6</small><strong id="panelHeading">Jewish Context</strong></div><button class="close" id="close" aria-label="Close excursion">×</button></header>
+    <div class="deck" id="deck"></div>
+    <footer class="controls"><button class="nav" id="prev">← Previous</button><div class="dots" id="dots" aria-hidden="true"></div><button class="nav" id="next">Next →</button></footer>
+  </aside>
+</main>
+<script>
+const cards=[
+ {kind:'Jewish Context',title:'Paul remained rooted in Israel’s story',body:`<p>Paul’s faith in Jesus did not erase his Jewish formation. His letters repeatedly draw from Torah, the prophets, and Israel’s worship.</p><blockquote>“A Hebrew of Hebrews…” — Philippians 3:5</blockquote><p>This background helps us hear his arguments as part of a long scriptural conversation.</p>`},
+ {kind:'Related Scripture',title:'A calling that redirected a life',body:`<p>Acts 9 tells Paul’s encounter on the road to Damascus. Acts 22 and 26 retell it for different audiences.</p><blockquote>Read Acts 9:1–22</blockquote><p>Notice what changes immediately—and what Paul must still learn over time.</p>`},
+ {kind:'Related Article',title:'How to read a New Testament letter',body:`<p>Letters address particular people in particular circumstances. Begin by asking who is speaking, who is listening, and what prompted the conversation.</p><p>Then trace how the local counsel rests on the larger story of Jesus.</p>`},
+ {kind:'Commandment Connection',title:'Bear one another’s burdens',body:`<p>Paul’s teaching is not merely theoretical. In Galatians 6:2, shared burdens become a practical expression of Christ’s way.</p><blockquote>Whose burden could you help carry this week?</blockquote>`},
+ {kind:'Reflection',title:'What might faithful redirection require?',body:`<p>Paul’s calling asked him to reconsider convictions, relationships, and ambitions.</p><blockquote>Where might growth require you to listen again rather than defend your first assumption?</blockquote><p>You do not need to resolve the question before returning.</p>`},
+ {kind:'Full Study',title:'A deeper study belongs beyond this excursion',body:`<p>This prototype does not pretend the full resource exists here.</p><p>A finished experience could offer a deliberate handoff after the learner chooses to leave the host—not during a brief exploration.</p><div class="note">Placeholder: Open Full Study</div>`}
+];
+const host=document.querySelector('#host'),panel=document.querySelector('#panel'),shade=document.querySelector('#shade'),deck=document.querySelector('#deck'),heading=document.querySelector('#panelHeading'),count=document.querySelector('#count'),dots=document.querySelector('#dots');
+let current=0,savedScroll=0,returnFocus=null,startX=0,startY=0;
+function render(){const c=cards[current];heading.textContent=c.kind;count.textContent=`${current+1} of ${cards.length}`;deck.innerHTML=`<section class="companion"><div class="kind">${c.kind}</div><h2>${c.title}</h2>${c.body}<div class="note">Excursion card · Your host study remains underneath.</div></section>`;dots.innerHTML=cards.map((_,i)=>`<i class="dot ${i===current?'on':''}"></i>`).join('');deck.scrollTop=0}
+function openPanel(index){savedScroll=host.scrollTop;returnFocus=document.activeElement;current=index;render();host.classList.add('excursion');shade.classList.add('open');panel.classList.add('open');panel.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';requestAnimationFrame(()=>document.querySelector('#close').focus())}
+function closePanel(){panel.classList.remove('open');shade.classList.remove('open');host.classList.remove('excursion');panel.setAttribute('aria-hidden','true');document.body.style.overflow='';host.scrollTop=savedScroll;returnFocus?.focus()}
+function move(delta){current=(current+delta+cards.length)%cards.length;render()}
+document.querySelectorAll('.trigger').forEach(b=>b.addEventListener('click',()=>openPanel(+b.dataset.card)));
+document.querySelector('#close').addEventListener('click',closePanel);shade.addEventListener('click',closePanel);document.querySelector('#prev').addEventListener('click',()=>move(-1));document.querySelector('#next').addEventListener('click',()=>move(1));
+panel.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;startY=e.touches[0].clientY},{passive:true});panel.addEventListener('touchend',e=>{const x=e.changedTouches[0].clientX-startX,y=e.changedTouches[0].clientY-startY;if(Math.abs(x)>55&&Math.abs(x)>Math.abs(y))move(x<0?1:-1);else if(y>90&&Math.abs(y)>Math.abs(x))closePanel()},{passive:true});
+document.addEventListener('keydown',e=>{if(!panel.classList.contains('open'))return;if(e.key==='Escape')closePanel();if(e.key==='ArrowRight')move(1);if(e.key==='ArrowLeft')move(-1)});
+</script>
+</body>
+</html>
