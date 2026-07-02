@@ -90,6 +90,114 @@
       transform: none;
     }
   }
+
+  #nt-reader-host.nt-excursion-active {
+    filter: blur(3px);
+    opacity: 0.48;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .nt-excursion {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    align-items: end;
+    padding: 0.75rem;
+    background: rgba(2, 6, 23, 0.76);
+  }
+
+  .nt-excursion[hidden] {
+    display: none;
+  }
+
+  .nt-excursion-dialog {
+    width: min(100%, 32rem);
+    max-height: min(72vh, 38rem);
+    margin: 0 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid rgba(103, 232, 249, 0.28);
+    border-radius: 1.25rem;
+    padding: 1rem;
+    background: rgb(15, 23, 42);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.55);
+    color: rgb(226, 232, 240);
+  }
+
+  .nt-excursion-handle {
+    width: 2.75rem;
+    height: 0.25rem;
+    margin: 0 auto 0.75rem;
+    border-radius: 999px;
+    background: rgb(100, 116, 139);
+  }
+
+  .nt-excursion-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .nt-excursion-header > div {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .nt-excursion-kicker {
+    color: rgb(103, 232, 249);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .nt-excursion-title {
+    margin: 0.2rem 0 0;
+    color: rgb(253, 230, 138);
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .nt-excursion-close {
+    flex: 0 0 auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid rgb(71, 85, 105);
+    border-radius: 999px;
+    background: rgb(30, 41, 59);
+    color: white;
+    font-size: 1.25rem;
+  }
+
+  .nt-excursion-body {
+    margin-top: 1rem;
+    color: rgb(203, 213, 225);
+    line-height: 1.65;
+  }
+
+  .nt-excursion-context {
+    margin: 0 0 1rem;
+    padding: 0.75rem;
+    border-left: 3px solid rgb(34, 211, 238);
+    border-radius: 0.5rem;
+    background: rgba(30, 41, 59, 0.72);
+  }
+
+  .nt-excursion-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 40rem) {
+    .nt-excursion {
+      align-items: center;
+    }
+  }
 </style>
 
 <section class="hg-panel">
@@ -173,7 +281,7 @@
   </button>
 
 </div>
-  <div class="p-5 space-y-5 text-slate-100">
+  <div id="nt-reader-host" class="p-5 space-y-5 text-slate-100">
 
    <div id="nt-root" class="space-y-4">
 
@@ -189,8 +297,8 @@
 
     <div id="sefaria-panel" class="hidden border rounded p-3 mt-4"></div>
 
-<button id="sefariaBtn" class="btn-secondary mt-2">
-  Jewish Context
+<button id="sefariaBtn" class="btn-secondary mt-2" type="button" hidden>
+  Explore Jewish Context
 </button>
 
     <!-- FOOTER -->
@@ -198,5 +306,27 @@
       Source: HomeGroups.Org
     </div>
 
+  </div>
+
+  <div id="nt-excursion" class="nt-excursion" hidden aria-hidden="true">
+    <section class="nt-excursion-dialog" role="dialog" aria-modal="true" aria-labelledby="nt-excursion-title">
+      <div class="nt-excursion-handle" aria-hidden="true"></div>
+      <header class="nt-excursion-header">
+        <div>
+          <div class="nt-excursion-kicker">Excursion · Jewish Context</div>
+          <h2 id="nt-excursion-title" class="nt-excursion-title">Jewish Context</h2>
+        </div>
+        <button id="nt-excursion-close" class="nt-excursion-close" type="button" aria-label="Return to the New Testament reader">×</button>
+      </header>
+      <div class="nt-excursion-body">
+        <p id="nt-excursion-context" class="nt-excursion-context"></p>
+        <p>The New Testament emerges from Israel’s Scriptures, worship, history, and hope. Reading this chapter with that setting in view can help familiar words recover their first-century shape.</p>
+        <p>This first excursion offers orientation rather than claiming a complete set of Jewish-source connections for the chapter.</p>
+        <div class="nt-excursion-actions">
+          <a class="reader-chip hg-chip" href="https://www.sefaria.org/texts" target="_blank" rel="noopener noreferrer">Browse Sefaria in a new tab</a>
+          <button id="nt-excursion-return" class="reader-chip hg-chip" type="button">Return to NT Reader</button>
+        </div>
+      </div>
+    </section>
   </div>
 </section>
