@@ -802,17 +802,30 @@
               <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
 
               <div class="card-heading">
-                <div class="card-kicker">
-                  <p id="mainStageSub" class="hero-sub" style="text-align:center;">Please wait while the weekly data loads.</p>
-                </div>
                 <h2 id="mainStageTitle" class="text-xl flame" style="text-align:center;">
                 Loading week data...
               </h2>
+                <div class="card-kicker">
+                  <p id="mainStageWeekMeta" class="label-pill" style="text-align:center;">This Week's Study</p>
+                  <p id="mainStageSub" class="hero-sub" style="text-align:center;">Please wait while the weekly data loads.</p>
+                </div>
+                <p id="mainStageWhy" class="fp-sub" style="max-width:42rem; margin:0.75rem auto 0; text-align:center;">
+                  This week brings Torah, Prophets, Gospels, and Letters into conversation.
+                </p>
+                <button id="beginMainStageBtn"
+                        class="ui-btn"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="mainStageContinuation"
+                        style="margin:0.9rem auto 0;">
+                  Continue into this week →
+                </button>
               </div>
 
               <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
             </div>
 
+            <div id="mainStageContinuation" hidden>
                           <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
 
 <div class="flex flex-col">
@@ -911,6 +924,7 @@
                   <div class="empty-state">The loader will drop dynamic week content here.</div>
                 </div>
               </section>
+              </div>
               </div>
               </div>
               </section>
