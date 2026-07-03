@@ -13,7 +13,8 @@ import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters,
-    mainStageVideo, mainStageIframe, floatingPlayer;
+    mainStageVideo, mainStageIframe, floatingPlayer, mainStageWeekMeta,
+    mainStageWhy, beginMainStageBtn, mainStageContinuation;
 
 // --- Shared audio instance ---
 if (!window.globalAudio) {
@@ -50,6 +51,48 @@ function cacheDOM() {
   mainStageChapters = document.getElementById("mainStageChapters");
   mainStageVideo    = document.getElementById("mainStageVideo");
   mainStageIframe   = document.getElementById("mainStageIframe"); // FIX: was never cached
+  mainStageWeekMeta = document.getElementById("mainStageWeekMeta");
+  mainStageWhy      = document.getElementById("mainStageWhy");
+  beginMainStageBtn = document.getElementById("beginMainStageBtn");
+  mainStageContinuation = document.getElementById("mainStageContinuation");
+}
+
+function resetMainStageInvitation(weekData) {
+  const studyName = String(
+    weekData.subtitle || weekData.transliteration || ""
+  ).split("|")[0].trim();
+
+  mainStageTitle.textContent = studyName || weekData.title || `Week ${weekData.week}`;
+
+  if (mainStageWeekMeta) {
+    mainStageWeekMeta.textContent = weekData.title || `Bible Study for Week ${weekData.week}`;
+  }
+
+  if (mainStageWhy) {
+    mainStageWhy.textContent =
+      "This week brings Torah, Prophets, Gospels, and Letters into conversation. Begin with the readings, then notice what becomes clearer when they are heard together.";
+  }
+
+  if (mainStageContinuation) mainStageContinuation.hidden = true;
+
+  if (beginMainStageBtn) {
+    beginMainStageBtn.hidden = false;
+    beginMainStageBtn.setAttribute("aria-expanded", "false");
+  }
+}
+
+function revealMainStageStudy() {
+  if (mainStageContinuation) mainStageContinuation.hidden = false;
+
+  if (beginMainStageBtn) {
+    beginMainStageBtn.hidden = true;
+    beginMainStageBtn.setAttribute("aria-expanded", "true");
+  }
+
+  mainStageContinuation?.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 }
 
 // --- Populate week selector ---
@@ -180,7 +223,7 @@ function renderObject(key, value) {
 async function loadMainStageWeek(weekData) {
   if (!weekData) return;
 
-  mainStageTitle.textContent = weekData.title || `Week ${weekData.week}`;
+  resetMainStageInvitation(weekData);
   mainStageSub.textContent =
     `${weekData.english || ""} / ${weekData.hebrew || ""} / ${weekData.transliteration || ""}`;
 
@@ -406,6 +449,8 @@ function init() {
   cacheDOM();
   populateWeekSelect();
   initWeeklyScriptureLoader();
+
+  beginMainStageBtn?.addEventListener("click", revealMainStageStudy);
 
   window.currentWeek = parseInt(weekSelect.value, 10);
 
