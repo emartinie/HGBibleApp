@@ -13,7 +13,7 @@ import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters,
-    mainStageVideo, mainStageIframe, floatingPlayer, mainStageWeekMeta,
+    mainStageVideo, mainStageIframe, floatingPlayer, mainStageEnglish,
     mainStageWhy, beginMainStageBtn, mainStageContinuation;
 
 // --- Shared audio instance ---
@@ -51,26 +51,32 @@ function cacheDOM() {
   mainStageChapters = document.getElementById("mainStageChapters");
   mainStageVideo    = document.getElementById("mainStageVideo");
   mainStageIframe   = document.getElementById("mainStageIframe"); // FIX: was never cached
-  mainStageWeekMeta = document.getElementById("mainStageWeekMeta");
+  mainStageEnglish  = document.getElementById("mainStageEnglish");
   mainStageWhy      = document.getElementById("mainStageWhy");
   beginMainStageBtn = document.getElementById("beginMainStageBtn");
   mainStageContinuation = document.getElementById("mainStageContinuation");
 }
 
 function resetMainStageInvitation(weekData) {
-  const studyName = String(
-    weekData.subtitle || weekData.transliteration || ""
-  ).split("|")[0].trim();
+  const transliteration = String(weekData.transliteration || "")
+    .split("|")[0]
+    .trim();
 
-  mainStageTitle.textContent = studyName || weekData.title || `Week ${weekData.week}`;
+  mainStageTitle.textContent = weekData.title || `Bible Study for Week ${weekData.week}`;
 
-  if (mainStageWeekMeta) {
-    mainStageWeekMeta.textContent = weekData.title || `Bible Study for Week ${weekData.week}`;
+  if (mainStageEnglish) {
+    mainStageEnglish.textContent = weekData.english || "English meaning pending";
+  }
+
+  if (mainStageSub) {
+    mainStageSub.textContent = [weekData.hebrew, transliteration]
+      .filter(Boolean)
+      .join(" / ") || "Hebrew and transliteration pending";
   }
 
   if (mainStageWhy) {
-    mainStageWhy.textContent =
-      "This week brings Torah, Prophets, Gospels, and Letters into conversation. Begin with the readings, then notice what becomes clearer when they are heard together.";
+    mainStageWhy.textContent = weekData.intro?.summary ||
+      "An introduction for this week's study is still being prepared.";
   }
 
   if (mainStageContinuation) mainStageContinuation.hidden = true;
@@ -224,9 +230,6 @@ async function loadMainStageWeek(weekData) {
   if (!weekData) return;
 
   resetMainStageInvitation(weekData);
-  mainStageSub.textContent =
-    `${weekData.english || ""} / ${weekData.hebrew || ""} / ${weekData.transliteration || ""}`;
-
   // --- Playlist ---
   mainStagePlaylist.innerHTML = "";
   const playlist = weekData.sections?.audio_playlist || [];
