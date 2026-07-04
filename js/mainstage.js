@@ -119,6 +119,7 @@ function resetMainStageInvitation(weekData) {
   }
 
   if (mainStageContinuation) mainStageContinuation.hidden = true;
+  document.getElementById("mainStageCard")?.classList.remove("mainstage-started");
   if (mainStageSecondaryNav) mainStageSecondaryNav.hidden = true;
   prepareMainStageSections();
 
@@ -129,6 +130,7 @@ function resetMainStageInvitation(weekData) {
 }
 
 function revealMainStageStudy() {
+  document.getElementById("mainStageCard")?.classList.add("mainstage-started");
   if (mainStageContinuation) {
     mainStageContinuation.hidden = false;
     mainStageContinuation.classList.remove("mainstage-enter");
