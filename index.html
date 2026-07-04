@@ -711,15 +711,51 @@
       
       <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
       <button id="textSizePreferenceBtn" class="ui-btn" type="button" aria-label="Cycle reading text size" title="Reading text size">Text: Normal</button>
-     <!--<button id="installAppBtn" class="ui-btn" type="button" hidden>
+      <button id="installAppBtn" class="ui-btn" type="button" hidden>
   ⬇
-</button>-->
+</button>
     </div>
 
     <main id="viewport">
       <div id="cardsRow">
 
         <section id="mainStageCard" class="card">
+<style>
+  #mainStageContinuation.mainstage-enter,
+  #mainStageSecondaryNav.mainstage-enter,
+  #mainStageCard .mainstage-section-body.mainstage-enter {
+    animation: mainstageEnter 320ms ease-out both;
+  }
+
+  #mainStageCard .section-label[role="button"] {
+    cursor: pointer;
+  }
+
+  #mainStageCard .section-label[role="button"]:focus-visible {
+    outline: 2px solid rgba(251, 191, 36, 0.85);
+    outline-offset: 4px;
+    border-radius: 0.5rem;
+  }
+
+  @keyframes mainstageEnter {
+    from {
+      opacity: 0;
+      transform: translateY(0.65rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #mainStageContinuation.mainstage-enter,
+    #mainStageSecondaryNav.mainstage-enter,
+    #mainStageCard .mainstage-section-body.mainstage-enter {
+      animation: none;
+    }
+  }
+</style>
 <div class="card-topbar">
 
   <!-- existing fullscreen -->
@@ -744,7 +780,7 @@
   <p>Augmented Discipleship — 1st century foundations. 22nd century tools.</p>
 </div>
 <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
-         <div class="card-topbar scripture-subnav">
+         <div id="mainStageSecondaryNav" class="card-topbar scripture-subnav" hidden>
 
   <button class="card-icon-btn scripture" id="scriptureSearchBtn" title="Search">
     ⌕
@@ -850,19 +886,21 @@
 
             <div class="card-body">
               <section id="frontPorch" class="hero-panel">
-                <div class="fp-kicker" onclick="toggleSection(this)">Front Porch ▼</div>
+                <div class="fp-kicker">Front Porch</div>
                 <h1 class="fp-title">A simple place to begin.</h1>
                 <p class="fp-sub">
                   Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
                 </p>
               </section>
 
-              <div id="nowPlaying">Now Playing: —</div>
-               <div id="floating-player-root"></div>
               <section class="content-panel">
                 <div class="section-label" onclick="toggleSection(this)">Audio Playlist + Interlinear text ▼</div>
-                <div id="mainStagePlaylist">
-                  <div class="empty-state">Playlist will appear here.</div>
+                <div class="mainstage-section-body" hidden>
+                  <div id="nowPlaying">Now Playing: —</div>
+                  <div id="floating-player-root"></div>
+                  <div id="mainStagePlaylist">
+                    <div class="empty-state">Playlist will appear here.</div>
+                  </div>
                 </div>
               </section>
 
@@ -871,7 +909,7 @@
     Weekly Scripture ▼
   </div>
 
-  <div class="space-y-3">
+  <div class="mainstage-section-body space-y-3" hidden>
 
     <div class="flex items-center justify-between flex-wrap gap-2">
       <div id="weeklyScriptureMeta" class="text-xs text-slate-400">
@@ -903,24 +941,26 @@
               
               <section class="content-panel">
                 <div class="section-label" onclick="toggleSection(this)">Chapter Outlines ▼</div>
-                <div id="mainStageChapters">
+                <div id="mainStageChapters" class="mainstage-section-body" hidden>
                   <div class="empty-state">Outlines will appear here.</div>
                 </div>
               </section>
 
               <section class="content-panel">
                 <div class="section-label" onclick="toggleSection(this)">Video / Media ▼</div>
-                <div class="sp-embed-player" data-id="cOhQVzntlWj" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQVzntlWj"></script><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"  scrolling="no" src="https://go.screenpal.com/player/cOhQVzntlWj?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
-                  <div class="sp-embed-player" data-id="cOhQe1ntIfR" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQe1ntIfR"></script><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"  scrolling="no" src="https://go.screenpal.com/player/cOhQe1ntIfR?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
-                <div class="sp-embed-player" data-id="cOhQePntIj4" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQePntIj4"></script><iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"  scrolling="no" src="https://go.screenpal.com/player/cOhQePntIj4?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
-                <div id="mainStageVideo">
-                  <div class="empty-state">Media will appear here.</div>
+                <div class="mainstage-section-body" hidden>
+                  <div class="sp-embed-player" data-id="cOhQVzntlWj" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQVzntlWj"></script><iframe loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cOhQVzntlWj?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
+                  <div class="sp-embed-player" data-id="cOhQe1ntIfR" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQe1ntIfR"></script><iframe loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cOhQe1ntIfR?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
+                  <div class="sp-embed-player" data-id="cOhQePntIj4" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQePntIj4"></script><iframe loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cOhQePntIj4?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
+                  <div id="mainStageVideo">
+                    <div class="empty-state">Media will appear here.</div>
+                  </div>
                 </div>
               </section>
 
               <section class="content-panel">
                 <div class="section-label" onclick="toggleSection(this)">Week Info Cards ▼</div>
-                <div id="cardsContainer">
+                <div id="cardsContainer" class="mainstage-section-body" hidden>
                   <div class="empty-state">The loader will drop dynamic week content here.</div>
                 </div>
               </section>
@@ -1030,7 +1070,7 @@
     </main>
   </div>-->
     <!--<script src="js/cardloader.js"></script>-->
-  <script type="module" src="js/mainstage.js?v=20260703-2"></script>
+  <script type="module" src="js/mainstage.js?v=20260703-3"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
   <script src="js/textSizePreference.js"></script>
