@@ -14,7 +14,8 @@ import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters,
     mainStageVideo, mainStageIframe, floatingPlayer, mainStageEnglish,
-    mainStageWhy, beginMainStageBtn, mainStageContinuation;
+    mainStageWhy, beginMainStageBtn, mainStageContinuation,
+    mainStageSecondaryNav;
 
 // --- Shared audio instance ---
 if (!window.globalAudio) {
@@ -24,18 +25,24 @@ const audio = window.globalAudio;
 
 // --- toggleSection (module scope so global onclick="toggleSection(this)" can find it) ---
 window.toggleSection = function toggleSection(label) {
-  let panel = label.nextElementSibling;
-  // walk forward until we find a content-panel sibling (matches index.html structure)
-  while (panel && !panel.classList.contains("content-panel")) {
-    panel = panel.nextElementSibling;
-  }
+  const section = label?.closest(".content-panel");
+  const panel = section
+    ? Array.from(section.children).find(child => child.classList.contains("mainstage-section-body"))
+    : null;
   if (!panel) return;
-  const isHidden = panel.style.display === "none";
-  panel.style.display = isHidden ? "" : "none";
+
+  const opening = panel.hidden;
+  panel.hidden = !opening;
+  label.setAttribute("aria-expanded", String(opening));
   label.textContent = label.textContent.replace(
     /[▼▶]$/,
-    isHidden ? "▼" : "▶"
+    opening ? "▼" : "▶"
   );
+
+  if (opening) {
+    panel.classList.remove("mainstage-enter");
+    requestAnimationFrame(() => panel.classList.add("mainstage-enter"));
+  }
 };
 
 // --- Cache DOM elements ---
@@ -55,6 +62,33 @@ function cacheDOM() {
   mainStageWhy      = document.getElementById("mainStageWhy");
   beginMainStageBtn = document.getElementById("beginMainStageBtn");
   mainStageContinuation = document.getElementById("mainStageContinuation");
+  mainStageSecondaryNav = document.getElementById("mainStageSecondaryNav");
+}
+
+function prepareMainStageSections() {
+  document.querySelectorAll("#mainStageContinuation .content-panel").forEach(section => {
+    const label = section.querySelector(".section-label");
+    const panel = Array.from(section.children)
+      .find(child => child.classList.contains("mainstage-section-body"));
+
+    if (!label || !panel) return;
+
+    panel.hidden = true;
+    panel.classList.remove("mainstage-enter");
+    label.setAttribute("role", "button");
+    label.setAttribute("tabindex", "0");
+    label.setAttribute("aria-expanded", "false");
+    label.textContent = label.textContent.replace(/[▼▶]$/, "▶");
+
+    if (label.dataset.mainstageKeyboardBound !== "true") {
+      label.dataset.mainstageKeyboardBound = "true";
+      label.addEventListener("keydown", event => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        window.toggleSection(label);
+      });
+    }
+  });
 }
 
 function resetMainStageInvitation(weekData) {
@@ -80,6 +114,8 @@ function resetMainStageInvitation(weekData) {
   }
 
   if (mainStageContinuation) mainStageContinuation.hidden = true;
+  if (mainStageSecondaryNav) mainStageSecondaryNav.hidden = true;
+  prepareMainStageSections();
 
   if (beginMainStageBtn) {
     beginMainStageBtn.hidden = false;
@@ -88,7 +124,17 @@ function resetMainStageInvitation(weekData) {
 }
 
 function revealMainStageStudy() {
-  if (mainStageContinuation) mainStageContinuation.hidden = false;
+  if (mainStageContinuation) {
+    mainStageContinuation.hidden = false;
+    mainStageContinuation.classList.remove("mainstage-enter");
+    requestAnimationFrame(() => mainStageContinuation.classList.add("mainstage-enter"));
+  }
+
+  if (mainStageSecondaryNav) {
+    mainStageSecondaryNav.hidden = false;
+    mainStageSecondaryNav.classList.remove("mainstage-enter");
+    requestAnimationFrame(() => mainStageSecondaryNav.classList.add("mainstage-enter"));
+  }
 
   if (beginMainStageBtn) {
     beginMainStageBtn.hidden = true;
@@ -452,6 +498,7 @@ function init() {
   cacheDOM();
   populateWeekSelect();
   initWeeklyScriptureLoader();
+  prepareMainStageSections();
 
   beginMainStageBtn?.addEventListener("click", revealMainStageStudy);
 
