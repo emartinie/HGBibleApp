@@ -7,7 +7,7 @@ export function getWeekNumber(date = new Date()) {
 
   if (diffMs < 0) return 1;
 
-  return Math.floor(diffMs / WEEK_MS) % TOTAL_WEEKS + 3;
+  return Math.floor(diffMs / WEEK_MS) % TOTAL_WEEKS + 4;
 }
 
 export function getCycleDay(date = new Date()) {
