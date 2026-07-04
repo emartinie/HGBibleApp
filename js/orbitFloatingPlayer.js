@@ -667,6 +667,7 @@
       window.mainPlaylist ||
       [];
     loadPlaylist(initialPlaylist.length ? initialPlaylist : DEFAULT_PLAYLIST, { autoplay: false });
+    setDocked(true);
     updateNowPlaying();
   }
 

@@ -15,7 +15,7 @@ let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters,
     mainStageVideo, mainStageIframe, floatingPlayer, mainStageEnglish,
     mainStageWhy, beginMainStageBtn, mainStageContinuation,
-    mainStageSecondaryNav;
+    mainStageSecondaryNav, mainStageWeekLabel;
 
 // --- Shared audio instance ---
 if (!window.globalAudio) {
@@ -60,6 +60,7 @@ function cacheDOM() {
   mainStageIframe   = document.getElementById("mainStageIframe"); // FIX: was never cached
   mainStageEnglish  = document.getElementById("mainStageEnglish");
   mainStageWhy      = document.getElementById("mainStageWhy");
+  mainStageWeekLabel = document.getElementById("mainStageWeekLabel");
   beginMainStageBtn = document.getElementById("beginMainStageBtn");
   mainStageContinuation = document.getElementById("mainStageContinuation");
   mainStageSecondaryNav = document.getElementById("mainStageSecondaryNav");
@@ -96,7 +97,11 @@ function resetMainStageInvitation(weekData) {
     .split("|")[0]
     .trim();
 
-  mainStageTitle.textContent = weekData.title || `Bible Study for Week ${weekData.week}`;
+  const selectedWeek = parseInt(weekSelect?.value, 10) || weekData.week;
+  mainStageTitle.textContent = weekData.title || "Weekly Bible Study";
+  if (mainStageWeekLabel) {
+    mainStageWeekLabel.textContent = `Bible Study • Week ${selectedWeek}`;
+  }
 
   if (mainStageEnglish) {
     mainStageEnglish.textContent = weekData.english || "English meaning pending";

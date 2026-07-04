@@ -38,7 +38,8 @@
 
   function updateButton(button, size) {
     if (!button) return;
-    button.textContent = `Text: ${size.label}`;
+    button.textContent = "Aa";
+    button.title = `Reading text size: ${size.label}`;
     button.setAttribute("aria-label", `Reading text size: ${size.label}. Activate to change.`);
   }
 
