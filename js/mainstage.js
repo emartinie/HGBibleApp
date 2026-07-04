@@ -23,6 +23,13 @@ if (!window.globalAudio) {
 }
 const audio = window.globalAudio;
 
+function cleanAudioSrc(src) {
+  return String(src || "")
+    .trim()
+    .replace(/^ttp:\/\//i, "https://")
+    .replace(/^http:\/\//i, "https://");
+}
+
 // --- toggleSection (module scope so global onclick="toggleSection(this)" can find it) ---
 window.toggleSection = function toggleSection(label) {
   const section = label?.closest(".content-panel");
@@ -290,10 +297,10 @@ async function loadMainStageWeek(weekData) {
   // Normalize and dispatch playlist to floating player
   const fpPlaylist = playlist.map(item => ({
     title: item.label || item.title || item.name || "Untitled",
-    eng:   item.eng  || item.src  || "http://audio.esvbible.org/hw/05016018-05021009.mp3",
-    heb:   item.heb  || item.src  || "/audio/greek/Matthew01-Greek.mp3",
-    grk:   item.grk  || item.src  || "",
-    src:   item.src  || item.eng  || item.heb || item.grk || ""
+    eng: cleanAudioSrc(item.eng || item.src || "https://audio.esvbible.org/hw/05016018-05021009.mp3"),
+    heb: cleanAudioSrc(item.heb || item.src || "/audio/greek/Matthew01-Greek.mp3"),
+    grk: cleanAudioSrc(item.grk || item.src || ""),
+    src: cleanAudioSrc(item.src || item.eng || item.heb || item.grk || "")
   }));
 
   window.dispatchEvent(new CustomEvent("player:updatePlaylist", {
@@ -342,7 +349,9 @@ async function loadMainStageWeek(weekData) {
 
     playBtn.addEventListener("click", () => {
       // Same track → toggle pause/play
-      if (audio.src.endsWith(track.src) || audio.src === track.src) {
+      const trackSrc = cleanAudioSrc(track.src);
+      if (!trackSrc) return;
+      if (audio.src === new URL(trackSrc, window.location.href).href) {
         if (audio.paused) {
           audio.play().catch(err => console.warn("Autoplay prevented:", err));
           playBtn.textContent = "⏸";
@@ -357,7 +366,7 @@ async function loadMainStageWeek(weekData) {
       document.querySelectorAll("#mainStagePlaylist button").forEach(b => {
         b.textContent = "▶";
       });
-      audio.src = track.src;
+      audio.src = trackSrc;
       audio.play().catch(err => console.warn("Autoplay prevented:", err));
       playBtn.textContent = "⏸";
 
@@ -377,7 +386,7 @@ async function loadMainStageWeek(weekData) {
 
   // Set first track as ready (but don't autoplay)
   if (playlist.length > 0) {
-    audio.src = playlist[0].src;
+    audio.src = cleanAudioSrc(playlist[0].src);
     const nowPlayingLabel = document.getElementById("nowPlaying");
     if (nowPlayingLabel) {
       nowPlayingLabel.textContent =
@@ -459,8 +468,8 @@ async function loadMainStageWeek(weekData) {
 function getOrientationSlug() {
   const text  = document.getElementById("mainStageSub")?.textContent || "";
   const parts = text.split("/");
-  if (parts.length >= 3) {
-    return parts[2].split("|")[0].trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+  if (parts.length >= 2) {
+    return parts.at(-1).split("|")[0].trim().toLowerCase().replace(/[^a-z0-9]/g, "");
   }
   return "kedoshim";
 }

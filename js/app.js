@@ -553,7 +553,8 @@ window.loadCard = loadCard;
   // =====================
 // GLOBAL TOGGLE SECTION
 // =====================
-window.toggleSection = function (label) {
+// Legacy dynamic-card helper. MainStage owns window.toggleSection.
+window.toggleCardSection = function (label) {
   let panel = label.nextElementSibling;
 
   // If next sibling is NOT a panel, search forward safely
