@@ -372,10 +372,54 @@
     }
 
     .card-picker {
-      width: auto;
-      min-width: 0;
-      max-width: calc(100vw - 120px);
+      width: min(15rem, calc(100vw - 12rem));
+      field-sizing: content;
+      min-width: 9rem;
+      max-width: 15rem;
       flex: 0 1 auto;
+    }
+
+    .card-control-bar {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+
+    .utility-btn {
+      min-width: 36px;
+      min-height: 36px;
+      padding: 0 10px;
+      opacity: .72;
+      box-shadow: none;
+      font-size: .82rem;
+    }
+
+    .weekly-landing {
+      position: relative;
+      padding: 20px 14px 16px;
+      border: 1px solid rgba(243, 200, 120, .18);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 50% 0, rgba(243, 200, 120, .13), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
+      overflow: hidden;
+    }
+
+    .weekly-landing-label {
+      margin: 0 0 7px;
+      color: var(--gold);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .weekly-player-dock {
+      margin: 14px auto 0;
+      width: min(100%, 520px);
     }
 
     #frontPorch {
@@ -593,7 +637,13 @@
     }
 
     #floating-player-root {
-      margin-top: 12px;
+      min-height: 0;
+    }
+
+    @media (max-width: 420px) {
+      .card-control-bar { gap: 4px; }
+      .card-picker { width: min(13rem, calc(100vw - 10.5rem)); }
+      .card-control-bar .ui-btn { min-width: 36px; min-height: 36px; padding: 0 9px; }
     }
 
    /* #floating-player-root {
@@ -644,10 +694,7 @@
         <div class="spark-logo">🔥</div>-->
       </div>
     </header>
-    <div style="margin-top:12px; display:flex; justify-content:center; gap:8px; align-items:center; flex-wrap:wrap;">
-      <button id="reloadCardBtn" class="nav-btn">
-  ↻
-</button>
+    <div class="card-control-bar">
       <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
 
 
@@ -710,10 +757,8 @@
               </select>   
       
       <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
-      <button id="textSizePreferenceBtn" class="ui-btn" type="button" aria-label="Cycle reading text size" title="Reading text size">Text: Normal</button>
-      <button id="installAppBtn" class="ui-btn" type="button" hidden>
-  ⬇
-</button>
+      <button id="textSizePreferenceBtn" class="ui-btn utility-btn" type="button" aria-label="Cycle reading text size" title="Reading text size">Aa</button>
+      <button id="reloadCardBtn" class="ui-btn utility-btn" type="button" aria-label="Reload current card" title="Reload current card">↻</button>
     </div>
 
     <main id="viewport">
@@ -837,7 +882,8 @@
             <div class="card-header">
               <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
 
-              <div class="card-heading">
+              <div class="card-heading weekly-landing">
+                <p id="mainStageWeekLabel" class="weekly-landing-label">Weekly Bible Study</p>
                 <h2 id="mainStageTitle" class="text-xl flame" style="text-align:center;">
                 Loading week data...
               </h2>
@@ -848,6 +894,7 @@
                 <p id="mainStageWhy" class="fp-sub" style="max-width:42rem; margin:0.75rem auto 0; text-align:center;">
                   The introduction to this week's study will appear here.
                 </p>
+                <div id="floating-player-root" class="weekly-player-dock" aria-label="Weekly audio player"></div>
                 <button id="beginMainStageBtn"
                         class="ui-btn"
                         type="button"
@@ -897,7 +944,6 @@
                 <div class="section-label" onclick="toggleSection(this)">Audio Playlist + Interlinear text ▼</div>
                 <div class="mainstage-section-body" hidden>
                   <div id="nowPlaying">Now Playing: —</div>
-                  <div id="floating-player-root"></div>
                   <div id="mainStagePlaylist">
                     <div class="empty-state">Playlist will appear here.</div>
                   </div>
@@ -1109,30 +1155,6 @@
   </button>
 </div>
     
-<script>
-    let deferredInstallPrompt = null;
-
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredInstallPrompt = e;
-
-  const btn = document.getElementById("installAppBtn");
-  if (btn) btn.hidden = false;
-});
-
-document.getElementById("installAppBtn")?.addEventListener("click", async () => {
-  if (!deferredInstallPrompt) return;
-
-  deferredInstallPrompt.prompt();
-  await deferredInstallPrompt.userChoice;
-
-  deferredInstallPrompt = null;
-
-  const btn = document.getElementById("installAppBtn");
-  if (btn) btn.hidden = true;
-});
-    </script>
-
   </div>
 </div>
 </body>
