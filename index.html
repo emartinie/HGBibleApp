@@ -417,6 +417,17 @@
       text-transform: uppercase;
     }
 
+    .weekly-study-title {
+      margin: 0;
+      color: #fff4d6;
+      font-size: clamp(1.35rem, 5vw, 1.85rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -.02em;
+      text-wrap: balance;
+      text-shadow: 0 1px 18px rgba(243, 200, 120, .12);
+    }
+
     .weekly-player-dock {
       margin: 14px auto 0;
       width: min(100%, 520px);
@@ -884,9 +895,9 @@
 
               <div class="card-heading weekly-landing">
                 <p id="mainStageWeekLabel" class="weekly-landing-label">Weekly Bible Study</p>
-                <h1 id="mainStageTitle" class="text-xl fp-title" style="text-align:center;">
+                <h2 id="mainStageTitle" class="weekly-study-title">
                 Loading week data...
-              </h1>
+              </h2>
                 <div class="card-kicker">
                   <p id="mainStageEnglish" class="label-pill" style="text-align:center;">English meaning</p>
                   <p id="mainStageSub" class="hero-sub" style="text-align:center;">Hebrew / Transliteration</p>
