@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MainStage v2 — Daily-First Journey</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink:#f7f1e4; --muted:#a9b0b6; --gold:#dfbd79; --line:rgba(255,255,255,.11);
+      --night:#071016; --deep:#0b1820; --panel:rgba(19,33,41,.82); --blue:#a9d4e7;
+    }
+    * { box-sizing:border-box }
+    html { scroll-behavior:smooth; background:var(--night) }
+    body {
+      margin:0; color:var(--ink); font:16px/1.5 Inter, ui-sans-serif, system-ui, sans-serif;
+      background:
+        radial-gradient(80% 45% at 50% 0%, rgba(65,111,126,.22), transparent 70%),
+        linear-gradient(180deg,var(--deep),var(--night) 72%);
+    }
+    button,a { font:inherit }
+    button { color:inherit }
+    .stage { width:min(100%,46rem); margin:auto }
+    .arrival {
+      min-height:100svh; padding:max(1.1rem,env(safe-area-inset-top)) 1rem max(1.2rem,env(safe-area-inset-bottom));
+      display:grid; grid-template-rows:auto 1fr auto; isolation:isolate;
+    }
+    .quiet-header { display:flex; align-items:center; justify-content:space-between; min-height:2.5rem }
+    .home-mark { color:var(--muted); font-size:.78rem; letter-spacing:.13em; text-transform:uppercase }
+    .quiet-action { border:0; background:none; color:var(--muted); padding:.6rem; cursor:pointer }
+    .place { align-self:center; text-align:center; padding:2.2rem 0 1.4rem }
+    .eyebrow { margin:0 0 .9rem; color:var(--gold); font-size:.72rem; font-weight:750; letter-spacing:.19em; text-transform:uppercase }
+    .today { margin:0 0 .25rem; color:var(--muted); font-size:.92rem }
+    .week { margin:0; font:600 clamp(1.65rem,8vw,2.4rem)/1.08 Georgia,serif; letter-spacing:-.02em }
+    .portion { margin:.45rem 0 2.5rem; color:var(--blue); font-size:1rem }
+    .reading-label { margin:0 0 .4rem; color:var(--muted); font-size:.76rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase }
+    .reading { margin:0; font:600 clamp(1.6rem,7vw,2.1rem)/1.15 Georgia,serif }
+    .orientation { max-width:33rem; margin:1rem auto 0; color:#d5d7d5; font-size:.96rem }
+    .actions { margin:2rem auto 0; width:min(100%,22rem); display:grid; gap:.7rem }
+    .primary {
+      min-height:3.15rem; padding:.75rem 1.25rem; border:1px solid rgba(255,233,187,.45); border-radius:999px;
+      background:linear-gradient(135deg,#edd194,#c99a4b); color:#1f180d; font-weight:800; cursor:pointer;
+      box-shadow:0 12px 34px rgba(0,0,0,.24);
+    }
+    .secondary { border:0; background:none; color:var(--blue); padding:.65rem; cursor:pointer }
+    .secondary span { display:inline-grid; place-items:center; width:1.7rem; height:1.7rem; margin-right:.35rem; border:1px solid var(--line); border-radius:50% }
+    .progress-wrap { align-self:end; width:min(100%,22rem); margin:0 auto; padding-top:1rem }
+    .progress-copy { display:flex; justify-content:space-between; color:var(--muted); font-size:.76rem }
+    .progress { height:2px; margin-top:.7rem; background:rgba(255,255,255,.09) }
+    .progress i { display:block; width:42.857%; height:100%; background:var(--gold); box-shadow:0 0 12px rgba(223,189,121,.42) }
+    .scroll-whisper { margin:1.1rem 0 0; text-align:center; color:#77828a; font-size:.7rem; letter-spacing:.08em }
+
+    .journey { padding:0 1rem 6rem }
+    .revealed { animation:arrive .5s ease both }
+    [hidden] { display:none!important }
+    @keyframes arrive { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
+    .step { margin:0 0 .8rem; padding:1.15rem; border:1px solid var(--line); border-radius:1.2rem; background:var(--panel); backdrop-filter:blur(14px) }
+    .step-num { color:var(--gold); font-size:.68rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase }
+    .step h2 { margin:.3rem 0 .35rem; font:600 1.25rem/1.2 Georgia,serif }
+    .step p { margin:0; color:var(--muted); font-size:.9rem }
+    .reading-sheet { margin-top:1rem; padding:1rem 0 0; border-top:1px solid var(--line); color:#e8e5dc }
+    .continue { display:block; margin:1rem auto 1.7rem; border:0; background:none; color:var(--gold); padding:.7rem 1rem; cursor:pointer }
+    .context-marker { margin:3.6rem 0 1rem; text-align:center }
+    .context-marker small { color:var(--muted); letter-spacing:.12em; text-transform:uppercase }
+    .context-marker h2 { margin:.45rem 0 0; font:600 1.8rem/1.15 Georgia,serif }
+    .week-grid { display:grid; gap:.55rem; margin-top:1rem }
+    .week-row { display:grid; grid-template-columns:5.5rem 1fr; gap:.8rem; padding:.8rem 0; border-bottom:1px solid var(--line) }
+    .week-row span { color:var(--muted); font-size:.78rem }
+    .week-row strong { font-size:.9rem; font-weight:600 }
+    .thread { margin-top:3.8rem; padding:2rem 1.2rem; border:1px solid rgba(223,189,121,.22); border-radius:1.5rem; background:linear-gradient(180deg,rgba(223,189,121,.07),rgba(255,255,255,.02)) }
+    .thread h2 { margin:0 0 1.5rem; text-align:center; font:600 1.65rem Georgia,serif }
+    .canon { display:grid; justify-content:center; gap:.4rem; text-align:center }
+    .canon b { font:500 1.05rem Georgia,serif }
+    .canon i { color:#637078; font-style:normal }
+    .explore { margin-top:3rem; text-align:center; color:var(--muted) }
+    .explore button { margin-top:1rem; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.04); padding:.75rem 1.2rem; cursor:pointer }
+    .mock-note { position:fixed; right:.6rem; bottom:.6rem; padding:.35rem .6rem; background:#111b; border:1px solid var(--line); border-radius:.5rem; color:#9aa; font-size:.65rem }
+    @media (min-width:640px){.arrival{padding-left:2rem;padding-right:2rem}.journey{padding-left:2rem;padding-right:2rem}.place{padding-top:3rem}.step{padding:1.5rem}}
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.revealed{animation:none}}
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <section class="arrival" aria-labelledby="today-reading">
+      <header class="quiet-header">
+        <div class="home-mark">HomeGroups</div>
+        <button class="quiet-action" aria-label="More options">•••</button>
+      </header>
+
+      <div class="place">
+        <p class="eyebrow">You are here</p>
+        <p class="today">Today · Tuesday</p>
+        <h1 class="week">Week 18 · Mishpatim</h1>
+        <p class="portion"><span lang="he" dir="rtl">משפטים</span> · Judgments</p>
+
+        <p class="reading-label">Today’s Torah reading</p>
+        <h2 class="reading" id="today-reading">Exodus 22:4–23:5</h2>
+        <p class="orientation">God’s justice moves beyond punishment toward responsibility, restoration, and care for the vulnerable.</p>
+
+        <div class="actions">
+          <button class="primary" data-reveal="read-step">Continue Today’s Journey →</button>
+          <button class="secondary"><span>▶</span> Listen Instead</button>
+        </div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-copy"><span>Day 3 of 7</span><span>This week</span></div>
+        <div class="progress" aria-label="Three of seven days"><i></i></div>
+        <p class="scroll-whisper">The journey widens as you continue</p>
+      </div>
+    </section>
+
+    <section class="journey" aria-label="Progressive study journey">
+      <article class="step" id="read-step" hidden>
+        <span class="step-num">First · Read</span>
+        <h2>Responsibility for what is entrusted to us</h2>
+        <p>Read slowly. Notice who is protected, what must be restored, and where power is restrained.</p>
+        <div class="reading-sheet">“If the thief is not found, the owner of the house shall come near to God to show whether or not he has put his hand to his neighbor’s property…”</div>
+        <button class="continue" data-reveal="reflect-step">I’ve read today’s passage ↓</button>
+      </article>
+
+      <article class="step" id="reflect-step" hidden>
+        <span class="step-num">Then · Reflect</span>
+        <h2>Where does responsibility become love?</h2>
+        <p>What has been entrusted to you—and what would restoration require if that trust were damaged?</p>
+        <button class="continue" data-reveal="thread-step">Follow today’s living thread ↓</button>
+      </article>
+
+      <article class="step" id="thread-step" hidden>
+        <span class="step-num">Connect · Living Thread</span>
+        <h2>Justice that restores</h2>
+        <p>Torah’s concern for restitution and the vulnerable echoes through the Prophets and into Yeshua’s teaching about reconciliation.</p>
+        <button class="continue" data-reveal="week-context">See where today belongs ↓</button>
+      </article>
+
+      <section id="week-context" hidden>
+        <div class="context-marker"><small>Zooming outward</small><h2>This Week · Mishpatim</h2></div>
+        <div class="step">
+          <p>Today is one movement inside a seven-day encounter with covenant justice.</p>
+          <div class="week-grid">
+            <div class="week-row"><span>Torah</span><strong>Exodus 21:1–24:18</strong></div>
+            <div class="week-row"><span>Prophets</span><strong>Jeremiah 34:8–22</strong></div>
+            <div class="week-row"><span>Gospels</span><strong>Matthew 5:38–48</strong></div>
+            <div class="week-row"><span>Letters</span><strong>James 2:1–13</strong></div>
+          </div>
+          <button class="continue" data-reveal="whole-story">See the larger journey ↓</button>
+        </div>
+      </section>
+
+      <section class="thread" id="whole-story" hidden>
+        <span class="step-num">The 54-week journey</span>
+        <h2>The Whole Story</h2>
+        <div class="canon" aria-label="Canonical movement">
+          <b>Torah</b><i>↓</i><b>Prophets</b><i>↓</i><b>Writings</b><i>↓</i><b>Gospels</b><i>↓</i><b>Letters</b><i>↓</i><b>Revelation</b>
+        </div>
+        <p class="explore">Every day has a place. Every week widens the view. Every return strengthens the thread.<br><button>Explore everything</button></p>
+      </section>
+    </section>
+  </main>
+  <div class="mock-note">Static design prototype · Week 18 / Day 3</div>
+  <script>
+    document.addEventListener('click', event => {
+      const trigger = event.target.closest('[data-reveal]');
+      if (!trigger) return;
+      const next = document.getElementById(trigger.dataset.reveal);
+      if (!next) return;
+      next.hidden = false;
+      next.classList.add('revealed');
+      requestAnimationFrame(() => next.scrollIntoView({behavior:'smooth', block:'center'}));
+    });
+  </script>
+</body>
+</html>
