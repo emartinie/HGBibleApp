@@ -612,6 +612,77 @@
       box-shadow: var(--shadow);
     }
 
+    .mainstage-week-context {
+      padding: clamp(18px, 5vw, 26px);
+      border: 1px solid rgba(243,200,120,.2);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 50% 0, rgba(243,200,120,.09), transparent 65%),
+        rgba(255,255,255,.025);
+    }
+
+    .mainstage-week-context-header {
+      text-align: center;
+    }
+
+    .mainstage-week-context-title {
+      margin: 5px 0 0;
+      color: #fff4d6;
+      font: 750 clamp(1.3rem, 5vw, 1.7rem)/1.18 Georgia, serif;
+    }
+
+    .mainstage-week-context-summary {
+      max-width: 36rem;
+      margin: 10px auto 0;
+      color: var(--muted);
+      font-size: .91rem;
+      text-align: center;
+    }
+
+    .mainstage-context-path {
+      display: grid;
+      gap: 0;
+      margin-top: 18px;
+    }
+
+    .mainstage-context-row {
+      display: grid;
+      grid-template-columns: 5.5rem minmax(0,1fr);
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .mainstage-context-row span {
+      color: var(--muted);
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    .mainstage-context-row strong {
+      min-width: 0;
+      color: #edf2f5;
+      font-size: .86rem;
+      font-weight: 650;
+      overflow-wrap: anywhere;
+    }
+
+    .mainstage-week-overview-audio {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .mainstage-week-overview-audio p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
     .fp-kicker {
       font-size: .73rem;
       text-transform: uppercase;
@@ -1106,36 +1177,30 @@
               </section>
 
               <div id="mainStageWeeklyJourney" hidden>
-                          <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
+                <section id="mainStageWeekContext" class="mainstage-week-context" aria-labelledby="mainStageWeekContextTitle">
+                  <header class="mainstage-week-context-header">
+                    <p class="mainstage-step-label">This week in view</p>
+                    <h2 id="mainStageWeekContextTitle" class="mainstage-week-context-title">Loading weekly context…</h2>
+                    <p id="mainStageWeekContextSummary" class="mainstage-week-context-summary">Today is one movement inside a larger weekly encounter with Scripture.</p>
+                  </header>
 
-<div class="flex flex-col">
-  <div class="text-xs uppercase tracking-wider text-slate-400">
-    Orientation for Torah portion
-  </div>
+                  <div class="mainstage-context-path" aria-label="How today fits this week">
+                    <div class="mainstage-context-row"><span>Today</span><strong id="mainStageWeekTodayRef">Daily reading loading…</strong></div>
+                    <div class="mainstage-context-row"><span>Torah</span><strong id="mainStageWeekTorahRef">Weekly Torah reading loading…</strong></div>
+                    <div class="mainstage-context-row"><span>Prophets</span><strong id="mainStageWeekHaftarahRef">Haftarah reading loading…</strong></div>
+                    <div class="mainstage-context-row"><span>New Testament</span><strong id="mainStageWeekNtRef">New Testament reading loading…</strong></div>
+                  </div>
 
-  <div id="orientationTitle" class="text-sm text-slate-200">
-    Loading study... Kedoshim. Click play.
-  </div>
-</div>
-
-<button
-  onclick="playOrientation()"
-  class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 transition text-white"
-  title="Play Orientation"
->
-  ▶
-</button>
-
-</div>
+                  <div class="mainstage-week-overview-audio">
+                    <div>
+                      <strong id="orientationTitle">Listen to the weekly overview</strong>
+                      <p>A short introduction to the portion and its larger context.</p>
+                    </div>
+                    <button onclick="playOrientation()" class="ui-btn" type="button" title="Play weekly overview" aria-label="Play weekly overview">▶</button>
+                  </div>
+                </section>
 
             <div class="card-body">
-              <section id="frontPorch" class="hero-panel">
-                <div class="fp-kicker">Front Porch</div>
-                <h1 class="fp-title">A simple place to begin.</h1>
-                <p class="fp-sub">
-                  Weekly study, scripture, commentary, and tools — rebuilt small-phone first.
-                </p>
-              </section>
 
               <section class="content-panel">
                 <div class="section-label" onclick="toggleSection(this)">Audio Playlist + Interlinear text ▼</div>
