@@ -399,7 +399,7 @@
 
     .weekly-landing {
       position: relative;
-      padding: clamp(18px, 5vw, 28px) clamp(14px, 4vw, 24px) 18px;
+      padding: clamp(20px, 6vw, 32px) clamp(14px, 4vw, 24px) 18px;
       border: 1px solid rgba(243, 200, 120, .18);
       border-radius: 20px;
       background:
@@ -426,6 +426,73 @@
       letter-spacing: -.02em;
       text-wrap: balance;
       text-shadow: 0 1px 18px rgba(243, 200, 120, .12);
+    }
+
+    .mainstage-today-line {
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: .86rem;
+    }
+
+    .mainstage-portion-name {
+      margin: 6px 0 0;
+      color: var(--accent);
+      font-size: .96rem;
+      font-weight: 650;
+    }
+
+    .mainstage-reading-label {
+      margin: 24px 0 5px;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .mainstage-daily-reading {
+      margin: 0;
+      color: #fff8e8;
+      font: 750 clamp(1.35rem, 6vw, 1.8rem)/1.16 Georgia, serif;
+      text-wrap: balance;
+    }
+
+    .mainstage-listen-action {
+      margin: 4px auto 0;
+      border: 0;
+      background: transparent;
+      color: var(--accent);
+      box-shadow: none;
+      font-weight: 700;
+    }
+
+    .mainstage-progress-wrap {
+      width: min(100%, 22rem);
+      margin: 15px auto 0;
+    }
+
+    .mainstage-progress-copy {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: .72rem;
+    }
+
+    .mainstage-progress-track {
+      height: 2px;
+      margin-top: 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,.09);
+    }
+
+    #mainStageProgressBar {
+      display: block;
+      width: 14.2857%;
+      height: 100%;
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(243,200,120,.45);
+      transition: width 240ms ease;
     }
 
     .weekly-player-dock {
@@ -935,14 +1002,13 @@
               <button class="card-nav-btn prev-card-btn" type="button" aria-label="Previous card">‹</button>
 
               <div class="card-heading weekly-landing">
-                <p id="mainStageWeekLabel" class="weekly-landing-label">Weekly Bible Study</p>
-                <h2 id="mainStageTitle" class="weekly-study-title">
-                Loading week data...
-              </h2>
-                <div class="card-kicker">
-                  <p id="mainStageEnglish" class="label-pill" style="text-align:center;">English meaning</p>
-                  <p id="mainStageSub" class="hero-sub" style="text-align:center;">Hebrew / Transliteration</p>
-                </div>
+                <p id="mainStageWeekLabel" class="weekly-landing-label">You are here</p>
+                <p class="mainstage-today-line"><span id="mainStageWeekday">Today</span> · <span id="mainStageDayLabel">Day 1 of 7</span></p>
+                <h2 id="mainStageTitle" class="weekly-study-title">Loading week data...</h2>
+                <p id="mainStageSub" class="mainstage-portion-name">Hebrew · Portion</p>
+                <p id="mainStageEnglish" class="hero-sub" style="text-align:center; margin:.25rem 0 0;">English meaning</p>
+                <p class="mainstage-reading-label">Today’s Torah reading</p>
+                <h3 id="mainStageDailyReading" class="mainstage-daily-reading">Daily reading loading…</h3>
                 <p id="mainStageWhy" class="fp-sub" style="max-width:42rem; margin:0.75rem auto 0; text-align:center;">
                   The introduction to this week's study will appear here.
                 </p>
@@ -951,10 +1017,14 @@
                         type="button"
                         aria-expanded="false"
                         aria-controls="mainStageContinuation">
-                  Begin this week’s study →
+                  Continue Today’s Journey →
                 </button>
-                <p class="weekly-audio-label">Or begin by listening to this week’s Bible reading</p>
-                <div id="floating-player-root" class="weekly-player-dock" aria-label="Weekly Bible audio player"></div>
+                <button id="mainStageListenBtn" class="ui-btn mainstage-listen-action" type="button" aria-expanded="false" aria-controls="floating-player-root">▶ Listen Instead</button>
+                <div id="floating-player-root" class="weekly-player-dock" aria-label="Weekly Torah audio player" hidden></div>
+                <div class="mainstage-progress-wrap">
+                  <div class="mainstage-progress-copy"><span id="mainStageProgressText">Day 1 of 7</span><span>This week</span></div>
+                  <div class="mainstage-progress-track" aria-label="Daily progress through this week"><i id="mainStageProgressBar"></i></div>
+                </div>
               </div>
 
               <button class="card-nav-btn next-card-btn" type="button" aria-label="Next card">›</button>
