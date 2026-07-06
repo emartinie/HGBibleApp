@@ -495,6 +495,70 @@
       transition: width 240ms ease;
     }
 
+    .mainstage-daily-step {
+      padding: clamp(18px, 5vw, 26px);
+      border: 1px solid rgba(124,199,255,.2);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 50% 0, rgba(124,199,255,.1), transparent 62%),
+        rgba(255,255,255,.025);
+      text-align: center;
+    }
+
+    .mainstage-step-label {
+      margin: 0 0 7px;
+      color: var(--gold);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .mainstage-step-title {
+      margin: 0;
+      color: #fff4d6;
+      font: 750 clamp(1.35rem, 6vw, 1.8rem)/1.16 Georgia, serif;
+      text-wrap: balance;
+    }
+
+    .mainstage-step-copy {
+      max-width: 34rem;
+      margin: .8rem auto 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .mainstage-step-actions {
+      display: grid;
+      gap: 6px;
+      width: min(100%, 22rem);
+      margin: 18px auto 0;
+    }
+
+    .mainstage-read-link {
+      min-height: 44px;
+      border: 1px solid rgba(124,199,255,.3);
+      border-radius: 999px;
+      background: rgba(124,199,255,.1);
+      color: #dff3ff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      font-weight: 750;
+    }
+
+    .mainstage-widen-action {
+      border: 0;
+      background: transparent;
+      color: var(--gold);
+      box-shadow: none;
+    }
+
+    #mainStageWeeklyJourney.mainstage-enter {
+      animation: mainstageEnter 320ms ease-out both;
+    }
+
     .weekly-player-dock {
       margin: 8px auto 0;
       width: min(100%, 520px);
@@ -1031,6 +1095,17 @@
             </div>
 
             <div id="mainStageContinuation" hidden>
+              <section id="mainStageDailyStep" class="mainstage-daily-step" aria-labelledby="mainStageJourneyReading">
+                <p class="mainstage-step-label">Today’s next faithful step</p>
+                <h2 id="mainStageJourneyReading" class="mainstage-step-title">Daily reading loading…</h2>
+                <p id="mainStageJourneyOrientation" class="mainstage-step-copy">Read slowly. Notice what the passage asks you to see before reaching for explanation.</p>
+                <div class="mainstage-step-actions">
+                  <a id="mainStageSefariaLink" class="mainstage-read-link" href="#" target="_blank" rel="noopener noreferrer">Read today’s passage →</a>
+                  <button id="mainStageRevealWeekBtn" class="ui-btn mainstage-widen-action" type="button" aria-expanded="false" aria-controls="mainStageWeeklyJourney">See how today fits this week ↓</button>
+                </div>
+              </section>
+
+              <div id="mainStageWeeklyJourney" hidden>
                           <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
 
 <div class="flex flex-col">
@@ -1132,6 +1207,7 @@
                   <div class="empty-state">The loader will drop dynamic week content here.</div>
                 </div>
               </section>
+              </div>
               </div>
               </div>
               </div>
