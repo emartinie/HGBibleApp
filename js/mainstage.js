@@ -20,7 +20,10 @@ let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters,
     mainStageDayLabel, mainStageDailyReading, mainStageProgressText,
     mainStageProgressBar, mainStageListenBtn, dailySchedule,
     mainStageDailyStep, mainStageJourneyReading, mainStageJourneyOrientation,
-    mainStageSefariaLink, mainStageRevealWeekBtn, mainStageWeeklyJourney;
+    mainStageSefariaLink, mainStageRevealWeekBtn, mainStageWeeklyJourney,
+    mainStageWeekContextTitle, mainStageWeekContextSummary,
+    mainStageWeekTodayRef, mainStageWeekTorahRef,
+    mainStageWeekHaftarahRef, mainStageWeekNtRef;
 
 // --- Shared audio instance ---
 if (!window.globalAudio) {
@@ -85,6 +88,12 @@ function cacheDOM() {
   mainStageSefariaLink = document.getElementById("mainStageSefariaLink");
   mainStageRevealWeekBtn = document.getElementById("mainStageRevealWeekBtn");
   mainStageWeeklyJourney = document.getElementById("mainStageWeeklyJourney");
+  mainStageWeekContextTitle = document.getElementById("mainStageWeekContextTitle");
+  mainStageWeekContextSummary = document.getElementById("mainStageWeekContextSummary");
+  mainStageWeekTodayRef = document.getElementById("mainStageWeekTodayRef");
+  mainStageWeekTorahRef = document.getElementById("mainStageWeekTorahRef");
+  mainStageWeekHaftarahRef = document.getElementById("mainStageWeekHaftarahRef");
+  mainStageWeekNtRef = document.getElementById("mainStageWeekNtRef");
   beginMainStageBtn = document.getElementById("beginMainStageBtn");
   mainStageContinuation = document.getElementById("mainStageContinuation");
   mainStageSecondaryNav = document.getElementById("mainStageSecondaryNav");
@@ -149,6 +158,17 @@ function resetMainStageInvitation(weekData) {
     mainStageSefariaLink.href = href;
     mainStageSefariaLink.hidden = href === "#";
   }
+  if (mainStageWeekContextTitle) {
+    mainStageWeekContextTitle.textContent = `${daily?.portion_transliteration || transliteration || `Week ${selectedWeek}`} · ${weekData.english || "Weekly study"}`;
+  }
+  if (mainStageWeekContextSummary) {
+    mainStageWeekContextSummary.textContent = weekData.intro?.summary ||
+      "Today is one movement inside a larger weekly encounter with Scripture.";
+  }
+  if (mainStageWeekTodayRef) mainStageWeekTodayRef.textContent = daily?.torah_daily_reading || "Daily reading pending";
+  if (mainStageWeekTorahRef) mainStageWeekTorahRef.textContent = daily?.weekly_torah_reading || "Weekly Torah reading pending";
+  if (mainStageWeekHaftarahRef) mainStageWeekHaftarahRef.textContent = daily?.haftarah_prophets_writings || "Haftarah reading pending";
+  if (mainStageWeekNtRef) mainStageWeekNtRef.textContent = daily?.new_testament || "New Testament reading pending";
   if (mainStageProgressText) mainStageProgressText.textContent = `Day ${daily?.day_number || cycleDay} of 7`;
   if (mainStageProgressBar) mainStageProgressBar.style.width = `${((daily?.day_number || cycleDay) / 7) * 100}%`;
 
