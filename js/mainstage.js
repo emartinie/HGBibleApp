@@ -7,7 +7,7 @@
 //   5. prev/next week logic reads weekSelect.value consistently — prevents off-by-one drift
 //   6. Scope clarified — audio.ended and DOMContentLoaded listeners explicitly outside init()
 
-import { initWeeklyScriptureLoader } from "./weeklyScriptureLoader.js";
+import { initWeeklyScriptureLoader } from "./weeklyScriptureLoader.js?v=20260706-2";
 import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
 import { loadDailyReadingSchedule } from "./dailyReadingSchedule.js";
 
@@ -48,10 +48,6 @@ window.toggleSection = function toggleSection(label) {
   const opening = panel.hidden;
   panel.hidden = !opening;
   label.setAttribute("aria-expanded", String(opening));
-  label.textContent = label.textContent.replace(
-    /[▼▶]$/,
-    opening ? "▼" : "▶"
-  );
 
   if (opening) {
     panel.classList.remove("mainstage-enter");
@@ -107,7 +103,6 @@ function prepareMainStageSections() {
     label.setAttribute("role", "button");
     label.setAttribute("tabindex", "0");
     label.setAttribute("aria-expanded", "false");
-    label.textContent = label.textContent.replace(/[▼▶]$/, "▶");
 
     if (label.dataset.mainstageKeyboardBound !== "true") {
       label.dataset.mainstageKeyboardBound = "true";
@@ -266,31 +261,34 @@ function parseScriptureFromFilename(filename) {
 // --- Generic collapsible card ---
 function createCard(title, contentHTML) {
   const card = document.createElement("section");
-  card.className = "hg-panel";
+  card.className = "hg-study-card";
 
-  const header = document.createElement("div");
-  header.className = "flex justify-between items-center cursor-pointer";
+  const header = document.createElement("button");
+  header.className = "hg-study-card-toggle";
+  header.type = "button";
+  header.setAttribute("aria-expanded", "false");
 
   const titleEl = document.createElement("div");
-  titleEl.className = "text-sm font-semibold text-amber-100";
+  titleEl.className = "hg-study-card-title";
   titleEl.textContent = title;
 
   const icon = document.createElement("span");
-  icon.className = "text-slate-400 text-sm";
-  icon.textContent = "▼";
+  icon.className = "hg-study-card-icon";
+  icon.textContent = "+";
 
   const content = document.createElement("div");
-  content.className = "overflow-hidden max-h-0 transition-all duration-300";
+  content.className = "hg-study-card-content";
+  content.hidden = true;
   content.innerHTML = contentHTML;
 
   header.appendChild(titleEl);
   header.appendChild(icon);
 
   header.addEventListener("click", () => {
-    const open = content.classList.contains("max-h-0");
-    content.classList.toggle("max-h-0", !open);
-    content.classList.toggle("max-h-[500px]", open);
-    icon.textContent = open ? "▲" : "▼";
+    const opening = content.hidden;
+    content.hidden = !opening;
+    header.setAttribute("aria-expanded", String(opening));
+    icon.textContent = opening ? "−" : "+";
   });
 
   card.appendChild(header);
@@ -301,13 +299,17 @@ function createCard(title, contentHTML) {
 // --- Render week info cards (arbitrary JSON keys) ---
 function renderWeekCards(data) {
   cardsContainer.innerHTML = "";
+  const intro = document.createElement("p");
+  intro.className = "mainstage-section-intro";
+  intro.textContent = "Open only the background or reflection you need next.";
+  cardsContainer.appendChild(intro);
 
   Object.keys(data).forEach(key => {
-    if (["week","english","hebrew","transliteration","title","sections","video"].includes(key)) return;
+    if (["week","english","hebrew","transliteration","title","subtitle","intro","first_verse","sections","video"].includes(key)) return;
     const contentHTML = renderObject(key, data[key]);
     cardsContainer.appendChild(
       createCard(
-        key.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase()),
+        learnerFacingTitle(key),
         contentHTML
       )
     );
@@ -319,12 +321,24 @@ function renderWeekCards(data) {
       const sectionHTML = renderObject(sec, data.sections[sec]);
       cardsContainer.appendChild(
         createCard(
-          sec.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase()),
+          learnerFacingTitle(sec),
           sectionHTML
         )
       );
     });
   }
+}
+
+function learnerFacingTitle(key) {
+  const titles = {
+    commentary: "What should I notice?",
+    deeper_learning: "Where can I go deeper?",
+    aleph_tav: "What details are hidden in the text?",
+    kids_study: "How can younger learners join in?",
+    language_learning: "What do the biblical languages reveal?",
+    psalms_plan: "How can the Psalms accompany this week?"
+  };
+  return titles[key] || key.replace(/_/g, " ").replace(/\b\w/g, letter => letter.toUpperCase());
 }
 
 // --- Recursive JSON renderer ---
@@ -451,9 +465,17 @@ async function loadMainStageWeek(weekData) {
 
   // --- Chapter Outlines ---
   mainStageChapters.innerHTML = "";
+  const outlineIntro = document.createElement("p");
+  outlineIntro.className = "mainstage-section-intro";
+  outlineIntro.textContent = "Follow the movement of the week before exploring its details.";
+  mainStageChapters.appendChild(outlineIntro);
   const outlines = weekData.sections?.chapter_outlines || {};
 
   Object.keys(outlines).forEach(chap => {
+    const rawOutline = outlines[chap];
+    if (Array.isArray(rawOutline) && rawOutline.length === 0) return;
+    if (typeof rawOutline === "string" && !rawOutline.trim()) return;
+
     const p = document.createElement("p");
     p.className = "hg-outline-card";
 
@@ -465,12 +487,12 @@ async function loadMainStageWeek(weekData) {
     contentUl.className = "hg-outline-list";
 
     let items = [];
-    if (Array.isArray(outlines[chap])) {
-      items = outlines[chap];
-    } else if (typeof outlines[chap] === "string") {
-      items = outlines[chap].split(",").map(s => s.trim());
+    if (Array.isArray(rawOutline)) {
+      items = rawOutline;
+    } else if (typeof rawOutline === "string") {
+      items = rawOutline.split(",").map(s => s.trim());
     } else {
-      items = [String(outlines[chap])];
+      items = [String(rawOutline)];
     }
 
     items.forEach(item => {
