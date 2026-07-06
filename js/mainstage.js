@@ -18,7 +18,9 @@ let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters,
     mainStageWhy, beginMainStageBtn, mainStageContinuation,
     mainStageSecondaryNav, mainStageWeekLabel, mainStageWeekday,
     mainStageDayLabel, mainStageDailyReading, mainStageProgressText,
-    mainStageProgressBar, mainStageListenBtn, dailySchedule;
+    mainStageProgressBar, mainStageListenBtn, dailySchedule,
+    mainStageDailyStep, mainStageJourneyReading, mainStageJourneyOrientation,
+    mainStageSefariaLink, mainStageRevealWeekBtn, mainStageWeeklyJourney;
 
 // --- Shared audio instance ---
 if (!window.globalAudio) {
@@ -77,6 +79,12 @@ function cacheDOM() {
   mainStageProgressText = document.getElementById("mainStageProgressText");
   mainStageProgressBar = document.getElementById("mainStageProgressBar");
   mainStageListenBtn = document.getElementById("mainStageListenBtn");
+  mainStageDailyStep = document.getElementById("mainStageDailyStep");
+  mainStageJourneyReading = document.getElementById("mainStageJourneyReading");
+  mainStageJourneyOrientation = document.getElementById("mainStageJourneyOrientation");
+  mainStageSefariaLink = document.getElementById("mainStageSefariaLink");
+  mainStageRevealWeekBtn = document.getElementById("mainStageRevealWeekBtn");
+  mainStageWeeklyJourney = document.getElementById("mainStageWeeklyJourney");
   beginMainStageBtn = document.getElementById("beginMainStageBtn");
   mainStageContinuation = document.getElementById("mainStageContinuation");
   mainStageSecondaryNav = document.getElementById("mainStageSecondaryNav");
@@ -129,6 +137,18 @@ function resetMainStageInvitation(weekData) {
   if (mainStageDailyReading) {
     mainStageDailyReading.textContent = daily?.torah_daily_reading || weekData.sections?.audio_playlist?.[0]?.label || "Today’s reading is being prepared.";
   }
+  if (mainStageJourneyReading) {
+    mainStageJourneyReading.textContent = daily?.torah_daily_reading || "Today’s reading is being prepared.";
+  }
+  if (mainStageJourneyOrientation) {
+    mainStageJourneyOrientation.textContent = weekData.intro?.summary ||
+      "Read slowly. Notice what the passage asks you to see before reaching for explanation.";
+  }
+  if (mainStageSefariaLink) {
+    const href = daily?.sefaria_bilingual_link || "#";
+    mainStageSefariaLink.href = href;
+    mainStageSefariaLink.hidden = href === "#";
+  }
   if (mainStageProgressText) mainStageProgressText.textContent = `Day ${daily?.day_number || cycleDay} of 7`;
   if (mainStageProgressBar) mainStageProgressBar.style.width = `${((daily?.day_number || cycleDay) / 7) * 100}%`;
 
@@ -149,6 +169,8 @@ function resetMainStageInvitation(weekData) {
   }
 
   if (mainStageContinuation) mainStageContinuation.hidden = true;
+  if (mainStageDailyStep) mainStageDailyStep.hidden = false;
+  if (mainStageWeeklyJourney) mainStageWeeklyJourney.hidden = true;
   document.getElementById("mainStageCard")?.classList.remove("mainstage-started");
   if (mainStageSecondaryNav) mainStageSecondaryNav.hidden = true;
   prepareMainStageSections();
@@ -161,20 +183,17 @@ function resetMainStageInvitation(weekData) {
   const playerDock = document.getElementById("floating-player-root");
   if (playerDock) playerDock.hidden = true;
   if (mainStageListenBtn) mainStageListenBtn.setAttribute("aria-expanded", "false");
+  if (mainStageRevealWeekBtn) {
+    mainStageRevealWeekBtn.hidden = false;
+    mainStageRevealWeekBtn.setAttribute("aria-expanded", "false");
+  }
 }
 
 function revealMainStageStudy() {
-  document.getElementById("mainStageCard")?.classList.add("mainstage-started");
   if (mainStageContinuation) {
     mainStageContinuation.hidden = false;
     mainStageContinuation.classList.remove("mainstage-enter");
     requestAnimationFrame(() => mainStageContinuation.classList.add("mainstage-enter"));
-  }
-
-  if (mainStageSecondaryNav) {
-    mainStageSecondaryNav.hidden = false;
-    mainStageSecondaryNav.classList.remove("mainstage-enter");
-    requestAnimationFrame(() => mainStageSecondaryNav.classList.add("mainstage-enter"));
   }
 
   if (beginMainStageBtn) {
@@ -186,6 +205,29 @@ function revealMainStageStudy() {
     behavior: "smooth",
     block: "start"
   });
+}
+
+function revealWeeklyJourney() {
+  document.getElementById("mainStageCard")?.classList.add("mainstage-started");
+
+  if (mainStageWeeklyJourney) {
+    mainStageWeeklyJourney.hidden = false;
+    mainStageWeeklyJourney.classList.remove("mainstage-enter");
+    requestAnimationFrame(() => mainStageWeeklyJourney.classList.add("mainstage-enter"));
+  }
+
+  if (mainStageSecondaryNav) {
+    mainStageSecondaryNav.hidden = false;
+    mainStageSecondaryNav.classList.remove("mainstage-enter");
+    requestAnimationFrame(() => mainStageSecondaryNav.classList.add("mainstage-enter"));
+  }
+
+  if (mainStageRevealWeekBtn) {
+    mainStageRevealWeekBtn.hidden = true;
+    mainStageRevealWeekBtn.setAttribute("aria-expanded", "true");
+  }
+
+  mainStageWeeklyJourney?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 // --- Populate week selector ---
@@ -552,6 +594,7 @@ async function init() {
   }
 
   beginMainStageBtn?.addEventListener("click", revealMainStageStudy);
+  mainStageRevealWeekBtn?.addEventListener("click", revealWeeklyJourney);
   mainStageListenBtn?.addEventListener("click", () => {
     const playerDock = document.getElementById("floating-player-root");
     if (playerDock) playerDock.hidden = false;
