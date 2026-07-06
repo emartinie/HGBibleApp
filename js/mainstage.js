@@ -9,13 +9,16 @@
 
 import { initWeeklyScriptureLoader } from "./weeklyScriptureLoader.js";
 import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
+import { loadDailyReadingSchedule } from "./dailyReadingSchedule.js";
 
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters,
     mainStageVideo, mainStageIframe, floatingPlayer, mainStageEnglish,
     mainStageWhy, beginMainStageBtn, mainStageContinuation,
-    mainStageSecondaryNav, mainStageWeekLabel;
+    mainStageSecondaryNav, mainStageWeekLabel, mainStageWeekday,
+    mainStageDayLabel, mainStageDailyReading, mainStageProgressText,
+    mainStageProgressBar, mainStageListenBtn, dailySchedule;
 
 // --- Shared audio instance ---
 if (!window.globalAudio) {
@@ -68,6 +71,12 @@ function cacheDOM() {
   mainStageEnglish  = document.getElementById("mainStageEnglish");
   mainStageWhy      = document.getElementById("mainStageWhy");
   mainStageWeekLabel = document.getElementById("mainStageWeekLabel");
+  mainStageWeekday = document.getElementById("mainStageWeekday");
+  mainStageDayLabel = document.getElementById("mainStageDayLabel");
+  mainStageDailyReading = document.getElementById("mainStageDailyReading");
+  mainStageProgressText = document.getElementById("mainStageProgressText");
+  mainStageProgressBar = document.getElementById("mainStageProgressBar");
+  mainStageListenBtn = document.getElementById("mainStageListenBtn");
   beginMainStageBtn = document.getElementById("beginMainStageBtn");
   mainStageContinuation = document.getElementById("mainStageContinuation");
   mainStageSecondaryNav = document.getElementById("mainStageSecondaryNav");
@@ -105,10 +114,23 @@ function resetMainStageInvitation(weekData) {
     .trim();
 
   const selectedWeek = parseInt(weekSelect?.value, 10) || weekData.week;
-  mainStageTitle.textContent = weekData.title || "Weekly Bible Study";
+  // The verified schedule defines Sunday as Day 1 and Saturday as Day 7.
+  const cycleDay = new Date().getDay() + 1;
+  const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][cycleDay - 1];
+  const daily = dailySchedule?.get(selectedWeek, cycleDay);
+
+  mainStageTitle.textContent = `Week ${selectedWeek} · ${daily?.portion_transliteration || transliteration || "Weekly Study"}`;
   if (mainStageWeekLabel) {
-    mainStageWeekLabel.textContent = `Bible Study • Week ${selectedWeek}`;
+    mainStageWeekLabel.textContent = "You are here";
   }
+
+  if (mainStageWeekday) mainStageWeekday.textContent = `Today · ${daily?.day_name || weekday}`;
+  if (mainStageDayLabel) mainStageDayLabel.textContent = `Day ${daily?.day_number || cycleDay} of 7`;
+  if (mainStageDailyReading) {
+    mainStageDailyReading.textContent = daily?.torah_daily_reading || weekData.sections?.audio_playlist?.[0]?.label || "Today’s reading is being prepared.";
+  }
+  if (mainStageProgressText) mainStageProgressText.textContent = `Day ${daily?.day_number || cycleDay} of 7`;
+  if (mainStageProgressBar) mainStageProgressBar.style.width = `${((daily?.day_number || cycleDay) / 7) * 100}%`;
 
   if (mainStageEnglish) {
     mainStageEnglish.textContent = weekData.english || "English meaning pending";
@@ -121,6 +143,7 @@ function resetMainStageInvitation(weekData) {
   }
 
   if (mainStageWhy) {
+    // Phase 1 fallback: weekly summary supplies orientation until daily orientations are authored.
     mainStageWhy.textContent = weekData.intro?.summary ||
       "An introduction for this week's study is still being prepared.";
   }
@@ -134,6 +157,10 @@ function resetMainStageInvitation(weekData) {
     beginMainStageBtn.hidden = false;
     beginMainStageBtn.setAttribute("aria-expanded", "false");
   }
+
+  const playerDock = document.getElementById("floating-player-root");
+  if (playerDock) playerDock.hidden = true;
+  if (mainStageListenBtn) mainStageListenBtn.setAttribute("aria-expanded", "false");
 }
 
 function revealMainStageStudy() {
@@ -510,13 +537,27 @@ function dispatchWeekChanged(week) {
 }
 
 // --- Initialize ---
-function init() {
+async function init() {
   cacheDOM();
   populateWeekSelect();
   initWeeklyScriptureLoader();
   prepareMainStageSections();
 
+  try {
+    dailySchedule = await loadDailyReadingSchedule();
+  } catch (error) {
+    // Phase 1 fallback: weekly JSON remains usable if the daily CSV is unavailable.
+    console.warn("Daily reading schedule unavailable; using weekly fallback.", error);
+    dailySchedule = null;
+  }
+
   beginMainStageBtn?.addEventListener("click", revealMainStageStudy);
+  mainStageListenBtn?.addEventListener("click", () => {
+    const playerDock = document.getElementById("floating-player-root");
+    if (playerDock) playerDock.hidden = false;
+    mainStageListenBtn.setAttribute("aria-expanded", "true");
+    window.__orbitPlayer?.play?.();
+  });
 
   window.currentWeek = parseInt(weekSelect.value, 10);
 
