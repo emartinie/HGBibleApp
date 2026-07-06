@@ -583,6 +583,14 @@
       font-weight: 850;
     }
 
+    .mainstage-arrival-read-link {
+      width: min(100%, 22rem);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
     .mainstage-primary-action:hover,
     .mainstage-primary-action:focus-visible {
       filter: brightness(1.06);
@@ -1147,14 +1155,9 @@
                 <p id="mainStageWhy" class="fp-sub" style="max-width:42rem; margin:0.75rem auto 0; text-align:center;">
                   The introduction to this week's study will appear here.
                 </p>
-                <button id="beginMainStageBtn"
-                        class="ui-btn mainstage-primary-action"
-                        type="button"
-                        aria-expanded="false"
-                        aria-controls="mainStageContinuation">
-                  Continue Today’s Journey →
-                </button>
+                <a id="mainStageSefariaLink" class="ui-btn mainstage-primary-action mainstage-arrival-read-link" href="#" target="_blank" rel="noopener noreferrer">Read Today’s Passage →</a>
                 <button id="mainStageListenBtn" class="ui-btn mainstage-listen-action" type="button" aria-expanded="false" aria-controls="floating-player-root">▶ Listen Instead</button>
+                <button id="beginMainStageBtn" class="ui-btn mainstage-widen-action" type="button" aria-expanded="false" aria-controls="mainStageContinuation">See how today fits this week ↓</button>
                 <div id="floating-player-root" class="weekly-player-dock" aria-label="Weekly Torah audio player" hidden></div>
                 <div class="mainstage-progress-wrap">
                   <div class="mainstage-progress-copy"><span id="mainStageProgressText">Day 1 of 7</span><span>This week</span></div>
@@ -1166,17 +1169,7 @@
             </div>
 
             <div id="mainStageContinuation" hidden>
-              <section id="mainStageDailyStep" class="mainstage-daily-step" aria-labelledby="mainStageJourneyReading">
-                <p class="mainstage-step-label">Today’s next faithful step</p>
-                <h2 id="mainStageJourneyReading" class="mainstage-step-title">Daily reading loading…</h2>
-                <p id="mainStageJourneyOrientation" class="mainstage-step-copy">Read slowly. Notice what the passage asks you to see before reaching for explanation.</p>
-                <div class="mainstage-step-actions">
-                  <a id="mainStageSefariaLink" class="mainstage-read-link" href="#" target="_blank" rel="noopener noreferrer">Read today’s passage →</a>
-                  <button id="mainStageRevealWeekBtn" class="ui-btn mainstage-widen-action" type="button" aria-expanded="false" aria-controls="mainStageWeeklyJourney">See how today fits this week ↓</button>
-                </div>
-              </section>
-
-              <div id="mainStageWeeklyJourney" hidden>
+              <div id="mainStageWeeklyJourney">
                 <section id="mainStageWeekContext" class="mainstage-week-context" aria-labelledby="mainStageWeekContextTitle">
                   <header class="mainstage-week-context-header">
                     <p class="mainstage-step-label">This week in view</p>
