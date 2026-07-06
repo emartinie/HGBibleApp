@@ -841,6 +841,138 @@
       cursor: pointer;
     }
 
+    /* Page 2 uses one quiet visual language across the existing study engines. */
+    #mainStageContinuation .card-body { gap: 12px; margin-top: 14px; }
+    #mainStageContinuation .content-panel {
+      padding: 0;
+      overflow: hidden;
+      background: rgba(255,255,255,.022);
+      border-color: rgba(255,255,255,.09);
+    }
+    #mainStageContinuation .section-label {
+      position: relative;
+      margin: 0;
+      padding: 16px 46px 16px 18px;
+      color: #f3d69b;
+      font-size: .78rem;
+      font-weight: 750;
+      line-height: 1.35;
+      letter-spacing: .09em;
+    }
+    #mainStageContinuation .section-label::after {
+      content: "+";
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+    #mainStageContinuation .section-label[aria-expanded="true"]::after { content: "−"; }
+    #mainStageContinuation .mainstage-section-body {
+      padding: 2px 18px 18px;
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+    .mainstage-section-intro {
+      margin: 14px 0 16px;
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+    .mainstage-scripture-toolbar, .mainstage-scripture-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .mainstage-language-options { display: flex; gap: 6px; }
+    .mainstage-language-options .ui-btn.is-active {
+      color: #17130b;
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    #weeklyScriptureContainer {
+      max-height: 64vh;
+      overflow: auto;
+      margin: 12px 0;
+      padding: clamp(14px, 3vw, 24px);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 14px;
+      background: rgba(5,8,14,.55);
+      color: #e9e5dc;
+      font-size: .96rem;
+      line-height: 1.72;
+    }
+    #weeklyScriptureContainer h1 { font-size: 1.45rem; color: #fff2d2; }
+    #weeklyScriptureContainer h2 { font-size: 1.08rem; color: #e9c779; }
+    #weeklyScriptureContainer h3 { font-size: 1rem; }
+    #weeklyScriptureContainer .week-label { color: var(--muted); }
+    #weeklyScriptureContainer .scripture-box {
+      white-space: pre-wrap;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    #weeklyScriptureContainer .button {
+      display: inline-flex;
+      margin: 3px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #dcecff;
+      text-decoration: none;
+    }
+    .mainstage-loading, .mainstage-scripture-error { color: var(--muted); }
+    .mainstage-scripture-error { display: grid; gap: 5px; }
+    #mainStageChapters { display: grid; gap: 10px; }
+    .hg-outline-card {
+      display: grid;
+      grid-template-columns: minmax(90px, .32fr) 1fr;
+      gap: 14px;
+      margin: 0;
+      padding: 14px;
+      border-left: 2px solid rgba(224,180,91,.65);
+      border-radius: 0 12px 12px 0;
+      background: rgba(255,255,255,.026);
+    }
+    .hg-outline-title { color: #f3d69b; font-weight: 750; }
+    .hg-outline-list { margin: 0; padding-left: 18px; color: #d8dbe2; line-height: 1.55; }
+    .hg-outline-list:empty::after { content: "No outline is provided for this part of the week."; color: var(--muted); font-style: italic; }
+    .mainstage-media-grid { display: grid; gap: 14px; }
+    .mainstage-media-item { margin: 0; }
+    .mainstage-media-item figcaption { margin: 0 0 8px; color: var(--muted); font-size: .78rem; }
+    .mainstage-media-frame, .mainstage-media-item .sp-embed-player {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 14px;
+    }
+    #cardsContainer .hg-study-card { border-top: 1px solid rgba(255,255,255,.075); }
+    #cardsContainer .hg-study-card:first-child { border-top: 0; }
+    #cardsContainer .hg-study-card-toggle {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 2px;
+      border: 0;
+      background: transparent;
+      color: #eee7d9;
+      text-align: left;
+      cursor: pointer;
+    }
+    #cardsContainer .hg-study-card-icon { color: var(--muted); font-size: 1rem; }
+    #cardsContainer .hg-study-card-content { padding: 0 2px 14px; color: #d1d5dd; line-height: 1.58; }
+    #cardsContainer .hg-study-card-content > :first-child { margin-top: 0; }
+    @media (max-width: 560px) {
+      #mainStageContinuation .section-label { padding: 14px 42px 14px 14px; }
+      #mainStageContinuation .mainstage-section-body { padding: 2px 14px 14px; }
+      .hg-outline-card { grid-template-columns: 1fr; gap: 7px; }
+      #weeklyScriptureContainer { max-height: 58vh; }
+    }
+
     #nowPlaying {
       font-size: .88rem;
       color: #dbe8ff;
@@ -1196,32 +1328,21 @@
             <div class="card-body">
 
               <section class="content-panel">
-                <div class="section-label" onclick="toggleSection(this)">Audio Playlist + Interlinear text ▼</div>
-                <div class="mainstage-section-body" hidden>
-                  <div id="nowPlaying">Now Playing: —</div>
-                  <div id="mainStagePlaylist">
-                    <div class="empty-state">Playlist will appear here.</div>
-                  </div>
-                </div>
-              </section>
-
-              <section class="content-panel">
-  <div class="section-label" onclick="toggleSection(this)">
-    Weekly Scripture ▼
-  </div>
+  <div class="section-label" onclick="toggleSection(this)">What does Scripture say?</div>
 
   <div class="mainstage-section-body space-y-3" hidden>
+    <p class="mainstage-section-intro">Read the passages that shape this week’s journey.</p>
 
-    <div class="flex items-center justify-between flex-wrap gap-2">
+    <div class="mainstage-scripture-toolbar">
       <div id="weeklyScriptureMeta" class="text-xs text-slate-400">
         Loading week...
       </div>
 
-      <div class="flex gap-2">
-        <button id="langEnglishBtn" class="ui-btn text-xs">EN</button>
-        <button id="langHebrewBtn" class="ui-btn text-xs">HE</button>
-        <button id="langGreekBtn" class="ui-btn text-xs">GR</button>
-        <button id="weeklyScriptureReloadBtn" class="ui-btn text-xs">↻</button>
+      <div class="mainstage-language-options" aria-label="Scripture language">
+        <button id="langEnglishBtn" class="ui-btn text-xs" type="button">EN</button>
+        <button id="langHebrewBtn" class="ui-btn text-xs" type="button">HE</button>
+        <button id="langGreekBtn" class="ui-btn text-xs" type="button">GR</button>
+        <button id="weeklyScriptureReloadBtn" class="ui-btn text-xs" type="button" aria-label="Reload Scripture" title="Reload Scripture">↻</button>
       </div>
     </div>
 
@@ -1232,27 +1353,37 @@
       Loading scripture...
     </div>
 
-    <div class="flex justify-between">
-      <button id="weeklyScripturePrevBtn" class="ui-btn text-xs">← Prev</button>
-      <button id="weeklyScriptureNextBtn" class="ui-btn text-xs">Next →</button>
-    </div>
-
   </div>
 </section>
+
+              <section class="content-panel">
+                <div class="section-label" onclick="toggleSection(this)">How can I hear it?</div>
+                <div class="mainstage-section-body" hidden>
+                  <p class="mainstage-section-intro">Listen through the week’s passages or open the accompanying text.</p>
+                  <div id="nowPlaying">Now Playing: —</div>
+                  <div id="mainStagePlaylist">
+                    <div class="empty-state">Playlist will appear here.</div>
+                  </div>
+                </div>
+              </section>
               
               <section class="content-panel">
-                <div class="section-label" onclick="toggleSection(this)">Chapter Outlines ▼</div>
+                <div class="section-label" onclick="toggleSection(this)">What is happening in these passages?</div>
                 <div id="mainStageChapters" class="mainstage-section-body" hidden>
+                  <p class="mainstage-section-intro">Follow the movement of the week before exploring its details.</p>
                   <div class="empty-state">Outlines will appear here.</div>
                 </div>
               </section>
 
               <section class="content-panel">
-                <div class="section-label" onclick="toggleSection(this)">Video / Media ▼</div>
+                <div class="section-label" onclick="toggleSection(this)">Can someone help me see it?</div>
                 <div class="mainstage-section-body" hidden>
-                  <div class="sp-embed-player" data-id="cOhQVzntlWj" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQVzntlWj"></script><iframe loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cOhQVzntlWj?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
-                  <div class="sp-embed-player" data-id="cOhQe1ntIfR" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQe1ntIfR"></script><iframe loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cOhQe1ntIfR?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
-                  <div class="sp-embed-player" data-id="cOhQePntIj4" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQePntIj4"></script><iframe loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cOhQePntIj4?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div>
+                  <p class="mainstage-section-intro">Use these visual studies when another perspective would help.</p>
+                  <div class="mainstage-media-grid">
+                  <figure class="mainstage-media-item"><figcaption>Begin with the weekly teaching</figcaption><div class="sp-embed-player" data-id="cOhQVzntlWj" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQVzntlWj"></script><iframe title="Weekly teaching, part one" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cOhQVzntlWj?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div></figure>
+                  <figure class="mainstage-media-item"><figcaption>Continue the weekly teaching</figcaption><div class="sp-embed-player" data-id="cOhQe1ntIfR" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQe1ntIfR"></script><iframe title="Weekly teaching, part two" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cOhQe1ntIfR?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div></figure>
+                  <figure class="mainstage-media-item"><figcaption>Complete the weekly teaching</figcaption><div class="sp-embed-player" data-id="cOhQePntIj4" data-aspect-ratio="1.777778" data-padding-top="56.250000%" style="position:relative;width:100%;padding-top:56.250000%;height:0;"><script src="https://go.screenpal.com/player/appearance/cOhQePntIj4"></script><iframe title="Weekly teaching, part three" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" scrolling="no" src="https://go.screenpal.com/player/cOhQePntIj4?ff=1&ahc=1&dcc=1&tl=1&bg=transparent&share=1&download=1&embed=1&cl=1" allowfullscreen="true"></iframe></div></figure>
+                  </div>
                   <div id="mainStageVideo">
                     <div class="empty-state">Media will appear here.</div>
                   </div>
@@ -1260,8 +1391,9 @@
               </section>
 
               <section class="content-panel">
-                <div class="section-label" onclick="toggleSection(this)">Week Info Cards ▼</div>
+                <div class="section-label" onclick="toggleSection(this)">How does this week connect?</div>
                 <div id="cardsContainer" class="mainstage-section-body" hidden>
+                  <p class="mainstage-section-intro">Open only the background or reflection you need next.</p>
                   <div class="empty-state">The loader will drop dynamic week content here.</div>
                 </div>
               </section>
@@ -1372,7 +1504,7 @@
     </main>
   </div>-->
     <!--<script src="js/cardloader.js"></script>-->
-  <script type="module" src="js/mainstage.js?v=20260703-3"></script>
+  <script type="module" src="js/mainstage.js?v=20260706-2"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
   <script src="js/textSizePreference.js"></script>
