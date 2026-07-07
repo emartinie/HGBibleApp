@@ -261,7 +261,7 @@
         top: "auto",
         width: "100%",
         maxWidth: "520px",
-        height: "88px",
+        height: "132px",
         borderRadius: "16px",
         padding: "8px 12px"
       });
@@ -386,17 +386,21 @@
       #floatingPlayer .hidden { display: none !important; }
       #floatingPlayer.is-docked .orbit-control { transform: none !important; }
       #floatingPlayer.is-docked .orbit-controls {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
         align-items: center;
-        justify-content: flex-end;
         gap: 6px;
         position: absolute;
-        inset: auto 10px 8px auto;
+        inset: 30px 8px 24px;
         width: auto;
         height: auto;
       }
       #floatingPlayer.is-docked .orbit-control {
         position: static !important;
+        min-width: 0 !important;
+        width: 100%;
+        padding: 5px 3px !important;
+        font-size: 11px !important;
       }
     `;
     if (!document.getElementById(style.id)) document.head.appendChild(style);
