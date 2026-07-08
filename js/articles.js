@@ -1,7 +1,7 @@
 (function () {
 const ARTICLES = [
   { title: "Who was Paul, or Rabbi Shaul?", file: "who_was_paul.html" },
-  { title: "What Does the Text Say About Clean and Unclean Food?", file: "what_does_the_text_say_dietary_expectations.html" },
+  { title: "Clean and Unclean Food?", file: "dietary_expectations.html" },
   { title: "Almost There, but Not Quite", file: "almost_there_but_not_quite.html" },
   { title: "Walking in Love", file: "debating_arguing_discussing_and_disagreeing_midrash.html" },
   { title: "First Article", file: "first_blog_post_the_second_commandment_and_the_second_ammendment.html" },
