@@ -812,6 +812,79 @@
       min-height: 0;
     }
 
+    /*
+      Mobile Density Pass Phase 1
+      Keep MainStage untouched. These rules only compact dynamically loaded cards.
+      The card toolbar markup remains in place for future activation; it is simply
+      removed from the mobile visual flow for now.
+    */
+    @media (max-width: 760px) {
+      .card:not(#mainStageCard) .card-shell {
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .card:not(#mainStageCard) .card-body {
+        gap: 8px;
+      }
+
+      .card:not(#mainStageCard) .card-topbar {
+        max-height: 0 !important;
+        min-height: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        overflow: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+
+      .card:not(#mainStageCard) .orientation-block {
+        margin: 0 0 6px !important;
+        padding: 8px 10px !important;
+        border-radius: 14px !important;
+      }
+
+      .card:not(#mainStageCard) .orientation-block h3 {
+        margin: 0 !important;
+        font-size: .92rem !important;
+        line-height: 1.25 !important;
+      }
+
+      .card:not(#mainStageCard) .orientation-block p {
+        margin-top: 4px !important;
+        font-size: .82rem !important;
+        line-height: 1.35 !important;
+      }
+
+      .card:not(#mainStageCard) .orientation-block p:not(:last-child) {
+        display: none !important;
+      }
+
+      .card:not(#mainStageCard) .card-heading {
+        margin-block: 0 4px !important;
+      }
+
+      .card:not(#mainStageCard) .card-heading .hero-sub,
+      .card:not(#mainStageCard) .card-heading .card-kicker {
+        display: none !important;
+      }
+
+      .card:not(#mainStageCard) .card-heading :where(h1, h2) {
+        margin-block: 0 !important;
+        font-size: 1.05rem !important;
+        line-height: 1.2 !important;
+      }
+
+      .card:not(#mainStageCard) .hero-panel,
+      .card:not(#mainStageCard) .content-panel,
+      .card:not(#mainStageCard) .hg-panel,
+      .card:not(#mainStageCard) .hg-section {
+        padding: 10px !important;
+      }
+    }
+
     .hero-panel,
     .content-panel {
       background: rgba(255,255,255,.03);
