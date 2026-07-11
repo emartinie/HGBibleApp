@@ -7,48 +7,59 @@
   "intro": {
     "summary": "Learn the Bible in 52 weeks. In the Messianic tradition, this study underscores the spiritual authority of speech, the integrity of a believer's word, and the foreshadowing of Messiah Yeshua. It is frequently read as a double reading alongside Massei",
     "instructions": "How it works: Read daily, listen to audio, and meet weekly in your HomeGroup."
-  },
+   },
   "sections": {
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
+        "src": "https://audio.esv.org/hw/mq/04030002-04036013.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Prophets",
-        "src": "https://audio.esv.org/hw/mq/28012012-28014009.mp3"
+        "src": "http://audio.esvbible.org/hw/24016019-24017014.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Gospels",
-        "src": "https://audio.esv.org/hw/mq/40003001-40004025.mp3"
+        "src": "http://audio.esvbible.org/hw/42014001-42014001,42015032-42015032,40021033-40021046.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       },
       {
         "label": "Letters",
-        "src": "https://audio.esv.org/hw/mq/59001001-59002026.mp3"
+        "src": "http://audio.esvbible.org/hw/42014001-42015032.mp3",
+        "heb": "https://mechon-mamre.org/mp3/t0521.mp3",
+        "grk": "https://info2.sermon-online.com/greek/Bible/Greek-Audio_Bible_Complete_Old_Testament_OT_MP3.mp3"
       }
     ],
     "chapter_outlines": {
       "Torah": [
-        "28:10 – Jacob's Dream at Bethel",
-        "29:1 – Jacob Meets Rachel",
-        "31:43 – Laban and Jacob Make a Covenant"
+        "Leviticus 26:14 | Penalties for Disobedience",
+        "Leviticus 26:14 | Penalties for Disobedience"
       ],
       "Prophets": [
-        "12:12 – Ephraim's Rebellion",
-        "14:4 – Assurance of Forgiveness"
+        "Jer 17:1 | Judah's Sin and Punishment",
+        "Jer 17:19 | Hallow the Sabbath Day"
       ],
-      "Writings": [],
+      "Writings": [
+        "Jer 16:14 | God Will Restore Israel"
+      ],
       "Gospels": [
-        "3 – Baptism Begins the Mission"
+        "Luke 14:1-15:32, Mathew 21:33-46 | Teaching on Sabbath and Parables"
       ],
       "Letters": [
-        "James 2 – Faith and Works"
+        "Romans 6-7 | The instructions are Holy and our flesh wars with the Holiness"
       ],
-      "Revelation": []
+      "Revelation": [
+        "Revelations 7, 14 | Commandments of God + Faith in Jesus"
+      ]
     },
     "commentary": {
-      "quote": "There are few ideal families in the Bible. Jacob's certainly wasn't…",
-      "content": "Jacob's story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
+      "quote": "There are few ideal families in the Bible. Jacob’s certainly wasn’t…",
+      "content": "Jacob’s story reveals the struggle between flesh and spirit, and how God redeems broken circumstances through covenant promises..."
     },
     "deeper_learning": "Explore the prophetic connections between Jacob's ladder and the Temple Mount. This passage unveils YHVH's sovereignty beyond time and space...",
     "aleph_tav": "Key occurrences of את reveal divine fingerprints in the text, marking significant covenantal moments...",
