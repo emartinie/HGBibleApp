@@ -3,7 +3,7 @@ const INVESTIGATIONS = [
   { title: "Trust Over Agreement", file: "why-trust-matters-more-than-agreement.html" },
   { title: "Where Did the Sabbath Go?", file: "where_did_the_sabbath_go.html" },
   { title: "Who was Paul, or Rabbi Shaul?", file: "who-was-paul-or-rabbi-shaul-investigation-v1.html" },
-  { title: "Clean and Unclean Food?", file: "dietary_expectations.html" },
+  { title: "Clean and Unclean Food?", file: "investigating-food-laws.html" },
   { title: "Is the Son the Father?", file: "is-the-son-the-father.html" }
   
 
