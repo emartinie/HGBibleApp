@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Is the Son the Father? | HomeGroups</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071019;
+      --panel: rgba(15, 27, 40, .88);
+      --panel-2: rgba(20, 38, 54, .78);
+      --line: rgba(148, 163, 184, .22);
+      --text: #e7eef7;
+      --muted: #a7b4c4;
+      --gold: #f2c66d;
+      --cyan: #78d8e8;
+      --green: #8ad3a8;
+      --red: #f59a9a;
+      --violet: #c5a7ff;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .36);
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 18% -8%, rgba(35, 116, 146, .24), transparent 35%),
+        radial-gradient(circle at 88% 8%, rgba(126, 91, 26, .22), transparent 33%),
+        linear-gradient(180deg, #071019 0%, #05090e 100%);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: var(--cyan); }
+    a:hover { color: #b7f4ff; }
+    .article-shell {
+      width: min(1040px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 390px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: clamp(28px, 6vw, 68px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(4, 10, 16, .14), rgba(4, 10, 16, .91)),
+        radial-gradient(circle at 50% 20%, rgba(197, 167, 255, .15), transparent 35%),
+        radial-gradient(circle at 50% 72%, rgba(242, 198, 109, .13), transparent 34%),
+        linear-gradient(135deg, #142f42, #0a1620 52%, #2b2114);
+    }
+    .hero::before {
+      content: "אחד";
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      color: rgba(255,255,255,.045);
+      font: 700 clamp(130px, 25vw, 265px)/1 serif;
+      pointer-events: none;
+    }
+    .hero > div {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      width: 100%;
+    }
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+    h1 {
+      margin: 8px auto 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.45rem, 7vw, 5.25rem);
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+    .dek {
+      max-width: 770px;
+      margin: 0 auto;
+      color: #d6e0eb;
+      font-size: clamp(1rem, 2.2vw, 1.24rem);
+    }
+    .question {
+      max-width: 770px;
+      margin: 22px auto 0;
+      padding-left: 18px;
+      border-left: 3px solid var(--gold);
+      color: #fff4cf;
+      font: italic 1.05rem/1.6 Georgia, serif;
+      text-align: left;
+    }
+    .notice, .section, .evidence-card, details {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 12px 35px rgba(0,0,0,.20);
+      backdrop-filter: blur(10px);
+    }
+    .notice {
+      margin: 18px 0 28px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+    .notice strong { color: var(--text); }
+    .section {
+      margin-top: 22px;
+      padding: clamp(22px, 4vw, 42px);
+      border-radius: var(--radius);
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 4vw, 2.5rem);
+      line-height: 1.16;
+    }
+    h3 { margin: 0 0 6px; }
+    p { margin: 0 0 1rem; }
+    .lead { color: #d6e0ea; font-size: 1.04rem; }
+    .muted { color: var(--muted); }
+    .lens-grid, .evidence-grid, .timeline { display: grid; gap: 14px; }
+    .lens-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .evidence-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .lens, .evidence-card { padding: 18px; border-radius: 16px; }
+    .lens { border: 1px solid var(--line); background: var(--panel-2); }
+    .lens-label, .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .lens-label { color: #071019; background: var(--gold); }
+    .status.primary { background: rgba(120,216,232,.16); color: #bdf5ff; }
+    .status.official { background: rgba(138,211,168,.17); color: #c8f7da; }
+    .status.review { background: rgba(245,154,154,.15); color: #ffc5c5; }
+    .status.question { background: rgba(197,167,255,.16); color: #e2d4ff; }
+    .timeline { grid-template-columns: 1fr; margin-top: 18px; }
+    .timeline-item {
+      position: relative;
+      padding: 16px 18px 16px 56px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-2);
+    }
+    .timeline-item::before {
+      content: attr(data-era);
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #12100a;
+      font-size: .7rem;
+      font-weight: 900;
+    }
+    details { margin-top: 12px; border-radius: 15px; overflow: clip; }
+    summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      color: var(--gold);
+      font-weight: 800;
+      list-style-position: inside;
+    }
+    details[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: rgba(242,198,109,.055);
+    }
+    .details-body { padding: 17px 18px 20px; }
+    blockquote {
+      margin: 14px 0;
+      padding: 14px 17px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(120,216,232,.055);
+      color: #dff9ff;
+    }
+    .scripture-list, .question-list, .principle-list { display: grid; gap: 10px; }
+    .scripture-list, .principle-list { padding: 0; list-style: none; }
+    .scripture-list li, .principle-list li {
+      padding: 12px 14px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,.03);
+      border-radius: 0 12px 12px 0;
+    }
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(242,198,109,.30);
+      border-radius: 16px;
+      background: rgba(242,198,109,.07);
+    }
+    .assessment { border-left: 4px solid var(--green); }
+    .caution { border-left: 4px solid var(--red); }
+    footer {
+      margin-top: 26px;
+      padding: 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+    @media (max-width: 640px) {
+      .article-shell { width: min(100% - 18px, 1040px); padding-top: 10px; }
+      .hero { min-height: 340px; padding: 26px 20px; border-radius: 20px; }
+      .section { padding: 20px 17px; }
+    }
+  </style>
+</head>
+<body>
+<main class="article-shell">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">HomeGroups Scriptural Investigation</div>
+      <h1>Is the Son the Father?</h1>
+      <p class="dek">
+        Scripture speaks of one God, names the Father as God, presents the Son in divine language,
+        and repeatedly places the Father and the Son in relationship with one another.
+        This investigation asks whether those truths mean the Son is the Father—or whether Scripture is saying something more precise.
+      </p>
+      <p class="question">
+        When Yeshua says, “I and the Father are one,” is He saying that He is the Father,
+        or that He and the Father share a unity that does not erase their distinction?
+      </p>
+    </div>
+  </header>
+
+  <aside class="notice">
+    <strong>Editorial note:</strong> This is a sensitive investigation because sincere believers use many of the same passages
+    while reaching different conclusions. The goal here is not to mock Trinitarian, Oneness, Unitarian, or other readers.
+    The goal is to separate what Scripture explicitly says from the theological systems later built to explain it.
+  </aside>
+
+  <section class="section">
+    <span class="lens-label">Begin with the wording</span>
+    <h2>The question is narrower than it first appears</h2>
+    <p class="lead">“Is the Son divine?” and “Is the Son the Father?” are not the same question.</p>
+    <p>
+      Scripture can identify the Son with God’s name, glory, authority, works, and presence
+      without requiring us to say that every reference to the Father and every reference to the Son names the same person.
+    </p>
+    <div class="callout">
+      <strong>Working distinction:</strong> unity does not automatically mean identity,
+      and distinction does not automatically mean separation.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Biblical foundation</span>
+    <h2>1. Scripture insists that God is one</h2>
+    <p class="lead">Any responsible investigation must begin where Scripture begins: the God of Israel is one.</p>
+    <ul class="scripture-list">
+      <li><strong>Deuteronomy 6:4:</strong> “Hear, O Israel: YHWH our God, YHWH is one.”</li>
+      <li><strong>Isaiah 43:10–11:</strong> before YHWH no god was formed, and apart from Him there is no savior.</li>
+      <li><strong>Isaiah 44:6:</strong> YHWH is the first and the last; besides Him there is no god.</li>
+      <li><strong>Mark 12:29:</strong> Yeshua repeats the Shema as the foremost commandment.</li>
+      <li><strong>1 Corinthians 8:4:</strong> “There is no God but one.”</li>
+    </ul>
+    <div class="callout assessment">
+      <strong>Observation:</strong> Any explanation of Father and Son must preserve biblical monotheism.
+      The question is not whether there are two gods. The question is how Scripture speaks of distinction within the identity and work of the one God.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Relational language</span>
+    <h2>2. The Father and the Son speak to, love, send, and glorify one another</h2>
+    <p class="lead">The strongest evidence against simply equating “the Son” with “the Father” is the repeated relationship between them.</p>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status primary">The Father sends</span>
+        <h3>John 3:16–17</h3>
+        <p>God sends His Son into the world. The sender and the one sent are spoken of relationally.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status primary">The Son prays</span>
+        <h3>John 17</h3>
+        <p>Yeshua addresses the Father, speaks of shared glory, asks to be glorified, and prays for His disciples.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status primary">The Father loves</span>
+        <h3>John 3:35; 5:20</h3>
+        <p>The Father loves the Son and shows Him what He is doing.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status primary">The Son obeys</span>
+        <h3>John 6:38</h3>
+        <p>Yeshua says He came not to do His own will, but the will of the One who sent Him.</p>
+      </article>
+    </div>
+    <details>
+      <summary>Could this be one person speaking from two roles?</summary>
+      <div class="details-body">
+        <p>
+          Some readers understand Father and Son as different manifestations, modes, or roles of the one God.
+          That proposal tries to protect divine oneness, but it must explain why Scripture presents sustained interpersonal language:
+          “with,” “sent,” “loved,” “glorify,” “not my will,” and “the glory I had with You.”
+        </p>
+        <p class="muted">
+          The question is not whether one person can act in different roles.
+          The question is whether the biblical relationship is naturally read as role-play or as genuine distinction.
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section">
+    <span class="status question">Key passage</span>
+    <h2>3. “I and the Father are one”</h2>
+    <blockquote>“I and the Father are one.” — John 10:30</blockquote>
+    <p class="lead">This sentence is often treated as though it settles the entire question by itself. It does not tell us, without context, what kind of oneness is meant.</p>
+    <details>
+      <summary>What the immediate context emphasizes</summary>
+      <div class="details-body">
+        <p>
+          In John 10:27–30, Yeshua says His sheep hear His voice, He gives them eternal life,
+          no one can snatch them from His hand, and no one can snatch them from the Father’s hand.
+          The oneness is expressed through shared power, protection, purpose, and action.
+        </p>
+      </div>
+    </details>
+    <details>
+      <summary>How John uses “one” elsewhere</summary>
+      <div class="details-body">
+        <p>
+          In John 17:11, 21–23, Yeshua prays that His followers may be one “as” He and the Father are one.
+          The disciples do not become one person. Their oneness is relational, participatory, and unified.
+        </p>
+        <p>
+          That comparison does not reduce the Father-Son unity to ordinary human agreement,
+          but it warns against assuming that “one” must mean “the same person.”
+        </p>
+      </div>
+    </details>
+    <div class="callout">
+      <strong>Best-supported reading:</strong> John 10:30 teaches profound unity between Father and Son.
+      By itself, it does not say, “I am the Father.”
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status question">Key passage</span>
+    <h2>4. “He who has seen Me has seen the Father”</h2>
+    <blockquote>“Whoever has seen Me has seen the Father.” — John 14:9</blockquote>
+    <p class="lead">This statement can sound like a direct identification until the surrounding conversation is allowed to speak.</p>
+    <p>
+      In the same passage, Yeshua says He is “in the Father” and the Father is “in” Him.
+      He does not say, “I am the Father.” He says that His words and works reveal the Father so completely
+      that to encounter Him is to encounter the Father’s character and activity.
+    </p>
+    <details>
+      <summary>Image and revelation language</summary>
+      <div class="details-body">
+        <ul class="scripture-list">
+          <li><strong>Colossians 1:15:</strong> the Son is the image of the invisible God.</li>
+          <li><strong>Hebrews 1:3:</strong> the Son is the radiance of God’s glory and the exact imprint of His nature.</li>
+          <li><strong>John 1:18:</strong> the Son makes the unseen God known.</li>
+        </ul>
+        <p class="muted">An image truly reveals the one imaged, but “image of” still contains relational distinction.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section">
+    <span class="status question">Prophetic title</span>
+    <h2>5. Does “Everlasting Father” mean the Son is the Father?</h2>
+    <blockquote>“And His name shall be called Wonderful Counselor, Mighty God, Everlasting Father, Prince of Peace.” — Isaiah 9:6</blockquote>
+    <p class="lead">Isaiah 9:6 is one of the most important passages in this discussion because the promised child receives extraordinary divine and royal titles.</p>
+    <p>
+      The title traditionally translated “Everlasting Father” can describe fatherly rule, protection, origin, or enduring care.
+      Biblical kings and leaders can be called fathers to a people without becoming God the Father as later theological language uses that title.
+    </p>
+    <div class="callout caution">
+      <strong>Caution:</strong> Isaiah 9:6 should not be ignored or weakened.
+      It presents the promised Son in astonishingly exalted terms.
+      But a royal title containing “father” is not automatically identical to the New Testament’s relational title “the Father.”
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Divine language</span>
+    <h2>6. The Son is presented in language belonging to God</h2>
+    <p class="lead">Rejecting the claim that the Son is the Father does not require reducing the Son to an ordinary creature.</p>
+    <ul class="scripture-list">
+      <li><strong>John 1:1–3:</strong> the Word is with God, is God, and all things come into being through Him.</li>
+      <li><strong>John 20:28:</strong> Thomas addresses Yeshua as “My Lord and my God.”</li>
+      <li><strong>Philippians 2:6–11:</strong> Yeshua shares divine status, humbles Himself, and receives universal homage.</li>
+      <li><strong>Colossians 1:15–20:</strong> all things are created through Him and for Him.</li>
+      <li><strong>Hebrews 1:</strong> the Son is superior to angels, addressed in royal-divine language, and associated with creation.</li>
+      <li><strong>Revelation 5:</strong> the Lamb receives worship alongside the One seated on the throne.</li>
+    </ul>
+    <div class="callout assessment">
+      <strong>Observation:</strong> Scripture presents the Son as distinct from the Father while also including Him in divine identity, authority, glory, and worship.
+      Any adequate conclusion must preserve both sides.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Major interpretive models</span>
+    <h2>7. How believers have answered the question</h2>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status official">Classical Trinitarian</span>
+        <h3>One God, distinct persons</h3>
+        <p>The Father is not the Son, the Son is not the Father, yet Father and Son fully share the one divine being.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status official">Oneness / Modalist</span>
+        <h3>One divine person, different manifestations</h3>
+        <p>Father and Son are understood as different modes, roles, or manifestations of the one God, often with “Son” emphasizing God manifested in flesh.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status official">Unitarian</span>
+        <h3>The Father alone is the one God</h3>
+        <p>The Son is distinct from the Father and uniquely commissioned, exalted, or preexistent, but not included in the identity of the one God in the same way.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Other biblical models</span>
+        <h3>Agency, Wisdom, Word, and divine identity</h3>
+        <p>Some interpreters emphasize Jewish categories such as authorized agency, personified Wisdom, the Word of God, or participation in divine identity.</p>
+      </article>
+    </div>
+    <p class="muted" style="margin-top:18px;">These summaries are intentionally brief. Each model contains variations, and none should be judged by its weakest caricature.</p>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Textual synthesis</span>
+    <h2>8. What can be said with the greatest confidence?</h2>
+    <ul class="principle-list">
+      <li><strong>God is one.</strong> Scripture never presents the Father and Son as two competing gods.</li>
+      <li><strong>The Father and Son are distinguished.</strong> They speak, love, send, obey, glorify, and bear witness in relation to one another.</li>
+      <li><strong>The Son reveals the Father perfectly.</strong> To see the Son is to encounter the Father’s character, words, and works.</li>
+      <li><strong>The Son shares divine glory and authority.</strong> The New Testament places Him in categories far beyond an ordinary human messenger.</li>
+      <li><strong>Scripture never records Yeshua saying, “I am the Father.”</strong> It repeatedly describes Him as one with, sent by, loved by, and glorified by the Father.</li>
+    </ul>
+    <div class="callout assessment">
+      <strong>First-pass conclusion:</strong> The Son is not presented as the Father.
+      The Son is presented as distinct from the Father while sharing a unity, glory, authority, and divine identity
+      that cannot be reduced to the relationship between God and an ordinary servant.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Research integrity</span>
+    <h2>9. Questions that should remain visible</h2>
+    <ol class="question-list">
+      <li>What does biblical “oneness” mean in each passage rather than in later theological shorthand?</li>
+      <li>How did Second Temple Jewish ideas about Wisdom, Word, Name, Glory, and divine agency shape New Testament language?</li>
+      <li>When does “sent one” language imply distinction, and when does it emphasize representation?</li>
+      <li>How should divine titles applied to the Son be understood alongside passages calling the Father “the only true God”?</li>
+      <li>Does later creedal language clarify Scripture, overdefine it, or both?</li>
+      <li>How should passages about Yeshua’s submission be understood alongside passages about His preexistence and glory?</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">Invitation</span>
+    <h2>10. Do not collapse the mystery too quickly</h2>
+    <p class="lead">The easiest answers often preserve only half of the biblical evidence.</p>
+    <p>
+      Saying only “the Son is the Father” risks flattening the real relationship Scripture describes.
+      Saying only “the Son is separate from God” risks ignoring the divine language, worship, authority, and glory given to Him.
+    </p>
+    <div class="callout">
+      The wiser approach is to let every passage retain its force:
+      one God, a real Father-Son relationship, and a Son who reveals and shares the divine identity in ways Scripture does not grant to any ordinary creature.
+    </div>
+    <p class="muted" style="margin-top:18px;">This investigation is not the end of the question. It is a disciplined place to begin it.</p>
+  </section>
+
+  <footer>
+    HomeGroups.org · Scripture, language, context, and honest investigation.<br />
+    HomeGroups Scriptural Investigation · Eddie Martinie
+  </footer>
+</main>
+</body>
+</html>
