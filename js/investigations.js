@@ -33,38 +33,38 @@ const INVESTIGATIONS = [
     `).join("") : `<div class="hg-empty">No Investigations match your search.</div>`;
   }
 
-  function loadInvestigation(file, viewer) {
-  if (!viewer) return;
+  //function loadInvestigation(file, viewer) {
+  //if (!viewer) return;
 
-  const safeFile = String(file || "").replace(/^\/+/, "");
-  viewer.src = `investigations/${safeFile}`;
-}
+  //const safeFile = String(file || "").replace(/^\/+/, "");
+  //viewer.src = `investigations/${safeFile}`;
+//}
 
-  //async function loadInvestigation(file, viewer) {
-    //if (!viewer) return;
+  async function loadInvestigation(file, viewer) {
+    if (!viewer) return;
 
-   // const [fileName, anchor = ""] = String(file || "").split("#", 2);
+    const [fileName, anchor = ""] = String(file || "").split("#", 2);
 
-    //viewer.innerHTML = "Loading...";
+    viewer.innerHTML = "Loading...";
 
-   // try {
-     // const res = await fetch(`investigations/${fileName}`);
-     // if (!res.ok) throw new Error();
+    try {
+      const res = await fetch(`investigations/${fileName}`);
+      if (!res.ok) throw new Error();
 
-    //  const html = await res.text();
-     // viewer.innerHTML = html;
+      const html = await res.text();
+      viewer.innerHTML = html;
 
-    //  if (anchor) {
-    //    const target = Array.from(viewer.querySelectorAll("[id]")).find(el => el.id === anchor);
-    //    target?.scrollIntoView({ block: "start" });
-    //  } else {
-   //     viewer.scrollTop = 0;
-  //    }
+      if (anchor) {
+        const target = Array.from(viewer.querySelectorAll("[id]")).find(el => el.id === anchor);
+        target?.scrollIntoView({ block: "start" });
+      } else {
+        viewer.scrollTop = 0;
+      }
 
-  //  } catch {
-  //    viewer.innerHTML = `<div class="text-red-400">Failed to load Investigation</div>`;
-  //  }
- // }
+    } catch {
+      viewer.innerHTML = `<div class="text-red-400">Failed to load Investigation</div>`;
+    }
+  }
 
   async function initInvestigationsCard(root = document) {
     destroyInvestigationsCard();
