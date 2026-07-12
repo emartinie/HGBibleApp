@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why Trust Matters More Than Agreement | HomeGroups</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071019;
+      --panel: rgba(15, 27, 40, .86);
+      --panel-2: rgba(20, 38, 54, .76);
+      --line: rgba(148, 163, 184, .22);
+      --text: #e7eef7;
+      --muted: #a7b4c4;
+      --gold: #f2c66d;
+      --cyan: #78d8e8;
+      --green: #8ad3a8;
+      --red: #f59a9a;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .36);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% -10%, rgba(35, 116, 146, .24), transparent 35%),
+        radial-gradient(circle at 85% 10%, rgba(126, 91, 26, .22), transparent 32%),
+        linear-gradient(180deg, #071019 0%, #05090e 100%);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: var(--cyan); }
+    a:hover { color: #b7f4ff; }
+
+    .article-shell {
+      width: min(1040px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: clamp(28px, 6vw, 68px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(4, 10, 16, .14), rgba(4, 10, 16, .9)),
+        radial-gradient(circle at 50% 18%, rgba(120, 216, 232, .16), transparent 38%),
+        radial-gradient(circle at 50% 72%, rgba(242, 198, 109, .12), transparent 34%),
+        linear-gradient(135deg, #102a3a, #0a1620 54%, #2a2415);
+    }
+
+    .hero::before {
+      content: "אמת";
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      color: rgba(255,255,255,.045);
+      font: 700 clamp(130px, 25vw, 260px)/1 serif;
+      pointer-events: none;
+    }
+
+    .hero > div {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 8px auto 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.35rem, 7vw, 5.2rem);
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+
+    .dek {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #d6e0eb;
+      font-size: clamp(1rem, 2.2vw, 1.24rem);
+    }
+
+    .question {
+      max-width: 760px;
+      margin: 22px auto 0;
+      padding-left: 18px;
+      border-left: 3px solid var(--gold);
+      color: #fff4cf;
+      font: italic 1.05rem/1.6 Georgia, serif;
+      text-align: left;
+    }
+
+    .notice,
+    .section,
+    .evidence-card,
+    details {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 12px 35px rgba(0,0,0,.20);
+      backdrop-filter: blur(10px);
+    }
+
+    .notice {
+      margin: 18px 0 28px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .notice strong { color: var(--text); }
+
+    .section {
+      margin-top: 22px;
+      padding: clamp(22px, 4vw, 42px);
+      border-radius: var(--radius);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 4vw, 2.5rem);
+      line-height: 1.16;
+    }
+
+    h3 { margin: 0 0 6px; }
+    p { margin: 0 0 1rem; }
+
+    .lead { color: #d6e0ea; font-size: 1.04rem; }
+    .muted { color: var(--muted); }
+
+    .lens-grid,
+    .evidence-grid,
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lens-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .evidence-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+    .lens,
+    .evidence-card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .lens {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+
+    .lens-label,
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .lens-label { color: #071019; background: var(--gold); }
+    .status.primary { background: rgba(120,216,232,.16); color: #bdf5ff; }
+    .status.official { background: rgba(138,211,168,.17); color: #c8f7da; }
+    .status.review { background: rgba(245,154,154,.15); color: #ffc5c5; }
+
+    .timeline {
+      grid-template-columns: 1fr;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 16px 18px 16px 56px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-2);
+    }
+
+    .timeline-item::before {
+      content: attr(data-era);
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #12100a;
+      font-size: .7rem;
+      font-weight: 900;
+    }
+
+    details {
+      margin-top: 12px;
+      border-radius: 15px;
+      overflow: clip;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      color: var(--gold);
+      font-weight: 800;
+      list-style-position: inside;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: rgba(242,198,109,.055);
+    }
+
+    .details-body { padding: 17px 18px 20px; }
+
+    blockquote {
+      margin: 14px 0;
+      padding: 14px 17px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(120,216,232,.055);
+      color: #dff9ff;
+    }
+
+    .principle-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .principle-list li {
+      padding: 12px 14px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,.03);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(242,198,109,.30);
+      border-radius: 16px;
+      background: rgba(242,198,109,.07);
+    }
+
+    .assessment { border-left: 4px solid var(--green); }
+    .question-list li { margin-bottom: 9px; }
+
+    footer {
+      margin-top: 26px;
+      padding: 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 640px) {
+      .article-shell { width: min(100% - 18px, 1040px); padding-top: 10px; }
+      .hero { min-height: 330px; padding: 26px 20px; border-radius: 20px; }
+      .section { padding: 20px 17px; }
+    }
+  </style>
+</head>
+<body>
+<main class="article-shell">
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">HomeGroups Learning Investigation</div>
+      <h1>Why Trust Matters More Than Agreement</h1>
+      <p class="dek">
+        People can agree for the wrong reasons and disagree for honest ones.
+        HomeGroups is built on the belief that trust grows when Scripture, evidence, interpretation,
+        and uncertainty are handled consistently and openly.
+      </p>
+      <p class="question">
+        What would change if our goal were not to win agreement, but to build a trustworthy way of learning together?
+      </p>
+    </div>
+  </header>
+
+  <aside class="notice">
+    <strong>Editorial note:</strong> This investigation combines two foundational HomeGroups ideas:
+    how we learn together and how HomeGroups presents evidence. It is not a demand for agreement.
+    It is a statement of method—a promise about how difficult questions should be approached.
+  </aside>
+
+  <section class="section">
+    <span class="lens-label">The central problem</span>
+    <h2>Agreement can exist without understanding</h2>
+    <p class="lead">
+      People often assume that agreement proves communication succeeded. It does not.
+      Agreement may be shallow, borrowed, pressured, inherited, or based on words that each person defines differently.
+    </p>
+    <p>
+      The opposite is also true. Two honest people can disagree while understanding one another clearly.
+      That disagreement may be more valuable than easy agreement because it exposes the actual evidence,
+      assumptions, definitions, and reasoning beneath the conclusion.
+    </p>
+    <div class="callout">
+      <strong>HomeGroups begins here:</strong> trust is not produced by demanding agreement.
+      Trust is earned by handling questions consistently, defining terms carefully, and showing people why a conclusion is being offered.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Learning method</span>
+    <h2>1. The problem with monologues</h2>
+    <p class="lead">
+      One of the greatest limitations of both the average sermon and the average debate is that each is usually still a monologue.
+    </p>
+    <p>
+      A sermon may be one uninterrupted perspective. A debate may be two people taking turns delivering uninterrupted perspectives.
+      In both cases, a foundational misunderstanding can remain untouched while every later argument is built on top of it.
+    </p>
+    <blockquote>
+      When something needs to be paused and clarified before moving forward,
+      everything that follows depends on whether that clarification happens.
+    </blockquote>
+
+    <details>
+      <summary>Why taking turns is not always dialogue</summary>
+      <div class="details-body">
+        <p>
+          Two people can alternate speeches without ever aligning their definitions.
+          They may appear to be debating theology while actually using incompatible meanings for the same words.
+        </p>
+        <p class="muted">
+          The problem is not speaking at length. The problem is continuing after the foundation has become unclear.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Words that often require clarification</summary>
+      <div class="details-body">
+        <ul class="principle-list">
+          <li><strong>Law:</strong> Torah, legalism, civil law, ritual law, moral instruction, or something else?</li>
+          <li><strong>Faith:</strong> belief, trust, loyalty, faithfulness, doctrine, or mental agreement?</li>
+          <li><strong>Grace:</strong> forgiveness, divine favor, empowerment, covenant mercy, or exemption from obligation?</li>
+          <li><strong>Israel:</strong> Jacob, the tribes, the northern kingdom, Judah, the Jewish people, the state, or a theological category?</li>
+          <li><strong>Church:</strong> an institution, a building, a denomination, an assembly, or the people of God?</li>
+          <li><strong>Gospel:</strong> personal salvation, the kingdom announcement, Yeshua’s death and resurrection, or the whole biblical story?</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="section">
+    <span class="status official">Conversation discipline</span>
+    <h2>2. Pause before proceeding</h2>
+    <p class="lead">HomeGroups encourages one habit that can transform almost any serious conversation:</p>
+    <div class="callout assessment"><strong>Ask:</strong> “What do you mean by that?”</div>
+    <p>
+      That question is not an interruption. It is respect.
+      It protects the other person from being misunderstood and protects the conversation from being built on a false foundation.
+    </p>
+
+    <div class="timeline">
+      <article class="timeline-item" data-era="1"><h3>A word is used</h3><p class="muted">A foundational term appears: covenant, grace, law, church, Israel, faith, salvation.</p></article>
+      <article class="timeline-item" data-era="2"><h3>Different meanings are assumed</h3><p class="muted">Each person hears the word through a different tradition, experience, or dictionary.</p></article>
+      <article class="timeline-item" data-era="3"><h3>Conclusions begin to separate</h3><p class="muted">The discussion appears theological, but the first disagreement may still be definitional.</p></article>
+      <article class="timeline-item" data-era="4"><h3>The argument grows</h3><p class="muted">Each later point depends on an unresolved foundation.</p></article>
+      <article class="timeline-item" data-era="5"><h3>Clarification restores the conversation</h3><p class="muted">Participants return to the original term, compare meanings, and continue with greater honesty.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">How to read HomeGroups</span>
+    <h2>Four distinctions that protect trust</h2>
+    <div class="lens-grid">
+      <article class="lens"><h3>Scripture</h3><p class="muted">What the biblical text explicitly says, commands, narrates, quotes, or describes.</p></article>
+      <article class="lens"><h3>History</h3><p class="muted">What surviving documents, artifacts, witnesses, and events suggest happened over time.</p></article>
+      <article class="lens"><h3>Primary sources</h3><p class="muted">Original documents, scans, inscriptions, manuscripts, laws, letters, and published statements examined in context.</p></article>
+      <article class="lens"><h3>Interpretation</h3><p class="muted">The meaning people draw from Scripture and evidence. Interpretation is unavoidable; disguising it as evidence is avoidable.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Editorial standard</span>
+    <h2>3. The HomeGroups editorial promise</h2>
+    <p class="lead">
+      HomeGroups does not ask readers to trust a conclusion merely because it appears inside the app.
+      The goal is to earn trust through a consistent method.
+    </p>
+    <ul class="principle-list">
+      <li><strong>Separate Scripture from history.</strong> A later historical development should not be presented as though it were a biblical command.</li>
+      <li><strong>Separate primary sources from commentary.</strong> Readers should know whether they are seeing the document itself or someone’s explanation of it.</li>
+      <li><strong>Label interpretation as interpretation.</strong> Conclusions may be strong, but they should still be identified honestly.</li>
+      <li><strong>Link to original sources whenever possible.</strong> HomeGroups should guide verification, not demand unexamined trust.</li>
+      <li><strong>Match confidence to evidence.</strong> Explicit text, strong support, tradition, disputed reconstruction, and speculation are not equal categories.</li>
+      <li><strong>Acknowledge uncertainty.</strong> “I do not know” is more trustworthy than confident language built on missing evidence.</li>
+      <li><strong>Present competing views fairly.</strong> A weak caricature of another position teaches very little.</li>
+      <li><strong>Invite investigation rather than demand agreement.</strong> The reader should be equipped to examine the case personally.</li>
+    </ul>
+    <div class="callout assessment">
+      <strong>The promise:</strong> We will not ask you to trust HomeGroups merely because we published something.
+      We will try to earn your trust by showing the evidence, naming our interpretation, and remaining correctable.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Evidence discipline</span>
+    <h2>4. Confidence should match the evidence</h2>
+    <p class="lead">Not every claim deserves the same level of certainty. A trustworthy investigation makes those differences visible.</p>
+    <div class="evidence-grid">
+      <article class="evidence-card"><span class="status primary">Explicit text</span><h3>Directly stated</h3><p>The claim is plainly stated in the cited passage or source and does not depend heavily on reconstruction.</p></article>
+      <article class="evidence-card"><span class="status official">Strongly supported</span><h3>Multiple lines of evidence</h3><p>The conclusion is not directly stated, but several independent sources or observations support it.</p></article>
+      <article class="evidence-card"><span class="status review">Traditional or disputed</span><h3>Attributed, not hidden</h3><p>A community, scholar, or tradition teaches the claim, but competing interpretations or limited evidence remain.</p></article>
+      <article class="evidence-card"><span class="status review">Speculative</span><h3>Worth asking, not declaring</h3><p>The idea may be interesting or possible, but the available evidence does not justify presenting it as established.</p></article>
+    </div>
+    <div class="callout"><strong>Humility is not indecision.</strong> It is the discipline of refusing to claim more certainty than the evidence can carry.</div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Trust and disagreement</span>
+    <h2>5. Trust matters more than agreement</h2>
+    <p class="lead">Agreement can disappear the moment a new fact is discovered. Trust can survive correction.</p>
+    <p>
+      A person may disagree with a HomeGroups conclusion and still trust the process if the evidence was represented fairly,
+      the sources were accessible, the uncertainty was acknowledged, and the opposing view was not mocked.
+    </p>
+    <p>
+      That kind of trust is more valuable than easy agreement.
+      It allows people to continue learning together even when they do not arrive at the same answer.
+    </p>
+
+    <details>
+      <summary>What trustworthy disagreement looks like</summary>
+      <div class="details-body">
+        <ul class="principle-list">
+          <li>“I understand what you mean, but I weigh this evidence differently.”</li>
+          <li>“We agree on the text but disagree on the interpretation.”</li>
+          <li>“This source is authentic, but I do not think it proves the larger claim.”</li>
+          <li>“I need better evidence before I can accept that conclusion.”</li>
+          <li>“I changed my mind because the evidence became stronger.”</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>What destroys trust</summary>
+      <div class="details-body">
+        <ul class="principle-list">
+          <li>Quoting sources out of context.</li>
+          <li>Presenting tradition as though it were explicit Scripture.</li>
+          <li>Using vague phrases such as “scholars say” without identifying the scholarship.</li>
+          <li>Hiding uncertainty because it weakens a preferred conclusion.</li>
+          <li>Refusing correction after a claim has been shown to be inaccurate.</li>
+          <li>Reducing people to labels instead of addressing their actual reasoning.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section class="section">
+    <span class="status official">Community method</span>
+    <h2>6. Investigation instead of debate</h2>
+    <p class="lead">
+      The goal of HomeGroups is not to manufacture agreement, defeat another person, or defend a denomination.
+      The goal is to create conditions where honest learning can happen.
+    </p>
+    <div class="timeline">
+      <article class="timeline-item" data-era="1"><h3>Begin with the question</h3><p class="muted">State the issue clearly without embedding the preferred answer inside the question.</p></article>
+      <article class="timeline-item" data-era="2"><h3>Define the vocabulary</h3><p class="muted">Identify the words most likely to carry different meanings.</p></article>
+      <article class="timeline-item" data-era="3"><h3>Gather the evidence</h3><p class="muted">Scripture, primary sources, historical context, language, archaeology, and relevant data.</p></article>
+      <article class="timeline-item" data-era="4"><h3>Separate evidence from interpretation</h3><p class="muted">Show what is observed before explaining what it may mean.</p></article>
+      <article class="timeline-item" data-era="5"><h3>State the conclusion proportionally</h3><p class="muted">Use certainty that matches the evidence and leave unresolved questions visible.</p></article>
+      <article class="timeline-item" data-era="6"><h3>Remain open to correction</h3><p class="muted">A trustworthy conclusion can be revised without destroying the integrity of the investigation.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Self-examination</span>
+    <h2>7. Questions every teacher and learner should ask</h2>
+    <ol class="question-list">
+      <li>Have I defined the important words before building conclusions on them?</li>
+      <li>Am I showing the evidence, or merely repeating a conclusion I inherited?</li>
+      <li>Can the reader distinguish Scripture from my interpretation?</li>
+      <li>Have I linked to the strongest available primary source?</li>
+      <li>Have I represented disagreement fairly enough that the other side would recognize its own position?</li>
+      <li>Does my level of confidence match the strength of the evidence?</li>
+      <li>Am I willing to revise this conclusion if stronger evidence appears?</li>
+      <li>Would someone who disagrees with me still feel respected?</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">The HomeGroups invitation</span>
+    <h2>8. Learn with us—not beneath us</h2>
+    <p class="lead">
+      HomeGroups is not intended to place one voice above everyone else.
+      It is intended to bring people, Scripture, history, language, and evidence into the same conversation.
+    </p>
+    <div class="callout assessment">
+      Bring your Bible.<br />
+      Bring your questions.<br />
+      Bring your experience.<br />
+      Bring your willingness to be corrected.<br /><br />
+      <strong>Let us investigate together.</strong>
+    </div>
+    <p class="muted" style="margin-top:18px;">
+      We may not always agree. That is not failure.
+      Failure would be refusing to listen, refusing to define our words, refusing to show our sources,
+      or pretending certainty where honesty requires humility.
+    </p>
+  </section>
+
+  <footer>
+    HomeGroups.org · Scripture, evidence, clarity, and honest investigation.<br />
+    HomeGroups Learning Investigation · Eddie Martinie
+  </footer>
+
+</main>
+</body>
+</html>
