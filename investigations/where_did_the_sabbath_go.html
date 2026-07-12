@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Where Did the Sabbath Go? | HomeGroups</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071019;
+      --panel: rgba(15, 27, 40, .86);
+      --panel-2: rgba(20, 38, 54, .76);
+      --line: rgba(148, 163, 184, .22);
+      --text: #e7eef7;
+      --muted: #a7b4c4;
+      --gold: #f2c66d;
+      --cyan: #78d8e8;
+      --green: #8ad3a8;
+      --red: #f59a9a;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .36);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% -10%, rgba(35, 116, 146, .24), transparent 35%),
+        radial-gradient(circle at 85% 10%, rgba(126, 91, 26, .22), transparent 32%),
+        linear-gradient(180deg, #071019 0%, #05090e 100%);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: var(--cyan); }
+    a:hover { color: #b7f4ff; }
+
+    .article-shell {
+      width: min(1040px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: grid;
+      align-items: end;
+      padding: clamp(28px, 6vw, 68px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(4, 10, 16, .18), rgba(4, 10, 16, .88)),
+        radial-gradient(circle at 50% 20%, rgba(242, 198, 109, .18), transparent 42%),
+        linear-gradient(135deg, #16344a, #0a1620 52%, #2d2010);
+    }
+
+    .hero::before {
+      content: "שבת";
+      position: absolute;
+      inset: auto 4% 0 auto;
+      color: rgba(255,255,255,.055);
+      font: 700 clamp(110px, 22vw, 240px)/1 serif;
+      transform: translateY(16%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 8px 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.4rem, 7vw, 5.4rem);
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+
+    .dek {
+      max-width: 760px;
+      margin: 0;
+      color: #d6e0eb;
+      font-size: clamp(1rem, 2.2vw, 1.24rem);
+    }
+
+    .question {
+      margin: 22px 0 0;
+      padding-left: 18px;
+      border-left: 3px solid var(--gold);
+      color: #fff4cf;
+      font: italic 1.05rem/1.6 Georgia, serif;
+    }
+
+    .notice,
+    .section,
+    .evidence-card,
+    details {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 12px 35px rgba(0,0,0,.20);
+      backdrop-filter: blur(10px);
+    }
+
+    .notice {
+      margin: 18px 0 28px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .notice strong { color: var(--text); }
+
+    .section {
+      margin-top: 22px;
+      padding: clamp(22px, 4vw, 42px);
+      border-radius: var(--radius);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 4vw, 2.5rem);
+      line-height: 1.16;
+    }
+
+    h3 { margin: 0 0 6px; }
+
+    .lead { color: #d6e0ea; font-size: 1.04rem; }
+    .muted { color: var(--muted); }
+
+    .lens-grid,
+    .evidence-grid,
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lens-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .evidence-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+    .lens,
+    .evidence-card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .lens {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+
+    .lens-label,
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .lens-label { color: #071019; background: var(--gold); }
+    .status.primary { background: rgba(120,216,232,.16); color: #bdf5ff; }
+    .status.official { background: rgba(138,211,168,.17); color: #c8f7da; }
+    .status.review { background: rgba(245,154,154,.15); color: #ffc5c5; }
+
+    .timeline {
+      grid-template-columns: 1fr;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 16px 18px 16px 56px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-2);
+    }
+
+    .timeline-item::before {
+      content: attr(data-era);
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #12100a;
+      font-size: .7rem;
+      font-weight: 900;
+    }
+
+    details {
+      margin-top: 12px;
+      border-radius: 15px;
+      overflow: clip;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      color: var(--gold);
+      font-weight: 800;
+      list-style-position: inside;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: rgba(242,198,109,.055);
+    }
+
+    .details-body { padding: 17px 18px 20px; }
+    blockquote {
+      margin: 14px 0;
+      padding: 14px 17px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(120,216,232,.055);
+      color: #dff9ff;
+    }
+
+    .scripture-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .scripture-list li {
+      padding: 12px 14px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,.03);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(242,198,109,.30);
+      border-radius: 16px;
+      background: rgba(242,198,109,.07);
+    }
+
+    .source-meta {
+      display: grid;
+      gap: 4px;
+      margin: 10px 0 13px;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    .source-meta b { color: #dce7f2; }
+
+    .assessment {
+      border-left: 4px solid var(--green);
+    }
+
+    .question-list li { margin-bottom: 9px; }
+
+    footer {
+      margin-top: 26px;
+      padding: 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 640px) {
+      .article-shell { width: min(100% - 18px, 1040px); padding-top: 10px; }
+      .hero { min-height: 330px; padding: 26px 20px; border-radius: 20px; }
+      .section { padding: 20px 17px; }
+    }
+
+    .hero {
+    display: grid;
+    place-items: center;
+    text-align: center;
+}
+
+.hero > div {
+    max-width: 850px;
+    width: 100%;
+}
+  </style>
+</head>
+<body>
+<main class="article-shell">
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">HomeGroups Historical Investigation</div>
+      <h1>Where Did the Sabbath Go?</h1>
+      <p class="dek">
+        Scripture identifies the seventh day as the Sabbath. Much of Christianity now gathers primarily on Sunday.
+        This investigation asks when that difference emerged, why it developed, and what the surviving evidence actually allows us to say.
+      </p>
+      <p class="question">
+        If Yeshua, His apostles, and the earliest Jewish believers inherited a seventh-day Sabbath,
+        how did Sunday become the principal Christian day of worship?
+      </p>
+    </div>
+  </header>
+
+  <aside class="notice">
+    <strong>Editorial note:</strong> This is not an anti-Catholic article and it is not an argument against Christians who worship on Sunday.
+    It is an attempt to keep open a question that too often gets closed before the biblical and historical evidence is examined.
+    Scripture, historical documents, later tradition, and modern interpretation are labeled separately below.
+  </aside>
+
+  <section class="section">
+    <span class="lens-label">How to read this investigation</span>
+    <h2>Four kinds of evidence</h2>
+    <div class="lens-grid">
+      <article class="lens">
+        <h3>Scripture</h3>
+        <p class="muted">What the biblical text explicitly commands, narrates, or describes.</p>
+      </article>
+      <article class="lens">
+        <h3>Early historical witness</h3>
+        <p class="muted">What early Christian writers, imperial laws, and church councils show about developing practice.</p>
+      </article>
+      <article class="lens">
+        <h3>Church teaching</h3>
+        <p class="muted">How later Catholic and Protestant authorities explained Sunday and Sabbath observance.</p>
+      </article>
+      <article class="lens">
+        <h3>Interpretation</h3>
+        <p class="muted">The conclusions people draw from the evidence. Interpretation must never be disguised as the evidence itself.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Biblical text</span>
+    <h2>1. What Scripture calls the Sabbath</h2>
+    <p class="lead">
+      The biblical starting point is not difficult to identify. The seventh day is blessed at creation,
+      named in the commandments, woven into Israel’s calendar, and repeatedly treated as set apart.
+    </p>
+
+    <ul class="scripture-list">
+      <li><strong>Genesis 2:2–3:</strong> God rests on the seventh day, blesses it, and sets it apart.</li>
+      <li><strong>Exodus 20:8–11:</strong> Israel is commanded to remember the Sabbath day and keep it holy.</li>
+      <li><strong>Deuteronomy 5:12–15:</strong> Sabbath is connected to liberation from slavery.</li>
+      <li><strong>Isaiah 56:1–8:</strong> foreigners who join themselves to YHWH are described as keeping the Sabbath.</li>
+      <li><strong>Isaiah 58:13–14:</strong> Sabbath is treated as a delight rather than a burden.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Observation:</strong> Scripture never labels the first day of the week “the Sabbath.”
+      The later Christian question is therefore not whether the biblical Sabbath was the seventh day,
+      but whether Christian practice was authorized to treat another day as replacing it.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Gospels and Acts</span>
+    <h2>2. Yeshua and the apostolic period</h2>
+    <p class="lead">
+      Yeshua argued about how the Sabbath should be kept; the Gospels do not portray Him abolishing it.
+      Acts also preserves repeated Sabbath settings involving both Jews and Gentiles.
+    </p>
+
+    <details>
+      <summary>Yeshua’s Sabbath controversies</summary>
+      <div class="details-body">
+        <p>
+          The disputes in passages such as Mark 2:23–28, Mark 3:1–6, Luke 13:10–17, and John 5 concern
+          lawful action, mercy, healing, and authority. They show conflict over interpretation, not a simple announcement
+          that the seventh day had ceased to matter.
+        </p>
+        <blockquote>
+          “The Sabbath was made for man, not man for the Sabbath.” — Mark 2:27
+        </blockquote>
+      </div>
+    </details>
+
+    <details>
+      <summary>Sabbath scenes in Acts</summary>
+      <div class="details-body">
+        <p>
+          Acts 13, 16, 17, and 18 repeatedly place apostolic teaching in Sabbath contexts.
+          These passages do not by themselves settle every later question about Christian gathering,
+          but they make it difficult to claim that Sabbath disappeared immediately from apostolic life.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>First-day passages</summary>
+      <div class="details-body">
+        <p>
+          First-day passages such as Acts 20:7 and 1 Corinthians 16:2 deserve direct examination.
+          They show first-day activity, but the interpretive question is whether they establish a replacement Sabbath,
+          a regular worship law, a practical meeting, or something else.
+        </p>
+        <p class="muted">
+          Textual and linguistic claims about phrases such as <em>mia sabbatōn</em> should be presented with full Greek context
+          and compared with mainstream grammatical analysis rather than treated as self-proving slogans.
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section">
+    <span class="status official">Historical development</span>
+    <h2>3. The change did not happen in one moment</h2>
+    <p class="lead">
+      The surviving record points to a development rather than one clean switch. Jewish and Gentile believers did not all
+      practice alike, Sunday gatherings appear early, Sabbath observance continued in various communities, and later imperial
+      and ecclesiastical decisions increasingly favored Sunday.
+    </p>
+
+    <div class="timeline">
+      <article class="timeline-item" data-era="1">
+        <h3>First century</h3>
+        <p class="muted">Jewish followers of Yeshua remain rooted in synagogue, Sabbath, and biblical festival rhythms while Gentile assemblies expand.</p>
+      </article>
+      <article class="timeline-item" data-era="2">
+        <h3>Second century</h3>
+        <p class="muted">Writers such as Ignatius and Justin provide evidence of distinct Christian identity and first-day gathering in some communities.</p>
+      </article>
+      <article class="timeline-item" data-era="3">
+        <h3>Quartodeciman controversy</h3>
+        <p class="muted">Churches disputed whether Pascha should track the fourteenth day of the biblical month or be observed on Sunday.</p>
+      </article>
+      <article class="timeline-item" data-era="4">
+        <h3>Fourth century</h3>
+        <p class="muted">Imperial Sunday legislation and conciliar decisions gave Sunday observance greater civil and ecclesiastical force.</p>
+      </article>
+      <article class="timeline-item" data-era="5">
+        <h3>Later Christianity</h3>
+        <p class="muted">Catholic theology developed Sunday as the Christian fulfillment of Sabbath; many Protestants retained Sunday while rejecting Catholic authority.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Primary-source dossier</span>
+    <h2>4. What Catholic sources actually say</h2>
+    <p class="lead">
+      Catholic sources are valuable here because they do not generally argue that the Bible simply renames Sunday as the seventh-day Sabbath.
+      Instead, they explain Sunday through resurrection, apostolic tradition, and the teaching authority of the Church.
+    </p>
+
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status official">Official catechism</span>
+        <h3>Catechism of the Catholic Church §2175</h3>
+        <div class="source-meta">
+          <span><b>Type:</b> Official modern Catholic teaching</span>
+          <span><b>Claim:</b> Sunday is distinguished from Sabbath and its Christian observance replaces Sabbath ceremonial observance.</span>
+        </div>
+        <p>
+          This is stronger evidence than unattributed quotation collections because it states current Catholic teaching in its own published language.
+        </p>
+      </article>
+
+      <article class="evidence-card">
+        <span class="status review">Historical quotation</span>
+        <h3>James Cardinal Gibbons, <em>The Faith of Our Fathers</em></h3>
+        <div class="source-meta">
+          <span><b>Type:</b> Catholic apologetic work</span>
+          <span><b>Use:</b> Contrasts Protestant “Bible only” claims with Sunday observance.</span>
+        </div>
+        <blockquote>
+          Gibbons argues that readers will not find biblical authorization for sanctifying Sunday in the same manner Scripture commands the seventh day.
+        </blockquote>
+        <p class="muted">
+          Before publication, the exact edition, page, and wording should be checked against a scan rather than copied from later quotation sites.
+        </p>
+      </article>
+
+      <article class="evidence-card">
+        <span class="status review">Canon-law source</span>
+        <h3>Lucius Ferraris, <em>Prompta Bibliotheca</em></h3>
+        <div class="source-meta">
+          <span><b>Type:</b> Eighteenth-century ecclesiastical reference work</span>
+          <span><b>Question:</b> What authority does the author attribute to the pope regarding divine law?</span>
+        </div>
+        <p>
+          The often-circulated translation must be checked against the Latin and its surrounding argument.
+          Ferraris is historical evidence of a canonist’s claims; he should not automatically be treated as though every sentence were a dogmatic decree.
+        </p>
+      </article>
+
+      <article class="evidence-card">
+        <span class="status review">Popular catechism</span>
+        <h3><em>The Convert’s Catechism of Catholic Doctrine</em></h3>
+        <div class="source-meta">
+          <span><b>Type:</b> Instructional Catholic publication</span>
+          <span><b>Claim under review:</b> The Church changed the solemn observance from Saturday to Sunday.</span>
+        </div>
+        <p class="muted">
+          The edition, imprimatur, page, and complete question-and-answer context should accompany any reproduced image.
+        </p>
+      </article>
+    </div>
+
+    <div class="callout">
+      <strong>Important distinction:</strong> “Catholic writers acknowledge that Sunday rests partly on church tradition”
+      is not identical to “one pope single-handedly changed the Sabbath on one date.”
+      The historical development was broader and earlier than that simplified claim.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Early church evidence</span>
+    <h2>5. Constantine matters—but he is not the whole story</h2>
+    <p class="lead">
+      Constantine’s legislation is important because it gave civil standing to the “venerable day of the Sun.”
+      It is not accurate, however, to claim that no Christian gathered on Sunday before Constantine.
+      The historical question is how an existing practice became increasingly dominant, legally favored, and eventually normative.
+    </p>
+
+    <details>
+      <summary>Sunday before Constantine</summary>
+      <div class="details-body">
+        <p>
+          Second-century witnesses indicate that at least some Christian communities gathered on the first day.
+          Their existence does not prove that the apostles replaced Sabbath, but it does disprove an overly simple timeline in which
+          every Christian observed Sabbath until the fourth century.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Constantine’s civil legislation</summary>
+      <div class="details-body">
+        <p>
+          The 321 civil law restricted certain work on the “venerable day of the Sun.”
+          A careful article should quote the law from a reliable edition and distinguish civil policy from a biblical command.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Council of Laodicea</summary>
+      <div class="details-body">
+        <p>
+          Canon 29 is commonly cited because it opposes “Judaizing” by resting on Sabbath and urges Christians to honor the Lord’s Day.
+          The canon is evidence that Sabbath observance still existed strongly enough to be addressed.
+          Its date, textual form, and translation should be documented in the final source notes.
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Interpretive question</span>
+    <h2>6. Did Sunday replace Sabbath—or develop beside it?</h2>
+    <p class="lead">
+      The evidence does not require us to pretend the history was simple. Several claims can be true at once:
+    </p>
+    <ul class="scripture-list">
+      <li>The seventh day is the Sabbath named in Scripture.</li>
+      <li>Some Christians gathered on Sunday very early.</li>
+      <li>Sabbath observance did not vanish immediately.</li>
+      <li>Anti-Jewish pressure, identity formation, resurrection theology, imperial policy, and church authority all contributed to later practice.</li>
+      <li>Much of Protestant Christianity inherited Sunday observance without accepting the Catholic authority historically used to defend it.</li>
+    </ul>
+
+    <div class="callout assessment">
+      <strong>My conclusion:</strong> I find no biblical text that plainly revokes the seventh-day Sabbath or plainly appoints Sunday as its replacement.
+      History clearly explains how Sunday became dominant; explaining a development is not the same as demonstrating that the development was commanded by Scripture.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Research integrity</span>
+    <h2>7. Claims that must be corrected or verified before publication</h2>
+    <p>
+      My 2015 article preserved valuable source leads, but several claims should not be repeated without stronger documentation than I provided then.
+      These include the precise dating and authenticity of circulated Catholic quotations; the meaning of <em>μιᾷ τῶν σαββάτων</em>;
+      claims about Jesus/ Yeshua’s resurrection occurring on Sabbath; claims that Christmas is the adversary’s birthday;
+      the derivation of “Easter” directly from Ishtar; sweeping claims of unanimous early Christian practice;
+      and allegations based on questionable anti-Catholic oath material.
+    </p>
+    <p class="muted">
+      Removing weak claims does not weaken the Sabbath question. It prevents easily challenged material from distracting my readers from the strongest biblical and historical evidence.
+    </p>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">Questions for the reader</span>
+    <h2>8. Continue the discussion that was closed</h2>
+    <ol class="question-list">
+      <li>Which day does Scripture itself call the Sabbath?</li>
+      <li>Where, if anywhere, does Scripture command believers to transfer Sabbath holiness to Sunday?</li>
+      <li>What do first- and second-century sources prove—and what do they not prove?</li>
+      <li>How much weight should civil legislation and church councils carry for a believer who claims Scripture as final authority?</li>
+      <li>Can Sunday resurrection celebration and seventh-day Sabbath observance coexist?</li>
+      <li>Are we willing to distinguish inherited practice from explicit command?</li>
+    </ol>
+
+    <div class="callout">
+      I did not begin asking these questions because I wanted another argument.
+      I began asking because people I loved decided the Sabbath discussion would not continue.
+      This article is my refusal to confuse a closed conversation with a settled question.
+    </div>
+  </section>
+
+  <footer>
+    HomeGroups.org · Scripture, history, evidence, and honest investigation.<br />
+    Draft interactive rewrite based on Eddie Martinie’s 2015 article.
+  </footer>
+
+</main>
+</body>
+</html>
