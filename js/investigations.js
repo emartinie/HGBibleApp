@@ -33,31 +33,38 @@ const INVESTIGATIONS = [
     `).join("") : `<div class="hg-empty">No Investigations match your search.</div>`;
   }
 
-  async function loadInvestigation(file, viewer) {
-    if (!viewer) return;
+  function loadInvestigation(file, viewer) {
+  if (!viewer) return;
 
-    const [fileName, anchor = ""] = String(file || "").split("#", 2);
+  const safeFile = String(file || "").replace(/^\/+/, "");
+  viewer.src = `investigations/${safeFile}`;
+}
 
-    viewer.innerHTML = "Loading...";
+  //async function loadInvestigation(file, viewer) {
+    //if (!viewer) return;
 
-    try {
-      const res = await fetch(`investigations/${fileName}`);
-      if (!res.ok) throw new Error();
+   // const [fileName, anchor = ""] = String(file || "").split("#", 2);
 
-      const html = await res.text();
-      viewer.innerHTML = html;
+    //viewer.innerHTML = "Loading...";
 
-      if (anchor) {
-        const target = Array.from(viewer.querySelectorAll("[id]")).find(el => el.id === anchor);
-        target?.scrollIntoView({ block: "start" });
-      } else {
-        viewer.scrollTop = 0;
-      }
+   // try {
+     // const res = await fetch(`investigations/${fileName}`);
+     // if (!res.ok) throw new Error();
 
-    } catch {
-      viewer.innerHTML = `<div class="text-red-400">Failed to load Investigation</div>`;
-    }
-  }
+    //  const html = await res.text();
+     // viewer.innerHTML = html;
+
+    //  if (anchor) {
+    //    const target = Array.from(viewer.querySelectorAll("[id]")).find(el => el.id === anchor);
+    //    target?.scrollIntoView({ block: "start" });
+    //  } else {
+   //     viewer.scrollTop = 0;
+  //    }
+
+  //  } catch {
+  //    viewer.innerHTML = `<div class="text-red-400">Failed to load Investigation</div>`;
+  //  }
+ // }
 
   async function initInvestigationsCard(root = document) {
     destroyInvestigationsCard();
