@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A HomeGroups investigation into the historical identity, Jewish formation, mission, writings, and disputed legacy of Paul—Rav Shaul." />
+  <meta name="author" content="Eddie Martinie" />
+  <title>Who Was Paul—or Rabbi Shaul? | HomeGroups Investigation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071019;
+      --panel: rgba(15, 27, 40, .86);
+      --panel-2: rgba(20, 38, 54, .76);
+      --line: rgba(148, 163, 184, .22);
+      --text: #e7eef7;
+      --muted: #a7b4c4;
+      --gold: #f2c66d;
+      --cyan: #78d8e8;
+      --green: #8ad3a8;
+      --red: #f59a9a;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .36);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% -10%, rgba(35, 116, 146, .24), transparent 35%),
+        radial-gradient(circle at 85% 10%, rgba(126, 91, 26, .22), transparent 32%),
+        linear-gradient(180deg, #071019 0%, #05090e 100%);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: var(--cyan); }
+    a:hover { color: #b7f4ff; }
+
+    .article-shell {
+      width: min(1040px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: clamp(28px, 6vw, 68px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(4, 10, 16, .14), rgba(4, 10, 16, .9)),
+        radial-gradient(circle at 50% 18%, rgba(120, 216, 232, .16), transparent 38%),
+        radial-gradient(circle at 50% 72%, rgba(242, 198, 109, .12), transparent 34%),
+        linear-gradient(135deg, #102a3a, #0a1620 54%, #2a2415);
+    }
+
+    .hero::before {
+      content: "שאול";
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      color: rgba(255,255,255,.045);
+      font: 700 clamp(120px, 23vw, 245px)/1 serif;
+      direction: rtl;
+      pointer-events: none;
+    }
+
+    .hero > div {
+      position: relative;
+      z-index: 1;
+      max-width: 880px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 920px;
+      margin: 8px auto 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.35rem, 7vw, 5.2rem);
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+
+    .dek {
+      max-width: 780px;
+      margin: 0 auto;
+      color: #d6e0eb;
+      font-size: clamp(1rem, 2.2vw, 1.24rem);
+    }
+
+    .question {
+      max-width: 790px;
+      margin: 22px auto 0;
+      padding-left: 18px;
+      border-left: 3px solid var(--gold);
+      color: #fff4cf;
+      font: italic 1.05rem/1.6 Georgia, serif;
+      text-align: left;
+    }
+
+    .notice,
+    .section,
+    .evidence-card,
+    details {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 12px 35px rgba(0,0,0,.20);
+      backdrop-filter: blur(10px);
+    }
+
+    .notice {
+      margin: 18px 0 28px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .notice strong { color: var(--text); }
+
+    .section {
+      margin-top: 22px;
+      padding: clamp(22px, 4vw, 42px);
+      border-radius: var(--radius);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 4vw, 2.5rem);
+      line-height: 1.16;
+    }
+
+    h3 { margin: 0 0 6px; }
+    p { margin: 0 0 1rem; }
+
+    .lead { color: #d6e0ea; font-size: 1.04rem; }
+    .muted { color: var(--muted); }
+
+    .lens-grid,
+    .evidence-grid,
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lens-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .evidence-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+    .lens,
+    .evidence-card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .lens {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+
+    .lens-label,
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .lens-label { color: #071019; background: var(--gold); }
+    .status.primary { background: rgba(120,216,232,.16); color: #bdf5ff; }
+    .status.official { background: rgba(138,211,168,.17); color: #c8f7da; }
+    .status.review { background: rgba(245,154,154,.15); color: #ffc5c5; }
+
+    .timeline {
+      grid-template-columns: 1fr;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 16px 18px 16px 62px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-2);
+    }
+
+    .timeline-item::before {
+      content: attr(data-era);
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #12100a;
+      font-size: .68rem;
+      font-weight: 900;
+    }
+
+    details {
+      margin-top: 12px;
+      border-radius: 15px;
+      overflow: clip;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      color: var(--gold);
+      font-weight: 800;
+      list-style-position: inside;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: rgba(242,198,109,.055);
+    }
+
+    .details-body { padding: 17px 18px 20px; }
+
+    blockquote {
+      margin: 14px 0;
+      padding: 14px 17px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(120,216,232,.055);
+      color: #dff9ff;
+    }
+
+    .principle-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .principle-list li {
+      padding: 12px 14px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,.03);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(242,198,109,.30);
+      border-radius: 16px;
+      background: rgba(242,198,109,.07);
+    }
+
+    .assessment { border-left: 4px solid var(--green); }
+    .question-list li { margin-bottom: 9px; }
+
+    footer {
+      margin-top: 26px;
+      padding: 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 640px) {
+      .article-shell { width: min(100% - 18px, 1040px); padding-top: 10px; }
+      .hero { min-height: 330px; padding: 26px 20px; border-radius: 20px; }
+      .section { padding: 20px 17px; }
+    }
+  </style>
+</head>
+<body>
+<main class="article-shell">
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">HomeGroups Learning Investigation · Investigation #002 · Version 1</div>
+      <h1>Who Was Paul—or Rabbi Shaul?</h1>
+      <p class="dek">
+        Paul is one of the most influential and most disputed figures in the New Testament.
+        To understand his letters responsibly, we must ask who he was before deciding what we think he taught.
+      </p>
+      <p class="question">
+        What can Scripture, Paul’s own letters, Acts, historical context, and later tradition responsibly tell us about Shaul of Tarsus—and how should that evidence shape the way we read him?
+      </p>
+    </div>
+  </header>
+
+  <aside class="notice">
+    <strong>Editorial note:</strong> This investigation distinguishes Paul’s own testimony, the narrative of Acts,
+    historical context, later tradition, and modern interpretation. The title uses “Rabbi Shaul” as a familiar Jewish-context description,
+    but the New Testament does not explicitly assign Paul the formal title “rabbi.” Whether that title should be used historically is therefore an interpretive question, not an established fact.
+  </aside>
+
+  <section class="section">
+    <span class="lens-label">Central question</span>
+    <h2>Which Paul are we reading?</h2>
+    <p class="lead">
+      Paul is often presented through conclusions inherited from later theological debates:
+      defender of Torah, opponent of Torah, founder of Christianity, apostle of grace, enemy of Judaism,
+      missionary to the nations, or misunderstood Jewish teacher.
+    </p>
+    <p>
+      Some of these descriptions preserve important evidence. Others may flatten a complex first-century person into a slogan.
+      Before deciding whether Paul opposed Moses, created a new religion, or remained faithfully inside Israel’s story,
+      we need to examine the sources and identify where evidence ends and interpretation begins.
+    </p>
+    <div class="callout assessment">
+      <strong>The investigation begins with a discipline:</strong>
+      let Paul’s own letters speak first, let Acts provide an additional narrative witness,
+      let historical context clarify the world around him, and let later tradition remain clearly labeled as later tradition.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Evidence map</span>
+    <h2>1. What kinds of evidence do we have?</h2>
+    <p class="lead">
+      Paul is unusually well documented for an ancient religious figure, but the available sources do not all carry the same kind of weight.
+    </p>
+
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status primary">Primary testimony</span>
+        <h3>Paul’s letters</h3>
+        <p>
+          The letters attributed to Paul contain direct self-description, arguments, relationships, travel references,
+          disputes, pastoral concerns, and interpretations of Scripture.
+          Where authorship is widely disputed, that uncertainty should be stated rather than hidden.
+        </p>
+      </article>
+
+      <article class="evidence-card">
+        <span class="status official">Narrative witness</span>
+        <h3>Acts of the Apostles</h3>
+        <p>
+          Acts narrates Paul’s calling, travels, trials, speeches, and relationships.
+          It is a later narrative source within the New Testament and should be compared carefully with Paul’s own letters.
+        </p>
+      </article>
+
+      <article class="evidence-card">
+        <span class="status official">Historical context</span>
+        <h3>Second Temple Judaism and Rome</h3>
+        <p>
+          Jewish interpretive traditions, synagogue life, Roman citizenship, urban networks,
+          diaspora communities, and imperial law help explain the world in which Paul lived and wrote.
+        </p>
+      </article>
+
+      <article class="evidence-card">
+        <span class="status review">Later tradition</span>
+        <h3>Martyrdom and memory</h3>
+        <p>
+          Early Christian tradition associates Paul’s death with Rome under Nero.
+          The broad tradition is ancient, but many precise details cannot be independently verified.
+        </p>
+      </article>
+    </div>
+
+    <div class="callout">
+      <strong>Method:</strong> A statement from Paul about himself, a speech attributed to Paul in Acts,
+      and a later tradition about Paul may all be useful—but they are not the same kind of evidence.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Historical identity</span>
+    <h2>2. Shaul of Tarsus</h2>
+    <p class="lead">
+      The sources present Paul as a Jew from Tarsus in Cilicia who moved within both Jewish and Roman worlds.
+    </p>
+
+    <div class="lens-grid">
+      <article class="lens">
+        <h3>Name</h3>
+        <p class="muted">
+          Acts uses both “Saul” and “Paul.” Shaul (שאול) is a Hebrew name; Paulos is Greek and Paulus is Latin.
+          The text does not require a dramatic religious renaming. A person operating across Jewish and Roman settings could use more than one name.
+        </p>
+      </article>
+
+      <article class="lens">
+        <h3>Jewish identity</h3>
+        <p class="muted">
+          Paul identifies himself as an Israelite, from the tribe of Benjamin, a Hebrew of Hebrews,
+          and a Pharisee (Romans 11:1; Philippians 3:5; Acts 23:6).
+        </p>
+      </article>
+
+      <article class="lens">
+        <h3>Roman status</h3>
+        <p class="muted">
+          Acts presents Paul as a Roman citizen and shows that citizenship affecting his treatment by officials,
+          his legal protections, and his appeal to Caesar (Acts 16:37–39; 22:25–29; 25:10–12).
+        </p>
+      </article>
+
+      <article class="lens">
+        <h3>Place of origin</h3>
+        <p class="muted">
+          Acts identifies Tarsus in Cilicia as Paul’s city (Acts 21:39; 22:3).
+          His life therefore belongs to the Jewish diaspora as well as to Judea and Jerusalem.
+        </p>
+      </article>
+    </div>
+
+    <details>
+      <summary>Should he be called “Rabbi Shaul”?</summary>
+      <div class="details-body">
+        <p>
+          Paul was unquestionably a Jewish teacher and interpreter of Scripture.
+          Acts also associates him with Pharisaic formation and with Gamaliel.
+          However, the New Testament does not explicitly call him “Rabbi,” and later rabbinic titles and institutional forms should not be projected backward without care.
+        </p>
+        <p class="muted">
+          “Rav Shaul” may be useful as a modern reminder of Paul’s Jewish identity,
+          but it should be presented as a descriptive choice rather than a formally documented ancient title.
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Formation</span>
+    <h2>3. A Pharisee formed inside Israel’s Scriptures</h2>
+    <p class="lead">
+      Paul was not a Gentile outsider who discovered the God of Israel late in life.
+      His own testimony presents him as deeply formed by Jewish ancestry, zeal, Torah, and Pharisaic interpretation.
+    </p>
+
+    <blockquote>
+      Paul describes himself as “circumcised the eighth day, of the people of Israel, of the tribe of Benjamin,
+      a Hebrew of Hebrews; concerning the law, a Pharisee” (Philippians 3:5).
+    </blockquote>
+
+    <p>
+      Acts records Paul saying that he was educated “at the feet of Gamaliel” and instructed according to the ancestral law (Acts 22:3).
+      Acts 23:6 further presents him identifying himself as “a Pharisee, a son of Pharisees.”
+      These passages do not answer every question about the precise form of his education,
+      but they strongly place him within Jewish interpretive and covenantal debates.
+    </p>
+
+    <details>
+      <summary>What does “blameless concerning the law” mean?</summary>
+      <div class="details-body">
+        <p>
+          In Philippians 3:6, Paul describes himself as “blameless” concerning righteousness in the law.
+          This should not automatically be read as a claim of sinless perfection.
+          It may describe recognized faithfulness within his inherited interpretive and communal framework.
+        </p>
+        <p class="muted">
+          Interpretation remains necessary. The statement tells us that Paul did not remember his pre-Messiah life as casual, ignorant, or indifferent toward Torah.
+        </p>
+      </div>
+    </details>
+
+    <div class="callout assessment">
+      <strong>Strongly supported:</strong> Paul’s arguments emerged from inside Jewish Scripture and Jewish controversy.
+      Whatever changed after his encounter with Yeshua, he did not begin as a detached critic of Israel’s God or Israel’s story.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Turning point</span>
+    <h2>4. The Damascus encounter</h2>
+    <p class="lead">
+      Paul’s life changed because he became convinced that the crucified Yeshua had been raised and revealed to him.
+    </p>
+
+    <p>
+      Acts narrates the encounter three times, with differences in emphasis for different settings (Acts 9, 22, and 26).
+      Paul’s letters do not repeat the full road narrative, but they do affirm that he had seen the risen Messiah,
+      received a calling, and moved from persecuting the assembly to proclaiming the faith he once tried to destroy
+      (1 Corinthians 9:1; 15:8–10; Galatians 1:13–24).
+    </p>
+
+    <div class="timeline">
+      <article class="timeline-item" data-era="1"><h3>Zeal against the movement</h3><p class="muted">Paul recalls persecuting the assembly of God and trying to destroy it.</p></article>
+      <article class="timeline-item" data-era="2"><h3>Revelation of Yeshua</h3><p class="muted">Paul becomes convinced that the risen Yeshua is Israel’s Messiah and his own Lord.</p></article>
+      <article class="timeline-item" data-era="3"><h3>Calling among the nations</h3><p class="muted">Paul understands his mission as carrying the good news among Gentiles while remaining bound to Israel’s promises.</p></article>
+      <article class="timeline-item" data-era="4"><h3>Conflict and reinterpretation</h3><p class="muted">His former convictions are not simply discarded; they are reorganized around the Messiah, resurrection, and the inclusion of the nations.</p></article>
+    </div>
+
+    <details>
+      <summary>Conversion, calling, or both?</summary>
+      <div class="details-body">
+        <p>
+          Many Christian traditions describe the Damascus experience as Paul’s conversion from Judaism to Christianity.
+          Other scholars argue that “calling” is more historically precise because Paul continued to identify as an Israelite
+          and understood his mission through Israel’s Scriptures and prophetic vocation.
+        </p>
+        <p>
+          The evidence clearly supports a radical transformation.
+          Whether “conversion” or “calling” best describes that transformation depends partly on how one defines Judaism,
+          Christianity, and religious identity in the first century.
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Mission and communities</span>
+    <h2>5. What did Paul actually do?</h2>
+    <p class="lead">
+      Paul became a traveling apostle, teacher, community founder, letter writer, and witness to Yeshua among the nations.
+    </p>
+
+    <ul class="principle-list">
+      <li><strong>He proclaimed Yeshua as Messiah and Lord.</strong> His message centered on the death, resurrection, reign, and coming of the Messiah.</li>
+      <li><strong>He focused heavily on Gentile inclusion.</strong> Paul understood himself as specially commissioned to the nations, while continuing to address Jews and Israel’s promises.</li>
+      <li><strong>He formed assemblies.</strong> These were communities meeting in homes and other available spaces—not later institutional church buildings.</li>
+      <li><strong>He trained leaders and maintained relationships.</strong> His letters reveal conflict, affection, correction, fundraising, suffering, travel plans, and pastoral responsibility.</li>
+      <li><strong>He interpreted Israel’s Scriptures.</strong> Torah, the Prophets, and the Writings form the scriptural world of his arguments.</li>
+    </ul>
+
+    <p>
+      Several letters are broadly recognized as early witnesses to Paul’s own voice:
+      Romans, 1 and 2 Corinthians, Galatians, Philippians, 1 Thessalonians, and Philemon.
+      Other letters attributed to Paul remain debated in modern scholarship.
+      Faith communities may receive the full traditional Pauline collection while still acknowledging the historical authorship discussion.
+    </p>
+
+    <div class="callout">
+      <strong>Historical significance:</strong> Paul’s letters are among the earliest surviving writings of the Yeshua movement.
+      They allow readers to encounter disputes and community problems while the movement was still developing inside the first-century Jewish and Roman world.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">The central controversy</span>
+    <h2>6. Did Paul leave Judaism or begin a new religion?</h2>
+    <p class="lead">
+      Paul never writes, “I left Judaism and founded Christianity.”
+      That does not settle every historical question, but it should caution us against reading later religious boundaries directly into his self-understanding.
+    </p>
+
+    <p>
+      Paul continues to call himself an Israelite (Romans 11:1), speaks of Israel’s covenants and promises (Romans 9:4–5),
+      reasons from Abraham, Moses, the Prophets, and the Psalms, and expects God’s faithfulness to Israel to remain central to the story.
+      At the same time, his mission creates communities in which uncircumcised Gentiles are welcomed as full participants through the Messiah.
+    </p>
+
+    <details>
+      <summary>Traditional Christian reading</summary>
+      <div class="details-body">
+        <p>
+          A common traditional reading understands Paul as teaching a decisive transition from the Mosaic covenant
+          to a new covenant community defined by faith in Messiah rather than Torah observance.
+          This view often distinguishes moral instruction from covenantal or ceremonial obligations.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>New Perspective readings</summary>
+      <div class="details-body">
+        <p>
+          New Perspective approaches generally challenge the idea that first-century Judaism was simply a religion of works-righteousness.
+          They often read Paul’s disputes about “works of the law” in relation to covenant identity, boundary markers,
+          and the inclusion of Gentiles rather than as a rejection of Jewish obedience itself.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Paul within Judaism readings</summary>
+      <div class="details-body">
+        <p>
+          Paul within Judaism approaches argue that Paul remained a Jewish apostle whose instructions to Gentiles
+          should not automatically be treated as instructions for Jews to abandon Torah.
+          These readings emphasize differentiated callings within one eschatological people of God.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Messianic and Torah-positive readings</summary>
+      <div class="details-body">
+        <p>
+          Messianic Jewish and Torah-positive interpreters often emphasize continuity between Paul, Yeshua, Torah,
+          and the prophetic hope of Israel. Within these communities, substantial disagreements remain about covenant obligation,
+          Gentile practice, Jewish identity, and how Paul’s warnings should be applied.
+        </p>
+      </div>
+    </details>
+
+    <div class="callout assessment">
+      <strong>Current assessment:</strong> The evidence strongly supports reading Paul as a Jewish follower of Yeshua
+      arguing about the nations, covenant membership, faithfulness, and the age of Messiah.
+      Whether his teaching amounts to a new religion depends partly on later historical developments and on the definition of “religion.”
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Key vocabulary</span>
+    <h2>7. Why Paul is so easy to misunderstand</h2>
+    <p class="lead">
+      Paul’s letters are difficult partly because a single translated word may carry several possible meanings,
+      and because modern readers often inherit definitions from later debates.
+    </p>
+
+    <div class="lens-grid">
+      <article class="lens">
+        <h3>Faith · πίστις · אֱמוּנָה</h3>
+        <p class="muted">
+          Depending on context, “faith” may involve belief, trust, loyalty, faithfulness, or allegiance.
+          Reducing it to mental agreement can make Paul’s ethical expectations appear disconnected from his gospel.
+        </p>
+      </article>
+
+      <article class="lens">
+        <h3>Law · νόμος · Torah</h3>
+        <p class="muted">
+          “Law” may refer to Torah, a particular command, Scripture more broadly, a legal principle,
+          the power of sin and death, or a disputed use of Torah.
+          Every occurrence must be read in context.
+        </p>
+      </article>
+
+      <article class="lens">
+        <h3>Works of the law</h3>
+        <p class="muted">
+          Interpreters disagree whether the phrase primarily concerns human merit,
+          Jewish identity practices, sectarian interpretations, covenant membership, or some combination.
+        </p>
+      </article>
+
+      <article class="lens">
+        <h3>Flesh and Spirit</h3>
+        <p class="muted">
+          Paul’s contrast does not simply mean body versus soul.
+          It often concerns rival modes of life, allegiance, desire, mortality, and the transforming work of God’s Spirit.
+        </p>
+      </article>
+    </div>
+
+    <div class="callout">
+      <strong>Reading discipline:</strong> Before declaring that Paul praised or abolished “the law,”
+      ask what law, whose use of it, in which argument, for which audience, and toward what purpose.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Torah and Messiah</span>
+    <h2>8. Was Paul anti-Torah?</h2>
+    <p class="lead">
+      Paul can sound deeply positive about Torah in one passage and fiercely critical in another.
+      Any responsible conclusion must account for both.
+    </p>
+
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status official">Positive witness</span>
+        <h3>Torah as holy and good</h3>
+        <p>
+          Paul calls the law holy and the commandment holy, righteous, and good (Romans 7:12).
+          He appeals to Torah repeatedly for ethics, theology, worship, community order, and the identity of Messiah.
+        </p>
+      </article>
+
+      <article class="evidence-card">
+        <span class="status review">Critical witness</span>
+        <h3>Torah in relation to sin and condemnation</h3>
+        <p>
+          Paul argues that law can expose transgression, intensify accountability,
+          and become entangled with sin and death when human beings remain enslaved to sin.
+        </p>
+      </article>
+
+      <article class="evidence-card">
+        <span class="status primary">Gentile question</span>
+        <h3>Must Gentiles become Jews?</h3>
+        <p>
+          Galatians and Romans address whether Gentiles must receive circumcision and take on Jewish identity
+          as the basis of covenant membership. Paul’s answer places belonging in Messiah rather than ethnic conversion.
+        </p>
+      </article>
+
+      <article class="evidence-card">
+        <span class="status review">Interpretive question</span>
+        <h3>What remains disputed?</h3>
+        <p>
+          Readers disagree about whether Paul changes Torah’s authority, changes its covenantal function,
+          applies it differently to Jews and Gentiles, or interprets its goal through Messiah.
+        </p>
+      </article>
+    </div>
+
+    <p>
+      The simple statement “Paul was anti-Torah” cannot carry the full evidence.
+      Neither can the statement “Paul changed nothing.”
+      His letters present a Messiah-centered rereading of Israel’s Scriptures in response to resurrection,
+      the Spirit, and the entrance of Gentiles into the people of Israel’s God.
+    </p>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Identity tension</span>
+    <h2>9. The tensions Paul holds together</h2>
+    <p class="lead">
+      Paul is difficult to read because his identity and mission hold several worlds together at once.
+    </p>
+
+    <ul class="principle-list">
+      <li><strong>Jewish Pharisee:</strong> formed by ancestral traditions and Israel’s Scriptures.</li>
+      <li><strong>Follower of Yeshua:</strong> convinced that the crucified Messiah had been raised and enthroned.</li>
+      <li><strong>Apostle to the nations:</strong> called to announce Israel’s Messiah among Gentiles.</li>
+      <li><strong>Interpreter of Torah:</strong> arguing from Scripture rather than discarding it.</li>
+      <li><strong>Apocalyptic thinker:</strong> expecting the present age to be transformed by God’s approaching reign.</li>
+      <li><strong>Roman citizen:</strong> moving through imperial roads, cities, courts, and legal structures.</li>
+      <li><strong>Community shepherd:</strong> addressing money, sex, conflict, food, worship, suffering, leadership, and reconciliation.</li>
+    </ul>
+
+    <div class="callout assessment">
+      <strong>This tension is not a flaw in the evidence.</strong>
+      It may be the central reason Paul cannot be reduced to either “Jewish teacher” or “Christian theologian” without qualification.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Death and later tradition</span>
+    <h2>10. What do we know about Paul’s death?</h2>
+    <p class="lead">
+      The New Testament does not narrate Paul’s death.
+      Later Christian tradition places his martyrdom in Rome, commonly during Nero’s reign in the 60s CE.
+    </p>
+    <p>
+      The broad martyrdom tradition is early and widely received.
+      The precise date, legal proceedings, method, and final sequence of Paul’s travels are less certain.
+      These details should therefore be described as tradition or reconstruction rather than explicit Scripture.
+    </p>
+    <div class="callout">
+      <strong>Confidence level:</strong> Paul’s suffering, imprisonment, and expectation of possible death are explicit in the letters and Acts.
+      His execution in Rome is strongly traditional; its exact details remain only partially verifiable.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">Current assessment</span>
+    <h2>Who was Paul—or Rabbi Shaul?</h2>
+    <p class="lead">
+      Paul was a Jew from Tarsus, an Israelite of Benjamin, a Pharisee, a Roman citizen according to Acts,
+      a persecutor of the early Yeshua movement, and then an apostle who became convinced that Yeshua had been raised as Messiah.
+    </p>
+    <p>
+      He did not understand himself as abandoning Israel’s God or Israel’s Scriptures.
+      His mission was to announce that Israel’s Messiah had acted for Israel and the nations,
+      and to form communities in which Gentiles could belong without becoming ethnically Jewish.
+    </p>
+    <p>
+      His writings should therefore be read neither as detached Greek philosophy nor as a simple rejection of Moses.
+      They are Jewish, scriptural, messianic, pastoral, apocalyptic, and shaped by the urgent problem of how Jews and Gentiles
+      could live faithfully together in light of the Messiah.
+    </p>
+    <div class="callout assessment">
+      <strong>Version 1 assessment:</strong>
+      Paul is best approached as a Jewish apostle of Yeshua whose letters represent an intense internal argument
+      about Torah, Messiah, covenant, resurrection, Israel, and the nations.
+      The title “Rabbi Shaul” may remind modern readers of that Jewish setting,
+      but it should not be used to erase uncertainty or to impose a later formal title upon him.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Questions Still Open</span>
+    <h2>Questions Still Open</h2>
+    <ol class="question-list">
+      <li>How should Paul’s own letters and the narrative of Acts be weighed when details appear difficult to harmonize?</li>
+      <li>Which letters preserve Paul’s direct voice, and how should disputed authorship affect interpretation?</li>
+      <li>Did Paul expect Jewish followers of Yeshua to continue Torah observance differently from Gentile followers?</li>
+      <li>What exactly did Paul mean by “works of the law” in each argument?</li>
+      <li>How should Romans 7, Galatians 3, Ephesians 2, and Colossians 2 be read alongside Paul’s positive statements about Torah?</li>
+      <li>Does “faith in Messiah” or “the faithfulness of Messiah” best represent key Pauline phrases—or can both ideas be present?</li>
+      <li>How much authority should later Christian interpretations carry when reconstructing Paul’s first-century intent?</li>
+      <li>Is “Rabbi Shaul” a helpful corrective to anti-Jewish readings, or does it risk claiming more historical precision than the evidence allows?</li>
+      <li>How did Paul understand the relationship among the house of Israel, the house of Judah, the Jewish people, and believing Gentiles?</li>
+      <li>Where has Christian history interpreted Paul in ways that Paul himself might not recognize?</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">The HomeGroups invitation</span>
+    <h2>Read Paul with Paul—not merely through inherited conclusions</h2>
+    <p class="lead">
+      Paul does not need to be rescued by ignoring his difficult passages,
+      and he should not be condemned through slogans that bypass his Jewish context.
+    </p>
+    <p>
+      Read his letters in full. Compare them with Acts. Trace his quotations and echoes back into Torah, the Prophets, and the Writings.
+      Define his vocabulary carefully. Distinguish what Paul explicitly says from what later readers conclude.
+      Let disagreement remain visible where the evidence remains disputed.
+    </p>
+    <div class="callout assessment">
+      Bring the letters.<br />
+      Bring Acts.<br />
+      Bring the Torah and the Prophets Paul quoted.<br />
+      Bring the historical questions.<br />
+      Bring the interpretations that have shaped you.<br /><br />
+      <strong>Let us investigate Shaul together.</strong>
+    </div>
+  </section>
+
+  <footer>
+    HomeGroups.org · Scripture, evidence, clarity, and honest investigation.<br />
+    HomeGroups Learning Investigation #002 · “Who Was Paul—or Rabbi Shaul?” · Version 1<br />
+    Eddie Martinie
+  </footer>
+
+</main>
+</body>
+</html>
