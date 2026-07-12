@@ -1,6 +1,9 @@
 (function () {
 const ARTICLES = [
+  { title: "Trust Over Agreement", file: "why-trust-matters-more-than-agreement.html" },  
+  { title: "Hanukkah, and What I Believe", file: "a_note_on_trust.html" },  
   { title: "Who was Paul, or Rabbi Shaul?", file: "who_was_paul.html" },
+  { title: "Where Did the Sabbath Go?", file: "where_did_the_sabbath_go.html" },  
   { title: "Clean and Unclean Food?", file: "dietary_expectations.html" },
   { title: "Almost There, but Not Quite", file: "almost_there_but_not_quite.html" },
   { title: "Walking in Love", file: "debating_arguing_discussing_and_disagreeing_midrash.html" },
@@ -27,9 +30,7 @@ const ARTICLES = [
   { title: "Torah Commandments- A List", file: "torah_commandments.html" },
   { title: "The Story", file: "the_story.html" },
   { title: "Understanding Denominations for Unity Sake", file: "understanding_denominations.html" },
-  { title: "Where Did the Sabbath Go?", file: "where_did_the_sabbath_go.html" },
   { title: "Who is Q for Christians?", file: "who_is_q_for_christians.html" },
-  { title: "Hanukkah, and What I Believe", file: "a_note_on_trust.html" },
   { title: "Who is Jesus?", file: "who_is_jesus.html" }
 
 ];
