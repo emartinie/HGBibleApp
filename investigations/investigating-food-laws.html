@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A HomeGroups investigation into clean and unclean food, Torah, Yeshua, Acts, Paul, Jewish practice, Gentile inclusion, conscience, and fellowship." />
+  <meta name="author" content="Eddie Martinie" />
+  <title>What Does the Text Say About Clean and Unclean Food? | HomeGroups</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071019;
+      --panel: rgba(15, 27, 40, .86);
+      --panel-2: rgba(20, 38, 54, .76);
+      --line: rgba(148, 163, 184, .22);
+      --text: #e7eef7;
+      --muted: #a7b4c4;
+      --gold: #f2c66d;
+      --cyan: #78d8e8;
+      --green: #8ad3a8;
+      --red: #f59a9a;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .36);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% -10%, rgba(35, 116, 146, .24), transparent 35%),
+        radial-gradient(circle at 85% 10%, rgba(126, 91, 26, .22), transparent 32%),
+        linear-gradient(180deg, #071019 0%, #05090e 100%);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: var(--cyan); }
+    a:hover { color: #b7f4ff; }
+
+    .article-shell {
+      width: min(1040px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: clamp(28px, 6vw, 68px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(4, 10, 16, .14), rgba(4, 10, 16, .9)),
+        radial-gradient(circle at 50% 18%, rgba(120, 216, 232, .16), transparent 38%),
+        radial-gradient(circle at 50% 72%, rgba(242, 198, 109, .12), transparent 34%),
+        linear-gradient(135deg, #102a3a, #0a1620 54%, #2a2415);
+    }
+
+    .hero::before {
+      content: "אמת";
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      color: rgba(255,255,255,.045);
+      font: 700 clamp(130px, 25vw, 260px)/1 serif;
+      pointer-events: none;
+    }
+
+    .hero > div {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 8px auto 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.35rem, 7vw, 5.2rem);
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+
+    .dek {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #d6e0eb;
+      font-size: clamp(1rem, 2.2vw, 1.24rem);
+    }
+
+    .question {
+      max-width: 760px;
+      margin: 22px auto 0;
+      padding-left: 18px;
+      border-left: 3px solid var(--gold);
+      color: #fff4cf;
+      font: italic 1.05rem/1.6 Georgia, serif;
+      text-align: left;
+    }
+
+    .notice,
+    .section,
+    .evidence-card,
+    details {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 12px 35px rgba(0,0,0,.20);
+      backdrop-filter: blur(10px);
+    }
+
+    .notice {
+      margin: 18px 0 28px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .notice strong { color: var(--text); }
+
+    .section {
+      margin-top: 22px;
+      padding: clamp(22px, 4vw, 42px);
+      border-radius: var(--radius);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 4vw, 2.5rem);
+      line-height: 1.16;
+    }
+
+    h3 { margin: 0 0 6px; }
+    p { margin: 0 0 1rem; }
+
+    .lead { color: #d6e0ea; font-size: 1.04rem; }
+    .muted { color: var(--muted); }
+
+    .lens-grid,
+    .evidence-grid,
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lens-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .evidence-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+    .lens,
+    .evidence-card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .lens {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+
+    .lens-label,
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .lens-label { color: #071019; background: var(--gold); }
+    .status.primary { background: rgba(120,216,232,.16); color: #bdf5ff; }
+    .status.official { background: rgba(138,211,168,.17); color: #c8f7da; }
+    .status.review { background: rgba(245,154,154,.15); color: #ffc5c5; }
+
+    .timeline {
+      grid-template-columns: 1fr;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 16px 18px 16px 56px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-2);
+    }
+
+    .timeline-item::before {
+      content: attr(data-era);
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #12100a;
+      font-size: .7rem;
+      font-weight: 900;
+    }
+
+    details {
+      margin-top: 12px;
+      border-radius: 15px;
+      overflow: clip;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      color: var(--gold);
+      font-weight: 800;
+      list-style-position: inside;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: rgba(242,198,109,.055);
+    }
+
+    .details-body { padding: 17px 18px 20px; }
+
+    blockquote {
+      margin: 14px 0;
+      padding: 14px 17px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(120,216,232,.055);
+      color: #dff9ff;
+    }
+
+    .principle-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .principle-list li {
+      padding: 12px 14px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,.03);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(242,198,109,.30);
+      border-radius: 16px;
+      background: rgba(242,198,109,.07);
+    }
+
+    .assessment { border-left: 4px solid var(--green); }
+    .question-list li { margin-bottom: 9px; }
+
+    footer {
+      margin-top: 26px;
+      padding: 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 640px) {
+      .article-shell { width: min(100% - 18px, 1040px); padding-top: 10px; }
+      .hero { min-height: 330px; padding: 26px 20px; border-radius: 20px; }
+      .section { padding: 20px 17px; }
+    }
+  </style>
+</head>
+<body>
+<main class="article-shell">
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">HomeGroups Learning Investigation · Version 1</div>
+      <h1>What Does the Text Say About Clean and Unclean Food?</h1>
+      <p class="dek">
+        Did the New Testament redefine the animals Torah calls clean and unclean,
+        or did it address different questions about purity, Gentile inclusion,
+        idol food, conscience, and fellowship?
+      </p>
+      <p class="question">
+        What does the text require us to affirm, and where does it leave room for faithful disagreement?
+      </p>
+    </div>
+  </header>
+
+  <aside class="notice">
+    <strong>Editorial note:</strong>
+    This investigation distinguishes textual evidence, historical setting, grammatical possibilities,
+    covenant questions, and later interpretation. It does not assume that every passage about food
+    is answering the same question. The goal is not to force agreement, but to examine the evidence
+    carefully enough that conviction and fellowship can both remain honest.
+  </aside>
+
+  <section class="section">
+    <span class="lens-label">The central question</span>
+    <h2>1. A Small Meal and a Larger Question</h2>
+    
+<h2>A Small Meal and a Larger Question</h2>
+<p>
+      A meal with someone I love reopened a question I have studied for years. The food itself was not worth an argument. The larger question was: what if I have misunderstood the text?
+    </p>
+<p>
+      I am not asking whether I can prove another denomination wrong. I am asking what reading best accounts for the Torah, the words of Yeshua, the practice of the earliest Jewish believers, the reception of Gentiles, and the language Paul actually used.
+    </p>
+<blockquote>
+      What does the text require me to affirm, and where does it leave room for faithful disagreement?
+    </blockquote>
+<p>
+      Strictly speaking, this is more a question of exegesis than textual criticism. The central phrases are present in our manuscripts. The dispute concerns grammar, context, audience, and how several passages fit together.
+    </p>
+
+  </section>
+
+  <section class="section">
+    <span class="status primary">Investigation framework</span>
+    <h2>2. Three Questions That Must Remain Separate</h2>
+    
+<h2>Three Questions That Must Remain Separate</h2>
+<ol class="confidence-list">
+<li><strong>Classification:</strong> Does Scripture continue to distinguish clean and unclean creatures?</li>
+<li><strong>Obligation:</strong> Which covenant communities are commanded to observe those distinctions as dietary boundaries?</li>
+<li><strong>Fellowship:</strong> May food be used to judge, exclude, or despise another follower of Messiah?</li>
+</ol>
+<p>
+      A passage may answer one of these questions without answering all three. Much of the confusion begins when an argument about table fellowship is treated as a reclassification of animals, or when a Torah classification is assumed to settle every question about Gentile covenant obligation.
+    </p>
+
+    <div class="lens-grid">
+      <article class="lens">
+        <span class="lens-label">Classification</span>
+        <h3>Which creatures does Scripture call clean or unclean?</h3>
+        <p class="muted">This is a textual and covenantal classification question.</p>
+      </article>
+      <article class="lens">
+        <span class="lens-label">Obligation</span>
+        <h3>Who is commanded to live by those distinctions?</h3>
+        <p class="muted">This is a covenant, audience, and community question.</p>
+      </article>
+      <article class="lens">
+        <span class="lens-label">Fellowship</span>
+        <h3>May food be used to judge or exclude another believer?</h3>
+        <p class="muted">This is a discipleship, conscience, and community question.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Language evidence</span>
+    <h2>3. Words That Narrow the Debate</h2>
+    
+<h2>Words That Narrow the Debate</h2>
+<div class="term-grid">
+<div class="term">
+<strong>koinos</strong>
+        Common, profane, or treated as ritually defiled.
+      </div>
+<div class="term">
+<strong>akathartos</strong>
+        Unclean. Acts 10 uses this alongside <em>koinos</em>.
+      </div>
+<div class="term">
+<strong>katharizo</strong>
+        To cleanse or make clean.
+      </div>
+<div class="term">
+<strong>broma</strong>
+        Food or that which is eaten.
+      </div>
+</div>
+<p>
+      No single Greek word says, "Shrimp is now clean." The vocabulary helps us identify the question a passage is addressing, but vocabulary cannot replace context.
+    </p>
+
+    <div class="callout">
+      <strong>Interpretive caution:</strong>
+      Vocabulary can narrow the question, but no Greek word should be made to carry an argument
+      that the surrounding context does not support.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Scripture foundation</span>
+    <h2>4. The Torah Foundation</h2>
+    
+<h2>The Torah Foundation</h2>
+<p>
+      Leviticus 11 and Deuteronomy 14 plainly distinguish creatures Israel may eat from those Israel may not eat. Water creatures require fins and scales. Shrimp therefore falls outside the permitted category.
+    </p>
+<p>
+      It is also important not to confuse every form of impurity with moral wickedness. Childbirth, menstruation, and contact with a corpse can produce ritual impurity without constituting moral rebellion. Yet eating a prohibited creature is not merely an accidental state of impurity. For someone obligated to the command, intentionally violating it would be disobedience. The prior question is: who is obligated?
+    </p>
+<p>
+      The Torah addresses Israel directly. It also gives certain food and blood requirements to resident aliens in particular contexts. We should therefore resist two easy claims: that every detail of Israel's dietary system is explicitly imposed on every nation, or that Gentiles living among Israel had no food-related obligations at all.
+    </p>
+<p>
+      Genesis adds another layer. Clean and unclean animals are distinguished before Sinai, while Genesis 9 gives Noah a broad grant of animal food and explicitly prohibits consuming blood. The distinction is ancient, but the text still requires careful work before turning Israel's complete dietary instruction into a universal command.
+    </p>
+
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status primary">Explicit Scripture</span>
+        <h3>Leviticus 11 and Deuteronomy 14</h3>
+        <p>Israel receives a clear distinction between creatures that may be eaten and those that may not.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status official">Earlier biblical context</span>
+        <h3>Genesis before Sinai</h3>
+        <p>Clean and unclean animals are distinguished before Sinai, while Genesis 9 gives Noah a broad grant of animal food and prohibits blood.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Question requiring interpretation</span>
+        <h3>Scope of obligation</h3>
+        <p>The Torah directly addresses Israel. The extent to which its complete dietary system binds Gentile believers remains disputed.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Contested passage</span>
+    <h2>5. Mark 7: The Strongest Text for Change</h2>
+    
+<h2>Mark 7: The Strongest Text for Change</h2>
+<p>
+      The controversy in Mark 7 begins with disciples eating bread with ritually unwashed hands. Yeshua teaches that what enters from outside does not defile the heart; evil proceeds from within.
+    </p>
+<p>
+      Mark 7:19 contains the genuine Greek phrase <em>katharizon panta ta bromata</em>, commonly rendered "cleansing all foods" or, as an editorial explanation, "thus he declared all foods clean." The words were not invented by an English translator. The question is what the phrase modifies and what "all foods" includes.
+    </p>
+<p>
+      Matthew's parallel ends more narrowly: eating with unwashed hands does not defile a person. That context supports the reading that Yeshua is rejecting purity claims attached to human handwashing traditions, not announcing a new list of edible species.
+    </p>
+<p>
+      Even so, Mark's wording is broad. A responsible Torah-observant reading should acknowledge that the traditional Christian interpretation is grammatically possible. A responsible mainstream reading should acknowledge that pigs and shellfish were not the dispute placed before Yeshua.
+    </p>
+
+    <details>
+      <summary>Reading A: Yeshua declared all foods clean</summary>
+      <div class="details-body">
+        <p>
+          Many Christian interpreters understand Mark's phrase as an editorial conclusion:
+          Yeshua's teaching removed prior food distinctions for his followers.
+          The grammar permits this reading, and it should not be dismissed as though it were invented by translators.
+        </p>
+      </div>
+    </details>
+    <details>
+      <summary>Reading B: The dispute concerns handwashing and defilement</summary>
+      <div class="details-body">
+        <p>
+          The immediate controversy concerns eating bread with ritually unwashed hands.
+          Matthew's parallel closes by saying that eating with unwashed hands does not defile a person.
+          On this reading, Yeshua rejects human purity traditions rather than redefining edible species.
+        </p>
+      </div>
+    </details>
+  </section>
+
+  <section class="section">
+    <span class="status official">Narrative evidence</span>
+    <h2>6. Acts 10: Animals in the Vision, People in the Interpretation</h2>
+    
+<h2>Acts 10: Animals in the Vision, People in the Interpretation</h2>
+<p>
+      Peter sees a sheet containing animals and hears a command to kill and eat. He responds that he has never eaten anything <em>koinos</em> or <em>akathartos</em> - common or unclean. This occurs after Yeshua's resurrection and shows that Peter had not understood Mark 7 as a command to abandon Jewish dietary practice.
+    </p>
+<p>
+      Luke then records Peter's own application: God showed him not to call any person common or unclean. The immediate purpose of the vision is the reception of Cornelius and other Gentiles.
+    </p>
+<p>
+      That interpretation prevents us from using Acts 10 as though Peter simply announced a revised menu. It does not prove the vision has no secondary food implication, but the human application is explicit while a permanent reclassification of animals is not.
+    </p>
+
+    <div class="callout assessment">
+      <strong>Current assessment:</strong>
+      The human application is explicit: Peter says God taught him not to call any person common or unclean.
+      A permanent reclassification of animals is not stated with the same explicitness.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Gentile inclusion</span>
+    <h2>7. Acts 15: What Was Required of Gentiles?</h2>
+    
+<h2>Acts 15: What Was Required of Gentiles?</h2>
+<p>
+      Acts 15 answers a crisis over whether Gentile believers must be circumcised and take on the law of Moses as a condition of inclusion. The council refuses to make full proselyte conversion the doorway into Messiah's community.
+    </p>
+<p>
+      Gentile believers are instructed to abstain from idolatrous pollution, sexual immorality, blood, and what is strangled. The chapter then observes that Moses is read in the synagogues every Sabbath.
+    </p>
+<p>That final observation has produced three serious readings:</p>
+<ul class="confidence-list">
+<li><strong>Complete expectation:</strong> the decree states the enduring requirements needed for mixed Jewish-Gentile fellowship.</li>
+<li><strong>Starting point:</strong> the decree gives converts an immediate beginning while continued exposure to Moses supplies further instruction.</li>
+<li><strong>Mediating reading:</strong> the council resolves the immediate crisis without defining every later expression of Gentile Torah practice.</li>
+</ul>
+<p>
+      The text does not explicitly call the four requirements temporary. It also does not explicitly describe them as the first four lessons in a required program of complete Torah observance. Acts 15 therefore does not plainly impose Israel's whole dietary system on Gentiles, but neither does it make food morally irrelevant.
+    </p>
+
+    <div class="timeline">
+      <article class="timeline-item" data-era="A">
+        <h3>Complete expectation</h3>
+        <p class="muted">The decree gives the enduring requirements needed for mixed Jewish-Gentile fellowship.</p>
+      </article>
+      <article class="timeline-item" data-era="B">
+        <h3>Starting point</h3>
+        <p class="muted">The decree gives converts an immediate beginning, while continued exposure to Moses supplies further instruction.</p>
+      </article>
+      <article class="timeline-item" data-era="C">
+        <h3>Mediating reading</h3>
+        <p class="muted">The council resolves the immediate crisis without defining every later expression of Gentile Torah practice.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Pauline evidence</span>
+    <h2>8. Paul: Food, Conscience, and the Other Person</h2>
+    
+<h2>Paul: Food, Conscience, and the Other Person</h2>
+<p>
+      Paul must be read inside the Jewish and Gentile world explored in the study of Rav Shaul. His food discussions usually concern idol offerings, mixed-community fellowship, asceticism, or conscience. Those settings matter.
+    </p>
+<p>
+      Romans 14 begins with one person eating everything and another eating vegetables. In verse 14 Paul uses <em>koinos</em>, "common," rather than <em>akathartos</em>, the ordinary word for an unclean creature. Yet verse 20 also says that all things are clean. This is strong language for Christian liberty, but Paul's pastoral command is equally strong: do not destroy God's work for the sake of food.
+    </p>
+<p>
+      First Corinthians 8-10 concerns idol food. Paul tells believers to eat what is sold in the market without conducting a conscience investigation, while also refusing food when eating would participate in idolatry or harm another person's conscience. This is broader than a discussion of kosher certification, but it still does not explicitly redefine Leviticus 11.
+    </p>
+<p>
+      First Timothy 4 rejects teachers who forbid foods God created to be received with thanksgiving. The passage can be read broadly as permission for every creature, or more narrowly as referring to things Scripture already recognizes as food. The broader reading is natural and should not be dismissed; the narrower reading remains possible because the food is said to be sanctified by God's word and prayer.
+    </p>
+
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status primary">Romans 14</span>
+        <h3>Conscience and fellowship</h3>
+        <p>Paul's pastoral emphasis is that food must not destroy another person or the work of God.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status official">1 Corinthians 8–10</span>
+        <h3>Idol food and participation</h3>
+        <p>The issue includes idolatry, marketplace meat, conscience, and the spiritual meaning of participation.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">1 Timothy 4</span>
+        <h3>Foods created to be received</h3>
+        <p>The broader and narrower readings both require attention to the phrase “sanctified by God's word and prayer.”</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Community distinction</span>
+    <h2>9. Jewish and Gentile Practice Are Not Identical Questions</h2>
+    
+<h2>Jewish and Gentile Practice Are Not Identical Questions</h2>
+<p>
+      The New Testament never commands Jewish followers of Yeshua to abandon Jewish dietary practice. Peter's testimony in Acts 10 and the Torah-observant Jewish believers in Acts 21 make continued Jewish practice unsurprising. Acts 21 also repeats the separate ruling previously given to Gentile believers.
+    </p>
+<p>
+      This does not prove that every Jewish believer practiced identically or that no Jewish believer ever changed. It does establish something more modest and more defensible: the apostolic writings can depict Jewish Torah observance as compatible with faith in Messiah while declining to require Gentiles to become Jews as the condition of belonging.
+    </p>
+
+    <div class="callout">
+      <strong>Important distinction:</strong>
+      The apostolic writings can depict Jewish Torah observance as compatible with faith in Messiah
+      while declining to require Gentiles to become Jews as the condition of belonging.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">Current assessment</span>
+    <h2>10. My Textual Conclusion</h2>
+    
+<h2>My Textual Conclusion</h2>
+<p>These are the conclusions I can presently hold with the greatest confidence:</p>
+<ul class="confidence-list">
+<li>The Torah plainly distinguishes clean and unclean creatures for Israel.</li>
+<li>The New Testament contains no direct sentence saying that formerly unclean species have been reclassified as clean.</li>
+<li>Mark 7, Romans 14, 1 Corinthians 10, and 1 Timothy 4 provide a substantial textual basis for Christian food liberty.</li>
+<li>Acts 10 explicitly applies its clean-and-unclean lesson to people and Gentile inclusion.</li>
+<li>The New Testament does not command Jewish believers to abandon Jewish dietary practice.</li>
+<li>Acts 15 does not explicitly require Gentile believers to adopt Israel's complete dietary system.</li>
+<li>Food cannot become the measure of salvation, superiority, or membership in Messiah's family.</li>
+</ul>
+<p>
+      My judgment is therefore narrower than either slogan. I do not believe the text plainly says, "Pigs and shrimp are now clean animals." I also do not believe the text plainly authorizes me to bind complete kashrut upon every Gentile believer as a condition of faithfulness.
+    </p>
+<p>
+      Voluntary abstention can be a faithful expression of conviction, wisdom, solidarity, or covenant identity. Christian liberty can also be defended from the text. Both positions become unfaithful when food is used to despise, control, or exclude someone whom God has welcomed.
+    </p>
+
+  </section>
+
+  <section class="section">
+    <span class="status official">Discipleship application</span>
+    <h2>11. Do Not Give Food More Authority Than Love</h2>
+    
+<h2>Do Not Give Food More Authority Than Love</h2>
+<p>
+      Romans 14 does not need to settle every lexical question about shellfish in order to govern how believers treat one another. The eater must not despise the abstainer. The abstainer must not judge the eater. Each person must act from faith, pursue peace, and refuse to injure another person for the sake of food.
+    </p>
+<blockquote>
+      I can remain faithful to my conviction while making it unmistakable that fellowship matters more than controlling another person's plate.
+    </blockquote>
+<p>
+      "What if I am wrong?" is a healthy question. It becomes even healthier when joined to another: "Where has the text given me enough certainty to obey, and where must I leave room for another servant of God to answer to the same Master?"
+    </p>
+
+    <div class="callout assessment">
+      <strong>Formation principle:</strong>
+      Conviction is not permission to despise.
+      Liberty is not permission to wound.
+      Fellowship must not be built on pretending the text is clearer than it is.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Questions Still Open</span>
+    <h2>Questions Still Open</h2>
+    
+<h2>Questions for Reflection and Discussion</h2>
+<ol class="confidence-list">
+<li>Which passages address animal classification, and which address fellowship or conscience?</li>
+<li>What does Peter's continued practice in Acts 10 contribute to the interpretation of Mark 7?</li>
+<li>What can Acts 15 establish explicitly, and what conclusions remain interpretive?</li>
+<li>How should Jewish and Gentile identity affect the way this question is framed?</li>
+<li>Have I ever allowed a food conviction to become a measure of another person's standing before God?</li>
+<li>What would it look like to preserve conviction and fellowship at the same table?</li>
+</ol>
+
+    <ol class="question-list">
+      <li>Does Mark 7 reclassify animals, or does it address purity attached to unwashed hands?</li>
+      <li>Does Acts 10 carry a secondary food implication beyond Peter's explicit interpretation concerning people?</li>
+      <li>Does Acts 15 provide complete Gentile requirements, a beginning curriculum, or a settlement limited to the immediate crisis?</li>
+      <li>How should the word <em>koinos</em> in Romans 14 affect the interpretation of Paul's claim that all things are clean?</li>
+      <li>Does 1 Timothy 4 refer to every creature as food, or to foods already sanctified by Scripture?</li>
+      <li>What continuing role do Jewish covenant identity and practice have among Jewish followers of Yeshua?</li>
+      <li>How can believers hold dietary conviction without making food a measure of salvation, superiority, or fellowship?</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Primary texts</span>
+    <h2>Evidence for Continued Study</h2>
+    
+<h2>Primary Texts for Continued Study</h2>
+<p>
+<a href="https://www.biblegateway.com/passage/?search=Leviticus%2011%3BDeuteronomy%2014&amp;version=NRSVUE" rel="noopener noreferrer" target="_blank">Leviticus 11 and Deuteronomy 14</a> |
+      <a href="https://www.biblegateway.com/passage/?search=Mark%207%3A1-23%3BMatthew%2015%3A1-20&amp;version=NRSVUE" rel="noopener noreferrer" target="_blank">Mark 7 and Matthew 15</a> |
+      <a href="https://www.biblegateway.com/passage/?search=Acts%2010%3A9-35%3BActs%2015%3A1-29%3BActs%2021%3A17-26&amp;version=NRSVUE" rel="noopener noreferrer" target="_blank">Acts 10, 15, and 21</a> |
+      <a href="https://www.biblegateway.com/passage/?search=Romans%2014%3B1%20Corinthians%208%3B1%20Corinthians%2010%3A14-33%3B1%20Timothy%204%3A1-5&amp;version=NRSVUE" rel="noopener noreferrer" target="_blank">Paul's food passages</a>
+</p>
+
+    <p class="muted">
+      These texts should be read in full, compared across translations, and examined in their literary,
+      covenantal, and historical contexts.
+    </p>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">The HomeGroups invitation</span>
+    <h2>12. Investigate the text without sacrificing the table</h2>
+    <p class="lead">
+      Bring the Torah. Bring the words of Yeshua. Bring Acts. Bring Paul.
+      Bring the Greek vocabulary, the historical questions, and the traditions that have shaped us.
+    </p>
+    <div class="callout assessment">
+      Bring your convictions.<br />
+      Bring your questions.<br />
+      Bring your willingness to be corrected.<br />
+      Bring your commitment not to despise the eater or judge the abstainer.<br /><br />
+      <strong>Let us investigate together.</strong>
+    </div>
+  </section>
+
+  <footer>
+    HomeGroups.org · Scripture, evidence, clarity, and honest investigation.<br />
+    HomeGroups Learning Investigation · “What Does the Text Say About Clean and Unclean Food?” · Version 1<br />
+    Eddie Martinie
+  </footer>
+
+</main>
+</body>
+</html>
