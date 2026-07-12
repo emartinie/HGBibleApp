@@ -62,6 +62,7 @@ console.log("APP JS RUN ID:", Date.now());
 
   const CARD_LIFECYCLE = {
     articles: { init: "initArticlesCard", cleanup: "destroyArticlesCard" },
+    investigations: { init: "initInvestigationsCard", cleanup: "destroyInvestigationsCard" },
     beready: { init: "initBeReadyCard" },
     calendar: { init: "initCalendarCard", cleanup: "destroyCalendarCard" },
     commandments: { init: "initCommandmentsCard", cleanup: "destroyCommandmentsCard" },
