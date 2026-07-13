@@ -75,7 +75,7 @@
         { title: "Hour 21", youtubeId: "qgv9-TN9F38" },
         { title: "Hour 22", youtubeId: "rB5tho_piro" },
         { title: "Hour 23", youtubeId: "kmBLLg_z_Wk" },
-        { title: "Hour 24", youtubeId: "cM72PmSIURc" }
+        { title: "There is a creator-Hour 1", youtubeId: "_fG7KsbPqJc" },
       ]
     },
     { id: "teacher-03", enabled: false, placeholder: true },
