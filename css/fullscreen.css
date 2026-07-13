@@ -579,3 +579,47 @@ body.has-fullscreen-card {
   color: #94a3b8;
 }
 
+.card-toolbar-shell{
+    position:relative;
+    display:flex;
+    justify-content:flex-end;
+    margin-bottom:.5rem;
+}
+
+.toolbar-handle{
+    opacity:.45;
+    transition:.25s;
+    cursor:pointer;
+}
+
+.card-toolbar{
+    position:absolute;
+    top:100%;
+    right:0;
+
+    display:flex;
+    gap:.35rem;
+
+    opacity:0;
+    transform:translateY(-8px);
+    pointer-events:none;
+
+    transition:
+        opacity .18s ease,
+        transform .18s ease;
+
+    z-index:100;
+}
+
+.card-toolbar-shell:hover .card-toolbar,
+.card-toolbar-shell:focus-within .card-toolbar{
+
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+}
+
+.card-toolbar-shell:hover .toolbar-handle{
+    opacity:1;
+}
+
