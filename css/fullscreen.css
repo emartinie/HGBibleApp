@@ -622,4 +622,7 @@ body.has-fullscreen-card {
 .card-toolbar-shell:hover .toolbar-handle{
     opacity:1;
 }
-
+/* Release 1: hide unfinished per-card toolbar without removing its markup. */
+.card-topbar {
+  display: none !important;
+}
