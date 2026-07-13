@@ -138,22 +138,72 @@ function wireCardNavButtons() {
     swipeBound = true;
 
     let startX = 0;
+    let startY = 0;
     let deltaX = 0;
+    let deltaY = 0;
+    let swipeIgnored = false;
+
+    function shouldIgnoreSelectorSwipe(target) {
+      if (!(target instanceof Element)) return false;
+
+      if (target.closest(
+        'a, button, input, select, textarea, summary, [contenteditable="true"], [role="slider"], [data-swipe-nav="ignore"]'
+      )) {
+        return true;
+      }
+
+      let node = target;
+      while (node && node !== cardsRow) {
+        const style = window.getComputedStyle(node);
+        const canScrollHorizontally =
+          node.scrollWidth > node.clientWidth + 1 &&
+          /auto|scroll/.test(style.overflowX);
+
+        if (canScrollHorizontally) return true;
+        node = node.parentElement;
+      }
+
+      return false;
+    }
 
     cardsRow.addEventListener("touchstart", (e) => {
+      swipeIgnored = e.touches.length !== 1 || shouldIgnoreSelectorSwipe(e.target);
+      if (swipeIgnored) return;
+
       startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
       deltaX = 0;
+      deltaY = 0;
     }, { passive: true });
 
     cardsRow.addEventListener("touchmove", (e) => {
+      if (swipeIgnored || e.touches.length !== 1) return;
+
       deltaX = e.touches[0].clientX - startX;
-    }, { passive: true });
+      deltaY = e.touches[0].clientY - startY;
+
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        e.preventDefault();
+      }
+    }, { passive: false });
 
     cardsRow.addEventListener("touchend", () => {
-      if (Math.abs(deltaX) < 50) return;
-      if (deltaX < 0) nextCard();
-      else prevCard();
+      if (swipeIgnored) return;
+
+      const horizontalDistance = Math.abs(deltaX);
+      const verticalDistance = Math.abs(deltaY);
+
+      if (horizontalDistance < 60) return;
+      if (horizontalDistance <= verticalDistance * 1.25) return;
+
+      stepCardSelector(deltaX < 0 ? 1 : -1);
     });
+
+    cardsRow.addEventListener("touchcancel", () => {
+      swipeIgnored = true;
+      deltaX = 0;
+      deltaY = 0;
+    }, { passive: true });
   }
 
 let keyboardBound = false;
@@ -325,6 +375,16 @@ function cleanupActiveCard() {
   async function loadCard(cardName) {
     refreshDomRefs();
     if (!loadedCardHost || !cardName) return;
+
+    if (cardSelector) {
+      const matchingOption = Array.from(cardSelector.options)
+        .find(option => option.value === cardName);
+
+      if (matchingOption) {
+        cardSelector.value = cardName;
+      }
+    }
+
     const requestId = ++loadCardRequestId;
     console.log("[CARD] render entry", { cardName, requestId });
 
