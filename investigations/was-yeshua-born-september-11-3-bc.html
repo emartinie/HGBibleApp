@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A HomeGroups investigation into whether Yeshua was born on September 11, 3 BC, and what the biblical, historical, chronological, and astronomical evidence can actually establish." />
+  <meta name="author" content="Eddie Martinie" />
+  <title>Was Yeshua Born on September 11, 3 BC? | HomeGroups Investigation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071019;
+      --panel: rgba(15, 27, 40, .86);
+      --panel-2: rgba(20, 38, 54, .76);
+      --line: rgba(148, 163, 184, .22);
+      --text: #e7eef7;
+      --muted: #a7b4c4;
+      --gold: #f2c66d;
+      --cyan: #78d8e8;
+      --green: #8ad3a8;
+      --red: #f59a9a;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .36);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% -10%, rgba(35, 116, 146, .24), transparent 35%),
+        radial-gradient(circle at 85% 10%, rgba(126, 91, 26, .22), transparent 32%),
+        linear-gradient(180deg, #071019 0%, #05090e 100%);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: var(--cyan); }
+    a:hover { color: #b7f4ff; }
+
+    .article-shell {
+      width: min(1040px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: clamp(28px, 6vw, 68px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(4, 10, 16, .14), rgba(4, 10, 16, .9)),
+        radial-gradient(circle at 50% 18%, rgba(120, 216, 232, .16), transparent 38%),
+        radial-gradient(circle at 50% 72%, rgba(242, 198, 109, .12), transparent 34%),
+        linear-gradient(135deg, #102a3a, #0a1620 54%, #2a2415);
+    }
+
+    .hero::before {
+      content: "✦";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: rgba(255,255,255,.045);
+      font: 700 clamp(180px, 32vw, 360px)/1 Georgia, serif;
+      pointer-events: none;
+    }
+
+    .hero > div {
+      position: relative;
+      z-index: 1;
+      max-width: 880px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 920px;
+      margin: 8px auto 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.35rem, 7vw, 5.2rem);
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+
+    .dek {
+      max-width: 780px;
+      margin: 0 auto;
+      color: #d6e0eb;
+      font-size: clamp(1rem, 2.2vw, 1.24rem);
+    }
+
+    .question {
+      max-width: 790px;
+      margin: 22px auto 0;
+      padding-left: 18px;
+      border-left: 3px solid var(--gold);
+      color: #fff4cf;
+      font: italic 1.05rem/1.6 Georgia, serif;
+      text-align: left;
+    }
+
+    .notice,
+    .section,
+    .evidence-card,
+    details {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 12px 35px rgba(0,0,0,.20);
+      backdrop-filter: blur(10px);
+    }
+
+    .notice {
+      margin: 18px 0 28px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .notice strong { color: var(--text); }
+
+    .section {
+      margin-top: 22px;
+      padding: clamp(22px, 4vw, 42px);
+      border-radius: var(--radius);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 4vw, 2.5rem);
+      line-height: 1.16;
+    }
+
+    h3 { margin: 0 0 6px; }
+    p { margin: 0 0 1rem; }
+
+    .lead { color: #d6e0ea; font-size: 1.04rem; }
+    .muted { color: var(--muted); }
+
+    .lens-grid,
+    .evidence-grid,
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lens-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .evidence-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+    .lens,
+    .evidence-card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .lens {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+
+    .lens-label,
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .lens-label { color: #071019; background: var(--gold); }
+    .status.primary { background: rgba(120,216,232,.16); color: #bdf5ff; }
+    .status.official { background: rgba(138,211,168,.17); color: #c8f7da; }
+    .status.review { background: rgba(245,154,154,.15); color: #ffc5c5; }
+
+    .timeline {
+      grid-template-columns: 1fr;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 16px 18px 16px 62px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-2);
+    }
+
+    .timeline-item::before {
+      content: attr(data-era);
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #12100a;
+      font-size: .68rem;
+      font-weight: 900;
+    }
+
+    details {
+      margin-top: 12px;
+      border-radius: 15px;
+      overflow: clip;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      color: var(--gold);
+      font-weight: 800;
+      list-style-position: inside;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: rgba(242,198,109,.055);
+    }
+
+    .details-body { padding: 17px 18px 20px; }
+
+    blockquote {
+      margin: 14px 0;
+      padding: 14px 17px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(120,216,232,.055);
+      color: #dff9ff;
+    }
+
+    .principle-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .principle-list li {
+      padding: 12px 14px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,.03);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(242,198,109,.30);
+      border-radius: 16px;
+      background: rgba(242,198,109,.07);
+    }
+
+    .assessment { border-left: 4px solid var(--green); }
+    .question-list li { margin-bottom: 9px; }
+
+    .evidence-table {
+      width: 100%;
+      margin-top: 16px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .evidence-table th {
+      background: rgba(242,198,109,.09);
+      color: #fff0c8;
+      font-size: .82rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .dependency {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .dependency > div {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-2);
+    }
+
+    footer {
+      margin-top: 26px;
+      padding: 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 640px) {
+      .article-shell { width: min(100% - 18px, 1040px); padding-top: 10px; }
+      .hero { min-height: 330px; padding: 26px 20px; border-radius: 20px; }
+      .section { padding: 20px 17px; }
+      .evidence-table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+<main class="article-shell">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">HomeGroups Learning Investigation · Working Evidence File</div>
+      <h1>Was Yeshua Born on September 11, 3 BC?</h1>
+      <p class="dek">
+        A careful investigation of the Gospel narratives, Herod’s chronology, the star of Bethlehem,
+        Revelation 12, and the proposed astronomical configuration.
+      </p>
+      <p class="question">
+        Does the evidence identify September 11, 3 BC—or does that date depend upon a chain of interpretations
+        that remains possible, disputed, or unproven?
+      </p>
+    </div>
+  </header>
+
+  <div class="notice">
+    <strong>Method notice:</strong> This page is an investigation, not a declaration. It distinguishes what a source says explicitly,
+    what may reasonably be inferred, what belongs to a proposed reconstruction, and what remains open.
+    A precise date will not be claimed unless the textual, historical, chronological, and astronomical evidence can carry it together.
+  </div>
+
+  <section class="section">
+    <span class="lens-label">Investigation Question</span>
+    <h2>What would have to be true?</h2>
+    <p class="lead">
+      The claim “Yeshua was born on September 11, 3 BC” is not one claim. It joins several separate questions.
+      Each must be tested on its own before the whole chronology can be assessed.
+    </p>
+    <div class="lens-grid">
+      <article class="lens">
+        <h3>The Gospel record</h3>
+        <p class="muted">What do Matthew and Luke actually say, and what chronological clues do they preserve?</p>
+      </article>
+      <article class="lens">
+        <h3>Herod’s death</h3>
+        <p class="muted">Does the surviving evidence place the death of Herod the Great in 4 BC, 1 BC, or another year?</p>
+      </article>
+      <article class="lens">
+        <h3>The star</h3>
+        <p class="muted">Was the star a conjunction, comet, nova, symbolic sign, supernatural event, or something else?</p>
+      </article>
+      <article class="lens">
+        <h3>Revelation 12</h3>
+        <p class="muted">Does the woman, child, sun, moon, and stars describe Messiah’s birth, another event, or several layers at once?</p>
+      </article>
+      <article class="lens">
+        <h3>The sky calculation</h3>
+        <p class="muted">Did the proposed arrangement of Virgo, the sun, the moon, Jupiter, Regulus, and the other bodies occur on the stated date?</p>
+      </article>
+      <article class="lens">
+        <h3>The dependency chain</h3>
+        <p class="muted">How much of the date depends on Revelation 12, and how much depends on a 1 BC death of Herod?</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Reading discipline</span>
+    <h2>Four evidence labels</h2>
+    <p class="lead">These labels prevent a plausible reconstruction from quietly becoming an explicit statement of the source.</p>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status official">Explicit</span>
+        <h3>The source states it</h3>
+        <p>Example: Matthew places Yeshua’s birth during the reign of Herod the king (Matthew 2:1).</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status primary">Inferred</span>
+        <h3>The source permits a conclusion</h3>
+        <p>Example: Herod’s order concerning boys two years old and under may imply a time range, but it does not state Yeshua’s exact age.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Proposed</span>
+        <h3>A reconstruction joins several clues</h3>
+        <p>Example: identifying Revelation 12 with a specific sky configuration and then using that configuration to select one calendar date.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Open</span>
+        <h3>The evidence has not settled it</h3>
+        <p>Example: the physical nature of the star of Bethlehem remains unidentified by the Gospel text itself.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Primary texts</span>
+    <h2>1. What Matthew and Luke actually tell us</h2>
+    <p class="lead">
+      Neither Gospel gives a calendar date for Yeshua’s birth. Both place the birth in identifiable historical settings,
+      but they preserve different details and must first be heard separately.
+    </p>
+
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status official">Matthew 1–2</span>
+        <h3>Explicit observations</h3>
+        <ul>
+          <li>Yeshua is born in Bethlehem of Judea in the days of Herod the king (Matthew 2:1).</li>
+          <li>Magi from the east report seeing “his star” and come to honor the child (Matthew 2:1–2).</li>
+          <li>Herod asks when the star appeared and later orders the death of boys two years old and under according to the time learned from the Magi (Matthew 2:7, 16).</li>
+          <li>The family flees to Egypt and returns after Herod’s death (Matthew 2:13–21).</li>
+        </ul>
+      </article>
+      <article class="evidence-card">
+        <span class="status official">Luke 1–2</span>
+        <h3>Explicit observations</h3>
+        <ul>
+          <li>The birth occurs in the reign of Caesar Augustus and is connected to a registration associated with Quirinius (Luke 2:1–2).</li>
+          <li>Joseph and Miriam travel from Nazareth to Bethlehem, where Yeshua is born (Luke 2:3–7).</li>
+          <li>Shepherds are outdoors keeping watch over their flock by night (Luke 2:8).</li>
+          <li>Yeshua is circumcised on the eighth day and later presented at the Temple according to Torah (Luke 2:21–24).</li>
+          <li>Luke 3:1 and 3:23 later place the beginning of Yeshua’s ministry in the fifteenth year of Tiberius, when he was “about thirty.”</li>
+        </ul>
+      </article>
+    </div>
+
+    <details>
+      <summary>What the Gospel texts do not state</summary>
+      <div class="details-body">
+        <ul class="principle-list">
+          <li>Neither Matthew nor Luke names a month, day, festival, season, or year for the birth.</li>
+          <li>Matthew does not identify the star as a planet, conjunction, comet, nova, or constellation.</li>
+          <li>Luke does not state how long shepherds remained in the fields during that year.</li>
+          <li>Neither Gospel connects the birth explicitly to Revelation 12.</li>
+          <li>Neither Gospel says the Magi arrived on the night of the birth.</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="callout">
+      <strong>First control:</strong> A September 11, 3 BC birth is therefore a reconstruction, not an explicit Gospel date.
+      That does not make it false. It determines what kind of claim it is and what additional evidence it must carry.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Chronological clues</span>
+    <h2>2. Which clues can constrain the date?</h2>
+    <table class="evidence-table">
+      <thead>
+        <tr>
+          <th>Clue</th>
+          <th>What is explicit</th>
+          <th>What must be inferred or reconstructed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Herod the Great</td>
+          <td>Yeshua was born before Herod’s death in Matthew’s sequence.</td>
+          <td>The calendar year of Herod’s death and the interval between the birth, the Magi, Egypt, and Herod’s death.</td>
+        </tr>
+        <tr>
+          <td>The star and Magi</td>
+          <td>The Magi saw a sign they called “his star”; Herod learned its time from them.</td>
+          <td>The object’s identity, first appearance, duration, motion, and connection to a particular astronomical event.</td>
+        </tr>
+        <tr>
+          <td>Herod’s two-year order</td>
+          <td>The order used a two-year-and-under range related to information from the Magi.</td>
+          <td>Whether the range reflects Yeshua’s age, Herod’s caution, the star’s first appearance, or some combination.</td>
+        </tr>
+        <tr>
+          <td>Augustus and Quirinius</td>
+          <td>Luke links the birth to Augustus, a registration, and Quirinius.</td>
+          <td>Which administrative event Luke means and how it fits the known Syrian and Judean chronology.</td>
+        </tr>
+        <tr>
+          <td>Tiberius and “about thirty”</td>
+          <td>Luke dates John’s activity to Tiberius’s fifteenth year and calls Yeshua “about thirty.”</td>
+          <td>How broadly to read “about,” how to count Tiberius’s years, and the interval before Yeshua’s baptism.</td>
+        </tr>
+        <tr>
+          <td>Priestly service of Zechariah</td>
+          <td>Zechariah belonged to the division of Abijah; pregnancies and births follow in Luke 1.</td>
+          <td>The division’s service date in that particular year and whether an unbroken schedule can be reconstructed.</td>
+        </tr>
+        <tr>
+          <td>Shepherds at night</td>
+          <td>Shepherds were keeping watch outdoors when the announcement came.</td>
+          <td>What months this practice allows or excludes in the Bethlehem region.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <span class="status review">Disputed chronology</span>
+    <h2>3. When did Herod the Great die?</h2>
+    <p class="lead">
+      This question is load-bearing. Matthew places the birth before Herod’s death, so a 3 BC birth requires Herod to have lived beyond 3 BC.
+    </p>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status primary">Traditional view</span>
+        <h3>Herod dies in 4 BC</h3>
+        <p>
+          This reconstruction commonly reads Josephus’s regnal notices, the succession of Herod’s sons,
+          Roman-era synchronisms, and the lunar eclipse shortly before Herod’s death together.
+          It usually identifies Josephus’s eclipse with the partial lunar eclipse of March 13, 4 BC,
+          followed by Passover and the transition to Herod’s successors.
+        </p>
+        <p class="muted">
+          If correct, Yeshua’s birth must precede 4 BC, usually producing proposals around 6–4 BC.
+        </p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Minority view</span>
+        <h3>Herod dies in 1 BC</h3>
+        <p>
+          This reconstruction questions parts of the conventional regnal-year calculation and identifies Josephus’s eclipse
+          with a later eclipse, often the one of January 10, 1 BC. It argues that the longer interval before Passover better fits
+          the many events Josephus places between the eclipse and Herod’s funeral and succession.
+        </p>
+        <p class="muted">
+          If correct, a birth in 3 or 2 BC remains chronologically possible within Matthew’s Herodian setting.
+        </p>
+      </article>
+    </div>
+
+    <details>
+      <summary>Primary evidence docket for the Herod question</summary>
+      <div class="details-body">
+        <ul class="principle-list">
+          <li><strong>Josephus, Antiquities 17:</strong> Herod’s final illness, the lunar eclipse, his death, funeral, succession, and the Passover disturbances.</li>
+          <li><strong>Josephus, Jewish War 1–2:</strong> the parallel narrative and its chronological details.</li>
+          <li><strong>Regnal evidence:</strong> coins, inscriptions, and the dated reigns of Archelaus, Antipas, and Philip.</li>
+          <li><strong>Roman chronology:</strong> events tied to Augustus, Syria, Judea, and the confirmation of Herod’s successors.</li>
+          <li><strong>Astronomical calculation:</strong> every lunar eclipse visible from Judea in the plausible date range, including magnitude, timing, visibility, and interval before Passover.</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="callout assessment">
+      <strong>No verdict entered yet:</strong> The eclipse alone cannot date Herod’s death. The strongest chronology must explain
+      Josephus’s complete sequence, the regnal evidence, the Roman synchronisms, and the available time before Passover.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Identity unresolved</span>
+    <h2>4. What was the “star of Bethlehem”?</h2>
+    <p class="lead">
+      Matthew describes the star’s significance and role in the Magi’s journey, but does not identify its physical mechanism.
+      Each proposal must explain both the astronomical evidence and Matthew’s language.
+    </p>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <h3>Planetary conjunction</h3>
+        <p>Tests whether repeated or close planetary meetings could have carried royal or Judean significance to eastern observers.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Comet</h3>
+        <p>Tests ancient records of visible comets and whether a comet fits the timing, language, and cultural meaning of Matthew’s account.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Nova or supernova</h3>
+        <p>Tests records of a new or guest star and asks whether it could remain visible long enough to fit the journey.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Planetary station or retrograde motion</h3>
+        <p>Tests whether the apparent stopping of a planet could illuminate Matthew’s statement that the star “stood over” a location.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Symbolic or literary sign</h3>
+        <p>Tests the star in relation to biblical royal imagery, Balaam’s oracle, and ancient birth narratives without assuming a recoverable object.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Miraculous or otherwise unidentified</h3>
+        <p>Allows that Matthew may describe an event that ordinary astronomical models cannot reproduce.</p>
+      </article>
+    </div>
+    <div class="callout">
+      <strong>Control question:</strong> Does a proposed object merely occur near the right period, or does it explain why the Magi read it as the birth of the king of the Jews?
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Interpretive question</span>
+    <h2>5. Does Revelation 12 describe the birth of Messiah?</h2>
+    <p class="lead">
+      Revelation 12 presents a woman clothed with the sun, the moon under her feet, a crown of twelve stars,
+      a male child destined to rule the nations, a dragon, conflict in heaven, and the woman’s flight into the wilderness.
+    </p>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status official">Textual observation</span>
+        <h3>The child is messianic</h3>
+        <p>The language of ruling the nations with a rod of iron echoes Psalm 2 and strongly identifies the child with Messiah.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status primary">Corporate symbolism</span>
+        <h3>The woman exceeds one individual</h3>
+        <p>The imagery may draw from Israel, Zion, the people of God, and Genesis 37. Miriam may be included in the birth image without exhausting the woman’s identity.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Historical layer</span>
+        <h3>Messiah’s birth may be in view</h3>
+        <p>The birth and threat from the dragon may compress Yeshua’s coming, opposition, victory, and exaltation into an apocalyptic scene.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Astronomical layer</span>
+        <h3>A sky configuration is proposed</h3>
+        <p>Some readers map the woman to Virgo and the sun, moon, and stars to an observable arrangement. Revelation itself does not supply a calendar conversion or name Virgo.</p>
+      </article>
+    </div>
+    <div class="callout assessment">
+      <strong>Working assessment:</strong> Revelation 12 can contain historical, prophetic, and symbolic dimensions at the same time.
+      Demonstrating a messianic birth layer is not yet the same as demonstrating that the vision encodes September 11, 3 BC.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Calculation required</span>
+    <h2>6. Did the proposed configuration occur on September 11, 3 BC?</h2>
+    <p class="lead">
+      This claim should be tested with a reproducible astronomical calculation, not a screenshot whose settings are unknown.
+      The civil calendar, year numbering, location, time of day, horizon, coordinate system, and visibility conditions must all be recorded.
+    </p>
+    <table class="evidence-table">
+      <thead>
+        <tr>
+          <th>Body or feature</th>
+          <th>Claim to test</th>
+          <th>Evidence required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Virgo</td>
+          <td>The woman can be represented by the constellation Virgo.</td>
+          <td>Constellation boundaries or ancient star figure used, plus the observer’s location and time.</td>
+        </tr>
+        <tr>
+          <td>Sun</td>
+          <td>The woman was “clothed with the sun.”</td>
+          <td>Solar longitude and position relative to Virgo across the proposed date window.</td>
+        </tr>
+        <tr>
+          <td>Moon</td>
+          <td>The moon was “under her feet.”</td>
+          <td>Lunar position hour by hour, including what counts as the figure’s feet and whether the moon was above the horizon.</td>
+        </tr>
+        <tr>
+          <td>Jupiter</td>
+          <td>Jupiter functioned as a royal or messianic planet and participated in the sign.</td>
+          <td>Its exact position, apparent motion, conjunctions, stations, visibility, and ancient interpretive basis.</td>
+        </tr>
+        <tr>
+          <td>Regulus</td>
+          <td>Jupiter’s relation to Regulus contributed royal symbolism.</td>
+          <td>Angular separations and dates for the full conjunction sequence, not only one selected frame.</td>
+        </tr>
+        <tr>
+          <td>Twelve-star crown</td>
+          <td>Stars and/or planets above Virgo supplied a crown of twelve.</td>
+          <td>A non-arbitrary count, with every included body named and the same counting rule applied consistently.</td>
+        </tr>
+        <tr>
+          <td>Calendar date</td>
+          <td>The configuration corresponds to September 11, 3 BC and possibly Tishri 1.</td>
+          <td>Documented conversion among astronomical year numbering, Julian dating, local sunset boundaries, and the reconstructed Hebrew calendar.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <details>
+      <summary>Minimum reproducibility record</summary>
+      <div class="details-body">
+        <ol class="question-list">
+          <li>Name and version of the astronomical software or ephemeris.</li>
+          <li>Observer location, coordinates, elevation, and local time basis.</li>
+          <li>Calendar system and treatment of the missing year zero in BC/AD notation.</li>
+          <li>Precession, atmospheric refraction, horizon, and daylight settings.</li>
+          <li>Coordinates or angular separations for each claimed body.</li>
+          <li>A date window around the proposed day to test whether the arrangement is unique.</li>
+          <li>An independent calculation using a second ephemeris or tool.</li>
+        </ol>
+      </div>
+    </details>
+
+    <div class="callout">
+      <strong>Evidence status:</strong> No astronomical verdict is entered in this first working file.
+      The configuration must be calculated, documented, and independently reproduced before it can support the date.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">Dependency test</span>
+    <h2>7. How much does the September 11 theory depend on other disputed claims?</h2>
+    <div class="dependency">
+      <div>
+        <span class="status review">Revelation 12</span>
+        <h3>Date-selection dependency</h3>
+        <p class="muted">The exact September date depends heavily on reading Revelation 12 as an observable birth configuration and mapping its imagery to particular celestial bodies.</p>
+      </div>
+      <div>
+        <span class="status review">Herod dies 1 BC</span>
+        <h3>Historical-permission dependency</h3>
+        <p class="muted">A 3 BC birth depends on Herod still being alive afterward. A 4 BC death would exclude the proposed date within Matthew’s chronology.</p>
+      </div>
+      <div>
+        <span class="status primary">Astronomical event</span>
+        <h3>Occurrence dependency</h3>
+        <p class="muted">Even a real configuration establishes that the sky looked a certain way. Additional evidence is required to identify it as the event Revelation or Matthew intended.</p>
+      </div>
+      <div>
+        <span class="status primary">Calendar conversion</span>
+        <h3>Named-date dependency</h3>
+        <p class="muted">The modern date and any identification with Tishri 1 depend on the accuracy of ancient calendar reconstruction and sunset-based day boundaries.</p>
+      </div>
+    </div>
+    <div class="callout assessment">
+      <strong>Result:</strong> The theory is cumulative. Its precision is only as strong as its weakest necessary link.
+      A piece of evidence may remain valuable even if the complete September 11 conclusion does not follow.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Evidence docket</span>
+    <h2>8. Begin with evidence—not internet opinions</h2>
+    <p class="lead">The investigation should preserve the source, the observation drawn from it, and the confidence assigned to that observation.</p>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <h3>Matthew and Luke</h3>
+        <p>Read the birth narratives in full, compare their sequence carefully, and record explicit chronological statements before harmonizing them.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Josephus</h3>
+        <p>Collect the complete final-Herod narratives in <em>Antiquities</em> and <em>Jewish War</em>, including the eclipse, illness, executions, funeral, succession, and Passover.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Roman chronology</h3>
+        <p>Collect inscriptions, coins, dated offices, and administrative records relevant to Augustus, Quirinius, Syria, Judea, and Herod’s successors.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Lunar eclipses</h3>
+        <p>Calculate all plausible eclipses visible from Judea and compare their timing with Josephus’s complete narrative.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Astronomical ephemerides</h3>
+        <p>Use documented calculations to test the sun, moon, planets, stars, conjunctions, stations, visibility, and date conversion.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Dead Sea Scroll calendars</h3>
+        <p>Use only where relevant to first-century Jewish calendar practice; do not assume a sectarian calendar governed the Gospel chronology.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Second Temple expectations</h3>
+        <p>Collect Jewish royal, messianic, celestial, and apocalyptic texts that may illuminate how signs could be understood in the period.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Early Christian writers</h3>
+        <p>Record the earliest surviving birth-date and chronology traditions, their dates, their sources, and how far removed they are from the events.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Rabbinic chronology</h3>
+        <p>Consult carefully, distinguishing the date of the recorded tradition from the date of the event it describes.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Competing Views</span>
+    <h2>9. Let each major position state its strongest case</h2>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status primary">Traditional chronology</span>
+        <h3>Birth around 6–4 BC</h3>
+        <p>
+          Herod dies in 4 BC. Matthew therefore requires a birth before that date.
+          The exact day and the physical identity of the star remain unknown.
+        </p>
+        <p class="muted"><strong>Must explain:</strong> Luke’s registration language, the full Herodian sequence, and the range of proposed earlier astronomical events.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">September 11, 3 BC chronology</span>
+        <h3>Birth on or near Tishri 1</h3>
+        <p>
+          Herod dies in 1 BC. Revelation 12 reflects an actual celestial configuration,
+          and that configuration identifies the birth date while royal planetary activity supplies wider context for the Magi.
+        </p>
+        <p class="muted"><strong>Must explain:</strong> why Revelation 12 functions as a date code, why 1 BC best fits Herod, and why the proposed sky arrangement is both accurate and historically relevant.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Spring proposals</span>
+        <h3>Passover season or pastoral setting</h3>
+        <p>These proposals emphasize shepherding conditions, lambing, Passover symbolism, priestly schedules, or alternative chronological calculations.</p>
+        <p class="muted"><strong>Must explain:</strong> the historical date range and whether the seasonal clues are firm enough to identify a month.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Sukkot proposals</span>
+        <h3>Autumn festival symbolism</h3>
+        <p>These proposals connect the incarnation with dwelling or tabernacling imagery, festival timing, priestly courses, or the crowded conditions in Bethlehem.</p>
+        <p class="muted"><strong>Must explain:</strong> whether the symbolism establishes chronology or only theological resonance.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status official">Date unknown</span>
+        <h3>The sources do not preserve enough precision</h3>
+        <p>This position accepts the historical setting of the birth narratives while concluding that the surviving evidence cannot recover an exact day.</p>
+        <p class="muted"><strong>Must explain:</strong> whether cumulative chronological and astronomical evidence can narrow the date more than the texts do explicitly.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">Current assessment</span>
+    <h2>What can be said before the evidence is collected?</h2>
+    <p class="lead">
+      September 11, 3 BC is a testable historical-astronomical proposal, but it is not a date stated by Matthew or Luke.
+      Its viability depends especially on the date of Herod’s death, the interpretation of Revelation 12,
+      a reproducible sky calculation, and the legitimacy of joining those pieces together.
+    </p>
+    <p>
+      The traditional 6–4 BC range also depends on reconstruction, especially the 4 BC Herod chronology.
+      Responsible investigation should therefore compare complete cases rather than treating either chronology as self-evident.
+    </p>
+    <div class="callout assessment">
+      <strong>Version 1 assessment:</strong> The exact date remains open. The next step is not to defend or dismiss September 11, 3 BC.
+      It is to build a transparent evidence file in which every source, calculation, inference, and dependency can be checked.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Questions Still Open</span>
+    <h2>Questions Still Open</h2>
+    <ol class="question-list">
+      <li>Is Revelation 12 intended to preserve a historical birth sign, or does it use birth imagery for a broader apocalyptic message?</li>
+      <li>Which Herod chronology best explains all of Josephus, the regnal evidence, and the Roman synchronisms?</li>
+      <li>Which lunar eclipse best fits Josephus’s narrative, and is the time between that eclipse and Passover sufficient?</li>
+      <li>Can Luke’s registration under Quirinius be placed securely within either proposed chronology?</li>
+      <li>Does Luke’s “about thirty” meaningfully favor one birth range?</li>
+      <li>Can the priestly division of Abijah be dated without assuming an unbroken schedule that the evidence does not preserve?</li>
+      <li>Did the complete claimed astronomical configuration occur on September 11, 3 BC under documented settings?</li>
+      <li>Was that configuration unique within the surrounding years, or did similar arrangements recur?</li>
+      <li>Are astronomical alignments sufficient historical evidence, or do they only establish possibility?</li>
+      <li>How much weight should Josephus carry where his regnal totals, narrative sequence, and later manuscript transmission must be reconciled?</li>
+      <li>How should ancient Jewish celestial symbolism be established without importing modern constellation interpretations?</li>
+      <li>Can multiple pieces of evidence coexist without all pointing to one exact date?</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">The HomeGroups invitation</span>
+    <h2>Bring the evidence before the conclusion</h2>
+    <p class="lead">
+      HomeGroups does not need to begin with “We have proven.” It can begin with a better question:
+      What does each source actually allow us to say?
+    </p>
+    <p>
+      Read Matthew and Luke in full. Read Josephus in context. Record the Roman dates.
+      Reproduce the eclipses and the sky configuration. Separate an ancient observation from a modern interpretation.
+      Let competing chronologies expose each other’s assumptions, and let uncertainty remain visible where the evidence remains incomplete.
+    </p>
+    <div class="callout assessment">
+      Bring the Gospels.<br />
+      Bring Josephus and the Roman chronology.<br />
+      Bring the eclipse tables and the astronomical settings.<br />
+      Bring Revelation 12 and its scriptural echoes.<br />
+      Bring the strongest case for every major view.<br /><br />
+      <strong>Let us investigate the date together.</strong>
+    </div>
+  </section>
+
+  <footer>
+    HomeGroups.org · Scripture, evidence, clarity, and honest investigation.<br />
+    HomeGroups Learning Investigation · “Was Yeshua Born on September 11, 3 BC?” · Version 1<br />
+    Eddie Martinie
+  </footer>
+</main>
+</body>
+</html>
