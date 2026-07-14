@@ -40,6 +40,10 @@
 .scripture-reader br + br {
   display: none;
 }
+
+.scripture-hide-after-load[hidden] {
+  display: none !important;
+}
 </style>
 <section class="hg-panel">
 <div class="card-topbar">
@@ -62,12 +66,11 @@
   <button class="card-icon-btn utility" title="Help">?</button>
 
 </div>
-<details class="orientation-block hg-panel hg-section p-4 my-4">
-  <summary class="cursor-pointer text-lg font-semibold text-amber-300">
-    Search the Scriptures</summary>
+<section class="orientation-block hg-panel hg-section p-4 my-4">
+  <h3 class="text-lg font-semibold text-amber-300">Search the Scriptures</h3>
   <p class="text-sm text-slate-300 mt-2">This card helps you locate passages by reference, phrase, or keyword. It exists to move you quickly from a remembered fragment or question back to the biblical text.</p>
   <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Enter one reference or a few words you remember, then search.</p>
-</details>
+</section>
 <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
 <!-- Temporary nav triage: hidden because secondary/tertiary nav controls are currently unreliable. -->
          <div class="card-topbar scripture-subnav" style="display: none;">
@@ -129,7 +132,8 @@
       <!--<h2 class="text-xl font-semibold text-orange-300">📖 Scripture</h2>-->
 
 
-       <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
+       <div class="grid gap-3 sm:grid-cols-[1fr_auto] scripture-hide-after-load"
+            data-scripture-hide-after-load>
   <div>
     <label for="scriptureSearch" class="block text-xs text-slate-400 mb-1">Type/ Paste Scripture</label>
     <input
@@ -255,7 +259,8 @@
     <button id="scriptureLoadBtn" class="ui-btn w-full" type="button">Load</button>
   </div>
 </div>
-    <div class="flex gap-2 mb-3 flex-wrap">
+    <div class="flex gap-2 mb-3 flex-wrap scripture-hide-after-load"
+         data-scripture-hide-after-load>
 
   <button class="ui-btn" onclick="goToNT()">
     ✝️ NT View
