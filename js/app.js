@@ -96,7 +96,10 @@ function refreshDomRefs() {
 // CARD NAVIGATION
 // =====================
 function getCards() {
-  return Array.from(document.querySelectorAll(".card"));
+  if (!cardsRow) return [];
+
+  return Array.from(cardsRow.children)
+    .filter(card => card.classList.contains("card"));
 }
 
 function goToCard(index) {
