@@ -6,8 +6,12 @@ const INVESTIGATIONS = [
   { title: "Was Jesus born September 11th?", file: "was-yeshua-born-september-11-3-bc.html" },
   { title: "Clean and Unclean Food?", file: "investigating-food-laws.html" },
   { title: "Did the Creator leave His fingerprint in the Torah?", file: "equidistant-letter-sequences-in-the-torah.html" },  
-  { title: "Is the Son the Father?", file: "is-the-son-the-father.html" }
-  
+  { title: "Is the Son the Father?", file: "is-the-son-the-father.html" },
+  { title: "Messiah 2030: Claims, Evidence, and Method", file: "messiah-2030-claims-evidence-and-method.html" },
+  { title: "What Should All Biblical Believers Be Called?", file: "what-should-all-biblical-believers-be-called.html" },
+  { title: "The Genesis 5 Gospel in the Names Claim", file: "genesis-5-gospel-in-the-names-claim.html" },
+  { title: "Biblical References to Non-Canonical and Lost Sources", file: "biblical-references-to-non-canonical-and-lost-sources.html" },
+  { title: "Non-Canonical Sources Quoted or Echoed in the New Testament", file: "non-canonical-sources-quoted-or-echoed-in-the-new-testament.html" },
 
 ];
 
