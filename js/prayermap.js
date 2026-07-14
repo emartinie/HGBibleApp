@@ -441,7 +441,7 @@ if (closeBtn) {
   function handleModeClick(e) {
     if (e.target?.id === "prayerMapAddBtn") {
       addMode = "prayer";
-      alert("Click map for prayer");
+      alert("Click map to add your prayer");
     }
 
     if (e.target?.id === "feastMapAddBtn") {
