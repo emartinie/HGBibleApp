@@ -5,7 +5,7 @@ const INVESTIGATIONS = [
   { title: "Who was Paul, or Rabbi Shaul?", file: "who-was-paul-or-rabbi-shaul-investigation-v1.html" },
   { title: "Was Jesus born September 11th?", file: "was-yeshua-born-september-11-3-bc.html" },
   { title: "Clean and Unclean Food?", file: "investigating-food-laws.html" },
- 
+  { title: "Did the Creator leave His fingerprint in the Torah?", file: "equidistant-letter-sequences-in-the-torah.html" },  
   { title: "Is the Son the Father?", file: "is-the-son-the-father.html" }
   
 
