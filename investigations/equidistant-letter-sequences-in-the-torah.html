@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A HomeGroups investigation into equidistant letter sequences spelling Torah and YHWH in the Masoretic Hebrew text of the Five Books of Moses." />
+  <meta name="author" content="Eddie Martinie" />
+  <title>Equidistant Letter Sequences in the Torah | HomeGroups Investigation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071019;
+      --panel: rgba(15, 27, 40, .86);
+      --panel-2: rgba(20, 38, 54, .76);
+      --line: rgba(148, 163, 184, .22);
+      --text: #e7eef7;
+      --muted: #a7b4c4;
+      --gold: #f2c66d;
+      --cyan: #78d8e8;
+      --green: #8ad3a8;
+      --red: #f59a9a;
+      --shadow: 0 18px 55px rgba(0, 0, 0, .36);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 20% -10%, rgba(35, 116, 146, .24), transparent 35%),
+        radial-gradient(circle at 85% 10%, rgba(126, 91, 26, .22), transparent 32%),
+        linear-gradient(180deg, #071019 0%, #05090e 100%);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: var(--cyan); }
+    a:hover { color: #b7f4ff; }
+
+    .article-shell {
+      width: min(1040px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: clamp(28px, 6vw, 68px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(4, 10, 16, .14), rgba(4, 10, 16, .9)),
+        radial-gradient(circle at 50% 18%, rgba(120, 216, 232, .16), transparent 38%),
+        radial-gradient(circle at 50% 72%, rgba(242, 198, 109, .12), transparent 34%),
+        linear-gradient(135deg, #102a3a, #0a1620 54%, #2a2415);
+    }
+
+    .hero::before {
+      content: "תורה";
+      position: absolute;
+      left: 50%;
+      top: 51%;
+      transform: translate(-50%, -50%);
+      color: rgba(255,255,255,.045);
+      font: 700 clamp(115px, 23vw, 240px)/1 Georgia, serif;
+      direction: rtl;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .hero > div {
+      position: relative;
+      z-index: 1;
+      max-width: 880px;
+      width: 100%;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 920px;
+      margin: 8px auto 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.35rem, 7vw, 5rem);
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+
+    .dek {
+      max-width: 780px;
+      margin: 0 auto;
+      color: #d6e0eb;
+      font-size: clamp(1rem, 2.2vw, 1.24rem);
+    }
+
+    .question {
+      max-width: 790px;
+      margin: 22px auto 0;
+      padding-left: 18px;
+      border-left: 3px solid var(--gold);
+      color: #fff4cf;
+      font: italic 1.05rem/1.6 Georgia, serif;
+      text-align: left;
+    }
+
+    .notice,
+    .section,
+    .evidence-card,
+    details {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 12px 35px rgba(0,0,0,.20);
+      backdrop-filter: blur(10px);
+    }
+
+    .notice {
+      margin: 18px 0 28px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .notice strong { color: var(--text); }
+
+    .section {
+      margin-top: 22px;
+      padding: clamp(22px, 4vw, 42px);
+      border-radius: var(--radius);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 4vw, 2.5rem);
+      line-height: 1.16;
+    }
+
+    h3 { margin: 0 0 6px; }
+    p { margin: 0 0 1rem; }
+
+    .lead { color: #d6e0ea; font-size: 1.04rem; }
+    .muted { color: var(--muted); }
+    .hebrew { direction: rtl; unicode-bidi: isolate; font-family: "Noto Sans Hebrew", Arial, sans-serif; }
+
+    .lens-grid,
+    .evidence-grid,
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lens-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .evidence-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+    .lens,
+    .evidence-card {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .lens {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+
+    .lens-label,
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      width: fit-content;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .lens-label { color: #071019; background: var(--gold); }
+    .status.primary { background: rgba(120,216,232,.16); color: #bdf5ff; }
+    .status.official { background: rgba(138,211,168,.17); color: #c8f7da; }
+    .status.review { background: rgba(245,154,154,.15); color: #ffc5c5; }
+
+    .sequence-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .sequence-card {
+      min-height: 178px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      padding: 18px 12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-2);
+      text-align: center;
+    }
+
+    .sequence-card.central {
+      border-color: rgba(242,198,109,.5);
+      background: rgba(242,198,109,.09);
+    }
+
+    .sequence-word {
+      margin: 8px 0 3px;
+      color: #fff2c7;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .sequence-arrow { color: var(--cyan); font-size: 1.55rem; line-height: 1; }
+
+    .timeline {
+      grid-template-columns: 1fr;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 16px 18px 16px 62px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-2);
+    }
+
+    .timeline-item::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #12100a;
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    details {
+      margin-top: 12px;
+      border-radius: 15px;
+      overflow: clip;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      color: var(--gold);
+      font-weight: 800;
+      list-style-position: inside;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: rgba(242,198,109,.055);
+    }
+
+    .details-body { padding: 17px 18px 20px; }
+
+    blockquote {
+      margin: 14px 0;
+      padding: 14px 17px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(120,216,232,.055);
+      color: #dff9ff;
+    }
+
+    .principle-list {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .principle-list li {
+      padding: 12px 14px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,255,255,.03);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid rgba(242,198,109,.30);
+      border-radius: 16px;
+      background: rgba(242,198,109,.07);
+    }
+
+    .assessment { border-left: 4px solid var(--green); }
+    .question-list li { margin-bottom: 9px; }
+
+    .evidence-table {
+      width: 100%;
+      margin-top: 16px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    .evidence-table th,
+    .evidence-table td {
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .evidence-table th {
+      background: rgba(242,198,109,.09);
+      color: #fff0c8;
+      font-size: .82rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .confidence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .confidence-grid > div {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-2);
+    }
+
+    footer {
+      margin-top: 26px;
+      padding: 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 760px) {
+      .sequence-grid { grid-template-columns: 1fr; }
+      .sequence-card { min-height: 136px; }
+    }
+
+    @media (max-width: 640px) {
+      .article-shell { width: min(100% - 18px, 1040px); padding-top: 10px; }
+      .hero { min-height: 330px; padding: 26px 20px; border-radius: 20px; }
+      .section { padding: 20px 17px; }
+      .evidence-table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+<main class="article-shell">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">HomeGroups Investigation · INV-00X · Working Evidence File</div>
+      <h1>Equidistant Letter Sequences in the Torah</h1>
+      <p class="dek">
+        Do the Five Books of Moses intentionally contain equal-interval sequences spelling
+        <span class="hebrew" lang="he">תורה</span> and <span class="hebrew" lang="he">יהוה</span>?
+      </p>
+      <p class="question">
+        If the patterns can be reproduced, what does that establish—and what conclusions about intention,
+        design, or origin still require separate evidence?
+      </p>
+    </div>
+  </header>
+
+  <div class="notice">
+    <strong>Method notice:</strong> This investigation separates three questions that are often collapsed:
+    whether the sequences exist in a defined text, whether they are statistically unusual, and whether they were intentionally designed.
+    A “yes” to the first question does not automatically answer the other two.
+  </div>
+
+  <section class="section">
+    <span class="lens-label">Research Question</span>
+    <h2>What exactly are we testing?</h2>
+    <p class="lead">
+      Do Genesis, Exodus, Leviticus, Numbers, and Deuteronomy contain equidistant letter sequences that spell
+      <strong class="hebrew" lang="he">תורה</strong> (Torah) and <strong class="hebrew" lang="he">יהוה</strong> (YHWH),
+      and if so, what conclusions—if any—can reasonably be drawn from those observations?
+    </p>
+    <div class="lens-grid">
+      <article class="lens">
+        <h3>Existence</h3>
+        <p class="muted">Can another investigator reproduce the same letters from the same Hebrew text using the stated start and interval?</p>
+      </article>
+      <article class="lens">
+        <h3>Text dependence</h3>
+        <p class="muted">Do spelling or manuscript differences alter any required letter position?</p>
+      </article>
+      <article class="lens">
+        <h3>Statistical significance</h3>
+        <p class="muted">How often should comparable words appear by chance when many starts, skips, directions, and words can be tested?</p>
+      </article>
+      <article class="lens">
+        <h3>Intention</h3>
+        <p class="muted">Would reproducibility and rarity be sufficient to infer deliberate literary design?</p>
+      </article>
+    </div>
+    <div class="callout assessment">
+      <strong>Hypothesis:</strong> If the reported patterns are genuine features of the Masoretic Hebrew text,
+      anyone using the same text and published counting method should be able to reproduce them.
+      Their cause and meaning remain separate questions.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Evidence discipline</span>
+    <h2>1. Four claims with four burdens of proof</h2>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status official">Observable</span>
+        <h3>A sequence appears</h3>
+        <p>A named text, start position, direction, and skip produce a stated series of Hebrew letters.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status primary">Comparative</span>
+        <h3>The sequence is unusual</h3>
+        <p>Predefined statistical tests show that comparable patterns occur less often than expected in appropriate control texts.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Interpretive</span>
+        <h3>The arrangement is intentional</h3>
+        <p>Literary placement, consistent rules, textual stability, and statistical evidence together favor design over coincidence.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Theological</span>
+        <h3>The pattern reveals its origin</h3>
+        <p>A theological conclusion goes beyond letter counting and requires arguments that the numerical result alone cannot supply.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Materials</span>
+    <h2>2. What must be defined before counting?</h2>
+    <p class="lead">A reproducible ELS result begins with a frozen text and a complete counting specification.</p>
+    <ul class="principle-list">
+      <li><strong>Hebrew base text:</strong> identify the exact Masoretic Torah edition, digital source, and version or checksum.</li>
+      <li><strong>Text preparation:</strong> state whether spaces, punctuation, cantillation, vowel points, paragraph markers, and final-letter forms are removed or normalized.</li>
+      <li><strong>Starting position:</strong> name the book, passage, starting letter, and absolute character index.</li>
+      <li><strong>Interval:</strong> distinguish “every 50th letter” from “49 letters skipped between selections.”</li>
+      <li><strong>Direction:</strong> state whether the count moves forward or backward through the prepared character stream.</li>
+      <li><strong>Verification:</strong> preserve the selected letters, surrounding text, intermediate indices, software, and independent replication.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Published method</span>
+    <h2>3. Reproduction procedure</h2>
+    <div class="timeline">
+      <div class="timeline-item" data-step="1">
+        <h3>Freeze the text</h3>
+        <p class="muted">Use one documented Hebrew consonantal Torah and record every normalization rule.</p>
+      </div>
+      <div class="timeline-item" data-step="2">
+        <h3>Begin at the published letter</h3>
+        <p class="muted">Record its book, local context, and absolute index so the start is not chosen after viewing the result.</p>
+      </div>
+      <div class="timeline-item" data-step="3">
+        <h3>Apply the stated interval</h3>
+        <p class="muted">For the Torah sequences, select every 50th letter—49 intervening letters between selections—using the reported direction.</p>
+      </div>
+      <div class="timeline-item" data-step="4">
+        <h3>Record every selected character</h3>
+        <p class="muted">Preserve the indices and output even if the result does not match the expected word.</p>
+      </div>
+      <div class="timeline-item" data-step="5">
+        <h3>Repeat independently</h3>
+        <p class="muted">A second person or implementation should reproduce the result without reusing the first program’s intermediate data.</p>
+      </div>
+      <div class="timeline-item" data-step="6">
+        <h3>Separate observation from meaning</h3>
+        <p class="muted">Only after reproduction should the literary, statistical, historical, and theological interpretations be compared.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status official">Working findings</span>
+    <h2>4. The reported five-book pattern</h2>
+    <p class="lead">
+      The attached working criteria records each of the following sequences as reproduced in the Masoretic Hebrew text
+      under its published counting method.
+    </p>
+
+    <div class="sequence-grid" aria-label="Visual summary of the reported Torah and YHWH sequences">
+      <article class="sequence-card">
+        <span class="status official">Genesis</span>
+        <div class="sequence-arrow" aria-hidden="true">→</div>
+        <div class="sequence-word hebrew" lang="he">תורה</div>
+        <small class="muted">Forward · every 50th letter</small>
+      </article>
+      <article class="sequence-card">
+        <span class="status official">Exodus</span>
+        <div class="sequence-arrow" aria-hidden="true">→</div>
+        <div class="sequence-word hebrew" lang="he">תורה</div>
+        <small class="muted">Forward · every 50th letter</small>
+      </article>
+      <article class="sequence-card central">
+        <span class="lens-label">Leviticus</span>
+        <div class="sequence-arrow" aria-hidden="true">↓</div>
+        <div class="sequence-word hebrew" lang="he">יהוה</div>
+        <small class="muted">Forward · seven-letter interval</small>
+      </article>
+      <article class="sequence-card">
+        <span class="status official">Numbers</span>
+        <div class="sequence-arrow" aria-hidden="true">←</div>
+        <div class="sequence-word hebrew" lang="he">תורה</div>
+        <small class="muted">Reverse · reported equal interval</small>
+      </article>
+      <article class="sequence-card">
+        <span class="status official">Deuteronomy</span>
+        <div class="sequence-arrow" aria-hidden="true">←</div>
+        <div class="sequence-word hebrew" lang="he">תורה</div>
+        <small class="muted">Reverse · reported equal interval</small>
+      </article>
+    </div>
+
+    <div class="callout">
+      <strong>Traditional literary reading:</strong> Genesis and Exodus point forward toward Leviticus;
+      Numbers and Deuteronomy point backward toward Leviticus; the Divine Name occupies the Pentateuch’s central book.
+      This is an interpretation of the arrangement, not an additional counted letter.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Audit status</span>
+    <h2>5. What is reproduced—and what still must be documented?</h2>
+    <table class="evidence-table">
+      <thead>
+        <tr>
+          <th>Evidence item</th>
+          <th>Status in this working file</th>
+          <th>Needed for independent audit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Target words and directions</td>
+          <td>Recorded for all five books.</td>
+          <td>Retain the exact Hebrew output and book-by-book rule in the final evidence packet.</td>
+        </tr>
+        <tr>
+          <td>Base text</td>
+          <td>Described as the standard Masoretic Hebrew text.</td>
+          <td>Name the edition or digital file and provide a checksum.</td>
+        </tr>
+        <tr>
+          <td>Starting letters</td>
+          <td>Referred to as published positions but not supplied here.</td>
+          <td>Give the exact start letter, passage, and absolute index for every sequence.</td>
+        </tr>
+        <tr>
+          <td>Selected indices</td>
+          <td>The output words are supplied; intermediate positions are not.</td>
+          <td>Publish all four letter indices and enough surrounding text to check the count manually.</td>
+        </tr>
+        <tr>
+          <td>Independent reproduction</td>
+          <td>The findings state “pattern reproduced.”</td>
+          <td>Name each independent method or implementation and retain its output.</td>
+        </tr>
+        <tr>
+          <td>Historical documentation</td>
+          <td>Associated with pre-computer Jewish observation and Rabbi Dov Weismandel.</td>
+          <td>Add dated primary citations and distinguish medieval evidence from later attribution.</td>
+        </tr>
+        <tr>
+          <td>Statistical significance</td>
+          <td>Not established by reproduction alone.</td>
+          <td>Predefine the search space, comparison statistic, and control corpus before testing.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout assessment">
+      <strong>Current boundary:</strong> This page preserves the working conclusion that the named sequences were reproduced.
+      It does not yet contain the coordinate-level evidence another investigator would need to verify that reproduction from scratch.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Historical question</span>
+    <h2>6. Did these observations predate modern “Bible Code” research?</h2>
+    <p class="lead">
+      The working criteria distinguishes the limited Torah-and-Divine-Name pattern from modern computer-assisted searches
+      for names, events, and predictions across large skip ranges.
+    </p>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <h3>Earlier observation</h3>
+        <p>The pattern is commonly associated with older Jewish commentary and, later, Rabbi Dov Weismandel.</p>
+        <p class="muted">Evidence needed: the earliest datable text that gives the actual start, interval, direction, and result.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Modern expansion</h3>
+        <p>Computer-assisted “Bible Code” studies can search many words, skips, directions, spellings, and locations.</p>
+        <p class="muted">That much larger search space creates statistical and selection questions not answered by the age of one smaller pattern.</p>
+      </article>
+    </div>
+    <div class="callout">
+      <strong>Do not collapse the categories:</strong> Showing that a limited ELS observation is old does not validate every later code claim.
+      Rejecting predictive Bible-code claims does not, by itself, erase a reproducible four-letter sequence.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Counterarguments</span>
+    <h2>7. What could weaken the case for intentional design?</h2>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <h3>Text dependence</h3>
+        <p>A single spelling difference, added or missing letter, or different normalization rule can shift every later index.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Selected starting positions</h3>
+        <p>If starts were chosen after many possibilities were inspected, a successful result carries less evidential weight.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Multiple comparisons</h3>
+        <p>Testing many words, intervals, directions, and locations increases the chance that something recognizable will appear.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Short target words</h3>
+        <p>Four-letter words require fewer matching positions than long phrases and therefore need careful baseline comparison.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Flexible counting descriptions</h3>
+        <p>“Skip 49” and “every 50th letter” can be confused. Direction and whether the starting letter is counted must be explicit.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Retrospective symbolism</h3>
+        <p>The central literary picture may be compelling after discovery without proving that the arrangement was planned before the text was written.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Statistical test</span>
+    <h2>8. What would a fair significance study require?</h2>
+    <ol class="question-list">
+      <li>Freeze the target words, allowed spellings, starts, skips, directions, and book boundaries before examining results.</li>
+      <li>Define the test statistic: exact word occurrence, five-book symmetry, distance from book openings, or another measurable feature.</li>
+      <li>Count every trial actually available—not only the successful one eventually reported.</li>
+      <li>Run the identical procedure on appropriate Hebrew control texts of comparable length and letter distribution.</li>
+      <li>Test randomized or letter-shuffled versions while preserving whatever linguistic features the null model requires.</li>
+      <li>Report unsuccessful searches and alternative patterns alongside the successful pattern.</li>
+      <li>Separate an exploratory discovery analysis from a confirmatory test on untouched data.</li>
+      <li>Have independent analysts reproduce both the extraction and the statistics.</li>
+    </ol>
+    <div class="callout assessment">
+      <strong>Statistical discipline:</strong> The probability question is not merely, “What are the odds of these four letters?”
+      It is, “What are the odds of obtaining a result at least this striking under the full search process that was actually allowed?”
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Textual witnesses</span>
+    <h2>9. Does the pattern survive outside one Masoretic edition?</h2>
+    <p class="lead">
+      ELS claims are unusually sensitive to the exact letter stream. Comparing textual witnesses can reveal whether the pattern
+      is early, edition-specific, or dependent upon later spelling and preservation.
+    </p>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <h3>Masoretic editions</h3>
+        <p>Compare major printed and digital forms, recording every consonantal difference that affects the sequence.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Dead Sea Scroll manuscripts</h3>
+        <p>Where the required passage survives, test the preserved consonantal text and record gaps or uncertain readings.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Samaritan Pentateuch</h3>
+        <p>Run the same extraction against its consonantal tradition without silently normalizing it toward the Masoretic text.</p>
+      </article>
+      <article class="evidence-card">
+        <h3>Control literature</h3>
+        <p>Apply a predeclared method to other substantial ancient Hebrew works to measure how often similar short ELS patterns occur.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status primary">Competing interpretations</span>
+    <h2>10. Let each explanation state its strongest case</h2>
+    <div class="evidence-grid">
+      <article class="evidence-card">
+        <span class="status primary">Intentional literary design</span>
+        <h3>A coordinated five-book structure</h3>
+        <p>The forward and reverse Torah sequences frame the Divine Name in Leviticus, creating a coherent literary center.</p>
+        <p class="muted"><strong>Must establish:</strong> stable rules, non-arbitrary starts, rarity, and a plausible means of composition and preservation.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status primary">Scribal preservation</span>
+        <h3>An inherited structure was carefully maintained</h3>
+        <p>The sequences may reflect an intentional earlier pattern preserved through a highly controlled textual tradition.</p>
+        <p class="muted"><strong>Must establish:</strong> how early the pattern existed and whether relevant manuscript witnesses retain it.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Coincidence</span>
+        <h3>A recognizable result within a large search space</h3>
+        <p>Short Hebrew words can arise at equal intervals when many starts, skips, directions, and texts are available.</p>
+        <p class="muted"><strong>Must establish:</strong> an honest null model that includes the reported symmetry rather than testing isolated words only.</p>
+      </article>
+      <article class="evidence-card">
+        <span class="status review">Deeper textual structure</span>
+        <h3>A real pattern whose cause is not yet resolved</h3>
+        <p>The observation may be non-random without the current evidence identifying its authorial or theological explanation.</p>
+        <p class="muted"><strong>Must establish:</strong> that “unknown” remains a testable research position rather than a placeholder for a preferred conclusion.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">Preliminary Assessment</span>
+    <h2>What can this investigation responsibly say?</h2>
+    <div class="confidence-grid">
+      <div>
+        <span class="status official">High confidence claimed</span>
+        <h3>Existence of the patterns</h3>
+        <p class="muted">The working findings record the sequences as reproducible in the selected Masoretic Hebrew text.</p>
+      </div>
+      <div>
+        <span class="status official">High confidence claimed</span>
+        <h3>Historical documentation</h3>
+        <p class="muted">The criteria reports pre-computer awareness, but the final page still needs dated primary citations.</p>
+      </div>
+      <div>
+        <span class="status review">Inconclusive</span>
+        <h3>Interpretation</h3>
+        <p class="muted">Reproduction alone does not decide among intentional design, preservation, coincidence, or another explanation.</p>
+      </div>
+    </div>
+    <div class="callout assessment">
+      <strong>Version 1 conclusion:</strong> The evidence file supports continued investigation of the reported patterns.
+      It does not, by itself, establish their ultimate cause. The next decisive step is to publish the exact text,
+      starting coordinates, indices, historical citations, and predeclared comparison method.
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status review">Questions Still Open</span>
+    <h2>Questions Still Open</h2>
+    <ol class="question-list">
+      <li>What exact Masoretic Hebrew edition and normalization rules were used for each reported reproduction?</li>
+      <li>What are the precise starting letters and absolute indices for all five sequences?</li>
+      <li>Do the necessary passages survive in the Dead Sea Scroll manuscripts, and do their spellings preserve the sequences?</li>
+      <li>Do the same sequences appear in the Samaritan Pentateuch?</li>
+      <li>What is the earliest datable source that documents each start, interval, direction, and result?</li>
+      <li>How frequently do comparable four-letter ELS results occur elsewhere in biblical Hebrew?</li>
+      <li>Can similar five-part symmetry be produced in other ancient literary works under the same search rules?</li>
+      <li>What statistical model fairly represents the full search space from which these sequences were selected?</li>
+      <li>Does the Leviticus sequence remain notable after correction for all tested starts, skips, words, and directions?</li>
+      <li>Are there surrounding literary structures that independently strengthen—or weaken—the intentional-design interpretation?</li>
+      <li>Can multiple explanations coexist—for example, an intentionally structured text preserved through scribal care?</li>
+      <li>What evidence could genuinely falsify each proposed interpretation?</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <span class="lens-label">The HomeGroups invitation</span>
+    <h2>Count the letters—and count the assumptions</h2>
+    <p class="lead">
+      The sequence should not be protected from testing, and it should not be dismissed without testing.
+      A four-letter result can be real while the explanation remains disputed.
+    </p>
+    <p>
+      Bring the Hebrew text. Bring the exact starting positions. Bring a transparent counting script and a manual check.
+      Bring the manuscript variants, the historical sources, the failed searches, and the control texts.
+      Let the evidence establish what it can—and stop where it stops.
+    </p>
+    <div class="callout assessment">
+      Reproduce the sequence.<br />
+      Publish the coordinates.<br />
+      Test the search space.<br />
+      Compare the manuscripts.<br />
+      Keep observation separate from interpretation.<br /><br />
+      <strong>Let us investigate the letters together.</strong>
+    </div>
+  </section>
+
+  <footer>
+    HomeGroups.org · Scripture, evidence, clarity, and honest investigation.<br />
+    Investigation INV-00X · “Equidistant Letter Sequences in the Torah” · Version 1<br />
+    Eddie Martinie
+  </footer>
+</main>
+</body>
+</html>
