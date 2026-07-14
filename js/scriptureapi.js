@@ -18,8 +18,18 @@
   const nextBtn = document.getElementById("scriptureNextBtn");
   const searchInput = document.getElementById("scriptureSearch");
   const searchBtn = document.getElementById("scriptureSearchBtn");
+  const cardRoot = root?.closest(".hg-panel");
+  const postLoadControls = cardRoot
+    ? Array.from(cardRoot.querySelectorAll("[data-scripture-hide-after-load]"))
+    : [];
 
   if (!root || !versionSelect || !bookSelect || !chapterInput) return;
+
+  function setPostLoadControlsHidden(hidden) {
+    postLoadControls.forEach(control => {
+      control.hidden = hidden;
+    });
+  }
 
   const BOOK_MAP = {
     matthew: "MAT",
@@ -247,6 +257,7 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
     
     const rendered = document.getElementById("scriptureRendered");
     beautifyScriptureContent(rendered);
+    setPostLoadControlsHidden(true);
 
     if (verse) {
       setTimeout(() => {
@@ -267,6 +278,7 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
     }
 
   } catch (err) {
+    setPostLoadControlsHidden(false);
     meta.textContent = "";
     root.innerHTML = `
       <div class="text-red-400">
