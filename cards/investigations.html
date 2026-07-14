@@ -1,3 +1,59 @@
+<style>
+  /* Investigation documents are injected into this card rather than an iframe.
+     Keep their responsive layouts tied to the reader width, not the app viewport. */
+  #investigationViewer {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  #investigationViewer .article-shell {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-inline: auto;
+    overflow-wrap: anywhere;
+  }
+
+  #investigationViewer .article-shell,
+  #investigationViewer .article-shell * {
+    min-width: 0;
+  }
+
+  #investigationViewer :where(h1, h2, h3, p, li, a, blockquote, summary, th, td) {
+    overflow-wrap: anywhere;
+  }
+
+  #investigationViewer :where(img, svg, video, canvas, iframe) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #investigationViewer .lens-grid,
+  #investigationViewer .dependency {
+    grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  }
+
+  #investigationViewer .evidence-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  }
+
+  #investigationViewer .confidence-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  }
+
+  #investigationViewer .sequence-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
+  }
+
+  #investigationViewer .evidence-table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+</style>
 
 <section class="hg-panel hg-section flex flex-col h-full">
 <input
@@ -57,3 +113,4 @@
 
   </div>
 </section>
+
