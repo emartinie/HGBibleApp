@@ -1,4 +1,5 @@
-const DAILY_SCHEDULE_URL = "data/homegroups_daily_reading_schedule.csv";
+const DAILY_SCHEDULE_URL = "homegroups_daily_reading_schedule.csv";
+const WEEKLY_THEME_URL = "homegroups_weekly_theme_titles.json";
 
 let schedulePromise;
 
@@ -60,14 +61,33 @@ function buildSchedule(rows) {
   };
 }
 
+async function loadWeeklyThemes() {
+  try {
+    const response = await fetch(WEEKLY_THEME_URL);
+    if (!response.ok) throw new Error(`Theme schedule request failed (${response.status})`);
+    const payload = await response.json();
+    return new Map(
+      (payload.weeks || []).map(item => [Number(item.week), item.theme_title || ""])
+    );
+  } catch (error) {
+    console.warn("Weekly theme JSON unavailable; using CSV theme titles.", error);
+    return new Map();
+  }
+}
+
 export function loadDailyReadingSchedule() {
   if (!schedulePromise) {
-    schedulePromise = fetch(DAILY_SCHEDULE_URL)
-      .then(response => {
+    schedulePromise = Promise.all([
+      fetch(DAILY_SCHEDULE_URL).then(response => {
         if (!response.ok) throw new Error(`Daily schedule request failed (${response.status})`);
         return response.text();
-      })
-      .then(parseCsv)
+      }),
+      loadWeeklyThemes()
+    ])
+      .then(([csvText, themes]) => parseCsv(csvText).map(row => ({
+        ...row,
+        theme_title: themes.get(Number(row.week)) || row.theme_title || ""
+      })))
       .then(buildSchedule)
       .catch(error => {
         schedulePromise = null;
