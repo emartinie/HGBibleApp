@@ -1,203 +1,272 @@
 <style>
-.study-link-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 0.7rem 1rem;
-  border-radius: 0.8rem;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(15, 23, 42, 0.7);
-  color: #e2e8f0;
-  font-size: 0.95rem;
-  transition: 0.2s ease;
-}
+  #studyhubCard {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    overflow: hidden;
+  }
 
-.study-link-btn:hover {
-  background: rgba(30, 41, 59, 0.9);
-  border-color: rgba(251, 146, 60, 0.45);
-}
+  #studyhubCard .studyhub-inner {
+    display: grid;
+    gap: 0.9rem;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  #studyhubCard .studyhub-header {
+    max-width: 46rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #studyhubCard .studyhub-header h2 {
+    margin: 0;
+    color: rgb(254 215 170);
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    line-height: 1.15;
+  }
+
+  #studyhubCard .studyhub-header p {
+    margin: 0.5rem 0 0;
+    color: rgb(148 163 184);
+    line-height: 1.55;
+  }
+
+  #studyhubCard .studyhub-panel {
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 0.95rem;
+    background: rgba(15, 23, 42, 0.72);
+  }
+
+  #studyhubCard .studyhub-context-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  #studyhubCard .studyhub-eyebrow {
+    margin: 0 0 0.25rem;
+    color: rgb(103 232 249);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  #studyhubCard .studyhub-context-title {
+    margin: 0;
+    color: rgb(226 232 240);
+    font-size: 1.15rem;
+    line-height: 1.35;
+  }
+
+  #studyhubCard .studyhub-context-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 0.65rem;
+    margin-top: 0.85rem;
+  }
+
+  #studyhubCard .studyhub-context-item {
+    min-width: 0;
+    padding: 0.75rem;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+    border-radius: 0.75rem;
+    background: rgba(2, 6, 23, 0.42);
+  }
+
+  #studyhubCard .studyhub-context-item span {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: rgb(100 116 139);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  #studyhubCard .studyhub-context-item strong {
+    display: block;
+    color: rgb(203 213 225);
+    font-size: 0.86rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  #studyhubCard .studyhub-primary-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 0.65rem;
+    margin-top: 0.85rem;
+  }
+
+  #studyhubCard .studyhub-primary {
+    border-color: rgba(34, 211, 238, 0.45);
+    background: rgba(8, 145, 178, 0.22);
+    color: rgb(207 250 254);
+  }
+
+  #studyhubCard .studyhub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: 0.75rem;
+  }
+
+  #studyhubCard .studyhub-destination {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 0.95rem;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 0.85rem;
+    background: rgba(2, 6, 23, 0.42);
+  }
+
+  #studyhubCard .studyhub-destination h3 {
+    margin: 0;
+    color: rgb(226 232 240);
+    font-size: 1rem;
+  }
+
+  #studyhubCard .studyhub-destination p {
+    margin: 0.4rem 0 0;
+    color: rgb(148 163 184);
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  #studyhubCard .studyhub-destination .ui-btn {
+    width: 100%;
+    margin-top: auto;
+    padding-top: 0.65rem;
+  }
+
+  #studyhubCard [hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 620px) {
+    #studyhubCard .studyhub-inner {
+      padding: 0.7rem;
+      gap: 0.7rem;
+    }
+
+    #studyhubCard .studyhub-panel,
+    #studyhubCard .studyhub-destination {
+      padding: 0.8rem;
+    }
+
+    #studyhubCard .studyhub-context-head .ui-btn {
+      width: 100%;
+    }
+  }
 </style>
 
-<section class="hg-panel">
-<div class="card-topbar">
+<section id="studyhubCard" class="hg-panel" aria-labelledby="studyhubTitle">
+  <div class="card-topbar">
+    <button class="card-fullscreen-btn card-icon-btn primary" type="button" title="Expand Card">⛶</button>
+    <button class="card-icon-btn nav" type="button" title="Home">⌂</button>
+    <button class="card-icon-btn nav" type="button" title="Previous">←</button>
+    <button class="card-icon-btn nav" type="button" title="Next">→</button>
+    <button class="card-icon-btn utility" type="button" title="Bookmark">★</button>
+    <button class="card-icon-btn utility" type="button" title="Share">⇪</button>
+    <button class="card-icon-btn utility" type="button" title="Notes">✎</button>
+    <button class="card-icon-btn utility" type="button" title="Help">?</button>
+  </div>
 
-  <!-- existing fullscreen -->
-  <button class="card-fullscreen-btn card-icon-btn primary"
-          title="Expand Card">⛶</button>
+  <div class="studyhub-inner">
+    <details class="orientation-block hg-panel hg-section p-4">
+      <summary class="cursor-pointer text-lg font-semibold text-amber-300">Gather Your Study in One Place</summary>
+      <p class="text-sm text-slate-300 mt-2">Use the current week and today’s assigned reading to move directly into the app’s working study resources.</p>
+      <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Read today’s passage or return to MainStage, then open only the supporting tool you need.</p>
+    </details>
 
-  <button class="card-icon-btn nav" title="Home">⌂</button>
-  <button class="card-icon-btn nav" title="Previous">←</button>
-  <button class="card-icon-btn nav" title="Next">→</button>
+    <header class="studyhub-header">
+      <p class="studyhub-eyebrow">Current study</p>
+      <h2 id="studyhubTitle">Study Hub</h2>
+      <p>A quiet doorway into the reading, textual witnesses, commentary, research, and next faithful step.</p>
+    </header>
 
-  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
-  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
+    <div id="studyhubStatus" class="sr-only" role="status" aria-live="polite"></div>
 
-  <button class="card-icon-btn utility" title="Search Card">⌕</button>
-  <button class="card-icon-btn utility" title="Bookmark">★</button>
-  <button class="card-icon-btn utility" title="Share">⇪</button>
-  <button class="card-icon-btn utility" title="Notes">✎</button>
-  <button class="card-icon-btn utility" title="Help">?</button>
-
-</div>
-<details class="orientation-block hg-panel hg-section p-4 my-4">
-  <summary class="cursor-pointer text-lg font-semibold text-amber-300">
-    Gather Your Study in One Place</summary>
-  <p class="text-sm text-slate-300 mt-2">This card brings together the week’s reading, related resources, and next study steps. It exists to help individuals and groups begin without feeling scattered.</p>
-  <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Refresh the current context, then open the reading for this week.</p>
-</details>
-<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
-<!-- Temporary nav triage: hidden because secondary/tertiary nav controls are currently unreliable. -->
-         <div class="card-topbar scripture-subnav" style="display: none;">
-
-  <button class="card-icon-btn scripture" id="scriptureSearchBtn" title="Search">
-    ⌕
-  </button>
-
-  <button class="card-icon-btn scripture" id="scriptureReloadBtn" title="Reload">
-    ↻
-  </button>
-
-  <button class="card-icon-btn scripture" id="scripturePrevBtn" title="Previous Verse">
-    ←
-  </button>
-
-  <button class="card-icon-btn scripture" id="scriptureNextBtn" title="Next Verse">
-    →
-  </button>
-
-  <button class="card-icon-btn scripture" id="copyScriptureBtn" title="Copy">
-    ⧉
-  </button>
-
-  <button class="card-icon-btn scripture"
-          onclick="document.getElementById('scriptureContent').scrollTop = 0"
-          title="Top">
-    ↑
-  </button>
-
-  <button class="card-icon-btn scripture" onclick="goToNT()" title="New Testament">
-    ✝
-  </button>
-
-  <button class="card-icon-btn scripture" onclick="goBackToCommandments()" title="Commandments">
-    ⌘
-  </button>
-
-  <button class="card-icon-btn scripture" id="openBridgeBtn" title="Related Context">
-    ⛓
-  </button>
-
-  <button class="card-icon-btn scripture" id="openSefariaContextBtn" title="Jewish Context">
-    ✡
-  </button>
-
-  <button class="card-icon-btn scripture" id="ntHomeHeaderBtn" title="Notes">
-    ☰
-  </button>
-
-  <button class="card-icon-btn scripture" id="ntQuotesHeaderBtn" title="Quotes">
-    ❝
-  </button>
-
-</div> <!-- <div class="hg-section-label">Study Table</div>
-
-  <div class="p-6 text-slate-200">
-    <div class="space-y-6">
-
-      <div>
-        <h3 class="text-2xl font-semibold text-orange-300">StudyHub / SermonPrep</h3>-->
-        <p class="text-slate-400 text-sm mt-1">
-          A kitchen table for study, sermon prep, and pulling together the right resources without the noise.
-        </p>
+    <section class="studyhub-panel" aria-labelledby="studyhubWeekLabel">
+      <div class="studyhub-context-head">
+        <div>
+          <p class="studyhub-eyebrow">This week</p>
+          <h3 id="studyhubWeekLabel" class="studyhub-context-title">Loading current week…</h3>
+          <p id="studyhubThemeTitle" class="text-slate-400 text-sm mt-1"></p>
+        </div>
+        <button id="studyhubRefreshBtn" class="ui-btn" type="button">Refresh Context</button>
       </div>
 
-      <div class="hg-panel rounded-2xl bg-slate-800/60 border border-slate-700/60 p-4">
-        <div class="flex items-center justify-between gap-3 flex-wrap">
-          <div>
-            <h4 class="text-slate-100 font-semibold">This Week</h4>
-            <p id="studyhubWeekText" class="text-slate-400 text-sm mt-1">
-              Quick access to the current study flow.
-            </p>
-          </div>
-
-          <button id="studyhubRefreshBtn" class="study-link-btn hg-btn">
-            Refresh Context
-          </button>
+      <div class="studyhub-context-grid">
+        <div class="studyhub-context-item">
+          <span>Today</span>
+          <strong id="studyhubTodayRef">Reading context loading…</strong>
+        </div>
+        <div class="studyhub-context-item">
+          <span>Prophets and Writings</span>
+          <strong id="studyhubProphetsRef">Weekly context loading…</strong>
+        </div>
+        <div class="studyhub-context-item">
+          <span>New Testament</span>
+          <strong id="studyhubNtRef">Weekly context loading…</strong>
         </div>
       </div>
 
-      <div class="hg-panel rounded-2xl bg-slate-800/60 border border-slate-700/60 p-4">
-        <h4 class="text-slate-100 font-semibold mb-2">
-          StudyHub Connections
-        </h4>
-
-        <div class="grid gap-3 sm:grid-cols-2 text-sm text-slate-400">
-          <div>This Week's Reading: Preview</div>
-          <div>Related NT Passages: Coming Soon</div>
-          <div>Shared Notes: Coming Soon</div>
-          <div>Progress: Coming Soon</div>
-        </div>
+      <div class="studyhub-primary-actions">
+        <button id="studyhubMainStageBtn" class="ui-btn studyhub-primary" type="button">Return to MainStage</button>
+        <button id="studyhubReadTodayBtn" class="ui-btn studyhub-primary" type="button">Read Today’s Tanakh Passage</button>
       </div>
+    </section>
 
-      <div class="grid gap-4 md:grid-cols-2">
+    <section class="studyhub-grid" aria-label="Study destinations">
+      <article class="studyhub-destination">
+        <p class="studyhub-eyebrow">Apostolic writings</p>
+        <h3>New Testament Notes</h3>
+        <p>Continue into the assigned New Testament passage and its study context.</p>
+        <button class="ui-btn" type="button" data-studyhub-card="nt">Open NT Notes</button>
+      </article>
 
-        <div class="hg-panel rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
-          <h4 class="text-slate-200 font-semibold mb-2">📖 Read the Word</h4>
-          <p class="text-slate-400 text-sm mb-3">
-            Open the NT reader and stay inside the app.
-          </p>
-          <button id="openNtReaderBtn" class="study-link-btn hg-btn">
-            Open NT Reader
-          </button>
-        </div>
+      <article class="studyhub-destination">
+        <p class="studyhub-eyebrow">Weekly teaching</p>
+        <h3>Weekly Commentary</h3>
+        <p>Open the commentary prepared for the currently selected week.</p>
+        <button class="ui-btn" type="button" data-studyhub-card="commentary">Open Commentary</button>
+      </article>
 
-        <div class="hg-panel rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
-          <h4 class="text-slate-200 font-semibold mb-2">🔗 Scripture Connections</h4>
-          <p class="text-slate-400 text-sm mb-3">
-            View quotations, echoes, and cross-scripture relationships.
-          </p>
-          <button id="openIntertextBtn" class="study-link-btn hg-btn">
-            View Intertext Quotations
-          </button>
-        </div>
+      <article class="studyhub-destination">
+        <p class="studyhub-eyebrow">Scripture connections</p>
+        <h3>Intertext Explorer</h3>
+        <p>Compare New Testament quotations with Hebrew and Septuagint witnesses.</p>
+        <button class="ui-btn" type="button" data-studyhub-card="intertext-quotes">Open Intertext</button>
+      </article>
 
-        <div class="hg-panel rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
-          <h4 class="text-slate-200 font-semibold mb-2">📚 Sources</h4>
-          <p class="text-slate-400 text-sm mb-3">
-            Ancient witnesses, historical references, and source material.
-          </p>
-          <button id="openSourcesBtn" class="study-link-btn hg-btn">
-            Open Sources
-          </button>
-        </div>
+      <article class="studyhub-destination">
+        <p class="studyhub-eyebrow">Evidence and witnesses</p>
+        <h3>Sources Library</h3>
+        <p>Open the verified textual witnesses, datasets, investigations, and authored research.</p>
+        <button class="ui-btn" type="button" data-studyhub-card="sources">Open Sources</button>
+      </article>
 
-        <div class="hg-panel rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left">
-          <h4 class="text-slate-200 font-semibold mb-2">📝 Prep Table</h4>
-          <p class="text-slate-400 text-sm mb-3">
-            Observation, interpretation, correlation, and application will live here.
-          </p>
-          <button id="openPrepNotesBtn" class="study-link-btn hg-btn">
-            Prep Notes
-          </button>
-        </div>
+      <article class="studyhub-destination">
+        <p class="studyhub-eyebrow">Practice</p>
+        <h3>Learning Paths</h3>
+        <p>Continue a saved discipleship journey or begin the available learning path.</p>
+        <button class="ui-btn" type="button" data-studyhub-card="discipleship">Open Learning Paths</button>
+      </article>
 
-        <div class="hg-panel rounded-xl bg-slate-800/60 border border-slate-700/60 p-4 text-left md:col-span-2">
-          <h4 class="text-slate-200 font-semibold mb-2">☕ Shared Table</h4>
-          <p class="text-slate-400 text-sm mb-3">
-            Future homegroup / shared study room space for virtual table experiences.
-          </p>
-          <button type="button" class="study-link-btn hg-btn opacity-70">
-            Shared Table (Coming Soon)
-          </button>
-        </div>
-
-      </div>
-
-      <div class="text-xs text-slate-500 italic">
-        “Let the Word speak first.”
-      </div>
-
-    </div>
+      <article class="studyhub-destination">
+        <p class="studyhub-eyebrow">Questions and method</p>
+        <h3>Investigations</h3>
+        <p>Work through evidence without requiring the conclusion to be settled in advance.</p>
+        <button class="ui-btn" type="button" data-studyhub-card="investigations">Open Investigations</button>
+      </article>
+    </section>
   </div>
 </section>
