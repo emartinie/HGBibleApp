@@ -1,19 +1,19 @@
-// mainstage.js — stabilized
+// mainstage.js â€” stabilized
 // Changes from original:
-//   1. mainStageIframe added to cacheDOM() — was undefined everywhere it was used
-//   2. Duplicate weekSelect change listener removed — was firing weekChanged twice per change
-//   3. toggleSection moved to module scope — was trapped inside init(), unreachable as global
-//   4. Top-level renderCards call wrapped in DOMContentLoaded guard — was firing during module parse
-//   5. prev/next week logic reads weekSelect.value consistently — prevents off-by-one drift
-//   6. Scope clarified — audio.ended and DOMContentLoaded listeners explicitly outside init()
+//   1. mainStageIframe added to cacheDOM() â€” was undefined everywhere it was used
+//   2. Duplicate weekSelect change listener removed â€” was firing weekChanged twice per change
+//   3. toggleSection moved to module scope â€” was trapped inside init(), unreachable as global
+//   4. Top-level renderCards call wrapped in DOMContentLoaded guard â€” was firing during module parse
+//   5. prev/next week logic reads weekSelect.value consistently â€” prevents off-by-one drift
+//   6. Scope clarified â€” audio.ended and DOMContentLoaded listeners explicitly outside init()
 
 import { initWeeklyScriptureLoader } from "./weeklyScriptureLoader.js?v=20260706-2";
 import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
-import { loadDailyReadingSchedule } from "./dailyReadingSchedule.js";
+import { loadDailyReadingSchedule } from "./dailyReadingSchedule.js?v=20260714-1";
 
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
-let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters,
+let mainStageTitle, mainStageSub, mainStageThemeTitle, mainStagePlaylist, mainStageChapters,
     mainStageVideo, mainStageIframe, floatingPlayer,
     mainStageWhy, beginMainStageBtn, mainStageContinuation,
     mainStageSecondaryNav, mainStageWeekLabel, mainStageWeekday,
@@ -64,6 +64,7 @@ function cacheDOM() {
   cardsContainer    = document.getElementById("cardsContainer");
   mainStageTitle    = document.getElementById("mainStageTitle");
   mainStageSub      = document.getElementById("mainStageSub");
+  mainStageThemeTitle = document.getElementById("mainStageThemeTitle");
   mainStagePlaylist = document.getElementById("mainStagePlaylist");
   mainStageChapters = document.getElementById("mainStageChapters");
   mainStageVideo    = document.getElementById("mainStageVideo");
@@ -130,10 +131,10 @@ function resetMainStageInvitation(weekData) {
     mainStageWeekLabel.textContent = "You are here";
   }
 
-  if (mainStageWeekday) mainStageWeekday.textContent = `Today · ${daily?.day_name || weekday}`;
-  if (mainStageDayLabel) mainStageDayLabel.textContent = `Week ${selectedWeek} · Day ${daily?.day_number || cycleDay} of 7`;
+  if (mainStageWeekday) mainStageWeekday.textContent = `Today Â· ${daily?.day_name || weekday}`;
+  if (mainStageDayLabel) mainStageDayLabel.textContent = `Week ${selectedWeek} Â· Day ${daily?.day_number || cycleDay} of 7`;
   if (mainStageDailyReading) {
-    mainStageDailyReading.textContent = daily?.torah_daily_reading || weekData.sections?.audio_playlist?.[0]?.label || "Today’s reading is being prepared.";
+    mainStageDailyReading.textContent = daily?.torah_daily_reading || weekData.sections?.audio_playlist?.[0]?.label || "Todayâ€™s reading is being prepared.";
   }
   if (mainStageSefariaLink) {
     const href = daily?.sefaria_bilingual_link || "#";
@@ -141,7 +142,7 @@ function resetMainStageInvitation(weekData) {
     mainStageSefariaLink.hidden = href === "#";
   }
   if (mainStageWeekContextTitle) {
-    mainStageWeekContextTitle.textContent = `${daily?.portion_transliteration || transliteration || `Week ${selectedWeek}`} · ${weekData.english || "Weekly study"}`;
+    mainStageWeekContextTitle.textContent = `${daily?.portion_transliteration || transliteration || `Week ${selectedWeek}`} Â· ${weekData.english || "Weekly study"}`;
   }
   if (mainStageWeekContextSummary) {
     mainStageWeekContextSummary.textContent = weekData.intro?.summary ||
@@ -159,6 +160,12 @@ function resetMainStageInvitation(weekData) {
     mainStageSub.textContent = [weekData.hebrew, transliteration]
       .filter(Boolean)
       .join(" / ") || "Hebrew and transliteration pending";
+  }
+
+  if (mainStageThemeTitle) {
+    const themeTitle = daily?.theme_title || weekData.theme_title || "";
+    mainStageThemeTitle.textContent = themeTitle;
+    mainStageThemeTitle.hidden = !themeTitle;
   }
 
   if (mainStageWhy) {
@@ -284,7 +291,7 @@ function createCard(title, contentHTML) {
     const opening = content.hidden;
     content.hidden = !opening;
     header.setAttribute("aria-expanded", String(opening));
-    icon.textContent = opening ? "−" : "+";
+    icon.textContent = opening ? "âˆ’" : "+";
   });
 
   card.appendChild(header);
@@ -385,7 +392,7 @@ async function loadMainStageWeek(weekData) {
     const playBtn = document.createElement("button");
     playBtn.className =
       "flex items-center justify-center w-9 h-9 rounded-full border border-white/10 bg-white/10 text-white hover:bg-white/20 transition";
-    playBtn.textContent = "▶";
+    playBtn.textContent = "â–¶";
 
     const textWrap = document.createElement("div");
     textWrap.className = "flex flex-col min-w-0";
@@ -413,31 +420,31 @@ async function loadMainStageWeek(weekData) {
     });
 
     playBtn.addEventListener("click", () => {
-      // Same track → toggle pause/play
+      // Same track â†’ toggle pause/play
       const trackSrc = cleanAudioSrc(track.src);
       if (!trackSrc) return;
       if (audio.src === new URL(trackSrc, window.location.href).href) {
         if (audio.paused) {
           audio.play().catch(err => console.warn("Autoplay prevented:", err));
-          playBtn.textContent = "⏸";
+          playBtn.textContent = "â¸";
         } else {
           audio.pause();
-          playBtn.textContent = "▶";
+          playBtn.textContent = "â–¶";
         }
         return;
       }
 
-      // New track → reset all buttons, load and play
+      // New track â†’ reset all buttons, load and play
       document.querySelectorAll("#mainStagePlaylist button").forEach(b => {
-        b.textContent = "▶";
+        b.textContent = "â–¶";
       });
       audio.src = trackSrc;
       audio.play().catch(err => console.warn("Autoplay prevented:", err));
-      playBtn.textContent = "⏸";
+      playBtn.textContent = "â¸";
 
       const nowPlayingLabel = document.getElementById("nowPlaying");
       if (nowPlayingLabel) {
-        nowPlayingLabel.textContent = `Now Playing: ${track.label} — ${scriptureText}`;
+        nowPlayingLabel.textContent = `Now Playing: ${track.label} â€” ${scriptureText}`;
       }
     });
 
@@ -455,7 +462,7 @@ async function loadMainStageWeek(weekData) {
     const nowPlayingLabel = document.getElementById("nowPlaying");
     if (nowPlayingLabel) {
       nowPlayingLabel.textContent =
-        `Now Playing: ${playlist[0].label} — ${parseScriptureFromFilename(playlist[0].src)}`;
+        `Now Playing: ${playlist[0].label} â€” ${parseScriptureFromFilename(playlist[0].src)}`;
     }
   }
 
@@ -562,7 +569,7 @@ async function loadWeek(weekNum) {
     window.currentWeekData = data;
 
     if (!mainStageTitle || !mainStagePlaylist || !mainStageChapters) {
-      console.warn("⚠️ MainStage elements missing — retrying cacheDOM()");
+      console.warn("âš ï¸ MainStage elements missing â€” retrying cacheDOM()");
       cacheDOM();
     }
 
@@ -570,7 +577,7 @@ async function loadWeek(weekNum) {
       await loadMainStageWeek(data);
       requestAnimationFrame(() => renderWeekCards(data));
     } else {
-      console.error("❌ Required MainStage elements still missing after cacheDOM() retry.");
+      console.error("âŒ Required MainStage elements still missing after cacheDOM() retry.");
     }
   } catch (err) {
     console.error("Error loading week:", err);
@@ -631,7 +638,7 @@ async function init() {
     dispatchWeekChanged(next);
   });
 
-  // FIX: single change listener — was registered twice in original
+  // FIX: single change listener â€” was registered twice in original
   weekSelect?.addEventListener("change", () => {
     window.currentWeek = parseInt(weekSelect.value, 10);
     loadWeek(window.currentWeek);
@@ -664,11 +671,11 @@ async function init() {
 // --- Audio ended: reset all play buttons ---
 audio.addEventListener("ended", () => {
   document.querySelectorAll("#mainStagePlaylist button").forEach(b => {
-    b.textContent = "▶";
+    b.textContent = "â–¶";
   });
 });
 
-// --- FIX: renderCards guard — original was at top level, firing during module parse ---
+// --- FIX: renderCards guard â€” original was at top level, firing during module parse ---
 // Only call if the function exists AND the DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof renderCards === "function" && window.weeklyCommentary) {
@@ -678,3 +685,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // --- Boot ---
 document.addEventListener("DOMContentLoaded", init);
+
