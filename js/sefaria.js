@@ -1,4 +1,4 @@
-(function () {
+window.initSefariaCard = function initSefariaCard() {
   const root = document.getElementById("sefariaContent");
   const meta = document.getElementById("sefariaMeta");
   const bookInput = document.getElementById("sefariaBook");
@@ -15,14 +15,27 @@ function parseReference(input) {
   if (!input) return null;
 
   const cleaned = input.trim().replace(/\s+/g, " ");
-  const match = cleaned.match(/^(.+?)\s+(\d+)(?::(\d+))?$/i);
+  const match = cleaned.match(/^(.+?)\s+(\d+)(?::(\d+))?(?:\s*-\s*(?:(\d+):)?(\d+))?$/i);
   if (!match) return null;
 
   return {
+    reference: cleaned,
     book: match[1].trim(),
     chapter: String(Math.max(1, Number(match[2]) || 1)),
     verse: match[3] ? String(Math.max(1, Number(match[3]) || 1)) : null
   };
+}
+
+function toSefariaApiRef(reference) {
+  return String(reference || "")
+    .trim()
+    .replace(/\s+(\d)/, ".$1")
+    .replace(/:/g, ".");
+}
+
+function flattenText(value) {
+  if (Array.isArray(value)) return value.flatMap(flattenText);
+  return value === null || value === undefined ? [] : [String(value)];
 }
 
   function getRef() {
@@ -44,11 +57,14 @@ function parseReference(input) {
     }
   }
 
-  async function loadSefaria(book = "Genesis", chapter = "1") {
+  async function loadSefaria(book = "Genesis", chapter = "1", requestedReference = "") {
     root.innerHTML = "Loading...";
 
     try {
-      const url = `https://www.sefaria.org/api/texts/${encodeURIComponent(book)}.${chapter}?lang=bi`;
+      const apiRef = requestedReference
+        ? toSefariaApiRef(requestedReference)
+        : `${book}.${chapter}`;
+      const url = `https://www.sefaria.org/api/texts/${encodeURIComponent(apiRef)}?lang=bi`;
       const res = await fetch(url);
       const data = await res.json();
 
@@ -58,14 +74,16 @@ function parseReference(input) {
         throw new Error(data?.error || `HTTP ${res.status}`);
       }
 
-      if (!Array.isArray(data?.text) || data.text.length === 0) {
+      const passageText = flattenText(data?.text);
+      if (!passageText.length) {
         throw new Error("No text returned");
       }
 
-      const verses = data.text
+      const startVerse = Number(parseReference(requestedReference)?.verse || 1);
+      const verses = passageText
         .map((v, i) => `
           <p class="rounded-md px-2 py-1">
-            <span class="text-slate-500 mr-2">${i + 1}</span>${v}
+            <span class="text-slate-500 mr-2">${startVerse + i}</span>${v}
           </p>
         `)
         .join("");
@@ -76,10 +94,10 @@ function parseReference(input) {
         </div>
       `;
 
-      meta.textContent = data.ref || `${book} ${chapter}`;
+      meta.textContent = data.ref || requestedReference || `${book} ${chapter}`;
       bookInput.value = book;
       chapterInput.value = chapter;
-      searchInput.value = `${book} ${chapter}`;
+      searchInput.value = requestedReference || `${book} ${chapter}`;
       saveLastRef(book, chapter);
     } catch (err) {
       meta.textContent = "";
@@ -100,7 +118,7 @@ function parseReference(input) {
       return;
     }
 
-    loadSefaria(parsed.book, parsed.chapter);
+    loadSefaria(parsed.book, parsed.chapter, parsed.reference);
   }
 
   function handlePrev() {
@@ -149,4 +167,4 @@ if (savedSearch) {
     }
   }
 }
-})();
+};
