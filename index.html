@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
@@ -439,6 +439,24 @@
       color: var(--accent);
       font-size: .96rem;
       font-weight: 650;
+    }
+
+    .mainstage-theme-title {
+      max-width: 38rem;
+      margin: 16px auto 0;
+      color: #fff4d6;
+      font: 700 clamp(1.05rem, 4vw, 1.3rem)/1.3 Georgia, serif;
+      text-wrap: balance;
+    }
+
+    .mainstage-theme-title::before {
+      content: "Weekly Theme";
+      display: block;
+      margin-bottom: 5px;
+      color: var(--gold);
+      font: 800 .68rem/1.2 Inter, system-ui, sans-serif;
+      letter-spacing: .13em;
+      text-transform: uppercase;
     }
 
     .mainstage-reading-label {
@@ -1362,6 +1380,7 @@
                 <p class="mainstage-today-line"><span id="mainStageWeekday">Today</span> · <span id="mainStageDayLabel">Day 1 of 7</span></p>
                 <h2 id="mainStageTitle" class="weekly-study-title">Loading week data...</h2>
                 <p id="mainStageSub" class="mainstage-portion-name">Hebrew · Portion</p>
+                <p id="mainStageThemeTitle" class="mainstage-theme-title" hidden></p>
                 <p class="mainstage-reading-label">Today’s Beginning reading</p>
                 <h3 id="mainStageDailyReading" class="mainstage-daily-reading">Daily reading loading…</h3>
                 <p id="mainStageWhy" class="fp-sub" style="max-width:42rem; margin:0.75rem auto 0; text-align:center;">
@@ -1584,7 +1603,7 @@
     </main>
   </div>-->
     <!--<script src="js/cardloader.js"></script>-->
-  <script type="module" src="js/mainstage.js?v=20260714-2"></script>
+  <script type="module" src="js/mainstage.js?v=20260714-3"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
   <script src="js/textSizePreference.js"></script>
@@ -1627,3 +1646,4 @@
 </div>
 </body>
 </html>
+
