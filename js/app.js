@@ -77,6 +77,7 @@ console.log("APP JS RUN ID:", Date.now());
     prayermap: { init: "initPrayerMapCard", cleanup: "destroyPrayerMapCard" },
     prezis: { init: "initPrezis", cleanup: "destroyPrezis" },
     radiomap: { init: "initRadioMapCard", cleanup: "destroyRadioMapCard" },
+    sefaria: { init: "initSefariaCard" },
     sources: { init: "initSourcesCard" },
     store: { init: "initStoreCard", cleanup: "destroyStoreCard" },
     "stewardship-card": { init: "initStewardshipCard" },
