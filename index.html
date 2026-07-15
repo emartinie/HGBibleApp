@@ -317,10 +317,10 @@
     #topBar {
       min-height: var(--header-h);
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: center;
-      align-items: stretch;
-      gap: 6px;
+      align-items: center;
+      gap: 8px;
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border: 1px solid var(--line);
       border-radius: 22px;
@@ -335,7 +335,8 @@
       justify-content: center;
       gap: 6px;
       flex-wrap: nowrap;
-      width: 100%;
+      width: auto;
+      flex: 0 0 auto;
     }
 
     .ui-btn,
@@ -373,21 +374,39 @@
     }
 
     .card-picker {
-      width: min(15rem, calc(100vw - 12rem));
+      width: auto;
       field-sizing: content;
       min-width: 9rem;
-      max-width: 15rem;
-      flex: 0 1 auto;
+      max-width: 20rem;
+      flex: 1 1 15rem;
     }
 
     .card-control-bar {
-      width: 100%;
+      width: auto;
       min-width: 0;
       display: flex;
       justify-content: center;
       gap: 6px;
       align-items: center;
+      flex: 1 1 auto;
       flex-wrap: nowrap;
+    }
+
+    @media (max-width: 700px) {
+      #topBar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+      }
+
+      .toolbar,
+      .card-control-bar {
+        width: 100%;
+      }
+
+      .card-control-bar {
+        flex: 0 0 auto;
+      }
     }
 
     .utility-btn {
@@ -1266,7 +1285,6 @@
               </select>   
       
       <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
-      <button id="textSizePreferenceBtn" class="ui-btn utility-btn" type="button" aria-label="Cycle reading text size" title="Reading text size">Aa</button>
       <button id="reloadCardBtn" class="ui-btn utility-btn" type="button" aria-label="Reload current card" title="Reload current card">↻</button>
       </div>
     </header>
@@ -1624,7 +1642,6 @@
   <script type="module" src="js/mainstage.js?v=20260714-4"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
-  <script src="js/textSizePreference.js"></script>
   <script type="module" src="js/app.js"></script>
 <!--<script type="module" src="js/firebase-init.js"></script>
   <!--<script src="js/prayerStore.dev.js"></script>-->
