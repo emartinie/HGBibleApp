@@ -609,6 +609,21 @@
       text-decoration: none;
     }
 
+    .mainstage-external-source-link {
+      display: block;
+      width: fit-content;
+      margin: 0.55rem auto 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    .mainstage-external-source-link:hover,
+    .mainstage-external-source-link:focus-visible {
+      color: #f3c878;
+    }
+
     .mainstage-primary-action:hover,
     .mainstage-primary-action:focus-visible {
       filter: brightness(1.06);
@@ -1386,7 +1401,8 @@
                 <p id="mainStageWhy" class="fp-sub" style="max-width:42rem; margin:0.75rem auto 0; text-align:center;">
                   The introduction to this week's study will appear here.
                 </p>
-                <a id="mainStageSefariaLink" class="ui-btn mainstage-primary-action mainstage-arrival-read-link" href="#" target="_blank" rel="noopener noreferrer">Read Today’s Passage →</a>
+                <button id="mainStageReadPassageBtn" class="ui-btn mainstage-primary-action mainstage-arrival-read-link" type="button">Read Today’s Passage →</button>
+                <a id="mainStageSefariaLink" class="mainstage-external-source-link" href="#" target="_blank" rel="noopener noreferrer">Open directly on Sefaria ↗</a>
                 <button id="mainStageListenBtn" class="ui-btn mainstage-listen-action" type="button" aria-expanded="false" aria-controls="floating-player-root">▶ Listen Instead</button>
                 <button id="beginMainStageBtn" class="ui-btn mainstage-widen-action" type="button" aria-expanded="false" aria-controls="mainStageContinuation">See how today fits inside this week ↓</button>
                 <div id="floating-player-root" class="weekly-player-dock" aria-label="Floating audio player" hidden></div>
@@ -1603,7 +1619,7 @@
     </main>
   </div>-->
     <!--<script src="js/cardloader.js"></script>-->
-  <script type="module" src="js/mainstage.js?v=20260714-3"></script>
+  <script type="module" src="js/mainstage.js?v=20260714-4"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
   <script src="js/textSizePreference.js"></script>
