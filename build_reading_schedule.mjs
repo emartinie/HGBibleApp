@@ -4,21 +4,27 @@ import { Workbook, SpreadsheetFile } from "@oai/artifact-tool";
 
 const app = "C:/Users/eddie/Documents/Codex/Sandbox/HGBibleApp-main";
 const out = "C:/Users/eddie/Documents/Codex/2026-07-03/w/outputs";
+const themeData = JSON.parse(
+  await fs.readFile(new URL("./homegroups_weekly_theme_titles.json", import.meta.url), "utf8")
+);
+const themeByWeek = new Map(
+  themeData.weeks.map(item => [Number(item.week), item.theme_title])
+);
 
 const portions = [
-  ["Bereshit","בראשית","In the Beginning"],["Noach","נח","Noah"],["Lech-Lecha","לך לך","Go Forth"],["Vayera","וירא","He Appeared"],
-  ["Chayei Sara","חיי שרה","Life of Sarah"],["Toldot","תולדות","Generations"],["Vayetzei","ויצא","He Went Out"],["Vayishlach","וישלח","He Sent"],
-  ["Vayeshev","וישב","He Settled"],["Miketz","מקץ","At the End"],["Vayigash","ויגש","He Drew Near"],["Vayechi","ויחי","He Lived"],
-  ["Shemot","שמות","Names"],["Vaera","וארא","I Appeared"],["Bo","בא","Come"],["Beshalach","בשלח","When He Sent"],["Yitro","יתרו","Jethro"],
-  ["Mishpatim","משפטים","Judgments"],["Terumah","תרומה","Contribution"],["Tetzaveh","תצוה","You Shall Command"],["Ki Tisa","כי תשא","When You Lift"],
-  ["Vayakhel","ויקהל","He Assembled"],["Pekudei","פקודי","Accounts"],["Vayikra","ויקרא","And He Called"],["Tzav","צו","Command"],
-  ["Shmini","שמיני","Eighth"],["Tazria","תזריע","She Will Conceive"],["Metzora","מצורע","Leper"],["Achrei Mot","אחרי מות","After the Death"],
-  ["Kedoshim","קדושים","Holy Ones"],["Emor","אמר","Say"],["Behar","בהר","On the Mount"],["Bechukotai","בחוקותי","By My Decrees"],
-  ["Bamidbar","במדבר","In the Wilderness"],["Nasso","נשא","Lift Up"],["Beha’alotcha","בהעלתך","When You Light"],["Sh’lach","שלח","Send"],
-  ["Korach","קרח","Korah"],["Chukat","חקת","Statute"],["Balak","בלק","Balak"],["Pinchas","פינחס","Phinehas"],["Matot","מטות","Tribes"],
-  ["Masei","מסעי","Journeys"],["Devarim","דברים","Words"],["Vaetchanan","ואתחנן","I Pleaded"],["Eikev","עקב","Because"],["Re’eh","ראה","See"],
-  ["Shoftim","שופטים","Judges"],["Ki Teitzei","כי תצא","When You Go Out"],["Ki Tavo","כי תבוא","When You Come In"],["Nitzavim","נצבים","Standing"],
-  ["Vayeilech","וילך","And He Went"],["Ha’azinu","האזינו","Listen"],["Vezot Haberakhah","וזאת הברכה","This Is the Blessing"]
+  ["Bereshit","×‘×¨××©×™×ª","In the Beginning"],["Noach","× ×—","Noah"],["Lech-Lecha","×œ×š ×œ×š","Go Forth"],["Vayera","×•×™×¨×","He Appeared"],
+  ["Chayei Sara","×—×™×™ ×©×¨×”","Life of Sarah"],["Toldot","×ª×•×œ×“×•×ª","Generations"],["Vayetzei","×•×™×¦×","He Went Out"],["Vayishlach","×•×™×©×œ×—","He Sent"],
+  ["Vayeshev","×•×™×©×‘","He Settled"],["Miketz","×ž×§×¥","At the End"],["Vayigash","×•×™×’×©","He Drew Near"],["Vayechi","×•×™×—×™","He Lived"],
+  ["Shemot","×©×ž×•×ª","Names"],["Vaera","×•××¨×","I Appeared"],["Bo","×‘×","Come"],["Beshalach","×‘×©×œ×—","When He Sent"],["Yitro","×™×ª×¨×•","Jethro"],
+  ["Mishpatim","×ž×©×¤×˜×™×","Judgments"],["Terumah","×ª×¨×•×ž×”","Contribution"],["Tetzaveh","×ª×¦×•×”","You Shall Command"],["Ki Tisa","×›×™ ×ª×©×","When You Lift"],
+  ["Vayakhel","×•×™×§×”×œ","He Assembled"],["Pekudei","×¤×§×•×“×™","Accounts"],["Vayikra","×•×™×§×¨×","And He Called"],["Tzav","×¦×•","Command"],
+  ["Shmini","×©×ž×™× ×™","Eighth"],["Tazria","×ª×–×¨×™×¢","She Will Conceive"],["Metzora","×ž×¦×•×¨×¢","Leper"],["Achrei Mot","××—×¨×™ ×ž×•×ª","After the Death"],
+  ["Kedoshim","×§×“×•×©×™×","Holy Ones"],["Emor","××ž×¨","Say"],["Behar","×‘×”×¨","On the Mount"],["Bechukotai","×‘×—×•×§×•×ª×™","By My Decrees"],
+  ["Bamidbar","×‘×ž×“×‘×¨","In the Wilderness"],["Nasso","× ×©×","Lift Up"],["Behaâ€™alotcha","×‘×”×¢×œ×ª×š","When You Light"],["Shâ€™lach","×©×œ×—","Send"],
+  ["Korach","×§×¨×—","Korah"],["Chukat","×—×§×ª","Statute"],["Balak","×‘×œ×§","Balak"],["Pinchas","×¤×™× ×—×¡","Phinehas"],["Matot","×ž×˜×•×ª","Tribes"],
+  ["Masei","×ž×¡×¢×™","Journeys"],["Devarim","×“×‘×¨×™×","Words"],["Vaetchanan","×•××ª×—× ×Ÿ","I Pleaded"],["Eikev","×¢×§×‘","Because"],["Reâ€™eh","×¨××”","See"],
+  ["Shoftim","×©×•×¤×˜×™×","Judges"],["Ki Teitzei","×›×™ ×ª×¦×","When You Go Out"],["Ki Tavo","×›×™ ×ª×‘×•×","When You Come In"],["Nitzavim","× ×¦×‘×™×","Standing"],
+  ["Vayeilech","×•×™×œ×š","And He Went"],["Haâ€™azinu","×”××–×™× ×•","Listen"],["Vezot Haberakhah","×•×–××ª ×”×‘×¨×›×”","This Is the Blessing"]
 ];
 
 function csvParse(text) {
@@ -36,11 +42,11 @@ function csvParse(text) {
 function csvEscape(v) { const s=String(v??""); return /[",\r\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s; }
 function csvString(headers, rows) { return "\uFEFF"+[headers,...rows.map(r=>headers.map(h=>r[h]??""))].map(r=>r.map(csvEscape).join(",")).join("\r\n")+"\r\n"; }
 function clean(s="") { return s.replace(/<[^>]+>/g," ").replace(/&amp;/g,"&").replace(/&nbsp;/g," ").replace(/&#39;/g,"'").replace(/\s+/g," ").trim(); }
-function sefaria(ref) { return ref ? `https://www.sefaria.org/${encodeURIComponent(ref.replace(/ – /g,"-"))}?lang=bi` : ""; }
+function sefaria(ref) { return ref ? `https://www.sefaria.org/${encodeURIComponent(ref.replace(/ â€“ /g,"-"))}?lang=bi` : ""; }
 function colName(n){let s="";while(n>=0){s=String.fromCharCode(n%26+65)+s;n=Math.floor(n/26)-1;}return s;}
 
 const aliyot = new Map();
-const canonicalName=s=>String(s).replace(/[’‘]/g,"'");
+const canonicalName=s=>String(s).replace(/[â€™â€˜]/g,"'");
 for (const year of [5787,5788,5789,5790,5791,5792,5793,5794,5795,5796,5797]) {
   const txt=await (await fetch(`https://www.hebcal.com/sedrot/fullkriyah-${year}.csv`)).text();
   for (const r of csvParse(txt).slice(1)) {
@@ -71,23 +77,24 @@ async function localWeek(week) {
 const weekly=[]; const daily=[]; const days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 for(let i=1;i<=54;i++){
   const [portion,hebrew,meaning]=portions[i-1]; const local=i<=52?await localWeek(i):{reads:{},links:{},audios:{},rel:""};
+  const themeTitle=themeByWeek.get(i)||"";
   const getRead=(re)=>Object.entries(local.reads).find(([k])=>re.test(k))?.[1]||"";
   const torah=(getRead(/Torah|Pent/i)||Array.from({length:7},(_,j)=>aliyot.get(`${canonicalName(portion)}|${j+1}`)?.reading).filter(Boolean).join("; ")).replace(/^([A-Za-z ]+?)(\d+:)/,"$1 $2");
   const companion={
-    52:{haftarah:"None — intentional in PWA generated page",nt:"None — intentional in PWA generated page"},
+    52:{haftarah:"None â€” intentional in PWA generated page",nt:"None â€” intentional in PWA generated page"},
     53:{haftarah:"2 Samuel 22:1-51; Hosea 14:1-9",nt:"John 21:1-25; Romans 10:14-11:12; 12:14-21"},
     54:{haftarah:"Joshua 1:1-18",nt:"Matthew 17:1-9; Luke 9:28-36; 24:44-53; 1 Thessalonians 5:1-11; Jude 1:3-10"}
   };
   const haftarah=getRead(/Haftarah|Prophets/i)||companion[i]?.haftarah||"";
   const nt=getRead(/Brit|New Test/i)||companion[i]?.nt||"";
-  const metadataNotes={5:"Transliteration standardized from PWA Chayei Sarah to Hebcal Chayei Sara",6:"Transliteration standardized from Toledot to Toldot; Hebrew niqqud removed",25:"Corrected erroneous PWA Hebrew בחוקותי to צו",26:"Transliteration standardized from Shemini to Hebcal Shmini",29:"Transliteration standardized from Acharei Mot to Hebcal Achrei Mot",50:"Corrected erroneous PWA Hebrew בחוקותי to כי תבוא",52:"Transliteration standardized from Vayelech to Hebcal Vayeilech"};
-  const row={week:i,portion_transliteration:portion,title_english:meaning,title_hebrew:hebrew,torah_reading:torah,haftarah_prophets_writings:haftarah,new_testament:nt,
+  const metadataNotes={5:"Transliteration standardized from PWA Chayei Sarah to Hebcal Chayei Sara",6:"Transliteration standardized from Toledot to Toldot; Hebrew niqqud removed",25:"Corrected erroneous PWA Hebrew ×‘×—×•×§×•×ª×™ to ×¦×•",26:"Transliteration standardized from Shemini to Hebcal Shmini",29:"Transliteration standardized from Acharei Mot to Hebcal Achrei Mot",50:"Corrected erroneous PWA Hebrew ×‘×—×•×§×•×ª×™ to ×›×™ ×ª×‘×•×",52:"Transliteration standardized from Vayelech to Hebcal Vayeilech"};
+  const row={week:i,portion_transliteration:portion,title_english:meaning,title_hebrew:hebrew,theme_title:themeTitle,torah_reading:torah,haftarah_prophets_writings:haftarah,new_testament:nt,
     english_week_page:local.rel?`scripture/english/${local.rel}`:"",hebrew_week_page:i<=52?`scripture/hebrew/week${String(i).padStart(2,"0")}.html`:"",greek_week_page:i<=52?`scripture/greek/week${String(i).padStart(2,"0")}.html` : "",
     tlv_link:local.links.tlv||"",kjv_link:local.links.kjv||"",wlc_hebrew_link:local.links.wlc||"",sblgnt_greek_link:local.links.sblgnt||"",apocrypha_link:local.links.apocrypha||"",
     companion_reading_source_url:i===53?"https://www.119ministries.com/resources/torah-portion/t53-haazinu/":i===54?"https://www.119ministries.com/resources/torah-portion/t54-vzot-habrachah/":i===52?"scripture/greek/week52.html":"",
     source_note:[i<=52?"Recovered from HomeGroupsApp PWA; daily aliyot from Hebcal":"Added canonical missing portion; daily aliyot from Hebcal and companion readings from 119 Ministries",metadataNotes[i]].filter(Boolean).join("; ")};
   for(const label of ["Torah","Prophets","Writings","Gospels","Letters","Revelation"]){const a=local.audios[label]||{}; const k=label.toLowerCase();row[`${k}_audio_english`]=a.eng||"";row[`${k}_audio_hebrew`]=a.heb||"";row[`${k}_audio_greek`]=a.grk||"";}
-  for(let d=1;d<=7;d++){const reading=aliyot.get(`${portion}|${d}`)?.reading||""; row[`day${d}_${days[d-1].toLowerCase()}_reading`]=reading;row[`day${d}_sefaria_link`]=sefaria(reading);daily.push({week:i,day_number:d,day_name:days[d-1],portion_transliteration:portion,title_english:meaning,title_hebrew:hebrew,torah_daily_reading:reading,sefaria_bilingual_link:sefaria(reading),weekly_torah_reading:torah,haftarah_prophets_writings:haftarah,new_testament:nt,source_note:row.source_note});}
+  for(let d=1;d<=7;d++){const reading=aliyot.get(`${portion}|${d}`)?.reading||""; row[`day${d}_${days[d-1].toLowerCase()}_reading`]=reading;row[`day${d}_sefaria_link`]=sefaria(reading);daily.push({week:i,day_number:d,day_name:days[d-1],portion_transliteration:portion,title_english:meaning,title_hebrew:hebrew,theme_title:themeTitle,torah_daily_reading:reading,sefaria_bilingual_link:sefaria(reading),weekly_torah_reading:torah,haftarah_prophets_writings:haftarah,new_testament:nt,source_note:row.source_note});}
   weekly.push(row);
 }
 
@@ -109,3 +116,4 @@ const xlsx=await SpreadsheetFile.exportXlsx(wb); await xlsx.save(path.join(out,"
 const preview=await wb.render({sheetName:"Daily Readings",range:"A1:L12",scale:1.2,format:"png"});
 await fs.writeFile("C:/Users/eddie/Documents/Codex/2026-07-03/w/work/reading_schedule_preview.png",new Uint8Array(await preview.arrayBuffer()));
 console.log(JSON.stringify({weeklyRows:weekly.length,dailyRows:daily.length,aliyot:aliyot.size,outputs:3}));
+
