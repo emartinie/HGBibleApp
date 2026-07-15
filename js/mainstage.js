@@ -19,7 +19,7 @@ let mainStageTitle, mainStageSub, mainStageThemeTitle, mainStagePlaylist, mainSt
     mainStageSecondaryNav, mainStageWeekLabel, mainStageWeekday,
     mainStageDayLabel, mainStageDailyReading, mainStageProgressText,
     mainStageProgressBar, mainStageListenBtn, dailySchedule,
-    mainStageSefariaLink, mainStageWeeklyJourney,
+    mainStageReadPassageBtn, mainStageSefariaLink, mainStageWeeklyJourney,
     mainStageWeekContextTitle, mainStageWeekContextSummary,
     mainStageWeekTodayRef, mainStageWeekTorahRef,
     mainStageWeekHaftarahRef, mainStageWeekNtRef;
@@ -77,6 +77,7 @@ function cacheDOM() {
   mainStageProgressText = document.getElementById("mainStageProgressText");
   mainStageProgressBar = document.getElementById("mainStageProgressBar");
   mainStageListenBtn = document.getElementById("mainStageListenBtn");
+  mainStageReadPassageBtn = document.getElementById("mainStageReadPassageBtn");
   mainStageSefariaLink = document.getElementById("mainStageSefariaLink");
   mainStageWeeklyJourney = document.getElementById("mainStageWeeklyJourney");
   mainStageWeekContextTitle = document.getElementById("mainStageWeekContextTitle");
@@ -136,6 +137,15 @@ function resetMainStageInvitation(weekData) {
   if (mainStageDailyReading) {
     mainStageDailyReading.textContent = daily?.torah_daily_reading || weekData.sections?.audio_playlist?.[0]?.label || "Todayâ€™s reading is being prepared.";
   }
+  const dailyReference = String(
+    daily?.torah_daily_reading ||
+    weekData.sections?.audio_playlist?.[0]?.label ||
+    ""
+  ).trim();
+  if (mainStageReadPassageBtn) {
+    mainStageReadPassageBtn.dataset.ref = dailyReference;
+    mainStageReadPassageBtn.hidden = !dailyReference;
+  }
   if (mainStageSefariaLink) {
     const href = daily?.sefaria_bilingual_link || "#";
     mainStageSefariaLink.href = href;
@@ -187,6 +197,14 @@ function resetMainStageInvitation(weekData) {
   const playerDock = document.getElementById("floating-player-root");
   if (playerDock) playerDock.hidden = true;
   if (mainStageListenBtn) mainStageListenBtn.setAttribute("aria-expanded", "false");
+}
+
+function openMainStagePassage() {
+  const reference = String(mainStageReadPassageBtn?.dataset.ref || "").trim();
+  if (!reference) return;
+
+  localStorage.setItem("sefariaSearch", reference);
+  window.loadCard?.("sefaria");
 }
 
 function revealMainStageStudy() {
@@ -605,6 +623,7 @@ async function init() {
   }
 
   beginMainStageBtn?.addEventListener("click", revealMainStageStudy);
+  mainStageReadPassageBtn?.addEventListener("click", openMainStagePassage);
   mainStageListenBtn?.addEventListener("click", () => {
     const playerDock = document.getElementById("floating-player-root");
     if (playerDock) playerDock.hidden = false;
