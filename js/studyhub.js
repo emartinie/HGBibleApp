@@ -1,89 +1,145 @@
 (function () {
+  function getScope(root = document) {
+    return root && typeof root.querySelector === "function" ? root : document;
+  }
+
+  function readText(id) {
+    return String(document.getElementById(id)?.textContent || "").trim();
+  }
+
+  function usableReference(value) {
+    const text = String(value || "").trim();
+    if (!text || /loading|pending|being prepared/i.test(text)) return "";
+    return text;
+  }
+
   function getStudyContext() {
-    const week = typeof getSelectedWeekNumber === "function"
-      ? getSelectedWeekNumber()
-      : 1;
+    const selectedWeek = Number(
+      window.currentWeek ||
+      document.getElementById("weekSelect")?.value ||
+      1
+    );
 
-    return { week };
+    return {
+      week: Number.isFinite(selectedWeek) && selectedWeek > 0 ? selectedWeek : 1,
+      portion: readText("mainStageTitle"),
+      theme: readText("mainStageThemeTitle"),
+      today: usableReference(
+        readText("mainStageWeekTodayRef") ||
+        readText("mainStageDailyReading")
+      ),
+      prophets: usableReference(readText("mainStageWeekHaftarahRef")),
+      nt: usableReference(readText("mainStageWeekNtRef"))
+    };
   }
 
-  function updateStudyHubContext() {
-    const weekText = document.getElementById("studyhubWeekText");
-    if (!weekText) return;
-
-    const ctx = getStudyContext();
-    weekText.textContent = `Quick access to the current study flow. Week ${ctx.week}.`;
+  function setText(scope, id, value) {
+    const target = scope.querySelector(`#${id}`);
+    if (target) target.textContent = value || "";
   }
 
-  function setAppRoute(params) {
-    const url = new URL(window.location.href);
-
-    Object.entries(params).forEach(([key, value]) => {
-      if (value === null || value === undefined || value === "") {
-        url.searchParams.delete(key);
-      } else {
-        url.searchParams.set(key, value);
-      }
-    });
-
-    window.history.replaceState({}, "", url);
+  function setStatus(scope, message) {
+    setText(scope, "studyhubStatus", message);
   }
 
-  function openCardByName(cardName) {
-    if (typeof window.loadCard === "function") {
-      window.loadCard(cardName);
+  function openCard(cardName) {
+    if (!cardName || typeof window.loadCard !== "function") return;
+    window.loadCard(cardName);
+  }
+
+  function returnToMainStage(scope) {
+    const row = document.getElementById("cardsRow");
+    const mainStage = document.getElementById("mainStageCard");
+
+    if (!row || !mainStage) {
+      setStatus(scope, "MainStage is unavailable.");
+      return;
     }
+
+    row.scrollTo({
+      left: mainStage.offsetLeft,
+      behavior: "smooth"
+    });
+    setStatus(scope, "Returned to MainStage.");
   }
 
-  function wireStudyHubButtons() {
-    const refreshBtn = document.getElementById("studyhubRefreshBtn");
-    if (refreshBtn) refreshBtn.onclick = updateStudyHubContext;
+  function openToday(scope) {
+    const context = getStudyContext();
+    if (!context.today) {
+      setStatus(scope, "Today’s Tanakh reference is not available yet.");
+      return;
+    }
 
-    const openNtReaderBtn = document.getElementById("openNtReaderBtn");
-    if (openNtReaderBtn) openNtReaderBtn.onclick = () => {
-      setAppRoute({
-        card: "nt",
-        book: null,
-        chapter: null,
-        view: null,
-        section: null
-      });
-      openCardByName("nt");
-    };
+    localStorage.setItem("sefariaSearch", context.today);
+    setStatus(scope, `Opening ${context.today}.`);
+    openCard("sefaria");
+  }
 
-    const openIntertextBtn = document.getElementById("openIntertextBtn");
-    if (openIntertextBtn) openIntertextBtn.onclick = () => {
-      setAppRoute({ card: "intertext-quotes" });
-      openCardByName("intertext-quotes");
-    };
+  function updateStudyHubContext(scope) {
+    const context = getStudyContext();
+    const weekTitle = [
+      `Week ${context.week}`,
+      context.portion
+    ].filter(Boolean).join(" · ");
 
-    const openSourcesBtn = document.getElementById("openSourcesBtn");
-    if (openSourcesBtn) openSourcesBtn.onclick = () => {
-      setAppRoute({ card: "sources" });
-      openCardByName("sources");
-    };
+    setText(scope, "studyhubWeekLabel", weekTitle);
+    setText(
+      scope,
+      "studyhubThemeTitle",
+      context.theme || "The weekly theme will appear when MainStage finishes loading."
+    );
+    setText(scope, "studyhubTodayRef", context.today || "Today’s reading is not available yet.");
+    setText(scope, "studyhubProphetsRef", context.prophets || "No Prophets/Writings reading is assigned.");
+    setText(scope, "studyhubNtRef", context.nt || "No New Testament reading is assigned.");
 
-    const openPrepNotesBtn = document.getElementById("openPrepNotesBtn");
-    if (openPrepNotesBtn) openPrepNotesBtn.onclick = () => {
-      const ctx = getStudyContext();
+    const readTodayBtn = scope.querySelector("#studyhubReadTodayBtn");
+    if (readTodayBtn) {
+      readTodayBtn.disabled = !context.today;
+      readTodayBtn.title = context.today
+        ? `Open ${context.today} in the Tanakh Interlinear`
+        : "Today’s reading reference is unavailable";
+    }
 
-      if (typeof window.openPorchPanel === "function") {
-        window.openPorchPanel(
-          "Prep Notes",
-          `<div class="space-y-3">
-             <p><strong>Week:</strong> ${ctx.week}</p>
-             <p>This is a placeholder for sermon prep, notes, and compiled study resources.</p>
-           </div>`
-        );
+    setStatus(scope, `Study context refreshed for Week ${context.week}.`);
+  }
+
+  function bindStudyHubRoutes(scope) {
+    const card = scope.querySelector("#studyhubCard");
+    if (!card) return;
+
+    const refreshBtn = scope.querySelector("#studyhubRefreshBtn");
+    if (refreshBtn) refreshBtn.onclick = () => updateStudyHubContext(scope);
+
+    const mainStageBtn = scope.querySelector("#studyhubMainStageBtn");
+    if (mainStageBtn) mainStageBtn.onclick = () => returnToMainStage(scope);
+
+    const readTodayBtn = scope.querySelector("#studyhubReadTodayBtn");
+    if (readTodayBtn) readTodayBtn.onclick = () => openToday(scope);
+
+    card.onclick = event => {
+      const destination = event.target.closest("[data-studyhub-card]");
+      if (!destination) return;
+
+      const cardName = destination.dataset.studyhubCard;
+      const context = getStudyContext();
+
+      if (cardName === "nt" && context.nt) {
+        localStorage.setItem("ntSearch", context.nt);
       }
+
+      setStatus(scope, `Opening ${destination.textContent.trim()}.`);
+      openCard(cardName);
     };
   }
 
-  function initStudyHub() {
-    updateStudyHubContext();
-    wireStudyHubButtons();
+  function initStudyHubCard(root = document) {
+    const scope = getScope(root);
+    if (!scope.querySelector("#studyhubCard")) return;
+
+    bindStudyHubRoutes(scope);
+    updateStudyHubContext(scope);
+    console.log("[StudyHub] current-study routes ready");
   }
 
-  window.initStudyHubCard = initStudyHub;
-  initStudyHub();
+  window.initStudyHubCard = initStudyHubCard;
 })();
