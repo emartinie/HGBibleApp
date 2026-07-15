@@ -38,6 +38,29 @@ function flattenText(value) {
   return value === null || value === undefined ? [] : [String(value)];
 }
 
+function makePassageEntries(text, sections = [], toSections = []) {
+  const startChapter = Number(sections[0] || 1);
+  const endChapter = Number(toSections[0] || startChapter);
+  const startVerse = Number(sections[1] || 1);
+  const chapterGroups = Array.isArray(text) && Array.isArray(text[0]);
+
+  if (chapterGroups || endChapter !== startChapter) {
+    return text.flatMap((chapterText, chapterIndex) => {
+      const chapter = startChapter + chapterIndex;
+      const firstVerse = chapterIndex === 0 ? startVerse : 1;
+      return flattenText(chapterText).map((value, verseIndex) => ({
+        label: `${chapter}:${firstVerse + verseIndex}`,
+        value
+      }));
+    });
+  }
+
+  return flattenText(text).map((value, verseIndex) => ({
+    label: String(startVerse + verseIndex),
+    value
+  }));
+}
+
   function getRef() {
     return {
       book: (bookInput.value || "Genesis").trim(),
@@ -74,16 +97,19 @@ function flattenText(value) {
         throw new Error(data?.error || `HTTP ${res.status}`);
       }
 
-      const passageText = flattenText(data?.text);
-      if (!passageText.length) {
+      const passageEntries = makePassageEntries(
+        data?.text,
+        data?.sections,
+        data?.toSections
+      );
+      if (!passageEntries.length) {
         throw new Error("No text returned");
       }
 
-      const startVerse = Number(parseReference(requestedReference)?.verse || 1);
-      const verses = passageText
-        .map((v, i) => `
+      const verses = passageEntries
+        .map(entry => `
           <p class="rounded-md px-2 py-1">
-            <span class="text-slate-500 mr-2">${startVerse + i}</span>${v}
+            <span class="text-slate-500 mr-2">${entry.label}</span>${entry.value}
           </p>
         `)
         .join("");
