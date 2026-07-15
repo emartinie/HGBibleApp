@@ -61,6 +61,26 @@ function makePassageEntries(text, sections = [], toSections = []) {
   }));
 }
 
+function makeBilingualEntries(data) {
+  const englishEntries = makePassageEntries(
+    data?.text,
+    data?.sections,
+    data?.toSections
+  );
+  const hebrewEntries = makePassageEntries(
+    data?.he,
+    data?.sections,
+    data?.toSections
+  );
+  const length = Math.max(englishEntries.length, hebrewEntries.length);
+
+  return Array.from({ length }, (_, index) => ({
+    label: englishEntries[index]?.label || hebrewEntries[index]?.label || String(index + 1),
+    english: englishEntries[index]?.value || "",
+    hebrew: hebrewEntries[index]?.value || ""
+  }));
+}
+
   function getRef() {
     return {
       book: (bookInput.value || "Genesis").trim(),
@@ -97,30 +117,43 @@ function makePassageEntries(text, sections = [], toSections = []) {
         throw new Error(data?.error || `HTTP ${res.status}`);
       }
 
-      const passageEntries = makePassageEntries(
-        data?.text,
-        data?.sections,
-        data?.toSections
-      );
+      const passageEntries = makeBilingualEntries(data);
       if (!passageEntries.length) {
-        throw new Error("No text returned");
+        throw new Error("No Hebrew or English text returned");
       }
 
       const verses = passageEntries
         .map(entry => `
-          <p class="rounded-md px-2 py-1">
-            <span class="text-slate-500 mr-2">${entry.label}</span>${entry.value}
-          </p>
+          <article class="sefaria-verse" data-sefaria-verse="${entry.label}">
+            <div class="sefaria-verse-ref">${entry.label}</div>
+            <div class="sefaria-language-pair">
+              <section class="sefaria-language sefaria-english">
+                <div class="sefaria-language-label">English</div>
+                <div class="sefaria-language-text">
+                  ${entry.english || '<span class="sefaria-unavailable">English translation unavailable.</span>'}
+                </div>
+              </section>
+              <section class="sefaria-language sefaria-hebrew" lang="he" dir="rtl">
+                <div class="sefaria-language-label">עברית · Hebrew</div>
+                <div class="sefaria-language-text">
+                  ${entry.hebrew || '<span class="sefaria-unavailable">הטקסט העברי אינו זמין.</span>'}
+                </div>
+              </section>
+            </div>
+          </article>
         `)
         .join("");
 
       root.innerHTML = `
-        <div class="space-y-2">
+        <div class="sefaria-interlinear" aria-label="Hebrew and English interlinear passage">
           ${verses}
         </div>
       `;
 
-      meta.textContent = data.ref || requestedReference || `${book} ${chapter}`;
+      const resolvedRef = data.ref || requestedReference || `${book} ${chapter}`;
+      const englishVersion = data.versionTitle || "Sefaria default English";
+      const hebrewVersion = data.heVersionTitle || "Sefaria default Hebrew";
+      meta.textContent = `${resolvedRef} · ${englishVersion} · ${hebrewVersion}`;
       bookInput.value = book;
       chapterInput.value = chapter;
       searchInput.value = requestedReference || `${book} ${chapter}`;
