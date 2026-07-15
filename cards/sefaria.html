@@ -1,3 +1,96 @@
+<style>
+  #sefariaContent {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sefaria-interlinear {
+    display: grid;
+    width: 100%;
+    gap: 0.9rem;
+  }
+
+  .sefaria-verse {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 0.85rem;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 0.85rem;
+    background: rgba(15, 23, 42, 0.72);
+  }
+
+  .sefaria-verse-ref {
+    color: rgb(251 191 36);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .sefaria-language-pair {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .sefaria-language {
+    min-width: 0;
+  }
+
+  .sefaria-language-label {
+    margin-bottom: 0.35rem;
+    color: rgb(148 163 184);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .sefaria-language-text {
+    overflow-wrap: anywhere;
+  }
+
+  .sefaria-english .sefaria-language-text {
+    color: rgb(241 245 249);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .sefaria-hebrew {
+    text-align: right;
+  }
+
+  .sefaria-hebrew .sefaria-language-label {
+    text-transform: none;
+  }
+
+  .sefaria-hebrew .sefaria-language-text {
+    color: rgb(147 197 253);
+    font-family: "Times New Roman", "Noto Serif Hebrew", serif;
+    font-size: 1.35rem;
+    line-height: 1.95;
+  }
+
+  .sefaria-unavailable {
+    color: rgb(148 163 184);
+    font-style: italic;
+  }
+
+  @media (min-width: 860px) {
+    .sefaria-language-pair {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .sefaria-verse {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
 <section class="hg-panel">
 <div class="card-topbar">
 
@@ -21,9 +114,9 @@
 </div>
 <details class="orientation-block hg-panel hg-section p-4 my-4">
   <summary class="cursor-pointer text-lg font-semibold text-amber-300">
-    Explore Hebrew and Jewish Context</summary>
-  <p class="text-sm text-slate-300 mt-2">This card opens a doorway into Jewish texts and traditions that can illuminate biblical language, history, and interpretation. It exists to encourage respectful study across a wider library of witnesses.</p>
-  <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Begin with the passage or topic already connected to your current study.</p>
+    Read the Tanakh in Hebrew and English</summary>
+  <p class="text-sm text-slate-300 mt-2">This card aligns the Hebrew text with an English translation from Sefaria so each verse can be studied in its original-language context.</p>
+  <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Read the English and Hebrew together, verse by verse. The passage follows the reference handed off from MainStage or Scripture Search.</p>
 </details>
 <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
 <!-- Temporary nav triage: hidden because secondary/tertiary nav controls are currently unreliable. -->
@@ -92,7 +185,7 @@
     </div>
      
     <div class="text-xs text-slate-500 italic">
-      Source: Sefaria
+      Source: Sefaria · Hebrew and English aligned by verse
     </div>
 
     <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
