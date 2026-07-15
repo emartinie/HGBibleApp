@@ -1,17 +1,17 @@
 (function () {
 const INVESTIGATIONS = [
-  { title: "Trust Over Agreement", file: "why-trust-matters-more-than-agreement.html" },
-  { title: "Where Did the Sabbath Go?", file: "where_did_the_sabbath_go.html" },
-  { title: "Who was Paul, or Rabbi Shaul?", file: "who-was-paul-or-rabbi-shaul-investigation-v1.html" },
-  { title: "Was Jesus born September 11th?", file: "was-yeshua-born-september-11-3-bc.html" },
-  { title: "Was Clean and Unclean Food Changed?", file: "investigating-food-laws.html" },
-  { title: "Did the Creator leave His fingerprint in the Torah?", file: "equidistant-letter-sequences-in-the-torah.html" },  
-  { title: "Is the Son the Father?", file: "is-the-son-the-father.html" },
-  { title: "Messiah 2030: Claims, Evidence, and Method", file: "messiah-2030-claims-evidence-and-method.html" },
-  { title: "What Should All Biblical Believers Be Called?", file: "what-should-all-biblical-believers-be-called.html" },
-  { title: "The Genesis 5 Gospel in the Names Claim", file: "genesis-5-gospel-in-the-names-claim.html" },
-  { title: "Biblical References to Non-Canonical and Lost Sources", file: "biblical-references-to-non-canonical-and-lost-sources.html" },
-  { title: "Non-Canonical Sources Quoted or Echoed in the New Testament", file: "non-canonical-sources-quoted-or-echoed-in-the-new-testament.html" },
+  { title: "Trust Over Agreement #000", file: "why-trust-matters-more-than-agreement.html" },
+  { title: "Where Did the Sabbath Go? #001", file: "where_did_the_sabbath_go.html" },
+  { title: "Who was Paul, or Rabbi Shaul? #002", file: "who-was-paul-or-rabbi-shaul-investigation-v1.html" },
+  { title: "Was Jesus born September 11th #003", file: "was-yeshua-born-september-11-3-bc.html" },
+  { title: "Was Clean and Unclean Food Changed #004", file: "investigating-food-laws.html" },
+  { title: "Did the Creator leave His fingerprint in the Torah? #005", file: "equidistant-letter-sequences-in-the-torah.html" },  
+  { title: "Is the Son the Father? #006", file: "is-the-son-the-father.html" },
+  { title: "Messiah 2030: Claims, Evidence, and Method correct?  #007", file: "messiah-2030-claims-evidence-and-method.html" },
+  { title: "What Should All Biblical Believers Be Called?  #008", file: "what-should-all-biblical-believers-be-called.html" },
+  { title: "The Genesis 5 Gospel in the Names Claim?  #009", file: "genesis-5-gospel-in-the-names-claim.html" },
+  { title: "Biblical References to Non-Canonical and Lost Sources?  #010", file: "biblical-references-to-non-canonical-and-lost-sources.html" },
+  { title: "Non-Canonical Sources Quoted or Echoed in the New Testament? #011", file: "non-canonical-sources-quoted-or-echoed-in-the-new-testament.html" },
 
 ];
 
