@@ -1,72 +1,77 @@
 (function () {
-  const expectedSourceIds = [
-    "openIntertextBtn",
-    "openNtReaderBtn",
-    "loadBtn",
-    "referenceSelect",
-    "toggleJewish",
-    "jewishSection",
-    "toggleNT",
-    "ntSection",
-    "toggleFathers",
-    "fathersSection",
-    "toggleDSS",
-    "dssSection",
-    "togglePeople",
-    "peopleSection"
-  ];
+  const INTERTEXT_DATA_URL = "data/intertext/nt_ot_quotes.json";
 
-  const toggles = {
-    toggleJewish: "jewishSection",
-    toggleNT: "ntSection",
-    toggleFathers: "fathersSection",
-    toggleDSS: "dssSection",
-    togglePeople: "peopleSection"
-  };
+  function getScope(root = document) {
+    return root && typeof root.querySelector === "function" ? root : document;
+  }
 
-  function initSourcesCard() {
-    const missingSourceIds = expectedSourceIds.filter(id => !document.getElementById(id));
+  function setStatus(scope, message) {
+    const status = scope.querySelector("#sourcesStatus");
+    if (status) status.textContent = message;
+  }
 
-    if (missingSourceIds.length) {
-      console.warn(`[sources.js] Missing expected sources.html IDs: ${missingSourceIds.join(", ")}`);
+  function openCard(cardName) {
+    if (!cardName || typeof window.loadCard !== "function") return;
+    window.loadCard(cardName);
+  }
+
+  function openInvestigation(file) {
+    if (!file) return;
+    window.pendingInvestigationFile = file;
+    openCard("investigations");
+  }
+
+  async function loadIntertextSummary(scope) {
+    const meta = scope.querySelector("#sourcesIntertextMeta");
+    if (!meta) return;
+
+    try {
+      const response = await fetch(INTERTEXT_DATA_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const data = await response.json();
+      const entries = Array.isArray(data) ? data : Object.values(data || {});
+      const ntCount = entries.filter(entry => entry?.nt?.text).length;
+      const lxxCount = entries.filter(entry => entry?.ot?.lxx?.text).length;
+      const masoreticCount = entries.filter(entry => entry?.ot?.masoretic?.text).length;
+
+      meta.textContent =
+        `${entries.length} entries · ${ntCount} NT · ${lxxCount} LXX · ${masoreticCount} Masoretic`;
+    } catch (error) {
+      console.warn("[Sources] intertext summary unavailable", error);
+      meta.textContent = "Intertext dataset available in the explorer.";
     }
+  }
 
-    const openIntertextBtn = document.getElementById("openIntertextBtn");
-    if (openIntertextBtn) {
-      openIntertextBtn.onclick = () => {
-        window.dispatchEvent(new CustomEvent("open-intertext"));
-        window.loadCard?.("intertext-quotes");
-      };
-    }
+  function bindSourceRoutes(scope) {
+    const card = scope.querySelector("#sourcesCard");
+    if (!card) return;
 
-    const openNtReaderBtn = document.getElementById("openNtReaderBtn");
-    if (openNtReaderBtn) {
-      openNtReaderBtn.onclick = () => {
-        window.dispatchEvent(new CustomEvent("open-nt-reader"));
-        window.loadCard?.("nt");
-      };
-    }
+    card.onclick = event => {
+      const cardButton = event.target.closest("[data-source-card]");
+      if (cardButton) {
+        const cardName = cardButton.dataset.sourceCard;
+        setStatus(scope, `Opening ${cardButton.textContent.trim()}.`);
+        openCard(cardName);
+        return;
+      }
 
-    const loadBtn = document.getElementById("loadBtn");
-    if (loadBtn) {
-      loadBtn.onclick = () => {
-        const val = document.getElementById("referenceSelect")?.value;
-        window.dispatchEvent(new CustomEvent("load-reference", { detail: val }));
-      };
-    }
+      const investigationButton = event.target.closest("[data-investigation-file]");
+      if (investigationButton) {
+        setStatus(scope, `Opening ${investigationButton.textContent.trim()}.`);
+        openInvestigation(investigationButton.dataset.investigationFile);
+      }
+    };
+  }
 
-    Object.entries(toggles).forEach(([btnId, sectionId]) => {
-      const btn = document.getElementById(btnId);
-      if (!btn) return;
+  async function initSourcesCard(root = document) {
+    const scope = getScope(root);
+    if (!scope.querySelector("#sourcesCard")) return;
 
-      btn.onclick = () => {
-        document.getElementById(sectionId)?.classList.toggle("hidden");
-      };
-    });
-
-    console.log("[sources] listeners attached");
+    bindSourceRoutes(scope);
+    await loadIntertextSummary(scope);
+    console.log("[Sources] verified resource routes ready");
   }
 
   window.initSourcesCard = initSourcesCard;
-  initSourcesCard();
 })();
