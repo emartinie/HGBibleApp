@@ -131,7 +131,7 @@ function resetMainStageInvitation(weekData) {
   }
 
   if (mainStageWeekday) mainStageWeekday.textContent = `Today · ${daily?.day_name || weekday}`;
-  if (mainStageDayLabel) mainStageDayLabel.textContent = `Day ${daily?.day_number || cycleDay} of 7`;
+  if (mainStageDayLabel) mainStageDayLabel.textContent = `Week ${selectedWeek} · Day ${daily?.day_number || cycleDay} of 7`;
   if (mainStageDailyReading) {
     mainStageDailyReading.textContent = daily?.torah_daily_reading || weekData.sections?.audio_playlist?.[0]?.label || "Today’s reading is being prepared.";
   }
