@@ -1,514 +1,99 @@
-<!--<section class="bibleCard inactive border rounded-3xl shadow-2xl bg-gray-900/70 backdrop-blur-lg text-white mx-auto p-5 space-y-5">-->
-<section class="hg-panel">
-<div class="card-topbar">
+<section id="calendarCard" class="hg-panel calendar-card">
+  <style>
+    #calendarCard { width: 100%; min-width: 0; overflow-wrap: anywhere; }
+    #calendarCard *, #calendarCard *::before, #calendarCard *::after { box-sizing: border-box; }
+    #calendarCard .calendar-stack { display: grid; gap: 1rem; }
+    #calendarCard .calendar-panel { min-width: 0; border: 1px solid rgba(148,163,184,.22); border-radius: 1rem; background: rgba(15,23,42,.62); padding: 1rem; }
+    #calendarCard .calendar-grid { display: grid; gap: .85rem; }
+    #calendarCard .calendar-models { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .55rem; }
+    #calendarCard .calendar-model-btn { min-width: 0; border: 1px solid rgba(148,163,184,.35); border-radius: .75rem; background: rgba(30,41,59,.8); color: #e2e8f0; padding: .7rem .55rem; font-weight: 700; }
+    #calendarCard .calendar-model-btn[aria-pressed="true"] { border-color: #f59e0b; background: rgba(180,83,9,.35); color: #fde68a; }
+    #calendarCard .calendar-next { display: grid; gap: .35rem; }
+    #calendarCard .calendar-countdown { display: inline-flex; width: fit-content; max-width: 100%; border-radius: 999px; background: rgba(245,158,11,.14); color: #fde68a; padding: .4rem .7rem; font-weight: 700; }
+    #calendarCard .calendar-events { display: grid; gap: .65rem; margin-top: .75rem; }
+    #calendarCard .calendar-event { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: .75rem; align-items: center; border: 1px solid rgba(148,163,184,.18); border-radius: .85rem; background: rgba(2,6,23,.42); padding: .85rem; }
+    #calendarCard .calendar-event.is-next { border-color: rgba(245,158,11,.65); box-shadow: 0 0 0 1px rgba(245,158,11,.12); }
+    #calendarCard .calendar-event h4 { margin: 0; color: #f8fafc; font-weight: 750; }
+    #calendarCard .calendar-event p { margin: .2rem 0 0; }
+    #calendarCard .calendar-detail { border-top: 1px solid rgba(148,163,184,.18); margin-top: .85rem; padding-top: .85rem; }
+    #calendarCard .calendar-detail[hidden] { display: none; }
+    #calendarCard .calendar-note { border-left: 3px solid #f59e0b; padding-left: .8rem; }
+    #calendarCard button { touch-action: manipulation; }
+    @media (max-width: 620px) {
+      #calendarCard .calendar-models { grid-template-columns: 1fr; }
+      #calendarCard .calendar-event { grid-template-columns: 1fr; }
+      #calendarCard .calendar-event button { width: 100%; }
+    }
+  </style>
 
-  <!-- existing fullscreen -->
-  <button class="card-fullscreen-btn card-icon-btn primary"
-          title="Expand Card">⛶</button>
+  <div class="card-topbar">
+    <button class="card-fullscreen-btn card-icon-btn primary" type="button" title="Expand Card" aria-label="Expand Calendar card">â›¶</button>
+  </div>
 
-  <button class="card-icon-btn nav" title="Home">⌂</button>
-  <button class="card-icon-btn nav" title="Previous">←</button>
-  <button class="card-icon-btn nav" title="Next">→</button>
+  <details class="orientation-block hg-panel hg-section p-4 my-4">
+    <summary class="cursor-pointer text-lg font-semibold text-amber-300">Walk Through Appointed Time</summary>
+    <p class="text-sm text-slate-300 mt-2">Use this card to notice the weekly Sabbath and compare the app's three 2026 appointed-time reference schedules.</p>
+    <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Read the next appointed time, then choose a calendar model to compare the schedule.</p>
+  </details>
 
-  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
-  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
+  <div class="card-heading">
+    <div class="card-kicker"><p class="hero-sub text-center">Calendar Â· Appointed Times Â· 2026 Reference</p></div>
+    <h2 id="calendarToday" class="text-xl flame text-center">Appointed Times</h2>
+    <p id="calendarTodayDate" class="text-slate-300 text-center mt-2">Loading today's dateâ€¦</p>
+  </div>
 
-  <button class="card-icon-btn utility" title="Search Card">⌕</button>
-  <button class="card-icon-btn utility" title="Bookmark">★</button>
-  <button class="card-icon-btn utility" title="Share">⇪</button>
-  <button class="card-icon-btn utility" title="Notes">✎</button>
-  <button class="card-icon-btn utility" title="Help">?</button>
-
-</div>
-<details class="orientation-block hg-panel hg-section p-4 my-4">
-  <summary class="cursor-pointer text-lg font-semibold text-amber-300">
-    Walk Through Appointed Time</summary>
-  <p class="text-sm text-slate-300 mt-2">This card helps you see Sabbaths and appointed times within the rhythm of the biblical year. It exists to make sacred time easier to notice, remember, and explore with humility.</p>
-  <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Check the next appointed time, then open the calendar view you follow.</p>
-</details>
-<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->  <!-- Hero -->
- <!-- <header class="text-center space-y-3">
-    <h2 class="text-3xl font-extrabold flex items-center justify-center gap-3">
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
-      Prophecy Calendar
-      <img src="images/HGHouses.png" alt="logo" class="w-8 h-8" />
-    </h2>-->
-
-  		<div class="card-heading">
-
-        <div class="card-kicker">
-          <p id="discipleshipSub"
-             class="hero-sub text-center">
-
-            Calendar • Guided Prophecy • Focused
-
-          </p>
-        </div>
-
-        <h2 id="calendarToday" 
-            class="text-xl flame text-center">
-
-          Calendar
-
-        </h2>
-
-    <p class="text-slate-300 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
-      Choose a calendar system, see the next appointed time, and open deeper explanations only when you want them. Different traditions calculate time differently. This app allows you to explore these systems side by side,
-while focusing on the meaning of the appointed times themselves.<br><button class="px-3 py-2 rounded bg-orange-600 hover:bg-orange-500 mx-auto" onclick="openCalendarInfo('calendars')">More Info</button><p class="text-slate-400 text-sm mt-1 mx-auto">
-                      Next Sabbath begins Friday at sunset.
-    </p>
-    
-
-    <p class="text-slate-400 text-xs md:text-sm italic">
-      Explore. Reflect. Go deeper only when you want to.
-    </p>
-  </header>
-
-        <section class="space-y-6">
-                  <!-- Calendar: Today (read-only) -->
-                  
-                    
-   <section class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-4">
-  <div class="flex flex-wrap items-center justify-between gap-3">
-    <div>
-      <p class="text-slate-400 text-xs uppercase tracking-wider">Current Calculation</p>
-      <h3 id="currentCalendarType"
-        class="text-2xl font-bold text-orange-300"
-        style="text-shadow:0 0 10px #00bfff, 0 0 20px #00bfff;">
-        Hillel 
-      </h3>
-        
-    </div>
+  <div class="calendar-stack mt-4">
+    <section class="calendar-panel calendar-grid" aria-labelledby="calendarSabbathTitle">
+      <div>
+        <p class="text-xs uppercase tracking-wider text-slate-400">Weekly rhythm</p>
+        <h3 id="calendarSabbathTitle" class="text-xl font-bold text-amber-300">Next Sabbath</h3>
+      </div>
+      <p id="nextSabbathDate" class="text-slate-200">Calculating the next Friday eveningâ€¦</p>
+      <p class="text-sm text-slate-400">The biblical day is commonly reckoned from evening to evening. Exact sunset time depends on location.</p>
     </section>
 
-     <section class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-4">
-
-      <p class="text-slate-400 text-xs uppercase tracking-wider" onclick="toggleSection(this)">Choose Calendar Calculator ▼</p>
-
-    <div class="flex flex-wrap gap-2">
-      <button class="px-3 py-2 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Hillel')">Hillel</button>
-      <button class="px-3 py-2 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Enochian')">Enochian</button>
-      <button class="px-3 py-2 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Zedokian')">Zedokian</button>
-        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Christian')">MS Christian</button>                        
-        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Orthodox')">E. Orthodox</button>
-        <button class="filterBtn px-3 py-1 rounded bg-gray-700 hover:bg-gray-600" onclick="setCalendarType('Catholic')">W. Orthodox(Catholic)</button>
-    </div>
+    <section class="calendar-panel calendar-grid" aria-labelledby="calendarModelTitle">
+      <div>
+        <p class="text-xs uppercase tracking-wider text-slate-400">Compare reference schedules</p>
+        <h3 id="calendarModelTitle" class="text-xl font-bold text-orange-300">Selected model: <span id="currentCalendarType">Hillel</span></h3>
+      </div>
+      <div class="calendar-models" role="group" aria-label="Calendar model">
+        <button class="calendar-model-btn" type="button" data-calendar-model="Hillel" aria-pressed="true">Hillel</button>
+        <button class="calendar-model-btn" type="button" data-calendar-model="Enochian" aria-pressed="false">Enochian</button>
+        <button class="calendar-model-btn" type="button" data-calendar-model="Zedokian" aria-pressed="false">Zedokian</button>
+      </div>
+      <p id="calendarModelDescription" class="text-sm text-slate-300"></p>
+      <p class="calendar-note text-sm text-slate-400"><strong class="text-amber-200">Release 1 note:</strong> These are project reference schedules for comparison, not a ruling that one reconstruction is authoritative. Calendar methods and observance dates differ.</p>
     </section>
-             
-        <section class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-4">
 
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <section class="calendar-panel calendar-next" aria-labelledby="nextHolyDayTitle">
+      <p class="text-xs uppercase tracking-wider text-slate-400">Next in this reference schedule</p>
+      <h3 id="nextHolyDayTitle" class="text-2xl font-bold text-amber-300">Loadingâ€¦</h3>
+      <p id="nextHolyDayDate" class="text-slate-200"></p>
+      <p id="nextHolyDaySummary" class="text-sm text-slate-300"></p>
+      <p id="countdownValue" class="calendar-countdown" aria-live="polite"></p>
+      <button id="nextHolyDayDetailsBtn" class="hg-btn mt-2" type="button">Read details</button>
+    </section>
 
-  <!-- Hillel -->
-  <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4">
-    <!--  Hillel block -->Hillel<p class="mt-3 text-xs text-amber-300 italic">
-  Key idea: ...
-</p>
-  </div>
+    <details class="calendar-panel" open>
+      <summary class="cursor-pointer text-lg font-semibold text-amber-300">2026 appointed-time cycle</summary>
+      <p class="text-sm text-slate-400 mt-2">Dates below change with the selected reference model. Select Details for the card's existing overview of an appointed time.</p>
+      <div id="holyDayList" class="calendar-events" aria-live="polite"></div>
+    </details>
 
-  <!-- Enochian -->
-  <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4">
-    <!--  Enochian block -->Enochian<p class="mt-3 text-xs text-amber-300 italic">
-  Key idea: ...
-</p>
-  </div>
-      
-  <!-- Zedokian -->
-  <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4">
-    <!--  Zedokian block -->Zedokian<p class="mt-3 text-xs text-amber-300 italic">
-  Key idea: ...
-</p>
-  </div>
-
-  <!-- MS Christian -->
-  <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4">
-    <!-- MS Christian block -->MSChristian<p class="mt-3 text-xs text-amber-300 italic">
-  Key idea: ...
-</p>
-  </div>
-
-  <!-- Western -->
-  <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4">
-    <!-- Western Orthodox block -->W.Orthodox<p class="mt-3 text-xs text-amber-300 italic">
-  Key idea: ...
-</p>
-  </div>
-
-  <!-- Eastern -->
-  <div class="bg-slate-900/70 border border-slate-700 rounded-xl p-4">
-    <!-- Eastern Orthodox block -->E.Orthodox<p class="mt-3 text-xs text-amber-300 italic">
-  Key idea: ...
-</p>
-  </div>
-
-</div>
-  </div>
+    <section class="calendar-panel" aria-labelledby="calendarDetailTitle">
+      <div id="calendarDetail" class="calendar-detail" hidden tabindex="-1">
+        <div class="flex items-start justify-between gap-3">
+          <h3 id="calendarDetailTitle" class="text-xl font-bold text-amber-300">Appointed time details</h3>
+          <button id="calendarDetailClose" class="hg-btn" type="button" aria-label="Close appointed time details">Close</button>
+        </div>
+        <div id="calendarDetailContent" class="text-sm text-slate-300 mt-3 space-y-2"></div>
+      </div>
+      <div id="calendarDetailPrompt">
+        <h3 class="text-lg font-semibold text-slate-200">Explore without overstating certainty</h3>
+        <p class="text-sm text-slate-400 mt-2">The card distinguishes the biblical meaning of the appointed times from modern date calculations. Open any event above to review its existing summary.</p>
+      </div>
+    </section>
   </div>
 </section>
 
-  <!-- Next Event / Countdown -->
-<section class="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 space-y-4">
-  <div class="flex flex-wrap items-center justify-between gap-3">
-    <div>
-      <p class="text-slate-400 text-xs uppercase tracking-wider">Next Appointed Time</p>
-      <h3 id="nextHolyDayTitle" class="text-2xl font-bold text-amber-300">Trumpets</h3>
-      <p id="nextHolyDayDate" class="text-slate-200">Begins at sundown on September 11, 2026</p>
-      <p id="nextHolyDaySummary" class="text-slate-400 text-sm">
-        Begins civil new year and ushers in the "Ten Days of Awe" (a period of introspection and repentance) that culminate on Yom Kippur.
-      </p>
-      <div class="flex gap-2 pt-2">
-        <button class="hg-btn" onclick="openCalendarInfo('trumpets')">
-          Learn More
-        </button>
-        <button class="px-3 py-2 rounded bg-emerald-600 hover:bg-emerald-500" onclick="beginHolyDayExperience('trumpets')">
-          Begin Experience
-        </button>
-      </div>     
-    </div>
- 
-  </section>
-  
-<!-- HOLY DAYS SYSTEM PANEL -->
-<section class="content-panel">
-
-  <!-- HEADER -->
-  <div class="border-b border-amber-500/20 pb-3 mb-4">
-    <h2 class="text-xl font-semibold text-amber-300 tracking-wide">
-      2026 Holy Days Cycle
-    </h2>
-    <p class="text-slate-400 text-sm mt-1">
-      Prophetic timeline markers (feasts as structured rhythm, not isolated events)
-    </p>
-  </div>
-
-  <!-- TOGGLE BUTTON -->
-  <button
-    type="button"
-    class="w-full flex items-center justify-between mb-4 px-3 py-2 rounded-xl bg-slate-900/40 border border-slate-700 hover:bg-slate-800/40 transition"
-    onclick="toggleHolyDays(this)"
-  >
-    <span class="text-slate-200 font-medium">Show / Hide Feast Timeline</span>
-    <span class="text-slate-500 text-sm">▼</span>
-  </button>
-
-  <!-- LIST -->
-  <div id="holyDayList" class="space-y-4" style="display:none;">
-
-    <!-- PASSOVER -->
-    <div class="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
-
-      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_left,rgba(251,191,36,0.3),transparent_60%)]"></div>
-
-      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-        <div>
-          <h4 class="text-lg font-semibold text-amber-200">Passover</h4>
-
-          <p class="text-slate-300 text-sm">Begins April 1, 2026 (sundown)</p>
-          <p class="text-slate-500 text-sm mt-1">Deliverance from bondage • covenant memory point</p>
-
-          <div class="mt-2 text-xs text-slate-600">
-            Cycle Marker: Exodus Pattern
-          </div>
-        </div>
-
-        <div class="flex gap-2">
-          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200 hover:bg-slate-700">
-            Info
-          </button>
-          <button class="px-3 py-1.5 rounded-lg bg-amber-700/20 border border-amber-500/30 text-amber-200 text-xs hover:bg-amber-700/30">
-            Play
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- UNLEAVENED BREAD -->
-    <div class="relative overflow-hidden rounded-2xl border border-slate-600/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
-
-      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top,rgba(148,163,184,0.25),transparent_60%)]"></div>
-
-      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-        <div>
-          <h4 class="text-lg font-semibold text-slate-200">Feast of Unleavened Bread</h4>
-          <p class="text-slate-300 text-sm">April 2–8, 2026</p>
-          <p class="text-slate-500 text-sm mt-1">Removal of leaven • walking clean pattern</p>
-        </div>
-
-        <div class="flex gap-2">
-          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
-            Info
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- FIRST FRUITS -->
-    <div class="relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
-
-      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_bottom,rgba(16,185,129,0.25),transparent_60%)]"></div>
-
-      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-        <div>
-          <h4 class="text-lg font-semibold text-emerald-300">First Fruits</h4>
-          <p class="text-slate-300 text-sm">Spring 2026</p>
-          <p class="text-slate-500 text-sm mt-1">Resurrection pattern • first harvest signal</p>
-        </div>
-
-        <div class="flex gap-2">
-          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
-            Info
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- PENTECOST -->
-    <div class="relative overflow-hidden rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
-
-      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.25),transparent_60%)]"></div>
-
-      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-        <div>
-          <h4 class="text-lg font-semibold text-cyan-300">Pentecost / Shavuot</h4>
-          <p class="text-slate-300 text-sm">Spring / Summer 2026</p>
-          <p class="text-slate-500 text-sm mt-1">Covenant completion • spirit outpouring marker</p>
-        </div>
-
-        <div class="flex gap-2">
-          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
-            Info
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- TRUMPETS -->
-    <div class="relative overflow-hidden rounded-2xl border border-yellow-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
-
-      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top,rgba(250,204,21,0.25),transparent_60%)]"></div>
-
-      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-        <div>
-          <h4 class="text-lg font-semibold text-yellow-200">Trumpets</h4>
-          <p class="text-slate-300 text-sm">September 12, 2026</p>
-          <p class="text-slate-500 text-sm mt-1">Awakening signal • gathering call pattern</p>
-        </div>
-
-        <div class="flex gap-2">
-          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
-            Info
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ATONEMENT -->
-    <div class="relative overflow-hidden rounded-2xl border border-red-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
-
-      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,rgba(239,68,68,0.25),transparent_60%)]"></div>
-
-      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-        <div>
-          <h4 class="text-lg font-semibold text-red-300">Day of Atonement</h4>
-          <p class="text-slate-300 text-sm">Autumn 2026</p>
-          <p class="text-slate-500 text-sm mt-1">Judgment • mercy • cleansing threshold</p>
-        </div>
-
-        <div class="flex gap-2">
-          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
-            Info
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- TABERNACLES -->
-    <div class="relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5">
-
-      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_bottom,rgba(16,185,129,0.25),transparent_60%)]"></div>
-
-      <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-        <div>
-          <h4 class="text-lg font-semibold text-emerald-300">Tabernacles / Sukkot</h4>
-          <p class="text-slate-300 text-sm">Autumn 2026</p>
-          <p class="text-slate-500 text-sm mt-1">Dwelling pattern • wilderness remembrance</p>
-        </div>
-
-        <div class="flex gap-2">
-          <button class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs">
-            Info
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- SYSTEM OVERVIEW GRID (VISUAL MOCK) -->
-<section class="content-panel space-y-6">
-
-  <!-- HEADER -->
-  <div class="border-b border-slate-700 pb-3">
-    <h2 class="text-xl font-semibold text-slate-100 tracking-wide">
-      Chronological & Symbolic Time Systems
-    </h2>
-    <p class="text-slate-400 text-sm mt-1">
-      Multi-calendar interpretation layer (visual simulation only)
-    </p>
-  </div>
-
-  <!-- GRID -->
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-5">
-
-    <!-- SUN / MAZZAROTH -->
-    <div class="rounded-2xl border border-yellow-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5 relative overflow-hidden">
-
-      <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(250,204,21,0.25),transparent_60%)]"></div>
-
-      <div class="relative">
-        <h3 class="text-yellow-300 font-semibold text-lg">Solar Cycle / Mazzaroth</h3>
-
-        <!-- symbolic visual -->
-        <div class="mt-3 flex items-center gap-3">
-          <div class="text-4xl">☀️</div>
-
-          <div class="flex-1 h-2 bg-slate-800 rounded-full overflow-hidden">
-            <div class="h-full w-2/3 bg-gradient-to-r from-yellow-500 via-orange-400 to-yellow-200"></div>
-          </div>
-        </div>
-
-        <p class="text-slate-400 text-sm mt-3">
-          Seasonal alignment, feast timing, solar progression through symbolic constellations.
-        </p>
-      </div>
-    </div>
-
-    <!-- LUNAR -->
-    <div class="rounded-2xl border border-slate-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5 relative overflow-hidden">
-
-      <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top,rgba(148,163,184,0.25),transparent_60%)]"></div>
-
-      <div class="relative">
-        <h3 class="text-slate-200 font-semibold text-lg">Lunar Cycle</h3>
-
-        <div class="mt-3 flex items-center gap-3">
-          <div class="text-4xl">🌙</div>
-
-          <!-- moon phase strip -->
-          <div class="flex gap-1 items-center">
-            <span class="text-slate-400">◐</span>
-            <span class="text-slate-500">◑</span>
-            <span class="text-slate-300">●</span>
-            <span class="text-slate-500">◑</span>
-            <span class="text-slate-400">◐</span>
-          </div>
-        </div>
-
-        <p class="text-slate-400 text-sm mt-3">
-          Monthly cycle tracking used in biblical feasts and ancient calendrical systems.
-        </p>
-      </div>
-    </div>
-
-    <!-- CONSTELLATIONS -->
-    <div class="rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5 relative overflow-hidden">
-
-      <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_bottom,rgba(34,211,238,0.25),transparent_60%)]"></div>
-
-      <div class="relative">
-        <h3 class="text-cyan-300 font-semibold text-lg">Constellation Map</h3>
-
-        <div class="mt-3 font-mono text-xs text-slate-400 leading-relaxed">
-          ✦─────✦────✦<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;✦────✦<br/>
-          ✦────────────✦
-        </div>
-
-        <p class="text-slate-400 text-sm mt-3">
-          Symbolic star pathways representing seasonal narrative structures (Mazzaroth mapping layer). <br>
-          <a href="https://www.timeanddate.com/astronomy/night/" target="_blank">Planets at Night</a>
-
-        </p>
-      </div>
-    </div>
-
-    <!-- WORLD CALENDARS -->
-    <div class="rounded-2xl border border-emerald-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black p-5 relative overflow-hidden">
-
-      <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.25),transparent_60%)]"></div>
-
-      <div class="relative">
-        <h3 class="text-emerald-300 font-semibold text-lg">Global Calendar Systems</h3>
-
-        <div class="mt-3 grid grid-cols-2 gap-2 text-sm">
-
-          <div class="p-2 rounded-lg bg-slate-800/40 border border-slate-700">
-            <div class="text-slate-200">Islamic</div>
-            <div class="text-slate-500 text-xs">Hijri lunar cycle</div>
-          </div>
-
-          <div class="p-2 rounded-lg bg-slate-800/40 border border-slate-700">
-            <div class="text-slate-200">Buddhist</div>
-            <div class="text-slate-500 text-xs">Regional lunar solar blend</div>
-          </div>
-
-          <div class="p-2 rounded-lg bg-slate-800/40 border border-slate-700">
-            <div class="text-slate-200">Baháʼí</div>
-            <div class="text-slate-500 text-xs">19-month cycle</div>
-          </div>
-
-          <div class="p-2 rounded-lg bg-slate-800/40 border border-slate-700">
-            <div class="text-slate-200">Gregorian</div>
-            <div class="text-slate-500 text-xs">Solar civil system</div>
-          </div>
-
-        </div>
-
-        <p class="text-slate-400 text-sm mt-3">
-          Comparative calendrical frameworks for cross-cultural time reference alignment.
-        </p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-    <!-- Optional deeper actions -->
-  <section class="flex flex-wrap gap-3 justify-center pt-2">
-    <button
-      class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 font-semibold"
-      onclick="openOriginsInfo('overview')">
-      Quick Overview
-    </button>
-
-    <button
-      class="px-4 py-2 rounded-xl bg-indigo-700 hover:bg-indigo-600 font-semibold"
-      onclick="goDeeperOrigins()">
-      Go Deeper
-    </button>
-  </section>
-
-  <!-- Closing line -->
-  <footer class="text-center pt-2">
-    <p class="text-slate-400 text-xs md:text-sm italic">
-      You do not have to agree with everything here to belong here.
-    </p>
-  </footer>
-</section>
-
-</section>
