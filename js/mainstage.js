@@ -14,7 +14,7 @@ import { loadDailyReadingSchedule } from "./dailyReadingSchedule.js";
 // --- DOM Elements ---
 let weekSelect, weekInfo, prevBtn, nextBtn, cardsContainer;
 let mainStageTitle, mainStageSub, mainStagePlaylist, mainStageChapters,
-    mainStageVideo, mainStageIframe, floatingPlayer, mainStageEnglish,
+    mainStageVideo, mainStageIframe, floatingPlayer,
     mainStageWhy, beginMainStageBtn, mainStageContinuation,
     mainStageSecondaryNav, mainStageWeekLabel, mainStageWeekday,
     mainStageDayLabel, mainStageDailyReading, mainStageProgressText,
@@ -68,7 +68,6 @@ function cacheDOM() {
   mainStageChapters = document.getElementById("mainStageChapters");
   mainStageVideo    = document.getElementById("mainStageVideo");
   mainStageIframe   = document.getElementById("mainStageIframe"); // FIX: was never cached
-  mainStageEnglish  = document.getElementById("mainStageEnglish");
   mainStageWhy      = document.getElementById("mainStageWhy");
   mainStageWeekLabel = document.getElementById("mainStageWeekLabel");
   mainStageWeekday = document.getElementById("mainStageWeekday");
@@ -126,7 +125,7 @@ function resetMainStageInvitation(weekData) {
   const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][cycleDay - 1];
   const daily = dailySchedule?.get(selectedWeek, cycleDay);
 
-  mainStageTitle.textContent = `Week ${selectedWeek} · ${daily?.portion_transliteration || transliteration || "Weekly Study"}`;
+  mainStageTitle.textContent = weekData.english || "Weekly Study";
   if (mainStageWeekLabel) {
     mainStageWeekLabel.textContent = "You are here";
   }
@@ -155,9 +154,6 @@ function resetMainStageInvitation(weekData) {
   if (mainStageProgressText) mainStageProgressText.textContent = `Day ${daily?.day_number || cycleDay} of 7`;
   if (mainStageProgressBar) mainStageProgressBar.style.width = `${((daily?.day_number || cycleDay) / 7) * 100}%`;
 
-  if (mainStageEnglish) {
-    mainStageEnglish.textContent = weekData.english || "English meaning pending";
-  }
 
   if (mainStageSub) {
     mainStageSub.textContent = [weekData.hebrew, transliteration]
