@@ -24,10 +24,9 @@
       week: Number.isFinite(selectedWeek) && selectedWeek > 0 ? selectedWeek : 1,
       portion: readText("mainStageTitle"),
       theme: readText("mainStageThemeTitle"),
-      today: usableReference(
-        readText("mainStageWeekTodayRef") ||
-        readText("mainStageDailyReading")
-      ),
+      today:
+        usableReference(readText("mainStageWeekTodayRef")) ||
+        usableReference(readText("mainStageDailyReading")),
       prophets: usableReference(readText("mainStageWeekHaftarahRef")),
       nt: usableReference(readText("mainStageWeekNtRef"))
     };
