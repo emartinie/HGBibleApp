@@ -1,0 +1,602 @@
+{
+  "schema_version": 1,
+  "methodology": "Each working title synthesizes the complete assigned Torah, Prophets/Writings, and New Testament readings for that week.",
+  "scripture_text_source": "King James Version text used for the synthesis pass; reading references remain authoritative.",
+  "weeks": [
+    {
+      "week": 1,
+      "portion_transliteration": "Bereshit",
+      "theme_title": "The Creator's Light Enters a Darkened World",
+      "theme_basis": {
+        "torah": "Genesis  1:1-6:8",
+        "prophets_writings": "Isa 42:5-43:11",
+        "new_testament": "John 1:1-14"
+      },
+      "note": ""
+    },
+    {
+      "week": 2,
+      "portion_transliteration": "Noach",
+      "theme_title": "Judgment, Rescue, and Faithful Watchfulness",
+      "theme_basis": {
+        "torah": "Genesis  6:9-11:32",
+        "prophets_writings": "Isa 40:27-41:16",
+        "new_testament": "Mt 24:36-46; 1 Pet 3:18-22"
+      },
+      "note": ""
+    },
+    {
+      "week": 3,
+      "portion_transliteration": "Lech-Lecha",
+      "theme_title": "Faith Trusts the God Who Gives Life",
+      "theme_basis": {
+        "torah": "Genesis  12:1-17:27",
+        "prophets_writings": "II Ki 4:1-37",
+        "new_testament": "Rom 4:1-25"
+      },
+      "note": ""
+    },
+    {
+      "week": 4,
+      "portion_transliteration": "Vayera",
+      "theme_title": "Promise, Judgment, and the Son God Provides",
+      "theme_basis": {
+        "torah": "Genesis  18:1-22:24",
+        "prophets_writings": "I Ki 1:1-31",
+        "new_testament": "Lk 1:26-38; 24:36-53; 2 Pet. 2:4-11"
+      },
+      "note": ""
+    },
+    {
+      "week": 5,
+      "portion_transliteration": "Chayei Sara",
+      "theme_title": "Covenant Faithfulness Carries the Promise Forward",
+      "theme_basis": {
+        "torah": "Genesis  23:1-25:18",
+        "prophets_writings": "Hos 12:13-14:10",
+        "new_testament": "Mt 1:1-17;"
+      },
+      "note": ""
+    },
+    {
+      "week": 6,
+      "portion_transliteration": "Toldot",
+      "theme_title": "Two Kingdoms, One Inheritance, and Final Victory",
+      "theme_basis": {
+        "torah": "Genesis  25:19-28:9",
+        "prophets_writings": "Obadiah 1:1-21",
+        "new_testament": "1 Cor 15:50-57"
+      },
+      "note": ""
+    },
+    {
+      "week": 7,
+      "portion_transliteration": "Vayetzei",
+      "theme_title": "Sovereign Mercy Amid Exile and Injustice",
+      "theme_basis": {
+        "torah": "Genesis  28:10-32:3",
+        "prophets_writings": "Amos 2:6-3:8",
+        "new_testament": "Rom 9:1-31"
+      },
+      "note": ""
+    },
+    {
+      "week": 8,
+      "portion_transliteration": "Vayishlach",
+      "theme_title": "Encountering God and Receiving a New Identity",
+      "theme_basis": {
+        "torah": "Genesis  32:4-36:43",
+        "prophets_writings": "I Ki 3:15-4:1",
+        "new_testament": "Jn 1:19-51"
+      },
+      "note": ""
+    },
+    {
+      "week": 9,
+      "portion_transliteration": "Vayeshev",
+      "theme_title": "The Rejected Son and the Hope of Reunion",
+      "theme_basis": {
+        "torah": "Genesis  37:1-40:23",
+        "prophets_writings": "Ezek 37:15-37:28",
+        "new_testament": "Heb 11:11-20; Mt 26:36-46+"
+      },
+      "note": ""
+    },
+    {
+      "week": 10,
+      "portion_transliteration": "Miketz",
+      "theme_title": "Providence Prepares the Way for the Promised King",
+      "theme_basis": {
+        "torah": "Genesis  41:1-44:17",
+        "prophets_writings": "I Ki 2:1-12",
+        "new_testament": "Mt 1:1-6, 16-25"
+      },
+      "note": ""
+    },
+    {
+      "week": 11,
+      "portion_transliteration": "Vayigash",
+      "theme_title": "Reconciliation Through the One Who Saves",
+      "theme_basis": {
+        "torah": "Genesis  44:18-47:27",
+        "prophets_writings": "Ezek 28:25-29:21",
+        "new_testament": "Rom 10:1-13"
+      },
+      "note": ""
+    },
+    {
+      "week": 12,
+      "portion_transliteration": "Vayechi",
+      "theme_title": "Blessing, Deliverance, and New Life by Grace",
+      "theme_basis": {
+        "torah": "Genesis  47:28-50:26",
+        "prophets_writings": "Jer 46:13-46:28",
+        "new_testament": "Eph 2:1-10"
+      },
+      "note": ""
+    },
+    {
+      "week": 13,
+      "portion_transliteration": "Shemot",
+      "theme_title": "Called from Oppression to Courageous Deliverance",
+      "theme_basis": {
+        "torah": "Exodus  1:1-6:1",
+        "prophets_writings": "Judges 4:4-5:31",
+        "new_testament": "1 Pet 1:1-9"
+      },
+      "note": ""
+    },
+    {
+      "week": 14,
+      "portion_transliteration": "Vaera",
+      "theme_title": "The Revealed God Confronts Powers and Calls His People",
+      "theme_basis": {
+        "torah": "Exodus  6:2-9:35",
+        "prophets_writings": "Isa 6:1-7:6; 9:5-9:6",
+        "new_testament": "Acts 7:17-35; 1 Cor 14:18-25"
+      },
+      "note": ""
+    },
+    {
+      "week": 15,
+      "portion_transliteration": "Bo",
+      "theme_title": "Redeemed by Mercy and Released from Bondage",
+      "theme_basis": {
+        "torah": "Exodus  10:1-13:16",
+        "prophets_writings": "Jer 34:8-34:22; 33:25-26",
+        "new_testament": "Rom 9:14-33"
+      },
+      "note": ""
+    },
+    {
+      "week": 16,
+      "portion_transliteration": "Beshalach",
+      "theme_title": "From Deliverance to Covenant Fellowship",
+      "theme_basis": {
+        "torah": "Exodus  13:17-17:16",
+        "prophets_writings": "I Ki 5:26-6:13",
+        "new_testament": "Lk 22:7-30; 1 Cor 11:20-34"
+      },
+      "note": ""
+    },
+    {
+      "week": 17,
+      "portion_transliteration": "Yitro",
+      "theme_title": "Hearing God's Word and Living by His Bread",
+      "theme_basis": {
+        "torah": "Exodus  18:1-20:23",
+        "prophets_writings": "Ezek 43:10-43:27",
+        "new_testament": "Jn 6:15-71"
+      },
+      "note": ""
+    },
+    {
+      "week": 18,
+      "portion_transliteration": "Mishpatim",
+      "theme_title": "Covenant Justice and Undivided Allegiance",
+      "theme_basis": {
+        "torah": "Exodus  21:1-24:18",
+        "prophets_writings": "I Ki 18:1-18:39",
+        "new_testament": "Mt 5:8-20"
+      },
+      "note": ""
+    },
+    {
+      "week": 19,
+      "portion_transliteration": "Terumah",
+      "theme_title": "God Dwells Among a Transformed People",
+      "theme_basis": {
+        "torah": "Exodus  25:1-27:19",
+        "prophets_writings": "I Ki 7:40-7:50",
+        "new_testament": "Mt 5:38-42;17:1-11"
+      },
+      "note": ""
+    },
+    {
+      "week": 20,
+      "portion_transliteration": "Tetzaveh",
+      "theme_title": "Consecrated Service, Generous Hearts, and Faithful Words",
+      "theme_basis": {
+        "torah": "Exodus  27:20-30:10",
+        "prophets_writings": "I Ki 7:51-8:21",
+        "new_testament": "2 Cor 9:1-15; Mt 5:33-37"
+      },
+      "note": ""
+    },
+    {
+      "week": 21,
+      "portion_transliteration": "Ki Tisa",
+      "theme_title": "Idolatry Broken and Covenant Mercy Renewed",
+      "theme_basis": {
+        "torah": "Exodus  30:11-34:35",
+        "prophets_writings": "Isa 43:21-44:23",
+        "new_testament": "Heb 13:10-17"
+      },
+      "note": ""
+    },
+    {
+      "week": 22,
+      "portion_transliteration": "Vayakhel",
+      "theme_title": "Obedient Hearts Become the Dwelling of Glory",
+      "theme_basis": {
+        "torah": "Exodus  35:1-38:20",
+        "prophets_writings": "Jer 7:21-8:3; 9:22-23",
+        "new_testament": "2 Cor 3:1-18"
+      },
+      "note": ""
+    },
+    {
+      "week": 23,
+      "portion_transliteration": "Pekudei",
+      "theme_title": "The Glory Dwells in a Generous Living Temple",
+      "theme_basis": {
+        "torah": "Exodus  38:21-40:38",
+        "prophets_writings": "II Sam 6:1-7:17",
+        "new_testament": "2 Cor 9:6-11; 1 Cor 3:11-18"
+      },
+      "note": ""
+    },
+    {
+      "week": 24,
+      "portion_transliteration": "Vayikra",
+      "theme_title": "Cleansing Grace and the Supremacy of the Son",
+      "theme_basis": {
+        "torah": "Leviticus  1:1-5:26",
+        "prophets_writings": "II Ki 4:42-5:19",
+        "new_testament": "Heb 1:1-14"
+      },
+      "note": ""
+    },
+    {
+      "week": 25,
+      "portion_transliteration": "Tzav",
+      "theme_title": "The Better Sacrifice Opens the Way",
+      "theme_basis": {
+        "torah": "Leviticus  6:1-8:36",
+        "prophets_writings": "II Ki 7:3-7:20",
+        "new_testament": "Heb 10:1-18"
+      },
+      "note": ""
+    },
+    {
+      "week": 26,
+      "portion_transliteration": "Shmini",
+      "theme_title": "Holy Presence Requires Discernment and a Better Priest",
+      "theme_basis": {
+        "torah": "Leviticus  9:1-11:47",
+        "prophets_writings": "Ezek 22:1-22:19",
+        "new_testament": "Heb 7:24-8:6"
+      },
+      "note": ""
+    },
+    {
+      "week": 27,
+      "portion_transliteration": "Tazria",
+      "theme_title": "From Impurity to Restoration Through the Eternal Priest",
+      "theme_basis": {
+        "torah": "Leviticus  12:1-13:59",
+        "prophets_writings": "Amos 9:7-9:15",
+        "new_testament": "Heb 7:1-19; 8:1-6"
+      },
+      "note": ""
+    },
+    {
+      "week": 28,
+      "portion_transliteration": "Metzora",
+      "theme_title": "The Holy One Cleanses and Restores the Excluded",
+      "theme_basis": {
+        "torah": "Leviticus  14:1-15:33",
+        "prophets_writings": "Ezek 44:15-44:31",
+        "new_testament": "John 6:8-13; Mt 8:1-4"
+      },
+      "note": ""
+    },
+    {
+      "week": 29,
+      "portion_transliteration": "Achrei Mot",
+      "theme_title": "Atonement, Holy Living, and Hope Beyond Judgment",
+      "theme_basis": {
+        "torah": "Leviticus  16:1-18:30",
+        "prophets_writings": "Jer 32:6-32:27",
+        "new_testament": "Matt 8:1-17"
+      },
+      "note": ""
+    },
+    {
+      "week": 30,
+      "portion_transliteration": "Kedoshim",
+      "theme_title": "A Holy People Cleansed for True Worship",
+      "theme_basis": {
+        "torah": "Leviticus  19:1-20:27",
+        "prophets_writings": "Jer 16:19-17:14",
+        "new_testament": "Heb 9:11-28"
+      },
+      "note": ""
+    },
+    {
+      "week": 31,
+      "portion_transliteration": "Emor",
+      "theme_title": "Holy Times, Holy Bodies, and Covenant Belonging",
+      "theme_basis": {
+        "torah": "Leviticus  21:1-24:23",
+        "prophets_writings": "Hos 2:1-2:23",
+        "new_testament": "1 Cor 6:9-20; 1 Pet 1:13-16"
+      },
+      "note": ""
+    },
+    {
+      "week": 32,
+      "portion_transliteration": "Behar",
+      "theme_title": "Freedom, Restoration, and a People Built for God",
+      "theme_basis": {
+        "torah": "Leviticus  25:1-26:2",
+        "prophets_writings": "Judges 13:2-13:25",
+        "new_testament": "1 Pet 2:4-10"
+      },
+      "note": ""
+    },
+    {
+      "week": 33,
+      "portion_transliteration": "Bechukotai",
+      "theme_title": "Covenant Restoration by the Spirit of the Anointed One",
+      "theme_basis": {
+        "torah": "Leviticus  26:3-27:34",
+        "prophets_writings": "Zech 2:14-4:7",
+        "new_testament": "Lk 4:16-21"
+      },
+      "note": ""
+    },
+    {
+      "week": 34,
+      "portion_transliteration": "Bamidbar",
+      "theme_title": "A Set-Apart People Prepared to Inherit",
+      "theme_basis": {
+        "torah": "Numbers  1:1-4:20",
+        "prophets_writings": "Josh 2:1-2:24",
+        "new_testament": "Mt. 21:33-46; 2 Cor 6:14-18"
+      },
+      "note": ""
+    },
+    {
+      "week": 35,
+      "portion_transliteration": "Nasso",
+      "theme_title": "Consecrated Service and Mercy for God's Covenant People",
+      "theme_basis": {
+        "torah": "Numbers  4:21-7:89",
+        "prophets_writings": "I Sam 11:14-12:22",
+        "new_testament": "Rom 9:22-33; Acts 21:17-26"
+      },
+      "note": ""
+    },
+    {
+      "week": 36,
+      "portion_transliteration": "Behaâ€™alotcha",
+      "theme_title": "Faithful Witness Amid Testing and Costly Vows",
+      "theme_basis": {
+        "torah": "Numbers  8:1-12:16",
+        "prophets_writings": "Judges 11:1-33",
+        "new_testament": "1 Cor 10:6-13; Rev 11:1-19"
+      },
+      "note": ""
+    },
+    {
+      "week": 37,
+      "portion_transliteration": "Shâ€™lach",
+      "theme_title": "Trusting God's Promise and Entering His Rest",
+      "theme_basis": {
+        "torah": "Numbers  13:1-15:41",
+        "prophets_writings": "Micah 5:6-6:8",
+        "new_testament": "Heb 3:7-4:1"
+      },
+      "note": ""
+    },
+    {
+      "week": 38,
+      "portion_transliteration": "Korach",
+      "theme_title": "God Establishes Authority and Calls Faithful Servants",
+      "theme_basis": {
+        "torah": "Numbers  16:1-18:32",
+        "prophets_writings": "I Ki 18:46-19:21",
+        "new_testament": "Rom 13:1-7"
+      },
+      "note": ""
+    },
+    {
+      "week": 39,
+      "portion_transliteration": "Chukat",
+      "theme_title": "Cleansed by Sacrifice and Healed by Faith",
+      "theme_basis": {
+        "torah": "Numbers  19:1-22:1",
+        "prophets_writings": "Jer 1:1-2:3",
+        "new_testament": "Hebrews 9:11-28; John 3:10-21"
+      },
+      "note": ""
+    },
+    {
+      "week": 40,
+      "portion_transliteration": "Balak",
+      "theme_title": "God Turns Curses to Blessing and Preserves Mercy",
+      "theme_basis": {
+        "torah": "Numbers  22:2-25:9",
+        "prophets_writings": "Jer 2:4-28; 3:4",
+        "new_testament": "Rom 11:25-32"
+      },
+      "note": ""
+    },
+    {
+      "week": 41,
+      "portion_transliteration": "Pinchas",
+      "theme_title": "Zeal, Justice, and Mercy for a Renewed People",
+      "theme_basis": {
+        "torah": "Numbers  25:10-30:1",
+        "prophets_writings": "Isa 1:1-1:27",
+        "new_testament": "Rom 11:2-32"
+      },
+      "note": ""
+    },
+    {
+      "week": 42,
+      "portion_transliteration": "Matot",
+      "theme_title": "Faithful Words Before the Sovereign Comforter",
+      "theme_basis": {
+        "torah": "Numbers  30:2-32:42",
+        "prophets_writings": "Isa 40:1-40:26",
+        "new_testament": "Matt 5:33-37"
+      },
+      "note": ""
+    },
+    {
+      "week": 43,
+      "portion_transliteration": "Masei",
+      "theme_title": "Ordered Inheritance, Refuge, and Humble Submission",
+      "theme_basis": {
+        "torah": "Numbers  33:1-36:13",
+        "prophets_writings": "Isa 49:14-51:3",
+        "new_testament": "James 4:1-12"
+      },
+      "note": ""
+    },
+    {
+      "week": 44,
+      "portion_transliteration": "Devarim",
+      "theme_title": "Remembering the Journey and Answering God's Call",
+      "theme_basis": {
+        "torah": "Deut. 1:1-3:22",
+        "prophets_writings": "Isa 54:11-55:5",
+        "new_testament": "Acts 9:1-21; 1 Tim 3:1-7"
+      },
+      "note": ""
+    },
+    {
+      "week": 45,
+      "portion_transliteration": "Vaetchanan",
+      "theme_title": "Love the One God and Walk in His Redeeming Word",
+      "theme_basis": {
+        "torah": "Deuteronomy  3:23-7:11",
+        "prophets_writings": "Isa 51:12-52:12",
+        "new_testament": "Mt 23:31-39; Mk 12:28-34"
+      },
+      "note": ""
+    },
+    {
+      "week": 46,
+      "portion_transliteration": "Eikev",
+      "theme_title": "Covenant Love Sustains Faithful Pilgrims",
+      "theme_basis": {
+        "torah": "Deuteronomy  7:12-11:25",
+        "prophets_writings": "Isa 54:1-54:10",
+        "new_testament": "Heb 11:8-13; Rom 8:31-39"
+      },
+      "note": ""
+    },
+    {
+      "week": 47,
+      "portion_transliteration": "Reâ€™eh",
+      "theme_title": "Choose Life, Worship Truly, and Shine with Living Water",
+      "theme_basis": {
+        "torah": "Deuteronomy  11:26-16:17",
+        "prophets_writings": "Isa 60:1-60:22",
+        "new_testament": "Jn 7:37-52; 1 Jn 4:1-6"
+      },
+      "note": ""
+    },
+    {
+      "week": 48,
+      "portion_transliteration": "Shoftim",
+      "theme_title": "Righteous Rule and the Promised Prophet",
+      "theme_basis": {
+        "torah": "Deuteronomy  16:18-21:9",
+        "prophets_writings": "Isa 61:10-63:9",
+        "new_testament": "Jn 1:19-27; Acts 3:22-23"
+      },
+      "note": ""
+    },
+    {
+      "week": 49,
+      "portion_transliteration": "Ki Teitzei",
+      "theme_title": "Holiness in Everyday Life and Welcome in God's House",
+      "theme_basis": {
+        "torah": "Deuteronomy  21:10-25:19",
+        "prophets_writings": "Isa 55:6-56:8",
+        "new_testament": "Mt 5:27-30; 1 Cor 5:1-5"
+      },
+      "note": ""
+    },
+    {
+      "week": 50,
+      "portion_transliteration": "Ki Tavo",
+      "theme_title": "From Covenant Gratitude to the City of Blessing",
+      "theme_basis": {
+        "torah": "Deuteronomy 26:1-29:8",
+        "prophets_writings": "II Sam 22:1-51",
+        "new_testament": "Eph 1:3-6; Rev 21:10-27"
+      },
+      "note": ""
+    },
+    {
+      "week": 51,
+      "portion_transliteration": "Nitzavim",
+      "theme_title": "Choose Life and Enter the Promise by Faith",
+      "theme_basis": {
+        "torah": "Deuteronomy  29:9-30:20",
+        "prophets_writings": "Josh 1:1-18",
+        "new_testament": "Rom 10:1-11:12; Rev 22:1-5"
+      },
+      "note": ""
+    },
+    {
+      "week": 52,
+      "portion_transliteration": "Vayeilech",
+      "theme_title": "God Never Forsakes Those Who Keep and Proclaim His Word",
+      "theme_basis": {
+        "torah": "Deuteronomy  31:1-31:30",
+        "prophets_writings": "Isaiah 55:6-56:8",
+        "new_testament": "Hebrews 13:5-8"
+      },
+      "note": "The uploaded Week 52 schedule explicitly contains no companion readings; customary Vayeilech readings are documented here so the theme can satisfy the all-stream requirement."
+    },
+    {
+      "week": 53,
+      "portion_transliteration": "Haâ€™azinu",
+      "theme_title": "Return to the Faithful Rock Who Restores His People",
+      "theme_basis": {
+        "torah": "Deuteronomy  32:1-32:6; Deuteronomy 32:7-32:12; Deuteronomy 32:13-32:18; Deuteronomy 32:19-32:28; Deuteronomy 32:29-32:39; Deuteronomy 32:40-32:43; Deuteronomy 32:44-32:52",
+        "prophets_writings": "2 Samuel 22:1-51; Hosea 14:1-9",
+        "new_testament": "John 21:1-25; Romans 10:14-11:12; 12:14-21"
+      },
+      "note": ""
+    },
+    {
+      "week": 54,
+      "portion_transliteration": "Vezot Haberakhah",
+      "theme_title": "From Moses to Messiah: Blessing, Commission, and Faithful Witness",
+      "theme_basis": {
+        "torah": "Deuteronomy  33:1-33:7; Deuteronomy 33:8-33:12; Deuteronomy 33:13-33:17; Deuteronomy 33:18-33:21; Deuteronomy 33:22-33:26; Deuteronomy 33:27-34:12; Genesis 1:1-2:3",
+        "prophets_writings": "Joshua 1:1-18",
+        "new_testament": "Matthew 17:1-9; Luke 9:28-36; 24:44-53; 1 Thessalonians 5:1-11; Jude 1:3-10"
+      },
+      "note": ""
+    }
+  ]
+}
+
