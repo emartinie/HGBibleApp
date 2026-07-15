@@ -1,269 +1,381 @@
-<section id="discipleshipCard" class="card">
-
-  <div class="card-shell hg-card-shell">
-
-    <!-- ========================= -->
-    <!-- HEADER -->
-    <!-- ========================= -->
-    <div class="card-header hg-card-header">
-
-      <button class="card-nav-btn prev-card-btn"
-              type="button"
-              aria-label="Previous">
-        ‹
-      </button>
-
-      <div class="card-heading">
-<div class="card-topbar">
-
-  <!-- existing fullscreen -->
-  <button class="card-fullscreen-btn card-icon-btn primary"
-          title="Expand Card">⛶</button>
-
-  <button class="card-icon-btn nav" title="Home">⌂</button>
-  <button class="card-icon-btn nav" title="Previous">←</button>
-  <button class="card-icon-btn nav" title="Next">→</button>
-
-  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
-  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
-
-  <button class="card-icon-btn utility" title="Search Card">⌕</button>
-  <button class="card-icon-btn utility" title="Bookmark">★</button>
-  <button class="card-icon-btn utility" title="Share">⇪</button>
-  <button class="card-icon-btn utility" title="Notes">✎</button>
-  <button class="card-icon-btn utility" title="Help">?</button>
-
-</div>
-            <details class="orientation-block hg-panel hg-section p-4 my-4">
-  <summary class="cursor-pointer text-lg font-semibold text-amber-300">
-    Take the Next Faithful Step</summary>
-      <p class="text-sm text-slate-300 mt-2">This card offers guided learning paths for growing in the words and way of Yeshua. It exists to turn study into steady practice without asking you to master everything at once.</p>
-      <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Resume your current journey or choose the first learning path.</p>
-    </details>
-
-        <div class="card-kicker">
-          <p id="discipleshipSub"
-             class="hero-sub text-center">
-
-           <!-- Journey Framework • Guided Discipleship • Learning Modules-->
-
-          </p>
-        </div>
-
-        <h2 id="discipleshipTitle"
-            class="text-xl flame text-center">
-
-          What Did Yeshua Say?
-
-        </h2>
-
-        <div id="moduleMeta"
-             class="step-meta-text text-center">
-        </div>
-
-      </div>
-
-      <button class="card-nav-btn next-card-btn"
-              type="button"
-              aria-label="Next">
-        ›
-      </button>
-
-    </div>
-
-
-
-    <!-- ========================= -->
-    <!-- ORIENTATION -->
-    <!-- ========================= -->
-    <div class="orientation-card bg-slate-900 border border-slate-700 rounded-xl p-4 flex items-center justify-between gap-3">
-
-      <div class="flex flex-col">
-
-        <div class="text-xs uppercase tracking-wider text-slate-400">
-          Current Learning Path
-        </div>
-
-        <div id="orientationTitle"
-             class="text-sm text-slate-200">
-
-          Loading discipleship journey...
-
-        </div>
-
-      </div>
-
-      <button
-        id="resumeJourneyBtn"
-        type="button"
-        disabled
-        class="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 transition text-white"
-        title="Choose a journey to begin">
-
-        ▶
-
-      </button>
-
-    </div>
-
-    <!-- ========================= -->
-    <!-- BODY -->
-    <!-- ========================= -->
-    <div class="card-body">
-
-      <!-- HERO -->
-      <section class="hero-panel">
-
-        <!--<div class="fp-kicker">
-          Front Porch
-        </div>
-
-        <h1 class="fp-title">
-          A structured place to begin.
-        </h1>
-
-        <p class="fp-sub">
-
-          Guided journeys, layered learning, reflection,
-          assessment, and practical discipleship tools.
-
-        </p>
-
-      </section>-->
-
-      <!-- LEARNING PATHS -->
-      <section class="content-panel hg-panel">
-
-        <div class="section-label">
-          Learning Paths
-        </div>
-
-        <div id="journeyList"
-             class="space-y-3">
-
-          <!-- JS injects journey cards -->
-
-        </div>
-
-      </section>
-
-      <!-- MODULE OVERVIEW -->
-      <section class="content-panel hg-panel">
-
-        <div class="section-label">
-          Module Overview
-        </div>
-
-        <div id="moduleOverview"
-             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 text-sm leading-relaxed">
-
-          <div class="hg-empty">
-            Select a learning path to begin.
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- CURRENT MODULE -->
-      <section class="content-panel hg-panel">
-
-        <div class="section-label">
-          Current Module
-        </div>
-
-        <div id="moduleContent"
-             class="bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed">
-
-          Module content loads here...
-
-        </div>
-
-      </section>
-
-      <!-- REFLECTION -->
-      <section class="content-panel hg-panel">
-
-        <div class="section-label">
-          Reflection + Discussion
-        </div>
-
-        <div id="reflectionContainer"
-             class="space-y-3">
-
-          <div class="empty-state hg-empty">
-
-            Reflection prompts will appear here.
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- NOTES -->
-      <section class="content-panel hg-panel">
-
-        <div class="section-label">
-          Notes + Highlights
-        </div>
-
-        <div id="notesContainer">
-
-          <div class="empty-state hg-empty">
-
-            Personal notes and highlights appear here.
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- RELATED MEDIA -->
-      <section class="content-panel hg-panel">
-
-        <div class="section-label">
-          Related Media
-        </div>
-
-        <div id="mediaContainer">
-
-          <div class="empty-state hg-empty">
-
-            Audio, video, and supporting teachings appear here.
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- PROGRESS -->
-      <section class="content-panel hg-panel">
-
-        <div class="section-label">
-          Journey Progress
-        </div>
-
-        <div class="journey-progress">
-
-          <div class="progress-bar">
-            <div id="progressFill"
-                 class="progress-fill">
-            </div>
-          </div>
-
-          <div class="progress-meta text-center">
-            <span id="progressText"></span>
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
-
+<style>
+  #discipleshipCard {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #discipleshipCard .discipleship-inner {
+    display: grid;
+    gap: 0.9rem;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  #discipleshipCard .discipleship-header {
+    text-align: center;
+  }
+
+  #discipleshipCard .discipleship-header h2 {
+    margin: 0;
+    color: rgb(254 243 199);
+    font-size: clamp(1.35rem, 4vw, 2rem);
+    line-height: 1.15;
+  }
+
+  #discipleshipCard .discipleship-header p {
+    max-width: 42rem;
+    margin: 0.45rem auto 0;
+    color: rgb(148 163 184);
+    line-height: 1.55;
+  }
+
+  #discipleshipCard .discipleship-panel {
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1rem;
+    background: rgba(15, 23, 42, 0.72);
+  }
+
+  #discipleshipCard .discipleship-resume {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.8rem;
+    border-color: rgba(34, 211, 238, 0.35);
+    background: rgba(8, 145, 178, 0.1);
+  }
+
+  #discipleshipCard .discipleship-eyebrow {
+    margin: 0 0 0.25rem;
+    color: rgb(103 232 249);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  #discipleshipCard .discipleship-resume-title,
+  #discipleshipCard .discipleship-journey-title {
+    margin: 0;
+    color: rgb(226 232 240);
+    font-weight: 800;
+  }
+
+  #discipleshipCard .discipleship-path-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  #discipleshipCard .discipleship-path {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    padding: 0.95rem;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 0.85rem;
+    background: rgba(2, 6, 23, 0.5);
+    color: inherit;
+    text-align: left;
+  }
+
+  #discipleshipCard button.discipleship-path:hover,
+  #discipleshipCard button.discipleship-path:focus-visible {
+    border-color: rgba(34, 211, 238, 0.55);
+    background: rgba(15, 23, 42, 0.95);
+  }
+
+  #discipleshipCard .discipleship-path-title {
+    color: rgb(165 243 252);
+    font-weight: 800;
+  }
+
+  #discipleshipCard .discipleship-path-note {
+    margin-top: 0.2rem;
+    color: rgb(148 163 184);
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  #discipleshipCard .discipleship-upcoming summary {
+    cursor: pointer;
+    color: rgb(148 163 184);
+    font-weight: 700;
+  }
+
+  #discipleshipCard .discipleship-upcoming-list {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 0.75rem;
+  }
+
+  #discipleshipCard .discipleship-upcoming-item {
+    padding: 0.7rem 0.8rem;
+    border: 1px solid rgba(100, 116, 139, 0.16);
+    border-radius: 0.7rem;
+    color: rgb(100 116 139);
+    background: rgba(2, 6, 23, 0.35);
+  }
+
+  #discipleshipCard .discipleship-learning-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  #discipleshipCard .discipleship-progress-copy {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.45rem;
+    color: rgb(148 163 184);
+    font-size: 0.78rem;
+  }
+
+  #discipleshipCard .discipleship-progress-track {
+    width: 100%;
+    height: 0.55rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(51, 65, 85, 0.8);
+  }
+
+  #discipleshipCard .discipleship-progress-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, rgb(8 145 178), rgb(34 211 238));
+    transition: width 180ms ease;
+  }
+
+  #discipleshipCard .discipleship-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.65rem;
+  }
+
+  #discipleshipCard .discipleship-chip {
+    padding: 0.25rem 0.55rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 999px;
+    color: rgb(148 163 184);
+    font-size: 0.72rem;
+  }
+
+  #discipleshipCard .discipleship-step h3 {
+    margin: 0.3rem 0 0;
+    color: rgb(165 243 252);
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    line-height: 1.25;
+  }
+
+  #discipleshipCard .discipleship-step-summary {
+    margin: 0.75rem 0 0;
+    color: rgb(203 213 225);
+    line-height: 1.7;
+  }
+
+  #discipleshipCard .discipleship-step-content {
+    margin-top: 0.85rem;
+    padding: 0.85rem;
+    border: 1px solid rgba(100, 116, 139, 0.25);
+    border-radius: 0.75rem;
+    background: rgba(2, 6, 23, 0.45);
+    overflow-wrap: anywhere;
+  }
+
+  #discipleshipCard .discipleship-actions {
+    display: flex;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  #discipleshipCard .discipleship-primary {
+    border-color: rgba(34, 211, 238, 0.5);
+    background: rgba(8, 145, 178, 0.25);
+    color: rgb(207 250 254);
+  }
+
+  #discipleshipCard .discipleship-reflections {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  #discipleshipCard .discipleship-reflection {
+    padding: 0.8rem;
+    border-left: 3px solid rgba(251, 191, 36, 0.65);
+    border-radius: 0.5rem;
+    background: rgba(30, 41, 59, 0.55);
+    color: rgb(203 213 225);
+    line-height: 1.6;
+  }
+
+  #discipleshipCard .discipleship-complete {
+    text-align: center;
+    padding-block: 1.5rem;
+  }
+
+  #discipleshipCard .discipleship-complete h3 {
+    margin: 0;
+    color: rgb(254 243 199);
+    font-size: clamp(1.35rem, 4vw, 1.9rem);
+  }
+
+  #discipleshipCard .discipleship-complete p {
+    max-width: 36rem;
+    margin: 0.6rem auto 0;
+    color: rgb(203 213 225);
+    line-height: 1.6;
+  }
+
+  #discipleshipCard [hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 620px) {
+    #discipleshipCard .discipleship-inner {
+      padding: 0.7rem;
+      gap: 0.7rem;
+    }
+
+    #discipleshipCard .discipleship-panel {
+      padding: 0.8rem;
+    }
+
+    #discipleshipCard .discipleship-resume,
+    #discipleshipCard .discipleship-path {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #discipleshipCard .discipleship-resume .ui-btn,
+    #discipleshipCard .discipleship-path .ui-btn,
+    #discipleshipCard .discipleship-actions .ui-btn {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #discipleshipCard .discipleship-progress-fill {
+      transition: none;
+    }
+  }
+</style>
+
+<section id="discipleshipCard" class="hg-panel" aria-labelledby="discipleshipTitle">
+  <div class="card-topbar">
+    <button class="card-fullscreen-btn card-icon-btn primary" type="button" title="Expand Card">⛶</button>
+    <button class="card-icon-btn nav" type="button" title="Home">⌂</button>
+    <button class="card-icon-btn nav" type="button" title="Previous">←</button>
+    <button class="card-icon-btn nav" type="button" title="Next">→</button>
+    <button class="card-icon-btn utility" type="button" title="Bookmark">★</button>
+    <button class="card-icon-btn utility" type="button" title="Share">⇪</button>
+    <button class="card-icon-btn utility" type="button" title="Notes">✎</button>
+    <button class="card-icon-btn utility" type="button" title="Help">?</button>
   </div>
 
+  <div class="discipleship-inner">
+    <details class="orientation-block hg-panel hg-section p-4">
+      <summary class="cursor-pointer text-lg font-semibold text-amber-300">Take the Next Faithful Step</summary>
+      <p class="text-sm text-slate-300 mt-2">Choose one guided path, take one step, and return when you are ready for the next.</p>
+      <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Continue your current journey or begin the available learning path.</p>
+    </details>
+
+    <header class="discipleship-header">
+      <p class="discipleship-eyebrow">Guided discipleship</p>
+      <h2 id="discipleshipTitle">Learning Paths</h2>
+      <p id="discipleshipSubtitle">Turn study into steady practice without trying to master everything at once.</p>
+    </header>
+
+    <div id="discipleshipStatus" class="sr-only" role="status" aria-live="polite"></div>
+
+    <section id="discipleshipChooser" aria-label="Choose a learning path">
+      <div id="discipleshipResume" class="discipleship-panel discipleship-resume" hidden>
+        <div>
+          <p class="discipleship-eyebrow">Continue where you stopped</p>
+          <p id="discipleshipResumeTitle" class="discipleship-resume-title"></p>
+          <p id="discipleshipResumeMeta" class="discipleship-path-note"></p>
+        </div>
+        <button id="resumeJourneyBtn" class="ui-btn discipleship-primary" type="button">Continue Journey</button>
+      </div>
+
+      <div class="discipleship-panel" style="margin-top:0.75rem;">
+        <p class="discipleship-eyebrow">Available now</p>
+        <div id="journeyList" class="discipleship-path-list"></div>
+      </div>
+
+      <details id="discipleshipUpcoming" class="discipleship-panel discipleship-upcoming" style="margin-top:0.75rem;">
+        <summary id="discipleshipUpcomingSummary">Coming later</summary>
+        <div id="discipleshipUpcomingList" class="discipleship-upcoming-list"></div>
+      </details>
+    </section>
+
+    <section id="discipleshipLearning" aria-label="Current learning step" hidden>
+      <div class="discipleship-learning-toolbar">
+        <button id="changeJourneyBtn" class="ui-btn" type="button">← Learning Paths</button>
+        <button id="resetJourneyBtn" class="ui-btn" type="button">Start Over</button>
+      </div>
+
+      <section class="discipleship-panel" style="margin-top:0.75rem;">
+        <p class="discipleship-eyebrow">Current learning path</p>
+        <h3 id="activeJourneyTitle" class="discipleship-journey-title"></h3>
+        <p id="activeJourneyDescription" class="discipleship-path-note"></p>
+        <div id="activeJourneyMeta" class="discipleship-meta"></div>
+
+        <div style="margin-top:0.9rem;">
+          <div class="discipleship-progress-copy">
+            <span id="progressText">0 of 0 completed</span>
+            <span id="stepPositionText">Step 1 of 1</span>
+          </div>
+          <div id="journeyProgressBar"
+               class="discipleship-progress-track"
+               role="progressbar"
+               aria-label="Journey completion"
+               aria-valuemin="0"
+               aria-valuemax="100"
+               aria-valuenow="0">
+            <i id="progressFill" class="discipleship-progress-fill"></i>
+          </div>
+        </div>
+      </section>
+
+      <article class="discipleship-panel discipleship-step" style="margin-top:0.75rem;">
+        <p id="currentStepEyebrow" class="discipleship-eyebrow">Step</p>
+        <h3 id="currentStepTitle"></h3>
+        <p id="currentStepSummary" class="discipleship-step-summary"></p>
+        <div id="currentStepContent" class="discipleship-step-content" hidden></div>
+
+        <div class="discipleship-actions">
+          <button id="openTeachingBtn" class="ui-btn" type="button" hidden>Open Full Teaching →</button>
+          <button id="previousStepBtn" class="ui-btn" type="button">Previous</button>
+          <button id="completeStepBtn" class="ui-btn discipleship-primary" type="button">Complete &amp; Continue</button>
+          <button id="nextStepBtn" class="ui-btn" type="button">Next</button>
+        </div>
+      </article>
+
+      <section id="reflectionPanel" class="discipleship-panel" style="margin-top:0.75rem;">
+        <p class="discipleship-eyebrow">Reflection and discussion</p>
+        <div id="reflectionContainer" class="discipleship-reflections"></div>
+      </section>
+    </section>
+
+    <section id="discipleshipCompletion" class="discipleship-panel discipleship-complete" aria-label="Journey completed" hidden>
+      <p class="discipleship-eyebrow">Journey completed</p>
+      <h3 id="completionTitle">Well done.</h3>
+      <p id="completionMessage"></p>
+      <div class="discipleship-actions" style="justify-content:center;">
+        <button id="reviewJourneyBtn" class="ui-btn" type="button">Review the Journey</button>
+        <button id="completionPathsBtn" class="ui-btn discipleship-primary" type="button">Choose a Learning Path</button>
+      </div>
+    </section>
+  </div>
 </section>
