@@ -20,6 +20,10 @@ console.log("🗺️ prayermap.js loaded");
   let prayersUnsubscribe = null;
   let feastsUnsubscribe = null;
   let modeClickBound = false;
+  let prayerSearchEl = null;
+  let locateBtn = null;
+  let userLocationMarker = null;
+  let userLocationCircle = null;
 
   let addMode = null; // "prayer" | "feast"
   let pendingLatLng = null;
@@ -104,6 +108,75 @@ function popupFor(feature, i) {
   `;
 }
 
+function prayerPopup(prayer) {
+  return `
+    <strong>${prayer.name || "Anonymous"}</strong><br>
+    <p>${prayer.message || ""}</p>
+  `;
+}
+
+function prayerSearchText(prayer) {
+  return `${prayer.name || ""} ${prayer.message || ""}`.toLowerCase();
+}
+
+function applyPrayerSearch() {
+  if (!prayerLayer) return;
+
+  const query = String(prayerSearchEl?.value || "").trim().toLowerCase();
+
+  Object.values(activeMarkers).forEach(marker => {
+    const matches = !query || String(marker._prayerSearchText || "").includes(query);
+    const isVisible = prayerLayer.hasLayer(marker);
+
+    if (matches && !isVisible) prayerLayer.addLayer(marker);
+    if (!matches && isVisible) prayerLayer.removeLayer(marker);
+  });
+}
+
+function handlePrayerSearch() {
+  applyPrayerSearch();
+}
+
+function handleLocationFound(event) {
+  if (!map) return;
+
+  map.off("locationerror", handleLocationError);
+
+  if (userLocationMarker) map.removeLayer(userLocationMarker);
+  if (userLocationCircle) map.removeLayer(userLocationCircle);
+
+  userLocationMarker = L.marker(event.latlng)
+    .addTo(map)
+    .bindPopup("📍 You are here. Zoom out to find people near you.")
+    .openPopup();
+
+  userLocationCircle = L.circle(event.latlng, {
+    radius: event.accuracy || 30
+  }).addTo(map);
+}
+
+function handleLocationError(event) {
+  if (!map) return;
+
+  map.off("locationfound", handleLocationFound);
+  console.warn("Geolocation error:", event.message);
+  window.alert(`Unable to locate you. ${event.message || "Please check location permissions."}`);
+}
+
+function locateUser() {
+  if (!map) return;
+
+  map.off("locationfound", handleLocationFound);
+  map.off("locationerror", handleLocationError);
+  map.once("locationfound", handleLocationFound);
+  map.once("locationerror", handleLocationError);
+  map.locate({
+    setView: true,
+    maxZoom: 11,
+    enableHighAccuracy: true,
+    timeout: 10000
+  });
+}
   // ======================
   // MAP INIT
   // ======================
@@ -147,8 +220,15 @@ function popupFor(feature, i) {
     const lng = Number(prayer.lng);
     if (isNaN(lat) || isNaN(lng)) return;
 
+    const searchText = prayerSearchText(prayer);
+    const popup = prayerPopup(prayer);
+
     if (activeMarkers[prayer.id]) {
-      activeMarkers[prayer.id].setLatLng([lat, lng]);
+      const existingMarker = activeMarkers[prayer.id];
+      existingMarker.setLatLng([lat, lng]);
+      existingMarker._prayerSearchText = searchText;
+      existingMarker.setPopupContent(popup);
+      applyPrayerSearch();
       return;
     }
 
@@ -160,12 +240,11 @@ function popupFor(feature, i) {
       fillOpacity: 0.85
     }).addTo(prayerLayer);
 
-    marker.bindPopup(`
-      <strong>${prayer.name || "Anonymous"}</strong><br>
-      <p>${prayer.message || ""}</p>
-    `);
+    marker._prayerSearchText = searchText;
+    marker.bindPopup(popup);
 
     activeMarkers[prayer.id] = marker;
+    applyPrayerSearch();
   }
 
   function listenForPrayers() {
@@ -467,7 +546,12 @@ if (closeBtn) {
     }
 
     mapEl = document.getElementById("prayerMap");
+    prayerSearchEl = document.getElementById("prayerMapSearch");
+    locateBtn = document.getElementById("prayerMapLocateBtn");
     if (!mapEl || typeof L === "undefined") return;
+
+    prayerSearchEl?.addEventListener("input", handlePrayerSearch);
+    locateBtn?.addEventListener("click", locateUser);
 
     window.prayerMapInitialized = true;
     wireModeClick();
@@ -478,6 +562,14 @@ if (closeBtn) {
   }
 
   function destroy() {
+    prayerSearchEl?.removeEventListener("input", handlePrayerSearch);
+    locateBtn?.removeEventListener("click", locateUser);
+
+    if (map) {
+      map.off("locationfound", handleLocationFound);
+      map.off("locationerror", handleLocationError);
+      map.stopLocate();
+    }
     if (prayersUnsubscribe) {
       prayersUnsubscribe();
       prayersUnsubscribe = null;
@@ -493,7 +585,14 @@ if (closeBtn) {
       map = null;
     }
 
+    Object.keys(activeMarkers).forEach(id => delete activeMarkers[id]);
+    Object.keys(activeFeasts).forEach(id => delete activeFeasts[id]);
+
     mapEl = null;
+    prayerSearchEl = null;
+    locateBtn = null;
+    userLocationMarker = null;
+    userLocationCircle = null;
     prayerLayer = null;
     homeGroupLayer = null;
     feastLayer = null;
