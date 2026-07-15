@@ -317,9 +317,10 @@
     #topBar {
       min-height: var(--header-h);
       display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      gap: 6px;
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border: 1px solid var(--line);
       border-radius: 22px;
@@ -331,9 +332,9 @@
     .toolbar {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       gap: 6px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       width: 100%;
     }
 
@@ -380,7 +381,8 @@
     }
 
     .card-control-bar {
-      margin-top: 4px;
+      width: 100%;
+      min-width: 0;
       display: flex;
       justify-content: center;
       gap: 6px;
@@ -1182,7 +1184,7 @@
   <div id="appShell">
 
     <header id="topBar">
-      <div class="toolbar">
+      <div class="toolbar" aria-label="Week navigation">
                 <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
         <select id="weekSelect" class="ui-select" aria-label="Select week">
           <option>Week 1</option>
@@ -1193,8 +1195,7 @@
         <!--<div class="flame">HGSpark©</div>
         <div class="spark-logo">🔥</div>-->
       </div>
-    </header>
-    <div class="card-control-bar">
+      <div class="card-control-bar" aria-label="Card navigation">
       <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
 
 
@@ -1267,7 +1268,8 @@
       <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
       <button id="textSizePreferenceBtn" class="ui-btn utility-btn" type="button" aria-label="Cycle reading text size" title="Reading text size">Aa</button>
       <button id="reloadCardBtn" class="ui-btn utility-btn" type="button" aria-label="Reload current card" title="Reload current card">↻</button>
-    </div>
+      </div>
+    </header>
 
     <main id="viewport">
       <div id="cardsRow">
