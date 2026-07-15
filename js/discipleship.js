@@ -1,310 +1,533 @@
 console.log("[Discipleship] loaded");
 
-// =====================
-// JOURNEY INDEX
-// =====================
-window.JOURNEY_INDEX = [
-  {
-    id: "learn-to-pray",
-    title: "Learn to Pray",
-    file: "data/journeys/learn-to-pray.json",
-    available: false
-  },
-  {
-    id: "27-things-seminary",
-    title: "27 Things",
-    file: "data/journeys/27-things.json",
-    available: false
-  },
-  {
-    id: "who-was-paul",
-    title: "Who Was Paul?",
-    file: "data/journeys/who-was-paul.json",
-    available: true
-  },
-  {
-    id: "ladder-of-jacob",
-    title: "Ladder of Jacob",
-    file: "data/journeys/ladder-of-jacob.json",
-    available: false
-  },
-  {
-    id: "yeshua-red-letter-patterns",
-    title: "Yeshua Red Letter Patterns",
-    file: "data/journeys/yeshua-red-letter-patterns.json",
-    available: false
-  }
-];
+(function () {
+  const STORAGE_KEY = "hg:discipleship:v1";
 
-// =====================
-// SIMPLE STATE
-// =====================
-const state = {
-  activeJourney: null,
-  currentStepIndex: 0,
-  completedSteps: []
-};
+  const JOURNEY_INDEX = [
+    {
+      id: "learn-to-pray",
+      title: "Learn to Pray",
+      file: "data/journeys/learn-to-pray.json",
+      available: false
+    },
+    {
+      id: "27-things-seminary",
+      title: "27 Things",
+      file: "data/journeys/27-things.json",
+      available: false
+    },
+    {
+      id: "who-was-paul",
+      title: "Who Was Paul?",
+      file: "data/journeys/who-was-paul.json",
+      available: true
+    },
+    {
+      id: "ladder-of-jacob",
+      title: "Ladder of Jacob",
+      file: "data/journeys/ladder-of-jacob.json",
+      available: false
+    },
+    {
+      id: "yeshua-red-letter-patterns",
+      title: "Yeshua Red Letter Patterns",
+      file: "data/journeys/yeshua-red-letter-patterns.json",
+      available: false
+    }
+  ];
 
-function el(id) {
-  return document.getElementById(id);
-}
+  window.JOURNEY_INDEX = JOURNEY_INDEX;
 
-function escapeHtml(str = "") {
-  return String(str)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
+  const state = {
+    activeJourney: null,
+    currentStepIndex: 0,
+    completedSteps: [],
+    view: "chooser"
+  };
 
-function setHtml(id, html) {
-  const target = el(id);
-  if (target) target.innerHTML = html;
-}
+  const journeyCache = new Map();
 
-function setText(id, text) {
-  const target = el(id);
-  if (target) target.textContent = text || "";
-}
-
-// =====================
-// LOAD JOURNEY JSON
-// =====================
-async function loadJourney(id) {
-  const meta = window.JOURNEY_INDEX.find(journey => journey.id === id);
-  if (!meta) throw new Error("Journey not found: " + id);
-
-  const res = await fetch(meta.file);
-  if (!res.ok) throw new Error(`Failed to load journey JSON: ${meta.file}`);
-
-  const text = await res.text();
-  if (!text.trim()) {
-    return {
-      id,
-      title: "Missing Journey",
-      description: "This journey has no content yet.",
-      steps: []
-    };
+  function el(id) {
+    return document.getElementById(id);
   }
 
-  return JSON.parse(text);
-}
+  function escapeHtml(value = "") {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
 
-function renderOverview(journey) {
-  setText("discipleshipTitle", journey.title || "Discipleship Journey");
-  setText("orientationTitle", journey.title || "Selected journey");
+  function setText(id, value) {
+    const target = el(id);
+    if (target) target.textContent = value || "";
+  }
 
-  setHtml("moduleOverview", `
-    <div class="space-y-2">
-      <div class="text-base font-semibold text-cyan-200">
-        ${escapeHtml(journey.title || "Untitled Journey")}
+  function setHtml(id, value) {
+    const target = el(id);
+    if (target) target.innerHTML = value || "";
+  }
+
+  function setStatus(message) {
+    setText("discipleshipStatus", message);
+  }
+
+  function showOnly(view) {
+    state.view = view;
+    const chooser = el("discipleshipChooser");
+    const learning = el("discipleshipLearning");
+    const completion = el("discipleshipCompletion");
+
+    if (chooser) chooser.hidden = view !== "chooser";
+    if (learning) learning.hidden = view !== "learning";
+    if (completion) completion.hidden = view !== "completion";
+  }
+
+  function readSavedState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+      if (!saved || saved.version !== 1 || !saved.journeyId) return null;
+      return saved;
+    } catch (error) {
+      console.warn("[Discipleship] saved progress was unreadable", error);
+      return null;
+    }
+  }
+
+  function saveState() {
+    if (!state.activeJourney) return;
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      version: 1,
+      journeyId: state.activeJourney.id,
+      currentStepIndex: state.currentStepIndex,
+      completedSteps: state.completedSteps
+    }));
+  }
+
+  async function loadJourney(id) {
+    if (journeyCache.has(id)) return journeyCache.get(id);
+
+    const meta = JOURNEY_INDEX.find(journey => journey.id === id && journey.available);
+    if (!meta) throw new Error("Journey is not available: " + id);
+
+    const response = await fetch(meta.file);
+    if (!response.ok) throw new Error(`Failed to load journey JSON: ${meta.file}`);
+
+    const text = await response.text();
+    if (!text.trim()) throw new Error("Journey has no content: " + id);
+
+    const journey = JSON.parse(text);
+    journeyCache.set(id, journey);
+    return journey;
+  }
+
+  function normalizeProgress(journey, saved = null) {
+    const steps = Array.isArray(journey.steps) ? journey.steps : [];
+    const validStepIds = new Set(steps.map(step => step.id).filter(Boolean));
+    const completed = Array.isArray(saved?.completedSteps)
+      ? saved.completedSteps.filter((id, index, list) =>
+          validStepIds.has(id) && list.indexOf(id) === index
+        )
+      : [];
+
+    state.activeJourney = journey;
+    state.completedSteps = completed;
+    state.currentStepIndex = Math.max(
+      0,
+      Math.min(Number(saved?.currentStepIndex) || 0, Math.max(steps.length - 1, 0))
+    );
+  }
+
+  function isJourneyComplete() {
+    const steps = state.activeJourney?.steps || [];
+    return steps.length > 0 && state.completedSteps.length === steps.length;
+  }
+
+  function journeyMetaHtml(journey) {
+    return [
+      journey.category,
+      journey.difficulty,
+      journey.estimatedTime
+    ]
+      .filter(Boolean)
+      .map(value => `<span class="discipleship-chip">${escapeHtml(value)}</span>`)
+      .join("");
+  }
+
+  function renderChooser() {
+    showOnly("chooser");
+    setText("discipleshipTitle", "Learning Paths");
+    setText(
+      "discipleshipSubtitle",
+      "Turn study into steady practice without trying to master everything at once."
+    );
+
+    const resume = el("discipleshipResume");
+    if (resume) {
+      resume.hidden = !state.activeJourney;
+      if (state.activeJourney) {
+        const steps = state.activeJourney.steps || [];
+        const completed = state.completedSteps.length;
+        setText("discipleshipResumeTitle", state.activeJourney.title || "Current journey");
+        setText(
+          "discipleshipResumeMeta",
+          isJourneyComplete()
+            ? `${completed} of ${steps.length} completed · Ready to review`
+            : `${completed} of ${steps.length} completed · Step ${state.currentStepIndex + 1}`
+        );
+        const resumeBtn = el("resumeJourneyBtn");
+        if (resumeBtn) {
+          resumeBtn.textContent = isJourneyComplete() ? "Review Journey" : "Continue Journey";
+        }
+      }
+    }
+
+    const available = JOURNEY_INDEX.filter(journey => journey.available);
+    setHtml("journeyList", available.map(journey => {
+      const isCurrent = state.activeJourney?.id === journey.id;
+      const action = isCurrent
+        ? (isJourneyComplete() ? "Review" : "Continue")
+        : "Begin";
+      return `
+        <button type="button"
+                class="discipleship-path"
+                data-journey-id="${escapeHtml(journey.id)}"
+                ${isCurrent ? 'aria-current="true"' : ""}>
+          <span>
+            <span class="discipleship-path-title">${escapeHtml(journey.title)}</span>
+            <span class="discipleship-path-note">
+              ${isCurrent ? "Your saved learning path" : "Ready to begin"}
+            </span>
+          </span>
+          <span class="ui-btn discipleship-primary" aria-hidden="true">${action}</span>
+        </button>
+      `;
+    }).join(""));
+
+    el("journeyList")?.querySelectorAll("[data-journey-id]").forEach(button => {
+      button.addEventListener("click", () => {
+        const id = button.dataset.journeyId;
+        if (state.activeJourney?.id === id) {
+          if (isJourneyComplete()) {
+            renderCompletion();
+          } else {
+            renderLearning();
+          }
+          return;
+        }
+        beginJourney(id);
+      });
+    });
+
+    const upcoming = JOURNEY_INDEX.filter(journey => !journey.available);
+    setText(
+      "discipleshipUpcomingSummary",
+      `Coming later (${upcoming.length})`
+    );
+    setHtml("discipleshipUpcomingList", upcoming.map(journey => `
+      <div class="discipleship-upcoming-item">
+        <strong>${escapeHtml(journey.title)}</strong>
+        <div class="discipleship-path-note">Journey material is being reviewed.</div>
       </div>
-      <p class="text-slate-300">
-        ${escapeHtml(journey.description || "No journey description available.")}
-      </p>
-      <div class="flex flex-wrap gap-2 text-xs text-slate-400">
-        ${journey.category ? `<span class="reader-chip hg-chip">${escapeHtml(journey.category)}</span>` : ""}
-        ${journey.difficulty ? `<span class="reader-chip hg-chip">${escapeHtml(journey.difficulty)}</span>` : ""}
-        ${journey.estimatedTime ? `<span class="reader-chip hg-chip">${escapeHtml(journey.estimatedTime)}</span>` : ""}
-      </div>
-    </div>
-  `);
-}
+    `).join(""));
+  }
 
-function renderStep(journey) {
-  const steps = Array.isArray(journey.steps) ? journey.steps : [];
-  const total = steps.length;
-  const currentIndex = Math.min(state.currentStepIndex, Math.max(total - 1, 0));
-  const step = steps[currentIndex];
+  function updateProgress(journey) {
+    const steps = Array.isArray(journey.steps) ? journey.steps : [];
+    const completed = state.completedSteps.length;
+    const percent = steps.length ? Math.round((completed / steps.length) * 100) : 0;
 
-  if (!step) {
-    setHtml("moduleContent", `<div class="empty-state hg-empty">This journey has no steps yet.</div>`);
-    setHtml("reflectionContainer", `<div class="empty-state hg-empty">Reflection prompts will appear here.</div>`);
-    setText("moduleMeta", "");
-    setText("progressText", "0 / 0 completed");
+    setText("progressText", `${completed} of ${steps.length} completed`);
+    setText(
+      "stepPositionText",
+      steps.length ? `Step ${state.currentStepIndex + 1} of ${steps.length}` : "No steps"
+    );
+
     const fill = el("progressFill");
-    if (fill) fill.style.width = "0%";
-    return;
+    if (fill) fill.style.width = `${percent}%`;
+
+    const progressBar = el("journeyProgressBar");
+    if (progressBar) {
+      progressBar.setAttribute("aria-valuenow", String(percent));
+      progressBar.setAttribute(
+        "aria-valuetext",
+        `${completed} of ${steps.length} steps completed`
+      );
+    }
   }
 
-  const completed = state.completedSteps.length;
-  const percent = total ? ((currentIndex + 1) / total) * 100 : 0;
-  const articleHref = step.article
-    ? `?card=articles&file=${encodeURIComponent(step.article)}`
-    : "";
+  function renderLearning() {
+    const journey = state.activeJourney;
+    const steps = Array.isArray(journey?.steps) ? journey.steps : [];
 
-  setText("moduleMeta", `Step ${currentIndex + 1} of ${total}`);
-  setText("progressText", `Step ${currentIndex + 1} of ${total} - ${completed} completed`);
+    if (!journey || !steps.length) {
+      renderChooser();
+      return;
+    }
 
-  const fill = el("progressFill");
-  if (fill) fill.style.width = `${percent}%`;
+    state.currentStepIndex = Math.max(
+      0,
+      Math.min(state.currentStepIndex, steps.length - 1)
+    );
 
-  setHtml("moduleContent", `
-    <div class="space-y-4">
-      <div>
-        <div class="text-xs uppercase tracking-wider text-slate-400">
-          Step ${currentIndex + 1} of ${total}
+    const step = steps[state.currentStepIndex];
+    const stepCompleted = state.completedSteps.includes(step.id);
+
+    showOnly("learning");
+    setText("discipleshipTitle", journey.title || "Discipleship Journey");
+    setText("discipleshipSubtitle", journey.description || "");
+
+    setText("activeJourneyTitle", journey.title || "Untitled Journey");
+    setText("activeJourneyDescription", journey.description || "");
+    setHtml("activeJourneyMeta", journeyMetaHtml(journey));
+    updateProgress(journey);
+
+    setText("currentStepEyebrow", `Step ${state.currentStepIndex + 1} of ${steps.length}`);
+    setText("currentStepTitle", step.title || "Untitled Step");
+    setText("currentStepSummary", step.summary || "No summary available.");
+
+    const content = el("currentStepContent");
+    if (content) {
+      content.hidden = !step.content;
+      content.innerHTML = step.content || "";
+    }
+
+    const openTeachingBtn = el("openTeachingBtn");
+    if (openTeachingBtn) {
+      openTeachingBtn.hidden = !step.article;
+      openTeachingBtn.onclick = step.article
+        ? () => openTeaching(step.article)
+        : null;
+    }
+
+    const previousBtn = el("previousStepBtn");
+    if (previousBtn) {
+      previousBtn.disabled = state.currentStepIndex === 0;
+      previousBtn.onclick = () => moveStep(-1);
+    }
+
+    const nextBtn = el("nextStepBtn");
+    if (nextBtn) {
+      nextBtn.disabled = state.currentStepIndex >= steps.length - 1;
+      nextBtn.onclick = () => moveStep(1);
+    }
+
+    const completeBtn = el("completeStepBtn");
+    if (completeBtn) {
+      if (stepCompleted) {
+        completeBtn.textContent = state.currentStepIndex === steps.length - 1
+          ? "Finish Journey"
+          : "Continue";
+      } else {
+        completeBtn.textContent = state.currentStepIndex === steps.length - 1
+          ? "Complete Journey"
+          : "Complete & Continue";
+      }
+      completeBtn.onclick = completeCurrentStep;
+    }
+
+    const reflections = Array.isArray(step.reflection) ? step.reflection : [];
+    const reflectionPanel = el("reflectionPanel");
+    if (reflectionPanel) reflectionPanel.hidden = !reflections.length;
+    setHtml("reflectionContainer", reflections.map(prompt => `
+      <div class="discipleship-reflection">${escapeHtml(prompt)}</div>
+    `).join(""));
+
+    saveState();
+    setStatus(
+      `${journey.title || "Journey"}, step ${state.currentStepIndex + 1} of ${steps.length}`
+    );
+  }
+
+  function renderCompletion() {
+    if (!state.activeJourney) {
+      renderChooser();
+      return;
+    }
+
+    showOnly("completion");
+    setText("discipleshipTitle", state.activeJourney.title || "Journey Complete");
+    setText("discipleshipSubtitle", "You have completed every step in this learning path.");
+    setText(
+      "completionTitle",
+      `${state.activeJourney.title || "Journey"} completed`
+    );
+    setText(
+      "completionMessage",
+      "Your progress is saved. You can review any step or return to the learning-path chooser."
+    );
+    saveState();
+    setStatus("Journey completed.");
+  }
+
+  async function beginJourney(id) {
+    setStatus("Loading learning path.");
+
+    try {
+      const journey = await loadJourney(id);
+      normalizeProgress(journey);
+      saveState();
+      renderLearning();
+    } catch (error) {
+      console.error("[Discipleship] journey load failed", error);
+      setStatus("Unable to load this learning path.");
+      setHtml("journeyList", `
+        <div class="discipleship-panel text-red-300">
+          Unable to load this learning path. Please try again.
         </div>
-        <h3 class="mt-1 text-lg font-semibold text-cyan-200">
-          ${escapeHtml(step.title || "Untitled Step")}
-        </h3>
-      </div>
+      `);
+    }
+  }
 
-      <p class="text-slate-300">
-        ${escapeHtml(step.summary || "No summary available.")}
-      </p>
+  function moveStep(direction) {
+    const steps = state.activeJourney?.steps || [];
+    if (!steps.length) return;
 
-      ${articleHref ? `
-        <a class="reader-chip hg-chip inline-flex" href="${articleHref}">
-          Open Full Teaching ->
-        </a>
-      ` : ""}
+    state.currentStepIndex = Math.max(
+      0,
+      Math.min(state.currentStepIndex + direction, steps.length - 1)
+    );
+    saveState();
+    renderLearning();
+  }
 
-      ${step.content ? `
-        <div class="rounded-lg border border-slate-700 bg-slate-950/40 p-3">
-          ${step.content}
-        </div>
-      ` : ""}
+  function completeCurrentStep() {
+    const steps = state.activeJourney?.steps || [];
+    const step = steps[state.currentStepIndex];
+    if (!step) return;
 
-      <div class="flex flex-wrap gap-2 border-t border-slate-700 pt-3">
-        <button type="button" class="reader-chip hg-chip" data-journey-prev>Previous</button>
-        <button type="button" class="reader-chip hg-chip" data-journey-complete>Mark Complete</button>
-        <button type="button" class="reader-chip hg-chip" data-journey-next>Next</button>
-        <button type="button" class="reader-chip hg-chip opacity-80" data-journey-reset>Reset</button>
-      </div>
-    </div>
-  `);
-
-  const reflections = Array.isArray(step.reflection) ? step.reflection : [];
-  setHtml("reflectionContainer", reflections.length
-    ? reflections.map(prompt => `
-        <div class="rounded-xl border border-slate-700 bg-slate-900/60 p-3 text-sm text-slate-300">
-          ${escapeHtml(prompt)}
-        </div>
-      `).join("")
-    : `<div class="empty-state hg-empty">No reflection prompts for this step.</div>`
-  );
-
-  setHtml("notesContainer", `<div class="empty-state hg-empty">Personal notes are not wired yet.</div>`);
-  setHtml("mediaContainer", `<div class="empty-state hg-empty">Related media is not attached to this journey yet.</div>`);
-
-  el("moduleContent")?.querySelector("[data-journey-prev]")?.addEventListener("click", () => {
-    state.currentStepIndex = Math.max(0, state.currentStepIndex - 1);
-    renderStep(journey);
-  });
-
-  el("moduleContent")?.querySelector("[data-journey-next]")?.addEventListener("click", () => {
-    state.currentStepIndex = Math.min(total - 1, state.currentStepIndex + 1);
-    renderStep(journey);
-  });
-
-  el("moduleContent")?.querySelector("[data-journey-complete]")?.addEventListener("click", () => {
     if (!state.completedSteps.includes(step.id)) {
       state.completedSteps.push(step.id);
     }
-    state.currentStepIndex = Math.min(total - 1, state.currentStepIndex + 1);
-    renderStep(journey);
-  });
 
-  el("moduleContent")?.querySelector("[data-journey-reset]")?.addEventListener("click", () => {
+    if (isJourneyComplete()) {
+      saveState();
+      renderCompletion();
+      return;
+    }
+
+    const nextIncompleteAfter = steps.findIndex(
+      (candidate, index) =>
+        index > state.currentStepIndex &&
+        !state.completedSteps.includes(candidate.id)
+    );
+    const anyIncomplete = steps.findIndex(
+      candidate => !state.completedSteps.includes(candidate.id)
+    );
+
+    state.currentStepIndex = nextIncompleteAfter >= 0
+      ? nextIncompleteAfter
+      : Math.max(anyIncomplete, 0);
+
+    saveState();
+    renderLearning();
+  }
+
+  function openTeaching(file) {
+    if (!file) return;
+
+    saveState();
+    window.pendingArticleFile = file;
+
+    if (typeof window.loadCard === "function") {
+      window.loadCard("articles");
+      return;
+    }
+
+    window.location.href = `?card=articles&file=${encodeURIComponent(file)}`;
+  }
+
+  function resetJourney() {
+    if (!state.activeJourney) return;
+    const confirmed = window.confirm(
+      "Start this learning path over? Its saved completion progress will be cleared."
+    );
+    if (!confirmed) return;
+
     state.currentStepIndex = 0;
     state.completedSteps = [];
-    renderStep(journey);
-  });
-}
-
-function renderJourney(journey) {
-  state.activeJourney = journey;
-  state.currentStepIndex = 0;
-  state.completedSteps = [];
-
-  renderOverview(journey);
-  renderStep(journey);
-  updateResumeControl();
-}
-
-async function startJourney(id) {
-  try {
-    const journey = await loadJourney(id);
-    renderJourney(journey);
-  } catch (err) {
-    console.error("[Discipleship] journey load failed", err);
-    setHtml("moduleOverview", `<p class="text-red-300">Unable to load this journey.</p>`);
-  }
-}
-
-function initSelector() {
-  const list = el("journeyList");
-  if (!list) {
-    console.warn("[Discipleship] journeyList missing");
-    return;
+    saveState();
+    renderLearning();
+    setStatus("Journey progress reset.");
   }
 
-  list.innerHTML = "";
+  async function restoreSavedJourney() {
+    const saved = readSavedState();
+    if (!saved) return;
 
-  window.JOURNEY_INDEX.forEach(journey => {
-    const item = document.createElement("button");
-    item.type = "button";
-    item.disabled = !journey.available;
-    item.className = journey.available
-      ? "w-full rounded-xl border border-slate-700 bg-slate-900/70 p-3 text-left hover:bg-slate-800/80 transition"
-      : "w-full rounded-xl border border-slate-800 bg-slate-950/50 p-3 text-left opacity-60 cursor-not-allowed";
-    item.innerHTML = `
-      <div class="flex items-center justify-between gap-3">
-        <div class="font-semibold ${journey.available ? "text-cyan-200" : "text-slate-400"}">
-          ${escapeHtml(journey.title)}
-        </div>
-        ${journey.available
-          ? `<span class="text-xs text-cyan-300">Available</span>`
-          : `<span class="text-xs text-slate-500">In review</span>`}
-      </div>
-      <div class="mt-1 text-xs text-slate-500">
-        ${journey.available ? "Ready to begin" : "Journey material is being reviewed"}
-      </div>
-    `;
-    if (journey.available) {
-      item.addEventListener("click", () => startJourney(journey.id));
+    const meta = JOURNEY_INDEX.find(
+      journey => journey.id === saved.journeyId && journey.available
+    );
+    if (!meta) {
+      localStorage.removeItem(STORAGE_KEY);
+      return;
     }
-    list.appendChild(item);
-  });
-}
 
-function updateResumeControl() {
-  const resumeBtn = el("resumeJourneyBtn");
-  if (!resumeBtn) return;
-
-  const canResume = !!state.activeJourney;
-  resumeBtn.disabled = !canResume;
-  resumeBtn.title = canResume
-    ? `Resume ${state.activeJourney.title || "journey"}`
-    : "Choose a journey to begin";
-  resumeBtn.onclick = canResume
-    ? () => {
-        renderOverview(state.activeJourney);
-        renderStep(state.activeJourney);
-      }
-    : null;
-}
-
-function initDiscipleshipCard() {
-  console.log("[Discipleship] boot");
-  initSelector();
-  updateResumeControl();
-
-  if (state.activeJourney) {
-    renderOverview(state.activeJourney);
-    renderStep(state.activeJourney);
-  } else {
-    setText("discipleshipTitle", "Learning Paths");
-    setText("orientationTitle", "Choose a learning path to begin");
-    setText("moduleMeta", "");
+    try {
+      const journey = await loadJourney(saved.journeyId);
+      normalizeProgress(journey, saved);
+    } catch (error) {
+      console.warn("[Discipleship] saved journey could not be restored", error);
+      localStorage.removeItem(STORAGE_KEY);
+    }
   }
-}
 
-function destroyDiscipleshipCard() {
-  // Journey state intentionally remains in memory so this-session resume works.
-}
+  function bindStaticControls() {
+    const resumeBtn = el("resumeJourneyBtn");
+    if (resumeBtn) {
+      resumeBtn.onclick = () => {
+        if (isJourneyComplete()) {
+          renderCompletion();
+        } else {
+          renderLearning();
+        }
+      };
+    }
 
-window.initDiscipleshipCard = initDiscipleshipCard;
-window.destroyDiscipleshipCard = destroyDiscipleshipCard;
+    const changeBtn = el("changeJourneyBtn");
+    if (changeBtn) changeBtn.onclick = renderChooser;
+
+    const resetBtn = el("resetJourneyBtn");
+    if (resetBtn) resetBtn.onclick = resetJourney;
+
+    const reviewBtn = el("reviewJourneyBtn");
+    if (reviewBtn) {
+      reviewBtn.onclick = () => {
+        state.currentStepIndex = 0;
+        saveState();
+        renderLearning();
+      };
+    }
+
+    const completionPathsBtn = el("completionPathsBtn");
+    if (completionPathsBtn) completionPathsBtn.onclick = renderChooser;
+  }
+
+  async function initDiscipleshipCard() {
+    console.log("[Discipleship] boot");
+
+    bindStaticControls();
+
+    if (!state.activeJourney) {
+      await restoreSavedJourney();
+    }
+
+    if (state.view === "learning" && state.activeJourney) {
+      renderLearning();
+    } else if (state.view === "completion" && state.activeJourney) {
+      renderCompletion();
+    } else {
+      renderChooser();
+    }
+  }
+
+  function destroyDiscipleshipCard() {
+    // State remains in memory and localStorage so navigating away does not lose progress.
+  }
+
+  window.initDiscipleshipCard = initDiscipleshipCard;
+  window.destroyDiscipleshipCard = destroyDiscipleshipCard;
+})();
