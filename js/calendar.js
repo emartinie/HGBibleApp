@@ -1,563 +1,254 @@
-let currentCalendarType = "Hillel";
-let currentNextHolyDayKey = "passover";
-let countdownInterval = null;
+(function () {
+  "use strict";
 
-const CALENDAR_DATA = {
-  Hillel: [
-    {
-      key: "passover",
+  var currentCalendarType = "Hillel";
+  var currentNextHolyDayKey = null;
+  var countdownInterval = null;
+  var activeRoot = null;
+
+  var CALENDAR_MODELS = {
+    Hillel: "The calculated Jewish calendar used for shared observance today. Its months are lunar and leap months keep the year aligned with the seasons.",
+    Enochian: "A 364-day solar model associated with 1 Enoch and calendar traditions represented among the Dead Sea Scrolls. This card presents one project reference schedule.",
+    Zedokian: "A project label for priestly-calendar reconstructions associated with Zadok traditions. There is no single agreed modern reconstruction."
+  };
+
+  var EVENT_INFO = {
+    passover: {
       title: "Passover",
-      start: "2026-04-01T19:00:00",
-      displayDate: "Begins at sundown on April 1, 2026",
-      summary: "A night of remembrance, deliverance, and freedom."
+      scripture: "Exodus 12:1â€“14; Leviticus 23:4â€“5",
+      body: "Passover remembers deliverance from bondage in Egypt. Scripture centers remembrance, retelling, and the marking of deliverance."
     },
-    {
-      key: "unleavened_bread",
+    unleavened_bread: {
       title: "Feast of Unleavened Bread",
-      start: "2026-04-02T19:00:00",
-      displayDate: "April 2–8, 2026",
-      summary: "Leaving bondage behind and walking cleanly."
+      scripture: "Exodus 12:15â€“20; Leviticus 23:6â€“8",
+      body: "This feast follows Passover, remembering Israel's hurried departure and the removal of leaven."
     },
-    {
-      key: "first_fruits",
+    first_fruits: {
       title: "First Fruits",
-      start: "2026-04-05T09:00:00",
-      displayDate: "April 4-5 (sunset to sunset) 2026",
-      summary: "The beginning of harvest and the promise of more to come."
+      scripture: "Leviticus 23:9â€“14",
+      body: "First Fruits marks the beginning of harvest through gratitude, offering, and the promise of more to come."
     },
-    {
-      key: "pentecost",
+    pentecost: {
       title: "Pentecost / Shavuot",
-      start: "2026-05-24T09:00:00",
-      displayDate: "Spring/Summer 2026",
-      summary: "Weeks fulfilled, covenant remembered, Spirit given."
+      scripture: "Leviticus 23:15â€“22; Acts 2:1â€“4",
+      body: "Shavuot comes after the counting of weeks and is associated with harvest; Acts connects Pentecost with the giving of the Spirit."
     },
-    {
-      key: "trumpets",
-      title: "Trumpets",
-      start: "2026-09-12T19:00:00",
-      displayDate: "September 12, 2026",
-      summary: "A call to awaken, gather, and prepare."
+    trumpets: {
+      title: "Trumpets / Yom Teruah",
+      scripture: "Leviticus 23:23â€“25; Numbers 29:1â€“6",
+      body: "Scripture appoints a day of rest and trumpet blasts, calling the assembly to attention and remembrance."
     },
-    {
-      key: "atonement",
-      title: "Day of Atonement",
-      start: "2026-09-21T19:00:00",
-      displayDate: "Autumn 2026",
-      summary: "Repentance, mercy, and the seriousness of judgment."
+    atonement: {
+      title: "Day of Atonement / Yom Kippur",
+      scripture: "Leviticus 16; Leviticus 23:26â€“32",
+      body: "A solemn appointed day centered on atonement, humility, cleansing, and rest."
     },
-    {
-      key: "tabernacles",
+    tabernacles: {
       title: "Tabernacles / Sukkot",
-      start: "2026-09-26T19:00:00",
-      displayDate: "Autumn 2026",
-      summary: "Dwelling, joy, and remembering the wilderness journey."
+      scripture: "Leviticus 23:33â€“43; Deuteronomy 16:13â€“15",
+      body: "Sukkot remembers dwelling in temporary shelters and carries themes of joy, provision, dependence, and God dwelling with His people."
     }
-  ],
+  };
 
-  Enochian: [
-    {
-      key: "passover",
-      title: "Passover",
-      start: "2026-03-29T19:00:00",
-      displayDate: "Begins at sundown on March 29, 2026",
-      summary: "A night of remembrance, deliverance, and freedom."
-    },
-    {
-      key: "unleavened_bread",
-      title: "Feast of Unleavened Bread",
-      start: "2026-03-30T19:00:00",
-      displayDate: "March 30–April 5, 2026",
-      summary: "Leaving bondage behind and walking cleanly."
-    },
-    {
-      key: "first_fruits",
-      title: "First Fruits",
-      start: "2026-04-02T09:00:00",
-      displayDate: "Spring 2026",
-      summary: "The beginning of harvest and the promise of more to come."
-    },
-    {
-      key: "pentecost",
-      title: "Pentecost / Shavuot",
-      start: "2026-05-20T09:00:00",
-      displayDate: "Spring/Summer 2026",
-      summary: "Weeks fulfilled, covenant remembered, Spirit given."
-    },
-    {
-      key: "trumpets",
-      title: "Trumpets",
-      start: "2026-09-10T19:00:00",
-      displayDate: "September 10, 2026",
-      summary: "A call to awaken, gather, and prepare."
-    },
-    {
-      key: "atonement",
-      title: "Day of Atonement",
-      start: "2026-09-19T19:00:00",
-      displayDate: "Autumn 2026",
-      summary: "Repentance, mercy, and the seriousness of judgment."
-    },
-    {
-      key: "tabernacles",
-      title: "Tabernacles / Sukkot",
-      start: "2026-09-24T19:00:00",
-      displayDate: "Autumn 2026",
-      summary: "Dwelling, joy, and remembering the wilderness journey."
-    }
-  ],
+  var BASE_EVENTS = [
+    ["passover", "Passover", "A night of remembrance, deliverance, and freedom."],
+    ["unleavened_bread", "Feast of Unleavened Bread", "Leaving bondage behind and walking in a new way."],
+    ["first_fruits", "First Fruits", "The beginning of harvest and the promise of more to come."],
+    ["pentecost", "Pentecost / Shavuot", "Weeks counted, harvest celebrated, and the Spirit given in Acts."],
+    ["trumpets", "Trumpets / Yom Teruah", "A day of rest, trumpet blasts, remembrance, and gathering."],
+    ["atonement", "Day of Atonement / Yom Kippur", "Atonement, humility, cleansing, mercy, and rest."],
+    ["tabernacles", "Tabernacles / Sukkot", "Dwelling, joy, provision, and wilderness remembrance."]
+  ];
 
-  Zedokian: [
-    {
-      key: "passover",
-      title: "Passover",
-      start: "2026-04-03T19:00:00",
-      displayDate: "Begins at sundown on April 3, 2026",
-      summary: "A night of remembrance, deliverance, and freedom."
-    },
-    {
-      key: "unleavened_bread",
-      title: "Feast of Unleavened Bread",
-      start: "2026-04-04T19:00:00",
-      displayDate: "April 4–10, 2026",
-      summary: "Leaving bondage behind and walking cleanly."
-    },
-    {
-      key: "first_fruits",
-      title: "First Fruits",
-      start: "2026-04-07T09:00:00",
-      displayDate: "Spring 2026",
-      summary: "The beginning of harvest and the promise of more to come."
-    },
-    {
-      key: "pentecost",
-      title: "Pentecost / Shavuot",
-      start: "2026-05-26T09:00:00",
-      displayDate: "Spring/Summer 2026",
-      summary: "Weeks fulfilled, covenant remembered, Spirit given."
-    },
-    {
-      key: "trumpets",
-      title: "Trumpets",
-      start: "2026-09-14T19:00:00",
-      displayDate: "September 14, 2026",
-      summary: "A call to awaken, gather, and prepare."
-    },
-    {
-      key: "atonement",
-      title: "Day of Atonement",
-      start: "2026-09-23T19:00:00",
-      displayDate: "Autumn 2026",
-      summary: "Repentance, mercy, and the seriousness of judgment."
-    },
-    {
-      key: "tabernacles",
-      title: "Tabernacles / Sukkot",
-      start: "2026-09-28T19:00:00",
-      displayDate: "Autumn 2026",
-      summary: "Dwelling, joy, and remembering the wilderness journey."
-    }
-  ]
-};
+  var MODEL_DATES = {
+    Hillel: [
+      ["2026-04-01T19:00:00", "Begins at sundown on April 1, 2026"],
+      ["2026-04-02T19:00:00", "April 2â€“8, 2026"],
+      ["2026-04-05T09:00:00", "April 4â€“5, 2026 (sunset to sunset)"],
+      ["2026-05-24T09:00:00", "Spring / Summer 2026"],
+      ["2026-09-12T19:00:00", "September 12, 2026"],
+      ["2026-09-21T19:00:00", "Autumn 2026"],
+      ["2026-09-26T19:00:00", "Autumn 2026"]
+    ],
+    Enochian: [
+      ["2026-03-29T19:00:00", "Begins at sundown on March 29, 2026"],
+      ["2026-03-30T19:00:00", "March 30â€“April 5, 2026"],
+      ["2026-04-02T09:00:00", "April 2, 2026"],
+      ["2026-05-20T09:00:00", "May 20, 2026"],
+      ["2026-09-10T19:00:00", "Begins at sundown on September 10, 2026"],
+      ["2026-09-19T19:00:00", "Begins at sundown on September 19, 2026"],
+      ["2026-09-24T19:00:00", "Begins at sundown on September 24, 2026"]
+    ],
+    Zedokian: [
+      ["2026-04-03T19:00:00", "Begins at sundown on April 3, 2026"],
+      ["2026-04-04T19:00:00", "April 4â€“10, 2026"],
+      ["2026-04-07T09:00:00", "April 7, 2026"],
+      ["2026-05-26T09:00:00", "May 26, 2026"],
+      ["2026-09-14T19:00:00", "Begins at sundown on September 14, 2026"],
+      ["2026-09-23T19:00:00", "Begins at sundown on September 23, 2026"],
+      ["2026-09-28T19:00:00", "Begins at sundown on September 28, 2026"]
+    ]
+  };
 
-const CALENDAR_INFO = {
-    calendars: {
-    title: "Calendars",
-    content: `
-      <p>🕍 Hillel Calendar (Rabbinic)</p>
-      <p>The Hillel calendar is the standard Jewish calendar used today.</p>
-      <p>It is:<br>
-	•	lunar-based (months follow moon cycles)<br>
-	•	mathematically calculated, not observational<br>
-	•	includes leap months to stay aligned with seasons
-	</p>
-      <p>Key idea:<br>
-	  A reliable, shared system for all Israel—regardless of location.</p>
-
-	        <p>🌿 Enochian Calendar (364-Day Solar Model)</p>
-      <p>The Enochian calendar is based on a 364-day solar cycle, found in texts like 1 Enoch and some Dead Sea Scroll traditions.</p>
-      <p>It features:<br>
-	•	exactly 52 weeks (perfect weekly alignment)
-	•	feast days always fall on the same day of the week each year
-	•	no lunar dependency
-	</p>
-      <p>Key idea:<br>
-    A perfectly ordered, unchanging calendar aligned to a structured creation pattern.</p>
-
-	      <p>🕊️ Zedokian Calendar (Priestly Restoration Model)</p>
-      <p>The Zedokian calendar attempts to restore the priestly calendar associated with the sons of Zadok.</p>
-      <p>It emphasizes:<br>
-	•	Biblical authority over later rabbinic tradition
-	•	observational or reconstructed timing
-	•	alignment with temple service cycles
-	</p>
-	<p>There is no single agreed version, but all share the goal of:</p>
-      <p>Key idea:<br>
-	  Returning to what is believed to be the original priestly timing of appointed times.</p>
-
-	  <p>✝️ MS Christian Calendar (Mainstream Christian Model)</p>
-<p>The MS Christian calendar reflects the widely used Gregorian-based system followed by most Protestant and many non-liturgical churches.</p>
-<p>It emphasizes:<br>
-  • Historical continuity with the Gregorian reform<br>
-  • Fixed solar calendar dating<br>
-  • Celebration of major events like Christmas and Easter based on established tradition
-</p>
-<p>There is broad agreement across denominations, though interpretations and observances may vary.</p>
-<p>Key idea:<br>
-  A unified, globally recognized system centered on the life and work of Messiah.</p>
-
-  <p>⛪ Western Orthodox / Catholic Calendar</p>
-<p>The Western Orthodox and Catholic calendar follows the Gregorian system and reflects the liturgical traditions of the Western Church.</p>
-<p>It emphasizes:<br>
-  • Structured liturgical seasons (Advent, Lent, Easter, etc.)<br>
-  • Fixed and movable feast days<br>
-  • Historical continuity through church tradition
-</p>
-<p>There is strong internal consistency, though some variations exist among denominations.</p>
-<p>Key idea:<br>
-  A rhythm of worship shaped by tradition, seasons, and sacred remembrance.</p>
-
-  <p>🕯️ Eastern Orthodox Calendar</p>
-<p>The Eastern Orthodox calendar preserves ancient liturgical traditions, often using the Julian calendar or a revised form for fixed feasts.</p>
-<p>It emphasizes:<br>
-  • Continuity with early church practices<br>
-  • Distinct calculation of Pascha (Easter)<br>
-  • Deep liturgical and fasting cycles
-</p>
-<p>Differences in calendar usage (Julian vs. Revised Julian) can result in varying observance dates.</p>
-<p>Key idea:<br>
-  Faithfulness to ancient rhythms and the preservation of early ecclesiastical tradition.</p>
-	
-    `
-  },
-  passover: {
-    title: "Passover",
-    content: `
-      <p>Passover remembers deliverance from bondage in Egypt.</p>
-      <p>Jewish tradition often observes it with a seder meal, retelling the story and using symbolic foods.</p>
-      <p>In Scripture, the central ideas are remembrance, telling the story, and marking deliverance.</p>
-    `
-  },
-  unleavened_bread: {
-    title: "Feast of Unleavened Bread",
-    content: `
-      <p>This feast follows Passover.</p>
-      <p>It remembers leaving Egypt in haste and removing leaven.</p>
-      <p>It points to leaving bondage behind and walking in a new way.</p>
-    `
-  },
-  first_fruits: {
-    title: "First Fruits",
-    content: `
-      <p>First Fruits marks the beginning of harvest.</p>
-      <p>It is associated with gratitude, offering, and the promise of more to come.</p>
-    `
-  },
-  pentecost: {
-    title: "Pentecost / Shavuot",
-    content: `
-      <p>Shavuot, also called Pentecost, comes after the counting of weeks.</p>
-      <p>It is associated with covenant, harvest, and later, in Christian understanding, the giving of the Spirit.</p>
-    `
-  },
-  trumpets: {
-    title: "Trumpets",
-    content: `
-      <p>This is a day of blowing trumpets and awakening.</p>
-      <p>It is often associated with preparation, gathering, and attention to what is coming.</p>
-    `
-  },
-  atonement: {
-    title: "Day of Atonement",
-    content: `
-      <p>This is the most solemn day of the Biblical calendar.</p>
-      <p>It is associated with repentance, mercy, cleansing, and the seriousness of judgment.</p>
-    `
-  },
-  tabernacles: {
-    title: "Tabernacles / Sukkot",
-    content: `
-      <p>This feast remembers dwelling in temporary shelters in the wilderness.</p>
-      <p>It carries themes of joy, dependence, provision, and God dwelling with His people.</p>
-    `
-  },
-  hillel: {
-    title: "Hillel Calendar",
-    content: `
-      <p>The traditional Jewish calendar used worldwide today.</p>
-      <p>It is a calculated lunar calendar designed for consistency and shared observance.</p>
-    `
-  },
-  enochian: {
-    title: "Enochian Calendar",
-    content: `
-      <p>A solar-based 364-day calendar model associated with ancient traditions like 1 Enoch and some Dead Sea Scroll patterns.</p>
-      <p>It emphasizes fixed weekly alignment.</p>
-    `
-  },
-  zedokian: {
-    title: "Zedokian Calendar",
-    content: `
-      <p>A priestly calendar model that seeks to restore Biblical timing associated with Zadok traditions.</p>
-      <p>It emphasizes priestly order and restored alignment.</p>
-    `
-  }
-};
-
-function openMiniModal(title, content) {
-  const modal = document.getElementById("miniModal");
-  const titleEl = document.getElementById("miniModalTitle");
-  const contentEl = document.getElementById("miniModalContent");
-
-  if (!modal || !titleEl || !contentEl) return;
-
-  titleEl.textContent = title;
-  contentEl.innerHTML = content;
-
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
-}
-
-function closeMiniModal() {
-  const modal = document.getElementById("miniModal");
-  if (!modal) return;
-
-  modal.classList.add("hidden");
-  modal.classList.remove("flex");
-}
-
-function openCalendarInfo(key) {
-  const item = CALENDAR_INFO[key];
-  if (!item) return;
-  openMiniModal(item.title, item.content);
-}
-
-function openHolyDayDetails(key) {
-  openCalendarInfo(key);
-}
-
-function getUpcomingHolyDay(calendarType) {
-  const now = new Date();
-  const items = CALENDAR_DATA[calendarType] || [];
-
-  const upcoming = items
-    .map(i => ({
-      ...i,
-      time: new Date(i.start).getTime()
-    }))
-    .filter(i => i.time > now.getTime())
-    .sort((a, b) => a.time - b.time);
-
-  return upcoming[0] || items[items.length - 1];
-}
-
-function renderHolyDayList(calendarType) {
-  const listEl = document.getElementById("holyDayList");
-  if (!listEl) return;
-
-  const items = CALENDAR_DATA[calendarType] || [];
-
-  listEl.innerHTML = items.map(item => `
-    <div class="rounded-xl bg-gray-900/60 p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <div>
-        <h4 class="font-semibold text-lg">${item.title}</h4>
-        <p class="text-slate-300 text-sm">${item.displayDate}</p>
-        <p class="text-slate-400 text-sm">${item.summary}</p>
-      </div>
-      <div class="flex gap-2">
-        <button class="px-3 py-2 rounded bg-indigo-600 hover:bg-indigo-500" onclick="openHolyDayDetails('${item.key}')">Info</button>
-        <button class="px-3 py-2 rounded bg-slate-700 hover:bg-slate-600" onclick="beginHolyDayExperience('${item.key}')">Play</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-  function toggleHolyDays(btn) {
-  const list = document.getElementById("holyDayList");
-  if (!list) return;
-
-  const isHidden = list.style.display === "none";
-
-  list.style.display = isHidden ? "" : "none";
-
-  const arrow = btn.querySelector("span");
-  if (arrow) arrow.textContent = isHidden ? "▼" : "▶";
-}
-
-function updateCountdown(targetDateString) {
-  const countdownEl = document.getElementById("countdownValue");
-  if (!countdownEl) return;
-
-  if (countdownInterval) clearInterval(countdownInterval);
-
-  function tick() {
-    const now = new Date();
-    const target = new Date(targetDateString);
-    const diff = target - now;
-
-    if (diff <= 0) {
-      countdownEl.textContent = "Now";
-      return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-
-    countdownEl.textContent = `${days}d ${hours}h ${minutes}m`;
+  function eventsFor(type) {
+    return BASE_EVENTS.map(function (base, index) {
+      var date = MODEL_DATES[type][index];
+      return { key: base[0], title: base[1], summary: base[2], start: date[0], displayDate: date[1] };
+    });
   }
 
-  tick();
-  countdownInterval = setInterval(tick, 60000);
-}
-
-function setCalendarType(type) {
-  currentCalendarType = type;
-  localStorage.setItem("preferredCalendarType", type);
-
-  const label = document.getElementById("currentCalendarType");
-  if (label) label.textContent = type;
-
-  const next = getUpcomingHolyDay(type);
-  if (!next) return;
-
-  currentNextHolyDayKey = next.key;
-
-  const titleEl = document.getElementById("nextHolyDayTitle");
-  const dateEl = document.getElementById("nextHolyDayDate");
-  const summaryEl = document.getElementById("nextHolyDaySummary");
-  const subtextEl = document.getElementById("countdownSubtext");
-
-  if (titleEl) titleEl.textContent = next.title;
-  if (dateEl) dateEl.textContent = next.displayDate;
-  if (summaryEl) summaryEl.textContent = next.summary;
-  if (subtextEl) subtextEl.textContent = `Preparing for ${next.title}.`;
-
-  renderHolyDayList(type);
-  updateCountdown(next.start);
-}
-
-function beginHolyDayExperience(key) {
-  console.log("Begin experience for:", key);
-}
-
-function initCalendarCard() {
-  const saved = localStorage.getItem("preferredCalendarType");
-  setCalendarType(saved || "Hillel");
-  initCalendarOmerCounter();
-}
-
-let calendarOmerInterval = null;
-
-window.setCalendarType = setCalendarType;
-window.beginHolyDayExperience = beginHolyDayExperience;
-window.openHolyDayDetails = openHolyDayDetails;
-window.openCalendarInfo = openCalendarInfo;
-window.openMiniModal = openMiniModal;
-window.closeMiniModal = closeMiniModal;
-window.initCalendarCard = initCalendarCard;
-window.destroyCalendarCard = destroyCalendarCard;
-
-
-function initCalendarOmerCounter() {
-  // 2026 Omer: begins evening of Apr 2, ends night before May 20
-  // This counter rolls over at local sundown (default 7:30 PM).
-  const OMER_START = new Date(2026, 3, 3);   // Apr 2, 2026
-  const OMER_END   = new Date(2026, 4, 20);  // May 20, 2026
-  const SUNDOWN_HOUR = 19;   // adjust if you want
-  const SUNDOWN_MIN  = 30;   // adjust if you want
-
-  destroyCalendarCard();
-
-  function startOfLocalDay(d) {
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  function escapeHtml(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
-  function getEffectiveDate(now) {
-    const sundown = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      SUNDOWN_HOUR,
-      SUNDOWN_MIN,
-      0,
-      0
-    );
-
-    // After sundown, Jewish day advances for counting purposes
-    if (now >= sundown) {
-      const tomorrow = new Date(now);
-      tomorrow.setDate(now.getDate() + 1);
-      return startOfLocalDay(tomorrow);
-    }
-
-    return startOfLocalDay(now);
+  function getUpcomingHolyDay(type) {
+    var now = Date.now();
+    return eventsFor(type).find(function (item) { return new Date(item.start).getTime() > now; }) || null;
   }
 
-  function formatWeeksDays(dayNumber) {
-    const weeks = Math.floor(dayNumber / 7);
-    const days = dayNumber % 7;
-
-    if (dayNumber < 7) return `${dayNumber} day${dayNumber === 1 ? "" : "s"}`;
-    if (days === 0) return `${dayNumber} days, which is ${weeks} week${weeks === 1 ? "" : "s"}`;
-    return `${dayNumber} days, which is ${weeks} week${weeks === 1 ? "" : "s"} and ${days} day${days === 1 ? "" : "s"}`;
+  function formatCountdown(target) {
+    var diff = new Date(target).getTime() - Date.now();
+    if (diff <= 0) return "This appointed time has begun";
+    var days = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    if (days > 0) return days + " day" + (days === 1 ? "" : "s") + ", " + hours + " hour" + (hours === 1 ? "" : "s") + " away";
+    var minutes = Math.max(0, Math.floor((diff % 3600000) / 60000));
+    return hours + " hour" + (hours === 1 ? "" : "s") + ", " + minutes + " minute" + (minutes === 1 ? "" : "s") + " away";
   }
 
-  function updateOmerCounter() {
-    const dayEl = document.getElementById("omerDay");
-    const textEl = document.getElementById("omerText");
-    const detailEl = document.getElementById("omerDetail");
-    if (!dayEl || !textEl || !detailEl) return;
-
-    const now = new Date();
-    const effectiveDate = getEffectiveDate(now);
-
-    const diffMs = effectiveDate - OMER_START;
-    const dayNumber = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;
-
-    const beforeStart = effectiveDate < OMER_START;
-    const afterEnd = effectiveDate > OMER_END;
-
-    if (beforeStart) {
-      dayEl.textContent = "0";
-      textEl.textContent = "Omer has not started yet";
-      detailEl.textContent = "Counting begins after sundown on April 2, 2026.";
-      return;
-    }
-
-    if (afterEnd || dayNumber > 49) {
-      dayEl.textContent = "50";
-      textEl.textContent = "Shavuot has arrived";
-      detailEl.textContent = "The 49-day Omer count is complete.";
-      return;
-    }
-
-    dayEl.textContent = dayNumber;
-    textEl.textContent = `Today is ${formatWeeksDays(dayNumber)} of the Omer.`;
-
-    if (dayNumber < 49) {
-      detailEl.textContent = now.getHours() >= SUNDOWN_HOUR
-        ? "Counted after sundown."
-        : "This will advance at sundown.";
-    } else {
-      detailEl.textContent = "Final day of the Omer count.";
-    }
+  function renderToday() {
+    var today = activeRoot.querySelector("#calendarTodayDate");
+    var sabbath = activeRoot.querySelector("#nextSabbathDate");
+    var now = new Date();
+    if (today) today.textContent = new Intl.DateTimeFormat(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(now);
+    if (!sabbath) return;
+    var daysUntilFriday = (5 - now.getDay() + 7) % 7;
+    var afterFridaySunset = now.getDay() === 5 && now.getHours() >= 18;
+    if (daysUntilFriday === 0 && afterFridaySunset) daysUntilFriday = 7;
+    var friday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilFriday);
+    sabbath.textContent = "Begins Friday evening, " + new Intl.DateTimeFormat(undefined, { month: "long", day: "numeric", year: "numeric" }).format(friday) + ", at local sunset.";
   }
 
-  updateOmerCounter();
+  function renderHolyDayList(type) {
+    var list = activeRoot.querySelector("#holyDayList");
+    if (!list) return;
+    list.innerHTML = eventsFor(type).map(function (item) {
+      var isNext = item.key === currentNextHolyDayKey;
+      return '<article class="calendar-event' + (isNext ? ' is-next' : '') + '">' +
+        '<div><h4>' + escapeHtml(item.title) + (isNext ? ' <span class="text-xs text-amber-300">NEXT</span>' : '') + '</h4>' +
+        '<p class="text-sm text-slate-300">' + escapeHtml(item.displayDate) + '</p>' +
+        '<p class="text-sm text-slate-400">' + escapeHtml(item.summary) + '</p></div>' +
+        '<button class="hg-btn" type="button" data-calendar-detail="' + escapeHtml(item.key) + '">Details</button>' +
+        '</article>';
+    }).join("");
+  }
 
-  // Refresh every minute in case sundown passes while page is open
-  calendarOmerInterval = setInterval(updateOmerCounter, 60000);
-}
-
-function destroyCalendarCard() {
-  if (countdownInterval) {
-    clearInterval(countdownInterval);
+  function updateCountdown(target) {
+    var output = activeRoot && activeRoot.querySelector("#countdownValue");
+    if (countdownInterval) clearInterval(countdownInterval);
     countdownInterval = null;
+    if (!output || !target) return;
+    function tick() { output.textContent = formatCountdown(target); }
+    tick();
+    countdownInterval = setInterval(tick, 60000);
   }
 
-  if (calendarOmerInterval) {
-    clearInterval(calendarOmerInterval);
-    calendarOmerInterval = null;
+  function setCalendarType(type) {
+    if (!activeRoot || !CALENDAR_MODELS[type]) return;
+    currentCalendarType = type;
+    try { localStorage.setItem("preferredCalendarType", type); } catch (error) {}
+    var next = getUpcomingHolyDay(type);
+    currentNextHolyDayKey = next ? next.key : null;
+
+    activeRoot.querySelectorAll("[data-calendar-model]").forEach(function (button) {
+      button.setAttribute("aria-pressed", String(button.getAttribute("data-calendar-model") === type));
+    });
+    activeRoot.querySelector("#currentCalendarType").textContent = type;
+    activeRoot.querySelector("#calendarModelDescription").textContent = CALENDAR_MODELS[type];
+
+    var title = activeRoot.querySelector("#nextHolyDayTitle");
+    var date = activeRoot.querySelector("#nextHolyDayDate");
+    var summary = activeRoot.querySelector("#nextHolyDaySummary");
+    var detailsButton = activeRoot.querySelector("#nextHolyDayDetailsBtn");
+    var countdown = activeRoot.querySelector("#countdownValue");
+    if (next) {
+      title.textContent = next.title;
+      date.textContent = next.displayDate;
+      summary.textContent = next.summary;
+      detailsButton.hidden = false;
+      detailsButton.setAttribute("data-calendar-detail", next.key);
+      countdown.hidden = false;
+      updateCountdown(next.start);
+    } else {
+      title.textContent = "2026 reference cycle complete";
+      date.textContent = "No later appointed time is stored in this Release 1 schedule.";
+      summary.textContent = "The full reference cycle remains available below for study and comparison.";
+      detailsButton.hidden = true;
+      countdown.hidden = true;
+      updateCountdown(null);
+    }
+    renderHolyDayList(type);
   }
-}
+
+  function openCalendarDetail(key) {
+    var info = EVENT_INFO[key];
+    if (!activeRoot || !info) return;
+    var panel = activeRoot.querySelector("#calendarDetail");
+    activeRoot.querySelector("#calendarDetailPrompt").hidden = true;
+    activeRoot.querySelector("#calendarDetailTitle").textContent = info.title;
+    activeRoot.querySelector("#calendarDetailContent").innerHTML = '<p><strong class="text-slate-100">Scripture:</strong> ' + escapeHtml(info.scripture) + '</p><p>' + escapeHtml(info.body) + '</p>';
+    panel.hidden = false;
+    panel.focus({ preventScroll: true });
+    panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function closeCalendarDetail() {
+    if (!activeRoot) return;
+    activeRoot.querySelector("#calendarDetail").hidden = true;
+    activeRoot.querySelector("#calendarDetailPrompt").hidden = false;
+  }
+
+  function handleCalendarClick(event) {
+    var modelButton = event.target.closest("[data-calendar-model]");
+    if (modelButton && activeRoot.contains(modelButton)) {
+      setCalendarType(modelButton.getAttribute("data-calendar-model"));
+      return;
+    }
+    var detailButton = event.target.closest("[data-calendar-detail]");
+    if (detailButton && activeRoot.contains(detailButton)) {
+      openCalendarDetail(detailButton.getAttribute("data-calendar-detail"));
+      return;
+    }
+    if (event.target.closest("#calendarDetailClose")) closeCalendarDetail();
+  }
+
+  function initCalendarCard() {
+    destroyCalendarCard();
+    activeRoot = document.getElementById("calendarCard");
+    if (!activeRoot) return;
+    activeRoot.addEventListener("click", handleCalendarClick);
+    renderToday();
+    var saved = "Hillel";
+    try { saved = localStorage.getItem("preferredCalendarType") || "Hillel"; } catch (error) {}
+    setCalendarType(CALENDAR_MODELS[saved] ? saved : "Hillel");
+  }
+
+  function destroyCalendarCard() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    countdownInterval = null;
+    if (activeRoot) activeRoot.removeEventListener("click", handleCalendarClick);
+    activeRoot = null;
+  }
+
+  window.setCalendarType = setCalendarType;
+  window.openCalendarInfo = openCalendarDetail;
+  window.openHolyDayDetails = openCalendarDetail;
+  window.initCalendarCard = initCalendarCard;
+  window.destroyCalendarCard = destroyCalendarCard;
+})();
+
