@@ -87,7 +87,7 @@ function makePassageEntries(text, sections = [], toSections = []) {
       const apiRef = requestedReference
         ? toSefariaApiRef(requestedReference)
         : `${book}.${chapter}`;
-      const url = `https://www.sefaria.org/api/texts/${encodeURIComponent(apiRef)}?lang=bi`;
+      const url = `https://www.sefaria.org/api/texts/${encodeURIComponent(apiRef)}?lang=bi&context=0`;
       const res = await fetch(url);
       const data = await res.json();
 
