@@ -26,8 +26,8 @@ async function loadCommentary(week) {
     console.error("Commentary load error:", err);
 
     content.innerHTML = `
-      <div class="text-red-400">
-        Failed to load commentary for week ${week}
+      <div class="text-amber-200">
+        Commentary not yet authored.
       </div>
     `;
   }

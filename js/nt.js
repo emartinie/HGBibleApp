@@ -35,6 +35,9 @@ ntLog("BOOT SNAPSHOT", {
 (function () {
 
   const NT_BASE = "cards/nt.html";
+  const UNAVAILABLE_NT_BOOKS = new Set([
+    "Mark", "Luke", "John", "1 Thessalonians", "2 Thessalonians", "Titus"
+  ]);
   const intertextEdges = [
     {
       "from": "Matthew 1:23",
@@ -882,6 +885,7 @@ function loadBookTiles() {
     wheelWindow.innerHTML = visibleIndexes
       .map((bookIndex, slotIndex) => {
         const bookName = books[bookIndex];
+        const unavailable = UNAVAILABLE_NT_BOOKS.has(bookName);
         const distance = Math.abs(slotIndex - 2);
         const activeClass = bookIndex === activeIndex
           ? " is-active border-cyan-500/60 bg-cyan-900/35 text-cyan-100 shadow-lg shadow-cyan-950/30"
@@ -893,8 +897,9 @@ function loadBookTiles() {
           <button type="button"
                   class="nt-wheel-item w-full rounded-xl border px-4 py-3 text-center text-sm font-semibold${activeClass}"
                   data-nt-wheel-index="${bookIndex}"
-                  aria-current="${bookIndex === activeIndex ? "true" : "false"}">
+                  aria-current="${bookIndex === activeIndex ? "true" : "false"}"${unavailable ? " disabled aria-disabled=\"true\"" : ""}>
             ${escapeHtml(bookName)}
+            ${unavailable ? '<span class="block text-[10px] font-normal text-amber-300">Not yet available</span>' : ""}
           </button>
         `;
       })
@@ -909,6 +914,16 @@ function loadBookTiles() {
 
   function renderActions() {
     const bookName = books[activeIndex];
+
+    if (UNAVAILABLE_NT_BOOKS.has(bookName)) {
+      actions.innerHTML = `
+        <div class="rounded-xl border border-amber-500/30 bg-amber-950/20 p-5 text-center">
+          <div class="text-lg font-semibold text-amber-200">${escapeHtml(bookName)}</div>
+          <p class="mt-2 text-sm text-slate-300">Not yet available.</p>
+        </div>
+      `;
+      return;
+    }
 
     actions.innerHTML = `
       <div class="mb-4 border-b border-slate-700 pb-3">
@@ -1382,6 +1397,31 @@ const { book, chapter, view, section } = getParams();
 
 if (!book) {
   renderNTLanding();
+  return;
+}
+
+if (UNAVAILABLE_NT_BOOKS.has(book)) {
+  if (hasNTMount("unavailableBook")) {
+    setContextHeader(book);
+    setSubContext("Not yet available.");
+    contentZone.innerHTML = `
+      <section class="rounded-2xl border border-amber-500/30 bg-amber-950/20 p-6 text-center">
+        <h2 class="text-xl font-semibold text-amber-200">${escapeHtml(book)}</h2>
+        <p class="mt-3 text-sm text-slate-300">Not yet available.</p>
+        <button id="ntUnavailableHomeBtn" type="button"
+          class="mt-5 px-4 py-2 rounded-lg border border-slate-600 hover:bg-slate-800/60 text-sm transition">
+          Back to New Testament Notes
+        </button>
+      </section>
+    `;
+    document.getElementById("ntUnavailableHomeBtn")?.addEventListener("click", () => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("card", "nt");
+      ["book", "chapter", "view", "section"].forEach(key => url.searchParams.delete(key));
+      window.history.replaceState({}, "", url);
+      window.loadCard?.("nt");
+    });
+  }
   return;
 }
 
