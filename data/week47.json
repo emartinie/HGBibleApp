@@ -12,19 +12,19 @@
     "audio_playlist": [
       {
         "label": "Torah",
-        "src": "ttp://audio.esvbible.org/hw/05011026-05016017.mp3",
+        "src": "https://audio.esvbible.org/hw/05011026-05016017.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Prophets",
-        "src": "http://audio.esvbible.org/hw/23066001-23066024.mp3",
+        "src": "https://audio.esvbible.org/hw/23066001-23066024.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
       {
         "label": "Writings",
-        "src": "http://audio.esvbible.org/hw/09011001-09012025.mp3",
+        "src": "https://audio.esvbible.org/hw/09011001-09012025.mp3",
         "heb": "https://audio.esv.org/hw/mq/01028010-01032002.mp3",
         "grk": "https://audio.esv.org/hw/mq/01028010-01032002.mp3"
       },
