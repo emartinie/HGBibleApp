@@ -7,19 +7,19 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #101417;
-      --panel: #172025;
-      --panel-soft: #1d2a31;
-      --ink: #f7f0df;
-      --muted: #b8c3c2;
-      --line: rgba(255, 255, 255, 0.12);
-      --gold: #e5b95a;
-      --blue: #65b8d6;
-      --green: #79b98a;
-      --rose: #d8818c;
-      --violet: #b79ae6;
-      --amber: #d79748;
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      --bg: #06070b;
+      --panel: rgba(14, 18, 28, 0.9);
+      --panel-soft: rgba(22, 29, 43, 0.88);
+      --ink: #eef3ff;
+      --muted: #a8b2c7;
+      --line: rgba(255, 255, 255, 0.10);
+      --gold: #f3c878;
+      --blue: #7cc7ff;
+      --green: #9ed27c;
+      --rose: #dc8c82;
+      --violet: #b9a3f5;
+      --amber: #ffb45e;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.42);
     }
 
     * {
@@ -31,9 +31,8 @@
       min-height: 100vh;
       color: var(--ink);
       background:
-        linear-gradient(180deg, rgba(229, 185, 90, 0.08), transparent 320px),
-        radial-gradient(circle at top left, rgba(101, 184, 214, 0.12), transparent 320px),
-        var(--bg);
+        radial-gradient(circle at top, rgba(243, 200, 120, 0.10), transparent 28%),
+        linear-gradient(180deg, #0d111b, var(--bg));
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.5;
     }
@@ -45,9 +44,9 @@
     }
 
     .prototype-shell {
-      width: min(1180px, calc(100% - 28px));
+      width: min(1180px, calc(100% - 20px));
       margin: 0 auto;
-      padding: 24px 0 48px;
+      padding: 10px 0 36px;
     }
 
     .hero {
@@ -55,7 +54,8 @@
       gap: 18px;
       padding: 22px;
       border: 1px solid var(--line);
-      background: rgba(23, 32, 37, 0.9);
+      border-radius: 20px;
+      background: var(--panel);
       box-shadow: var(--shadow);
     }
 
@@ -77,8 +77,8 @@
 
     h1 {
       margin-bottom: 0;
-      font-size: clamp(2rem, 7vw, 4.5rem);
-      line-height: 0.95;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      line-height: 1.05;
       letter-spacing: 0;
     }
 
@@ -99,6 +99,7 @@
       min-height: 82px;
       padding: 14px;
       border: 1px solid var(--line);
+      border-radius: 14px;
       background: rgba(255, 255, 255, 0.04);
     }
 
@@ -124,7 +125,8 @@
       margin-top: 16px;
       padding: 14px;
       border: 1px solid var(--line);
-      background: rgba(16, 20, 23, 0.94);
+      border-radius: 20px;
+      background: rgba(14, 18, 28, 0.96);
       backdrop-filter: blur(14px);
     }
 
@@ -149,7 +151,7 @@
       width: 100%;
       min-height: 42px;
       border: 1px solid var(--line);
-      border-radius: 0;
+      border-radius: 14px;
       color: var(--ink);
       background: var(--panel);
       padding: 9px 11px;
@@ -172,6 +174,7 @@
       min-height: 38px;
       border: 1px solid var(--line);
       color: var(--ink);
+      border-radius: 999px;
       background: var(--panel-soft);
       padding: 8px 12px;
       cursor: pointer;
@@ -200,6 +203,7 @@
       min-height: 28px;
       border: 1px solid var(--line);
       color: var(--muted);
+      border-radius: 999px;
       background: rgba(255, 255, 255, 0.035);
       padding: 5px 8px;
       font-size: 0.78rem;
@@ -254,7 +258,8 @@
     .timeline-rail {
       display: none;
       border: 1px solid var(--line);
-      background: rgba(23, 32, 37, 0.82);
+      border-radius: 20px;
+      background: var(--panel);
       padding: 14px;
     }
 
@@ -323,7 +328,8 @@
       gap: 14px;
       border: 1px solid var(--line);
       border-left: 5px solid var(--accent);
-      background: rgba(23, 32, 37, 0.9);
+      border-radius: 20px;
+      background: var(--panel);
       padding: 15px;
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
     }
@@ -366,6 +372,7 @@
 
     .fact {
       border: 1px solid var(--line);
+      border-radius: 14px;
       background: rgba(255, 255, 255, 0.035);
       padding: 10px;
     }
@@ -396,6 +403,7 @@
     .tag {
       border: 1px solid var(--line);
       color: var(--muted);
+      border-radius: 999px;
       background: rgba(255, 255, 255, 0.04);
       padding: 4px 7px;
       font-size: 0.76rem;
@@ -415,9 +423,15 @@
     .empty-state,
     .error-state {
       border: 1px solid var(--line);
-      background: rgba(23, 32, 37, 0.9);
+      border-radius: 20px;
+      background: var(--panel);
       color: var(--muted);
       padding: 18px;
+    }
+
+    :where(button, input, select):focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
     }
 
     .prototype-shell.timeline-mode .content-layout {
@@ -468,7 +482,7 @@
   <main class="prototype-shell timeline-mode" id="sacredTimePrototype">
     <section class="hero" aria-labelledby="prototypeTitle">
       <div>
-        <p class="eyebrow">Prototype only</p>
+        <p class="eyebrow">Sacred Time Research Prototype</p>
         <h1 id="prototypeTitle">Sacred Time and Biblical History</h1>
         <p class="hero-copy">A first look at how appointed times, biblical events, traditions, and historical chronology might sit together without forcing every thread into the same kind of certainty.</p>
       </div>
