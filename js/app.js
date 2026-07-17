@@ -376,6 +376,83 @@ function cleanupActiveCard() {
   // =====================
 // SCRIPT LOADER (UNIFIED)
 // =====================
+  function isExternalCardValue(cardName) {
+    return typeof cardName === "string" && cardName.startsWith("url:");
+  }
+
+  function getExternalCardUrl(cardName) {
+    const rawUrl = cardName.slice(4).trim();
+    const url = new URL(rawUrl, window.location.href);
+
+    if (url.protocol !== "https:" && url.protocol !== "http:") {
+      throw new Error("Prototype URL must use http or https.");
+    }
+
+    return url;
+  }
+
+  function renderExternalCard(cardName, requestId) {
+    const url = getExternalCardUrl(cardName);
+    const matchingOption = cardSelector
+      ? Array.from(cardSelector.options).find(option => option.value === cardName)
+      : null;
+    const title = matchingOption?.textContent?.trim() || "Prototype";
+
+    const shell = document.createElement("section");
+    shell.className = "hg-panel";
+    shell.style.cssText = "width:100%;min-width:0;padding:10px;display:grid;gap:10px;";
+
+    const toolbar = document.createElement("div");
+    toolbar.style.cssText = "display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;";
+
+    const heading = document.createElement("strong");
+    heading.textContent = title;
+    heading.style.cssText = "min-width:0;overflow-wrap:anywhere;";
+
+    const openLink = document.createElement("a");
+    openLink.href = url.href;
+    openLink.target = "_blank";
+    openLink.rel = "noopener noreferrer";
+    openLink.className = "ui-btn";
+    openLink.textContent = "Open full page ↗";
+    openLink.setAttribute("aria-label", `Open ${title} in a new tab`);
+
+    const frameStatus = document.createElement("span");
+    frameStatus.className = "text-xs text-slate-400";
+    frameStatus.textContent = "Loading prototype…";
+    frameStatus.setAttribute("aria-live", "polite");
+
+    const frame = document.createElement("iframe");
+    frame.src = url.href;
+    frame.title = title;
+    frame.loading = "eager";
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.allow = "fullscreen; clipboard-write";
+    frame.style.cssText = "display:block;width:100%;height:clamp(520px,72vh,900px);min-width:0;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:#020617;";
+
+    frame.addEventListener("load", () => {
+      if (requestId === loadCardRequestId) {
+        frameStatus.textContent = "Prototype loaded";
+      }
+    });
+
+    toolbar.append(heading, frameStatus, openLink);
+    shell.append(toolbar, frame);
+    loadedCardHost.replaceChildren(shell);
+    activeCardName = cardName;
+
+    requestAnimationFrame(() => {
+      wireCardNavButtons();
+      syncCurrentCardOnScroll();
+    });
+
+    console.log("[CARD] external prototype rendered", {
+      cardName,
+      requestId,
+      url: url.href
+    });
+  }
+
   async function loadCard(cardName) {
     refreshDomRefs();
     if (!loadedCardHost || !cardName) return;
@@ -394,6 +471,14 @@ function cleanupActiveCard() {
 
     try {
       cleanupActiveCard();
+
+      if (isExternalCardValue(cardName)) {
+        renderExternalCard(cardName, requestId);
+        console.log("[CARD] render completion", { cardName, requestId });
+        goToCard(1);
+        return;
+      }
+
       loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
 
       const res = await fetch(`cards/${cardName}.html?v=${Date.now()}`, {
