@@ -1,5 +1,29 @@
-<section class="living-thread-card hg-card-shell">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Living Thread Prototype</title>
   <style>
+    :root {
+      color-scheme: dark;
+      --bg-0:#06070b;
+      --bg-1:#0d111b;
+      --text:#eef3ff;
+      --muted:#a8b2c7;
+      --gold:#f3c878;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(243,200,120,.10), transparent 28%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-0));
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+
     .living-thread-card {
       --thread-ink: #fffaf0;
       --thread-muted: rgba(255, 250, 240, 0.72);
@@ -11,6 +35,9 @@
       --thread-cyan: #6fd3d2;
       --thread-green: #9ed27c;
       --thread-rose: #dc8c82;
+      width: min(1180px, calc(100% - 20px));
+      min-width: 0;
+      margin: 10px auto 36px;
       position: relative;
       overflow: hidden;
       display: grid;
@@ -23,6 +50,7 @@
         radial-gradient(circle at 54% 94%, rgba(158, 210, 124, 0.12), transparent 36%),
         linear-gradient(145deg, #101821 0%, #090f16 48%, #211a14 100%);
       border: 1px solid rgba(246, 198, 111, 0.22);
+      border-radius: 20px;
       box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
       isolation: isolate;
     }
@@ -57,7 +85,7 @@
     .living-thread-card .thread-step,
     .living-thread-card .thread-orbit {
       border: 1px solid var(--thread-line);
-      border-radius: 8px;
+      border-radius: 14px;
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
         var(--thread-panel);
@@ -81,7 +109,7 @@
       gap: 0.42rem;
       padding: 0.28rem 0.55rem;
       border: 1px solid rgba(111, 211, 210, 0.34);
-      border-radius: 8px;
+      border-radius: 14px;
       color: var(--thread-cyan);
       background: rgba(111, 211, 210, 0.08);
       font-size: 0.72rem;
@@ -104,9 +132,9 @@
       margin: 0;
       max-width: 12ch;
       color: var(--thread-ink);
-      font-size: clamp(1.8rem, 9vw, 3.25rem);
+      font-size: clamp(1.8rem, 6vw, 3rem);
       font-weight: 950;
-      line-height: 0.96;
+      line-height: 1.02;
     }
 
     .living-thread-card .thread-copy {
@@ -207,7 +235,7 @@
     .living-thread-card .thread-scripture {
       padding: 0.75rem;
       border-left: 3px solid var(--thread-gold);
-      border-radius: 8px;
+      border-radius: 14px;
       color: var(--thread-ink);
       background: rgba(0, 0, 0, 0.2);
       font-size: 1rem;
@@ -233,7 +261,7 @@
     .living-thread-card .thread-choice {
       padding: 0.62rem;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
+      border-radius: 14px;
       background: rgba(0, 0, 0, 0.18);
     }
 
@@ -299,7 +327,7 @@
     .living-thread-card .thread-practice li {
       padding: 0.62rem;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
+      border-radius: 14px;
       color: var(--thread-muted);
       background: rgba(0, 0, 0, 0.18);
       font-size: 0.88rem;
@@ -309,7 +337,7 @@
     .living-thread-card .thread-meditation {
       padding: 0.85rem;
       border: 1px solid rgba(246, 198, 111, 0.28);
-      border-radius: 8px;
+      border-radius: 14px;
       background:
         radial-gradient(circle at top right, rgba(246, 198, 111, 0.12), transparent 36%),
         rgba(0, 0, 0, 0.2);
@@ -353,12 +381,30 @@
       }
     }
 
-    @media (max-width: 430px) {
+    @media (max-width: 520px) {
+      .living-thread-card {
+        width: calc(100% - 12px);
+        margin-top: 6px;
+        padding: 0.65rem;
+        border-radius: 16px;
+      }
+
+      .living-thread-card .thread-hero,
+      .living-thread-card .thread-step {
+        border-radius: 16px;
+      }
+
+
       .living-thread-card .thread-rhythm-grid {
         grid-template-columns: 1fr;
       }
     }
+  
   </style>
+</head>
+<body>
+<section class="living-thread-card">
+  
 
   <!-- Prototype status note -->
   <div class="thread-panel thread-note">
@@ -506,3 +552,5 @@
     </section>
   </main>
 </section>
+</body>
+</html>
