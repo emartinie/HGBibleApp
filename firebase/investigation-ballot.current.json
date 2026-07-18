@@ -1,0 +1,25 @@
+{
+  "ballotId": "release-2-priority-2026-01",
+  "status": "open",
+  "title": "Help choose a future investigation",
+  "maxSelections": 3,
+  "candidateTopicIds": [
+    "TOP-0316",
+    "TOP-0347",
+    "TOP-0349",
+    "TOP-0401",
+    "TOP-0893",
+    "TOP-1044",
+    "TOP-1911"
+  ],
+  "candidates": [
+    { "id": "TOP-0316", "title": "Historical Events Associated with Yom Teruah", "category": "Biblical Calendar and Appointed Times" },
+    { "id": "TOP-0347", "title": "A Dataset of Historical Events by Biblical Feast Date", "category": "Biblical Calendar and Appointed Times" },
+    { "id": "TOP-0349", "title": "A Comparative Calendar of Major Biblical Calendar Systems", "category": "Biblical Calendar and Appointed Times" },
+    { "id": "TOP-0401", "title": "A Complete Biblical Chronology from Creation to the Apostolic Age", "category": "Biblical Chronology and Historical Timeline" },
+    { "id": "TOP-0893", "title": "Do the Appointed Times Predict Future Redemptive Events?", "category": "Prophecy and Eschatology" },
+    { "id": "TOP-1044", "title": "The First Names and Titles of God in the Torah", "category": "Hebrew, Greek, and Biblical Language" },
+    { "id": "TOP-1911", "title": "Separating Scripture from Interpretation", "category": "Investigation Standards and Meta-Investigations" }
+  ]
+}
+
