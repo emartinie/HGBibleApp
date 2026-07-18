@@ -1,0 +1,232 @@
+{
+  "canonicalTopics": 1940,
+  "roadmapReferences": 15,
+  "categories": 25,
+  "duplicateCounts": {
+    "none": 1916,
+    "exact duplicate": 24
+  },
+  "roadmap": [
+    {
+      "rank": 1,
+      "investigationId": "INV-001",
+      "title": "Biblical References to Non-Canonical and Lost Sources",
+      "topicId": "TOP-0033",
+      "matchedBacklogTitle": "An Exhaustive Catalogue of Biblical References to Lost Books",
+      "supportingTopicIds": [
+        "TOP-0025",
+        "TOP-0026",
+        "TOP-0031",
+        "TOP-0032"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 2,
+      "investigationId": "INV-002",
+      "title": "Non-Canonical Sources Quoted or Echoed in the New Testament",
+      "topicId": "TOP-0032",
+      "matchedBacklogTitle": "Non-Canonical Sources Quoted or Referenced in the New Testament",
+      "supportingTopicIds": [
+        "TOP-0034",
+        "TOP-0035",
+        "TOP-0037",
+        "TOP-0054",
+        "TOP-0064",
+        "TOP-0065",
+        "TOP-0066",
+        "TOP-0067"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 3,
+      "investigationId": "INV-003",
+      "title": "The Torah Equidistant Letter Sequence Claim",
+      "topicId": "TOP-0121",
+      "matchedBacklogTitle": "The Torah Equidistant Letter Sequence Claim",
+      "supportingTopicIds": [
+        "TOP-0122",
+        "TOP-0123",
+        "TOP-0124",
+        "TOP-0125",
+        "TOP-0126",
+        "TOP-0127",
+        "TOP-0129",
+        "TOP-0130",
+        "TOP-0132"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 4,
+      "investigationId": "INV-004",
+      "title": "The Genesis 5 “Gospel in the Names” Claim",
+      "topicId": "TOP-1438",
+      "matchedBacklogTitle": "“The Genesis 5 Genealogy Encodes the Gospel”",
+      "supportingTopicIds": [
+        "TOP-1439"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 5,
+      "investigationId": "INV-005",
+      "title": "The Appointed Times as a Historical and Prophetic Pattern",
+      "topicId": "TOP-0893",
+      "matchedBacklogTitle": "Do the Appointed Times Predict Future Redemptive Events?",
+      "supportingTopicIds": [
+        "TOP-0894"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 6,
+      "investigationId": "INV-006",
+      "title": "Historical Events Associated with Yom Teruah",
+      "topicId": "TOP-0316",
+      "matchedBacklogTitle": "Historical Events Associated with Yom Teruah",
+      "supportingTopicIds": [
+        "TOP-0295",
+        "TOP-0315",
+        "TOP-0317",
+        "TOP-0318"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 7,
+      "investigationId": "INV-007",
+      "title": "Messiah 2030: Claims, Evidence, and Method",
+      "topicId": "TOP-0879",
+      "matchedBacklogTitle": "Messiah 2030: Claims, Sources, and Methodology",
+      "supportingTopicIds": [
+        "TOP-0880",
+        "TOP-0888",
+        "TOP-0891",
+        "TOP-0892"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 8,
+      "investigationId": "INV-008",
+      "title": "Paul Did Not Convert to Christianity",
+      "topicId": "TOP-0661",
+      "matchedBacklogTitle": "Paul Did Not Convert from Judaism to Christianity",
+      "supportingTopicIds": [
+        "TOP-0662",
+        "TOP-0663"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 9,
+      "investigationId": "INV-009",
+      "title": "What Should All Biblical Believers Be Called?",
+      "topicId": "TOP-0790",
+      "matchedBacklogTitle": "What Should All Believers Be Called?",
+      "supportingTopicIds": [
+        "TOP-0784",
+        "TOP-0785",
+        "TOP-0786",
+        "TOP-0787",
+        "TOP-0788",
+        "TOP-0789"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 10,
+      "investigationId": "INV-010",
+      "title": "The First Names and Titles Applied to God in the Torah",
+      "topicId": "TOP-1044",
+      "matchedBacklogTitle": "The First Names and Titles of God in the Torah",
+      "supportingTopicIds": [
+        "TOP-1045",
+        "TOP-1046",
+        "TOP-1047"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 11,
+      "investigationId": "INV-011",
+      "title": "The Biblical Calendar: Competing Models and Evidence",
+      "topicId": "TOP-0349",
+      "matchedBacklogTitle": "A Comparative Calendar of Major Biblical Calendar Systems",
+      "supportingTopicIds": [
+        "TOP-0265",
+        "TOP-0267",
+        "TOP-0271",
+        "TOP-0272",
+        "TOP-0278",
+        "TOP-0279",
+        "TOP-0282"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 12,
+      "investigationId": "INV-012",
+      "title": "A Complete Biblical Chronology and Its Major Disputes",
+      "topicId": "TOP-0401",
+      "matchedBacklogTitle": "A Complete Biblical Chronology from Creation to the Apostolic Age",
+      "supportingTopicIds": [
+        "TOP-0403",
+        "TOP-0408",
+        "TOP-0410",
+        "TOP-0411"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 13,
+      "investigationId": "INV-013",
+      "title": "Separating Scripture, Tradition, Interpretation, and Speculation",
+      "topicId": "TOP-1911",
+      "matchedBacklogTitle": "Separating Scripture from Interpretation",
+      "supportingTopicIds": [
+        "TOP-1912",
+        "TOP-1913",
+        "TOP-1914",
+        "TOP-1915",
+        "TOP-1916"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 14,
+      "investigationId": "INV-014",
+      "title": "The HG Bible App Research Corpus and Investigation System",
+      "topicId": "TOP-1543",
+      "matchedBacklogTitle": "The HG Bible App Research Corpus",
+      "supportingTopicIds": [
+        "TOP-1544",
+        "TOP-1545",
+        "TOP-1548",
+        "TOP-1549",
+        "TOP-1550"
+      ],
+      "mappingBasis": "source-guided"
+    },
+    {
+      "rank": 15,
+      "investigationId": "INV-015",
+      "title": "Release-One Readiness of the HG Bible App",
+      "topicId": "TOP-1633",
+      "matchedBacklogTitle": "Release-One Scope Audit",
+      "supportingTopicIds": [
+        "TOP-1637",
+        "TOP-1638",
+        "TOP-1640",
+        "TOP-1641",
+        "TOP-1642"
+      ],
+      "mappingBasis": "source-guided"
+    }
+  ],
+  "summaryInspection": "{\"kind\":\"table\",\"sheet\":\"Summary\",\"address\":\"A1:H25\",\"rows\":25,\"cols\":8,\"values\":[[\"HG Bible App · Content Backlog\",null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[\"Editorial source of truth for 1,940 canonical future topics; the JSON file is the app-facing export.\",null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[\"Canonical topics\",\"\",\"Categories\",\"\",\"Recommended sequence\",\"\",\"Duplicate review\",\"\"],[1940,null,25,null,15,null,24,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[\"How to use this workbook\",null,null,null,null,null,null,null],[\"Backlog is the editable master list. Keep titles and Topic IDs stable; update Status, Priority, Target Date, and Notes as work progresses. Roadmap preserves the source file’s recommended first sequence without duplicating those topics. Duplicate Review is intentionally conservative: it flags exact duplicates and near-identical wording for human review, but never merges records automatically.\",null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null],[\"Category\",\"Topics\",\"% of backlog\",\"Primary content type\",null,null,null,null],[\"Scripture, Text, and Canon\",70,0.03608247422680412,\"Investigation\",null,null,null,null],[\"Textual Transmission and Manuscripts\",50,0.02577319587628866,\"Investigation\",null,null,null,null],[\"Patterns, Codes, and Claims About the Biblical Text\",32,0.016494845360824743,\"Investigation\",null,null,null,null],[\"Torah and Commandments\",112,0.0577319587628866,\"Investigation\",null,null,null,null],[\"Biblical Calendar and Appointed Times\",86,0.0443298969072165,\"Investigation\",null,null,null,null],[\"Astronomy, Creation, and Sacred Time\",50,0.02577319587628866,\"Investigation\",null,null,null,null],[\"Biblical Chronology and Historical Timeline\",90,0.04639175257731959,\"Investigation\",null,null,null,null]]}",
+  "backlogInspection": "{\"kind\":\"table\",\"sheet\":\"Backlog\",\"address\":\"A1:P12\",\"rows\":12,\"cols\":16,\"values\":[[\"Content Backlog · Editable Master\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[\"Preserved from the source markdown. Edit workflow fields, but keep Topic ID stable. Duplicate flags require human review; no entries were automatically deleted or merged.\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[\"Topic ID\",\"Source #\",\"Title\",\"Slug\",\"Category\",\"Subcategory\",\"Content Type\",\"Status\",\"Priority\",\"Research Level\",\"Tags\",\"Duplicate Review\",\"Possible Match\",\"Recommended Rank\",\"Target Date\",\"Notes\"],[\"TOP-0001\",1,\"How the Hebrew Bible Became the Hebrew Bible\",\"how-the-hebrew-bible-became-the-hebrew-bible\",\"Scripture, Text, and Canon\",\"Canon Formation\",\"Investigation\",\"candidate\",\"untriaged\",\"standard\",\"scripture-text-and-canon, languages\",\"none\",\"\",null,null,\"\"],[\"TOP-0002\",2,\"How the Christian Old Testament Canon Developed\",\"how-the-christian-old-testament-canon-developed\",\"Scripture, Text, and Canon\",\"Canon Formation\",\"Investigation\",\"candidate\",\"untriaged\",\"standard\",\"scripture-text-and-canon, canon, yeshua, genesis\",\"none\",\"\",null,null,\"\"],[\"TOP-0003\",3,\"How the New Testament Canon Developed\",\"how-the-new-testament-canon-developed\",\"Scripture, Text, and Canon\",\"Canon Formation\",\"Investigation\",\"candidate\",\"untriaged\",\"standard\",\"scripture-text-and-canon, canon, genesis\",\"none\",\"\",null,null,\"\"],[\"TOP-0004\",4,\"The Torah, Prophets, and Writings: When Did the Three-Part Division Emerge?\",\"the-torah-prophets-and-writings-when-did-the-three-part-division-emerge\",\"Scripture, Text, and Canon\",\"Canon Formation\",\"Investigation\",\"candidate\",\"untriaged\",\"standard\",\"scripture-text-and-canon, torah, prophecy\",\"none\",\"\",null,null,\"\"],[\"TOP-0005\",5,\"The Council of Jamnia: Historical Event, Scholarly Theory, or Myth?\",\"the-council-of-jamnia-historical-event-scholarly-theory-or-myth\",\"Scripture, Text, and Canon\",\"Canon Formation\",\"Investigation\",\"candidate\",\"untriaged\",\"deep\",\"scripture-text-and-canon, genesis, claims-testing\",\"none\",\"\",null,null,\"\"],[\"TOP-0006\",6,\"Did Early Jewish Communities Share a Single Biblical Canon?\",\"did-early-jewish-communities-share-a-single-biblical-canon\",\"Scripture, Text, and Canon\",\"Canon Formation\",\"Investigation\",\"candidate\",\"untriaged\",\"standard\",\"scripture-text-and-canon, canon, israel\",\"none\",\"\",null,null,\"\"]]}",
+  "formulaErrors": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}"
+}
