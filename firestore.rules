@@ -1,0 +1,99 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function googleUser() {
+      return signedIn()
+        && request.auth.token.firebase.sign_in_provider == 'google.com';
+    }
+
+    function currentBallot() {
+      return get(/databases/$(database)/documents/investigationBallots/current).data;
+    }
+
+    function validVote(data) {
+      let ballot = currentBallot();
+      return googleUser()
+        && ballot.status == 'open'
+        && data.keys().hasOnly(['uid', 'ballotId', 'topicIds', 'updatedAt'])
+        && data.uid == request.auth.uid
+        && data.ballotId == ballot.ballotId
+        && data.topicIds is list
+        && data.topicIds.size() > 0
+        && data.topicIds.size() <= ballot.maxSelections
+        && data.topicIds.hasOnly(ballot.candidateTopicIds)
+        && data.updatedAt == request.time;
+    }
+
+    match /appConfig/main {
+      allow get: if true;
+      allow list, create, update, delete: if false;
+    }
+
+    match /users/{userId}/settings/{settingId} {
+      allow read, write: if signedIn() && request.auth.uid == userId;
+    }
+
+    match /prayers/{prayerId} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['lat', 'lng', 'name', 'message', 'prayed', 'ownerUid', 'createdAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.lat is number
+        && request.resource.data.lng is number
+        && request.resource.data.lat >= -90 && request.resource.data.lat <= 90
+        && request.resource.data.lng >= -180 && request.resource.data.lng <= 180
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 1000
+        && request.resource.data.prayed == false
+        && request.resource.data.createdAt == request.time;
+      allow update: if signedIn()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['prayed'])
+        && request.resource.data.prayed is bool;
+      allow delete: if false;
+    }
+
+    match /feasts/{feastId} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['name', 'feastType', 'lat', 'lng', 'ownerUid', 'createdAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80
+        && request.resource.data.feastType in ['Shavuot', 'Sukkot']
+        && request.resource.data.lat is number
+        && request.resource.data.lng is number
+        && request.resource.data.lat >= -90 && request.resource.data.lat <= 90
+        && request.resource.data.lng >= -180 && request.resource.data.lng <= 180
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    match /investigationBallots/current {
+      allow get: if true;
+      allow list, create, update, delete: if false;
+    }
+
+    match /investigationVotes/{ballotId}/users/{userId} {
+      allow get: if googleUser() && request.auth.uid == userId;
+      allow list: if false;
+      allow create, update: if signedIn()
+        && request.auth.uid == userId
+        && ballotId == currentBallot().ballotId
+        && validVote(request.resource.data);
+      allow delete: if googleUser()
+        && request.auth.uid == userId
+        && ballotId == currentBallot().ballotId
+        && currentBallot().status == 'open';
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
