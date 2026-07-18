@@ -1,116 +1,79 @@
 <style>
-  /* Investigation documents are injected into this card rather than an iframe.
-     Keep their responsive layouts tied to the reader width, not the app viewport. */
-  #investigationViewer {
-    min-width: 0;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  #investigationViewer .article-shell {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    margin-inline: auto;
-    overflow-wrap: anywhere;
-  }
-
+  #investigationsCard,
+  #investigationsCard * { min-width: 0; }
+  #investigationViewer { max-width: 100%; overflow-x: hidden; }
+  #investigationViewer .article-shell { width: 100%; max-width: 100%; margin-inline: auto; overflow-wrap: anywhere; }
   #investigationViewer .article-shell,
-  #investigationViewer .article-shell * {
-    min-width: 0;
-  }
-
-  #investigationViewer :where(h1, h2, h3, p, li, a, blockquote, summary, th, td) {
-    overflow-wrap: anywhere;
-  }
-
-  #investigationViewer :where(img, svg, video, canvas, iframe) {
-    max-width: 100%;
-    height: auto;
-  }
-
+  #investigationViewer .article-shell * { min-width: 0; }
+  #investigationViewer :where(h1,h2,h3,p,li,a,blockquote,summary,th,td) { overflow-wrap: anywhere; }
+  #investigationViewer :where(img,svg,video,canvas,iframe) { max-width: 100%; height: auto; }
   #investigationViewer .lens-grid,
-  #investigationViewer .dependency {
-    grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
-  }
-
-  #investigationViewer .evidence-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-  }
-
-  #investigationViewer .confidence-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-  }
-
-  #investigationViewer .sequence-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
-  }
-
-  #investigationViewer .evidence-table {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
+  #investigationViewer .dependency { grid-template-columns: repeat(auto-fit,minmax(min(210px,100%),1fr)); }
+  #investigationViewer .evidence-grid { grid-template-columns: repeat(auto-fit,minmax(min(250px,100%),1fr)); }
+  #investigationViewer .confidence-grid { grid-template-columns: repeat(auto-fit,minmax(min(220px,100%),1fr)); }
+  #investigationViewer .sequence-grid { grid-template-columns: repeat(auto-fit,minmax(min(120px,100%),1fr)); }
+  #investigationViewer .evidence-table { display:block; width:100%; max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; }
+  .investigation-tabs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.5rem; }
+  .investigation-tabs .active { border-color:#f59e0b; color:#fde68a; background:rgba(245,158,11,.14); }
+  .topic-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:.75rem; }
+  .topic-card { border:1px solid rgb(51 65 85); border-radius:.75rem; padding:.85rem; background:rgba(15,23,42,.72); overflow-wrap:anywhere; }
+  .topic-meta { color:#94a3b8; font-size:.75rem; }
+  .vote-option { display:grid; grid-template-columns:auto 1fr; gap:.7rem; align-items:start; cursor:pointer; }
+  .vote-option input { margin-top:.25rem; accent-color:#f59e0b; }
+  @media (max-width:520px) {
+    .investigation-tabs { grid-template-columns:1fr; }
   }
 </style>
 
-<section class="hg-panel hg-section flex flex-col h-full">
-<input
-  id="investigationSearch"
-  placeholder="Search investigations..."
-  class="w-full mb-2 px-3 py-2 rounded bg-slate-800 text-sm outline-none"
-/>
-<div class="card-topbar">
+<section id="investigationsCard" class="hg-panel hg-section flex flex-col h-full">
+  <div class="card-topbar">
+    <button class="card-fullscreen-btn card-icon-btn primary" title="Expand Card">â›¶</button>
+  </div>
 
-  <!-- existing fullscreen -->
-  <button class="card-fullscreen-btn card-icon-btn primary"
-          title="Expand Card">⛶</button>
+  <details class="orientation-block hg-panel hg-section p-4 my-4">
+    <summary class="cursor-pointer text-lg font-semibold text-amber-300">Read, Research, and Help Choose</summary>
+    <p class="text-sm text-slate-300 mt-2">Published investigations are ready to read. The research backlog is a transparent list of possibilities, not a promise that every topic will be published.</p>
+  </details>
 
-  <button class="card-icon-btn nav" title="Home">⌂</button>
-  <button class="card-icon-btn nav" title="Previous">←</button>
-  <button class="card-icon-btn nav" title="Next">→</button>
-
-  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
-  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
-
-  <button class="card-icon-btn utility" title="Search Card">⌕</button>
-  <button class="card-icon-btn utility" title="Bookmark">★</button>
-  <button class="card-icon-btn utility" title="Share">⇪</button>
-  <button class="card-icon-btn utility" title="Notes">✎</button>
-  <button class="card-icon-btn utility" title="Help">?</button>
-
-</div>
-<details class="orientation-block hg-panel hg-section p-4 my-4">
-  <summary class="cursor-pointer text-lg font-semibold text-amber-300">
-    Read and Reflect</summary>
-  <p class="text-sm text-slate-300 mt-2">This card collects longer-form investigations for thoughtful study beyond the weekly reading. Each piece is here to invite reflection, not hurry you toward a conclusion.</p>
-  <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Open the investigation whose question is closest to what you are studying now.</p>
-</details>
-<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
   <div class="flex flex-col h-full gap-3 p-4">
+    <nav class="investigation-tabs" aria-label="Investigation sections">
+      <button class="ui-btn active" type="button" data-investigation-view="published">Published Investigations</button>
+      <button class="ui-btn" type="button" data-investigation-view="vote">Help Choose Next</button>
+      <button class="ui-btn" type="button" data-investigation-view="backlog">Research Backlog</button>
+    </nav>
 
-    <!-- LIST (collapsed, scrollable) -->
-    <div
-      id="investigationList"
-      class="hg-section max-h-[30vh] overflow-y-auto space-y-2 border border-slate-700 rounded-lg p-2 bg-slate-900/50"
-    ></div>
+    <section data-investigation-panel="published">
+      <input id="investigationSearch" placeholder="Search published investigations..." class="w-full mb-2 px-3 py-2 rounded bg-slate-800 text-sm outline-none" />
+      <div id="investigationList" class="hg-section max-h-[30vh] overflow-y-auto space-y-2 border border-slate-700 rounded-lg p-2 bg-slate-900/50"></div>
+      <div id="investigationViewer" class="hg-section hg-reader mt-3 overflow-y-auto bg-slate-900 border border-slate-700 rounded-xl p-4 text-sm leading-relaxed" style="max-height:70vh;">
+        <div class="hg-empty">Select an investigation...</div>
+      </div>
+    </section>
 
-    <!-- VIEWER (main focus) -->
-<!--<iframe
-  id="investigationViewer"
-  title="HomeGroups Investigation"
-  class="w-full"
-  style="min-height: 80vh; border: 0; border-radius: 18px;"
-></iframe>-->
-    
-    <div
-      id="investigationViewer"
-      class="hg-section hg-reader flex-1 overflow-y-auto bg-slate-900 border border-slate-700 rounded-xl p-4 text-sm leading-relaxed"
-    >
-      <div class="hg-empty">Select an investigation...</div>
-    </div>
+    <section data-investigation-panel="vote" hidden>
+      <div id="investigationVoteStatus" class="hg-empty" aria-live="polite">Checking for an open community ballot...</div>
+      <div id="investigationVoteOptions" class="topic-grid mt-3"></div>
+      <div id="investigationVoteActions" class="mt-3 flex flex-wrap gap-2 items-center" hidden>
+        <button id="investigationSignInBtn" class="ui-btn" type="button">Sign in with Google to vote</button>
+        <button id="investigationSaveVoteBtn" class="ui-btn" type="button" hidden>Save my choices</button>
+        <button id="investigationSignOutBtn" class="ui-btn" type="button" hidden>Sign out</button>
+        <span id="investigationVoteMessage" class="text-sm text-slate-300" aria-live="polite"></span>
+      </div>
+      <p class="text-xs text-slate-400 mt-3">Your choices help set priorities; they do not guarantee publication. Voting stores your Firebase user ID and selected topic IDs, not your name or email. Public vote totals are not displayed.</p>
+    </section>
 
+    <section data-investigation-panel="backlog" hidden>
+      <p class="text-sm text-slate-300">These are research candidates at different stages of review. Titles may be revised, combined, postponed, or declined as evidence is evaluated.</p>
+      <div class="grid gap-2 mt-3" style="grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));">
+        <input id="topicBacklogSearch" placeholder="Search future topics..." class="w-full px-3 py-2 rounded bg-slate-800 text-sm outline-none" />
+        <select id="topicBacklogCategory" class="w-full px-3 py-2 rounded bg-slate-800 text-sm outline-none" aria-label="Filter by category">
+          <option value="">All categories</option>
+        </select>
+      </div>
+      <div id="topicBacklogSummary" class="topic-meta mt-3" aria-live="polite"></div>
+      <div id="topicBacklogList" class="topic-grid mt-3"></div>
+      <button id="topicBacklogMore" class="ui-btn mt-3" type="button" hidden>Show more topics</button>
+    </section>
   </div>
 </section>
 
