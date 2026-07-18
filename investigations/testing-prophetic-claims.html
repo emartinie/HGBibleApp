@@ -28,17 +28,15 @@
     .lead { color:#d6e0ea; font-size:1.04rem; } .muted { color:var(--muted); }
     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr)); gap:14px; }
     .card { min-width:0; padding:18px; border-radius:16px; background:var(--panel2); }
-    .record-grid { display:grid; gap:16px; margin-top:18px; }
-    .record-card { min-width:0; padding:clamp(18px,3vw,26px); border:1px solid var(--line); border-radius:18px; background:var(--panel2); box-shadow:0 10px 28px rgba(0,0,0,.18); }
-    .record-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; padding-bottom:12px; margin-bottom:14px; border-bottom:1px solid var(--line); }
-    .record-id { color:var(--gold); font-weight:900; letter-spacing:.08em; }
-    .record-date { color:var(--muted); font-size:.9rem; }
-    .record-card h3 { color:#fff3d1; font-size:1.22rem; }
-    .record-field { display:grid; grid-template-columns:minmax(120px,170px) minmax(0,1fr); gap:12px; padding:9px 0; border-top:1px solid rgba(148,163,184,.12); }
-    .record-field:first-of-type { border-top:0; }
-    .record-label { color:var(--cyan); font-size:.76rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }
-    .record-value { color:#dce6f0; }
-    @media (max-width:640px) { .record-field { grid-template-columns:1fr; gap:3px; } }
+    .record-list { margin-top:18px; }
+    .record-section { margin:0; padding:24px 0; border-top:1px solid var(--line); }
+    .record-section:first-child { border-top:0; padding-top:6px; }
+    .record-section:last-child { padding-bottom:0; }
+    .record-section h3 { margin:8px 0 12px; color:#fff3d1; font-size:1.3rem; }
+    .record-meta { margin:0 0 6px; color:var(--muted); font-size:.92rem; }
+    .record-meta strong { color:var(--gold); letter-spacing:.05em; }
+    .record-section p { max-width:78ch; }
+    .record-section p strong { color:var(--cyan); }
     .status { display:inline-flex; width:fit-content; max-width:100%; padding:4px 9px; margin-bottom:7px; border-radius:999px; font-size:.72rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
     .verified,.explicit,.high { background:rgba(138,211,168,.17); color:#c8f7da; }
     .direct,.medium { background:rgba(120,216,232,.16); color:#bdf5ff; }
@@ -115,55 +113,55 @@
   <section class="section">
     <span class="status verified">First-pass dataset</span>
     <h2>Six representative records</h2>
-    <p class="muted">This is a documented starting set, not an exhaustive list. Each row records a claim rather than issuing a total verdict on a person, denomination, or tradition.</p>
-    <div class="record-grid" aria-label="Six representative prophetic-claim records">
-      <article class="record-card">
-        <div class="record-head"><div><div class="record-id">PC-001</div><div class="record-date">October 22, 1844</div></div><span class="status verified">Verified</span></div>
+    <p class="muted">This is a documented starting set, not an exhaustive list. Each section records a claim rather than issuing a total verdict on a person, denomination, or tradition.</p>
+    <div class="record-list" aria-label="Six representative prophetic-claim records">
+      <section class="record-section">
+        <p class="record-meta"><strong>PC-001</strong> · October 22, 1844</p>\n        <span class="status verified">Verified</span>
         <h3>Millerite movement</h3>
-        <div class="record-field"><div class="record-label">Claimed authority</div><div class="record-value">Biblical chronology, especially Daniel 8:14; not originally a claim of new prophetic revelation by William Miller.</div></div>
-        <div class="record-field"><div class="record-label">Testable event</div><div class="record-value">The visible return of Messiah.</div></div>
-        <div class="record-field"><div class="record-label">Outcome and response</div><div class="record-value">The visible return did not occur. The movement fragmented; some abandoned the calculation, while Sabbatarian Adventists later interpreted the date as a heavenly-sanctuary event.</div></div>
-      </article>
+        <p><strong>Claimed authority:</strong> Biblical chronology, especially Daniel 8:14; not originally a claim of new prophetic revelation by William Miller.</p>
+        <p><strong>Testable event:</strong> The visible return of Messiah.</p>
+        <p><strong>Outcome and response:</strong> The visible return did not occur. The movement fragmented; some abandoned the calculation, while Sabbatarian Adventists later interpreted the date as a heavenly-sanctuary event.</p>
+      </section>
 
-      <article class="record-card">
-        <div class="record-head"><div><div class="record-id">PC-002</div><div class="record-date">1925</div></div><span class="status verified">Verified</span></div>
+      <section class="record-section">
+        <p class="record-meta"><strong>PC-002</strong> · 1925</p>\n        <span class="status verified">Verified</span>
         <h3>Watch Tower Bible Students under J. F. Rutherford</h3>
-        <div class="record-field"><div class="record-label">Claimed authority</div><div class="record-value">Published biblical chronology and organizational teaching.</div></div>
-        <div class="record-field"><div class="record-label">Testable event</div><div class="record-value">Restoration expectations, including the return of ancient biblical “worthies.”</div></div>
-        <div class="record-field"><div class="record-label">Outcome and response</div><div class="record-value">The anticipated events did not occur. An official retrospective records disappointed hopes, departures, and Rutherford’s later description of the expectation as an expressed opinion.</div></div>
-      </article>
+        <p><strong>Claimed authority:</strong> Published biblical chronology and organizational teaching.</p>
+        <p><strong>Testable event:</strong> Restoration expectations, including the return of ancient biblical “worthies.”</p>
+        <p><strong>Outcome and response:</strong> The anticipated events did not occur. An official retrospective records disappointed hopes, departures, and Rutherford’s later description of the expectation as an expressed opinion.</p>
+      </section>
 
-      <article class="record-card">
-        <div class="record-head"><div><div class="record-id">PC-003</div><div class="record-date">1975</div></div><span class="status disputed">Wording disputed</span></div>
+      <section class="record-section">
+        <p class="record-meta"><strong>PC-003</strong> · 1975</p>\n        <span class="status disputed">Wording disputed</span>
         <h3>Jehovah’s Witnesses</h3>
-        <div class="record-field"><div class="record-label">Claimed authority</div><div class="record-value">Chronological interpretation and organizational expectation.</div></div>
-        <div class="record-field"><div class="record-label">Testable event</div><div class="record-value">Expectations concerning the end of the present system and beginning of the Millennium.</div></div>
-        <div class="record-field"><div class="record-label">Outcome and response</div><div class="record-value">The expected culmination did not occur. Official histories acknowledge anticipation, disappointment, and some membership loss; how explicitly the organization predicted the event remains debated.</div></div>
-      </article>
+        <p><strong>Claimed authority:</strong> Chronological interpretation and organizational expectation.</p>
+        <p><strong>Testable event:</strong> Expectations concerning the end of the present system and beginning of the Millennium.</p>
+        <p><strong>Outcome and response:</strong> The expected culmination did not occur. Official histories acknowledge anticipation, disappointment, and some membership loss; how explicitly the organization predicted the event remains debated.</p>
+      </section>
 
-      <article class="record-card">
-        <div class="record-head"><div><div class="record-id">PC-004</div><div class="record-date">September 11–13, 1988</div></div><span class="status verified">Claim verified</span></div>
+      <section class="record-section">
+        <p class="record-meta"><strong>PC-004</strong> · September 11–13, 1988</p>\n        <span class="status verified">Claim verified</span>
         <h3>Edgar C. Whisenant</h3>
-        <div class="record-field"><div class="record-label">Claimed authority</div><div class="record-value">Biblical calculation presented in <em>88 Reasons Why the Rapture Will Be in 1988</em>.</div></div>
-        <div class="record-field"><div class="record-label">Testable event</div><div class="record-value">The rapture during Rosh Hashanah 1988.</div></div>
-        <div class="record-field"><div class="record-label">Outcome and response</div><div class="record-value">The rapture did not occur in the announced window. Later revised-date publications are widely reported, but this first pass still requires a complete edition-by-edition source packet.</div></div>
-      </article>
+        <p><strong>Claimed authority:</strong> Biblical calculation presented in <em>88 Reasons Why the Rapture Will Be in 1988</em>.</p>
+        <p><strong>Testable event:</strong> The rapture during Rosh Hashanah 1988.</p>
+        <p><strong>Outcome and response:</strong> The rapture did not occur in the announced window. Later revised-date publications are widely reported, but this first pass still requires a complete edition-by-edition source packet.</p>
+      </section>
 
-      <article class="record-card">
-        <div class="record-head"><div><div class="record-id">PC-005</div><div class="record-date">May 21 and October 21, 2011</div></div><span class="status verified">Verified + apology</span></div>
+      <section class="record-section">
+        <p class="record-meta"><strong>PC-005</strong> · May 21 and October 21, 2011</p>\n        <span class="status verified">Verified + apology</span>
         <h3>Harold Camping and Family Radio</h3>
-        <div class="record-field"><div class="record-label">Claimed authority</div><div class="record-value">Biblical calculation publicly presented as guaranteed by the Bible.</div></div>
-        <div class="record-field"><div class="record-label">Testable event</div><div class="record-value">Rapture and judgment, followed by final destruction.</div></div>
-        <div class="record-field"><div class="record-label">Outcome and response</div><div class="record-value">The events did not occur as announced. In March 2012 Camping and Family Radio acknowledged the timing was wrong, called the guaranteed claim incorrect and sinful, requested forgiveness, and rejected further date-setting.</div></div>
-      </article>
+        <p><strong>Claimed authority:</strong> Biblical calculation publicly presented as guaranteed by the Bible.</p>
+        <p><strong>Testable event:</strong> Rapture and judgment, followed by final destruction.</p>
+        <p><strong>Outcome and response:</strong> The events did not occur as announced. In March 2012 Camping and Family Radio acknowledged the timing was wrong, called the guaranteed claim incorrect and sinful, requested forgiveness, and rejected further date-setting.</p>
+      </section>
 
-      <article class="record-card">
-        <div class="record-head"><div><div class="record-id">PC-006</div><div class="record-date">Nisan 1666 or 1667</div></div><span class="status verified">Verified core</span></div>
+      <section class="record-section">
+        <p class="record-meta"><strong>PC-006</strong> · Nisan 1666 or 1667</p>\n        <span class="status verified">Verified core</span>
         <h3>Nathan of Gaza concerning Sabbatai Zevi</h3>
-        <div class="record-field"><div class="record-label">Claimed authority</div><div class="record-value">Claimed direct prophetic vision and divine speech.</div></div>
-        <div class="record-field"><div class="record-label">Testable event</div><div class="record-value">Zevi’s public revelation as the acknowledged Messiah, within a broader messianic-redemption expectation.</div></div>
-        <div class="record-field"><div class="record-label">Outcome and response</div><div class="record-value">Zevi did not accomplish the promised redemption and converted to Islam in 1666. Some followers abandoned the movement; others reinterpreted the conversion and continued Sabbatean belief.</div></div>
-      </article>
+        <p><strong>Claimed authority:</strong> Claimed direct prophetic vision and divine speech.</p>
+        <p><strong>Testable event:</strong> Zevi’s public revelation as the acknowledged Messiah, within a broader messianic-redemption expectation.</p>
+        <p><strong>Outcome and response:</strong> Zevi did not accomplish the promised redemption and converted to Islam in 1666. Some followers abandoned the movement; others reinterpreted the conversion and continued Sabbatean belief.</p>
+      </section>
     </div>
   </section>
 
