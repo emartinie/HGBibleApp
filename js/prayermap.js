@@ -1,4 +1,4 @@
-import { db } from "./firebase-init.js";
+import { db, auth } from "./firebase-init.js";
 import {
   doc,
   updateDoc,
@@ -7,6 +7,7 @@ import {
   addDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 console.log("🗺️ prayermap.js loaded");
 
@@ -265,13 +266,24 @@ function locateUser() {
     });
   }
 
+  async function ensureAuthenticated() {
+    if (auth.currentUser) return auth.currentUser;
+    const credential = await signInAnonymously(auth);
+    return credential.user;
+  }
+
   async function savePrayer(lat, lng, name, message) {
+    const user = await ensureAuthenticated();
+    const safeMessage = String(message || "").trim().slice(0, 1000);
+    if (!safeMessage) throw new Error("Prayer request is required.");
+
     await addDoc(collection(db, "prayers"), {
       lat,
       lng,
-      name: name || "Anonymous",
-      message,
+      name: String(name || "Anonymous").trim().slice(0, 80) || "Anonymous",
+      message: safeMessage,
       prayed: false,
+      ownerUid: user.uid,
       createdAt: serverTimestamp()
     });
   }
@@ -340,7 +352,7 @@ if (closeBtn) {
     const name = document.getElementById("prayerNameInput").value;
     const text = document.getElementById("prayerMessageInput").value;
 
-    await savePrayerMarker(name, text, lat, lng);
+    await savePrayer(lat, lng, name, text);
 
     panel.classList.add("hidden");
     panel.classList.remove("flex");
@@ -409,11 +421,13 @@ if (closeBtn) {
     const name = document.getElementById("feastNameInput").value;
     const feastType = document.getElementById("feastTypeInput").value;
 
+    const user = await ensureAuthenticated();
     await addDoc(collection(db, "feasts"), {
-      name: name || "Anonymous",
+      name: String(name || "Anonymous").trim().slice(0, 80) || "Anonymous",
       feastType,
       lat,
       lng,
+      ownerUid: user.uid,
       createdAt: serverTimestamp()
     });
 
