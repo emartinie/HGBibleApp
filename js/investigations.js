@@ -12,6 +12,7 @@ const INVESTIGATIONS = [
   { title: "The Genesis 5 Gospel in the Names Claim?  #009", file: "genesis-5-gospel-in-the-names-claim.html" },
   { title: "Biblical References to Non-Canonical and Lost Sources?  #010", file: "biblical-references-to-non-canonical-and-lost-sources.html" },
   { title: "Non-Canonical Sources Quoted or Echoed in the New Testament? #011", file: "non-canonical-sources-quoted-or-echoed-in-the-new-testament.html" },
+  { title: "Testing Prophetic Claims #012", file: "testing-prophetic-claims.html" },
 
 ];
 

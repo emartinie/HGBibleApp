@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A HomeGroups investigation into documented prophetic claims and predictions that did not occur as announced.">
+  <meta name="author" content="Eddie Martinie">
+  <title>Testing Prophetic Claims | HomeGroups INV-012</title>
+  <style>
+    :root { color-scheme:dark; --bg:#071019; --panel:rgba(15,27,40,.88); --panel2:rgba(20,38,54,.78); --line:rgba(148,163,184,.24); --text:#e7eef7; --muted:#a7b4c4; --gold:#f2c66d; --cyan:#78d8e8; --green:#8ad3a8; --red:#f59a9a; --violet:#c5a7ff; --shadow:0 18px 55px rgba(0,0,0,.36); }
+    * { box-sizing:border-box; }
+    body { margin:0; background:radial-gradient(circle at 20% -10%,rgba(35,116,146,.24),transparent 35%),radial-gradient(circle at 85% 10%,rgba(126,91,26,.22),transparent 32%),linear-gradient(180deg,#071019,#05090e); color:var(--text); font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    a { color:var(--cyan); overflow-wrap:anywhere; } a:hover { color:#c9f8ff; }
+    .article-shell { width:min(1040px,calc(100% - 28px)); max-width:100%; min-width:0; margin:0 auto; padding:28px 0 72px; overflow-wrap:anywhere; }
+    .hero { position:relative; overflow:hidden; min-height:370px; display:grid; place-items:center; text-align:center; padding:clamp(28px,6vw,68px); border:1px solid var(--line); border-radius:28px; box-shadow:var(--shadow); background:linear-gradient(180deg,rgba(4,10,16,.12),rgba(4,10,16,.92)),radial-gradient(circle at 50% 20%,rgba(120,216,232,.15),transparent 38%),radial-gradient(circle at 50% 72%,rgba(242,198,109,.12),transparent 34%),linear-gradient(135deg,#102a3a,#0a1620 54%,#2a2415); }
+    .hero::before { content:attr(data-mark); position:absolute; inset:50% auto auto 50%; transform:translate(-50%,-50%); color:rgba(255,255,255,.04); font:700 clamp(90px,20vw,215px)/1 Georgia,serif; white-space:nowrap; pointer-events:none; }
+    .hero>div { position:relative; z-index:1; width:100%; max-width:880px; min-width:0; }
+    .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:.14em; font-size:.76rem; font-weight:800; }
+    h1 { margin:8px auto 12px; max-width:920px; font:700 clamp(2.2rem,6.6vw,5rem)/1 Georgia,"Times New Roman",serif; letter-spacing:-.035em; }
+    h2 { margin:0 0 12px; font:700 clamp(1.55rem,4vw,2.45rem)/1.16 Georgia,"Times New Roman",serif; }
+    h3 { margin:0 0 7px; } p { margin:0 0 1rem; }
+    .dek { max-width:790px; margin:0 auto; color:#d6e0eb; font-size:clamp(1rem,2.2vw,1.22rem); }
+    .question { max-width:790px; margin:22px auto 0; padding-left:18px; border-left:3px solid var(--gold); color:#fff4cf; font:italic 1.04rem/1.6 Georgia,serif; text-align:left; }
+    .notice,.section,.card,details { border:1px solid var(--line); background:var(--panel); box-shadow:0 12px 35px rgba(0,0,0,.20); backdrop-filter:blur(10px); }
+    .notice { margin:18px 0 28px; padding:16px 18px; border-radius:16px; color:var(--muted); font-size:.93rem; }
+    .notice strong { color:var(--text); }
+    .section { min-width:0; margin-top:22px; padding:clamp(22px,4vw,42px); border-radius:20px; }
+    .lead { color:#d6e0ea; font-size:1.04rem; } .muted { color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr)); gap:14px; }
+    .card { min-width:0; padding:18px; border-radius:16px; background:var(--panel2); }
+    .status { display:inline-flex; width:fit-content; max-width:100%; padding:4px 9px; margin-bottom:7px; border-radius:999px; font-size:.72rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
+    .verified,.explicit,.high { background:rgba(138,211,168,.17); color:#c8f7da; }
+    .direct,.medium { background:rgba(120,216,232,.16); color:#bdf5ff; }
+    .disputed,.developing { background:rgba(197,167,255,.16); color:#e2d4ff; }
+    .caution,.excluded { background:rgba(245,154,154,.15); color:#ffc5c5; }
+    .callout { margin-top:18px; padding:18px; border:1px solid rgba(242,198,109,.30); border-radius:16px; background:rgba(242,198,109,.07); }
+    .assessment { border-left:4px solid var(--green); } .warning { border-left:4px solid var(--red); }
+    blockquote { margin:14px 0; padding:14px 17px; border-left:3px solid var(--cyan); background:rgba(120,216,232,.055); color:#dff9ff; }
+    details { margin-top:12px; border-radius:15px; overflow:clip; }
+    summary { cursor:pointer; padding:16px 18px; color:var(--gold); font-weight:800; }
+    .details-body { padding:0 18px 18px; }
+    .table-wrap { width:100%; max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; border-radius:14px; }
+    table { width:100%; min-width:920px; border-collapse:collapse; background:rgba(8,16,24,.45); }
+    th,td { padding:11px 12px; border:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { color:#fff0c8; background:rgba(242,198,109,.09); font-size:.78rem; letter-spacing:.03em; text-transform:uppercase; }
+    ul,ol { padding-left:1.25rem; } li { margin-bottom:7px; }
+    .source-list { padding:0; list-style:none; display:grid; gap:9px; }
+    .source-list li { padding:11px 13px; border-left:3px solid var(--gold); border-radius:0 11px 11px 0; background:rgba(255,255,255,.03); }
+    footer { margin-top:26px; padding:20px; color:var(--muted); text-align:center; font-size:.88rem; }
+    @media (max-width:640px) { .article-shell { width:calc(100% - 18px); padding-top:10px; } .hero { min-height:330px; padding:25px 19px; border-radius:20px; } .section { padding:20px 16px; } }
+  </style>
+</head>
+<body>
+<main class="article-shell">
+  <header class="hero" data-mark="בחן">
+    <div>
+      <div class="eyebrow">HomeGroups Investigation INV-012</div>
+      <h1>Testing Prophetic Claims</h1>
+      <p class="dek">What Scripture and documented predictions teach us about discernment, accountability, interpretation, and the preservation of belief after an announced event does not occur.</p>
+      <p class="question">How should biblical believers evaluate documented predictions made in the name of Scripture or divine revelation that did not occur as announced?</p>
+    </div>
+  </header>
+
+  <aside class="notice"><strong>Editorial note:</strong> This investigation evaluates claims, not the eternal standing of claimants or followers. “Prediction,” “prophecy,” “interpretation,” and “biblical calculation” are not interchangeable. A record is included only when the claimant, wording, event, time window, and documentation can be identified with reasonable confidence.</aside>
+
+  <section class="section">
+    <span class="status verified">Answer in brief</span>
+    <h2>Testing is obedience, not ridicule</h2>
+    <p class="lead">Scripture commands God’s people neither to accept every spiritual claim nor to despise every claim automatically. It requires testing. Fulfillment alone is not enough if a message leads away from God; nonfulfillment matters when a concrete event is announced in God’s name; conditional warnings must not be misclassified; and communities—not merely charismatic individuals—are responsible for discernment.</p>
+    <div class="callout assessment"><strong>Working conclusion:</strong> the fairest unit of investigation is the documented claim. “This claim did not occur as announced” is often demonstrable. “This person was a false prophet in every biblical sense” is a larger judgment requiring additional evidence about authority, conditions, teaching, fruit, and response.</div>
+  </section>
+
+  <section class="section">
+    <span class="status direct">Biblical framework</span>
+    <h2>The tests are cumulative</h2>
+    <div class="grid">
+      <article class="card"><span class="status explicit">Loyalty</span><h3>Deuteronomy 13</h3><p>Even an impressive sign does not authenticate a message that turns hearers away from YHWH. Accuracy is not the only test.</p></article>
+      <article class="card"><span class="status explicit">Outcome</span><h3>Deuteronomy 18:20–22</h3><p>A word presumptuously spoken in YHWH’s name is exposed when the announced event does not occur.</p></article>
+      <article class="card"><span class="status direct">Source and character</span><h3>Jeremiah 23; Ezekiel 13</h3><p>Scripture condemns speakers who present their own imagination as divine speech, especially when false reassurance protects wrongdoing.</p></article>
+      <article class="card"><span class="status direct">Conditions</span><h3>Jeremiah 18; Jonah 3–4</h3><p>Some announced judgments are conditional. Repentance and mercy may explain nonfulfillment when the text itself supplies that covenantal logic.</p></article>
+      <article class="card"><span class="status direct">Community discernment</span><h3>1 Corinthians 14:29</h3><p>Prophetic speech is weighed by others; the speaker is not granted immunity from examination.</p></article>
+      <article class="card"><span class="status direct">Test without contempt</span><h3>1 Thessalonians 5:19–22; 1 John 4:1</h3><p>Believers are told not to despise prophecies, but also to test everything and every spirit.</p></article>
+    </div>
+    <div class="callout warning"><strong>Boundary:</strong> this investigation applies biblical discernment and accountability. It does not advocate reviving ancient civil penalties or treating disagreement as permission for harassment.</div>
+  </section>
+
+  <section class="section">
+    <span class="status medium">Method</span>
+    <h2>What qualifies for the catalogue?</h2>
+    <ol>
+      <li>A named person, organization, publication, or identifiable movement made or promoted the claim.</li>
+      <li>The authority claimed was Scripture, divine revelation, prophetic gifting, a vision or dream, or a religiously binding interpretation.</li>
+      <li>The event and time window were concrete enough that observers could reasonably determine whether fulfillment occurred.</li>
+      <li>A primary source, contemporary record, institutional history, or later acknowledgment documents the claim.</li>
+    </ol>
+    <div class="grid">
+      <article class="card"><span class="status verified">Verified</span><p>Primary or institutional documentation establishes the claim and outcome.</p></article>
+      <article class="card"><span class="status disputed">Wording disputed</span><p>The expectation is documented, but its institutional force or exact certainty requires qualification.</p></article>
+      <article class="card"><span class="status developing">Developing</span><p>A plausible case with an incomplete primary-source packet.</p></article>
+      <article class="card"><span class="status excluded">Excluded</span><p>Vague, secondhand, falsely attributed, conditional, still open, or impossible to falsify.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status verified">First-pass dataset</span>
+    <h2>Six representative records</h2>
+    <p class="muted">This is a documented starting set, not an exhaustive list. Each row records a claim rather than issuing a total verdict on a person, denomination, or tradition.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>Date</th><th>Claimant or movement</th><th>Claimed authority</th><th>Testable event</th><th>Outcome and response</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>PC-001</td><td>22 Oct 1844</td><td>Millerite movement</td><td>Biblical chronology, especially Daniel 8:14; not originally a claim of new prophetic revelation by William Miller</td><td>The visible return of Messiah</td><td>The visible return did not occur. The movement fragmented; some abandoned the calculation, while Sabbatarian Adventists later interpreted the date as a heavenly-sanctuary event.</td><td><span class="status verified">Verified</span></td></tr>
+          <tr><td>PC-002</td><td>1925</td><td>Watch Tower Bible Students under J. F. Rutherford</td><td>Published biblical chronology and organizational teaching</td><td>Restoration expectations including the return of ancient biblical “worthies”</td><td>The anticipated events did not occur. An official retrospective records disappointed hopes, departures, and Rutherford’s later description of the expectation as an expressed opinion.</td><td><span class="status verified">Verified</span></td></tr>
+          <tr><td>PC-003</td><td>1975</td><td>Jehovah’s Witnesses</td><td>Chronological interpretation and organizational expectation</td><td>Expectations concerning the end of the present system and beginning of the Millennium</td><td>The expected culmination did not occur. Official histories acknowledge anticipation, disappointment, and some membership loss; how explicitly the organization predicted the event remains debated.</td><td><span class="status disputed">Wording disputed</span></td></tr>
+          <tr><td>PC-004</td><td>11–13 Sep 1988</td><td>Edgar C. Whisenant</td><td>Biblical calculation presented in <em>88 Reasons Why the Rapture Will Be in 1988</em></td><td>The rapture during Rosh Hashanah 1988</td><td>The rapture did not occur in the announced window. Later revised-date publications are widely reported, but this first pass still requires a complete edition-by-edition source packet.</td><td><span class="status verified">Claim verified</span></td></tr>
+          <tr><td>PC-005</td><td>21 May and 21 Oct 2011</td><td>Harold Camping and Family Radio</td><td>Biblical calculation publicly presented as guaranteed by the Bible</td><td>Rapture and judgment, followed by final destruction</td><td>The events did not occur as announced. In March 2012 Camping and Family Radio acknowledged the timing was wrong, called the guaranteed claim incorrect and sinful, requested forgiveness, and rejected further date-setting.</td><td><span class="status verified">Verified + apology</span></td></tr>
+          <tr><td>PC-006</td><td>Nisan 1666 or 1667</td><td>Nathan of Gaza concerning Sabbatai Zevi</td><td>Claimed direct prophetic vision and divine speech</td><td>Zevi’s public revelation as the acknowledged Messiah, within a broader messianic-redemption expectation</td><td>Zevi did not accomplish the promised redemption and converted to Islam in 1666. Some followers abandoned the movement; others reinterpreted the conversion and continued Sabbatean belief.</td><td><span class="status verified">Verified core</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status direct">Case notes</span>
+    <h2>What the source record actually permits us to say</h2>
+
+    <details open><summary>PC-001 · Millerites and October 22, 1844</summary><div class="details-body"><p>Current Seventh-day Adventist institutional histories openly state that Millerites expected Messiah’s visible return on October 22, 1844 and that it did not occur. The historical distinction matters: Miller’s original range developed into the specific October date within the movement, and the later Adventist sanctuary interpretation should be recorded as a post-disappointment reinterpretation rather than silently substituted for the original visible event.</p><p><strong>Claim type:</strong> biblical calculation. <strong>Documentation:</strong> institutional retrospective plus archival primary-source collection. <strong>Human consequence:</strong> disillusionment, fragmentation, and reported material sacrifice among some adherents.</p></div></details>
+
+    <details><summary>PC-002 · Watch Tower expectations for 1925</summary><div class="details-body"><p>The Watchtower Online Library’s history of France says the book <em>Millions Now Living Will Never Die</em> generated substantial expectation for 1925. It records that anticipated events did not occur, some members left, and a 1926 question session denied that the ancient worthies had returned. Because this is the organization’s own historical account, the existence of the expectation and disappointment is unusually well documented.</p><p><strong>Claim type:</strong> organizationally promoted chronology. <strong>Response:</strong> qualification of the prediction as an opinion, continued service, and organizational “sifting.”</p></div></details>
+
+    <details><summary>PC-003 · The important wording problem around 1975</summary><div class="details-body"><p>This case should never be summarized as though every Witness signed one identical sentence predicting one identical event. Official Watchtower histories nonetheless acknowledge eager anticipation and disappointment when the expected great tribulation did not occur. The responsible classification is therefore <em>strongly promoted expectation with disputed exact wording</em>, pending a publication-by-publication chronology of statements made before 1975.</p><p><strong>Claim type:</strong> strongly implied chronology. <strong>Research still needed:</strong> a dated ledger of pre-1975 publications, talks, and later institutional acknowledgments.</p></div></details>
+
+    <details><summary>PC-004 · Whisenant’s 1988 date window</summary><div class="details-body"><p>The primary booklet is preserved digitally and its title states the claim without ambiguity. The predicted Rosh Hashanah window passed without the rapture. Popular summaries report revised dates in later publications, but HomeGroups should not populate that sequence until each edition is examined directly.</p><p><strong>Claim type:</strong> explicit biblical calculation. <strong>Confidence:</strong> high for 1988; developing for the full revision history.</p></div></details>
+
+    <details><summary>PC-005 · Camping’s apology as evidence</summary><div class="details-body"><p>Camping’s case supplies both an unusually explicit claim and an unusually explicit acknowledgment. A 2012 Family Radio letter, preserved in full by KQED, states that the ministry had insisted the Bible guaranteed a May 21 rapture, admits the statement was wrong and sinful, asks forgiveness, and says the ministry would not pursue another date. The apology does not erase consequences, but it belongs in the evidence rather than being treated as a footnote.</p><p><strong>Claim type:</strong> explicit and guaranteed. <strong>Response:</strong> recalculation after May, then public acknowledgment after October.</p></div></details>
+
+    <details><summary>PC-006 · Nathan of Gaza and Sabbatai Zevi</summary><div class="details-body"><p>A near-contemporary Jewish biography preserved by the Posen Library reports Nathan claiming that God identified Zevi to him in a waking prophetic vision. It also preserves a prediction of public messianic recognition in Nisan 1666 or 1667. Columbia University’s manuscript exhibition documents Zevi’s 1666 conversion to Islam and the persistence of followers who reinterpreted rather than abandoned his messianic identity.</p><p><strong>Claim type:</strong> direct revelation and messianic identification. <strong>Response:</strong> abandonment by some, continued belief and reinterpretation by others.</p></div></details>
+  </section>
+
+  <section class="section">
+    <span class="status developing">When prophecy fails</span>
+    <h2>Recurring responses to disconfirmation</h2>
+    <div class="grid">
+      <article class="card"><h3>Recalculation</h3><p>A new date is produced by correcting one chronological assumption.</p></article>
+      <article class="card"><h3>Spiritualization</h3><p>The visible event becomes an invisible heavenly or spiritual fulfillment.</p></article>
+      <article class="card"><h3>Conditionality</h3><p>The claimant later argues that repentance, prayer, or divine mercy altered the outcome. This may be legitimate only when the original claim or biblical context supports it.</p></article>
+      <article class="card"><h3>Misunderstanding</h3><p>Responsibility shifts from the claimant to followers who allegedly interpreted the message too literally.</p></article>
+      <article class="card"><h3>Silence or deletion</h3><p>The original material disappears, preventing later members from evaluating what was actually said.</p></article>
+      <article class="card"><h3>Confession and correction</h3><p>The speaker acknowledges the error, accepts responsibility, repairs harm where possible, and changes future practice.</p></article>
+    </div>
+    <div class="callout"><strong>Important:</strong> a response pattern is not automatically proof of bad faith. People can reinterpret sincerely. The historical question is whether the reinterpretation was present before the deadline or introduced only after the announced event failed.</div>
+  </section>
+
+  <section class="section">
+    <span class="status caution">Human consequences</span>
+    <h2>Accuracy is not the only moral question</h2>
+    <p>Documented predictions can affect employment, education, medical choices, finances, marriages, congregations, political behavior, and public trust. Claims made with divine authority carry more than ordinary forecasting risk because disagreement may be framed as rebellion against God.</p>
+    <ul>
+      <li>Did leaders encourage irreversible decisions?</li>
+      <li>Were dissenters shamed, expelled, or accused of lacking faith?</li>
+      <li>Were financial or family consequences acknowledged afterward?</li>
+      <li>Was the original record preserved so future members could evaluate it?</li>
+      <li>Did an apology include correction and restitution, or only new wording?</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <span class="status developing">Research queue</span>
+    <h2>Cases not yet promoted to verified records</h2>
+    <ul>
+      <li><strong>2020 United States election prophecies:</strong> build a claimant-by-claimant archive separating “I believe,” “God told me,” delayed-reversal claims, withdrawals, and apologies.</li>
+      <li><strong>Herbert W. Armstrong and Worldwide Church of God:</strong> obtain the original editions associated with 1936, 1943, 1972, and 1975 before summarizing the claims.</li>
+      <li><strong>Charles Taze Russell chronology:</strong> separate 1874, 1878, 1881, and 1914 claims by publication and by the event originally expected.</li>
+      <li><strong>Montanist, Joachimite, and Fifth Monarchist expectations:</strong> avoid projecting modern “rapture prediction” categories onto ancient and early-modern texts.</li>
+      <li><strong>Jewish messianic calculations beyond Sabbateanism:</strong> require Jewish primary sources and distinguish a date prediction from messianic identification, hope, or later polemic.</li>
+      <li><strong>Predicted disasters, revivals, and resurrections:</strong> include only events with stable wording and an observable deadline.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <span class="status direct">Questions still open</span>
+    <h2>HomeGroups should not rush these judgments</h2>
+    <ul>
+      <li>When is a prediction genuinely conditional, and when is conditionality added after failure?</li>
+      <li>How should Deuteronomy 18 be applied to a biblical calculation whose author never claimed direct revelation?</li>
+      <li>When does a promoted expectation become institutional teaching?</li>
+      <li>Can a person who apologizes continue in prophetic ministry, and what accountability would be sufficient?</li>
+      <li>How much weight should be given to organizational histories written decades later?</li>
+      <li>What restitution is owed when followers made costly decisions?</li>
+      <li>Can a reinterpretation be legitimate if the original claim specified a visible event?</li>
+      <li>Are communities accountable for repeatedly rewarding certainty over careful testing?</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <span class="status verified">Source ledger</span>
+    <h2>Evidence used in this first pass</h2>
+    <ul class="source-list">
+      <li><strong>Biblical texts:</strong> Deuteronomy 13; 18:20–22; Jeremiah 18; 23; 28; Ezekiel 13; Jonah 3–4; Matthew 7:15–23; 24:23–36; 1 Corinthians 14:29; 1 Thessalonians 5:19–22; 1 John 4:1.</li>
+      <li><strong>Millerite 1844:</strong> <a href="https://www.adventist.org/who-are-seventh-day-adventists/united-for-mission-one-hundred-and-fifty-years/" target="_blank" rel="noopener noreferrer">Seventh-day Adventist institutional history</a>; <a href="https://documents.adventistarchives.org/books/sotam1926.pdf" target="_blank" rel="noopener noreferrer">Adventist Archives, <em>Story of the Advent Message</em></a>.</li>
+      <li><strong>Watch Tower 1925:</strong> <a href="https://wol.jw.org/en/wol/d/r1/lp-e/301980003" target="_blank" rel="noopener noreferrer">Watchtower Online Library, history of France</a>, especially “1925—A Critical Year.”</li>
+      <li><strong>Watch Tower 1975:</strong> <a href="https://wol.jw.org/en/wol/d/r1/lp-e/302012000" target="_blank" rel="noopener noreferrer">Watchtower Online Library, “Years of Eager Anticipation”</a>. This is an institutional retrospective, not yet the complete pre-1975 publication ledger.</li>
+      <li><strong>Whisenant 1988:</strong> <a href="https://archive.org/details/ReasonsWhyTheRaptureWillBeIn1988PDF" target="_blank" rel="noopener noreferrer">Internet Archive scan of <em>88 Reasons Why the Rapture Will Be in 1988</em></a>.</li>
+      <li><strong>Camping 2011:</strong> <a href="https://www.kqed.org/news/58940/harold-camping-says-oops-my-bad" target="_blank" rel="noopener noreferrer">KQED reproduction of Camping and Family Radio’s March 2012 letter</a>.</li>
+      <li><strong>Sabbatai Zevi and Nathan of Gaza:</strong> <a href="https://www.posenlibrary.com/entry/biography-shabbetai-tzvi" target="_blank" rel="noopener noreferrer">Posen Library translation of Abraham Cuenque’s biography</a>; <a href="https://exhibitions.library.columbia.edu/exhibits/show/hebrew_mss/communities/x893_f84" target="_blank" rel="noopener noreferrer">Columbia University Libraries manuscript exhibition</a>.</li>
+    </ul>
+    <p class="muted">Source discipline for the next pass: archive the exact page, edition, date, and wording for every record; add contemporary newspaper evidence only where it clarifies circulation or consequences; retain an exclusion log for popular claims that cannot be verified.</p>
+  </section>
+
+  <footer>HomeGroups Investigation INV-012 · First evidence pass · Claims should be tested with the same standard whether they come from allies, opponents, institutions, or ourselves.</footer>
+</main>
+</body>
+</html>
+
