@@ -33,15 +33,16 @@ let visibleTopicCount = PAGE_SIZE;
 let ballot = null;
 let currentVoteIds = new Set();
 let activeRoot = null;
+let publishedSearchIndex = null;
+let publishedSearchPromise = null;
+let publishedSearchRequest = 0;
 
 function el(id) { return activeRoot?.querySelector(`#${id}`) || null; }
 function setMessage(id, text) { const node = el(id); if (node) node.textContent = text; }
 
-function renderPublishedList(query = "") {
+function renderPublishedMatches(matches) {
   const list = el("investigationList");
   if (!list) return;
-  const normalized = query.trim().toLowerCase();
-  const matches = INVESTIGATIONS.filter(item => !normalized || item.title.toLowerCase().includes(normalized));
   list.replaceChildren();
   if (!matches.length) {
     const empty = document.createElement("div");
@@ -58,6 +59,77 @@ function renderPublishedList(query = "") {
     button.textContent = item.title;
     list.append(button);
   });
+}
+
+function renderPublishedStatus(message) {
+  const list = el("investigationList");
+  if (!list) return;
+  const status = document.createElement("div");
+  status.className = "hg-empty";
+  status.textContent = message;
+  list.replaceChildren(status);
+}
+
+async function buildPublishedSearchIndex() {
+  if (publishedSearchIndex) return publishedSearchIndex;
+  if (publishedSearchPromise) return publishedSearchPromise;
+
+  publishedSearchPromise = Promise.all(INVESTIGATIONS.map(async investigation => {
+    let content = "";
+    try {
+      const response = await fetch(`investigations/${investigation.file}`, {
+        signal: activeController?.signal
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const documentHtml = await response.text();
+      const parsed = new DOMParser().parseFromString(documentHtml, "text/html");
+      parsed.querySelectorAll("script, style, noscript, template").forEach(node => node.remove());
+      content = parsed.body?.textContent || "";
+    } catch (error) {
+      if (error.name === "AbortError") throw error;
+      console.warn("Investigation search indexing failed", investigation.file, error);
+    }
+
+    return {
+      ...investigation,
+      searchableText: `${investigation.title} ${content}`
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase()
+    };
+  })).then(index => {
+    publishedSearchIndex = index;
+    return index;
+  }).finally(() => {
+    publishedSearchPromise = null;
+  });
+
+  return publishedSearchPromise;
+}
+
+async function searchPublishedInvestigations(query = "") {
+  const normalized = query.trim().toLowerCase();
+  const requestId = ++publishedSearchRequest;
+
+  if (!normalized) {
+    renderPublishedMatches(INVESTIGATIONS);
+    return;
+  }
+
+  if (!publishedSearchIndex) {
+    renderPublishedStatus("Searching titles and investigation contents...");
+  }
+
+  try {
+    const index = await buildPublishedSearchIndex();
+    if (requestId !== publishedSearchRequest || !activeRoot) return;
+    renderPublishedMatches(index.filter(item => item.searchableText.includes(normalized)));
+  } catch (error) {
+    if (error.name !== "AbortError" && requestId === publishedSearchRequest) {
+      renderPublishedMatches(INVESTIGATIONS.filter(item => item.title.toLowerCase().includes(normalized)));
+    }
+  }
 }
 
 async function loadInvestigation(file) {
@@ -280,10 +352,10 @@ async function initInvestigationsCard(root = document) {
   if (!el("investigationList") || !el("investigationViewer")) return;
   activeController = new AbortController();
   const { signal } = activeController;
-  renderPublishedList(el("investigationSearch")?.value || "");
+  searchPublishedInvestigations(el("investigationSearch")?.value || "");
 
   activeRoot.querySelectorAll("[data-investigation-view]").forEach(button => button.addEventListener("click", () => selectView(button.dataset.investigationView), { signal }));
-  el("investigationSearch")?.addEventListener("input", event => renderPublishedList(event.target.value), { signal });
+  el("investigationSearch")?.addEventListener("input", event => searchPublishedInvestigations(event.target.value), { signal });
   el("investigationList")?.addEventListener("click", event => {
     const button = event.target.closest("button[data-file]");
     if (!button) return;
