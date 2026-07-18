@@ -57,7 +57,8 @@ console.log("APP JS RUN ID:", Date.now());
 
   const MODULE_CARDS = new Set([
     "prayermap",
-    "commentary"
+    "commentary",
+    "investigations"
   ]);
 
   const CARD_LIFECYCLE = {
