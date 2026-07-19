@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A HomeGroups investigation into progressive revelation, recovery movements, and the continuity of Scripture across biblical and post-biblical history.">
+  <meta name="author" content="Eddie Martinie">
+  <title>The Continuity of Progressive Revelation | HomeGroups INV-013</title>
+  <style>
+    :root { color-scheme:dark; --bg:#071019; --panel:rgba(15,27,40,.9); --panel2:rgba(20,38,54,.8); --line:rgba(148,163,184,.24); --text:#e7eef7; --muted:#a7b4c4; --gold:#f2c66d; --cyan:#78d8e8; --green:#8ad3a8; --red:#f59a9a; --violet:#c5a7ff; --shadow:0 18px 55px rgba(0,0,0,.36); }
+    * { box-sizing:border-box; min-width:0; }
+    body { margin:0; background:radial-gradient(circle at 18% -10%,rgba(39,122,143,.25),transparent 35%),radial-gradient(circle at 86% 8%,rgba(136,103,38,.22),transparent 32%),linear-gradient(180deg,#071019,#05090e); color:var(--text); font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    a { color:var(--cyan); overflow-wrap:anywhere; } a:hover { color:#c9f8ff; }
+    .article-shell { width:min(1040px,calc(100% - 28px)); max-width:100%; margin:0 auto; padding:28px 0 72px; overflow-wrap:anywhere; }
+    .hero { position:relative; overflow:hidden; min-height:390px; display:grid; place-items:center; text-align:center; padding:clamp(28px,6vw,68px); border:1px solid var(--line); border-radius:28px; box-shadow:var(--shadow); background:linear-gradient(180deg,rgba(4,10,16,.1),rgba(4,10,16,.92)),radial-gradient(circle at 50% 18%,rgba(120,216,232,.16),transparent 38%),radial-gradient(circle at 50% 76%,rgba(242,198,109,.13),transparent 36%),linear-gradient(135deg,#102b3b,#091720 54%,#2b2617); }
+    .hero::before { content:attr(data-mark); position:absolute; inset:50% auto auto 50%; transform:translate(-50%,-50%); color:rgba(255,255,255,.045); font:700 clamp(110px,23vw,240px)/1 Georgia,serif; white-space:nowrap; pointer-events:none; }
+    .hero>div { position:relative; z-index:1; width:100%; max-width:900px; }
+    .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:.14em; font-size:.76rem; font-weight:800; }
+    h1 { margin:8px auto 12px; max-width:920px; font:700 clamp(2.15rem,6.3vw,4.8rem)/1 Georgia,"Times New Roman",serif; letter-spacing:-.035em; }
+    h2 { margin:0 0 12px; font:700 clamp(1.55rem,4vw,2.45rem)/1.16 Georgia,"Times New Roman",serif; }
+    h3 { margin:0 0 7px; } p { margin:0 0 1rem; }
+    .dek { max-width:800px; margin:0 auto; color:#d6e0eb; font-size:clamp(1rem,2.2vw,1.22rem); }
+    .question { max-width:800px; margin:22px auto 0; padding-left:18px; border-left:3px solid var(--gold); color:#fff4cf; font:italic 1.04rem/1.6 Georgia,serif; text-align:left; }
+    .notice,.section,.card,.record,details { border:1px solid var(--line); background:var(--panel); box-shadow:0 12px 35px rgba(0,0,0,.2); backdrop-filter:blur(10px); }
+    .notice { margin:18px 0 28px; padding:16px 18px; border-radius:16px; color:var(--muted); font-size:.93rem; }
+    .notice strong { color:var(--text); }
+    .section { margin-top:22px; padding:clamp(22px,4vw,42px); border-radius:20px; }
+    .lead { color:#d6e0ea; font-size:1.04rem; } .muted { color:var(--muted); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr)); gap:14px; }
+    .card { padding:18px; border-radius:16px; background:var(--panel2); }
+    .card p:last-child,.record p:last-child { margin-bottom:0; }
+    .status { display:inline-flex; width:fit-content; max-width:100%; padding:4px 9px; margin-bottom:7px; border-radius:999px; font-size:.72rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
+    .explicit,.high { background:rgba(138,211,168,.17); color:#c8f7da; }
+    .direct,.medium { background:rgba(120,216,232,.16); color:#bdf5ff; }
+    .inferred,.developing { background:rgba(197,167,255,.16); color:#e2d4ff; }
+    .caution,.disputed { background:rgba(245,154,154,.15); color:#ffc5c5; }
+    .callout { margin-top:18px; padding:18px; border:1px solid rgba(242,198,109,.3); border-radius:16px; background:rgba(242,198,109,.07); }
+    .assessment { border-left:4px solid var(--green); } .warning { border-left:4px solid var(--red); }
+    .record-list { display:grid; gap:16px; margin-top:18px; }
+    .record { padding:20px; border-radius:16px; background:rgba(12,24,36,.78); }
+    .record h3 { color:#fff3d1; font-size:1.24rem; }
+    .record-meta { color:var(--muted); font-size:.88rem; margin-bottom:9px; }
+    .record-line { margin:.5rem 0; }
+    .record-line strong { color:var(--cyan); }
+    blockquote { margin:14px 0; padding:14px 17px; border-left:3px solid var(--cyan); background:rgba(120,216,232,.055); color:#dff9ff; }
+    details { margin-top:12px; border-radius:15px; overflow:clip; }
+    summary { cursor:pointer; padding:16px 18px; color:var(--gold); font-weight:800; }
+    .details-body { padding:0 18px 18px; }
+    ul,ol { padding-left:1.25rem; } li { margin-bottom:7px; }
+    .source-list { padding:0; list-style:none; display:grid; gap:9px; }
+    .source-list li { padding:11px 13px; border-left:3px solid var(--gold); border-radius:0 11px 11px 0; background:rgba(255,255,255,.03); }
+    footer { margin-top:26px; padding:20px; color:var(--muted); text-align:center; font-size:.88rem; }
+    @media (max-width:640px) { .article-shell { width:calc(100% - 18px); padding-top:10px; } .hero { min-height:350px; padding:25px 19px; border-radius:20px; } .section { padding:20px 16px; } }
+  </style>
+</head>
+<body>
+<main class="article-shell">
+  <header class="hero" data-mark="שוב">
+    <div>
+      <div class="eyebrow">HomeGroups Investigation INV-013 · First Pass</div>
+      <h1>The Continuity of Progressive Revelation</h1>
+      <p class="dek">An investigation into revelation, recovery, preservation, and the recurring claim that neglected biblical truths have been brought back into view.</p>
+      <p class="question">Has God continually introduced new revelation, or has He primarily called His people back to truths already present in Scripture—and how could we tell the difference?</p>
+    </div>
+  </header>
+
+  <aside class="notice"><strong>Editorial boundary:</strong> this investigation does not assume that every restoration movement recovered truth, that every later doctrine is corruption, or that God deliberately divided doctrine among denominations. It tests those possibilities. “Revelation,” “interpretation,” “development,” “recovery,” “application,” and “renewed emphasis” are not interchangeable.</aside>
+
+  <section class="section">
+    <span class="status medium">Answer in brief</span>
+    <h2>Scripture contains both disclosure and return</h2>
+    <p class="lead">Within the biblical story, God genuinely discloses what earlier generations did not yet possess in the same fullness, while prophets, reformers, Yeshua, and the apostles also call people back to words and covenants already given. The two patterns coexist: revelation moves the story forward, and recovery restores attention to what has been neglected.</p>
+    <div class="callout assessment"><strong>Working conclusion:</strong> post-biblical history clearly documents communities claiming to recover neglected biblical teachings. That evidence does not by itself prove that each claim was correct, nor does it prove that God intentionally scattered portions of truth among competing groups. The proposed scattering-and-gathering model remains a meaningful hypothesis, but at this stage it is an inference rather than an explicit biblical teaching.</div>
+  </section>
+
+  <section class="section">
+    <span class="status direct">Definitions</span>
+    <h2>Five claims that must not be confused</h2>
+    <div class="grid">
+      <article class="card"><span class="status explicit">Revelation</span><h3>New divine disclosure</h3><p>Information or self-disclosure attributed to God that was not previously available in the same form or clarity. Hebrews 1:1–2 and Ephesians 3:4–6 are central texts.</p></article>
+      <article class="card"><span class="status direct">Recovery</span><h3>Returning to an existing source</h3><p>A person or community argues that a biblical teaching or practice was present but neglected, suppressed, or misunderstood.</p></article>
+      <article class="card"><span class="status direct">Development</span><h3>Later clarification</h3><p>A community articulates implications of earlier sources more precisely, often in response to controversy or new questions.</p></article>
+      <article class="card"><span class="status inferred">Renewed emphasis</span><h3>A truth moves to the foreground</h3><p>The content may not be new, but circumstances make one theme unusually urgent or visible.</p></article>
+      <article class="card"><span class="status caution">Innovation</span><h3>A substantially new construction</h3><p>A belief may use biblical language while depending on assumptions not clearly grounded in the cited texts.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status high">Biblical evidence ledger</span>
+    <h2>What the texts explicitly establish</h2>
+    <div class="record-list">
+      <article class="record">
+        <div class="record-meta">BR-001 · Deuteronomy 30:1–5</div>
+        <span class="status explicit">Explicit</span>
+        <h3>Scattering and gathering concern covenant people</h3>
+        <p class="record-line"><strong>Textual observation:</strong> Israel is described among the nations, returning to YHWH, and being gathered.</p>
+        <p class="record-line"><strong>What it supports:</strong> Scripture explicitly pairs dispersion, return, and gathering.</p>
+        <p class="record-line"><strong>What it does not establish:</strong> that doctrines or portions of truth were intentionally distributed among later denominations.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">BR-002 · 2 Kings 22–23; 2 Chronicles 34</div>
+        <span class="status explicit">Explicit core</span>
+        <h3>Josiah responds to a recovered scroll</h3>
+        <p class="record-line"><strong>Textual observation:</strong> a scroll of Torah is found, read to the king, and becomes a catalyst for covenant reform.</p>
+        <p class="record-line"><strong>What it supports:</strong> authoritative teaching may remain present yet become neglected or inaccessible enough that its recovery produces reform.</p>
+        <p class="record-line"><strong>Open historical question:</strong> the precise identity and compositional history of the scroll remain disputed in scholarship.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">BR-003 · Nehemiah 8</div>
+        <span class="status explicit">Explicit</span>
+        <h3>Ezra restores public reading and explanation</h3>
+        <p class="record-line"><strong>Textual observation:</strong> Torah is read publicly and its sense is explained so the people understand.</p>
+        <p class="record-line"><strong>What it supports:</strong> renewal can occur through restored access, interpretation, and communal practice rather than through a newly delivered law.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">BR-004 · Luke 24:25–27, 44–47; Acts 17:2–3</div>
+        <span class="status direct">Direct</span>
+        <h3>Messiah is explained from existing Scriptures</h3>
+        <p class="record-line"><strong>Textual observation:</strong> Yeshua and the apostolic witnesses interpret the Law, Prophets, and Writings in relation to Messiah.</p>
+        <p class="record-line"><strong>What it supports:</strong> the apostolic proclamation presents itself as fulfillment and unveiling of the existing scriptural story, not as contempt for that story.</p>
+        <p class="record-line"><strong>Necessary qualification:</strong> the resurrection and apostolic witness also introduce events and testimony earlier readers did not yet possess historically.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">BR-005 · Hebrews 1:1–2; Ephesians 3:4–6; 1 Peter 1:10–12</div>
+        <span class="status explicit">Explicit progression</span>
+        <h3>Later disclosure can exceed earlier clarity</h3>
+        <p class="record-line"><strong>Textual observation:</strong> God spoke at different times and ways; a mystery concerning the nations is described as now disclosed; prophets searched into realities later announced.</p>
+        <p class="record-line"><strong>What it supports:</strong> progressive revelation is not merely a modern theological invention. The New Testament itself describes stages of disclosure.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">BR-006 · Jude 3; 2 Timothy 3:14–17; Acts 17:11</div>
+        <span class="status direct">Received deposit</span>
+        <h3>Claims remain accountable to what was delivered</h3>
+        <p class="record-line"><strong>Textual observation:</strong> believers contend for a delivered faith, remain in learned sacred writings, and examine teaching against Scripture.</p>
+        <p class="record-line"><strong>What it supports:</strong> later claims do not receive immunity from testing merely because they are described as revelation or restoration.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">BR-007 · Acts 8:1–4; 11:19–21</div>
+        <span class="status explicit">Explicit event</span>
+        <h3>Scattered believers carry the message outward</h3>
+        <p class="record-line"><strong>Textual observation:</strong> persecution disperses believers, and those dispersed proclaim the message in new places.</p>
+        <p class="record-line"><strong>What it supports:</strong> scattering can become a means by which testimony is geographically distributed.</p>
+        <p class="record-line"><strong>What remains inferred:</strong> that later theological fragmentation was divinely designed to preserve complementary doctrinal fragments.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status inferred">Hypothesis audit</span>
+    <h2>Does God scatter truth so it can later be gathered?</h2>
+    <div class="grid">
+      <article class="card"><span class="status explicit">Established</span><h3>People are scattered and gathered</h3><p>Eden, Babel, exile, diaspora, persecution, mission, and promised regathering provide multiple forms of dispersion and movement.</p></article>
+      <article class="card"><span class="status direct">Established</span><h3>Teaching can be neglected and recovered</h3><p>Josiah and Ezra demonstrate renewed access to an already authoritative instruction.</p></article>
+      <article class="card"><span class="status inferred">Plausible inference</span><h3>Communities can preserve different emphases</h3><p>Geography, language, institutions, persecution, and inherited practice can cause communities to retain different texts, habits, and interpretive memories.</p></article>
+      <article class="card"><span class="status caution">Not yet demonstrated</span><h3>Fragmentation was divinely assigned</h3><p>No examined passage explicitly says God divided biblical truth among later denominations so a future movement could recombine it.</p></article>
+    </div>
+    <div class="callout warning"><strong>Alternative explanations must remain active:</strong> different emphases can arise from ordinary preservation, selective reading, political power, cultural adaptation, reaction against abuse, sincere error, or competing interpretations. A theological explanation should not be asserted before these historical causes are examined.</div>
+  </section>
+
+  <section class="section">
+    <span class="status medium">Historical first pass</span>
+    <h2>Representative recovery claims</h2>
+    <p class="muted">These records document how movements described themselves. Inclusion does not certify the recovered teaching as correct.</p>
+    <div class="record-list">
+      <article class="record">
+        <div class="record-meta">HR-001 · Sixteenth-century Lutheran Reformation</div>
+        <span class="status high">Primary sources available</span>
+        <h3>Justification and reform of indulgence practice</h3>
+        <p class="record-line"><strong>Claimed recovery:</strong> confidence in divine forgiveness and justification through faith in Messiah rather than human merit or purchased indulgence.</p>
+        <p class="record-line"><strong>Documentary anchor:</strong> Luther’s 1517 theses challenge indulgence abuses; Article IV of the Augsburg Confession states the Lutheran doctrine of justification.</p>
+        <p class="record-line"><strong>Competing assessment:</strong> Lutheran, Catholic, and other Protestant accounts disagree about whether this was recovery, correction, rupture, or doctrinal narrowing.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">HR-002 · Wesleyan and Holiness movements</div>
+        <span class="status high">Primary teaching available</span>
+        <h3>Holiness and whole-life discipleship</h3>
+        <p class="record-line"><strong>Claimed recovery:</strong> scriptural holiness as active love of God and neighbor, not merely assent or institutional identity.</p>
+        <p class="record-line"><strong>Documentary anchor:</strong> John Wesley’s sermons and <em>A Plain Account of Christian Perfection</em>.</p>
+        <p class="record-line"><strong>Competing assessment:</strong> interpreters dispute the meaning, timing, and attainability of Christian perfection, even when agreeing that holiness matters.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">HR-003 · Early Pentecostal movement</div>
+        <span class="status high">Contemporary newspaper available</span>
+        <h3>Spiritual gifts and apostolic experience</h3>
+        <p class="record-line"><strong>Claimed recovery:</strong> the work and gifts of the Holy Spirit described in Acts and 1 Corinthians remained available to the church.</p>
+        <p class="record-line"><strong>Documentary anchor:</strong> <em>The Apostolic Faith</em>, published by the Azusa Street Mission beginning in 1906; later Pentecostal statements explicitly describe an apostolic pattern.</p>
+        <p class="record-line"><strong>Competing assessment:</strong> continuationists, cessationists, and sacramental traditions disagree about what continued, what ceased, and how experiences should be tested.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">HR-004 · Sabbatarian Adventist movement</div>
+        <span class="status high">Institutional self-description</span>
+        <h3>Seventh-day Sabbath and literal return of Messiah</h3>
+        <p class="record-line"><strong>Claimed recovery:</strong> biblical teachings believed to have been obscured, especially the seventh-day Sabbath and the literal Second Coming.</p>
+        <p class="record-line"><strong>Documentary anchor:</strong> the denomination’s official history and fundamental-belief statements explicitly use recovery and fuller-understanding language.</p>
+        <p class="record-line"><strong>Competing assessment:</strong> other Christians dispute Adventist readings of covenant continuity, Sabbath obligation, prophecy, and authority.</p>
+      </article>
+
+      <article class="record">
+        <div class="record-meta">HR-005 · Catholic articulation of doctrinal continuity</div>
+        <span class="status high">Institutional primary source</span>
+        <h3>Scripture, tradition, and developing understanding</h3>
+        <p class="record-line"><strong>Continuity claim:</strong> revelation is handed on through Scripture and sacred tradition, while understanding develops within the church under the Holy Spirit.</p>
+        <p class="record-line"><strong>Documentary anchor:</strong> Vatican II’s <em>Dei Verbum</em>.</p>
+        <p class="record-line"><strong>Competing assessment:</strong> sola Scriptura traditions reject or sharply qualify the authority assigned to post-apostolic tradition and teaching offices.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status direct">Competing views</span>
+    <h2>Major ways believers understand continuity</h2>
+    <div class="grid">
+      <article class="card"><h3>Canonical progressive revelation</h3><p>God disclosed His purpose across biblical history, culminating in Messiah and the apostolic witness. Later generations may understand and apply the deposit but do not add new universally binding revelation.</p></article>
+      <article class="card"><h3>Scriptural restoration</h3><p>Church history contains repeated departures and returns. Reform is judged by correspondence to Scripture, not by novelty, institutional age, or spiritual intensity.</p></article>
+      <article class="card"><h3>Tradition and doctrinal development</h3><p>The apostolic deposit remains foundational, while the Spirit-guided community articulates its implications over time. Development can be continuity rather than invention.</p></article>
+      <article class="card"><h3>Continuing prophetic guidance</h3><p>The Spirit continues to give gifts, guidance, and prophecy, but such speech is tested and does not automatically equal canonical Scripture.</p></article>
+      <article class="card"><h3>Strong cessation or closure</h3><p>Former revelatory modes ceased with the apostolic foundation. Later “recovery” must therefore mean interpretation or renewed obedience to Scripture, not new revelation.</p></article>
+      <article class="card"><h3>Historical-development model</h3><p>Many changes are explained through institutions, languages, conflicts, technology, politics, and social needs without assuming that every shift represents direct divine action.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status medium">Method</span>
+    <h2>How future theme studies should proceed</h2>
+    <ol>
+      <li>Trace the theme from Torah through Prophets, Writings, and New Testament before beginning denominational history.</li>
+      <li>Define what the movement actually claimed: revelation, restoration, interpretation, development, or emphasis.</li>
+      <li>Collect a dated primary-source statement from the movement itself.</li>
+      <li>Identify the Scriptures the movement used and examine them in context.</li>
+      <li>Record what existed before the movement; “recovered” does not necessarily mean completely absent.</li>
+      <li>Document contemporary criticism and later institutional revisions.</li>
+      <li>Separate historical influence from theological correctness.</li>
+      <li>Assign confidence individually to each claim rather than to an entire denomination.</li>
+    </ol>
+    <div class="callout"><strong>Proposed next datasets:</strong> Sabbath; appointed times; the divine name; work and gifts of the Holy Spirit; Scripture in common languages; Jewish and Second Temple context; global missions; holiness and discipleship.</div>
+  </section>
+
+  <section class="section">
+    <span class="status developing">Questions still open</span>
+    <h2>What would change the conclusion?</h2>
+    <div class="grid">
+      <article class="card"><h3>Revelation or illumination?</h3><p>When a community says God “revealed” a truth, does it mean new information, spiritual conviction, rediscovery, or clearer interpretation?</p></article>
+      <article class="card"><h3>How much was truly lost?</h3><p>Was a teaching absent, locally preserved, institutionally marginalized, practiced under another name, or simply unfamiliar to the later reformer?</p></article>
+      <article class="card"><h3>Can error preserve truth?</h3><p>Can a community preserve one valuable practice while teaching serious error elsewhere, and how should those facts be weighed?</p></article>
+      <article class="card"><h3>Who decides continuity?</h3><p>What authority adjudicates between Scripture, tradition, councils, teachers, spiritual experience, and historical consensus?</p></article>
+      <article class="card"><h3>Does gathering require synthesis?</h3><p>Should believers combine insights across traditions, or can attempted synthesis create a new system that none of the sources actually teach?</p></article>
+      <article class="card"><h3>What is the falsifiable test?</h3><p>What historical evidence would count against the proposal that truth was providentially scattered and later gathered?</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="status high">Source packet</span>
+    <h2>Primary texts and institutional statements</h2>
+    <ul class="source-list">
+      <li><a href="https://www.sefaria.org/Deuteronomy.30.1-5" target="_blank" rel="noopener noreferrer">Deuteronomy 30:1–5 · Sefaria</a> — scattering, return, and gathering.</li>
+      <li><a href="https://www.sefaria.org/II_Kings.22?lang=bi" target="_blank" rel="noopener noreferrer">2 Kings 22 · Sefaria</a> — discovery and reading of the scroll.</li>
+      <li><a href="https://www.sefaria.org/Nehemiah.8?lang=bi" target="_blank" rel="noopener noreferrer">Nehemiah 8 · Sefaria</a> — public Torah reading and explanation.</li>
+      <li><a href="https://www.biblegateway.com/passage/?search=Luke%2024%3A25-47%3B%20Hebrews%201%3A1-2%3B%20Ephesians%203%3A4-6%3B%201%20Peter%201%3A10-12%3B%20Jude%203&version=NET" target="_blank" rel="noopener noreferrer">Key New Testament passages · NET</a> — fulfillment, progression, disclosure, and delivered faith.</li>
+      <li><a href="https://www.loc.gov/item/2021667736/" target="_blank" rel="noopener noreferrer">Martin Luther’s Ninety-Five Theses · Library of Congress</a> — a primary Reformation document.</li>
+      <li><a href="https://bookofconcord.org/augsburg-confession/of-justification/" target="_blank" rel="noopener noreferrer">Augsburg Confession, Article IV</a> — Lutheran articulation of justification.</li>
+      <li><a href="https://wesley.nnu.edu/john-wesley/a-plain-account-of-christian-perfection/" target="_blank" rel="noopener noreferrer">John Wesley, A Plain Account of Christian Perfection</a> — Wesley’s own clarification of holiness teaching.</li>
+      <li><a href="https://www.loc.gov/item/sn90005481/" target="_blank" rel="noopener noreferrer">The Apostolic Faith, 1906–1908 · Library of Congress</a> — official newspaper of the Azusa Street Mission.</li>
+      <li><a href="https://ag.org/en/Beliefs/Statement-of-Fundamental-Truths" target="_blank" rel="noopener noreferrer">Assemblies of God Statement of Fundamental Truths</a> — current Pentecostal institutional formulation.</li>
+      <li><a href="https://adventist.org/identity/history" target="_blank" rel="noopener noreferrer">Seventh-day Adventist official history</a> and <a href="https://adventist.org/beliefs/official/the-sabbath" target="_blank" rel="noopener noreferrer">official Sabbath statement</a> — institutional recovery claims.</li>
+      <li><a href="https://www.vatican.va/archive/hist_councils/ii_vatican_council/documents/vat-ii_const_19651118_dei-verbum_en.html" target="_blank" rel="noopener noreferrer">Vatican II, Dei Verbum</a> — Catholic account of revelation, Scripture, tradition, and developing understanding.</li>
+      <li><a href="https://www.westminsterreformedchurch.org/Logic/LogicPDFs/WCF.1-10.pdf" target="_blank" rel="noopener noreferrer">Westminster Confession of Faith, Chapter 1</a> — a strong Protestant closure formulation.</li>
+    </ul>
+    <p class="muted">This first pass uses representative sources to establish categories and test the proposed pattern. It is not yet a comprehensive history of doctrine or denominations.</p>
+  </section>
+
+  <section class="section">
+    <span class="status inferred">Provisional conclusion</span>
+    <h2>The continuity is stronger than any single recovery claim</h2>
+    <p>The biblical record does not force a choice between all-new revelation and mere repetition. It portrays an unfolding disclosure anchored in one Creator and one covenantal-redemptive story, alongside repeated calls to remember, return, read, understand, and obey what had already been given.</p>
+    <p>Post-biblical movements frequently describe their work as recovery. Their primary documents can establish that they made those claims and influenced later believers. Establishing that a movement truly recovered biblical truth requires a separate textual and historical judgment for each theme.</p>
+    <blockquote>The strongest first-pass formulation is therefore modest: communities have preserved and emphasized different aspects of biblical interpretation and practice. Whether that diversity reflects providential scattering, ordinary historical development, human fragmentation, or some combination remains open.</blockquote>
+  </section>
+
+  <footer>HomeGroups Research Institute · INV-013 · First-pass investigation · Evidence before certainty</footer>
+</main>
+</body>
+</html>
