@@ -91,6 +91,41 @@ service cloud.firestore {
         && currentBallot().status == 'open';
     }
 
+    match /investigationSuggestionUsers/{userId}/suggestions/{suggestionId} {
+      allow read: if googleUser() && request.auth.uid == userId;
+      allow create: if googleUser()
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly([
+          'uid',
+          'topic',
+          'why',
+          'evidence',
+          'context',
+          'status',
+          'createdAt'
+        ])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.topic is string
+        && request.resource.data.topic.size() > 0
+        && request.resource.data.topic.size() <= 180
+        && request.resource.data.why is string
+        && request.resource.data.why.size() <= 1200
+        && request.resource.data.evidence is string
+        && request.resource.data.evidence.size() <= 1200
+        && request.resource.data.context is string
+        && request.resource.data.context.size() <= 1200
+        && request.resource.data.status == 'submitted'
+        && request.resource.data.createdAt == request.time;
+      allow update: if googleUser()
+        && request.auth.uid == userId
+        && resource.data.uid == request.auth.uid
+        && resource.data.status == 'submitted'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'withdrawnAt'])
+        && request.resource.data.status == 'withdrawn'
+        && request.resource.data.withdrawnAt == request.time;
+      allow delete: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
