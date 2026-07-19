@@ -33,6 +33,7 @@ console.log("APP JS RUN ID:", Date.now());
   let currentCardIndex = 0;
   let loadedScript = null;
   let loadCardRequestId = 0;
+  let cardLoadController = null;
   let scrollSyncBound = false;
   let activeCardName = null;
   let appInitialized = false;
@@ -198,8 +199,8 @@ function wireCardNavButtons() {
       const horizontalDistance = Math.abs(deltaX);
       const verticalDistance = Math.abs(deltaY);
 
-      if (horizontalDistance < 60) return;
-      if (horizontalDistance <= verticalDistance * 1.25) return;
+      if (horizontalDistance < 48) return;
+      if (horizontalDistance <= verticalDistance * 1.15) return;
 
       stepCardSelector(deltaX < 0 ? 1 : -1);
     });
@@ -468,6 +469,9 @@ function cleanupActiveCard() {
     }
 
     const requestId = ++loadCardRequestId;
+    cardLoadController?.abort();
+    cardLoadController = null;
+    let requestController = null;
     console.log("[CARD] render entry", { cardName, requestId });
 
     try {
@@ -481,9 +485,13 @@ function cleanupActiveCard() {
       }
 
       loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
+      goToCard(1);
 
-      const res = await fetch(`cards/${cardName}.html?v=${Date.now()}`, {
-        cache: "no-store"
+      requestController = new AbortController();
+      cardLoadController = requestController;
+      const res = await fetch(`cards/${cardName}.html`, {
+        cache: "no-cache",
+        signal: requestController.signal
       });
       if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
 
@@ -517,6 +525,10 @@ console.log("loadCard exists?", typeof window.loadCard);
       console.log("[CARD] render completion", { cardName, requestId });
       goToCard(1);
     } catch (err) {
+      if (err?.name === "AbortError") {
+        console.log("[CARD] superseded request stopped", { cardName, requestId });
+        return;
+      }
       if (requestId !== loadCardRequestId) {
         console.log("[CARD] stale failure skipped", { cardName, requestId });
         return;
@@ -527,6 +539,10 @@ console.log("loadCard exists?", typeof window.loadCard);
           Could not load <strong>${cardName}</strong>.
         </div>
       `;
+    } finally {
+      if (requestController && cardLoadController === requestController) {
+        cardLoadController = null;
+      }
     }
   }
 
