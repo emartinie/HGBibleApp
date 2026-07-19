@@ -505,14 +505,6 @@ function cleanupActiveCard() {
         syncCurrentCardOnScroll();
       });
 
-      if (cardName === "prayermap") {
-  await loadExtraScript("js/prayerStore.dev.js");
-  if (requestId !== loadCardRequestId) {
-    console.log("[CARD] stale render skipped", { cardName, requestId });
-    return;
-  }
-}
-
       await loadCardScript(cardName);
       if (requestId !== loadCardRequestId) {
         console.log("[CARD] stale init skipped", { cardName, requestId });
