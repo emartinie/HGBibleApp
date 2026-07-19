@@ -1,13 +1,19 @@
 import { db, auth } from "./firebase-init.js";
 import {
-  doc,
-  updateDoc,
-  collection,
-  onSnapshot,
   addDoc,
+  collection,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  GoogleAuthProvider,
+  linkWithPopup,
+  signInWithPopup,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 console.log("🗺️ prayermap.js loaded");
 
@@ -26,7 +32,7 @@ console.log("🗺️ prayermap.js loaded");
   let userLocationMarker = null;
   let userLocationCircle = null;
 
-  let addMode = null; // "prayer" | "feast"
+  let addMode = null; // "prayer"
   let pendingLatLng = null;
 
   const activeMarkers = {};
@@ -96,24 +102,56 @@ function labelFor(feature, i) {
 
 function popupFor(feature, i) {
   const p = feature?.properties || {};
-  const name = labelFor(feature, i);
-  const description = maskDescription(p.description || p.Description || "");
-  const coords = maskDescription(p.Coordinates || "");
+  const wrapper = document.createElement("div");
+  const name = document.createElement("strong");
+  name.textContent = labelFor(feature, i);
+  wrapper.append(name);
 
-  return `
-    <div>
-      <strong>${name}</strong>
-      ${description ? `<div style="margin-top:6px;">${description}</div>` : ""}
-      ${coords ? `<div style="font-size:.8rem;opacity:.7;">${coords}</div>` : ""}
-    </div>
-  `;
+  const descriptionText = maskDescription(p.description || p.Description || "");
+  if (descriptionText) {
+    const description = document.createElement("div");
+    description.style.marginTop = "6px";
+    description.textContent = descriptionText;
+    wrapper.append(description);
+  }
+
+  const coordinatesText = maskDescription(p.Coordinates || "");
+  if (coordinatesText) {
+    const coordinates = document.createElement("div");
+    coordinates.style.fontSize = ".8rem";
+    coordinates.style.opacity = ".7";
+    coordinates.textContent = coordinatesText;
+    wrapper.append(coordinates);
+  }
+
+  return wrapper;
 }
 
 function prayerPopup(prayer) {
-  return `
-    <strong>${prayer.name || "Anonymous"}</strong><br>
-    <p>${prayer.message || ""}</p>
-  `;
+  const wrapper = document.createElement("div");
+  const name = document.createElement("strong");
+  const message = document.createElement("p");
+  const location = document.createElement("small");
+
+  name.textContent = String(prayer.name || "Anonymous");
+  message.textContent = String(prayer.message || "");
+  location.textContent = "Approximate location";
+
+  wrapper.append(name, message, location);
+  return wrapper;
+}
+
+function setPrayerMapStatus(message) {
+  const status = document.getElementById("prayerMapStatus");
+  if (status) status.textContent = message || "";
+}
+
+function isGoogleUser(user) {
+  return Boolean(
+    user &&
+    !user.isAnonymous &&
+    user.providerData?.some(provider => provider.providerId === "google.com")
+  );
 }
 
 function prayerSearchText(prayer) {
@@ -204,8 +242,6 @@ function locateUser() {
       if (!addMode) return;
 
       if (addMode === "prayer") openPrayerModal(e.latlng.lat, e.latlng.lng);
-      if (addMode === "feast") openFeastModal(e.latlng.lat, e.latlng.lng);
-
       addMode = null;
     });
 
@@ -217,8 +253,8 @@ function locateUser() {
   // ======================
 
   function addMarker(prayer) {
-    const lat = Number(prayer.lat);
-    const lng = Number(prayer.lng);
+    const lat = Number(Number(prayer.lat).toFixed(2));
+    const lng = Number(Number(prayer.lng).toFixed(2));
     if (isNaN(lat) || isNaN(lng)) return;
 
     const searchText = prayerSearchText(prayer);
@@ -249,37 +285,78 @@ function locateUser() {
   }
 
   function listenForPrayers() {
-    prayersUnsubscribe = onSnapshot(collection(db, "prayers"), snap => {
-      snap.docChanges().forEach(change => {
-        const id = change.doc.id;
-        const data = change.doc.data();
+    const recentPrayers = query(
+      collection(db, "prayers"),
+      orderBy("createdAt", "desc"),
+      limit(250)
+    );
 
-        if (change.type !== "removed") {
-          addMarker({ id, ...data });
-        }
+    prayersUnsubscribe = onSnapshot(
+      recentPrayers,
+      snap => {
+        snap.docChanges().forEach(change => {
+          const id = change.doc.id;
+          const data = change.doc.data();
 
-        if (change.type === "removed" && activeMarkers[id]) {
-          prayerLayer.removeLayer(activeMarkers[id]);
-          delete activeMarkers[id];
-        }
-      });
-    });
+          if (change.type !== "removed") {
+            addMarker({ id, ...data });
+          }
+
+          if (change.type === "removed" && activeMarkers[id]) {
+            prayerLayer.removeLayer(activeMarkers[id]);
+            delete activeMarkers[id];
+          }
+        });
+        setPrayerMapStatus("");
+      },
+      error => {
+        console.error("Prayer listener failed:", error);
+        setPrayerMapStatus("Prayer requests could not be loaded. Please try again.");
+      }
+    );
   }
 
-  async function ensureAuthenticated() {
-    if (auth.currentUser) return auth.currentUser;
-    const credential = await signInAnonymously(auth);
-    return credential.user;
+  async function ensureGoogleUser() {
+    if (isGoogleUser(auth.currentUser)) return auth.currentUser;
+
+    const provider = new GoogleAuthProvider();
+
+    try {
+      if (auth.currentUser?.isAnonymous) {
+        await linkWithPopup(auth.currentUser, provider);
+      } else {
+        await signInWithPopup(auth, provider);
+      }
+    } catch (error) {
+      if (
+        error.code === "auth/credential-already-in-use" ||
+        error.code === "auth/email-already-in-use"
+      ) {
+        await signOut(auth);
+        await signInWithPopup(auth, provider);
+      } else {
+        throw error;
+      }
+    }
+
+    if (!isGoogleUser(auth.currentUser)) {
+      throw new Error("Google sign-in is required to submit a prayer.");
+    }
+
+    return auth.currentUser;
   }
 
   async function savePrayer(lat, lng, name, message) {
-    const user = await ensureAuthenticated();
+    const user = await ensureGoogleUser();
     const safeMessage = String(message || "").trim().slice(0, 1000);
     if (!safeMessage) throw new Error("Prayer request is required.");
 
+    const approximateLat = Number(Number(lat).toFixed(2));
+    const approximateLng = Number(Number(lng).toFixed(2));
+
     await addDoc(collection(db, "prayers"), {
-      lat,
-      lng,
+      lat: approximateLat,
+      lng: approximateLng,
       name: String(name || "Anonymous").trim().slice(0, 80) || "Anonymous",
       message: safeMessage,
       prayed: false,
@@ -305,15 +382,20 @@ function openPrayerModal(lat, lng) {
   <div class="flex flex-col gap-3">
     <input
       id="prayerNameInput"
-      placeholder="Name optional"
+      maxlength="80"
+      placeholder="Name or short title (optional)"
       class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400"
     />
 
     <textarea
       id="prayerMessageInput"
+      maxlength="1000"
+      required
       placeholder="Prayer request"
       class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400 min-h-[120px]"
     ></textarea>
+
+    <p id="prayerFormStatus" class="text-sm text-amber-200" role="status" aria-live="polite"></p>
 
     <button
       id="prayerSaveBtn"
@@ -349,18 +431,42 @@ if (closeBtn) {
   map.scrollWheelZoom.disable();
 
   document.getElementById("prayerSaveBtn").onclick = async () => {
-    const name = document.getElementById("prayerNameInput").value;
-    const text = document.getElementById("prayerMessageInput").value;
+    const nameInput = document.getElementById("prayerNameInput");
+    const messageInput = document.getElementById("prayerMessageInput");
+    const saveButton = document.getElementById("prayerSaveBtn");
+    const formStatus = document.getElementById("prayerFormStatus");
+    const name = String(nameInput?.value || "").trim();
+    const text = String(messageInput?.value || "").trim();
 
-    await savePrayer(lat, lng, name, text);
+    if (!text) {
+      if (formStatus) formStatus.textContent = "Please enter a prayer request.";
+      messageInput?.focus();
+      return;
+    }
 
-    panel.classList.add("hidden");
-    panel.classList.remove("flex");
-    pendingLatLng = null;
+    saveButton.disabled = true;
+    saveButton.textContent = "Submitting...";
+    if (formStatus) formStatus.textContent = "Google sign-in is required. Opening sign-in...";
 
-    // 🔑 re-enable map
-    map.dragging.enable();
-    map.scrollWheelZoom.enable();
+    try {
+      await savePrayer(lat, lng, name, text);
+      panel.classList.add("hidden");
+      panel.classList.remove("flex");
+      pendingLatLng = null;
+      map.dragging.enable();
+      map.scrollWheelZoom.enable();
+      setPrayerMapStatus("Your prayer was submitted with an approximate location.");
+    } catch (error) {
+      console.error("Prayer submission failed:", error);
+      if (formStatus) {
+        formStatus.textContent = error?.code?.startsWith("auth/")
+          ? "Google sign-in was not completed. Please allow the sign-in window and try again."
+          : (error?.message || "Your prayer could not be submitted. Please try again.");
+      }
+    } finally {
+      saveButton.disabled = false;
+      saveButton.textContent = "Save Prayer";
+    }
   };
 }
 
@@ -421,7 +527,7 @@ if (closeBtn) {
     const name = document.getElementById("feastNameInput").value;
     const feastType = document.getElementById("feastTypeInput").value;
 
-    const user = await ensureAuthenticated();
+    const user = await ensureGoogleUser();
     await addDoc(collection(db, "feasts"), {
       name: String(name || "Anonymous").trim().slice(0, 80) || "Anonymous",
       feastType,
@@ -501,10 +607,13 @@ if (closeBtn) {
       fillOpacity: 0.9
     }).addTo(feastLayer);
 
-    marker.bindPopup(`
-      <strong>${feast.name || "Feast"}</strong><br>
-      <small>${feast.feastType || ""}</small>
-    `);
+    const popup = document.createElement("div");
+    const name = document.createElement("strong");
+    const feastType = document.createElement("small");
+    name.textContent = String(feast.name || "Feast");
+    feastType.textContent = String(feast.feastType || "");
+    popup.append(name, document.createElement("br"), feastType);
+    marker.bindPopup(popup);
 
     activeFeasts[feast.id] = marker;
   }
@@ -537,10 +646,6 @@ if (closeBtn) {
       alert("Click map to add your prayer");
     }
 
-    if (e.target?.id === "feastMapAddBtn") {
-      addMode = "feast";
-      alert("Click map for feast");
-    }
   }
 
   function wireModeClick() {
@@ -620,6 +725,5 @@ if (closeBtn) {
 
   window.initPrayerMapCard = init;
   window.destroyPrayerMapCard = destroy;
-  init();
 
 })();
