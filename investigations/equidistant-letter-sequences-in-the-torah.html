@@ -313,29 +313,10 @@
     .assessment { border-left: 4px solid var(--green); }
     .question-list li { margin-bottom: 9px; }
 
-    .evidence-table {
-      width: 100%;
-      margin-top: 16px;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 14px;
-    }
-
-    .evidence-table th,
-    .evidence-table td {
-      padding: 12px 13px;
-      border: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .evidence-table th {
-      background: rgba(242,198,109,.09);
-      color: #fff0c8;
-      font-size: .82rem;
-      letter-spacing: .03em;
-      text-transform: uppercase;
-    }
+    .evidence-sections { margin-top: 16px; }
+    .evidence-card h3 { color: #fff0c8; font-size: 1.12rem; }
+    .evidence-field { margin: .65rem 0 0; }
+    .evidence-field strong { color: var(--cyan); }
 
     .confidence-grid {
       display: grid;
@@ -368,7 +349,6 @@
       .article-shell { width: min(100% - 18px, 1040px); padding-top: 10px; }
       .hero { min-height: 330px; padding: 26px 20px; border-radius: 20px; }
       .section { padding: 20px 17px; }
-      .evidence-table { display: block; overflow-x: auto; }
     }
   </style>
 </head>
@@ -551,52 +531,43 @@
   <section class="section">
     <span class="status review">Audit status</span>
     <h2>5. What is reproduced—and what still must be documented?</h2>
-    <table class="evidence-table">
-      <thead>
-        <tr>
-          <th>Evidence item</th>
-          <th>Status in this working file</th>
-          <th>Needed for independent audit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Target words and directions</td>
-          <td>Recorded for all five books.</td>
-          <td>Retain the exact Hebrew output and book-by-book rule in the final evidence packet.</td>
-        </tr>
-        <tr>
-          <td>Base text</td>
-          <td>Described as the standard Masoretic Hebrew text.</td>
-          <td>Name the edition or digital file and provide a checksum.</td>
-        </tr>
-        <tr>
-          <td>Starting letters</td>
-          <td>Referred to as published positions but not supplied here.</td>
-          <td>Give the exact start letter, passage, and absolute index for every sequence.</td>
-        </tr>
-        <tr>
-          <td>Selected indices</td>
-          <td>The output words are supplied; intermediate positions are not.</td>
-          <td>Publish all four letter indices and enough surrounding text to check the count manually.</td>
-        </tr>
-        <tr>
-          <td>Independent reproduction</td>
-          <td>The findings state “pattern reproduced.”</td>
-          <td>Name each independent method or implementation and retain its output.</td>
-        </tr>
-        <tr>
-          <td>Historical documentation</td>
-          <td>Associated with pre-computer Jewish observation and Rabbi Dov Weismandel.</td>
-          <td>Add dated primary citations and distinguish medieval evidence from later attribution.</td>
-        </tr>
-        <tr>
-          <td>Statistical significance</td>
-          <td>Not established by reproduction alone.</td>
-          <td>Predefine the search space, comparison statistic, and control corpus before testing.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="evidence-grid evidence-sections" role="list" aria-label="Evidence item evidence sections">
+      <article class="evidence-card" role="listitem">
+        <h3>Target words and directions</h3>
+        <p class="evidence-field"><strong>Status in this working file:</strong> Recorded for all five books.</p>
+        <p class="evidence-field"><strong>Needed for independent audit:</strong> Retain the exact Hebrew output and book-by-book rule in the final evidence packet.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Base text</h3>
+        <p class="evidence-field"><strong>Status in this working file:</strong> Described as the standard Masoretic Hebrew text.</p>
+        <p class="evidence-field"><strong>Needed for independent audit:</strong> Name the edition or digital file and provide a checksum.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Starting letters</h3>
+        <p class="evidence-field"><strong>Status in this working file:</strong> Referred to as published positions but not supplied here.</p>
+        <p class="evidence-field"><strong>Needed for independent audit:</strong> Give the exact start letter, passage, and absolute index for every sequence.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Selected indices</h3>
+        <p class="evidence-field"><strong>Status in this working file:</strong> The output words are supplied; intermediate positions are not.</p>
+        <p class="evidence-field"><strong>Needed for independent audit:</strong> Publish all four letter indices and enough surrounding text to check the count manually.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Independent reproduction</h3>
+        <p class="evidence-field"><strong>Status in this working file:</strong> The findings state “pattern reproduced.”</p>
+        <p class="evidence-field"><strong>Needed for independent audit:</strong> Name each independent method or implementation and retain its output.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Historical documentation</h3>
+        <p class="evidence-field"><strong>Status in this working file:</strong> Associated with pre-computer Jewish observation and Rabbi Dov Weismandel.</p>
+        <p class="evidence-field"><strong>Needed for independent audit:</strong> Add dated primary citations and distinguish medieval evidence from later attribution.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Statistical significance</h3>
+        <p class="evidence-field"><strong>Status in this working file:</strong> Not established by reproduction alone.</p>
+        <p class="evidence-field"><strong>Needed for independent audit:</strong> Predefine the search space, comparison statistic, and control corpus before testing.</p>
+      </article>
+    </div>
     <div class="callout assessment">
       <strong>Current boundary:</strong> This page preserves the working conclusion that the named sequences were reproduced.
       It does not yet contain the coordinate-level evidence another investigator would need to verify that reproduction from scratch.
