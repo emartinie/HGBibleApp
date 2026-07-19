@@ -1,5 +1,16 @@
 import { db, auth } from "./firebase-init.js";
-import { doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
+  serverTimestamp,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
   GoogleAuthProvider,
   linkWithPopup,
@@ -36,6 +47,7 @@ let activeRoot = null;
 let publishedSearchIndex = null;
 let publishedSearchPromise = null;
 let publishedSearchRequest = 0;
+let suggestionLoadRequest = 0;
 
 function el(id) { return activeRoot?.querySelector(`#${id}`) || null; }
 function setMessage(id, text) { const node = el(id); if (node) node.textContent = text; }
@@ -160,6 +172,10 @@ function selectView(view) {
   });
   if (view === "backlog") loadBacklog();
   if (view === "vote") loadBallot();
+  if (view === "suggest") {
+    updateSuggestionControls(auth.currentUser);
+    if (isGoogleUser(auth.currentUser)) loadOwnSuggestions(auth.currentUser);
+  }
 }
 
 async function loadBacklog() {
@@ -205,7 +221,7 @@ function renderBacklog() {
     card.className = "topic-card";
     const meta = document.createElement("div");
     meta.className = "topic-meta";
-    meta.textContent = `${topic.id} Â· ${topic.category || "Uncategorized"}`;
+    meta.textContent = `${topic.id}  |  ${topic.category || "Uncategorized"}`;
     const title = document.createElement("h3");
     title.className = "font-semibold text-slate-100 mt-1";
     title.textContent = topic.title;
@@ -246,7 +262,7 @@ function renderBallot() {
   const options = el("investigationVoteOptions");
   const actions = el("investigationVoteActions");
   if (!options || !actions) return;
-  setMessage("investigationVoteStatus", `${ballot.title || "Help choose the next investigation"} â€” select up to ${ballot.maxSelections}.`);
+  setMessage("investigationVoteStatus", `${ballot.title || "Help choose the next investigation"}  -  select up to ${ballot.maxSelections}.`);
   options.replaceChildren();
   (ballot.candidates || []).forEach(candidate => {
     const label = document.createElement("label");
@@ -261,7 +277,7 @@ function renderBallot() {
     title.textContent = candidate.title;
     const meta = document.createElement("small");
     meta.className = "topic-meta block mt-1";
-    meta.textContent = `${candidate.id} Â· ${candidate.category || "Research candidate"}`;
+    meta.textContent = `${candidate.id}  |  ${candidate.category || "Research candidate"}`;
     text.append(title, meta);
     label.append(checkbox, text);
     options.append(label);
@@ -295,8 +311,104 @@ function updateAuthControls(user) {
   if (ballot && !googleUser) setMessage("investigationVoteMessage", "Browsing is public. Google sign-in is required only to save a vote.");
 }
 
-async function signInForVoting() {
-  setMessage("investigationVoteMessage", "Opening Google sign-in...");
+function updateSuggestionControls(user) {
+  const signIn = el("investigationSuggestionSignInBtn");
+  const signOutButton = el("investigationSuggestionSignOutBtn");
+  const form = el("investigationSuggestionForm");
+  const googleUser = isGoogleUser(user);
+  if (signIn) signIn.hidden = googleUser;
+  if (signOutButton) signOutButton.hidden = !googleUser;
+  if (form) form.hidden = !googleUser;
+  if (!googleUser) {
+    setMessage("investigationSuggestionMessage", "Google sign-in is required to submit and view your private suggestions.");
+    renderSuggestionListMessage("Sign in to view your private suggestions.");
+  }
+}
+
+function renderSuggestionListMessage(message) {
+  const list = el("investigationSuggestionList");
+  if (!list) return;
+  const state = document.createElement("div");
+  state.className = "hg-empty";
+  state.textContent = message;
+  list.replaceChildren(state);
+}
+
+function formatSuggestionDate(value) {
+  try {
+    return value?.toDate?.().toLocaleDateString() || "Just submitted";
+  } catch {
+    return "Submitted";
+  }
+}
+
+function renderSuggestions(suggestions) {
+  const list = el("investigationSuggestionList");
+  if (!list) return;
+  list.replaceChildren();
+  if (!suggestions.length) {
+    renderSuggestionListMessage("You have not submitted any suggestions yet.");
+    return;
+  }
+
+  suggestions.forEach(suggestion => {
+    const card = document.createElement("article");
+    card.className = "topic-card";
+
+    const meta = document.createElement("div");
+    meta.className = "topic-meta";
+    meta.textContent = `${formatSuggestionDate(suggestion.createdAt)} | Status: ${suggestion.status || "submitted"}`;
+
+    const title = document.createElement("h3");
+    title.className = "font-semibold text-slate-100 mt-1";
+    title.textContent = suggestion.topic;
+
+    card.append(meta, title);
+
+    if (suggestion.why) {
+      const why = document.createElement("p");
+      why.className = "text-sm text-slate-300 mt-2";
+      why.textContent = suggestion.why;
+      card.append(why);
+    }
+
+    if (suggestion.status === "submitted") {
+      const withdraw = document.createElement("button");
+      withdraw.type = "button";
+      withdraw.className = "ui-btn mt-3";
+      withdraw.dataset.withdrawSuggestion = suggestion.id;
+      withdraw.textContent = "Withdraw suggestion";
+      card.append(withdraw);
+    }
+
+    list.append(card);
+  });
+}
+
+async function loadOwnSuggestions(user) {
+  const requestId = ++suggestionLoadRequest;
+  if (!isGoogleUser(user)) {
+    renderSuggestionListMessage("Sign in to view your private suggestions.");
+    return;
+  }
+
+  renderSuggestionListMessage("Loading your private suggestions...");
+  try {
+    const suggestionsQuery = query(
+      collection(db, "investigationSuggestionUsers", user.uid, "suggestions"),
+      orderBy("createdAt", "desc")
+    );
+    const snapshot = await getDocs(suggestionsQuery);
+    if (requestId !== suggestionLoadRequest || !activeRoot || auth.currentUser?.uid !== user.uid) return;
+    renderSuggestions(snapshot.docs.map(item => ({ id: item.id, ...item.data() })));
+  } catch (error) {
+    console.error("Suggestion load failed", error);
+    if (requestId === suggestionLoadRequest) renderSuggestionListMessage("Your private suggestions could not be loaded.");
+  }
+}
+
+async function signInWithGoogle(messageId = "investigationVoteMessage") {
+  setMessage(messageId, "Opening Google sign-in...");
   const provider = new GoogleAuthProvider();
   try {
     if (auth.currentUser?.isAnonymous) {
@@ -311,7 +423,7 @@ async function signInForVoting() {
       return;
     }
     console.error("Google sign-in failed", error);
-    setMessage("investigationVoteMessage", "Google sign-in was not completed. Please allow the sign-in window and try again.");
+    setMessage(messageId, "Google sign-in was not completed. Please allow the sign-in window and try again.");
   }
 }
 
@@ -326,7 +438,7 @@ function enforceVoteLimit(changedCheckbox) {
 
 async function saveVote() {
   const user = auth.currentUser;
-  if (!ballot || !isGoogleUser(user)) { await signInForVoting(); return; }
+  if (!ballot || !isGoogleUser(user)) { await signInWithGoogle(); return; }
   const topicIds = Array.from(activeRoot.querySelectorAll("input[data-vote-topic]:checked"), input => input.value);
   if (!topicIds.length) { setMessage("investigationVoteMessage", "Select at least one topic before saving."); return; }
   if (topicIds.length > ballot.maxSelections) { setMessage("investigationVoteMessage", `Select no more than ${ballot.maxSelections} topics.`); return; }
@@ -343,6 +455,68 @@ async function saveVote() {
   } catch (error) {
     console.error("Vote save failed", error);
     setMessage("investigationVoteMessage", "Your vote could not be saved. Please try again.");
+  }
+}
+
+async function submitSuggestion(event) {
+  event.preventDefault();
+  const user = auth.currentUser;
+  if (!isGoogleUser(user)) {
+    await signInWithGoogle("investigationSuggestionMessage");
+    return;
+  }
+
+  const topic = String(el("investigationSuggestionTopic")?.value || "").trim();
+  const why = String(el("investigationSuggestionWhy")?.value || "").trim();
+  const evidence = String(el("investigationSuggestionEvidence")?.value || "").trim();
+  const context = String(el("investigationSuggestionContext")?.value || "").trim();
+  if (!topic) {
+    setMessage("investigationSuggestionMessage", "Please enter a proposed question or topic.");
+    el("investigationSuggestionTopic")?.focus();
+    return;
+  }
+
+  const submitButton = el("investigationSuggestionSubmitBtn");
+  if (submitButton) submitButton.disabled = true;
+  setMessage("investigationSuggestionMessage", "Submitting privately...");
+
+  try {
+    await addDoc(collection(db, "investigationSuggestionUsers", user.uid, "suggestions"), {
+      uid: user.uid,
+      topic,
+      why,
+      evidence,
+      context,
+      status: "submitted",
+      createdAt: serverTimestamp()
+    });
+    el("investigationSuggestionForm")?.reset();
+    setMessage("investigationSuggestionMessage", "Your private suggestion was submitted.");
+    await loadOwnSuggestions(user);
+  } catch (error) {
+    console.error("Suggestion submit failed", error);
+    setMessage("investigationSuggestionMessage", "Your suggestion could not be submitted. Please try again.");
+  } finally {
+    if (submitButton) submitButton.disabled = false;
+  }
+}
+
+async function withdrawSuggestion(suggestionId) {
+  const user = auth.currentUser;
+  if (!isGoogleUser(user) || !suggestionId) return;
+  if (!window.confirm("Withdraw this suggestion? It will remain in your private submission history.")) return;
+
+  setMessage("investigationSuggestionMessage", "Withdrawing suggestion...");
+  try {
+    await updateDoc(doc(db, "investigationSuggestionUsers", user.uid, "suggestions", suggestionId), {
+      status: "withdrawn",
+      withdrawnAt: serverTimestamp()
+    });
+    setMessage("investigationSuggestionMessage", "The suggestion was withdrawn.");
+    await loadOwnSuggestions(user);
+  } catch (error) {
+    console.error("Suggestion withdrawal failed", error);
+    setMessage("investigationSuggestionMessage", "The suggestion could not be withdrawn. Please try again.");
   }
 }
 
@@ -367,13 +541,23 @@ async function initInvestigationsCard(root = document) {
   el("topicBacklogCategory")?.addEventListener("change", applyBacklogFilters, { signal });
   el("topicBacklogMore")?.addEventListener("click", () => { visibleTopicCount += PAGE_SIZE; renderBacklog(); }, { signal });
   el("investigationVoteOptions")?.addEventListener("change", event => { if (event.target.matches("input[data-vote-topic]")) enforceVoteLimit(event.target); }, { signal });
-  el("investigationSignInBtn")?.addEventListener("click", signInForVoting, { signal });
+  el("investigationSignInBtn")?.addEventListener("click", () => signInWithGoogle(), { signal });
   el("investigationSaveVoteBtn")?.addEventListener("click", saveVote, { signal });
   el("investigationSignOutBtn")?.addEventListener("click", () => signOut(auth), { signal });
+  el("investigationSuggestionSignInBtn")?.addEventListener("click", () => signInWithGoogle("investigationSuggestionMessage"), { signal });
+  el("investigationSuggestionSignOutBtn")?.addEventListener("click", () => signOut(auth), { signal });
+  el("investigationSuggestionForm")?.addEventListener("submit", submitSuggestion, { signal });
+  el("investigationSuggestionList")?.addEventListener("click", event => {
+    const button = event.target.closest("button[data-withdraw-suggestion]");
+    if (button) withdrawSuggestion(button.dataset.withdrawSuggestion);
+  }, { signal });
 
   authUnsubscribe = onAuthStateChanged(auth, user => {
     updateAuthControls(user);
+    updateSuggestionControls(user);
     if (ballot) loadOwnVote(user);
+    const suggestionPanel = activeRoot?.querySelector('[data-investigation-panel="suggest"]');
+    if (isGoogleUser(user) && suggestionPanel && !suggestionPanel.hidden) loadOwnSuggestions(user);
   });
 
   if (window.pendingInvestigationFile) {
@@ -393,6 +577,7 @@ function destroyInvestigationsCard() {
   activeRoot = null;
   ballot = null;
   currentVoteIds = new Set();
+  suggestionLoadRequest += 1;
 }
 
 window.initInvestigationsCard = initInvestigationsCard;
