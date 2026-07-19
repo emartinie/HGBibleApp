@@ -276,29 +276,10 @@
     .assessment { border-left: 4px solid var(--green); }
     .question-list li { margin-bottom: 9px; }
 
-    .evidence-table {
-      width: 100%;
-      margin-top: 16px;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 14px;
-    }
-
-    .evidence-table th,
-    .evidence-table td {
-      padding: 12px 13px;
-      border: 1px solid var(--line);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .evidence-table th {
-      background: rgba(242,198,109,.09);
-      color: #fff0c8;
-      font-size: .82rem;
-      letter-spacing: .03em;
-      text-transform: uppercase;
-    }
+    .evidence-sections { margin-top: 16px; }
+    .evidence-card h3 { color: #fff0c8; font-size: 1.12rem; }
+    .evidence-field { margin: .65rem 0 0; }
+    .evidence-field strong { color: var(--cyan); }
 
     .dependency {
       display: grid;
@@ -326,7 +307,6 @@
       .article-shell { width: min(100% - 18px, 1040px); padding-top: 10px; }
       .hero { min-height: 330px; padding: 26px 20px; border-radius: 20px; }
       .section { padding: 20px 17px; }
-      .evidence-table { display: block; overflow-x: auto; }
     }
   </style>
 </head>
@@ -470,52 +450,43 @@
   <section class="section">
     <span class="status primary">Chronological clues</span>
     <h2>2. Which clues can constrain the date?</h2>
-    <table class="evidence-table">
-      <thead>
-        <tr>
-          <th>Clue</th>
-          <th>What is explicit</th>
-          <th>What must be inferred or reconstructed</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Herod the Great</td>
-          <td>Yeshua was born before Herod’s death in Matthew’s sequence.</td>
-          <td>The calendar year of Herod’s death and the interval between the birth, the Magi, Egypt, and Herod’s death.</td>
-        </tr>
-        <tr>
-          <td>The star and Magi</td>
-          <td>The Magi saw a sign they called “his star”; Herod learned its time from them.</td>
-          <td>The object’s identity, first appearance, duration, motion, and connection to a particular astronomical event.</td>
-        </tr>
-        <tr>
-          <td>Herod’s two-year order</td>
-          <td>The order used a two-year-and-under range related to information from the Magi.</td>
-          <td>Whether the range reflects Yeshua’s age, Herod’s caution, the star’s first appearance, or some combination.</td>
-        </tr>
-        <tr>
-          <td>Augustus and Quirinius</td>
-          <td>Luke links the birth to Augustus, a registration, and Quirinius.</td>
-          <td>Which administrative event Luke means and how it fits the known Syrian and Judean chronology.</td>
-        </tr>
-        <tr>
-          <td>Tiberius and “about thirty”</td>
-          <td>Luke dates John’s activity to Tiberius’s fifteenth year and calls Yeshua “about thirty.”</td>
-          <td>How broadly to read “about,” how to count Tiberius’s years, and the interval before Yeshua’s baptism.</td>
-        </tr>
-        <tr>
-          <td>Priestly service of Zechariah</td>
-          <td>Zechariah belonged to the division of Abijah; pregnancies and births follow in Luke 1.</td>
-          <td>The division’s service date in that particular year and whether an unbroken schedule can be reconstructed.</td>
-        </tr>
-        <tr>
-          <td>Shepherds at night</td>
-          <td>Shepherds were keeping watch outdoors when the announcement came.</td>
-          <td>What months this practice allows or excludes in the Bethlehem region.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="evidence-grid evidence-sections" role="list" aria-label="Clue evidence sections">
+      <article class="evidence-card" role="listitem">
+        <h3>Herod the Great</h3>
+        <p class="evidence-field"><strong>What is explicit:</strong> Yeshua was born before Herod’s death in Matthew’s sequence.</p>
+        <p class="evidence-field"><strong>What must be inferred or reconstructed:</strong> The calendar year of Herod’s death and the interval between the birth, the Magi, Egypt, and Herod’s death.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>The star and Magi</h3>
+        <p class="evidence-field"><strong>What is explicit:</strong> The Magi saw a sign they called “his star”; Herod learned its time from them.</p>
+        <p class="evidence-field"><strong>What must be inferred or reconstructed:</strong> The object’s identity, first appearance, duration, motion, and connection to a particular astronomical event.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Herod’s two-year order</h3>
+        <p class="evidence-field"><strong>What is explicit:</strong> The order used a two-year-and-under range related to information from the Magi.</p>
+        <p class="evidence-field"><strong>What must be inferred or reconstructed:</strong> Whether the range reflects Yeshua’s age, Herod’s caution, the star’s first appearance, or some combination.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Augustus and Quirinius</h3>
+        <p class="evidence-field"><strong>What is explicit:</strong> Luke links the birth to Augustus, a registration, and Quirinius.</p>
+        <p class="evidence-field"><strong>What must be inferred or reconstructed:</strong> Which administrative event Luke means and how it fits the known Syrian and Judean chronology.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Tiberius and “about thirty”</h3>
+        <p class="evidence-field"><strong>What is explicit:</strong> Luke dates John’s activity to Tiberius’s fifteenth year and calls Yeshua “about thirty.”</p>
+        <p class="evidence-field"><strong>What must be inferred or reconstructed:</strong> How broadly to read “about,” how to count Tiberius’s years, and the interval before Yeshua’s baptism.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Priestly service of Zechariah</h3>
+        <p class="evidence-field"><strong>What is explicit:</strong> Zechariah belonged to the division of Abijah; pregnancies and births follow in Luke 1.</p>
+        <p class="evidence-field"><strong>What must be inferred or reconstructed:</strong> The division’s service date in that particular year and whether an unbroken schedule can be reconstructed.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Shepherds at night</h3>
+        <p class="evidence-field"><strong>What is explicit:</strong> Shepherds were keeping watch outdoors when the announcement came.</p>
+        <p class="evidence-field"><strong>What must be inferred or reconstructed:</strong> What months this practice allows or excludes in the Bethlehem region.</p>
+      </article>
+    </div>
   </section>
 
   <section class="section">
@@ -651,52 +622,43 @@
       This claim should be tested with a reproducible astronomical calculation, not a screenshot whose settings are unknown.
       The civil calendar, year numbering, location, time of day, horizon, coordinate system, and visibility conditions must all be recorded.
     </p>
-    <table class="evidence-table">
-      <thead>
-        <tr>
-          <th>Body or feature</th>
-          <th>Claim to test</th>
-          <th>Evidence required</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Virgo</td>
-          <td>The woman can be represented by the constellation Virgo.</td>
-          <td>Constellation boundaries or ancient star figure used, plus the observer’s location and time.</td>
-        </tr>
-        <tr>
-          <td>Sun</td>
-          <td>The woman was “clothed with the sun.”</td>
-          <td>Solar longitude and position relative to Virgo across the proposed date window.</td>
-        </tr>
-        <tr>
-          <td>Moon</td>
-          <td>The moon was “under her feet.”</td>
-          <td>Lunar position hour by hour, including what counts as the figure’s feet and whether the moon was above the horizon.</td>
-        </tr>
-        <tr>
-          <td>Jupiter</td>
-          <td>Jupiter functioned as a royal or messianic planet and participated in the sign.</td>
-          <td>Its exact position, apparent motion, conjunctions, stations, visibility, and ancient interpretive basis.</td>
-        </tr>
-        <tr>
-          <td>Regulus</td>
-          <td>Jupiter’s relation to Regulus contributed royal symbolism.</td>
-          <td>Angular separations and dates for the full conjunction sequence, not only one selected frame.</td>
-        </tr>
-        <tr>
-          <td>Twelve-star crown</td>
-          <td>Stars and/or planets above Virgo supplied a crown of twelve.</td>
-          <td>A non-arbitrary count, with every included body named and the same counting rule applied consistently.</td>
-        </tr>
-        <tr>
-          <td>Calendar date</td>
-          <td>The configuration corresponds to September 11, 3 BC and possibly Tishri 1.</td>
-          <td>Documented conversion among astronomical year numbering, Julian dating, local sunset boundaries, and the reconstructed Hebrew calendar.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="evidence-grid evidence-sections" role="list" aria-label="Body or feature evidence sections">
+      <article class="evidence-card" role="listitem">
+        <h3>Virgo</h3>
+        <p class="evidence-field"><strong>Claim to test:</strong> The woman can be represented by the constellation Virgo.</p>
+        <p class="evidence-field"><strong>Evidence required:</strong> Constellation boundaries or ancient star figure used, plus the observer’s location and time.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Sun</h3>
+        <p class="evidence-field"><strong>Claim to test:</strong> The woman was “clothed with the sun.”</p>
+        <p class="evidence-field"><strong>Evidence required:</strong> Solar longitude and position relative to Virgo across the proposed date window.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Moon</h3>
+        <p class="evidence-field"><strong>Claim to test:</strong> The moon was “under her feet.”</p>
+        <p class="evidence-field"><strong>Evidence required:</strong> Lunar position hour by hour, including what counts as the figure’s feet and whether the moon was above the horizon.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Jupiter</h3>
+        <p class="evidence-field"><strong>Claim to test:</strong> Jupiter functioned as a royal or messianic planet and participated in the sign.</p>
+        <p class="evidence-field"><strong>Evidence required:</strong> Its exact position, apparent motion, conjunctions, stations, visibility, and ancient interpretive basis.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Regulus</h3>
+        <p class="evidence-field"><strong>Claim to test:</strong> Jupiter’s relation to Regulus contributed royal symbolism.</p>
+        <p class="evidence-field"><strong>Evidence required:</strong> Angular separations and dates for the full conjunction sequence, not only one selected frame.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Twelve-star crown</h3>
+        <p class="evidence-field"><strong>Claim to test:</strong> Stars and/or planets above Virgo supplied a crown of twelve.</p>
+        <p class="evidence-field"><strong>Evidence required:</strong> A non-arbitrary count, with every included body named and the same counting rule applied consistently.</p>
+      </article>
+      <article class="evidence-card" role="listitem">
+        <h3>Calendar date</h3>
+        <p class="evidence-field"><strong>Claim to test:</strong> The configuration corresponds to September 11, 3 BC and possibly Tishri 1.</p>
+        <p class="evidence-field"><strong>Evidence required:</strong> Documented conversion among astronomical year numbering, Julian dating, local sunset boundaries, and the reconstructed Hebrew calendar.</p>
+      </article>
+    </div>
 
     <details>
       <summary>Minimum reproducibility record</summary>
