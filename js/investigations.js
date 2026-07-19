@@ -171,8 +171,8 @@ function selectView(view) {
     panel.hidden = panel.dataset.investigationPanel !== view;
   });
   if (view === "backlog") loadBacklog();
-  if (view === "vote") loadBallot();
-  if (view === "suggest") {
+  if (view === "vote") {
+    loadBallot();
     updateSuggestionControls(auth.currentUser);
     if (isGoogleUser(auth.currentUser)) loadOwnSuggestions(auth.currentUser);
   }
@@ -556,7 +556,7 @@ async function initInvestigationsCard(root = document) {
     updateAuthControls(user);
     updateSuggestionControls(user);
     if (ballot) loadOwnVote(user);
-    const suggestionPanel = activeRoot?.querySelector('[data-investigation-panel="suggest"]');
+    const suggestionPanel = activeRoot?.querySelector('[data-investigation-panel="vote"]');
     if (isGoogleUser(user) && suggestionPanel && !suggestionPanel.hidden) loadOwnSuggestions(user);
   });
 
