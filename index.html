@@ -882,6 +882,46 @@
         gap: 8px;
       }
 
+      /*
+        Mobile card scrolling: the dynamic card owns the page-length scroll.
+        Long-form readers flow into it instead of trapping the gesture inside
+        a second short viewport.
+      */
+      #dynamicCard {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+        scroll-padding-bottom: calc(28px + env(safe-area-inset-bottom));
+      }
+
+      #dynamicCard #loadedCardHost {
+        min-height: 100%;
+        padding-bottom: calc(28px + env(safe-area-inset-bottom));
+      }
+
+      #dynamicCard .card-shell {
+        height: auto !important;
+        min-height: 100%;
+      }
+
+      #dynamicCard .card-body {
+        flex: 0 0 auto !important;
+        overflow-y: visible !important;
+      }
+
+      #dynamicCard :where(
+        .hg-reader,
+        .scripture-reader,
+        #scriptureContent,
+        #sefariaContent,
+        #commentaryContent,
+        #articleViewer,
+        #investigationViewer,
+        #listenArticle
+      ) {
+        max-height: none !important;
+        overflow-y: visible !important;
+      }
+
       .card:not(#mainStageCard) .card-topbar {
         max-height: 0 !important;
         min-height: 0 !important;
@@ -1774,7 +1814,7 @@
   <script type="module" src="js/mainstage.js?v=20260714-4"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
-  <script type="module" src="js/app.js?v=release1-20260717"></script>
+  <script type="module" src="js/app.js?v=release1-20260719-scroll-swipe-1"></script>
   <script src="js/about.js?v=release1-20260718" defer></script>
 <!--<script type="module" src="js/firebase-init.js"></script>
   <!--<script src="js/prayerStore.dev.js"></script>-->
