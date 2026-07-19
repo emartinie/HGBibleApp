@@ -472,6 +472,8 @@ function cleanupActiveCard() {
     cardLoadController?.abort();
     cardLoadController = null;
     let requestController = null;
+    const cardScrollHost = loadedCardHost.closest(".card");
+    if (cardScrollHost) cardScrollHost.scrollTop = 0;
     console.log("[CARD] render entry", { cardName, requestId });
 
     try {
