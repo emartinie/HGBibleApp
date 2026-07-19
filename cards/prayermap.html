@@ -61,6 +61,7 @@
   <p class="text-sm text-slate-300 mt-1">
     Gather, search, pray for each other and lift one another up.
   </p>
+  <p id="prayerMapStatus" class="text-sm text-slate-300 mt-1" role="status" aria-live="polite"></p>
 
   <div class="relative bg-slate-900/90 border border-slate-700 rounded-3xl shadow-2xl overflow-hidden">
     <div id="prayerMap" class="relative h-[480px] w-full z-10"></div>
@@ -70,10 +71,7 @@
     </div>
 
     <div class="absolute bottom-0 inset-x-0 z-30 bg-gradient-to-t from-black via-black/80 to-transparent p-6 text-center">
-      <div class="flex items-center justify-between gap-3 mb-3" aria-label="Map location controls">
-        <button id="midpointBtn" class="map-btn" type="button" title="Find midpoint" aria-label="Find midpoint">
-          ⚖️
-        </button>
+      <div class="flex items-center justify-end gap-3 mb-3" aria-label="Map location controls">
         <button id="prayerMapLocateBtn" class="map-btn" type="button" title="Locate me" aria-label="Locate me">
           📍
         </button>
@@ -83,23 +81,22 @@
         We gather here to lift one another up.
       </p>
 
-      <button
-        id="prayerMapAddBtn"
-        type="button"
-        class="mt-3 px-4 py-2 rounded-xl bg-orange-600/90 hover:bg-orange-600 text-white text-sm font-medium transition shadow-lg"
-      >
-        ✚ Prayer
-      </button>
-      <button id="requestHGBtn">
-       ✚ Listing
-</button>
-            <button
-        id="feastMapAddBtn"
-        type="button"
-        class="mt-3 px-4 py-2 rounded-xl bg-orange-600/90 hover:bg-orange-600 text-white text-sm font-medium transition shadow-lg"
-      >
-        ✚ Feast
-      </button>
+      <div class="mt-3 grid gap-2">
+        <button
+          id="prayerMapAddBtn"
+          type="button"
+          aria-describedby="prayerPrivacyNotice prayerLocationNotice"
+          class="px-4 py-2 rounded-xl bg-orange-600/90 hover:bg-orange-600 text-white text-sm font-medium transition shadow-lg"
+        >
+          ✚ Add Prayer
+        </button>
+        <p id="prayerPrivacyNotice" class="text-xs text-amber-100 leading-relaxed">
+          Prayer requests and approximate locations are public but semi-protected. Do not include private or identifying information.
+        </p>
+        <p id="prayerLocationNotice" class="text-xs text-slate-300">
+          Prayer locations are rounded to neighborhood level before storage and display. Google sign-in is required to submit.
+        </p>
+      </div>
     </div>
   </div>
 
@@ -132,36 +129,5 @@
       </button>
     </div>
   </div>
-
-    <!-- Feast Modal -->
-  <div
-    id="feastPorchPanel"
-    class="hidden fixed inset-0 z-50 bg-black/50 items-center justify-center"
-  >
-    <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-[90%] max-w-md text-center shadow-2xl">
-      <h2
-        id="feastPorchTitle"
-        class="text-xl font-semibold text-orange-300 mb-2"
-      >
-        Welcome. Add Feast
-      </h2>
-
-      <div
-        id="feastPorchMessage"
-        class="text-slate-300 leading-relaxed mb-4"
-      >
-        You're not alone here.
-      </div>
-
-      <button
-        id="feastPorchCloseBtn"
-        type="button"
-        class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white"
-      >
-        Close
-      </button>
-    </div>
-  </div>
-
 
 </section>
