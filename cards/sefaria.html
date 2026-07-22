@@ -1,255 +1,87 @@
-<style>
-  #sefariaContent {
-    width: 100%;
-    max-width: 100%;
-  }
+<section class="hg-panel jewish-library-card" aria-labelledby="jewishLibraryTitle">
+  <div class="card-topbar">
+    <button class="card-fullscreen-btn card-icon-btn primary" type="button" title="Expand Card" aria-label="Expand Jewish Library">⛶</button>
+  </div>
 
-  .sefaria-interlinear {
-    display: grid;
-    width: 100%;
-    gap: 0.9rem;
-  }
+  <section class="orientation-block hg-panel hg-section p-4 my-4">
+    <h2 id="jewishLibraryTitle" class="text-lg font-semibold text-amber-300">✡ Jewish Library</h2>
+    <p class="text-sm text-slate-300 mt-2">Search Jewish scripture, rabbinic literature, commentary, law, philosophy, and tradition.</p>
+    <p class="text-xs text-slate-400 mt-2">Powered by Sefaria. Results stay within Sefaria’s Jewish textual library.</p>
+  </section>
 
-  .sefaria-verse {
-    display: grid;
-    grid-template-columns: 3rem minmax(0, 1fr);
-    gap: 0.85rem;
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    border-radius: 0.85rem;
-    background: rgba(15, 23, 42, 0.72);
-  }
+  <div class="p-5 space-y-5 text-slate-100">
+    <form id="jewishLibrarySearchForm" class="space-y-3">
+      <label class="block">
+        <span class="block text-xs text-slate-400 mb-1">Search the Jewish library</span>
+        <input id="jewishLibraryQuery" type="search" autocomplete="off"
+          placeholder="Try covenant, שבת, Moses, or a phrase"
+          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm" />
+      </label>
 
-  .sefaria-verse-ref {
-    color: rgb(251 191 36);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-  }
+      <div class="grid gap-3 sm:grid-cols-3">
+        <label class="block">
+          <span class="block text-xs text-slate-400 mb-1">Collection</span>
+          <select id="jewishLibraryCategory" class="ui-select w-full">
+            <option value="">Entire Jewish Library</option>
+            <option value="Tanakh">Tanakh</option>
+            <option value="Tanakh/Torah">Torah</option>
+            <option value="Tanakh/Prophets">Nevi’im — Prophets</option>
+            <option value="Tanakh/Writings">Ketuvim — Writings</option>
+            <option value="Commentary">Jewish Commentary</option>
+            <option value="Midrash">Midrash</option>
+            <option value="Mishnah">Mishnah</option>
+            <option value="Tosefta">Tosefta</option>
+            <option value="Talmud">Talmud</option>
+            <option value="Halakhah">Halakhah</option>
+            <option value="Jewish Thought">Jewish Philosophy & Thought</option>
+            <option value="Chasidut">Chasidut</option>
+            <option value="Kabbalah">Kabbalah</option>
+            <option value="Liturgy">Liturgy</option>
+            <option value="Sheets">Source Sheets</option>
+          </select>
+        </label>
 
-  .sefaria-language-pair {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
-    min-width: 0;
-  }
+        <label class="block">
+          <span class="block text-xs text-slate-400 mb-1">Language</span>
+          <select id="jewishLibraryLanguage" class="ui-select w-full">
+            <option value="both">Hebrew + English</option>
+            <option value="english">English</option>
+            <option value="hebrew">Hebrew</option>
+          </select>
+        </label>
 
-  .sefaria-language {
-    min-width: 0;
-  }
-
-  .sefaria-language-label {
-    margin-bottom: 0.35rem;
-    color: rgb(148 163 184);
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .sefaria-language-text {
-    overflow-wrap: anywhere;
-  }
-
-  .sefaria-english .sefaria-language-text {
-    color: rgb(241 245 249);
-    font-size: 1rem;
-    line-height: 1.75;
-  }
-
-  .sefaria-hebrew {
-    text-align: right;
-  }
-
-  .sefaria-hebrew .sefaria-language-label {
-    text-transform: none;
-  }
-
-  .sefaria-hebrew .sefaria-language-text {
-    color: rgb(147 197 253);
-    font-family: "Times New Roman", "Noto Serif Hebrew", serif;
-    font-size: 1.35rem;
-    line-height: 1.95;
-  }
-
-  .sefaria-unavailable {
-    color: rgb(148 163 184);
-    font-style: italic;
-  }
-
-  @media (min-width: 860px) {
-    .sefaria-language-pair {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 1.5rem;
-    }
-  }
-
-  @media (max-width: 520px) {
-    .sefaria-verse {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-</style>
-<section class="hg-panel">
-<div class="card-topbar">
-
-  <!-- existing fullscreen -->
-  <button class="card-fullscreen-btn card-icon-btn primary"
-          title="Expand Card">⛶</button>
-
-  <button class="card-icon-btn nav" title="Home">⌂</button>
-  <button class="card-icon-btn nav" title="Previous">←</button>
-  <button class="card-icon-btn nav" title="Next">→</button>
-
-  <button class="card-icon-btn audio" title="Audio Guide">🎧</button>
-  <button class="card-icon-btn audio" title="Video Walkthrough">▶</button>
-
-  <button class="card-icon-btn utility" title="Search Card">⌕</button>
-  <button class="card-icon-btn utility" title="Bookmark">★</button>
-  <button class="card-icon-btn utility" title="Share">⇪</button>
-  <button class="card-icon-btn utility" title="Notes">✎</button>
-  <button class="card-icon-btn utility" title="Help">?</button>
-
-</div>
-<details class="orientation-block hg-panel hg-section p-4 my-4">
-  <summary class="cursor-pointer text-lg font-semibold text-amber-300">
-    Read the Tanakh in Hebrew and English</summary>
-  <p class="text-sm text-slate-300 mt-2">This card aligns the Hebrew text with an English translation from Sefaria so each verse can be studied in its original-language context.</p>
-  <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Read the English and Hebrew together, verse by verse. The passage follows the reference handed off from MainStage or Scripture Search.</p>
-</details>
-<!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
-<!-- Temporary nav triage: hidden because secondary/tertiary nav controls are currently unreliable. -->
-         <div class="card-topbar scripture-subnav" style="display: none;">
-
-  <button class="card-icon-btn scripture" id="scriptureSearchBtn" title="Search">
-    ⌕
-  </button>
-
-  <button class="card-icon-btn scripture" id="scriptureReloadBtn" title="Reload">
-    ↻
-  </button>
-
-  <button class="card-icon-btn scripture" id="scripturePrevBtn" title="Previous Verse">
-    ←
-  </button>
-
-  <button class="card-icon-btn scripture" id="scriptureNextBtn" title="Next Verse">
-    →
-  </button>
-
-  <button class="card-icon-btn scripture" id="copyScriptureBtn" title="Copy">
-    ⧉
-  </button>
-
-  <button class="card-icon-btn scripture"
-          onclick="document.getElementById('scriptureContent').scrollTop = 0"
-          title="Top">
-    ↑
-  </button>
-
-  <button class="card-icon-btn scripture" onclick="goToNT()" title="New Testament">
-    ✝
-  </button>
-
-  <button class="card-icon-btn scripture" onclick="goBackToCommandments()" title="Commandments">
-    ⌘
-  </button>
-
-  <button class="card-icon-btn scripture" id="openBridgeBtn" title="Related Context">
-    ⛓
-  </button>
-
-  <button class="card-icon-btn scripture" id="openSefariaContextBtn" title="Jewish Context">
-    ✡
-  </button>
-
-  <button class="card-icon-btn scripture" id="ntHomeHeaderBtn" title="Notes">
-    ☰
-  </button>
-
-  <button class="card-icon-btn scripture" id="ntQuotesHeaderBtn" title="Quotes">
-    ❝
-  </button>
-
-</div>
-  <div class="w-full max-w-full p-5 space-y-4 text-slate-100">
-
-    <div class="flex items-center justify-between gap-3 flex-wrap">
-      <!--<h2 class="text-xl font-semibold text-orange-300">📚 Writings from Sages</h2>-->
-
-      <div class="flex items-center gap-2 flex-wrap">
-        <button id="sefariaPrevBtn" class="ui-btn" type="button">← Prev</button>
-        <button id="sefariaNextBtn" class="ui-btn" type="button">Next →</button>
-      </div>
-    </div>
-     
-    <div class="text-xs text-slate-500 italic">
-      Source: Sefaria · Hebrew and English aligned by verse
-    </div>
-
-    <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
-
-      <div class="hidden">
-  <input id="sefariaSearch" type="text" value="Genesis 1" />
-  <button id="sefariaSearchBtn" type="button">Go</button>
-</div>
-    </div>
-      <!--<div>
-        <label class="block text-xs text-slate-400 mb-1">Reference</label>
-        <input
-          id="sefariaSearch"
-          type="text"
-          value="Genesis 1"
-          placeholder="Genesis 1, Exodus 3, Psalms 23"
-          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm"
-        />
-      </div>-->
-
-      <!--<div class="flex items-end">
-        <button id="sefariaSearchBtn" class="ui-btn w-full sm:w-auto" type="button">
-          Go
-        </button>
-      </div>
-    </div>-->
-
-    <div class="grid gap-3 sm:grid-cols-3">
-      <div>
-        <label class="block text-xs text-slate-400 mb-1">Book</label>
-        <input
-          id="sefariaBook"
-          value="Genesis"
-          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm"
-        />
+        <label class="flex items-end gap-2 pb-2 text-sm text-slate-300">
+          <input id="jewishLibraryExact" type="checkbox" class="accent-amber-400" />
+          Exact phrase
+        </label>
       </div>
 
-      <div>
-        <label class="block text-xs text-slate-400 mb-1">Chapter</label>
-        <input
-          id="sefariaChapter"
-          type="number"
-          min="1"
-          value="1"
-          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm"
-        />
-      </div>
+      <button class="ui-btn w-full sm:w-auto" type="submit">Search Jewish Library</button>
+    </form>
 
-      <div class="flex items-end">
-        <button id="sefariaLoadBtn" class="ui-btn w-full" type="button">
-          Load Text
-        </button>
+    <div class="border-t border-slate-700 pt-4">
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <h3 class="text-sm font-semibold text-amber-200">Read or explore a reference</h3>
+        <div class="flex gap-2">
+          <button id="sefariaPrevBtn" class="ui-btn" type="button" aria-label="Previous chapter">←</button>
+          <button id="sefariaNextBtn" class="ui-btn" type="button" aria-label="Next chapter">→</button>
+        </div>
+      </div>
+      <form id="sefariaReferenceForm" class="grid gap-3 sm:grid-cols-[1fr_auto] mt-3">
+        <input id="sefariaReference" type="text" value="Genesis 1"
+          placeholder="Genesis 1, Berakhot 2a, Rashi on Genesis 1:1"
+          class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm" />
+        <button class="ui-btn" type="submit">Load Text</button>
+      </form>
+      <div class="flex gap-2 flex-wrap mt-3">
+        <button id="sefariaConnectionsBtn" class="ui-btn" type="button">Explore Connections</button>
+        <a id="sefariaOpenBtn" class="ui-btn" href="https://www.sefaria.org/Genesis.1" target="_blank" rel="noopener noreferrer">Open in Sefaria ↗</a>
       </div>
     </div>
 
-      
-  <div id="sefariaMeta" class="text-sm text-slate-400"></div>  
-
-    <div
-      id="sefariaContent"
-      class="hg-reader bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[70vh] overflow-y-auto text-sm leading-relaxed"
-    >
-      <div class="hg-empty">Ready.</div>
+    <div id="sefariaMeta" class="text-sm text-slate-400" role="status" aria-live="polite"></div>
+    <div id="sefariaContent" class="hg-reader bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[70vh] overflow-y-auto text-sm leading-relaxed">
+      <div class="hg-empty">Enter a word, phrase, topic, person, place, or reference.</div>
     </div>
-
   </div>
 </section>
