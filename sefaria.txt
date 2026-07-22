@@ -1,1 +1,453 @@
+Scripture
+Torah
+Nevi'im (Prophets)
+Ketuvim (Writings)
+Entire Tanakh
+Verse-by-verse text
+Chapter text
+Multiple English translations
+Multiple Hebrew versions
+Side-by-side Hebrew/English
+Vocalized Hebrew
+Unvocalized Hebrew
+Verse numbering
+Original Languages
+Hebrew text
+Aramaic text
+Cantillation marks
+Vowel points
+Hebrew-only display
+English-only display
+Parallel display
+Jewish Commentary
+Classic
+Rashi
+Ramban (Nachmanides)
+Ibn Ezra
+Sforno
+Rashbam
+Radak
+Abarbanel
+Chizkuni
+Bekhor Shor
+Or HaChaim
+Kli Yakar
+Malbim
+Metzudat David
+Metzudat Zion
+Da'at Zekenim
+Baal HaTurim
 
+(and hundreds more)
+
+Midrash
+Genesis Rabbah
+Exodus Rabbah
+Leviticus Rabbah
+Numbers Rabbah
+Deuteronomy Rabbah
+Midrash Tanchuma
+Pirkei deRabbi Eliezer
+Sifrei
+Mekhilta
+Sifra
+Pesikta
+Yalkut Shimoni
+Mishnah
+
+Entire Mishnah
+
+Every order
+
+Every tractate
+
+Every chapter
+
+Commentaries
+
+Talmud
+
+Babylonian Talmud
+
+Jerusalem Talmud
+
+Every tractate
+
+Every daf
+
+Commentaries
+
+Cross references
+
+Halakhah
+
+Mishneh Torah
+
+Shulchan Arukh
+
+Tur
+
+Arba'ah Turim
+
+Sefer HaChinukh
+
+Sefer HaMitzvot
+
+Philosophy
+
+Guide for the Perplexed
+
+Kuzari
+
+Duties of the Heart
+
+Eight Chapters
+
+Moreh Nevukhim
+
+Many others
+
+Kabbalah
+
+Zohar
+
+Sefer Yetzirah
+
+Bahir
+
+Pardes Rimmonim
+
+Pri Etz Chaim
+
+Likutei Torah
+
+Etc.
+
+Chasidut
+
+Tanya
+
+Likutei Moharan
+
+Sefat Emet
+
+Mei HaShiloach
+
+Degel Machaneh Ephraim
+
+Hundreds more
+
+Liturgy
+
+Siddur
+
+Machzor
+
+Prayers
+
+Blessings
+
+Psalms
+
+Daily readings
+
+Holiday prayers
+
+Tosefta
+
+Complete Tosefta
+
+Dead Sea Scroll Related
+
+Selected texts
+
+Translations
+
+References
+
+Apocrypha (selected)
+
+Ben Sira
+
+Judith
+
+Tobit
+
+Maccabees (depending on edition)
+
+Calendars
+
+Torah portions
+
+Haftarot
+
+Holiday readings
+
+Fast days
+
+Special Sabbaths
+
+Daily study schedules
+
+Torah Portions
+
+Weekly portion
+
+Aliyot
+
+Haftarah
+
+Commentary
+
+Related texts
+
+Custom calendars
+
+Cross References
+
+Perhaps the biggest feature.
+
+Every verse can expose:
+
+quotations
+allusions
+parallels
+echoes
+legal references
+commentary references
+Midrash references
+Talmud references
+Link Graph
+
+This is huge.
+
+Sefaria has millions of links.
+
+Verse →
+
+↓
+
+Commentary
+
+↓
+
+Midrash
+
+↓
+
+Mishnah
+
+↓
+
+Talmud
+
+↓
+
+Later commentary
+
+↓
+
+Modern commentary
+
+You can literally traverse Jewish interpretation across nearly two thousand years.
+
+Topics
+
+People
+
+Places
+
+Objects
+
+Themes
+
+Ideas
+
+Festivals
+
+Laws
+
+Animals
+
+Plants
+
+Nations
+
+Concepts
+
+Named People
+
+Abraham
+
+Moses
+
+David
+
+Isaiah
+
+Rabbi Akiva
+
+Hillel
+
+Shammai
+
+Thousands more
+
+Places
+
+Jerusalem
+
+Sinai
+
+Babylon
+
+Hebron
+
+Bethel
+
+Etc.
+
+Search
+
+Full-text search
+
+Hebrew search
+
+English search
+
+Commentary search
+
+Phrase search
+
+Author search
+
+Collections
+
+User-created sheets
+
+Study collections
+
+Educational material
+
+Reading plans
+
+Source Sheets
+
+Probably the single coolest feature.
+
+Anyone can build:
+
+Verse
+
+↓
+
+Commentary
+
+↓
+
+Midrash
+
+↓
+
+Modern article
+
+↓
+
+Personal notes
+
+↓
+
+Questions
+
+↓
+
+Discussion
+
+Exactly what HomeGroups wants to do.
+
+Connections API
+
+For every verse you can request
+
+Commentaries
+
+Parallel passages
+
+Midrash
+
+Talmud
+
+Links
+
+Topics
+
+Metadata
+
+Book names
+
+Hebrew titles
+
+Categories
+
+Order
+
+Chapter count
+
+Verse count
+
+Authors
+
+Dates
+
+Language
+
+Text Versions
+
+Different translators
+
+Different Hebrew editions
+
+Historical editions
+
+Licensing
+
+Much of Sefaria's content is openly licensed, making it suitable for integration (subject to the specific license for each text).
+
+What I think HomeGroups should pull
+
+If I were prioritizing for your app, I'd focus on:
+
+Weekly Torah portion
+Hebrew text
+English translation
+All available classic commentaries
+Cross references
+Topics
+People
+Places
+Link graph
+Parallel passages
+Midrash
+Mishnah references
+Talmud references
+Halakhic references
+Related verses
+Calendar metadata
+Aliyot
+Haftarah
+Daily study schedules
+Source Sheets (as examples, not user dependency)
+Book/chapter/verse metadata
+What I would not pull into HomeGroups
+
+To keep the experience focused, I'd avoid making the app a mirror of Sefaria. I would leave out or defer:
+
+Full Siddur and prayer books
+Most Kabbalistic works
+Deep Halakhic libraries
+Thousands of niche commentaries
+Advanced academic collections
+User account features
+User-generated Source Sheets (except curated examples)
+
+The sweet spot, in my opinion, is using Sefaria as a Jewish knowledge engine rather than as another reading website. HomeGroups becomes the guided experience that surfaces exactly the right Jewish context—commentary, Midrash, cross-references, topics, people, and calendar connections—at the moment the reader needs them, instead of requiring them to sift through thousands of linked texts. That plays to the strengths of both platforms.
