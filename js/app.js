@@ -33,6 +33,7 @@ console.log("APP JS RUN ID:", Date.now());
   let currentCardIndex = 0;
   let loadedScript = null;
   let loadCardRequestId = 0;
+  let cardLoadController = null;
   let scrollSyncBound = false;
   let activeCardName = null;
   let appInitialized = false;
@@ -57,7 +58,8 @@ console.log("APP JS RUN ID:", Date.now());
 
   const MODULE_CARDS = new Set([
     "prayermap",
-    "commentary"
+    "commentary",
+    "investigations"
   ]);
 
   const CARD_LIFECYCLE = {
@@ -97,7 +99,10 @@ function refreshDomRefs() {
 // CARD NAVIGATION
 // =====================
 function getCards() {
-  return Array.from(document.querySelectorAll(".card"));
+  if (!cardsRow) return [];
+
+  return Array.from(cardsRow.children)
+    .filter(card => card.classList.contains("card"));
 }
 
 function goToCard(index) {
@@ -194,8 +199,8 @@ function wireCardNavButtons() {
       const horizontalDistance = Math.abs(deltaX);
       const verticalDistance = Math.abs(deltaY);
 
-      if (horizontalDistance < 60) return;
-      if (horizontalDistance <= verticalDistance * 1.25) return;
+      if (horizontalDistance < 48) return;
+      if (horizontalDistance <= verticalDistance * 1.15) return;
 
       stepCardSelector(deltaX < 0 ? 1 : -1);
     });
@@ -373,6 +378,83 @@ function cleanupActiveCard() {
   // =====================
 // SCRIPT LOADER (UNIFIED)
 // =====================
+  function isExternalCardValue(cardName) {
+    return typeof cardName === "string" && cardName.startsWith("url:");
+  }
+
+  function getExternalCardUrl(cardName) {
+    const rawUrl = cardName.slice(4).trim();
+    const url = new URL(rawUrl, window.location.href);
+
+    if (url.protocol !== "https:" && url.protocol !== "http:") {
+      throw new Error("Prototype URL must use http or https.");
+    }
+
+    return url;
+  }
+
+  function renderExternalCard(cardName, requestId) {
+    const url = getExternalCardUrl(cardName);
+    const matchingOption = cardSelector
+      ? Array.from(cardSelector.options).find(option => option.value === cardName)
+      : null;
+    const title = matchingOption?.textContent?.trim() || "Prototype";
+
+    const shell = document.createElement("section");
+    shell.className = "hg-panel";
+    shell.style.cssText = "width:100%;min-width:0;padding:10px;display:grid;gap:10px;";
+
+    const toolbar = document.createElement("div");
+    toolbar.style.cssText = "display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;";
+
+    const heading = document.createElement("strong");
+    heading.textContent = title;
+    heading.style.cssText = "min-width:0;overflow-wrap:anywhere;";
+
+    const openLink = document.createElement("a");
+    openLink.href = url.href;
+    openLink.target = "_blank";
+    openLink.rel = "noopener noreferrer";
+    openLink.className = "ui-btn";
+    openLink.textContent = "Open full page ↗";
+    openLink.setAttribute("aria-label", `Open ${title} in a new tab`);
+
+    const frameStatus = document.createElement("span");
+    frameStatus.className = "text-xs text-slate-400";
+    frameStatus.textContent = "Loading prototype…";
+    frameStatus.setAttribute("aria-live", "polite");
+
+    const frame = document.createElement("iframe");
+    frame.src = url.href;
+    frame.title = title;
+    frame.loading = "eager";
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.allow = "fullscreen; clipboard-write";
+    frame.style.cssText = "display:block;width:100%;height:clamp(520px,72vh,900px);min-width:0;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:#020617;";
+
+    frame.addEventListener("load", () => {
+      if (requestId === loadCardRequestId) {
+        frameStatus.textContent = "Prototype loaded";
+      }
+    });
+
+    toolbar.append(heading, frameStatus, openLink);
+    shell.append(toolbar, frame);
+    loadedCardHost.replaceChildren(shell);
+    activeCardName = cardName;
+
+    requestAnimationFrame(() => {
+      wireCardNavButtons();
+      syncCurrentCardOnScroll();
+    });
+
+    console.log("[CARD] external prototype rendered", {
+      cardName,
+      requestId,
+      url: url.href
+    });
+  }
+
   async function loadCard(cardName) {
     refreshDomRefs();
     if (!loadedCardHost || !cardName) return;
@@ -387,14 +469,31 @@ function cleanupActiveCard() {
     }
 
     const requestId = ++loadCardRequestId;
+    cardLoadController?.abort();
+    cardLoadController = null;
+    let requestController = null;
+    const cardScrollHost = loadedCardHost.closest(".card");
+    if (cardScrollHost) cardScrollHost.scrollTop = 0;
     console.log("[CARD] render entry", { cardName, requestId });
 
     try {
       cleanupActiveCard();
-      loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
 
-      const res = await fetch(`cards/${cardName}.html?v=${Date.now()}`, {
-        cache: "no-store"
+      if (isExternalCardValue(cardName)) {
+        renderExternalCard(cardName, requestId);
+        console.log("[CARD] render completion", { cardName, requestId });
+        goToCard(1);
+        return;
+      }
+
+      loadedCardHost.innerHTML = `<div class="empty-state">Loading ${cardName}...</div>`;
+      goToCard(1);
+
+      requestController = new AbortController();
+      cardLoadController = requestController;
+      const res = await fetch(`cards/${cardName}.html`, {
+        cache: "no-cache",
+        signal: requestController.signal
       });
       if (!res.ok) throw new Error(`Could not load cards/${cardName}.html`);
 
@@ -416,14 +515,6 @@ function cleanupActiveCard() {
         syncCurrentCardOnScroll();
       });
 
-      if (cardName === "prayermap") {
-  await loadExtraScript("js/prayerStore.dev.js");
-  if (requestId !== loadCardRequestId) {
-    console.log("[CARD] stale render skipped", { cardName, requestId });
-    return;
-  }
-}
-
       await loadCardScript(cardName);
       if (requestId !== loadCardRequestId) {
         console.log("[CARD] stale init skipped", { cardName, requestId });
@@ -436,6 +527,10 @@ console.log("loadCard exists?", typeof window.loadCard);
       console.log("[CARD] render completion", { cardName, requestId });
       goToCard(1);
     } catch (err) {
+      if (err?.name === "AbortError") {
+        console.log("[CARD] superseded request stopped", { cardName, requestId });
+        return;
+      }
       if (requestId !== loadCardRequestId) {
         console.log("[CARD] stale failure skipped", { cardName, requestId });
         return;
@@ -446,6 +541,10 @@ console.log("loadCard exists?", typeof window.loadCard);
           Could not load <strong>${cardName}</strong>.
         </div>
       `;
+    } finally {
+      if (requestController && cardLoadController === requestController) {
+        cardLoadController = null;
+      }
     }
   }
 
