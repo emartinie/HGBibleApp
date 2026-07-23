@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
@@ -882,6 +882,49 @@
         gap: 8px;
       }
 
+      /*
+        Mobile card scrolling: the dynamic card owns the page-length scroll.
+        Long-form readers flow into it instead of trapping the gesture inside
+        a second short viewport.
+      */
+      #dynamicCard {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+        scroll-padding-bottom: calc(28px + env(safe-area-inset-bottom));
+      }
+
+      #dynamicCard #loadedCardHost {
+        min-height: 100%;
+        padding-bottom: calc(28px + env(safe-area-inset-bottom));
+      }
+
+      #dynamicCard .card-shell {
+        height: auto !important;
+        min-height: 100%;
+      }
+
+      #dynamicCard .card-body {
+        flex: 0 0 auto !important;
+        overflow-y: visible !important;
+      }
+
+      #dynamicCard :where(
+        .hg-reader,
+        .scripture-reader,
+        #scriptureContent,
+        #sefariaContent,
+        #commentaryContent,
+        #articleList,
+        #articleViewer,
+        #investigationList,
+        #investigationViewer,
+        #listenArticleList,
+        #listenArticle
+      ) {
+        max-height: none !important;
+        overflow: visible !important;
+      }
+
       .card:not(#mainStageCard) .card-topbar {
         max-height: 0 !important;
         min-height: 0 !important;
@@ -1308,7 +1351,7 @@
 <body>
   <div id="appShell">
 
-   <header id="topBar">
+    <header id="topBar">
       <div class="toolbar" aria-label="Week navigation">
                 <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
         <select id="weekSelect" class="ui-select" aria-label="Select week">
@@ -1324,23 +1367,22 @@
       <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
 
 
-             <select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
+            <select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
         <option value="">Select Card</option>
         <optgroup label="⚡ Start Here">
           <option value="prayermap">🙏 Prayer Map</option>
           <option value="studyhub">🧭 Study Hub</option>
           <option value="discipleship">🪜 Learning Path</option>
-          <option value="jesus">👑 Who Is Yeshua?</option>
+          <option value="jesus">👑 Who Is Jesus?</option>
         </optgroup>
         <optgroup label="📖 Bible Study">
           <option value="scriptureapi">🔎 Scripture Search</option>
-          <option value="scripture">📜 Scripture Explorer</option>
-          <option value="interlinear">✨ Interlinear</option>
-          <option value="bible">📚 Bible Tools</option>
-          <option value="nt">✝️ New Testament Notes</option>
-        </optgroup>
-        <optgroup label="🧬 Sources & Connections">
-          <option value="sefaria">✡ Jewish Library</option>
+          <option value="scripture">📜 Translation Explorer</option>
+          <!--<option value="interlinear">✨ Interlinear</option>-->
+         <!-- <option value="bible">📚 Bible Tools</option>-->
+          <option value="nt">✝️ New Testament Notes</option>sefaria2
+          <option value="sefaria">📜 Interlinear</option>
+          <option value="sefaria2">📜 JHewish Library</option>
           <option value="sources">🌐 Sources Library</option>
           <option value="intertext-quotes">🕊️ Intertext Explorer</option>
           <option value="commandments">⚖️ Commandments</option>
@@ -1351,11 +1393,13 @@
           <option value="sukkotcount">⛺ Sukkot Count</option>
         </optgroup>
         <optgroup label="🎙 Teachings">
+          <option value="investigations">📚 HG Investigations</option>       
+          <option value="prezis">🖥 Visual Teachings</option>
+          <option value="missler">✨ Chuck Missler Archive</option>          
           <option value="commentary">📝 Weekly Commentary</option>
           <option value="articles">📚 Articles</option>
-          <option value="prezis">🖥 Visual Teachings</option>
-          <option value="missler">✨ Chuck Missler Archive</option>
-          <option value="podcast">🔥 Podcast</option>
+          <!-- Release 1: Podcast hidden until audio/shemini.mp3 exists. -->
+          <!--<option value="podcast">🔥 Podcast</option>-->
           <option value="origins">🌌 Origins</option>
           <option value="listen">🎧 Listen</option>
         </optgroup>
@@ -1363,13 +1407,8 @@
           <option value="quizzes">🧪 Assessments</option>
           <option value="trivia">🏆 Trivia Arena</option>
           <option value="biblebingo">🎲 Bible Bingo</option>
-        </optgroup>
-        <optgroup label="🗣 Language Lab">
           <option value="alephbet">🔤 Hebrew Lab</option>
           <option value="greekalphabet">Greek Lab</option>
-        </optgroup>
-        <optgroup label="🤝 Community">
-          
           <option value="today">🔥 Today</option>
         </optgroup>
         <optgroup label="📡 Preparedness">
@@ -1381,23 +1420,26 @@
           <option value="stewardship-card" title="Help me keep doing this">📂 Stewardship</option>
           <option value="store" title="Help me keep doing this">🌱 Store</option>
         </optgroup>
+        <optgroup label="Prototypes">
+    <option value="url:https://homegroups.org/cards/sacred-time-prototype.html">
+      Sacred Time Prototype
+    </option>
+    <option value="url:https://homegroups.org/knowledge-module-prototype/module-prototype.html">
+      Knowledge Module Prototype
+    </option>
+    <option value="url:https://homegroups.org/expansion-excursion-panel-prototype.html">
+      Excursion Panel Prototype
+    </option>
+    <option value="url:https://homegroups.org/living-thread.html">
+      Living Thread Prototype
+    </option>
               </select>   
-
+      
       <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
       <button id="reloadCardBtn" class="ui-btn utility-btn" type="button" aria-label="Reload current card" title="Reload current card">↻</button>
       <button id="aboutHomeGroupsBtn" class="ui-btn utility-btn" type="button" aria-label="About HomeGroups" title="About HomeGroups">ⓘ</button>
       </div>
     </header>
-    <div class="card-control-bar">
-      <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
-
-
-
-      
-<!--      <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
-      <button id="textSizePreferenceBtn" class="ui-btn utility-btn" type="button" aria-label="Cycle reading text size" title="Reading text size">Aa</button>
-      <button id="reloadCardBtn" class="ui-btn utility-btn" type="button" aria-label="Reload current card" title="Reload current card">↻</button>
-    </div>-->
 
     <main id="viewport">
       <div id="cardsRow">
@@ -1525,13 +1567,14 @@
                 <p class="mainstage-today-line"><span id="mainStageWeekday">Today</span> · <span id="mainStageDayLabel">Day 1 of 7</span></p>
                 <h2 id="mainStageTitle" class="weekly-study-title">Loading week data...</h2>
                 <p id="mainStageSub" class="mainstage-portion-name">Hebrew · Portion</p>
-                <p id="mainStageEnglish" class="hero-sub" style="text-align:center; margin:.25rem 0 0;">English meaning</p>
+                <p id="mainStageThemeTitle" class="mainstage-theme-title" hidden></p>
                 <p class="mainstage-reading-label">Today’s First Reading</p>
                 <h3 id="mainStageDailyReading" class="mainstage-daily-reading">Daily reading loading…</h3>
                 <p id="mainStageWhy" class="fp-sub" style="max-width:42rem; margin:0.75rem auto 0; text-align:center;">
                   The introduction to this week's study will appear here.
                 </p>
-                <a id="mainStageSefariaLink" class="ui-btn mainstage-primary-action mainstage-arrival-read-link" href="#" target="_blank" rel="noopener noreferrer">Read In Sefaria →</a>
+                <button id="mainStageReadPassageBtn" class="ui-btn mainstage-primary-action mainstage-arrival-read-link" type="button">Read Today’s Passage →</button>
+                <a id="mainStageSefariaLink" class="mainstage-external-source-link" href="#" target="_blank" rel="noopener noreferrer">Read In Sefaria →</a>
                 <button id="mainStageListenBtn" class="ui-btn mainstage-listen-action" type="button" aria-expanded="false" aria-controls="floating-player-root">▶ Listen Instead</button>
                 <button id="beginMainStageBtn" class="ui-btn mainstage-widen-action" type="button" aria-expanded="false" aria-controls="mainStageContinuation">See how today fits inside this week ↓</button>
                 <div id="floating-player-root" class="weekly-player-dock" aria-label="Floating audio player" hidden></div>
@@ -1747,7 +1790,7 @@
       </div>
     </main>
   </div>-->
-      
+
   <dialog id="aboutHomeGroupsDialog" aria-labelledby="aboutHomeGroupsTitle">
     <article class="about-homegroups-card">
       <button id="aboutHomeGroupsClose" class="ui-btn about-homegroups-close" type="button" aria-label="Close About HomeGroups">✕</button>
@@ -1772,12 +1815,11 @@
   </dialog>
 
     <!--<script src="js/cardloader.js"></script>-->
-  <script type="module" src="js/mainstage.js?v=20260706-2"></script>
+  <script type="module" src="js/mainstage.js?v=20260714-4"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
-  <script src="js/textSizePreference.js"></script>
-    <script type="module" src="js/app.js?v=release1-20260717"></script>
-      <script src="js/about.js?v=release1-20260718" defer></script>      
+  <script type="module" src="js/app.js?v=release1-20260719-scroll-swipe-2"></script>
+  <script src="js/about.js?v=release1-20260718" defer></script>
 <!--<script type="module" src="js/firebase-init.js"></script>
   <!--<script src="js/prayerStore.dev.js"></script>-->
   <!--<script src="js/loadCommentary.js"></script>-->
@@ -1816,3 +1858,4 @@
 </div>
 </body>
 </html>
+
