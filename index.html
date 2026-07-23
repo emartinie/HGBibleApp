@@ -317,9 +317,10 @@
     #topBar {
       min-height: var(--header-h);
       display: flex;
-      justify-content: flex-end;
+      flex-direction: row;
+      justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border: 1px solid var(--line);
       border-radius: 22px;
@@ -331,10 +332,11 @@
     .toolbar {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;
       gap: 6px;
-      flex-wrap: wrap;
-      width: 100%;
+      flex-wrap: nowrap;
+      width: auto;
+      flex: 0 0 auto;
     }
 
     .ui-btn,
@@ -372,20 +374,39 @@
     }
 
     .card-picker {
-      width: min(15rem, calc(100vw - 12rem));
+      width: auto;
       field-sizing: content;
       min-width: 9rem;
-      max-width: 15rem;
-      flex: 0 1 auto;
+      max-width: 20rem;
+      flex: 1 1 15rem;
     }
 
     .card-control-bar {
-      margin-top: 4px;
+      width: auto;
+      min-width: 0;
       display: flex;
       justify-content: center;
       gap: 6px;
       align-items: center;
+      flex: 1 1 auto;
       flex-wrap: nowrap;
+    }
+
+    @media (max-width: 700px) {
+      #topBar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+      }
+
+      .toolbar,
+      .card-control-bar {
+        width: 100%;
+      }
+
+      .card-control-bar {
+        flex: 0 0 auto;
+      }
     }
 
     .utility-btn {
@@ -439,6 +460,24 @@
       color: var(--accent);
       font-size: .96rem;
       font-weight: 650;
+    }
+
+    .mainstage-theme-title {
+      max-width: 38rem;
+      margin: 16px auto 0;
+      color: #fff4d6;
+      font: 700 clamp(1.05rem, 4vw, 1.3rem)/1.3 Georgia, serif;
+      text-wrap: balance;
+    }
+
+    .mainstage-theme-title::before {
+      content: "Weekly Theme";
+      display: block;
+      margin-bottom: 5px;
+      color: var(--gold);
+      font: 800 .68rem/1.2 Inter, system-ui, sans-serif;
+      letter-spacing: .13em;
+      text-transform: uppercase;
     }
 
     .mainstage-reading-label {
@@ -589,6 +628,21 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
+    }
+
+    .mainstage-external-source-link {
+      display: block;
+      width: fit-content;
+      margin: 0.55rem auto 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    .mainstage-external-source-link:hover,
+    .mainstage-external-source-link:focus-visible {
+      color: #f3c878;
     }
 
     .mainstage-primary-action:hover,
@@ -742,7 +796,7 @@
       display: none;
     }
 
-    .card {
+    #cardsRow > .card {
       width: 100%;
       min-width: 100%;
       height: 100%;
@@ -1142,14 +1196,120 @@
   font-size: 0.9rem;
   opacity: 0.9;
 }
+
+    /* Release 1: first-visit About HomeGroups introduction */
+    #aboutHomeGroupsDialog {
+      width: min(680px, calc(100vw - 28px));
+      max-height: min(86vh, 780px);
+      margin: auto;
+      padding: 0;
+      border: 1px solid rgba(243,200,120,.28);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 50% 0, rgba(243,200,120,.12), transparent 44%),
+        #0b101a;
+      color: var(--text);
+      box-shadow: 0 28px 90px rgba(0,0,0,.72);
+      overflow: hidden;
+    }
+
+    #aboutHomeGroupsDialog::backdrop {
+      background: rgba(2,6,15,.78);
+      backdrop-filter: blur(8px);
+    }
+
+    .about-homegroups-card {
+      position: relative;
+      max-height: min(86vh, 780px);
+      padding: clamp(24px, 6vw, 42px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    .about-homegroups-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-radius: 999px;
+    }
+
+    .about-homegroups-kicker {
+      margin: 0 44px 8px 0;
+      color: var(--gold);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .about-homegroups-title {
+      margin: 0 44px 18px 0;
+      color: #fff4d6;
+      font: 800 clamp(1.65rem, 6vw, 2.25rem)/1.08 Georgia, serif;
+    }
+
+    .about-homegroups-copy {
+      display: grid;
+      gap: 14px;
+      color: #d8e0ef;
+      font-size: clamp(.95rem, 2.5vw, 1.04rem);
+      line-height: 1.65;
+    }
+
+    .about-homegroups-copy p {
+      margin: 0;
+    }
+
+    .about-homegroups-copy strong {
+      color: #fff4d6;
+    }
+
+    .about-homegroups-actions {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    #aboutHomeGroupsEnter {
+      min-height: 46px;
+      padding-inline: 22px;
+      border-color: rgba(243,200,120,.45);
+      background: linear-gradient(135deg, #f3c878, #d99b38);
+      color: #211608;
+      font-weight: 850;
+    }
+
+    .about-homegroups-reopen {
+      margin: 0;
+      color: var(--muted);
+      font-size: .75rem;
+      text-align: center;
+    }
+
+    @media (max-width: 520px) {
+      #aboutHomeGroupsDialog {
+        width: calc(100vw - 18px);
+        max-height: 92vh;
+        border-radius: 19px;
+      }
+
+      .about-homegroups-card {
+        max-height: 92vh;
+        padding: 25px 20px 22px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <div id="appShell">
 
-    <header id="topBar">
-      <div class="toolbar">
+   <header id="topBar">
+      <div class="toolbar" aria-label="Week navigation">
                 <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
         <select id="weekSelect" class="ui-select" aria-label="Select week">
           <option>Week 1</option>
@@ -1159,6 +1319,81 @@
 
         <!--<div class="flame">HGSpark©</div>
         <div class="spark-logo">🔥</div>-->
+      </div>
+      <div class="card-control-bar" aria-label="Card navigation">
+      <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
+
+
+            <select id="cardSelector" class="ui-select card-picker" aria-label="Select card">
+        <option value="">Select Card</option>
+        <optgroup label="⚡ Start Here">
+          <option value="prayermap">🙏 Prayer Map</option>
+          <option value="studyhub">🧭 Study Hub</option>
+          <option value="discipleship">🪜 Learning Path</option>
+          <option value="jesus">👑 Who Is Jesus?</option>
+        </optgroup>
+        <optgroup label="📖 Bible Study">
+          <option value="scriptureapi">🔎 Scripture Search</option>
+          <option value="scripture">📜 Translation Explorer</option>
+          <!--<option value="interlinear">✨ Interlinear</option>-->
+         <!-- <option value="bible">📚 Bible Tools</option>-->
+          <option value="nt">✝️ New Testament Notes</option>
+          <option value="sefaria">📜 Interlinear</option>
+          <option value="sources">🌐 Sources Library</option>
+          <option value="intertext-quotes">🕊️ Intertext Explorer</option>
+          <option value="commandments">⚖️ Commandments</option>
+        </optgroup>
+        <optgroup label="🌙 Appointed Times">
+          <option value="calendar">🗓 Calendar</option>
+          <option value="fallfeasts">🍂 Fall Feasts</option>
+          <option value="sukkotcount">⛺ Sukkot Count</option>
+        </optgroup>
+        <optgroup label="🎙 Teachings">
+          <option value="investigations">📚 HG Investigations</option>       
+          <option value="prezis">🖥 Visual Teachings</option>
+          <option value="missler">✨ Chuck Missler Archive</option>          
+          <option value="commentary">📝 Weekly Commentary</option>
+          <option value="articles">📚 Articles</option>
+          <!-- Release 1: Podcast hidden until audio/shemini.mp3 exists. -->
+          <!--<option value="podcast">🔥 Podcast</option>-->
+          <option value="origins">🌌 Origins</option>
+          <option value="listen">🎧 Listen</option>
+        </optgroup>
+        <optgroup label="🧠 Practice & Review">
+          <option value="quizzes">🧪 Assessments</option>
+          <option value="trivia">🏆 Trivia Arena</option>
+          <option value="biblebingo">🎲 Bible Bingo</option>
+          <option value="alephbet">🔤 Hebrew Lab</option>
+          <option value="greekalphabet">Greek Lab</option>
+          <option value="today">🔥 Today</option>
+        </optgroup>
+        <optgroup label="📡 Preparedness">
+          <option value="beready">🚨 Be Ready</option>
+          <option value="amateurradio">📻 Amateur Radio</option>
+          <option value="radiomap">🧭 Radio Network Map</option>
+        </optgroup>
+        <optgroup label="🌱 Support">
+          <option value="stewardship-card" title="Help me keep doing this">📂 Stewardship</option>
+          <option value="store" title="Help me keep doing this">🌱 Store</option>
+        </optgroup>
+        <optgroup label="Prototypes">
+    <option value="url:https://homegroups.org/cards/sacred-time-prototype.html">
+      Sacred Time Prototype
+    </option>
+    <option value="url:https://homegroups.org/knowledge-module-prototype/module-prototype.html">
+      Knowledge Module Prototype
+    </option>
+    <option value="url:https://homegroups.org/expansion-excursion-panel-prototype.html">
+      Excursion Panel Prototype
+    </option>
+    <option value="url:https://homegroups.org/living-thread.html">
+      Living Thread Prototype
+    </option>
+              </select>   
+
+      <button id="nextCardSelect" class="ui-btn" type="button" aria-label="Next card">›</button>
+      <button id="reloadCardBtn" class="ui-btn utility-btn" type="button" aria-label="Reload current card" title="Reload current card">↻</button>
+      <button id="aboutHomeGroupsBtn" class="ui-btn utility-btn" type="button" aria-label="About HomeGroups" title="About HomeGroups">ⓘ</button>
       </div>
     </header>
     <div class="card-control-bar">
@@ -1577,12 +1812,37 @@
       </div>
     </main>
   </div>-->
+      
+  <dialog id="aboutHomeGroupsDialog" aria-labelledby="aboutHomeGroupsTitle">
+    <article class="about-homegroups-card">
+      <button id="aboutHomeGroupsClose" class="ui-btn about-homegroups-close" type="button" aria-label="Close About HomeGroups">✕</button>
+      <p class="about-homegroups-kicker">Welcome to HomeGroups</p>
+      <h1 id="aboutHomeGroupsTitle" class="about-homegroups-title">About HomeGroups</h1>
+
+      <div class="about-homegroups-copy">
+        <p><strong>HomeGroups is a community-centered movement dedicated to helping people study, test, and live the Scriptures together.</strong> It welcomes serious questions, careful investigation, and differing conclusions while encouraging people to pursue truth with humility, trust, and responsibility.</p>
+
+        <p><strong>The HG Bible App is the primary study environment created to support that mission.</strong> It brings together the weekly studies—our shared discipleship experience—with readings from the Torah, Prophets, Writings, and New Testament, as well as language tools, historical context, maps, calendars, prayer, community resources, and longer-form investigations.</p>
+
+        <p><strong>The HomeGroups Research Institute supports the movement by investigating difficult biblical, historical, and related questions.</strong> Its investigations distinguish between direct evidence, reasonable inference, tradition, interpretation, and speculation while clearly identifying what remains uncertain.</p>
+
+        <p>HomeGroups was built because biblical study is often scattered across disconnected books, websites, traditions, and institutions. Our goal is not to tell people what they must think, but to help people study carefully, test claims honestly, live what they learn, and encourage one another as lifelong students of Scripture.</p>
+      </div>
+
+      <div class="about-homegroups-actions">
+        <button id="aboutHomeGroupsEnter" class="ui-btn" type="button">Enter the HG Bible App</button>
+        <p class="about-homegroups-reopen">Reopen this introduction anytime with the ⓘ button.</p>
+      </div>
+    </article>
+  </dialog>
+
     <!--<script src="js/cardloader.js"></script>-->
   <script type="module" src="js/mainstage.js?v=20260706-2"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
   <script src="js/textSizePreference.js"></script>
-  <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/app.js?v=release1-20260717"></script>
+      <script src="js/about.js?v=release1-20260718" defer></script>      
 <!--<script type="module" src="js/firebase-init.js"></script>
   <!--<script src="js/prayerStore.dev.js"></script>-->
   <!--<script src="js/loadCommentary.js"></script>-->
