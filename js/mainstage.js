@@ -132,8 +132,8 @@ function resetMainStageInvitation(weekData) {
     mainStageWeekLabel.textContent = "You are here";
   }
 
-  if (mainStageWeekday) mainStageWeekday.textContent = `Today Â· ${daily?.day_name || weekday}`;
-  if (mainStageDayLabel) mainStageDayLabel.textContent = `Week ${selectedWeek} Â· Day ${daily?.day_number || cycleDay} of 7`;
+  if (mainStageWeekday) mainStageWeekday.textContent = `Today \u00B7 ${daily?.day_name || weekday}`;
+  if (mainStageDayLabel) mainStageDayLabel.textContent = `Week ${selectedWeek} \u00B7 Day ${daily?.day_number || cycleDay} of 7`;
   if (mainStageDailyReading) {
     mainStageDailyReading.textContent = daily?.torah_daily_reading || weekData.sections?.audio_playlist?.[0]?.label || "Todayâ€™s reading is being prepared.";
   }
@@ -152,7 +152,7 @@ function resetMainStageInvitation(weekData) {
     mainStageSefariaLink.hidden = href === "#";
   }
   if (mainStageWeekContextTitle) {
-    mainStageWeekContextTitle.textContent = `${daily?.portion_transliteration || transliteration || `Week ${selectedWeek}`} Â· ${weekData.english || "Weekly study"}`;
+    mainStageWeekContextTitle.textContent = `${daily?.portion_transliteration || transliteration || `Week ${selectedWeek}`} \u00B7 ${weekData.english || "Weekly study"}`;
   }
   if (mainStageWeekContextSummary) {
     mainStageWeekContextSummary.textContent = weekData.intro?.summary ||
