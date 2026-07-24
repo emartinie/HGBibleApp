@@ -88,6 +88,28 @@
 
     <div id="commentaryMeta" class="text-sm text-slate-400"></div>
 
+    <style>
+      #commentaryContent a[href*="sefaria.org"] {
+        color: #67e8f9;
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-color: rgba(103, 232, 249, 0.7);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+
+      #commentaryContent a[href*="sefaria.org"]:hover {
+        color: #a5f3fc;
+        text-decoration-color: currentColor;
+      }
+
+      #commentaryContent a[href*="sefaria.org"]:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
+    </style>
+
     <div
       id="commentaryContent"
       class="hg-section hg-reader bg-slate-900/70 border border-slate-700 rounded-xl p-4 max-h-[60vh] overflow-y-auto text-sm leading-relaxed"
