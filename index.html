@@ -375,20 +375,28 @@
 
     .week-header-row {
       width: 100%;
-      display: flex;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
       align-items: center;
       gap: 8px;
     }
 
     .week-header-row > #topBar {
-      flex: 1 1 auto;
+      width: 100%;
       min-width: 0;
     }
 
     .week-header-row > #prevWeek,
     .week-header-row > #nextWeek {
       width: auto;
-      flex: 0 0 auto;
+    }
+
+    @media (min-width: 641px) {
+      .week-header-row {
+        width: calc(100% + 100px);
+        margin-inline: -50px;
+        grid-template-columns: 42px minmax(0, 1fr) 42px;
+      }
     }
 
     .card-picker {
