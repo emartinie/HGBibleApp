@@ -373,10 +373,22 @@
       flex: 0 1 auto;
     }
 
-    #appShell > #prevWeek,
-    #appShell > #nextWeek {
+    .week-header-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .week-header-row > #topBar {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .week-header-row > #prevWeek,
+    .week-header-row > #nextWeek {
       width: auto;
-      align-self: center;
+      flex: 0 0 auto;
     }
 
     .card-picker {
@@ -1356,8 +1368,9 @@
 
 <body>
   <div id="appShell">
-                <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
-    <header id="topBar">
+    <div class="week-header-row">
+      <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
+      <header id="topBar">
       <div class="toolbar" aria-label="Week navigation">
         <select id="weekSelect" class="ui-select" aria-label="Select week">
           <option>Week 1</option>
@@ -1443,9 +1456,9 @@
       <button id="reloadCardBtn" class="ui-btn utility-btn" type="button" aria-label="Reload current card" title="Reload current card">↻</button>
       <button id="aboutHomeGroupsBtn" class="ui-btn utility-btn" type="button" aria-label="About HomeGroups" title="About HomeGroups">ⓘ</button>
       </div>
-    </header>
-            <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
-
+      </header>
+      <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
+    </div>
 
     <main id="viewport">
       <div id="cardsRow">
