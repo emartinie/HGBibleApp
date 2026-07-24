@@ -129,7 +129,7 @@ function ensureSefariaLinkStyles() {
     }
 
     #commentaryContent a[href*="sefaria.org"]::after {
-      content: " Sefaria ↗";
+      content: " OT ↗";
       display: inline-block;
       margin-left: 0.3em;
       padding: 0.05em 0.4em;
