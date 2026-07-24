@@ -21,7 +21,7 @@ function ensureNtExcursionStyles() {
   style.textContent = [
     "#commentaryContent .nt-excursion-link{color:#fbbf24;background:rgba(120,53,15,.28);border:1px solid rgba(251,191,36,.55);border-radius:.4rem;padding:.05rem .35rem;font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}",
     "#commentaryContent .nt-excursion-link::after{content:' NT ↗';font-size:.7em;margin-left:.25em;color:#fde68a;white-space:nowrap}",
-    "#ntExcursionDialog{width:min(760px,calc(100vw - 2rem));max-height:85vh;padding:0;border:1px solid rgba(251,191,36,.45);border-radius:1rem;background:#0f172a;color:#f8fafc;box-shadow:0 24px 80px rgba(0,0,0,.65)}",
+    "#ntExcursionDialog{width:min(460px,calc(100vw - 2rem));max-height:85vh;padding:0;border:1px solid rgba(251,191,36,.45);border-radius:1rem;background:#0f172a;color:#f8fafc;box-shadow:0 24px 80px rgba(0,0,0,.65)}",
     "#ntExcursionDialog::backdrop{background:rgba(2,6,23,.78)}",
     "#ntExcursionBody{max-height:62vh;overflow:auto;padding:1rem;line-height:1.7}",
     "#ntExcursionBody .v{color:#fbbf24;font-weight:700}"
