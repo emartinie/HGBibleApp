@@ -80,7 +80,6 @@ async function openNtExcursion(reference) {
 }
 
 function linkNewTestamentReferences(week) {
-  if (Number(week) !== 41) return;
   const root = document.getElementById("commentaryContent");
   if (!root) return;
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
