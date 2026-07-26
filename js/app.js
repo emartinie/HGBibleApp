@@ -455,9 +455,30 @@ function cleanupActiveCard() {
     });
   }
 
-  async function loadCard(cardName) {
+  async function loadCard(cardName, options = {}) {
     refreshDomRefs();
     if (!loadedCardHost || !cardName) return;
+
+    const fromRoute = options.fromRoute === true;
+
+    if (!fromRoute && window.HGRoute) {
+      const state = cardName === "mainstage"
+        ? { week: parseInt(document.getElementById("weekSelect")?.value, 10) || undefined }
+        : {};
+      window.HGRoute.write(cardName, state, {
+        announce: false,
+        source: "card-navigation"
+      });
+    }
+
+    if (cardName === "mainstage") {
+      cleanupActiveCard();
+      if (cardSelector) cardSelector.value = "";
+      activeCardName = null;
+      goToCard(0);
+      await window.HGRoute?.restoreCard?.("mainstage", document);
+      return;
+    }
 
     if (cardSelector) {
       const matchingOption = Array.from(cardSelector.options)
@@ -522,6 +543,7 @@ function cleanupActiveCard() {
       }
 
       await runCardInit(cardName, requestId);
+      await window.HGRoute?.restoreCard?.(cardName, loadedCardHost);
   
 console.log("loadCard exists?", typeof window.loadCard);
       console.log("[CARD] render completion", { cardName, requestId });
@@ -640,19 +662,41 @@ function syncCurrentCardOnScroll() {
 function loadFromUrl() {
   const params = new URLSearchParams(window.location.search);
 
+  if (window.HGRoute) {
+    window.HGRoute.start(async (route) => {
+      await loadCard(route.card || "mainstage", { fromRoute: true });
+    });
+
+    if (params.has("card")) {
+      const route = window.HGRoute.read();
+      console.log("🌐 Restoring route:", route);
+      loadCard(route.card || "mainstage", { fromRoute: true });
+      return;
+    }
+
+    const week = parseInt(document.getElementById("weekSelect")?.value, 10) || undefined;
+    window.HGRoute.write("mainstage", { week }, {
+      replace: true,
+      announce: false,
+      source: "initial-route"
+    });
+    goToCard(0);
+    window.HGRoute.restoreCard("mainstage", document);
+    return;
+  }
+
   const card = params.get("card");
   const file = params.get("file");
 
-  // SET FILE FIRST
+  // Legacy fallback when the centralized router is unavailable.
   if (file) {
     window.pendingArticleFile = file;
     console.log("📰 Pending article file:", file);
   }
 
-  // LOAD CARD SECOND
   if (card) {
     console.log("🌐 Loading card:", card);
-    loadCard(card);
+    loadCard(card, { fromRoute: true });
   }
 }
 
