@@ -36,6 +36,7 @@ const ARTICLES = [
 ];
 
   let activeController = null;
+  let activeArticleFile = "";
 
   function getEls(root = document) {
     const scope = root && typeof root.querySelector === "function" ? root : document;
@@ -61,10 +62,56 @@ const ARTICLES = [
     `).join("") : `<div class="hg-empty">No articles match your search.</div>`;
   }
 
-  async function loadArticle(file, viewer) {
+  function buildArticleUrl(file) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("card", "articles");
+
+    if (file) {
+      url.searchParams.set("file", file);
+    } else {
+      url.searchParams.delete("file");
+    }
+
+    url.hash = "";
+    return url;
+  }
+
+  function syncArticleUrl(file, mode = "push") {
+    const url = buildArticleUrl(file);
+    const method = mode === "replace" ? "replaceState" : "pushState";
+    window.history[method]({ card: "articles", file }, "", url);
+  }
+
+  function getArticleTargetFromLink(link) {
+    const href = link?.getAttribute("href") || "";
+    if (!href || href.startsWith("javascript:") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return null;
+    }
+
+    if (href.startsWith("#")) {
+      return activeArticleFile ? `${activeArticleFile.split("#", 1)[0]}${href}` : null;
+    }
+
+    try {
+      const resolved = new URL(href, window.location.href);
+      const articlePath = "/articles/";
+      const pathIndex = resolved.pathname.lastIndexOf(articlePath);
+
+      if (pathIndex === -1) return null;
+
+      const fileName = resolved.pathname.slice(pathIndex + articlePath.length);
+      return fileName ? `${fileName}${resolved.hash || ""}` : null;
+    } catch {
+      return null;
+    }
+  }
+
+  async function loadArticle(file, viewer, options = {}) {
     if (!viewer) return;
 
+    const { updateUrl = false, historyMode = "push" } = options;
     const [fileName, anchor = ""] = String(file || "").split("#", 2);
+    if (!fileName) return;
 
     viewer.innerHTML = "Loading...";
 
@@ -74,6 +121,11 @@ const ARTICLES = [
 
       const html = await res.text();
       viewer.innerHTML = html;
+      activeArticleFile = anchor ? `${fileName}#${anchor}` : fileName;
+
+      if (updateUrl) {
+        syncArticleUrl(activeArticleFile, historyMode);
+      }
 
       if (anchor) {
         const target = Array.from(viewer.querySelectorAll("[id]")).find(el => el.id === anchor);
@@ -108,13 +160,22 @@ const ARTICLES = [
 
       list.querySelectorAll("button").forEach(item => item.classList.remove("active"));
       button.classList.add("active");
-      loadArticle(button.dataset.file, viewer);
+      loadArticle(button.dataset.file, viewer, { updateUrl: true });
+    }, { signal });
+
+    viewer.addEventListener("click", event => {
+      const link = event.target.closest("a[href]");
+      const targetFile = getArticleTargetFromLink(link);
+      if (!targetFile) return;
+
+      event.preventDefault();
+      loadArticle(targetFile, viewer, { updateUrl: true });
     }, { signal });
 
     if (window.pendingArticleFile) {
       const pending = window.pendingArticleFile;
       const fileName = pending.split("#", 1)[0];
-      await loadArticle(pending, viewer);
+      await loadArticle(pending, viewer, { updateUrl: true, historyMode: "replace" });
 
       const button = Array.from(list.querySelectorAll("button[data-file]"))
         .find(item => item.dataset.file === fileName);
@@ -127,6 +188,7 @@ const ARTICLES = [
   function destroyArticlesCard() {
     activeController?.abort();
     activeController = null;
+    activeArticleFile = "";
   }
 
   window.initArticlesCard = initArticlesCard;
