@@ -1,6 +1,6 @@
 {
   "reviewed": "2026-07-26",
-  "editorialNote": "Biographical facts and publications are sourced. Strengths, limitations, and comparisons are HomeGroups editorial assessments and are labeled as such. Language claims are limited to what reviewed public sources document.",
+  "editorialNote": "This resource helps readers find the right kind of help. Contributor types are identified honestly; biographical facts and publications are sourced, while strengths, limitations, and comparisons are labeled HomeGroups assessments.",
   "scholars": [
     {
       "id": "craig-s-keener",
@@ -59,6 +59,28 @@
           "label": "Official Bible Backgrounds biography",
           "url": "https://craigkeener.com/about-craig/"
         }
+      ],
+      "category": "Biblical Scholars",
+      "who": "A New Testament scholar who specializes in explaining the Jewish, Greco-Roman, cultural, and historical world behind the Gospels and Acts.",
+      "whyHelpful": "Keener can help ordinary readers see why a passage made sense to its first audience. His background work is especially useful when modern assumptions make a New Testament scene, custom, argument, or miracle account difficult to understand.",
+      "startWith": [
+        {
+          "title": "The IVP Bible Background Commentary: New Testament",
+          "reason": "The most accessible place to look up the cultural background of a particular passage."
+        },
+        {
+          "title": "The Historical Jesus of the Gospels",
+          "reason": "A fuller introduction to how he evaluates Yeshua historically."
+        }
+      ],
+      "helpfulFor": [
+        "Acts",
+        "The Gospels",
+        "Paul's cultural world",
+        "Jewish and Greco-Roman background",
+        "Miracle claims",
+        "Women in the New Testament",
+        "Ethnic reconciliation"
       ]
     },
     {
@@ -120,6 +142,28 @@
           "label": "James Kugel books and articles",
           "url": "https://www.jameskugel.com/about/books-articles/"
         }
+      ],
+      "category": "Hebrew Bible Scholars",
+      "who": "A Jewish scholar of the Hebrew Bible and the history of how ancient Jews and Christians interpreted it.",
+      "whyHelpful": "Kugel helps readers notice the difference between what a biblical passage may have meant in its earliest setting and what generations of interpreters later understood it to mean. He is especially helpful when a familiar interpretation seems obvious but is not stated directly in the passage.",
+      "startWith": [
+        {
+          "title": "How to Read the Bible",
+          "reason": "His broadest and most readable guide to the tension between modern biblical scholarship and traditional reading."
+        },
+        {
+          "title": "The Bible As It Was",
+          "reason": "A focused introduction to how ancient interpreters understood biblical stories."
+        }
+      ],
+      "helpfulFor": [
+        "Genesis",
+        "Ancient biblical interpretation",
+        "Midrash",
+        "Dead Sea Scrolls",
+        "How traditions develop",
+        "Biblical poetry",
+        "Jewish readings of Scripture"
       ]
     },
     {
@@ -182,6 +226,28 @@
           "label": "Hebrew University Department of Bible profile",
           "url": "https://en.bible.huji.ac.il/people/emanuel-tov"
         }
+      ],
+      "category": "Textual Scholars",
+      "who": "A leading textual scholar who studies the ancient manuscripts behind modern editions and translations of the Hebrew Bible.",
+      "whyHelpful": "Tov helps readers ask a question that comes before interpretation: Which ancient wording are we interpreting? His work explains why the Masoretic Text, Septuagint, Samaritan Pentateuch, and Dead Sea Scrolls sometimes preserve different forms of a passage.",
+      "startWith": [
+        {
+          "title": "Introductory lectures and interviews on Hebrew Bible textual history",
+          "reason": "The best first step for a general reader before entering his technical books."
+        },
+        {
+          "title": "Textual Criticism of the Hebrew Bible",
+          "reason": "The standard full study when you are ready for technical detail."
+        }
+      ],
+      "helpfulFor": [
+        "Dead Sea Scrolls",
+        "Septuagint",
+        "Translation differences",
+        "Variant readings",
+        "Scribal changes",
+        "How the Hebrew Bible was transmitted",
+        "Evaluating proof texts"
       ]
     },
     {
@@ -242,6 +308,28 @@
           "label": "Richard Bauckham official publications list",
           "url": "https://richardbauckham.co.uk/publications/"
         }
+      ],
+      "category": "Biblical Scholars",
+      "who": "A New Testament scholar and theologian best known for investigating whether the Gospels preserve identifiable eyewitness testimony.",
+      "whyHelpful": "Bauckham helps readers examine how Gospel traditions may connect with named witnesses, the early Jerusalem community, and Jewish beliefs about the identity of Israel's God. He is useful when asking how early our Gospel information may be.",
+      "startWith": [
+        {
+          "title": "Jesus: A Very Short Introduction",
+          "reason": "A concise and accessible introduction to his historical understanding of Yeshua."
+        },
+        {
+          "title": "Jesus and the Eyewitnesses",
+          "reason": "His major, detailed argument about testimony and Gospel origins."
+        }
+      ],
+      "helpfulFor": [
+        "Gospel eyewitnesses",
+        "Historical Yeshua",
+        "Early Christology",
+        "Revelation",
+        "The Jerusalem assembly",
+        "Yeshua's relatives",
+        "Jewish apocalyptic literature"
       ]
     },
     {
@@ -307,6 +395,28 @@
           "label": "Harvard Divinity Bulletin interview on Sabbath",
           "url": "https://bulletin.hds.harvard.edu/a-very-special-and-mysterious-day/"
         }
+      ],
+      "category": "Hebrew Bible Scholars",
+      "who": "A Jewish scholar who reads the Hebrew Bible closely as literature and theology while tracing its interpretation through Jewish tradition.",
+      "whyHelpful": "Levenson helps readers encounter Israel's Scriptures without treating Jewish meaning as merely a preface to Christianity. His work is especially valuable for covenant, sacrifice, resurrection, Sabbath, and Jewish-Christian differences.",
+      "startWith": [
+        {
+          "title": "Inheriting Abraham",
+          "reason": "An accessible comparison of how Judaism, Christianity, and Islam understand Abraham."
+        },
+        {
+          "title": "Israel's Day of Light and Joy",
+          "reason": "A focused study of the Sabbath's origin, development, and enduring Jewish meaning."
+        }
+      ],
+      "helpfulFor": [
+        "Sabbath",
+        "Covenant",
+        "Abraham",
+        "Resurrection in Israel's Scriptures",
+        "Sacrifice and the beloved son",
+        "Sinai and Zion",
+        "Jewish-Christian interpretation"
       ]
     }
   ]
