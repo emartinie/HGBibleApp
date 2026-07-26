@@ -375,17 +375,17 @@
         }
 
         #hgMobileUtilityMenu {
-          position: absolute;
-          top: calc(100% + 8px);
-          right: 0;
-          z-index: 10020;
+          position: fixed;
+          top: 0;
+          right: 8px;
+          z-index: 2147483000;
           width: max-content;
           min-width: 132px;
           padding: 6px;
           border: 1px solid rgba(148, 163, 184, .28);
           border-radius: 12px;
-          background: rgba(7, 16, 25, .98);
-          box-shadow: 0 16px 40px rgba(0, 0, 0, .45);
+          background: #071019;
+          box-shadow: 0 18px 48px rgba(0, 0, 0, .72);
         }
 
         #hgMobileUtilityMenu[hidden] {
@@ -467,8 +467,16 @@
 
     trigger.addEventListener("click", event => {
       event.stopPropagation();
-      menu.hidden = !menu.hidden;
-      trigger.setAttribute("aria-expanded", String(!menu.hidden));
+      const opening = menu.hidden;
+
+      if (opening) {
+        const rect = trigger.getBoundingClientRect();
+        menu.style.top = Math.round(rect.bottom + 8) + "px";
+        menu.style.right = Math.max(8, Math.round(window.innerWidth - rect.right)) + "px";
+      }
+
+      menu.hidden = !opening;
+      trigger.setAttribute("aria-expanded", String(opening));
     });
 
     menu.addEventListener("click", event => event.stopPropagation());
@@ -477,8 +485,9 @@
       if (event.key === "Escape") closeMenu();
     });
 
-    wrap.append(trigger, menu);
+    wrap.appendChild(trigger);
     controls.appendChild(wrap);
+    document.body.appendChild(menu);
   }
 
   function start(handler) {
