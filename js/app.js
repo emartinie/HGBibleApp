@@ -76,6 +76,7 @@ console.log("APP JS RUN ID:", Date.now());
     listen: { init: "initListenCard", cleanup: "destroyListenCard" },
     missler: { init: "initMissler", cleanup: "destroyMissler" },
     nt: { forceReloadScript: true },
+    scriptureapi: { forceReloadScript: true },
     prayermap: { init: "initPrayerMapCard", cleanup: "destroyPrayerMapCard" },
     prezis: { init: "initPrezis", cleanup: "destroyPrezis" },
     radiomap: { init: "initRadioMapCard", cleanup: "destroyRadioMapCard" },
