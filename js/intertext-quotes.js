@@ -280,6 +280,12 @@
   window.HGRoute?.registerCard?.("intertext-quotes", {
     getState() {
       return activeFrom ? { from: activeFrom } : {};
+    },
+    async restore(route, root) {
+      activeFrom = route?.card === "intertext-quotes"
+        ? String(route.from || "")
+        : "";
+      await window.initIntertextQuotes(root || document);
     }
   });
 
