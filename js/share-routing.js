@@ -435,6 +435,14 @@
 
     const actions = [
       {
+        label: "⌂ This Week",
+        run: () => {
+          const current = getCurrentRoute();
+          const selectedWeek = current.week || document.getElementById("weekSelect")?.value?.replace(/^Week\s+/i, "");
+          navigate("mainstage", selectedWeek ? { week: selectedWeek } : {}, { source: "utility-this-week" });
+        }
+      },
+      {
         label: "↻ Reload",
         run: () => document.getElementById("reloadCardBtn")?.click()
       },
