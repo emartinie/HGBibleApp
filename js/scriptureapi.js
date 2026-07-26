@@ -112,6 +112,23 @@
     return name.toLowerCase().trim().replace(/\s+/g, " ");
   }
 
+  function syncScriptureRoute(reference, options = {}) {
+    const ref = String(reference || "").trim();
+    if (!ref) return;
+
+    window.HGRoute?.setCardState?.("scriptureapi", { ref }, {
+      replace: options.replace === true,
+      announce: false,
+      source: "scripture-reference"
+    });
+  }
+
+  function selectedReference(verse = null) {
+    const bookName = bookSelect.selectedOptions?.[0]?.textContent?.trim() || bookSelect.value;
+    const chapter = String(Math.max(1, Number(chapterInput.value) || 1));
+    return bookName + " " + chapter + (verse ? ":" + verse : "");
+  }
+
   function parseReference(input) {
     if (!input) return null;
 
@@ -291,6 +308,7 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
 
   function handleLoad() {
     const { book, chapter } = getRef();
+    syncScriptureRoute(selectedReference());
     loadChapter(book, chapter);
   }
 
@@ -315,6 +333,9 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
 
     bookSelect.value = parsed.code;
     chapterInput.value = parsed.chapter;
+    const reference = selectedReference(parsed.verse);
+    if (searchInput) searchInput.value = reference;
+    syncScriptureRoute(reference);
     loadChapter(parsed.code, parsed.chapter, parsed.verse);
   }
 
@@ -367,13 +388,23 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
   window.loadCard?.("sefaria");
 });
 
+const route = window.HGRoute?.read?.();
+const routedReference = route?.card === "scriptureapi" ? route.ref : "";
 const savedSearch = localStorage.getItem("scriptureSearch");
+const initialReference = routedReference || savedSearch;
 
-if (savedSearch) {
-  searchInput.value = savedSearch;
-  localStorage.removeItem("scriptureSearch");
+if (initialReference) {
+  searchInput.value = initialReference;
+  if (savedSearch) localStorage.removeItem("scriptureSearch");
   handleReferenceSearch();
 } else {
   loadChapter(bookSelect.value, chapterInput.value);
 }
+
+window.HGRoute?.registerCard?.("scriptureapi", {
+  getState() {
+    const ref = String(searchInput?.value || selectedReference()).trim();
+    return ref ? { ref } : {};
+  }
+});
 })();
