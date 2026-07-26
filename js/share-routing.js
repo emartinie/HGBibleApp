@@ -339,6 +339,153 @@
     controls.appendChild(button);
   }
 
+  function mountMobileUtilityMenu() {
+    if (document.getElementById("hgMobileUtilityWrap")) return;
+
+    const controls = document.querySelector(".card-control-bar");
+    if (!controls) return;
+
+    if (!document.getElementById("hgMobileUtilityStyles")) {
+      const style = document.createElement("style");
+      style.id = "hgMobileUtilityStyles";
+      style.textContent = `
+        #hgMobileUtilityWrap {
+          display: none;
+          position: relative;
+          flex: 0 0 auto;
+        }
+
+        #hgMobileUtilityBtn {
+          width: 36px;
+          min-width: 36px;
+          height: 36px;
+          min-height: 36px;
+          padding: 0;
+          border-radius: 50%;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.05rem;
+          letter-spacing: .06em;
+        }
+
+        #hgMobileUtilityMenu {
+          position: absolute;
+          top: calc(100% + 8px);
+          right: 0;
+          z-index: 10020;
+          width: max-content;
+          min-width: 132px;
+          padding: 6px;
+          border: 1px solid rgba(148, 163, 184, .28);
+          border-radius: 12px;
+          background: rgba(7, 16, 25, .98);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, .45);
+        }
+
+        #hgMobileUtilityMenu[hidden] {
+          display: none !important;
+        }
+
+        #hgMobileUtilityMenu button {
+          display: block;
+          width: 100%;
+          padding: 9px 12px;
+          border: 0;
+          border-radius: 8px;
+          background: transparent;
+          color: #e7eef7;
+          font: 600 .86rem/1.2 system-ui, sans-serif;
+          text-align: left;
+          white-space: nowrap;
+        }
+
+        #hgMobileUtilityMenu button:hover,
+        #hgMobileUtilityMenu button:focus-visible {
+          background: rgba(120, 216, 232, .14);
+          outline: none;
+        }
+
+        @media (max-width: 430px) {
+          #reloadCardBtn,
+          #aboutHomeGroupsBtn,
+          #hgShareRouteBtn {
+            display: none !important;
+          }
+
+          #hgMobileUtilityWrap {
+            display: inline-flex;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const wrap = document.createElement("div");
+    wrap.id = "hgMobileUtilityWrap";
+
+    const trigger = document.createElement("button");
+    trigger.id = "hgMobileUtilityBtn";
+    trigger.type = "button";
+    trigger.className = "ui-btn utility-btn";
+    trigger.textContent = "•••";
+    trigger.title = "More actions";
+    trigger.setAttribute("aria-label", "More actions");
+    trigger.setAttribute("aria-haspopup", "menu");
+    trigger.setAttribute("aria-expanded", "false");
+
+    const menu = document.createElement("div");
+    menu.id = "hgMobileUtilityMenu";
+    menu.setAttribute("role", "menu");
+    menu.hidden = true;
+
+    const actions = [
+      {
+        label: "↻ Reload",
+        run: () => document.getElementById("reloadCardBtn")?.click()
+      },
+      {
+        label: "⇪ Share",
+        run: shareCurrentRoute
+      },
+      {
+        label: "ⓘ About",
+        run: () => document.getElementById("aboutHomeGroupsBtn")?.click()
+      }
+    ];
+
+    function closeMenu() {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+    }
+
+    actions.forEach(action => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.setAttribute("role", "menuitem");
+      item.textContent = action.label;
+      item.addEventListener("click", () => {
+        closeMenu();
+        action.run();
+      });
+      menu.appendChild(item);
+    });
+
+    trigger.addEventListener("click", event => {
+      event.stopPropagation();
+      menu.hidden = !menu.hidden;
+      trigger.setAttribute("aria-expanded", String(!menu.hidden));
+    });
+
+    menu.addEventListener("click", event => event.stopPropagation());
+    document.addEventListener("click", closeMenu);
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    wrap.append(trigger, menu);
+    controls.appendChild(wrap);
+  }
+
   function start(handler) {
     if (typeof handler === "function") routeHandler = handler;
     if (started) return;
@@ -347,11 +494,13 @@
     bindRouteLinks();
     window.addEventListener("popstate", () => applyCurrentRoute("popstate"));
     mountShareButton();
+    mountMobileUtilityMenu();
 
-    if (!document.getElementById("hgShareRouteBtn")) {
+    if (!document.getElementById("hgShareRouteBtn") || !document.getElementById("hgMobileUtilityWrap")) {
       const observer = new MutationObserver(() => {
         mountShareButton();
-        if (document.getElementById("hgShareRouteBtn")) observer.disconnect();
+        mountMobileUtilityMenu();
+        if (document.getElementById("hgShareRouteBtn") && document.getElementById("hgMobileUtilityWrap")) observer.disconnect();
       });
       observer.observe(document.documentElement, { childList: true, subtree: true });
       window.setTimeout(() => observer.disconnect(), 15000);
