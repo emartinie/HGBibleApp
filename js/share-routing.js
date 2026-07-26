@@ -334,7 +334,7 @@
     button.className = "ui-btn utility-btn";
     button.title = "Share this location";
     button.setAttribute("aria-label", "Share this location");
-    button.textContent = "Share";
+    button.textContent = "⇪";
     button.addEventListener("click", shareCurrentRoute);
     controls.appendChild(button);
   }
