@@ -361,6 +361,13 @@
   window.HGRoute?.registerCard?.("commandments", {
     getState() {
       return activeCommandmentId ? { id: activeCommandmentId } : {};
+    },
+    async restore(route) {
+      activeCommandmentId = route?.card === "commandments" && route.id
+        ? String(route.id)
+        : "";
+      lastRenderedContainer = null;
+      await renderIfReady();
     }
   });
 
