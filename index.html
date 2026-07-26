@@ -429,6 +429,50 @@
       }
     }
 
+    .week-card-dock {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      z-index: 40;
+      display: inline-grid;
+      grid-template-columns: 34px auto 34px;
+      align-items: center;
+      gap: 4px;
+      transform: translateX(-50%);
+      padding: 4px;
+      border: 1px solid rgba(242, 198, 109, .34);
+      border-radius: 999px;
+      background: rgba(7, 16, 25, .96);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .38);
+      backdrop-filter: blur(14px);
+    }
+
+    .week-card-dock .ui-btn,
+    .week-card-dock .ui-select {
+      min-height: 34px;
+      height: 34px;
+      padding: 0 10px;
+      box-shadow: none;
+    }
+
+    .week-card-dock .ui-btn {
+      width: 34px;
+      min-width: 34px;
+      padding: 0;
+    }
+
+    .week-card-dock .ui-select {
+      min-width: 7rem;
+      text-align: center;
+      font-weight: 800;
+      color: #fff3cb;
+      border-color: rgba(242, 198, 109, .24);
+    }
+
+    #cardsRow > .card {
+      padding-top: 58px;
+    }
+
     .card-picker {
       width: auto;
       field-sizing: content;
@@ -1406,18 +1450,7 @@
 
 <body>
   <div id="appShell">
-    <div class="week-header-row">
-      <button id="prevWeek" class="ui-btn" aria-label="Previous week">‹</button>
-      <header id="topBar">
-      <div class="toolbar" aria-label="Week navigation">
-        <select id="weekSelect" class="ui-select" aria-label="Select week">
-          <option>Week 1</option>
-        </select>
-
-
-        <!--<div class="flame">HGSpark©</div>
-        <div class="spark-logo">🔥</div>-->
-      </div>
+    <header id="topBar">
       <div class="card-control-bar" aria-label="Card navigation">
       <button id="prevCardSelect" class="ui-btn" type="button" aria-label="Previous card">‹</button>
 
@@ -1496,11 +1529,16 @@
       <button id="reloadCardBtn" class="ui-btn utility-btn" type="button" aria-label="Reload current card" title="Reload current card">↻</button>
       <button id="aboutHomeGroupsBtn" class="ui-btn utility-btn" type="button" aria-label="About HomeGroups" title="About HomeGroups">ⓘ</button>
       </div>
-      </header>
-      <button id="nextWeek" class="ui-btn" aria-label="Next week">›</button>
-    </div>
+    </header>
 
     <main id="viewport">
+      <div id="weekCardDock" class="week-card-dock" aria-label="Study week navigation">
+        <button id="prevWeek" class="ui-btn" type="button" aria-label="Previous week">‹</button>
+        <select id="weekSelect" class="ui-select" aria-label="Select week">
+          <option>Week 1</option>
+        </select>
+        <button id="nextWeek" class="ui-btn" type="button" aria-label="Next week">›</button>
+      </div>
       <div id="cardsRow">
 
         <section id="mainStageCard" class="card">
