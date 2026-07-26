@@ -1,6 +1,10 @@
 (function () {
   const DATA_URL = "data/intertext/nt_ot_quotes.json";
   let intertextDataPromise = null;
+  const initialRoute = window.HGRoute?.read?.();
+  let activeFrom = initialRoute?.card === "intertext-quotes"
+    ? String(initialRoute.from || "")
+    : "";
 
   function getScope(root) {
     return root && typeof root.querySelector === "function" ? root : document;
@@ -93,7 +97,7 @@
     if (mtEl) mtEl.textContent = `${masoreticWitnessCount} Masoretic Witnesses`;
   }
 
-  function renderQuotes(data, bookFilter = "", root = document) {
+  function renderQuotes(data, bookFilter = "", root = document, fromRef = activeFrom) {
     const scope = getScope(root);
     const quotesRoot = scope.querySelector("#nt-quotes");
     if (!quotesRoot) return;
@@ -104,9 +108,9 @@
       const ntText = entry.nt?.text;
       if (!ntText) return;
 
-      if (bookFilter && !ntText.startsWith(bookFilter)) return;
-
       const ntWitness = splitWitnessText(ntText);
+      if (fromRef && ntWitness.ref !== fromRef) return;
+      if (bookFilter && !ntText.startsWith(bookFilter)) return;
       const hasNtRef = !!ntWitness.ref;
 
       const card = document.createElement("div");
@@ -137,9 +141,17 @@
         </div>
       `;
 
+      card.dataset.intertextFrom = ntWitness.ref;
       card.querySelector(".toggle").onclick = e => {
         const witnesses = card.querySelector(".witnesses");
         witnesses.classList.toggle("hidden");
+        activeFrom = ntWitness.ref;
+        window.HGRoute?.setCardState?.("intertext-quotes", {
+          from: activeFrom
+        }, {
+          announce: false,
+          source: "intertext-witness"
+        });
         e.target.textContent = witnesses.classList.contains("hidden")
           ? "Show Hebrew Scripture witnesses"
           : "Hide Hebrew Scripture witnesses";
@@ -212,7 +224,14 @@
 
     if (bookFilter) {
       bookFilter.onchange = e => {
-        renderQuotes(data, e.target.value, scope);
+        activeFrom = "";
+        window.HGRoute?.setCardState?.("intertext-quotes", {
+          from: null
+        }, {
+          announce: false,
+          source: "intertext-filter"
+        });
+        renderQuotes(data, e.target.value, scope, "");
       };
     }
 
@@ -245,9 +264,24 @@
     const data = await getIntertextData();
     populateBookFilter(data, scope);
     renderDatasetSummary(data, scope);
-    renderQuotes(data, scope.querySelector("#bookFilter")?.value || "", scope);
+    renderQuotes(data, scope.querySelector("#bookFilter")?.value || "", scope, activeFrom);
     bindIntertextControls(data, scope);
+
+    if (activeFrom) {
+      const selected = scope.querySelector("[data-intertext-from]");
+      const witnesses = selected?.querySelector(".witnesses");
+      const toggle = selected?.querySelector(".toggle");
+      witnesses?.classList.remove("hidden");
+      if (toggle) toggle.textContent = "Hide Hebrew Scripture witnesses";
+      selected?.scrollIntoView({ block: "start" });
+    }
   };
+
+  window.HGRoute?.registerCard?.("intertext-quotes", {
+    getState() {
+      return activeFrom ? { from: activeFrom } : {};
+    }
+  });
 
   window.initIntertextQuotes(document);
 })();
