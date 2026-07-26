@@ -5,6 +5,10 @@
   let activeFilter = "All";
   let searchQuery = "";
   let renderRequestId = 0;
+  const initialRoute = window.HGRoute?.read?.();
+  let activeCommandmentId = initialRoute?.card === "commandments" && initialRoute.id
+    ? String(initialRoute.id)
+    : "";
   const FILTERS = [
     "All",
     "Positive",
@@ -159,6 +163,11 @@
       setFilterButtonClass(button, filterName === activeFilter);
       button.textContent = filterName;
       button.addEventListener("click", () => {
+        activeCommandmentId = "";
+        window.HGRoute?.setCardState?.("commandments", { id: null }, {
+          announce: false,
+          source: "commandment-filter"
+        });
         activeFilter = filterName;
         visibleLimit = 10;
         filterBar.querySelectorAll("button").forEach((filterButton) => {
@@ -180,6 +189,12 @@
     searchInput.value = searchQuery;
     searchInput.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-white";
     searchInput.addEventListener("input", () => {
+      activeCommandmentId = "";
+      window.HGRoute?.setCardState?.("commandments", { id: null }, {
+        replace: true,
+        announce: false,
+        source: "commandment-search"
+      });
       searchQuery = searchInput.value;
       visibleLimit = 10;
       updateResults();
@@ -190,6 +205,11 @@
     clearButton.className = "rounded-lg border border-slate-700 bg-slate-900/70 p-3 text-xs text-slate-400";
     clearButton.textContent = "Clear";
     clearButton.addEventListener("click", () => {
+      activeCommandmentId = "";
+      window.HGRoute?.setCardState?.("commandments", { id: null }, {
+        announce: false,
+        source: "commandment-clear"
+      });
       searchQuery = "";
       visibleLimit = 10;
       searchInput.value = "";
@@ -211,7 +231,9 @@
 
     function updateResults() {
       const filteredCommandments = filterCommandments(commandments, activeFilter);
-      const searchedCommandments = searchCommandments(filteredCommandments, searchQuery);
+      const searchedCommandments = activeCommandmentId
+        ? commandments.filter(cmd => String(cmd.id) === activeCommandmentId)
+        : searchCommandments(filteredCommandments, searchQuery);
       const visibleCommandments = searchedCommandments.slice(0, visibleLimit);
       const visibleCount = visibleCommandments.length;
       const filterDescription = getFilterDescription(activeFilter);
@@ -235,6 +257,27 @@
       visibleCommandments.forEach((cmd) => {
         const row = document.createElement("div");
         row.className = "space-y-1 rounded-lg border border-slate-700 bg-slate-900/70 p-3";
+        row.dataset.commandmentId = String(cmd.id);
+        row.tabIndex = 0;
+        row.setAttribute("role", "link");
+        row.setAttribute("aria-label", "Open permanent link for commandment " + cmd.id);
+
+        const selectCommandment = () => {
+          activeCommandmentId = String(cmd.id);
+          window.HGRoute?.setCardState?.("commandments", { id: activeCommandmentId }, {
+            announce: false,
+            source: "commandment"
+          });
+          updateResults();
+        };
+
+        row.addEventListener("click", selectCommandment);
+        row.addEventListener("keydown", event => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            selectCommandment();
+          }
+        });
 
         appendText(row, "div", cmd.title || "Untitled commandment", "font-semibold text-white");
         appendText(row, "div", cmd.reference || "No reference listed", "text-xs text-slate-300");
@@ -314,5 +357,12 @@
 
   window.initCommandmentsCard = initCommandmentsCard;
   window.destroyCommandmentsCard = destroyCommandmentsCard;
+
+  window.HGRoute?.registerCard?.("commandments", {
+    getState() {
+      return activeCommandmentId ? { id: activeCommandmentId } : {};
+    }
+  });
+
   initCommandmentsCard();
 })();
