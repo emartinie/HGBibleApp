@@ -1,0 +1,46 @@
+<style>
+  #scholarsCard { display:grid; gap:1rem; color:#e7eef7; }
+  #scholarsCard * { min-width:0; }
+  .scholars-intro,.scholar-browser,.scholar-profile { border:1px solid rgba(148,163,184,.22); border-radius:18px; background:rgba(15,27,40,.86); }
+  .scholars-intro { padding:1.2rem; }
+  .scholars-intro h2 { margin:.2rem 0 .5rem; color:#f8fafc; font:700 clamp(1.55rem,4vw,2.2rem)/1.15 Georgia,serif; }
+  .scholars-kicker,.scholar-label { color:#f2c66d; font-size:.72rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase; }
+  .scholars-layout { display:grid; grid-template-columns:minmax(210px,.34fr) minmax(0,1fr); gap:1rem; }
+  .scholar-browser { padding:.85rem; align-self:start; }
+  #scholarSearch { width:100%; padding:.7rem .8rem; border:1px solid #475569; border-radius:.65rem; background:#0f172a; color:#f8fafc; }
+  #scholarList { display:grid; gap:.5rem; margin-top:.75rem; }
+  #scholarList button { width:100%; padding:.7rem .75rem; border:1px solid rgba(148,163,184,.22); border-radius:.7rem; background:rgba(30,41,59,.72); color:#e2e8f0; text-align:left; cursor:pointer; }
+  #scholarList button.active { border-color:#f2c66d; color:#fff3cb; background:rgba(242,198,109,.12); }
+  .scholar-profile { padding:clamp(1rem,4vw,1.7rem); }
+  .scholar-profile h2 { margin:.25rem 0 .25rem; color:#fff; font:700 clamp(1.7rem,5vw,2.7rem)/1.1 Georgia,serif; }
+  .scholar-title { color:#a7b4c4; }
+  .scholar-section { margin-top:1.25rem; padding-top:1rem; border-top:1px solid rgba(148,163,184,.18); }
+  .scholar-section h3 { margin:0 0 .6rem; color:#dff9ff; }
+  .scholar-chips { display:flex; flex-wrap:wrap; gap:.45rem; padding:0; list-style:none; }
+  .scholar-chips li { padding:.3rem .55rem; border:1px solid rgba(120,216,232,.28); border-radius:999px; background:rgba(120,216,232,.08); font-size:.8rem; }
+  .scholar-list { margin:.4rem 0 0; padding-left:1.2rem; }
+  .scholar-list li { margin-bottom:.55rem; }
+  .scholar-sources a { color:#78d8e8; }
+  .scholar-note { color:#a7b4c4; font-size:.86rem; }
+  .scholar-empty { padding:2rem; text-align:center; color:#a7b4c4; }
+  @media(max-width:700px){ .scholars-layout{grid-template-columns:1fr}.scholar-browser{position:static} }
+</style>
+
+<section id="scholarsCard" aria-labelledby="scholarsTitle">
+  <header class="scholars-intro">
+    <div class="scholars-kicker">HomeGroups Resources</div>
+    <h2 id="scholarsTitle">Scholar Profiles</h2>
+    <p>Meet influential living scholars, understand their methods, and see where their work is most useful—or requires caution.</p>
+    <p class="scholar-note" id="scholarsEditorialNote"></p>
+  </header>
+  <div class="scholars-layout">
+    <aside class="scholar-browser" aria-label="Choose a scholar">
+      <label class="scholar-label" for="scholarSearch">Find a scholar or field</label>
+      <input id="scholarSearch" type="search" placeholder="Name, field, or book">
+      <div id="scholarList"></div>
+    </aside>
+    <article id="scholarProfile" class="scholar-profile" aria-live="polite">
+      <div class="scholar-empty">Choose a scholar to begin.</div>
+    </article>
+  </div>
+</section>
