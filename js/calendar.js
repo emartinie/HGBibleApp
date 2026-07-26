@@ -3,6 +3,7 @@
 
   var currentCalendarType = "Hillel";
   var currentNextHolyDayKey = null;
+  var currentDetailKey = null;
   var countdownInterval = null;
   var activeRoot = null;
 
@@ -158,9 +159,22 @@
     countdownInterval = setInterval(tick, 60000);
   }
 
-  function setCalendarType(type) {
+  function setCalendarType(type, options) {
+    options = options || {};
     if (!activeRoot || !CALENDAR_MODELS[type]) return;
     currentCalendarType = type;
+    currentDetailKey = null;
+
+    if (!options.restore) {
+      window.HGRoute?.setCardState?.("calendar", {
+        model: type,
+        event: null,
+        date: null
+      }, {
+        announce: false,
+        source: "calendar-model"
+      });
+    }
     try { localStorage.setItem("preferredCalendarType", type); } catch (error) {}
     var next = getUpcomingHolyDay(type);
     currentNextHolyDayKey = next ? next.key : null;
@@ -195,9 +209,24 @@
     renderHolyDayList(type);
   }
 
-  function openCalendarDetail(key) {
+  function openCalendarDetail(key, options) {
+    options = options || {};
     var info = EVENT_INFO[key];
     if (!activeRoot || !info) return;
+    currentDetailKey = key;
+
+    if (!options.restore) {
+      var selectedEvent = eventsFor(currentCalendarType).find(function (item) { return item.key === key; });
+      window.HGRoute?.setCardState?.("calendar", {
+        model: currentCalendarType,
+        event: key,
+        date: selectedEvent ? selectedEvent.start.slice(0, 10) : null
+      }, {
+        announce: false,
+        source: "calendar-event"
+      });
+    }
+
     var panel = activeRoot.querySelector("#calendarDetail");
     activeRoot.querySelector("#calendarDetailPrompt").hidden = true;
     activeRoot.querySelector("#calendarDetailTitle").textContent = info.title;
@@ -209,8 +238,17 @@
 
   function closeCalendarDetail() {
     if (!activeRoot) return;
+    currentDetailKey = null;
     activeRoot.querySelector("#calendarDetail").hidden = true;
     activeRoot.querySelector("#calendarDetailPrompt").hidden = false;
+    window.HGRoute?.setCardState?.("calendar", {
+      model: currentCalendarType,
+      event: null,
+      date: null
+    }, {
+      announce: false,
+      source: "calendar-close"
+    });
   }
 
   function handleCalendarClick(event) {
@@ -233,9 +271,28 @@
     if (!activeRoot) return;
     activeRoot.addEventListener("click", handleCalendarClick);
     renderToday();
+    var route = window.HGRoute?.read?.();
     var saved = "Hillel";
     try { saved = localStorage.getItem("preferredCalendarType") || "Hillel"; } catch (error) {}
-    setCalendarType(CALENDAR_MODELS[saved] ? saved : "Hillel");
+
+    var routedModel = route?.card === "calendar" && CALENDAR_MODELS[route.model]
+      ? route.model
+      : null;
+    var model = routedModel || (CALENDAR_MODELS[saved] ? saved : "Hillel");
+    setCalendarType(model, { restore: true });
+
+    if (route?.card === "calendar") {
+      var detailKey = route.event;
+      if (!detailKey && route.date) {
+        var matched = eventsFor(model).find(function (item) {
+          return item.start.slice(0, 10) === route.date;
+        });
+        detailKey = matched ? matched.key : null;
+      }
+      if (detailKey && EVENT_INFO[detailKey]) {
+        openCalendarDetail(detailKey, { restore: true });
+      }
+    }
   }
 
   function destroyCalendarCard() {
@@ -243,6 +300,7 @@
     countdownInterval = null;
     if (activeRoot) activeRoot.removeEventListener("click", handleCalendarClick);
     activeRoot = null;
+    currentDetailKey = null;
   }
 
   window.setCalendarType = setCalendarType;
@@ -250,5 +308,19 @@
   window.openHolyDayDetails = openCalendarDetail;
   window.initCalendarCard = initCalendarCard;
   window.destroyCalendarCard = destroyCalendarCard;
+
+  window.HGRoute?.registerCard?.("calendar", {
+    getState: function () {
+      var state = { model: currentCalendarType };
+      if (currentDetailKey) {
+        state.event = currentDetailKey;
+        var selectedEvent = eventsFor(currentCalendarType).find(function (item) {
+          return item.key === currentDetailKey;
+        });
+        if (selectedEvent) state.date = selectedEvent.start.slice(0, 10);
+      }
+      return state;
+    }
+  });
 })();
 
