@@ -1,0 +1,313 @@
+{
+  "reviewed": "2026-07-26",
+  "editorialNote": "Biographical facts and publications are sourced. Strengths, limitations, and comparisons are HomeGroups editorial assessments and are labeled as such. Language claims are limited to what reviewed public sources document.",
+  "scholars": [
+    {
+      "id": "craig-s-keener",
+      "name": "Craig S. Keener",
+      "title": "F. M. and Ada Thompson Professor of Biblical Studies, Asbury Theological Seminary",
+      "tradition": "Christian New Testament scholarship; Pentecostal and evangelical contexts",
+      "overview": "A New Testament scholar especially known for placing the Gospels and Acts within their early Jewish and Greco-Roman environments.",
+      "expertise": [
+        "New Testament backgrounds",
+        "Acts",
+        "The historical Jesus",
+        "The Gospels",
+        "Miracle claims",
+        "Ethnic and racial reconciliation"
+      ],
+      "languages": [
+        "The reviewed public biography does not provide a complete self-reported language inventory. His technical work requires sustained engagement with Koine Greek and translated ancient Jewish and Greco-Roman sources, but this profile does not convert that professional use into unsupported fluency claims."
+      ],
+      "strengths": [
+        "Exceptional breadth of ancient comparative material",
+        "Combines large technical commentaries with accessible teaching",
+        "Particularly useful for social, rhetorical, Jewish, and Greco-Roman context",
+        "Engages historical questions without concealing his Christian commitments"
+      ],
+      "limitations": [
+        "The enormous quantity of parallels can require readers to distinguish close contextual evidence from looser analogy.",
+        "His historical and theological judgments are often more confident than those of strongly skeptical historical critics.",
+        "His work is strongest in New Testament context; Hebrew Bible textual criticism is not his principal specialization."
+      ],
+      "writings": [
+        "Acts: An Exegetical Commentary, 4 volumes",
+        "The IVP Bible Background Commentary: New Testament",
+        "The Gospel of John: A Commentary",
+        "The Historical Jesus of the Gospels",
+        "Miracles: The Credibility of the New Testament Accounts",
+        "The Gospel of Matthew: A Socio-Rhetorical Commentary"
+      ],
+      "contributions": [
+        "Made a very large body of ancient background material available to pastors and nonspecialists",
+        "Produced one of the most extensively documented modern commentaries on Acts",
+        "Brought global Christian testimony and miracle claims into sustained historical discussion",
+        "Helped popularize contextual rather than isolated readings of New Testament passages"
+      ],
+      "influence": "Highly influential in evangelical and Pentecostal biblical studies, pastoral training, Bible-background resources, and historically oriented defenses of New Testament reliability.",
+      "comparisons": [
+        "With Richard Bauckham: both treat the Gospels as historically serious sources. Bauckham emphasizes named testimony and eyewitness transmission; Keener more often emphasizes broad social-historical and literary context.",
+        "With Emanuel Tov: Keener normally begins from the received critical editions used in New Testament study, whereas Tov's specialty is the prior textual plurality and transmission history of Hebrew Scripture.",
+        "With James Kugel and Jon Levenson: Keener makes extensive use of Jewish sources for New Testament context, while Kugel and Levenson center Jewish interpretation and the Hebrew Bible on their own terms."
+      ],
+      "sources": [
+        {
+          "label": "Asbury Theological Seminary faculty biography",
+          "url": "https://asburyseminary.edu/faculty/craig-keener/"
+        },
+        {
+          "label": "Official Bible Backgrounds biography",
+          "url": "https://craigkeener.com/about-craig/"
+        }
+      ]
+    },
+    {
+      "id": "james-kugel",
+      "name": "James L. Kugel",
+      "title": "Professor Emeritus of Bible, Bar-Ilan University; former Starr Professor of Hebrew Literature, Harvard University",
+      "tradition": "Jewish biblical scholarship",
+      "overview": "A scholar of the Hebrew Bible, Dead Sea Scrolls, and the history of biblical interpretation, especially the assumptions through which ancient interpreters read Scripture.",
+      "expertise": [
+        "Hebrew Bible",
+        "History of biblical interpretation",
+        "Early Jewish exegesis",
+        "Dead Sea Scrolls",
+        "Midrash",
+        "Biblical poetry",
+        "Judaism"
+      ],
+      "languages": [
+        "His scholarship works directly with Biblical Hebrew and ancient Jewish texts. His public biography and bibliography demonstrate substantial Hebrew-language scholarship, but the reviewed biography does not present a complete self-rated language inventory."
+      ],
+      "strengths": [
+        "Explains ancient interpretation with unusual clarity",
+        "Shows how later readers shaped the Bible's received meaning",
+        "Moves effectively between literary criticism, Second Temple interpretation, and Jewish theology",
+        "Writes for both specialists and general readers"
+      ],
+      "limitations": [
+        "His distinction between the Bible's earlier meanings and later interpretive Bible can unsettle readers who assume a single continuous meaning.",
+        "Some historical reconstructions depend upon dating and source-critical judgments that remain debated.",
+        "His readable syntheses can compress disagreements that require fuller specialist treatment."
+      ],
+      "writings": [
+        "The Bible As It Was",
+        "How to Read the Bible",
+        "The Idea of Biblical Poetry",
+        "In Potiphar's House",
+        "The God of Old",
+        "The Ladder of Jacob",
+        "A Walk Through Jubilees"
+      ],
+      "contributions": [
+        "Clarified the shared assumptions of ancient Jewish and Christian biblical interpreters",
+        "Helped distinguish the compositional world of biblical texts from their early reception",
+        "Made the history of interpretation central to understanding what later communities call the Bible",
+        "Connected Dead Sea Scrolls and rewritten Scripture to broader interpretive history"
+      ],
+      "influence": "Influential across Hebrew Bible, reception history, early Judaism, literary study, and public conversations about historical criticism and traditional faith.",
+      "comparisons": [
+        "With Jon Levenson: both read the Hebrew Bible within Jewish interpretive history. Kugel foregrounds the rise of ancient interpretation; Levenson more often develops literary and theological meaning across Jewish tradition.",
+        "With Emanuel Tov: Kugel concentrates on how texts were interpreted, while Tov concentrates on the manuscripts and textual forms being interpreted.",
+        "With Craig Keener and Richard Bauckham: Kugel is generally less focused on defending New Testament historical claims and more focused on the changing interpretive life of Israel's Scriptures."
+      ],
+      "sources": [
+        {
+          "label": "James Kugel official biography and CV",
+          "url": "https://www.jameskugel.com/about/biography/"
+        },
+        {
+          "label": "James Kugel books and articles",
+          "url": "https://www.jameskugel.com/about/books-articles/"
+        }
+      ]
+    },
+    {
+      "id": "emanuel-tov",
+      "name": "Emanuel Tov",
+      "title": "J. L. Magnes Professor of Bible Emeritus, Hebrew University of Jerusalem",
+      "tradition": "Jewish textual scholarship",
+      "overview": "A leading specialist in the textual criticism of the Hebrew Bible, Septuagint, and Dead Sea Scrolls, and former editor-in-chief of the international Dead Sea Scrolls Publication Project.",
+      "expertise": [
+        "Textual criticism of the Hebrew Bible",
+        "Septuagint",
+        "Dead Sea Scrolls",
+        "Scribal practice",
+        "Textual plurality",
+        "Electronic editions of ancient texts"
+      ],
+      "languages": [
+        "Hebrew and Greek are directly reflected in his education and primary research: his BA included Bible and Greek literature, and his doctorate examined the Septuagint translation of Jeremiah. His work also engages Aramaic and other textual languages, but this profile avoids assigning conversational fluency without a self-reported inventory."
+      ],
+      "strengths": [
+        "Exceptional control of manuscript evidence and scribal phenomena",
+        "Careful classification of textual variants without forcing them into one simple history",
+        "Combines theory, editions, and large collaborative publication projects",
+        "Provides essential safeguards against arguments built on an assumed single ancient text form"
+      ],
+      "limitations": [
+        "Textual criticism can identify forms and relationships without by itself resolving theological meaning.",
+        "His technical work can be difficult for nonspecialists.",
+        "Proposed textual relationships and categories remain open to revision as manuscripts and methods are reassessed."
+      ],
+      "writings": [
+        "Textual Criticism of the Hebrew Bible",
+        "The Text-Critical Use of the Septuagint in Biblical Research",
+        "Scribal Practices and Approaches Reflected in the Texts Found in the Judean Desert",
+        "The Greek and Hebrew Bible",
+        "The Dead Sea Scrolls Reader, co-edited"
+      ],
+      "contributions": [
+        "Directed the Dead Sea Scrolls publication project through the release of dozens of Discoveries in the Judaean Desert volumes",
+        "Established widely used methods for evaluating Hebrew Bible textual witnesses",
+        "Advanced the study of textual plurality in the Second Temple period",
+        "Helped create print and electronic research editions of Hebrew, Greek, and Judean Desert texts"
+      ],
+      "influence": "Foundational for contemporary Hebrew Bible textual criticism, Septuagint studies, Dead Sea Scrolls research, Bible translation, and critical editions.",
+      "comparisons": [
+        "With James Kugel: Tov asks which textual form a community possessed; Kugel asks how communities interpreted Scripture. The questions are complementary but not interchangeable.",
+        "With Jon Levenson: Tov's method is primarily philological and text-critical; Levenson's is more literary and theological.",
+        "With Keener and Bauckham: Tov's work cautions all historical and theological interpreters to identify the textual witness behind a quotation before building an argument upon its wording."
+      ],
+      "sources": [
+        {
+          "label": "Emanuel Tov official website",
+          "url": "https://www.emanueltov.info/"
+        },
+        {
+          "label": "Emanuel Tov official biographical sketch",
+          "url": "https://www.emanueltov.info/docs/cv/biosketch.pdf?v=1.0"
+        },
+        {
+          "label": "Hebrew University Department of Bible profile",
+          "url": "https://en.bible.huji.ac.il/people/emanuel-tov"
+        }
+      ]
+    },
+    {
+      "id": "richard-bauckham",
+      "name": "Richard Bauckham",
+      "title": "Biblical scholar and theologian; former Professor of New Testament Studies, University of St Andrews",
+      "tradition": "Christian biblical scholarship and theology",
+      "overview": "A New Testament scholar and theologian known especially for work on Gospel eyewitness testimony, early Christology, Revelation, Jewish and Christian apocalyptic literature, and the early Jerusalem church.",
+      "expertise": [
+        "Jesus and the Gospels",
+        "New Testament Christology",
+        "Revelation",
+        "Jewish and Christian apocalyptic",
+        "Old Testament Pseudepigrapha",
+        "Early Jerusalem Christianity",
+        "Bible and ecology"
+      ],
+      "languages": [
+        "The reviewed official biography does not publish a complete language inventory. His technical work engages New Testament Greek and ancient Jewish and Christian texts; this profile does not infer a full list or level of fluency."
+      ],
+      "strengths": [
+        "Connects detailed textual observations with large historical arguments",
+        "Brings neglected names, traditions, and early Jewish sources into Gospel research",
+        "Works across New Testament, early Judaism, theology, and ecological interpretation",
+        "Produces both specialist monographs and accessible books"
+      ],
+      "limitations": [
+        "The eyewitness model advanced in Jesus and the Eyewitnesses remains substantially debated.",
+        "Some arguments build broad historical conclusions from patterns of names, testimony, and literary detail that other scholars weigh differently.",
+        "His explicitly theological synthesis differs from methods that restrict historical study to narrower claims."
+      ],
+      "writings": [
+        "Jesus and the Eyewitnesses",
+        "God Crucified",
+        "The Theology of the Book of Revelation",
+        "Jude and the Relatives of Jesus in the Early Church",
+        "Jesus: A Very Short Introduction",
+        "Bible and Ecology"
+      ],
+      "contributions": [
+        "Renewed major scholarly debate about eyewitness testimony in Gospel formation",
+        "Advanced influential accounts of early divine Christology within Jewish monotheism",
+        "Expanded study of Jesus' relatives and the Jerusalem church",
+        "Integrated biblical theology with environmental ethics"
+      ],
+      "influence": "Highly influential in Gospel origins, early Christology, Revelation studies, historical Jesus research, and Christian theological readings of Scripture.",
+      "comparisons": [
+        "With Craig Keener: both argue that the Gospels deserve serious historical treatment. Bauckham's distinctive emphasis is eyewitness testimony; Keener's is the density of cultural and documentary context.",
+        "With James Kugel and Jon Levenson: Bauckham draws heavily on early Jewish materials but develops Christian historical and christological conclusions from them.",
+        "With Emanuel Tov: Bauckham's historical synthesis depends on textual evidence whose manuscript forms and transmission fall within Tov's specialist domain."
+      ],
+      "sources": [
+        {
+          "label": "Richard Bauckham official biography",
+          "url": "https://richardbauckham.co.uk/"
+        },
+        {
+          "label": "Richard Bauckham official publications list",
+          "url": "https://richardbauckham.co.uk/publications/"
+        }
+      ]
+    },
+    {
+      "id": "jon-d-levenson",
+      "name": "Jon D. Levenson",
+      "title": "Albert A. List Professor of Jewish Studies, Harvard Divinity School",
+      "tradition": "Jewish biblical scholarship and theology",
+      "overview": "A scholar of Hebrew Bible, Jewish interpretation, midrash, and Jewish-Christian relations whose work joins close literary reading with historical and theological analysis.",
+      "expertise": [
+        "Hebrew Bible",
+        "Theological traditions of ancient Israel",
+        "Literary interpretation",
+        "Midrash",
+        "History of Jewish biblical interpretation",
+        "Modern Jewish theology",
+        "Jewish-Christian relations"
+      ],
+      "languages": [
+        "His CV documents study of Modern Hebrew language and culture, and his field requires close work with Biblical Hebrew and Jewish interpretive texts. The reviewed sources do not provide a complete self-rated language inventory."
+      ],
+      "strengths": [
+        "Close literary reading joined to Jewish theological interpretation",
+        "Resists treating historical criticism as the only legitimate context for meaning",
+        "Clarifies differences and shared themes between Judaism and Christianity",
+        "Brings biblical, Second Temple, rabbinic, medieval, and modern interpretation into conversation"
+      ],
+      "limitations": [
+        "His theological and canonical readings may not persuade scholars committed to strictly historical reconstruction.",
+        "His defense of particular Jewish readings can sharply challenge Christian universalizing interpretations.",
+        "Literary-theological synthesis does not replace text-critical work on variant manuscripts."
+      ],
+      "writings": [
+        "Resurrection and the Restoration of Israel",
+        "The Death and Resurrection of the Beloved Son",
+        "Inheriting Abraham",
+        "The Love of God",
+        "Creation and the Persistence of Evil",
+        "Sinai and Zion",
+        "Israel's Day of Light and Joy"
+      ],
+      "contributions": [
+        "Recovered resurrection as a significant theme within Israel's Scriptures and Jewish theology",
+        "Reframed sacrifice, beloved-son traditions, covenant, and divine love through close Jewish reading",
+        "Critiqued Christian supersessionist uses of Hebrew Scripture",
+        "Contributed sustained scholarship and dialogue on Jewish-Christian difference"
+      ],
+      "influence": "Influential in Hebrew Bible theology, Jewish studies, literary interpretation, resurrection studies, Sabbath research, and Jewish-Christian dialogue.",
+      "comparisons": [
+        "With James Kugel: both emphasize the Bible's Jewish interpretive afterlives. Kugel often maps ancient interpretive assumptions; Levenson more directly develops literary and theological claims.",
+        "With Emanuel Tov: Levenson asks what texts mean within literary and theological contexts; Tov establishes the textual forms and transmission history that precede that work.",
+        "With Keener and Bauckham: Levenson shares interest in Second Temple interpretation but frequently challenges Christian readings that absorb Israel's particular identity into universal Christian categories."
+      ],
+      "sources": [
+        {
+          "label": "Harvard Divinity School faculty profile",
+          "url": "https://www.hds.harvard.edu/people/jon-d-levenson"
+        },
+        {
+          "label": "Jon D. Levenson curriculum vitae",
+          "url": "https://www.hds.harvard.edu/sites/g/files/omnuum5526/files/hds2/files/c.v._jon_d._levenson_web_7-19-23.pdf"
+        },
+        {
+          "label": "Harvard Divinity Bulletin interview on Sabbath",
+          "url": "https://bulletin.hds.harvard.edu/a-very-special-and-mysterious-day/"
+        }
+      ]
+    }
+  ]
+}
