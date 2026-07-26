@@ -34,7 +34,8 @@ const INVESTIGATIONS = [
   { title: "Non-Canonical Sources Quoted or Echoed in the New Testament? #011", file: "non-canonical-sources-quoted-or-echoed-in-the-new-testament.html" },
   { title: "Testing Prophetic Claims #012", file: "testing-prophetic-claims.html" },
   { title: "The Continuity of Progressive Revelation #013", file: "continuity-of-progressive-revelation.html" },
-  { title: "Who Was Rabban Gamaliel the Elder? #014", file: "who-was-rabban-gamaliel-the-elder.html" }
+  { title: "Who Was Rabban Gamaliel the Elder? #014", file: "who-was-rabban-gamaliel-the-elder.html" },
+  { title: "Did the Jewish Followers of Yeshua Leave Judaism? #015", file: "did-jewish-followers-of-yeshua-leave-judaism.html" }
 ];
 
 const PAGE_SIZE = 40;
