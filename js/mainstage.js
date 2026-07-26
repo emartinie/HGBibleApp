@@ -607,10 +607,44 @@ function dispatchWeekChanged(week) {
   document.dispatchEvent(new CustomEvent("weekChanged", { detail: { week } }));
 }
 
+function syncMainStageRoute(week, options = {}) {
+  const value = parseInt(week, 10);
+  if (!Number.isFinite(value) || value < 1 || value > TOTAL_WEEKS) return;
+
+  window.HGRoute?.setCardState?.("mainstage", { week: value }, {
+    replace: options.replace === true,
+    announce: false,
+    source: "mainstage-week"
+  });
+}
+
+async function restoreMainStageRoute(route) {
+  if (route?.card !== "mainstage") return;
+  const week = parseInt(route.week, 10);
+  if (!Number.isFinite(week) || week < 1 || week > TOTAL_WEEKS) return;
+
+  cacheDOM();
+  if (!weekSelect || String(weekSelect.value) === String(week)) return;
+
+  weekSelect.value = String(week);
+  window.currentWeek = week;
+  await loadWeek(week);
+  dispatchWeekChanged(week);
+}
+
 // --- Initialize ---
 async function init() {
   cacheDOM();
   populateWeekSelect();
+
+  const initialRoute = window.HGRoute?.read?.();
+  const routedWeek = initialRoute?.card === "mainstage"
+    ? parseInt(initialRoute.week, 10)
+    : NaN;
+  if (Number.isFinite(routedWeek) && routedWeek >= 1 && routedWeek <= TOTAL_WEEKS) {
+    weekSelect.value = String(routedWeek);
+  }
+
   initWeeklyScriptureLoader();
   prepareMainStageSections();
 
@@ -645,6 +679,7 @@ async function init() {
     window.currentWeek    = next;
     loadWeek(next);
     dispatchWeekChanged(next);
+    syncMainStageRoute(next);
   });
 
   nextBtn?.addEventListener("click", () => {
@@ -655,6 +690,7 @@ async function init() {
     window.currentWeek    = next;
     loadWeek(next);
     dispatchWeekChanged(next);
+    syncMainStageRoute(next);
   });
 
   // FIX: single change listener â€” was registered twice in original
@@ -662,6 +698,7 @@ async function init() {
     window.currentWeek = parseInt(weekSelect.value, 10);
     loadWeek(window.currentWeek);
     dispatchWeekChanged(window.currentWeek);
+    syncMainStageRoute(window.currentWeek);
   });
 
   // --- Scripture popup (optional elements) ---
@@ -700,6 +737,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (typeof renderCards === "function" && window.weeklyCommentary) {
     renderCards(window.weeklyCommentary);
   }
+});
+
+window.HGRoute?.registerCard?.("mainstage", {
+  getState() {
+    const week = parseInt(document.getElementById("weekSelect")?.value, 10);
+    return Number.isFinite(week) ? { week } : {};
+  },
+  restore: restoreMainStageRoute
 });
 
 // --- Boot ---
