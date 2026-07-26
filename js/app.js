@@ -461,6 +461,9 @@ function cleanupActiveCard() {
     refreshDomRefs();
     if (!loadedCardHost || !cardName) return;
 
+    const viewport = document.getElementById("viewport");
+    if (viewport) viewport.dataset.activeCard = cardName;
+
     const fromRoute = options.fromRoute === true;
 
     if (!fromRoute && window.HGRoute) {
