@@ -23,20 +23,30 @@
   .scholar-sources a { color:#78d8e8; }
   .scholar-note { color:#a7b4c4; font-size:.86rem; }
   .scholar-empty { padding:2rem; text-align:center; color:#a7b4c4; }
+  .scholar-who { margin:.55rem 0 0; color:#d7e1eb; font-size:1.08rem; line-height:1.65; }
+  .scholar-help { margin-top:1.15rem; padding:1rem; border:1px solid rgba(242,198,109,.3); border-radius:14px; background:rgba(242,198,109,.07); }
+  .scholar-help h3 { margin:0 0 .45rem; color:#fff3cb; }
+  .scholar-help p,.scholar-start-card p { margin:.35rem 0 0; }
+  .scholar-start-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:.7rem; }
+  .scholar-start-card { padding:.9rem; border:1px solid rgba(120,216,232,.25); border-radius:12px; background:rgba(120,216,232,.06); }
+  .scholar-research { margin-top:1.35rem; border:1px solid rgba(148,163,184,.25); border-radius:14px; overflow:hidden; background:rgba(2,6,23,.24); }
+  .scholar-research summary { padding:1rem; color:#f2c66d; font-weight:800; cursor:pointer; }
+  .scholar-research[open] summary { border-bottom:1px solid rgba(148,163,184,.2); background:rgba(242,198,109,.05); }
+  .scholar-research-body { padding:0 1rem 1rem; }
   @media(max-width:700px){ .scholars-layout{grid-template-columns:1fr}.scholar-browser{position:static} }
 </style>
 
 <section id="scholarsCard" aria-labelledby="scholarsTitle">
   <header class="scholars-intro">
     <div class="scholars-kicker">HomeGroups Resources</div>
-    <h2 id="scholarsTitle">Scholar Profiles</h2>
-    <p>Meet influential living scholars, understand their methods, and see where their work is most useful—or requires caution.</p>
+    <h2 id="scholarsTitle">People &amp; Study Guides</h2>
+    <p>Find the right person or resource for the biblical question you are studying. Begin with practical guidance, then open the deeper research when you need it.</p>
     <p class="scholar-note" id="scholarsEditorialNote"></p>
   </header>
   <div class="scholars-layout">
     <aside class="scholar-browser" aria-label="Choose a scholar">
       <label class="scholar-label" for="scholarSearch">Find a scholar or field</label>
-      <input id="scholarSearch" type="search" placeholder="Name, field, or book">
+      <input id="scholarSearch" type="search" placeholder="Name, subject, or book">
       <div id="scholarList"></div>
     </aside>
     <article id="scholarProfile" class="scholar-profile" aria-live="polite">
