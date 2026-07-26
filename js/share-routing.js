@@ -349,8 +349,14 @@
       const style = document.createElement("style");
       style.id = "hgMobileUtilityStyles";
       style.textContent = `
+        #reloadCardBtn,
+        #aboutHomeGroupsBtn,
+        #hgShareRouteBtn {
+          display: none !important;
+        }
+
         #hgMobileUtilityWrap {
-          display: none;
+          display: inline-flex;
           position: relative;
           flex: 0 0 auto;
         }
@@ -405,17 +411,6 @@
           outline: none;
         }
 
-        @media (max-width: 430px) {
-          #reloadCardBtn,
-          #aboutHomeGroupsBtn,
-          #hgShareRouteBtn {
-            display: none !important;
-          }
-
-          #hgMobileUtilityWrap {
-            display: inline-flex;
-          }
-        }
       `;
       document.head.appendChild(style);
     }
