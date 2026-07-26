@@ -19,21 +19,41 @@ function renderScholarProfile(scholar) {
   const sources = (scholar.sources || []).map(source =>
     `<li><a href="${source.url}" target="_blank" rel="noopener">${source.label}</a></li>`
   );
+  const startingPoints = (scholar.startWith || []).map(item =>
+    `<article class="scholar-start-card"><strong>${item.title}</strong><p>${item.reason}</p></article>`
+  ).join("");
   host.innerHTML = `
-    <div class="scholar-label">Scholar profile</div>
+    <div class="scholar-label">${scholar.category || "Study contributor"}</div>
     <h2>${scholar.name}</h2>
-    <p class="scholar-title">${scholar.title}</p>
-    <p><strong>Scholarly setting:</strong> ${scholar.tradition}</p>
-    <p>${scholar.overview}</p>
-    ${scholarListSection("Areas of expertise", scholar.expertise, "scholar-chips")}
-    ${scholarListSection("Languages and textual work", scholar.languages)}
-    ${scholarListSection("Research strengths", scholar.strengths)}
-    ${scholarListSection("Limitations and cautions", scholar.limitations)}
-    ${scholarListSection("Selected primary writings", scholar.writings)}
-    ${scholarListSection("Notable contributions", scholar.contributions)}
-    <section class="scholar-section"><h3>Influence</h3><p>${scholar.influence}</p></section>
-    ${scholarListSection("Where this scholar agrees or differs", scholar.comparisons)}
-    <section class="scholar-section scholar-sources"><h3>Sources and further reading</h3><ul class="scholar-list">${sources.join("")}</ul></section>
+    <p class="scholar-who">${scholar.who || scholar.overview}</p>
+
+    <section class="scholar-help">
+      <h3>Why might this person's work help me?</h3>
+      <p>${scholar.whyHelpful || scholar.overview}</p>
+    </section>
+
+    <section class="scholar-section">
+      <h3>A good place to begin</h3>
+      <div class="scholar-start-grid">${startingPoints}</div>
+    </section>
+
+    ${scholarListSection("Especially helpful for", scholar.helpfulFor || scholar.expertise, "scholar-chips")}
+
+    <details class="scholar-research">
+      <summary>Open expanded research</summary>
+      <div class="scholar-research-body">
+        <section class="scholar-section"><h3>Background and credentials</h3><p class="scholar-title">${scholar.title}</p><p><strong>Contributor type and setting:</strong> ${scholar.tradition}</p><p>${scholar.overview}</p></section>
+        ${scholarListSection("Research method and fields", scholar.expertise, "scholar-chips")}
+        ${scholarListSection("Languages and textual work", scholar.languages)}
+        ${scholarListSection("Important works", scholar.writings)}
+        ${scholarListSection("Research strengths", scholar.strengths)}
+        ${scholarListSection("Limitations and cautions", scholar.limitations)}
+        ${scholarListSection("Notable contributions", scholar.contributions)}
+        <section class="scholar-section"><h3>Influence</h3><p>${scholar.influence}</p></section>
+        ${scholarListSection("Areas of agreement and disagreement", scholar.comparisons)}
+        <section class="scholar-section scholar-sources"><h3>Sources and further reading</h3><ul class="scholar-list">${sources.join("")}</ul></section>
+      </div>
+    </details>
   `;
   scholarElement("scholarList")?.querySelectorAll("button[data-scholar-id]").forEach(button => {
     button.classList.toggle("active", button.dataset.scholarId === scholar.id);
@@ -63,8 +83,8 @@ function renderScholarList(query = "") {
   const term = query.trim().toLowerCase();
   const matches = scholarsData.filter(scholar =>
     !term || [
-      scholar.name, scholar.title, scholar.tradition, scholar.overview,
-      ...(scholar.expertise || []), ...(scholar.writings || [])
+      scholar.name, scholar.title, scholar.category, scholar.tradition, scholar.overview, scholar.who, scholar.whyHelpful,
+      ...(scholar.expertise || []), ...(scholar.helpfulFor || []), ...(scholar.writings || [])
     ].join(" ").toLowerCase().includes(term)
   );
   list.replaceChildren();
