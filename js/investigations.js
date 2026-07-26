@@ -38,6 +38,29 @@ const INVESTIGATIONS = [
   { title: "Did the Jewish Followers of Yeshua Leave Judaism? #015", file: "did-jewish-followers-of-yeshua-leave-judaism.html" }
 ];
 
+function getInvestigationId(item) {
+  if (!item) return "";
+  if (item.file === "messiah-2030-claims-evidence-and-method.html") return "messiah2030";
+  return String(item.file || "")
+    .replace(/\.html$/i, "")
+    .replace(/[^a-z0-9]+/gi, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase();
+}
+
+function findInvestigation(route = {}) {
+  if (route.id) {
+    return INVESTIGATIONS.find(item => getInvestigationId(item) === String(route.id).toLowerCase());
+  }
+
+  if (route.file) {
+    const fileName = String(route.file).split("#", 1)[0];
+    return INVESTIGATIONS.find(item => item.file === fileName);
+  }
+
+  return null;
+}
+
 const PAGE_SIZE = 40;
 let activeController = null;
 let authUnsubscribe = null;
@@ -51,6 +74,7 @@ let publishedSearchIndex = null;
 let publishedSearchPromise = null;
 let publishedSearchRequest = 0;
 let suggestionLoadRequest = 0;
+let activeInvestigationId = "";
 
 function el(id) { return activeRoot?.querySelector(`#${id}`) || null; }
 function setMessage(id, text) { const node = el(id); if (node) node.textContent = text; }
@@ -147,15 +171,29 @@ async function searchPublishedInvestigations(query = "") {
   }
 }
 
-async function loadInvestigation(file) {
+async function loadInvestigation(file, options = {}) {
   const viewer = el("investigationViewer");
   if (!viewer) return;
   const [fileName, anchor = ""] = String(file || "").split("#", 2);
+  const item = INVESTIGATIONS.find(entry => entry.file === fileName);
   viewer.textContent = "Loading...";
   try {
     const response = await fetch(`investigations/${fileName}`, { signal: activeController?.signal });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     viewer.innerHTML = await response.text();
+    activeInvestigationId = getInvestigationId(item);
+
+    if (options.updateUrl && activeInvestigationId) {
+      window.HGRoute?.setCardState?.("investigations", {
+        id: activeInvestigationId,
+        file: null
+      }, {
+        replace: options.replace === true,
+        announce: false,
+        source: "investigation"
+      });
+    }
+
     if (anchor) {
       Array.from(viewer.querySelectorAll("[id]")).find(node => node.id === anchor)?.scrollIntoView({ block: "start" });
     } else {
@@ -538,7 +576,7 @@ async function initInvestigationsCard(root = document) {
     if (!button) return;
     el("investigationList").querySelectorAll("button").forEach(item => item.classList.remove("active"));
     button.classList.add("active");
-    loadInvestigation(button.dataset.file);
+    loadInvestigation(button.dataset.file, { updateUrl: true });
   }, { signal });
   el("topicBacklogSearch")?.addEventListener("input", applyBacklogFilters, { signal });
   el("topicBacklogCategory")?.addEventListener("change", applyBacklogFilters, { signal });
@@ -563,10 +601,18 @@ async function initInvestigationsCard(root = document) {
     if (isGoogleUser(user) && suggestionPanel && !suggestionPanel.hidden) loadOwnSuggestions(user);
   });
 
-  if (window.pendingInvestigationFile) {
-    const pending = window.pendingInvestigationFile;
+  const route = window.HGRoute?.read?.();
+  const routedInvestigation = route?.card === "investigations"
+    ? findInvestigation(route)
+    : null;
+  const pending = routedInvestigation?.file || window.pendingInvestigationFile;
+
+  if (pending) {
     const fileName = pending.split("#", 1)[0];
-    await loadInvestigation(pending);
+    await loadInvestigation(pending, {
+      updateUrl: Boolean(routedInvestigation),
+      replace: true
+    });
     Array.from(el("investigationList").querySelectorAll("button[data-file]")).find(item => item.dataset.file === fileName)?.classList.add("active");
     window.pendingInvestigationFile = null;
   }
@@ -581,8 +627,15 @@ function destroyInvestigationsCard() {
   ballot = null;
   currentVoteIds = new Set();
   suggestionLoadRequest += 1;
+  activeInvestigationId = "";
 }
 
 window.initInvestigationsCard = initInvestigationsCard;
 window.destroyInvestigationsCard = destroyInvestigationsCard;
+
+window.HGRoute?.registerCard?.("investigations", {
+  getState() {
+    return activeInvestigationId ? { id: activeInvestigationId } : {};
+  }
+});
 
