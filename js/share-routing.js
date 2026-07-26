@@ -1,198 +1,380 @@
-// Shareable URL routing for dynamically loaded HG Bible App cards.
-// This module is imported during app startup by firebaseTimeLoader.js.
+// Canonical URL routing and sharing for the HG Bible App.
+// Release 1.1: framework-free, backward-compatible, and adapter-based.
 
 (function () {
-  const CARD_DETAIL_PARAMS = new Set([
-    "file",
+  "use strict";
+
+  const ROUTE_PARAMS = new Set([
+    "week",
     "book",
     "chapter",
     "view",
-    "section"
+    "section",
+    "ref",
+    "from",
+    "file",
+    "id",
+    "date",
+    "model",
+    "event"
   ]);
 
-  let routeObserver = null;
-  let observedHost = null;
-  let suppressNextObservedRoute = false;
-  let lastObservedCard = null;
+  const adapters = new Map();
+  let routeHandler = null;
+  let started = false;
+  let handlingRoute = false;
 
-  function getCardSelector() {
-    return document.getElementById("cardSelector");
+  function hasValue(value) {
+    return value !== null && value !== undefined && value !== "";
   }
 
-  function getLoadedCardHost() {
-    return document.getElementById("loadedCardHost");
-  }
+  function getCurrentRoute(source = window.location.href) {
+    const url = source instanceof URL ? source : new URL(source, window.location.href);
+    const route = {
+      card: url.searchParams.get("card") || "mainstage"
+    };
 
-  function getSelectedCard() {
-    return getCardSelector()?.value || null;
-  }
-
-  function clearCardDetailParams(url, keep = []) {
-    const preserved = new Set(keep);
-
-    CARD_DETAIL_PARAMS.forEach(key => {
-      if (!preserved.has(key)) {
-        url.searchParams.delete(key);
-      }
+    ROUTE_PARAMS.forEach(key => {
+      const value = url.searchParams.get(key);
+      if (value !== null && value !== "") route[key] = value;
     });
+
+    return route;
   }
 
-  function buildAppRoute(cardName, detail = {}) {
+  function getRouteState(route = getCurrentRoute()) {
+    const state = { ...route };
+    delete state.card;
+    return state;
+  }
+
+  function clearRouteParams(url) {
+    ROUTE_PARAMS.forEach(key => url.searchParams.delete(key));
+  }
+
+  function buildRoute(cardOrRoute, state = {}) {
+    const requested = typeof cardOrRoute === "object" && cardOrRoute !== null
+      ? cardOrRoute
+      : { card: cardOrRoute, ...state };
     const url = new URL(window.location.href);
-    const detailKeys = Object.keys(detail).filter(key => detail[key] !== null && detail[key] !== undefined && detail[key] !== "");
+    const card = requested.card || "mainstage";
 
-    clearCardDetailParams(url, detailKeys);
+    clearRouteParams(url);
+    url.searchParams.set("card", card);
 
-    if (cardName) {
-      url.searchParams.set("card", cardName);
-    } else {
-      url.searchParams.delete("card");
-    }
-
-    Object.entries(detail).forEach(([key, value]) => {
-      if (value === null || value === undefined || value === "") {
-        url.searchParams.delete(key);
-      } else {
-        url.searchParams.set(key, String(value));
-      }
+    Object.entries(requested).forEach(([key, value]) => {
+      if (key === "card" || !ROUTE_PARAMS.has(key) || !hasValue(value)) return;
+      url.searchParams.set(key, String(value));
     });
 
     url.hash = "";
     return url;
   }
 
-  function writeRoute(cardName, detail = {}, options = {}) {
-    const { replace = false, state = {} } = options;
-    const url = buildAppRoute(cardName, detail);
-    const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-    const next = `${url.pathname}${url.search}${url.hash}`;
+  function sameLocation(left, right) {
+    return (
+      left.pathname === right.pathname &&
+      left.search === right.search &&
+      left.hash === right.hash
+    );
+  }
 
-    if (current === next) return url;
+  function announceRoute(route, source) {
+    window.dispatchEvent(new CustomEvent("hg:routechange", {
+      detail: { route, source }
+    }));
+  }
 
-    const method = replace ? "replaceState" : "pushState";
-    window.history[method]({ card: cardName, ...detail, ...state }, "", url);
+  function writeRoute(cardOrRoute, state = {}, options = {}) {
+    const route = typeof cardOrRoute === "object" && cardOrRoute !== null
+      ? cardOrRoute
+      : { card: cardOrRoute, ...state };
+    const url = buildRoute(route);
+    const current = new URL(window.location.href);
+
+    if (!sameLocation(current, url)) {
+      const method = options.replace ? "replaceState" : "pushState";
+      window.history[method]({ hgRoute: route }, "", url);
+    }
+
+    if (options.announce !== false) {
+      announceRoute(getCurrentRoute(url), options.source || "write");
+    }
+
     return url;
   }
 
-  function rewriteNtFragmentLinks(scope = document) {
-    scope.querySelectorAll?.('a[href*="cards/nt.html"], a[href^="nt.html"]')
-      .forEach(link => {
-        const rawHref = link.getAttribute("href");
-        if (!rawHref) return;
+  function setCardState(card, patch = {}, options = {}) {
+    const current = getCurrentRoute();
+    const base = current.card === card ? getRouteState(current) : {};
+    const next = { ...base, ...patch };
 
-        try {
-          const fragmentUrl = new URL(rawHref, window.location.href);
-          const detail = {};
-
-          ["book", "chapter", "view", "section"].forEach(key => {
-            const value = fragmentUrl.searchParams.get(key);
-            if (value) detail[key] = value;
-          });
-
-          link.href = buildAppRoute("nt", detail).href;
-          link.dataset.hgAppRoute = "nt";
-        } catch (error) {
-          console.warn("[ROUTER] Could not rewrite NT link", { rawHref, error });
-        }
-      });
-  }
-
-  function syncObservedCard() {
-    const cardName = getSelectedCard();
-    if (!cardName) return;
-
-    rewriteNtFragmentLinks(getLoadedCardHost() || document);
-
-    if (suppressNextObservedRoute) {
-      suppressNextObservedRoute = false;
-      lastObservedCard = cardName;
-      return;
-    }
-
-    const urlCard = new URLSearchParams(window.location.search).get("card");
-    if (urlCard === cardName) {
-      lastObservedCard = cardName;
-      return;
-    }
-
-    // A newly selected card is a navigation action. Remove stale details
-    // belonging to the previous card and make the address bar shareable.
-    writeRoute(cardName);
-    lastObservedCard = cardName;
-  }
-
-  function observeCardHost() {
-    const host = getLoadedCardHost();
-    if (!host || host === observedHost) return;
-
-    routeObserver?.disconnect();
-    observedHost = host;
-    routeObserver = new MutationObserver(syncObservedCard);
-    routeObserver.observe(host, {
-      childList: true,
-      subtree: true
+    Object.keys(next).forEach(key => {
+      if (!hasValue(next[key])) delete next[key];
     });
 
-    rewriteNtFragmentLinks(host);
+    return writeRoute({ card, ...next }, {}, {
+      replace: options.replace === true,
+      announce: options.announce !== false,
+      source: options.source || "card-state"
+    });
   }
 
-  function restoreRouteFromLocation() {
-    const params = new URLSearchParams(window.location.search);
-    const cardName = params.get("card");
-    if (!cardName || typeof window.loadCard !== "function") return;
+  function registerCard(card, adapter = {}) {
+    if (!card || typeof adapter !== "object") return function () {};
+    adapters.set(card, adapter);
 
-    if (cardName === "articles") {
-      const file = params.get("file");
-      if (file) window.pendingArticleFile = file;
+    return function unregisterCard() {
+      if (adapters.get(card) === adapter) adapters.delete(card);
+    };
+  }
+
+  async function restoreCard(card, root = document, route = getCurrentRoute()) {
+    const adapter = adapters.get(card);
+    if (!adapter || typeof adapter.restore !== "function") return;
+    await adapter.restore(route, root);
+  }
+
+  function getCanonicalRoute() {
+    const route = getCurrentRoute();
+    const adapter = adapters.get(route.card);
+
+    if (!adapter || typeof adapter.getState !== "function") return route;
+
+    try {
+      return {
+        card: route.card,
+        ...getRouteState(route),
+        ...(adapter.getState() || {})
+      };
+    } catch (error) {
+      console.warn("[ROUTER] Could not read card state", { card: route.card, error });
+      return route;
+    }
+  }
+
+  async function applyCurrentRoute(source = "restore") {
+    if (handlingRoute) return;
+    const route = getCurrentRoute();
+    handlingRoute = true;
+
+    try {
+      announceRoute(route, source);
+      if (typeof routeHandler === "function") {
+        await routeHandler(route, { source });
+      } else if (typeof window.loadCard === "function") {
+        await window.loadCard(route.card, { fromRoute: true });
+      }
+    } finally {
+      handlingRoute = false;
+    }
+  }
+
+  function navigate(card, state = {}, options = {}) {
+    writeRoute({ card, ...state }, {}, {
+      replace: options.replace === true,
+      announce: false
+    });
+
+    if (options.restore === false) {
+      announceRoute(getCurrentRoute(), options.source || "navigate");
+      return Promise.resolve();
     }
 
-    suppressNextObservedRoute = true;
-    lastObservedCard = cardName;
-    window.loadCard(cardName);
+    return applyCurrentRoute(options.source || "navigate");
   }
 
-  function bindRouteClicks() {
-    document.addEventListener("click", event => {
-      const link = event.target.closest?.('a[data-hg-app-route="nt"]');
-      if (!link || event.defaultPrevented) return;
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  function translateLegacyCardUrl(rawHref) {
+    try {
+      const url = new URL(rawHref, window.location.href);
+      const match = url.pathname.match(/\/cards\/([^/]+)\.html$/i);
+      if (!match) return null;
 
-      const url = new URL(link.href, window.location.href);
-      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) return;
+      const card = match[1];
+      const state = {};
+      ROUTE_PARAMS.forEach(key => {
+        const value = url.searchParams.get(key);
+        if (value !== null && value !== "") state[key] = value;
+      });
+
+      return buildRoute(card, state);
+    } catch {
+      return null;
+    }
+  }
+
+  function bindRouteLinks() {
+    document.addEventListener("click", event => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const link = event.target.closest?.("a[href]");
+      if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:") || rawHref.startsWith("javascript:")) return;
+
+      const legacy = translateLegacyCardUrl(rawHref);
+      const resolved = legacy || new URL(rawHref, window.location.href);
+      const current = new URL(window.location.href);
+      const isAppRoute =
+        resolved.origin === current.origin &&
+        resolved.pathname === current.pathname &&
+        resolved.searchParams.has("card");
+
+      if (!isAppRoute) return;
 
       event.preventDefault();
-      window.history.pushState({}, "", url);
-      restoreRouteFromLocation();
-    });
+      event.stopImmediatePropagation();
+      const route = getCurrentRoute(resolved);
+      navigate(route.card, getRouteState(route), { source: "link" });
+    }, true);
   }
 
-  function initShareRouting() {
-    observeCardHost();
-    bindRouteClicks();
+  async function copyText(text) {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
 
-    window.addEventListener("popstate", restoreRouteFromLocation);
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
 
-    // Some startup markup is assembled after this module evaluates.
-    const bootObserver = new MutationObserver(() => {
-      observeCardHost();
-      rewriteNtFragmentLinks(document);
-    });
-
-    bootObserver.observe(document.documentElement, {
-      childList: true,
-      subtree: true
-    });
-
-    window.setTimeout(() => bootObserver.disconnect(), 15000);
+    try {
+      document.execCommand("copy");
+    } finally {
+      textarea.remove();
+    }
   }
 
-  window.hgBuildRoute = buildAppRoute;
+  function showShareToast(message) {
+    let toast = document.getElementById("hgShareToast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "hgShareToast";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      toast.style.cssText = [
+        "position:fixed",
+        "left:50%",
+        "bottom:max(20px, env(safe-area-inset-bottom))",
+        "transform:translate(-50%, 12px)",
+        "z-index:10050",
+        "padding:10px 14px",
+        "border:1px solid rgba(120,216,232,.4)",
+        "border-radius:999px",
+        "background:rgba(7,16,25,.96)",
+        "color:#e7eef7",
+        "box-shadow:0 12px 35px rgba(0,0,0,.35)",
+        "font:600 14px/1.2 system-ui,sans-serif",
+        "opacity:0",
+        "transition:opacity .18s ease, transform .18s ease",
+        "pointer-events:none"
+      ].join(";");
+      document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+    toast.style.opacity = "1";
+    toast.style.transform = "translate(-50%, 0)";
+    window.clearTimeout(showShareToast.timer);
+    showShareToast.timer = window.setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translate(-50%, 12px)";
+    }, 1800);
+  }
+
+  function isMobileShareEnvironment() {
+    return (
+      window.matchMedia?.("(pointer: coarse)")?.matches ||
+      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+    );
+  }
+
+  async function shareCurrentRoute() {
+    const canonical = getCanonicalRoute();
+    const url = writeRoute(canonical, {}, {
+      replace: true,
+      announce: false
+    }).href;
+    const title = document.title || "HG Bible App";
+
+    if (isMobileShareEnvironment() && typeof navigator.share === "function") {
+      try {
+        await navigator.share({ title, url });
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") return;
+      }
+    }
+
+    try {
+      await copyText(url);
+      showShareToast("Link copied");
+    } catch (error) {
+      console.error("[SHARE] Could not copy URL", error);
+      showShareToast("Could not copy link");
+    }
+  }
+
+  function mountShareButton() {
+    if (document.getElementById("hgShareRouteBtn")) return;
+
+    const controls = document.querySelector(".card-control-bar");
+    if (!controls) return;
+
+    const button = document.createElement("button");
+    button.id = "hgShareRouteBtn";
+    button.type = "button";
+    button.className = "ui-btn utility-btn";
+    button.title = "Share this location";
+    button.setAttribute("aria-label", "Share this location");
+    button.textContent = "Share";
+    button.addEventListener("click", shareCurrentRoute);
+    controls.appendChild(button);
+  }
+
+  function start(handler) {
+    if (typeof handler === "function") routeHandler = handler;
+    if (started) return;
+    started = true;
+
+    bindRouteLinks();
+    window.addEventListener("popstate", () => applyCurrentRoute("popstate"));
+    mountShareButton();
+
+    if (!document.getElementById("hgShareRouteBtn")) {
+      const observer = new MutationObserver(() => {
+        mountShareButton();
+        if (document.getElementById("hgShareRouteBtn")) observer.disconnect();
+      });
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+      window.setTimeout(() => observer.disconnect(), 15000);
+    }
+  }
+
+  window.HGRoute = Object.freeze({
+    start,
+    read: getCurrentRoute,
+    getCurrentRoute: getCanonicalRoute,
+    getState: getRouteState,
+    build: buildRoute,
+    write: writeRoute,
+    navigate,
+    setCardState,
+    registerCard,
+    restoreCard,
+    restore: applyCurrentRoute,
+    share: shareCurrentRoute
+  });
+
+  // Compatibility with the first share-routing recovery.
+  window.hgBuildRoute = buildRoute;
   window.hgSetRoute = writeRoute;
-  window.hgRestoreRoute = restoreRouteFromLocation;
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initShareRouting, { once: true });
-  } else {
-    initShareRouting();
-  }
+  window.hgRestoreRoute = applyCurrentRoute;
 })();
