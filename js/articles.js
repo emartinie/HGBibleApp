@@ -77,6 +77,15 @@ const ARTICLES = [
   }
 
   function syncArticleUrl(file, mode = "push") {
+    if (window.HGRoute) {
+      window.HGRoute.setCardState("articles", { file }, {
+        replace: mode === "replace",
+        announce: false,
+        source: "article"
+      });
+      return;
+    }
+
     const url = buildArticleUrl(file);
     const method = mode === "replace" ? "replaceState" : "pushState";
     window.history[method]({ card: "articles", file }, "", url);
@@ -172,8 +181,12 @@ const ARTICLES = [
       loadArticle(targetFile, viewer, { updateUrl: true });
     }, { signal });
 
-    if (window.pendingArticleFile) {
-      const pending = window.pendingArticleFile;
+    const route = window.HGRoute?.read?.();
+    const routedFile = route?.card === "articles" ? route.file : "";
+    const pendingFile = routedFile || window.pendingArticleFile;
+
+    if (pendingFile) {
+      const pending = pendingFile;
       const fileName = pending.split("#", 1)[0];
       await loadArticle(pending, viewer, { updateUrl: true, historyMode: "replace" });
 
@@ -193,4 +206,10 @@ const ARTICLES = [
 
   window.initArticlesCard = initArticlesCard;
   window.destroyArticlesCard = destroyArticlesCard;
+
+  window.HGRoute?.registerCard?.("articles", {
+    getState() {
+      return activeArticleFile ? { file: activeArticleFile } : {};
+    }
+  });
 })();
