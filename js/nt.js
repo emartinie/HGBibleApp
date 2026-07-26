@@ -201,14 +201,16 @@ function getParams() {
 
     ["book", "chapter", "view", "section"].forEach(key => {
       let val = current[key];
-      if (Object.prototype.hasOwnProperty.call(nextParams, key)) {
-        val = nextParams[key];
-      }
+      if (Object.prototype.hasOwnProperty.call(nextParams, key)) val = nextParams[key];
       if (val) params.set(key, val);
     });
 
+    const state = Object.fromEntries(params.entries());
+    const url = window.HGRoute?.build?.("nt", state);
+    if (url) return url.pathname + url.search;
+
     const query = params.toString();
-    return query ? `${NT_BASE}?${query}` : NT_BASE;
+    return query ? "?card=nt&" + query : "?card=nt";
   }
 
   function getBookJsonKey(bookName) {
@@ -319,11 +321,22 @@ function getParams() {
   }
 
   function returnToNTView() {
+    const current = getParams();
+
+    if (window.HGRoute) {
+      window.HGRoute.navigate("nt", {
+        book: current.book,
+        chapter: current.chapter,
+        section: current.section
+      }, { source: "nt-return" });
+      return;
+    }
+
     const url = new URL(window.location.href);
     url.searchParams.set("card", "nt");
     url.searchParams.delete("view");
-    window.history.replaceState({}, "", url);
-    window.loadCard?.("nt");
+    window.history.pushState({}, "", url);
+    window.loadCard?.("nt", { fromRoute: true });
   }
 
   function resetNTReaderScroll() {
@@ -682,8 +695,17 @@ function getParams() {
         else newUrl.searchParams.delete(key);
       });
 
-      window.history.replaceState({}, "", newUrl);
-      window.loadCard?.("nt");
+      if (window.HGRoute) {
+        const state = {};
+        ["book", "chapter", "view", "section"].forEach(key => {
+          const value = linkParams.get(key);
+          if (value) state[key] = value;
+        });
+        window.HGRoute.navigate("nt", state, { source: "nt-link" });
+      } else {
+        window.history.pushState({}, "", newUrl);
+        window.loadCard?.("nt", { fromRoute: true });
+      }
     });
   }
 
@@ -1418,8 +1440,12 @@ if (UNAVAILABLE_NT_BOOKS.has(book)) {
       const url = new URL(window.location.href);
       url.searchParams.set("card", "nt");
       ["book", "chapter", "view", "section"].forEach(key => url.searchParams.delete(key));
-      window.history.replaceState({}, "", url);
-      window.loadCard?.("nt");
+      if (window.HGRoute) {
+        window.HGRoute.navigate("nt", {}, { source: "nt-home" });
+      } else {
+        window.history.pushState({}, "", url);
+        window.loadCard?.("nt", { fromRoute: true });
+      }
     });
   }
   return;
@@ -1565,8 +1591,12 @@ contentZone.innerHTML = `
       url.searchParams.delete("chapter");
       url.searchParams.delete("view");
       url.searchParams.delete("section");
-      window.history.replaceState({}, "", url);
-      window.loadCard?.("nt");
+      if (window.HGRoute) {
+        window.HGRoute.navigate("nt", {}, { source: "nt-home" });
+      } else {
+        window.history.pushState({}, "", url);
+        window.loadCard?.("nt", { fromRoute: true });
+      }
     });
   }
 });
