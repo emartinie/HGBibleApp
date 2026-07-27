@@ -9,6 +9,7 @@ const SHELL_ASSETS = [
   "./manifest.json",
   "./offline.html",
   "./images/HGHouses.png",
+  "./images/hg-app-icon.svg",
   "./css/fullscreen.css",
   "./js/share-routing.js",
   "./js/mainstage.js",
