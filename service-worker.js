@@ -1,5 +1,5 @@
 // HG Bible App service worker — conservative Phase 1 shell caching.
-const CACHE_VERSION = "hg-bible-shell-v1";
+const CACHE_VERSION = "hg-bible-shell-v2";
 const APP_SHELL_URL = new URL("./index.html", self.registration.scope).href;
 const OFFLINE_URL = new URL("./offline.html", self.registration.scope).href;
 
@@ -9,6 +9,9 @@ const SHELL_ASSETS = [
   "./manifest.json",
   "./offline.html",
   "./images/HGHouses.png",
+  "./images/hg-app-icon-192.png",
+  "./images/hg-app-icon-512.png",
+  "./images/apple-touch-icon.png",
   "./images/hg-app-icon.svg",
   "./css/fullscreen.css",
   "./js/share-routing.js",
