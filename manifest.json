@@ -12,9 +12,15 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "images/HGHouses.png",
-      "sizes": "398x335",
-      "type": "image/png",
+      "src": "images/hg-app-icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "images/hg-app-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
       "purpose": "any"
     }
   ]
