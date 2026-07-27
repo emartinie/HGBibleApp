@@ -12,14 +12,20 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "images/hg-app-icon.svg",
+      "src": "images/hg-app-icon-192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/hg-app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any"
     },
     {
       "src": "images/hg-app-icon.svg",
-      "sizes": "512x512",
+      "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     }
