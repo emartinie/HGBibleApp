@@ -1,6 +1,21 @@
 // topNav.js
 
 document.addEventListener("DOMContentLoaded", () => {
+  const cardSelector = document.getElementById("cardSelector");
+  if (cardSelector && !cardSelector.querySelector('option[value="ancient-library"]')) {
+    const option = document.createElement("option");
+    option.value = "ancient-library";
+    option.textContent = "🏺 Ancient Library";
+    option.title = "Ancient Jewish, Roman, and early Christian sources";
+
+    const jewishLibraryOption = cardSelector.querySelector('option[value="sefaria"]');
+    if (jewishLibraryOption) {
+      jewishLibraryOption.insertAdjacentElement("afterend", option);
+    } else {
+      cardSelector.appendChild(option);
+    }
+  }
+
   const topbar = document.querySelector(".card-topbar");
   if (!topbar) return;
 
@@ -18,39 +33,30 @@ document.addEventListener("DOMContentLoaded", () => {
       case "Home":
         goHome();
         break;
-
       case "Previous":
         history.back();
         break;
-
       case "Next":
         history.forward();
         break;
-
       case "Audio Guide":
         openMediaModal("audio");
         break;
-
       case "Video Walkthrough":
         openMediaModal("video");
         break;
-
       case "Search Card":
         openSearch();
         break;
-
       case "Bookmark":
         toggleBookmark();
         break;
-
       case "Share":
         sharePage();
         break;
-
       case "Notes":
         openNotes();
         break;
-
       case "Help":
         openHelp();
         break;
@@ -59,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function goHome() {
     window.location.href = "/index.html";
-    // or "/index.html" depending on your structure
   }
 
   function pulse(el) {
@@ -69,10 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { transform: "scale(0.9)" },
         { transform: "scale(1)" }
       ],
-      {
-        duration: 180,
-        easing: "ease"
-      }
+      { duration: 180, easing: "ease" }
     );
   }
 
@@ -105,17 +107,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function toggleBookmark() {
     const saved = localStorage.getItem("bookmarked");
     localStorage.setItem("bookmarked", saved ? "" : "true");
-
     createToast(saved ? "Bookmark removed" : "Bookmarked");
   }
 
   async function sharePage() {
     if (navigator.share) {
       try {
-        await navigator.share({
-          title: document.title,
-          url: window.location.href
-        });
+        await navigator.share({ title: document.title, url: window.location.href });
       } catch {}
     } else {
       navigator.clipboard.writeText(window.location.href);
@@ -176,10 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.body.appendChild(modal);
-
-    requestAnimationFrame(() => {
-      modal.style.opacity = "1";
-    });
+    requestAnimationFrame(() => { modal.style.opacity = "1"; });
 
     modal.querySelector(".close-modal").onclick = () => {
       modal.style.opacity = "0";
@@ -216,7 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.body.appendChild(toast);
-
     requestAnimationFrame(() => {
       toast.style.opacity = "1";
       toast.style.transform = "translateY(-8px)";
