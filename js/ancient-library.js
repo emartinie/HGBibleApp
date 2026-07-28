@@ -149,12 +149,32 @@
     const select = activeRoot.querySelector("#alChapterSelect");
     const search = activeRoot.querySelector("#alBookSearch");
     const copy = activeRoot.querySelector("#alCopyChapterLink");
+    const listen = activeRoot.querySelector("#alListenChapter");
 
     select?.addEventListener("change", () => {
       window.location.href = buildLibraryUrl(activeBookData.id, Number(select.value));
     });
 
     search?.addEventListener("input", () => renderReaderSearchResults(search.value));
+
+    listen?.addEventListener("click", () => {
+      const chapter = activeBookData.chapters.find(entry => entry.number === chapterNumber);
+      const player = window.__orbitPlayer;
+      if (!chapter || !player?.loadTextPlaylist) {
+        window.alert("The floating narration player is not ready yet. Please try again.");
+        return;
+      }
+      const playlist = chapter.verses.map(verse => ({
+        title: `${activeBookData.shortTitle} ${chapterNumber}:${verse.number}`,
+        text: verse.text,
+        ref: `${window.location.origin}${buildLibraryUrl(activeBookData.id, chapterNumber)}#al-verse-${verse.number}`
+      }));
+      if (player.loadTextPlaylist(playlist, { autoplay: true })) {
+        player.setMinimized?.(false);
+        listen.textContent = "Playing in floating player";
+        setTimeout(() => { listen.textContent = "▶ Listen to this chapter"; }, 2200);
+      }
+    });
 
     copy?.addEventListener("click", async () => {
       try {
@@ -210,6 +230,7 @@
         <label class="al-search-label">Search this book
           <input id="alBookSearch" type="search" placeholder="Search all ${maximum} chapters" autocomplete="off">
         </label>
+        <button id="alListenChapter" class="al-listen-button" type="button">▶ Listen to this chapter</button>
         <button id="alCopyChapterLink" type="button">Copy chapter link</button>
       </div>
       <div id="alSearchResults" class="al-search-results" hidden></div>
