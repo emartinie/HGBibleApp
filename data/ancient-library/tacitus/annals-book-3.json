@@ -4,115 +4,114 @@
   "shortTitle": "Annals",
   "translator": "Alfred John Church and William Jackson Brodribb",
   "originalPublication": "1869",
-  "authorityNotice": "Ancient Roman historical literature. It is legal knots were disentangled and some slight temporary relief afforded."
+  "authorityNotice": "Ancient Roman historical literature. It is included for historical study and is not presented as Scripture.",
+  "source": {
+    "name": "Perseus Digital Library",
+    "url": "https://github.com/PerseusDL/canonical-latinLit"
+  },
+  "externalSources": [
+    {
+      "name": "Perseus Digital Library",
+      "url": "https://github.com/PerseusDL/canonical-latinLit"
+    }
+  ],
+  "chapters": [
+    {
+      "number": 1,
+      "verses": [
+        {
+          "number": 1,
+          "text": "WITHOUT pausing in her winter voyage Agrippina arrived at the island of Corcyra , facing the shores of Calabria . There she spent a few days to compose her mind, for she was wild with grief and knew not how to endure. Meanwhile on hearing of her arrival, all her intimate friends and several officers, every one indeed who had served under Germanicus , many strangers too from the neighbouring towns, some thinking it respectful to the emperor, and still more following their example, thronged eagerly to Brundisium , the nearest and safest landing place for a voyager. As soon as the fleet was seen on the horizon, not only the harbour and the adjacent shores, but the city walls too and the roofs and every place which commanded the most distant prospect were filled with crowds of mourners, who incessantly asked one another, whether, when she landed, they were to receive her in silence or with some utterance of emotion. They were not agreed on what befitted the occasion when the fleet slowly approached, its crew, not joyous as is usual, but wearing all a studied expression of grief. When Agrippina descended from the vessel with her two children, clasping the funeral urn, with eyes rivetted to the earth, there was one universal groan. You could not distinguish kinsfolk from strangers, or the laments of men from those of women; only the attendants of Agrippina , worn out as they were by long sorrow, were surpassed by the mourners who now met them, fresh in their grief."
         }
       ]
     },
     {
-      "number": 29,
+      "number": 2,
       "verses": [
         {
           "number": 1,
-          "text": "About this same time he commended to the Senate's favour, Nero , Germanicus 's son, who was just entering on manhood, and asked them, not without smiles of ridicule from his audience, to exempt him from serving as one of the Twenty Commissioners, and let him be a candidate for the quæstorship five years earlier than the law allowed. His excuse was that a similar decree had been made for himself and his brother at the request of Augustus . But I cannot doubt that even then there were some who secretly laughed at such a petition, though the Cæsars were but in the beginning of their grandeur, and ancient usage was more constantly before men's eyes, while also the tie be- tween stepfather and stepson was weaker than that between grandfather and grandchild. The pontificate was likewise conferred on Nero , and on the day on which he first entered the forum, a gratuity was given to the city-populace, who greatly rejoiced at seeing a son of Germanicus now grown to manhood. Their joy was further increased by Nero 's marriage to Julia , Drusus 's daughter. This news was met with favourable comments, but it was heard with disgust that Sejanus was to be the father-in-law of the son of Claudius . The emperor was thought to have polluted the nobility of his house and to have yet further elevated Sejanus , whom they already suspected of overweening ambition."
+          "text": "The emperor had despatched two prætorian cohorts with instructions that the magistrates of Calabria , Apulia , and Campania were to pay the last honours to his son's memory. Accordingly tribunes and centurions bore Germanicus 's ashes on their shoulders. They were preceded by the standards unadorned and the fasces reversed. As they passed colony after colony, the populace in black, the knights in their state robes, burnt vestments and perfumes with other usual funeral adjuncts, in proportion to the wealth of the place. Even those whose towns were out of the route, met the mourners, offered victims and built altars to the dead, testifying their grief by tears and wailings. Drusus went as far as Tarracina with Claudius , brother of Germanicus , and the children who had been at Rome . Marcus Valerius and Caius Aurelius , the consuls, who had already entered on office, and a great number of the people thronged the road in scattered groups, every one weeping as he felt inclined. Flattery there was none, for all knew that Tiberius could scarcely dissemble his joy at the death of Germanicus ."
         }
       ]
     },
     {
-      "number": 30,
+      "number": 3,
       "verses": [
         {
           "number": 1,
-          "text": "Two remarkable men died at the end of the year, Lucius Volusius and Sallustius Crispus . Volusius was of an old family, which had however never risen beyond the prætorship. He brought into it the consulship; he also held the office of censor for arranging the classes of the knights, and was the first to pile up the wealth which that house enjoyed to a boundless extent. Crispus was of equestrian descent and grandson of a sister of Caius Sallustius , that most admirable Roman historian, by whom he was adopted and whose name he took. Though his road to preferment was easy, he chose to emulate Mæcenas , and without rising to a senator's rank, he surpassed in power many who had won triumphs and consulships. He was a contrast to the manners of antiquity in his elegance and refinement, and in the sumptuousness of his wealth he was almost a voluptuary. But beneath all this was a vigorous mind, equal to the greatest labours, the more active in proportion as he made a show of sloth and apathy. And so while Mæcenas lived, he stood next in favour to him, and was afterwards the chief depository of imperial secrets, and accessory to the murder of Postumus Agrippa , till in advanced age he retained the shadow rather than the substance of the emperor's friendship. The same too had happened to Mæcenas , so rarely is it the destiny of power to be lasting, or perhaps a sense of weariness steals over princes when they have bestowed everything, or over favourites, when there is nothing left them to desire."
+          "text": "Tiberius and Augusta refrained from showing themselves, thinking it below their dignity to shed tears in public, or else fearing that, if all eyes scrutinised their faces, their hypocrisy would be revealed. I do not find in any historian or in the daily register that Antonia , Germanicus 's mother, rendered any conspicuous honour to the deceased, though besides Agrippina , Drusus , and Claudius , all his other kinsfolk are mentioned by name. She may either have been hindered by illness, or with a spirit overpowered by grief she may not have had the heart to endure the sight of so great an affliction. But I can more easily believe that Tiberius and Augusta , who did not leave the palace, kept her within, that their sorrow might seem equal to hers, and that the grandmother and uncle might be thought to follow the mother's example in staying at home."
         }
       ]
     },
     {
-      "number": 31,
+      "number": 4,
       "verses": [
         {
           "number": 1,
-          "text": "Next followed Tiberius 's fourth, Drusus 's second con- sulship, memorable from the fact that father and son were colleagues. Two years previously the association of Germanicus and Tiberius in the same honour had not been agreeable to the uncle, nor had it the link of so close a natural tie. At the beginning of this year Tiberius , avowedly to recruit his health, retired to Campania , either as a gradual preparation for long and uninterrupted seclusion, or in order that Drusus alone in his father's absence might discharge the duties of the consulship. It happened that a mere trifle which grew into a sharp contest gave the young prince the means, of acquiring popularity. Domitius Corbulo , an ex-prætor, complained to the Senate that Lucius Sulla , a young noble, had not given place to him at a gladiatorial show. Corbulo had age, national usage and the feelings of the older senators in his favour. Against him Mamercus Scaurus , Lucius Arruntius and other kinsmen of Sulla strenuously exerted themselves. There was a keen debate, and appeal was made to the precedents of our ancestors, as having censured in severe decrees disrespect on the part of the young, till Drusus argued in a strain calculated to calm their feelings. Corbulo too received an apology from Mamercus , who was Sulla 's uncle and stepfather, and the most fluent speaker of that day. It was this same Corbulo , who, after raising a cry that most of the roads in Italy were obstructed or impassable through the dishonesty of contractors and the negligence of officials, himself willingly undertook the complete management of the business. This proved not so beneficial to the State as ruinous to many persons, whose property and credit he mercilessly attacked by convictions and confiscations."
+          "text": "The day on which the remains were consigned to the tomb of Augustus , was now desolate in its silence, now distracted by lamentations. The streets of the city were crowded; torches were blazing throughout the Campus Martius . There the soldiers under arms, the magistrates without their symbols of office, the people in the tribes, were all incessantly exclaiming that the commonwealth was ruined, that not a hope remained, too boldly and openly to let one think that they remembered their rulers. But nothing impressed Tiberius more deeply than the enthusiasm kindled in favour of Agrippina , whom men spoke of as the glory of the country, the sole surviving offspring of Augustus , the solitary example of the old times, while looking up to heaven and the gods they prayed for the safety of her children and that they might outlive their oppressors."
         }
       ]
     },
     {
-      "number": 32,
+      "number": 5,
       "verses": [
         {
           "number": 1,
-          "text": "Soon afterwards Tiberius informed the Senate by letter that Africa was again disturbed by an incursion of Tacfarinas , and that they must use their judgment in choosing as pro-consul an experienced soldier of vigorous constitution, who would be equal to the war. Sextus Pompeius caught at this opportunity of venting his hatred against Lepidus , whom he condemned as a poor-spirited and needy man, who was a disgrace to his ancestors, and therefore deserved to lose even his chance of the province of Asia . But the Senate were against him, for they thought Lepidus gentle rather than cowardly, and that his inherited poverty, with the high rank in which he had lived without a blot, ought to be considered a credit to him instead of a reproach. And so he was sent to Asia , and with respect to Africa it was decided that the emperor should choose to whom it was to be assigned."
+          "text": "Some there were who missed the grandeur of a state-funeral, and contrasted the splendid honours conferred by Augustus on Drusus , the father of Germanicus . \"Then the emperor himself,\" they said, \"went in the extreme rigour of winter as far as Ticinum , and never leaving the corpse entered Rome with it. Round the funeral bier were ranged the images of the Claudii and the Julii; there was weeping in the forum, and a panegyric before the rostra; every honour devised by our ancestors or invented by their descendants was heaped on him. But as for Germanicus , even the customary distinctions due to any noble had not fallen to his lot. Granting that his body, because of the distance of the journey, was burnt in any fashion in foreign lands, still all the more honours ought to have been afterwards paid him, because at first chance had denied them. His brother had gone but one day's journey to meet him; his uncle, not even to the city gates. Where were all those usages of the past, the image at the head of the bier, the lays composed in commemoration of worth, the eulogies and laments, or at least the semblance of grief?\""
         }
       ]
     },
     {
-      "number": 33,
+      "number": 6,
       "verses": [
         {
           "number": 1,
-          "text": "During this debate Severus Cæcina proposed that no magistrate who had obtained a province should be accompanied by his wife. He began by recounting at length how harmoniously he had lived with his wife, who had borne him six children, and how in his own home he had observed what he was proposing for the public, by having kept her in Italy , though he had himself served forty campaigns in various provinces. \"With good reason,\" he said, \"had it been formerly decided that women were not to be taken among our allies or into foreign countries. A train of women involves delays through luxury in peace and through panic in war, and converts a Roman army on the march into the likeness of a barbarian progress. Not only is the sex feeble and unequal to hardship, but, when it has liberty, it is spiteful, intriguing and greedy of power. They show themselves off among the soldiers and have the centurions at their beck. Lately a woman had presided at the drill of the cohorts and the evolutions of the legions. You should yourselves bear in mind that, whenever men are accused of extortion, most of the charges are directed against the wives. It is to these that the vilest of the provincials instantly attach themselves; it is they who undertake and settle business; two persons receive homage when they appear; there are two centres of government, and the women's orders are the more despotic and intemperate. Formerly they were restrained by the Oppian and other laws; now, loosed from every bond, they rule our houses, our tribunals, even our armies.\""
+          "text": "All this was known to Tiberius , and, to silence popular talk, he reminded the people in a proclamation that many eminent Romans had died for their country and that none had been honoured with such passionate regret. This regret was a glory both to himself and to all, provided only a due mean were observed; for what was becoming in humble homes and communities, did not befit princely personages and an imperial people. Tears and the solace found in mourning were suitable enough for the first burst of grief; but now they must brace their hearts to endurance, as in former days the Divine Julius after the loss of his only daughter, and the Divine Augustus when he was bereft of his grandchildren, had thrust away their sorrow. There was no need of examples from the past, showing how often the Roman people had patiently endured the defeats of armies, the destruction of generals, the total extinction of noble families. Princes were mortal; the State was everlasting. Let them then return to their usual pursuits, and, as the shows of the festival of the Great Goddess were at hand, even resume their amusements."
         }
       ]
     },
     {
-      "number": 34,
+      "number": 7,
       "verses": [
         {
           "number": 1,
-          "text": "A few heard this speech with approval, but the majority clamorously objected that there was no proper motion on the subject, and that Cæcina was no fit censor on so grave an issue. Presently Valerius Messalinus , Messala 's son, in whom the father's eloquence was reproduced, replied that much of the sternness of antiquity had been changed into a better and more genial system. \" Rome ,\" he said, \"is not now, as formerly, beset with wars, nor are the provinces hostile. A few concessions are made to the wants of women but such as are not even a burden to their husbands' homes, much less to the allies. In all other respects man and wife share alike, and this arrangement involves no trouble in peace. War of course requires that men should be unincumbered, but when they return what worthier solace can they have after their hardships than a wife's society? But some wives have abandoned themselves to scheming and rapacity. Well; even among our magistrates, are not many subject to various passions? Still, that is not a reason for sending no one into a province. Husbands have often been corrupted by the vices of their wives. Are then all unmarried men blameless? The Oppian laws were formerly adopted to meet the political necessities of the time, and subsequently there was some remission and mitigation of them on grounds of expediency. It is idle to shelter our own weakness under other names; for it is the husband's fault if the wife transgresses propriety. Besides, it is wrong that because of the imbecility of one or two men, all husbands should be cut off from their partners in prosperity and adversity. And further, a sex naturally weak will be thus left to itself and be at the mercy of its own voluptuousness and the passions of others. Even with the husband's personal vigilance the marriage tie is scarcely preserved inviolate. What would happen were it for a number of years to be forgotten, just as in a divorce? You must not check vices abroad without remembering the scandals of the capital.\" Drusus added a few words on his own experience as a husband. \"Princes,\" he said, \"must often visit the extremities of their empire. How often had the Divine Augustus travelled to the West and to the East accompanied by Livia ? He had himself gone to Illyricum and, should it be expedient, he would go to other countries, not always however with a contented mind, if he had to tear himself from a much loved wife, the mother of his many children.\""
+          "text": "The suspension of business then ceased, and men went back to their occupations. Drusus was sent to the armies of Illyricum , amidst an universal eagerness to exact vengeance on Piso , and ceaseless complaints that he was meantime roaming through the delightful regions of Asia and Achaia , and was weakening the proofs of his guilt by an insolent and artful procrastination. It was indeed widely rumoured that the notorious poisoner Martina , who, as I have related, had been despatched to Rome by Cneius Sentius , had died suddenly at Brundisium ; that poison was concealed in a knot of her hair, and that no symptoms of suicide were discovered on her person."
         }
       ]
     },
     {
-      "number": 35,
+      "number": 8,
       "verses": [
         {
           "number": 1,
-          "text": "Cæcina 's motion was thus defeated. At the Senate's next meeting came a letter from Tiberius , which indirectly censured them for throwing on the emperor every political care, and named Marcus Lepidus and Junius Blæsus , one of whom was to be chosen pro-consul of Africa . Both spoke on the subject, and Lepidus begged earnestly to be excused. He alleged ill-health, his children's tender age, his having a daughter to marry, and something more of which he said nothing, was well understood, the fact that Blæsus was uncle of Sejanus and so had very powerful interest. Blæsus replied with an affectation of refusal, but not with the same persistency, nor was he backed up by the acquiescence of flatterers."
+          "text": "Piso meanwhile sent his son on to Rome with a message intended to pacify the emperor, and then made his way to Drusus , who would, he hoped, be not so much infuriated at his brother's death as kindly disposed towards himself in consequence of a rival's removal. Tiberius , to show his impartiality, received the youth courteously, and enriched him with the liberality he usually bestowed on the sons of noble families. Drusus replied to Piso that if certain insinuations were true, he must be foremost in his resentment, but he preferred to believe that they were false and groundless, and that Germanicus 's death need be the ruin of no one. This he said openly, avoiding anything like secrecy. Men did not doubt that his answer was prescribed him by Tiberius , inasmuch as one who had generally all the simplicity and candour of youth, now had recourse to the artifices of old age."
         }
       ]
     },
     {
-      "number": 36,
+      "number": 9,
       "verses": [
         {
           "number": 1,
-          "text": "Next was exposed an abuse, hitherto the subject of many a whispered complaint. The vilest wretches used a growing freedom in exciting insult and obloquy against respectable citizens, and escaped punishment by clasping some statue of the emperor. The very freedman or slave was often an actual terror to his patron or master whom he would menace by word and gesture. Accordingly Caius Cestius , a senator, argued that \"though princes were like deities, yet even the gods listened only to righteous prayers from their suppliants, and that no one fled to the Capitol or any other temple in Rome to use it as an auxiliary in crime. There was an end and utter subversion of all law when, in the forum and on the threshold of the Senate-House , Annia Rufilla , whom he had convicted of fraud before a judge, assailed him with insults and threats, while he did not himself dare to try legal proceedings, because he was confronted by her with the emperor's image.\" There rose other clamorous voices, with even more flagrant complaints, and all implored Drusus to inflict exemplary vengeance, till he ordered Rufilla to be summoned, and on her conviction to be confined in the common prison."
+          "text": "Piso , after crossing the Dalmatian sea and leaving his ships at Ancona , went through Picenum and along the Flaminian road , where he overtook a legion which was marching from Pannonia to Rome and was then to garrison Africa . It was a matter of common talk how he had repeatedly displayed himself to the soldiers on the road during the march. From Narnia , to avoid suspicion or because the plans of fear are uncertain, he sailed down the Nar , then down the Tiber , and increased the fury of the populace by bringing his vessel to shore at the tomb of the Cæsars. In broad daylight, when the river-bank was thronged, he himself with a numerous following of dependents, and Plancina with a retinue of women, moved onward with joy in their countenances. Among other things which provoked men's anger was his house towering above the forum, gay with festal decorations, his banquets and his feasts, about which there was no secrecy, because the place was so public."
         }
       ]
     },
     {
-      "number": 37,
+      "number": 10,
       "verses": [
         {
           "number": 1,
-          "text": "Considius Aequus too and C&oelig;lius Cursor , Roman knights, were punished on the emperor's proposal, by a decree of the Senate, for having attacked the prætor, Magius Cæcilianus , with false charges of treason. Both these results were represented as an honour to Drusus . By moving in society at Rome , amid popular talk, his father's dark policy it was thought, was mitigated. Even voluptuousness in one so young gave little offence. Better that he should incline that way, spend his days in architecture, his nights in banquets, than that he should live in solitude, cut off from every pleasure, and absorbed in a gloomy vigilance and mischievous schemes."
+          "text": "Next day, Fulcinius Trio asked the consul's leave to prosecute Piso . It was contended against him by Vitellius and Veranius and the others who had been the companions of Germanicus , that this was not Trio 's proper part, and that they themselves meant to report their instructions from Germanicus , not as accusers, but as deponents and witnesses to facts. Trio , abandoning the prosecution on this count, obtained leave to accuse Piso 's previous career, and the emperor was requested to undertake the inquiry. This even the accused did not refuse, fearing, as he did, the bias of the people and of the Senate; while Tiberius , he knew, was resolute enough to despise report, and was also entangled in his mother's complicity. Truth too would be more easily distinguished from perverse misrepresentation by a single judge, where a number would be swayed by hatred and ill-will. Tiberius was not unaware of the formidable difficulty of the inquiry and of the rumours by which he was himself assailed. Having therefore summoned a few intimate friends, he listened to the threatening speeches of the prosecutors and to the pleadings of the accused, and finally referred the whole case to the Senate."
         }
       ]
     },
     {
-      "number": 38,
+      "number": 11,
       "verses": [
         {
           "number": 1,
-          "text": "Tiberius indeed and the informers were never weary. Ancharius Priscus had prosecuted Cæsius Cordus , proconsul of Crete , for extortion, adding a charge of treason, which then crowned all indictments. Antistius Vetus , one of the chief men of Macedonia , who had been acquitted of adultery, was recalled by the emperor himself, with a censure on the judges, to be tried for treason, as a seditious man who had been implicated in the designs of Rhescuporis , when that king after the murder of his brother Cotys had meditated war against us. The accused was accordingly outlawed, with the further sentence that he was to be confined in an island from which neither Macedonia nor Thrace were conveniently accessible. As for Thrace , since the division of the kingdom between Rh&oelig;metalces and the children of Cotys , who because of their tender age were under the guardianship of Trebellienus Rufus , it was divided against itself, from not being used to our rule, and blamed Rh&oelig;metalces no less than Trebellienus for allowing the wrongs of his countrymen to go unpunished. The C&oelig;laletae , Odrusae and Dii , powerful tribes, took up arms, under different leaders, all on a level from their obscurity. This hindered them from combining in a formidable war. Some roused their immediate neighbourhood; others crossed Mount Hæmus , to stir up remote tribes; most of them, and the best disciplined, besieged the king in the city of Philippopolis , founded by the Macedonian Philip ."
-        }
-      ]
-    },
-    {
-      "number": 39,
-      "verses": [
-        {
-          "number": 1,
-          "text": "When this was known to Publius Vellæus who commanded the nearest army, he sent some allied cavalry and light infantry to attack those who were roaming in quest of plunder or of reinforcements, while he marched in person with the main strength of the foot to raise the siege. Every operation was at the same moment successful; the pillagers were cut to pieces; dissensions broke out among the besiegers, and the king made a well-timed sally just as the legion arrived. A battle or even a skirmish it did not deserve to be called, in which merely half-armed stragglers were slaughtered without bloodshed on our side."
-        }
-      ]
-    },
-    {
-      "number": 40,
-      "verses": [
-        {
-          "number": 1,
-          "text": "That same year, some states of Gaul , under the pressure of heavy debts, attempted a revolt. Its most active instigators were Julius Florus among the Treveri and Julius Sacrovir among the Ædui . Both could show noble birth and signal services rendered by ancestors, for which Roman citizenship had formerly been granted them, when the gift was rare and a recompense only of merit. In secret conferences to which the fiercest spirits were admitted, or any to whom poverty or the fear of guilt was an irresistible stimulus to crime, they arranged that Florus was to rouse the Belgae , Sacrovir the Gauls nearer home. These men accordingly talked sedition before small gatherings and popular assemblies about the perpetual tributes, the oppressive usury, the cruelty and arrogance of their governors, hinting too that there was disaffection among our soldiers, since they had heard of the murder of Germanicus . \"It was,\" they said, \"a grand opportunity for the recovery of freedom, if only they would contrast their own vigour with the exhaustion of Italy , the unwarlike character of the city populace, and the utter weakness of Rome 's armies in all but their foreign element.\""
+          "text": "Drusus meanwhile, on his return from Illyricum , though the Senate had voted him an ovation for the submission crovir the Gauls nearer home. These men accordingly talked sedition before small gatherings and popular assemblies about the perpetual tributes, the oppressive usury, the cruelty and arrogance of their governors, hinting too that there was disaffection among our soldiers, since they had heard of the murder of Germanicus . \"It was,\" they said, \"a grand opportunity for the recovery of freedom, if only they would contrast their own vigour with the exhaustion of Italy , the unwarlike character of the city populace, and the utter weakness of Rome 's armies in all but their foreign element.\""
         }
       ]
     },
@@ -442,4 +441,3 @@
     }
   ]
 }
-
