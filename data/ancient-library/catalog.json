@@ -94,10 +94,10 @@
       "category": "second-temple",
       "date": "Late first century CE core",
       "description": "An apocalypse wrestling with Jerusalem’s destruction, divine justice, Israel’s suffering, and hope for restoration.",
-      "edition": null,
-      "sourceName": null,
-      "sourceUrl": null,
-      "status": "Edition and naming review required",
+      "edition": "King James Version Apocrypha (2 Esdras 3–14)",
+      "sourceName": "Bible API",
+      "sourceUrl": "https://bible-api.com/2%20Esdras%203?translation=kjv",
+      "status": "In-app reader available",
       "survival": "surviving"
     },
     {
