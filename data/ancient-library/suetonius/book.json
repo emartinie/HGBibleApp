@@ -1,0 +1,93 @@
+{
+  "id": "suetonius",
+  "title": "Works of Suetonius",
+  "shortTitle": "Suetonius",
+  "author": "Suetonius; Alexander Thomson translation, revised by T. Forester",
+  "originalPublication": "Public-domain edition",
+  "authorityNotice": "Roman biographical and historical works presented as ancient witnesses for historical study, not as equal in authority to Scripture.",
+  "works": [
+    {
+      "id": "julius-caesar",
+      "title": "Julius Caesar",
+      "file": "julius-caesar.json",
+      "chapterCount": 89
+    },
+    {
+      "id": "augustus",
+      "title": "Augustus",
+      "file": "augustus.json",
+      "chapterCount": 101
+    },
+    {
+      "id": "tiberius",
+      "title": "Tiberius",
+      "file": "tiberius.json",
+      "chapterCount": 76
+    },
+    {
+      "id": "caligula",
+      "title": "Caligula",
+      "file": "caligula.json",
+      "chapterCount": 60
+    },
+    {
+      "id": "claudius",
+      "title": "Claudius",
+      "file": "claudius.json",
+      "chapterCount": 46
+    },
+    {
+      "id": "nero",
+      "title": "Nero",
+      "file": "nero.json",
+      "chapterCount": 57
+    },
+    {
+      "id": "galba",
+      "title": "Galba",
+      "file": "galba.json",
+      "chapterCount": 23
+    },
+    {
+      "id": "otho",
+      "title": "Otho",
+      "file": "otho.json",
+      "chapterCount": 12
+    },
+    {
+      "id": "vitellius",
+      "title": "Vitellius",
+      "file": "vitellius.json",
+      "chapterCount": 18
+    },
+    {
+      "id": "vespasian",
+      "title": "Vespasian",
+      "file": "vespasian.json",
+      "chapterCount": 25
+    },
+    {
+      "id": "titus",
+      "title": "Titus",
+      "file": "titus.json",
+      "chapterCount": 11
+    },
+    {
+      "id": "domitian",
+      "title": "Domitian",
+      "file": "domitian.json",
+      "chapterCount": 23
+    }
+  ],
+  "source": {
+    "name": "Project Gutenberg, The Lives of the Twelve Caesars, Complete",
+    "url": "https://www.gutenberg.org/ebooks/6400",
+    "license": "Public Domain in the USA"
+  },
+  "externalSources": [
+    {
+      "name": "Project Gutenberg author collection",
+      "url": "https://www.gutenberg.org/ebooks/author/2024"
+    }
+  ]
+}
