@@ -20,8 +20,9 @@
     else url.searchParams.delete("book");
     if (chapter) url.searchParams.set("chapter", String(chapter));
     else url.searchParams.delete("chapter");
-    if (divisionId) url.searchParams.set("testament", divisionId);
-    else url.searchParams.delete("testament");
+    if (divisionId) url.searchParams.set("work", divisionId);
+    else url.searchParams.delete("work");
+    url.searchParams.delete("testament");
     url.searchParams.delete("q");
     url.hash = "";
     return `${url.pathname}${url.search}`;
@@ -293,8 +294,8 @@
       const params = new URLSearchParams(window.location.search);
       const itemId = params.get("book");
       const chapter = params.get("chapter");
-      const testament = params.get("testament");
-      if (itemId && chapter && READER_BOOKS.has(itemId)) await renderReader(itemId, chapter, testament);
+      const division = params.get("work") || params.get("testament");
+      if (itemId && chapter && READER_BOOKS.has(itemId)) await renderReader(itemId, chapter, division);
       else renderDetail(itemId);
     } catch (error) {
       console.error("Ancient Library failed to load", error);
