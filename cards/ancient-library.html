@@ -91,7 +91,7 @@
       top: 0;
       z-index: 5;
       display: grid;
-      grid-template-columns: auto minmax(12rem, 1fr) auto;
+      grid-template-columns: auto minmax(12rem, 1fr) auto auto;
       gap: .65rem;
       align-items: end;
       margin: 1rem 0;
@@ -126,6 +126,12 @@
     }
 
     #ancientLibraryCard .al-reader-tools button { cursor: pointer; color: #ffe4a8; }
+    #ancientLibraryCard .al-reader-tools .al-listen-button {
+      border-color: rgba(243,200,120,.5);
+      background: rgba(243,200,120,.12);
+      color: #fff0c7;
+      font-weight: 800;
+    }
     #ancientLibraryCard .al-reading-text { max-width: 46rem; margin: 1.25rem auto; }
     #ancientLibraryCard .al-verse {
       display: grid;
@@ -206,6 +212,8 @@
       #ancientLibraryCard .al-reader-tools { position: static; grid-template-columns: 5.5rem minmax(0,1fr); }
       #ancientLibraryCard .al-reader-tools .al-search-label { grid-column: 1 / -1; }
       #ancientLibraryCard .al-reader-tools button { grid-column: 1 / -1; }
+      #ancientLibraryCard .al-reader-tools .al-listen-button { order: 3; }
+      #ancientLibraryCard .al-reader-tools #alCopyChapterLink { order: 4; }
       #ancientLibraryCard .al-verse { grid-template-columns: 1.55rem minmax(0,1fr); gap: .5rem; }
     }
 
