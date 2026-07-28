@@ -1,0 +1,244 @@
+{
+  "version": 1,
+  "updated": "2026-07-27",
+  "categories": [
+    {
+      "id": "second-temple",
+      "title": "Second Temple Jewish Literature",
+      "notice": "Ancient Jewish literature useful for understanding the world surrounding the New Testament. Inclusion does not imply scriptural authority."
+    },
+    {
+      "id": "historical",
+      "title": "Ancient Historians and Philosophers",
+      "notice": "Ancient witnesses whose accuracy, proximity, perspective, and purposes vary."
+    },
+    {
+      "id": "early-christian",
+      "title": "Early Christian Literature",
+      "notice": "Early Christian writings outside the New Testament, useful for studying the beliefs and practices of some early communities."
+    },
+    {
+      "id": "lost-disputed",
+      "title": "Lost and Disputed Works",
+      "notice": "Reference guides distinguishing works named in Scripture from later books using similar titles."
+    }
+  ],
+  "items": [
+    {
+      "id": "1-enoch",
+      "title": "1 Enoch",
+      "category": "second-temple",
+      "date": "Composite work, approximately third century BCE to first century CE",
+      "description": "An influential collection of Jewish apocalyptic writings concerning the Watchers, judgment, heavenly journeys, wisdom, and restoration.",
+      "edition": "R. H. Charles translation, 1917",
+      "sourceName": "Internet Sacred Text Archive",
+      "sourceUrl": "https://sacred-texts.com/bib/boe/index.htm",
+      "status": "Source link verified; in-app text planned",
+      "survival": "surviving"
+    },
+    {
+      "id": "jubilees",
+      "title": "Jubilees",
+      "category": "second-temple",
+      "date": "Approximately second century BCE",
+      "description": "A retelling of Genesis and part of Exodus arranged around jubilees, with particular attention to covenant, calendar, purity, and Torah.",
+      "edition": "R. H. Charles translation, 1917",
+      "sourceName": "Internet Sacred Text Archive",
+      "sourceUrl": "https://www.sacred-texts.com/bib/jub/index.htm",
+      "status": "Source link verified; in-app text planned",
+      "survival": "surviving"
+    },
+    {
+      "id": "testaments-twelve-patriarchs",
+      "title": "Testaments of the Twelve Patriarchs",
+      "category": "second-temple",
+      "date": "Disputed composition and transmission history",
+      "description": "Testamentary speeches attributed to Jacob’s sons, combining ethical instruction, apocalyptic expectation, and a complicated textual history.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Edition review required",
+      "survival": "surviving"
+    },
+    {
+      "id": "life-adam-eve",
+      "title": "Life of Adam and Eve",
+      "category": "second-temple",
+      "date": "Ancient Jewish work preserved in multiple later forms",
+      "description": "Traditions expanding the lives of Adam and Eve after their expulsion from Eden, surviving in differing Greek, Latin, Armenian, Georgian, and Slavonic forms.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Edition review required",
+      "survival": "surviving"
+    },
+    {
+      "id": "psalms-solomon",
+      "title": "Psalms of Solomon",
+      "category": "second-temple",
+      "date": "Approximately first century BCE",
+      "description": "A collection of Jewish psalms reflecting on sin, foreign rule, righteous leadership, judgment, and messianic hope.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Edition review required",
+      "survival": "surviving"
+    },
+    {
+      "id": "4-ezra",
+      "title": "4 Ezra",
+      "category": "second-temple",
+      "date": "Late first century CE core",
+      "description": "An apocalypse wrestling with Jerusalem’s destruction, divine justice, Israel’s suffering, and hope for restoration.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Edition and naming review required",
+      "survival": "surviving"
+    },
+    {
+      "id": "2-baruch",
+      "title": "2 Baruch",
+      "category": "second-temple",
+      "date": "Late first or early second century CE",
+      "description": "A Jewish apocalypse responding to Jerusalem’s destruction through visions, dialogue, lament, judgment, and restoration.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Edition review required",
+      "survival": "surviving"
+    },
+    {
+      "id": "josephus",
+      "title": "Flavius Josephus",
+      "category": "historical",
+      "date": "First century CE",
+      "description": "Jewish historian and participant in the revolt against Rome. Principal works include Jewish War, Antiquities, Life, and Against Apion.",
+      "edition": "William Whiston translation",
+      "sourceName": "Internet Sacred Text Archive",
+      "sourceUrl": "https://www.sacred-texts.com/jud/josephus/index.htm",
+      "status": "Source link verified; work-level catalog planned",
+      "survival": "surviving"
+    },
+    {
+      "id": "philo",
+      "title": "Philo of Alexandria",
+      "category": "historical",
+      "date": "Approximately 20 BCE–50 CE",
+      "description": "Alexandrian Jewish philosopher and interpreter whose writings illuminate diaspora Judaism, biblical interpretation, philosophy, and the first-century world.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Collection and edition review required",
+      "survival": "surviving"
+    },
+    {
+      "id": "tacitus",
+      "title": "Tacitus",
+      "category": "historical",
+      "date": "Approximately 56–120 CE",
+      "description": "Roman senator and historian whose Annals and Histories provide an elite Roman perspective on the early imperial period.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Relevant works and editions under review",
+      "survival": "surviving"
+    },
+    {
+      "id": "suetonius",
+      "title": "Suetonius",
+      "category": "historical",
+      "date": "Approximately 69–after 122 CE",
+      "description": "Roman biographer whose Lives of the Caesars preserves traditions about the emperors and imperial administration.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Relevant works and editions under review",
+      "survival": "surviving"
+    },
+    {
+      "id": "didache",
+      "title": "Didache",
+      "category": "early-christian",
+      "date": "Commonly dated to the late first or early second century CE",
+      "description": "An early Christian church manual addressing the Two Ways, baptism, fasting, prayer, communal meals, teachers, and community order.",
+      "edition": "Charles H. Hoole translation, 1894",
+      "sourceName": "Internet Sacred Text Archive",
+      "sourceUrl": "https://sacred-texts.com/chr/did/",
+      "status": "Source link verified; in-app text planned",
+      "survival": "surviving"
+    },
+    {
+      "id": "1-clement",
+      "title": "1 Clement",
+      "category": "early-christian",
+      "date": "Commonly dated near the end of the first century CE",
+      "description": "A lengthy letter from the church at Rome to Corinth concerning division, humility, order, repentance, and communal peace.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Edition review required",
+      "survival": "surviving"
+    },
+    {
+      "id": "shepherd-hermas",
+      "title": "Shepherd of Hermas",
+      "category": "early-christian",
+      "date": "First or second century CE",
+      "description": "An early Christian collection of visions, commandments, and parables centered on repentance, moral formation, and the community.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Edition review required",
+      "survival": "surviving"
+    },
+    {
+      "id": "biblical-jashar",
+      "title": "The Biblical Book of Jashar",
+      "category": "lost-disputed",
+      "date": "Unknown",
+      "description": "A lost work named in Joshua 10:13 and 2 Samuel 1:18. No surviving book can presently be identified securely as this biblical source.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Reference guide planned; no surviving text",
+      "survival": "lost"
+    },
+    {
+      "id": "later-jashar",
+      "title": "Later Books Called Jasher",
+      "category": "lost-disputed",
+      "date": "Medieval and modern works",
+      "description": "Several later works use the title Jasher or Sefer haYashar. They must not be presented as though they were demonstrably the lost work mentioned in Joshua and Samuel.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Comparison guide planned",
+      "survival": "disputed"
+    },
+    {
+      "id": "wars-of-the-lord",
+      "title": "Book of the Wars of the LORD",
+      "category": "lost-disputed",
+      "date": "Unknown",
+      "description": "A lost work cited in Numbers 21:14. The biblical quotation survives, but the larger source does not.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Reference guide planned; no surviving text",
+      "survival": "lost"
+    },
+    {
+      "id": "other-lost-scriptural-works",
+      "title": "Other Lost Works Mentioned in Scripture",
+      "category": "lost-disputed",
+      "date": "Various",
+      "description": "A future guide to works such as the Acts of Solomon and writings associated with Nathan, Gad, Shemaiah, Iddo, and Jehu, carefully separating biblical references from later identifications.",
+      "edition": null,
+      "sourceName": null,
+      "sourceUrl": null,
+      "status": "Reference catalog planned",
+      "survival": "lost"
+    }
+  ]
+}
