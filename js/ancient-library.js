@@ -163,12 +163,17 @@
   function wireReader(chapterNumber) {
     const select = activeRoot.querySelector("#alChapterSelect");
     const workSelect = activeRoot.querySelector("#alWorkSelect");
+    const volumeSelect = activeRoot.querySelector("#alVolumeSelect");
     const search = activeRoot.querySelector("#alBookSearch");
     const copy = activeRoot.querySelector("#alCopyChapterLink");
     const listen = activeRoot.querySelector("#alListenChapter");
 
     workSelect?.addEventListener("change", () => {
       window.location.href = buildLibraryUrl(activeBookData.id, 1, workSelect.value);
+    });
+
+    volumeSelect?.addEventListener("change", () => {
+      window.location.href = buildLibraryUrl(activeBookData.id, 1, activeBookData.activeWork?.id, volumeSelect.value);
     });
 
     select?.addEventListener("change", () => {
@@ -231,7 +236,9 @@
     activeCollectionManifest = activeBookData.works?.length ? activeBookData : null;
     if (activeCollectionManifest) {
       const selectedWork = activeCollectionManifest.works.find(work => work.id === requestedWork) || activeCollectionManifest.works[0];
-      const workResponse = await fetch(`data/ancient-library/${itemId}/${selectedWork.file}`, { cache: "no-cache" });
+      const selectedVolume = selectedWork.volumes?.find(volume => volume.id === requestedVolume) || selectedWork.volumes?.[0] || null;
+      const sourceFile = selectedVolume?.file || selectedWork.file;
+      const workResponse = await fetch(`data/ancient-library/${itemId}/${sourceFile}`, { cache: "no-cache" });
       if (!workResponse.ok) throw new Error(`Collection work request failed: ${workResponse.status}`);
       const workData = await workResponse.json();
       activeBookData = {
@@ -241,14 +248,16 @@
         title: activeCollectionManifest.title,
         shortTitle: workData.shortTitle || selectedWork.title,
         activeWork: selectedWork,
+        activeVolume: selectedVolume,
         chapters: workData.chapters.map(chapter => ({
           ...chapter,
-          divisionId: chapter.divisionId || selectedWork.id,
-          divisionTitle: chapter.divisionTitle || selectedWork.title,
+          divisionId: chapter.divisionId || selectedVolume?.id || selectedWork.id,
+          divisionTitle: chapter.divisionTitle || selectedVolume?.title || selectedWork.title,
           localChapter: chapter.localChapter || chapter.number
         }))
       };
       requestedWork = selectedWork.id;
+      requestedVolume = selectedVolume?.id || requestedVolume;
     }
 
     const requestedDivision = activeCollectionManifest ? (requestedVolume || requestedWork) : requestedWork;
