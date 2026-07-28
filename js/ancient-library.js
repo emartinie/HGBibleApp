@@ -5,6 +5,7 @@
   let activeRoot = null;
   let activeCategory = "all";
   let activeBookData = null;
+  let activeCollectionManifest = null;
 
   const escapeHtml = value => String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -150,9 +151,14 @@
 
   function wireReader(chapterNumber) {
     const select = activeRoot.querySelector("#alChapterSelect");
+    const workSelect = activeRoot.querySelector("#alWorkSelect");
     const search = activeRoot.querySelector("#alBookSearch");
     const copy = activeRoot.querySelector("#alCopyChapterLink");
     const listen = activeRoot.querySelector("#alListenChapter");
+
+    workSelect?.addEventListener("change", () => {
+      window.location.href = buildLibraryUrl(activeBookData.id, 1, workSelect.value);
+    });
 
     select?.addEventListener("change", () => {
       const selected = activeBookData.chapters.find(entry => entry.number === Number(select.value));
@@ -211,6 +217,28 @@
     const response = await fetch(`data/ancient-library/${itemId}/book.json`, { cache: "no-cache" });
     if (!response.ok) throw new Error(`Book request failed: ${response.status}`);
     activeBookData = await response.json();
+    activeCollectionManifest = activeBookData.works?.length ? activeBookData : null;
+    if (activeCollectionManifest) {
+      const selectedWork = activeCollectionManifest.works.find(work => work.id === requestedDivision) || activeCollectionManifest.works[0];
+      const workResponse = await fetch(`data/ancient-library/${itemId}/${selectedWork.file}`, { cache: "no-cache" });
+      if (!workResponse.ok) throw new Error(`Collection work request failed: ${workResponse.status}`);
+      const workData = await workResponse.json();
+      activeBookData = {
+        ...activeCollectionManifest,
+        ...workData,
+        id: activeCollectionManifest.id,
+        title: activeCollectionManifest.title,
+        shortTitle: workData.shortTitle || selectedWork.title,
+        activeWork: selectedWork,
+        chapters: workData.chapters.map(chapter => ({
+          ...chapter,
+          divisionId: selectedWork.id,
+          divisionTitle: selectedWork.title,
+          localChapter: chapter.number
+        }))
+      };
+      requestedDivision = selectedWork.id;
+    }
 
     const maximum = activeBookData.chapters.length;
     let chapter = requestedDivision
@@ -235,6 +263,11 @@
         <p class="al-authority">${escapeHtml(activeBookData.authorityNotice)}</p>
       </div>
       <div class="al-reader-tools" data-swipe-nav="ignore">
+        ${activeCollectionManifest ? `<label>Work
+          <select id="alWorkSelect" aria-label="Select work">
+            ${activeCollectionManifest.works.map(work => `<option value="${escapeHtml(work.id)}"${work.id === activeBookData.activeWork.id ? " selected" : ""}>${escapeHtml(work.title)}</option>`).join("")}
+          </select>
+        </label>` : ""}
         <label>Chapter
           <select id="alChapterSelect" aria-label="Select chapter">
             ${activeBookData.chapters.map(entry => `<option value="${entry.number}"${entry.number === chapterNumber ? " selected" : ""}>${escapeHtml(entry.divisionTitle ? `${entry.divisionTitle.replace("Testament of ", "")} ${entry.localChapter}` : entry.number)}</option>`).join("")}
@@ -307,6 +340,7 @@
     activeRoot = null;
     activeCategory = "all";
     activeBookData = null;
+    activeCollectionManifest = null;
   }
 
   window.initAncientLibraryCard = initAncientLibraryCard;
