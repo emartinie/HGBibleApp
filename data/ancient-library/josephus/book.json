@@ -1,0 +1,177 @@
+{
+  "id": "josephus",
+  "title": "The Principal Works of Flavius Josephus",
+  "shortTitle": "Josephus",
+  "authorityNotice": "Ancient Jewish historical and apologetic literature. It is an important witness, but it is not presented as Scripture.",
+  "works": [
+    {
+      "id": "antiquities",
+      "title": "Antiquities of the Jews",
+      "volumes": [
+        {
+          "id": "book-1",
+          "title": "Book 1",
+          "file": "antiquities-book-1.json"
+        },
+        {
+          "id": "book-2",
+          "title": "Book 2",
+          "file": "antiquities-book-2.json"
+        },
+        {
+          "id": "book-3",
+          "title": "Book 3",
+          "file": "antiquities-book-3.json"
+        },
+        {
+          "id": "book-4",
+          "title": "Book 4",
+          "file": "antiquities-book-4.json"
+        },
+        {
+          "id": "book-5",
+          "title": "Book 5",
+          "file": "antiquities-book-5.json"
+        },
+        {
+          "id": "book-6",
+          "title": "Book 6",
+          "file": "antiquities-book-6.json"
+        },
+        {
+          "id": "book-7",
+          "title": "Book 7",
+          "file": "antiquities-book-7.json"
+        },
+        {
+          "id": "book-8",
+          "title": "Book 8",
+          "file": "antiquities-book-8.json"
+        },
+        {
+          "id": "book-9",
+          "title": "Book 9",
+          "file": "antiquities-book-9.json"
+        },
+        {
+          "id": "book-10",
+          "title": "Book 10",
+          "file": "antiquities-book-10.json"
+        },
+        {
+          "id": "book-11",
+          "title": "Book 11",
+          "file": "antiquities-book-11.json"
+        },
+        {
+          "id": "book-12",
+          "title": "Book 12",
+          "file": "antiquities-book-12.json"
+        },
+        {
+          "id": "book-13",
+          "title": "Book 13",
+          "file": "antiquities-book-13.json"
+        },
+        {
+          "id": "book-14",
+          "title": "Book 14",
+          "file": "antiquities-book-14.json"
+        },
+        {
+          "id": "book-15",
+          "title": "Book 15",
+          "file": "antiquities-book-15.json"
+        },
+        {
+          "id": "book-16",
+          "title": "Book 16",
+          "file": "antiquities-book-16.json"
+        },
+        {
+          "id": "book-17",
+          "title": "Book 17",
+          "file": "antiquities-book-17.json"
+        },
+        {
+          "id": "book-18",
+          "title": "Book 18",
+          "file": "antiquities-book-18.json"
+        },
+        {
+          "id": "book-19",
+          "title": "Book 19",
+          "file": "antiquities-book-19.json"
+        },
+        {
+          "id": "book-20",
+          "title": "Book 20",
+          "file": "antiquities-book-20.json"
+        }
+      ]
+    },
+    {
+      "id": "life",
+      "title": "The Life of Flavius Josephus",
+      "file": "life.json"
+    },
+    {
+      "id": "against-apion",
+      "title": "Against Apion",
+      "volumes": [
+        {
+          "id": "book-1",
+          "title": "Book 1",
+          "file": "against-apion-book-1.json"
+        },
+        {
+          "id": "book-2",
+          "title": "Book 2",
+          "file": "against-apion-book-2.json"
+        }
+      ]
+    },
+    {
+      "id": "war",
+      "title": "The Jewish War",
+      "volumes": [
+        {
+          "id": "book-1",
+          "title": "Book 1",
+          "file": "war-book-1.json"
+        },
+        {
+          "id": "book-2",
+          "title": "Book 2",
+          "file": "war-book-2.json"
+        },
+        {
+          "id": "book-3",
+          "title": "Book 3",
+          "file": "war-book-3.json"
+        },
+        {
+          "id": "book-4",
+          "title": "Book 4",
+          "file": "war-book-4.json"
+        },
+        {
+          "id": "book-5",
+          "title": "Book 5",
+          "file": "war-book-5.json"
+        },
+        {
+          "id": "book-6",
+          "title": "Book 6",
+          "file": "war-book-6.json"
+        },
+        {
+          "id": "book-7",
+          "title": "Book 7",
+          "file": "war-book-7.json"
+        }
+      ]
+    }
+  ]
+}
+
