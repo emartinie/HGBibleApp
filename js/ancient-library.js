@@ -276,12 +276,18 @@
     const nextChapter = activeBookData.chapters[chapterNumber];
     const previous = previousChapter ? chapterUrl(previousChapter) : null;
     const next = nextChapter ? chapterUrl(nextChapter) : null;
+    const estimatedDate = activeBookData.activeWork?.estimatedDate || catalogItem?.date || "Date uncertain";
+    const purpose = activeBookData.activeWork?.purpose || catalogItem?.description || "";
 
     detail.innerHTML = `
       <div class="al-reader-heading">
         <a class="al-back" href="${escapeHtml(buildLibraryUrl(itemId))}">← About ${escapeHtml(activeBookData.shortTitle)}</a>
         <p class="al-status">${escapeHtml(activeBookData.translator || "Public-domain translation")} · ${escapeHtml(activeBookData.originalPublication || "Public-domain edition")}</p>
         <h2>${escapeHtml(chapterLabel)}</h2>
+        <div class="al-work-context">
+          <p><strong>Estimated writing date:</strong> ${escapeHtml(estimatedDate)}</p>
+          ${purpose ? `<p><strong>Why this work was written:</strong> ${escapeHtml(purpose)}</p>` : ""}
+        </div>
         <p class="al-authority">${escapeHtml(activeBookData.authorityNotice)}</p>
       </div>
       <div class="al-reader-tools" data-swipe-nav="ignore">
