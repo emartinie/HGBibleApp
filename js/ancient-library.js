@@ -1,6 +1,6 @@
 (() => {
   const CATEGORY_ORDER = ["second-temple", "historical", "early-christian", "lost-disputed"];
-  const READER_BOOKS = new Set(["1-enoch", "jubilees"]);
+  const READER_BOOKS = new Set(["1-enoch", "jubilees", "testaments-twelve-patriarchs"]);
   let catalog = null;
   let activeRoot = null;
   let activeCategory = "all";
@@ -13,13 +13,15 @@
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
-  function buildLibraryUrl(itemId, chapter) {
+  function buildLibraryUrl(itemId, chapter, divisionId) {
     const url = new URL(window.location.href);
     url.searchParams.set("card", "ancient-library");
     if (itemId) url.searchParams.set("book", itemId);
     else url.searchParams.delete("book");
     if (chapter) url.searchParams.set("chapter", String(chapter));
     else url.searchParams.delete("chapter");
+    if (divisionId) url.searchParams.set("testament", divisionId);
+    else url.searchParams.delete("testament");
     url.searchParams.delete("q");
     url.hash = "";
     return `${url.pathname}${url.search}`;
@@ -128,7 +130,7 @@
     for (const chapter of activeBookData.chapters) {
       for (const verse of chapter.verses) {
         if (verse.text.toLocaleLowerCase().includes(term)) {
-          matches.push({ chapter: chapter.number, verse: verse.number, text: verse.text });
+          matches.push({ chapter: chapter.number, localChapter: chapter.localChapter, divisionId: chapter.divisionId, divisionTitle: chapter.divisionTitle, verse: verse.number, text: verse.text });
           if (matches.length >= 100) break;
         }
       }
@@ -139,8 +141,8 @@
     resultsHost.innerHTML = `
       <div class="al-search-summary">${matches.length ? `${matches.length}${matches.length === 100 ? "+" : ""} matches` : "No matches"} for “${escapeHtml(query)}”</div>
       ${matches.map(match => `
-        <a class="al-search-result" href="${escapeHtml(buildLibraryUrl(activeBookData.id, match.chapter))}#al-verse-${escapeHtml(match.verse)}">
-          <strong>${escapeHtml(activeBookData.shortTitle)} ${escapeHtml(match.chapter)}:${escapeHtml(match.verse)}</strong>
+        <a class="al-search-result" href="${escapeHtml(buildLibraryUrl(activeBookData.id, match.localChapter || match.chapter, match.divisionId))}#al-verse-${escapeHtml(match.verse)}">
+          <strong>${escapeHtml(match.divisionTitle ? `${match.divisionTitle} ${match.localChapter}:${match.verse}` : `${activeBookData.shortTitle} ${match.chapter}:${match.verse}`)}</strong>
           <span>${escapeHtml(match.text.replaceAll("\n", " ").slice(0, 180))}${match.text.length > 180 ? "…" : ""}</span>
         </a>`).join("")}`;
   }
@@ -152,7 +154,8 @@
     const listen = activeRoot.querySelector("#alListenChapter");
 
     select?.addEventListener("change", () => {
-      window.location.href = buildLibraryUrl(activeBookData.id, Number(select.value));
+      const selected = activeBookData.chapters.find(entry => entry.number === Number(select.value));
+      window.location.href = buildLibraryUrl(activeBookData.id, selected?.localChapter || selected?.number, selected?.divisionId);
     });
 
     search?.addEventListener("input", () => renderReaderSearchResults(search.value));
@@ -165,9 +168,9 @@
         return;
       }
       const playlist = chapter.verses.map(verse => ({
-        title: `${activeBookData.shortTitle} ${chapterNumber}:${verse.number}`,
+        title: chapter.divisionTitle ? `${chapter.divisionTitle} ${chapter.localChapter}:${verse.number}` : `${activeBookData.shortTitle} ${chapterNumber}:${verse.number}`,
         text: verse.text,
-        ref: `${window.location.origin}${buildLibraryUrl(activeBookData.id, chapterNumber)}#al-verse-${verse.number}`
+        ref: `${window.location.origin}${buildLibraryUrl(activeBookData.id, chapter.localChapter || chapterNumber, chapter.divisionId)}#al-verse-${verse.number}`
       }));
       if (player.loadTextPlaylist(playlist, { autoplay: true })) {
         player.setMinimized?.(false);
@@ -198,7 +201,7 @@
     });
   }
 
-  async function renderReader(itemId, requestedChapter) {
+  async function renderReader(itemId, requestedChapter, requestedDivision) {
     const detail = showDetailHost();
     if (!detail) return;
     const catalogItem = catalog.items.find(entry => entry.id === itemId);
@@ -209,22 +212,31 @@
     activeBookData = await response.json();
 
     const maximum = activeBookData.chapters.length;
-    const chapterNumber = Math.max(1, Math.min(Number(requestedChapter) || 1, maximum));
-    const chapter = activeBookData.chapters.find(entry => entry.number === chapterNumber);
-    const previous = chapterNumber > 1 ? buildLibraryUrl(itemId, chapterNumber - 1) : null;
-    const next = chapterNumber < maximum ? buildLibraryUrl(itemId, chapterNumber + 1) : null;
+    let chapter = requestedDivision
+      ? activeBookData.chapters.find(entry => entry.divisionId === requestedDivision && entry.localChapter === (Number(requestedChapter) || 1))
+      : null;
+    if (!chapter) {
+      const chapterNumber = Math.max(1, Math.min(Number(requestedChapter) || 1, maximum));
+      chapter = activeBookData.chapters.find(entry => entry.number === chapterNumber);
+    }
+    const chapterNumber = chapter.number;
+    const chapterLabel = chapter.divisionTitle ? `${chapter.divisionTitle} — Chapter ${chapter.localChapter}` : `${activeBookData.shortTitle} — Chapter ${chapterNumber}`;
+    const previousChapter = activeBookData.chapters[chapterNumber - 2];
+    const nextChapter = activeBookData.chapters[chapterNumber];
+    const previous = previousChapter ? buildLibraryUrl(itemId, previousChapter.localChapter || previousChapter.number, previousChapter.divisionId) : null;
+    const next = nextChapter ? buildLibraryUrl(itemId, nextChapter.localChapter || nextChapter.number, nextChapter.divisionId) : null;
 
     detail.innerHTML = `
       <div class="al-reader-heading">
         <a class="al-back" href="${escapeHtml(buildLibraryUrl(itemId))}">← About ${escapeHtml(activeBookData.shortTitle)}</a>
         <p class="al-status">R. H. Charles · 1917 · Public-domain edition</p>
-        <h2>${escapeHtml(activeBookData.shortTitle)} — Chapter ${chapterNumber}</h2>
+        <h2>${escapeHtml(chapterLabel)}</h2>
         <p class="al-authority">${escapeHtml(activeBookData.authorityNotice)}</p>
       </div>
       <div class="al-reader-tools" data-swipe-nav="ignore">
         <label>Chapter
           <select id="alChapterSelect" aria-label="Select chapter">
-            ${activeBookData.chapters.map(entry => `<option value="${entry.number}"${entry.number === chapterNumber ? " selected" : ""}>${entry.number}</option>`).join("")}
+            ${activeBookData.chapters.map(entry => `<option value="${entry.number}"${entry.number === chapterNumber ? " selected" : ""}>${escapeHtml(entry.divisionTitle ? `${entry.divisionTitle.replace("Testament of ", "")} ${entry.localChapter}` : entry.number)}</option>`).join("")}
           </select>
         </label>
         <label class="al-search-label">Search this book
@@ -235,13 +247,13 @@
       </div>
       <div id="alSearchResults" class="al-search-results" hidden></div>
       <nav class="al-chapter-nav" aria-label="Chapter navigation">
-        ${previous ? `<a href="${escapeHtml(previous)}">← Chapter ${chapterNumber - 1}</a>` : "<span></span>"}
-        ${next ? `<a href="${escapeHtml(next)}">Chapter ${chapterNumber + 1} →</a>` : "<span></span>"}
+        ${previous ? `<a href="${escapeHtml(previous)}">← Previous chapter</a>` : "<span></span>"}
+        ${next ? `<a href="${escapeHtml(next)}">Next chapter →</a>` : "<span></span>"}
       </nav>
       <article class="al-reading-text" aria-label="${escapeHtml(activeBookData.shortTitle)} chapter ${chapterNumber}">${renderVerses(chapter)}</article>
       <nav class="al-chapter-nav" aria-label="Chapter navigation">
-        ${previous ? `<a href="${escapeHtml(previous)}">← Chapter ${chapterNumber - 1}</a>` : "<span></span>"}
-        ${next ? `<a href="${escapeHtml(next)}">Chapter ${chapterNumber + 1} →</a>` : "<span></span>"}
+        ${previous ? `<a href="${escapeHtml(previous)}">← Previous chapter</a>` : "<span></span>"}
+        ${next ? `<a href="${escapeHtml(next)}">Next chapter →</a>` : "<span></span>"}
       </nav>
       <footer class="al-source-note">
         <strong>Text:</strong> R. H. Charles, first published ${escapeHtml(activeBookData.originalPublication)}.
@@ -281,7 +293,8 @@
       const params = new URLSearchParams(window.location.search);
       const itemId = params.get("book");
       const chapter = params.get("chapter");
-      if (itemId && chapter && READER_BOOKS.has(itemId)) await renderReader(itemId, chapter);
+      const testament = params.get("testament");
+      if (itemId && chapter && READER_BOOKS.has(itemId)) await renderReader(itemId, chapter, testament);
       else renderDetail(itemId);
     } catch (error) {
       console.error("Ancient Library failed to load", error);
