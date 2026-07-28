@@ -1,6 +1,6 @@
 (() => {
   const CATEGORY_ORDER = ["second-temple", "historical", "early-christian", "lost-disputed"];
-  const READER_BOOKS = new Set(["1-enoch", "jubilees", "testaments-twelve-patriarchs", "psalms-solomon", "4-ezra", "didache", "1-clement", "shepherd-hermas", "suetonius"]);
+  const READER_BOOKS = new Set(["1-enoch", "jubilees", "testaments-twelve-patriarchs", "psalms-solomon", "4-ezra", "didache", "1-clement", "shepherd-hermas", "suetonius", "tacitus", "josephus", "philo"]);
   let catalog = null;
   let activeRoot = null;
   let activeCategory = "all";
@@ -281,7 +281,7 @@
     detail.innerHTML = `
       <div class="al-reader-heading">
         <a class="al-back" href="${escapeHtml(buildLibraryUrl(itemId))}">← About ${escapeHtml(activeBookData.shortTitle)}</a>
-        <p class="al-status">R. H. Charles · 1917 · Public-domain edition</p>
+        <p class="al-status">${escapeHtml(activeBookData.translator || "Public-domain translation")} · ${escapeHtml(activeBookData.originalPublication || "Public-domain edition")}</p>
         <h2>${escapeHtml(chapterLabel)}</h2>
         <p class="al-authority">${escapeHtml(activeBookData.authorityNotice)}</p>
       </div>
@@ -318,9 +318,9 @@
         ${next ? `<a href="${escapeHtml(next)}">Next chapter →</a>` : "<span></span>"}
       </nav>
       <footer class="al-source-note">
-        <strong>Text:</strong> R. H. Charles, first published ${escapeHtml(activeBookData.originalPublication)}.
+        <strong>Text:</strong> ${escapeHtml(activeBookData.translator || "Public-domain translation")}, ${escapeHtml(activeBookData.originalPublication || "public-domain edition")}.
         <a href="${escapeHtml(activeBookData.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(activeBookData.source.name)} ↗</a>
-        <a href="${escapeHtml(activeBookData.externalSources[0].url)}" target="_blank" rel="noopener noreferrer">Sacred Texts ↗</a>
+        ${activeBookData.externalSources?.slice(1).map(source => `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.name)} ↗</a>`).join("") || ""}
       </footer>`;
 
     wireReader(chapterNumber);
