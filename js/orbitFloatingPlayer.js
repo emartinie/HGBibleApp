@@ -27,6 +27,10 @@
     audio: window.globalAudio || new Audio(),
     playlist: [],
     index: 0,
+    mode: "audio",
+    speechRate: 1,
+    speechPaused: false,
+    speechToken: 0,
     lang: "eng",
     autoNext: true,
     docked: false,
@@ -45,7 +49,8 @@
     toggleSonograph,
     setDocked,
     setMinimized,
-    loadPlaylist
+    loadPlaylist,
+    loadTextPlaylist
   };
 
   window.globalAudio = state.audio;
@@ -116,18 +121,52 @@
   function currentSrc() {
     const item = currentItem();
     if (!item) return "";
-    return item[state.lang] || item.src || item.eng || item.heb || item.grk || "";
+    return state.mode === "speech" ? (item.ref || window.location.href) : (item[state.lang] || item.src || item.eng || item.heb || item.grk || "");
+  }
+
+  function isPaused() {
+    return state.mode === "speech" ? state.speechPaused || !window.speechSynthesis?.speaking : state.audio.paused;
+  }
+
+  function stopSpeech(resetIndex = false) {
+    state.speechToken += 1;
+    window.speechSynthesis?.cancel();
+    state.speechPaused = false;
+    if (resetIndex) state.index = 0;
+  }
+
+  function loadTextPlaylist(list, options = {}) {
+    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+      window.alert("Device-generated narration is not supported by this browser.");
+      return false;
+    }
+    const next = (Array.isArray(list) ? list : []).map(item => ({
+      title: item.title || item.label || "Untitled",
+      text: String(item.text || "").trim(),
+      ref: item.ref || window.location.href
+    })).filter(item => item.text);
+    if (!next.length) return false;
+    state.audio.pause();
+    stopSpeech();
+    state.mode = "speech";
+    state.playlist = next;
+    state.index = Math.min(Math.max(Number(options.index) || 0, 0), next.length - 1);
+    updateProgress(state.index / next.length);
+    updateNowPlaying({ action: "loaded" });
+    if (options.autoplay === true) playCurrent();
+    return true;
   }
 
   function updateNowPlaying(extra = {}) {
     const item = currentItem();
     const title = item?.title || "Orbit ready";
     const src = currentSrc();
-    state.els.title.textContent = item ? `${title} (${state.lang.toUpperCase()})` : "Orbit";
-    state.els.nowPlaying.textContent = item ? `${title} (${state.lang.toUpperCase()})` : "Load a playlist";
-    state.els.playPause.textContent = state.audio.paused ? "Play" : "Pause";
+    const suffix = state.mode === "speech" ? "Device narration" : state.lang.toUpperCase();
+    state.els.title.textContent = item ? `${title} (${suffix})` : "Orbit";
+    state.els.nowPlaying.textContent = item ? `${title} (${suffix})` : "Load a playlist";
+    state.els.playPause.textContent = isPaused() ? "Play" : "Pause";
     state.els.sleep.style.opacity = state.autoNext ? "1" : "0.55";
-    state.els.lang.textContent = state.lang.toUpperCase();
+    state.els.lang.textContent = state.mode === "speech" ? "Voice" : state.lang.toUpperCase();
     state.els.minimize.textContent = state.minimized ? "Show" : "Hide";
     state.els.dock.textContent = state.docked ? "Float" : "Dock";
 
@@ -137,13 +176,16 @@
         lang: state.lang,
         src,
         index: state.index,
-        paused: state.audio.paused,
+        paused: isPaused(),
+        mode: state.mode,
         ...extra
       }
     }));
   }
 
   function loadPlaylist(list, options = {}) {
+    stopSpeech();
+    state.mode = "audio";
     const next = normalizePlaylist(list);
     state.playlist = next;
     state.index = Math.min(Math.max(Number(options.index) || 0, 0), Math.max(next.length - 1, 0));
@@ -182,6 +224,7 @@
   }
 
   function playCurrent() {
+    if (state.mode === "speech") return playSpeech();
     if (!state.playlist.length) {
       loadPlaylist(DEFAULT_PLAYLIST, { autoplay: true });
       return Promise.resolve(false);
@@ -204,30 +247,83 @@
   }
 
   function pauseCurrent() {
+    if (state.mode === "speech") {
+      window.speechSynthesis?.pause();
+      state.speechPaused = true;
+      updateNowPlaying({ action: "pause" });
+      return;
+    }
     state.audio.pause();
     updateNowPlaying({ action: "pause" });
   }
 
   function stopCurrent() {
+    if (state.mode === "speech") {
+      stopSpeech();
+      updateProgress(state.playlist.length ? state.index / state.playlist.length : 0);
+      updateNowPlaying({ action: "stop" });
+      return;
+    }
     state.audio.pause();
     state.audio.currentTime = 0;
     updateProgress(0);
     updateNowPlaying({ action: "stop" });
   }
 
-  function nextTrack(autoplay = !state.audio.paused) {
+  function nextTrack(autoplay = !isPaused()) {
     if (!state.playlist.length) return;
+    if (state.mode === "speech") stopSpeech();
     state.index = (state.index + 1) % state.playlist.length;
-    loadTrack({ autoplay });
+    if (state.mode === "speech") {
+      updateProgress(state.index / state.playlist.length);
+      updateNowPlaying();
+      if (autoplay) playSpeech();
+    } else loadTrack({ autoplay });
   }
 
   function previousTrack() {
     if (!state.playlist.length) return;
+    const autoplay = !isPaused();
+    if (state.mode === "speech") stopSpeech();
     state.index = (state.index - 1 + state.playlist.length) % state.playlist.length;
-    loadTrack({ autoplay: !state.audio.paused });
+    if (state.mode === "speech") {
+      updateProgress(state.index / state.playlist.length);
+      updateNowPlaying();
+      if (autoplay) playSpeech();
+    } else loadTrack({ autoplay });
+  }
+
+  function playSpeech() {
+    const synth = window.speechSynthesis;
+    const item = currentItem();
+    if (!synth || !item?.text) return Promise.resolve(false);
+    if (state.speechPaused && synth.paused) {
+      state.speechPaused = false;
+      synth.resume();
+      updateNowPlaying({ action: "play" });
+      return Promise.resolve(true);
+    }
+    stopSpeech();
+    const token = state.speechToken;
+    const utterance = new SpeechSynthesisUtterance(item.text);
+    utterance.rate = state.speechRate;
+    utterance.onstart = () => updateNowPlaying({ action: "play" });
+    utterance.onend = () => {
+      if (token !== state.speechToken) return;
+      updateProgress((state.index + 1) / state.playlist.length);
+      if (state.autoNext && state.index < state.playlist.length - 1) nextTrack(true);
+      else updateNowPlaying({ action: "ended" });
+    };
+    utterance.onerror = event => {
+      if (event.error !== "canceled" && event.error !== "interrupted") console.warn("Orbit narration error:", event.error);
+      updateNowPlaying({ action: "error" });
+    };
+    synth.speak(utterance);
+    return Promise.resolve(true);
   }
 
   function cycleLang() {
+    if (state.mode === "speech") return;
     const idx = LANGS.indexOf(state.lang);
     state.lang = LANGS[(idx + 1) % LANGS.length];
     loadTrack({ autoplay: !state.audio.paused });
@@ -235,9 +331,15 @@
 
   function cycleSpeed() {
     const speeds = [1, 1.25, 1.5, 2];
-    const current = speeds.indexOf(state.audio.playbackRate);
-    state.audio.playbackRate = speeds[(current + 1) % speeds.length];
-    state.els.speed.textContent = `${state.audio.playbackRate}x`;
+    const activeRate = state.mode === "speech" ? state.speechRate : state.audio.playbackRate;
+    const current = speeds.indexOf(activeRate);
+    const next = speeds[(current + 1) % speeds.length];
+    if (state.mode === "speech") {
+      const wasPlaying = !isPaused();
+      state.speechRate = next;
+      if (wasPlaying) playSpeech();
+    } else state.audio.playbackRate = next;
+    state.els.speed.textContent = `${next}x`;
   }
 
   function updateProgress(ratio) {
@@ -325,7 +427,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const bars = 28;
     const barWidth = canvas.width / bars;
-    const pulse = state.audio.paused ? 0.18 : 0.65;
+    const pulse = isPaused() ? 0.18 : 0.65;
     for (let i = 0; i < bars; i += 1) {
       const h = (Math.random() * canvas.height * pulse) + 8;
       ctx.fillStyle = "rgba(0, 200, 255, 0.72)";
@@ -533,7 +635,7 @@
 
     const buttons = [
       ["previous", "Prev", previousTrack],
-      ["playPause", "Play", () => state.audio.paused ? playCurrent() : pauseCurrent()],
+      ["playPause", "Play", () => isPaused() ? playCurrent() : pauseCurrent()],
       ["stop", "Stop", stopCurrent],
       ["next", "Next", () => nextTrack()],
       ["lang", "ENG", cycleLang],
@@ -676,6 +778,7 @@
   }
 
   function destroyFloatingPlayer() {
+    stopSpeech();
     state.cleanup.splice(0).forEach(cleanup => cleanup());
     state.player?.remove();
     state.player = null;
