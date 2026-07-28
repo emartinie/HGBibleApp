@@ -190,10 +190,10 @@
       "category": "early-christian",
       "date": "First or second century CE",
       "description": "An early Christian collection of visions, commandments, and parables centered on repentance, moral formation, and the community.",
-      "edition": null,
-      "sourceName": null,
-      "sourceUrl": null,
-      "status": "Edition review required",
+      "edition": "Joseph Barber Lightfoot translation",
+      "sourceName": "Wikisource / Lexica Bible structured text",
+      "sourceUrl": "https://en.wikisource.org/wiki/Shepherd_of_Hermas",
+      "status": "In-app reader available",
       "survival": "surviving"
     },
     {
