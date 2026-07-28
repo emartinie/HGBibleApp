@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-07-27",
+  "updated": "2026-07-28",
   "categories": [
     {
       "id": "second-temple",
@@ -118,11 +118,12 @@
       "category": "historical",
       "date": "First century CE",
       "description": "Jewish historian and participant in the revolt against Rome. Principal works include Jewish War, Antiquities, Life, and Against Apion.",
-      "edition": "William Whiston translation",
-      "sourceName": "Internet Sacred Text Archive",
-      "sourceUrl": "https://www.sacred-texts.com/jud/josephus/index.htm",
-      "status": "Source link verified; work-level catalog planned",
-      "survival": "surviving"
+      "edition": "William Whiston translation, 1856 source edition",
+      "sourceName": "Perseus Digital Library",
+      "sourceUrl": "https://github.com/PerseusDL/canonical-greekLit",
+      "status": "In-app collection available",
+      "survival": "surviving",
+      "defaultWork": "antiquities"
     },
     {
       "id": "philo",
@@ -130,11 +131,12 @@
       "category": "historical",
       "date": "Approximately 20 BCE–50 CE",
       "description": "Alexandrian Jewish philosopher and interpreter whose writings illuminate diaspora Judaism, biblical interpretation, philosophy, and the first-century world.",
-      "edition": null,
-      "sourceName": null,
-      "sourceUrl": null,
-      "status": "Collection and edition review required",
-      "survival": "surviving"
+      "edition": "Charles Duke Yonge translation, 1854–1890",
+      "sourceName": "Early Christian Writings",
+      "sourceUrl": "https://www.earlychristianwritings.com/yonge/index.html",
+      "status": "In-app collection available",
+      "survival": "surviving",
+      "defaultWork": "on-the-creation"
     },
     {
       "id": "tacitus",
@@ -142,11 +144,12 @@
       "category": "historical",
       "date": "Approximately 56–120 CE",
       "description": "Roman senator and historian whose Annals and Histories provide an elite Roman perspective on the early imperial period.",
-      "edition": null,
-      "sourceName": null,
-      "sourceUrl": null,
-      "status": "Relevant works and editions under review",
-      "survival": "surviving"
+      "edition": "Alfred John Church and William Jackson Brodribb translation, 1869",
+      "sourceName": "Perseus Digital Library",
+      "sourceUrl": "https://github.com/PerseusDL/canonical-latinLit",
+      "status": "In-app collection available",
+      "survival": "surviving",
+      "defaultWork": "annals"
     },
     {
       "id": "suetonius",
