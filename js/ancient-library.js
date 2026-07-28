@@ -291,6 +291,11 @@
             ${activeCollectionManifest.works.map(work => `<option value="${escapeHtml(work.id)}"${work.id === activeBookData.activeWork.id ? " selected" : ""}>${escapeHtml(work.title)}</option>`).join("")}
           </select>
         </label>` : ""}
+        ${activeBookData.activeWork?.volumes ? `<label>Book
+          <select id="alVolumeSelect" aria-label="Select book">
+            ${activeBookData.activeWork.volumes.map(volume => `<option value="${escapeHtml(volume.id)}"${volume.id === activeBookData.activeVolume?.id ? " selected" : ""}>${escapeHtml(volume.title)}</option>`).join("")}
+          </select>
+        </label>` : ""}
         <label>Chapter
           <select id="alChapterSelect" aria-label="Select chapter">
             ${activeBookData.chapters.map(entry => `<option value="${entry.number}"${entry.number === chapterNumber ? " selected" : ""}>${escapeHtml(entry.divisionTitle ? `${entry.divisionTitle.replace("Testament of ", "")} ${entry.localChapter}` : entry.number)}</option>`).join("")}
