@@ -8,17 +8,23 @@
     {
       "id": "agricola",
       "title": "Agricola",
-      "file": "agricola.json"
+      "file": "agricola.json",
+      "estimatedDate": "c. 98 CE",
+      "purpose": "To honor Tacitus’s father-in-law Agricola, recount his public career and campaigns in Britain, and reflect on virtuous leadership under oppressive rule."
     },
     {
       "id": "germania",
       "title": "Germania",
-      "file": "germania.json"
+      "file": "germania.json",
+      "estimatedDate": "c. 98 CE",
+      "purpose": "To describe the lands, peoples, customs, and political life of the Germanic tribes for a Roman audience, often using them as a contrast with Roman society."
     },
     {
       "id": "dialogue",
       "title": "Dialogue on Oratory",
-      "file": "dialogue.json"
+      "file": "dialogue.json",
+      "estimatedDate": "Probably c. 102 CE; both date and attribution remain debated",
+      "purpose": "To explore why Roman public oratory seemed to have declined and to compare the claims of rhetoric, poetry, education, and political conditions."
     },
     {
       "id": "histories",
@@ -49,7 +55,9 @@
           "title": "Book 5",
           "file": "histories-book-5.json"
         }
-      ]
+      ],
+      "estimatedDate": "c. 105–110 CE",
+      "purpose": "To narrate Rome’s civil wars and imperial upheaval beginning in 69 CE and to examine how ambition, armies, and court politics shaped imperial power."
     },
     {
       "id": "annals",
@@ -115,8 +123,9 @@
           "title": "Book 16",
           "file": "annals-book-16.json"
         }
-      ]
+      ],
+      "estimatedDate": "c. 110–120 CE",
+      "purpose": "To trace imperial rule from the death of Augustus through the Julio-Claudian emperors, examining power, corruption, resistance, and the loss of republican freedom."
     }
   ]
 }
-
