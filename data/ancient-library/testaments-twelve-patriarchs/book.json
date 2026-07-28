@@ -10,62 +10,86 @@
     {
       "id": "reuben",
       "title": "Testament of Reuben",
-      "chapterCount": 7
+      "chapterCount": 7,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To warn against sexual sin and uncontrolled desire through Reuben’s failure, repentance, and instruction to his descendants."
     },
     {
       "id": "simeon",
       "title": "Testament of Simeon",
-      "chapterCount": 9
+      "chapterCount": 9,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To expose jealousy as a destructive spiritual force and urge repentance, brotherly love, and freedom from envy."
     },
     {
       "id": "levi",
       "title": "Testament of Levi",
-      "chapterCount": 19
+      "chapterCount": 19,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To present visions of priesthood, judgment, covenant responsibility, and future hope through the testament attributed to Levi."
     },
     {
       "id": "judah",
       "title": "Testament of Judah",
-      "chapterCount": 26
+      "chapterCount": 26,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To reflect on courage, kingship, temptation, repentance, and the responsibilities attached to Judah’s leadership."
     },
     {
       "id": "issachar",
       "title": "Testament of Issachar",
-      "chapterCount": 7
+      "chapterCount": 7,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To commend simplicity, honest labor, generosity, and wholehearted obedience without envy or divided motives."
     },
     {
       "id": "zebulun",
       "title": "Testament of Zebulun",
-      "chapterCount": 10
+      "chapterCount": 10,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To teach compassion, mercy, generosity, and care for the suffering through Zebulun’s recollection of Joseph and his brothers."
     },
     {
       "id": "dan",
       "title": "Testament of Dan",
-      "chapterCount": 7
+      "chapterCount": 7,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To warn that anger, lying, and hatred blind the soul and to call Dan’s descendants toward truth, patience, and love."
     },
     {
       "id": "naphtali",
       "title": "Testament of Naphtali",
-      "chapterCount": 9
+      "chapterCount": 9,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To urge obedience to God’s created order, unity within Israel, and discernment through Naphtali’s symbolic visions."
     },
     {
       "id": "gad",
       "title": "Testament of Gad",
-      "chapterCount": 8
+      "chapterCount": 8,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To describe how hatred corrupts judgment and to call for confession, forgiveness, love, and healing between brothers."
     },
     {
       "id": "asher",
       "title": "Testament of Asher",
-      "chapterCount": 8
+      "chapterCount": 8,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To contrast the two ways of virtue and vice and teach readers to recognize divided motives and pursue goodness sincerely."
     },
     {
       "id": "joseph",
       "title": "Testament of Joseph",
-      "chapterCount": 20
+      "chapterCount": 20,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To present Joseph as an example of chastity, endurance, mercy, humility, and faithfulness under temptation and suffering."
     },
     {
       "id": "benjamin",
       "title": "Testament of Benjamin",
-      "chapterCount": 12
+      "chapterCount": 12,
+      "estimatedDate": "Core traditions are often dated to the second century BCE, but the surviving form contains later material and its composition history remains disputed",
+      "purpose": "To encourage purity, love, compassion, and imitation of Joseph while warning against corrupt desire and destructive works."
     }
   ],
   "chapters": [
