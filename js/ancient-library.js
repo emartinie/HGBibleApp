@@ -1,6 +1,6 @@
 (() => {
   const CATEGORY_ORDER = ["second-temple", "historical", "early-christian", "lost-disputed"];
-  const READER_BOOKS = new Set(["1-enoch"]);
+  const READER_BOOKS = new Set(["1-enoch", "jubilees"]);
   let catalog = null;
   let activeRoot = null;
   let activeCategory = "all";
@@ -140,7 +140,7 @@
       <div class="al-search-summary">${matches.length ? `${matches.length}${matches.length === 100 ? "+" : ""} matches` : "No matches"} for “${escapeHtml(query)}”</div>
       ${matches.map(match => `
         <a class="al-search-result" href="${escapeHtml(buildLibraryUrl(activeBookData.id, match.chapter))}#al-verse-${escapeHtml(match.verse)}">
-          <strong>1 Enoch ${escapeHtml(match.chapter)}:${escapeHtml(match.verse)}</strong>
+          <strong>${escapeHtml(activeBookData.shortTitle)} ${escapeHtml(match.chapter)}:${escapeHtml(match.verse)}</strong>
           <span>${escapeHtml(match.text.replaceAll("\n", " ").slice(0, 180))}${match.text.length > 180 ? "…" : ""}</span>
         </a>`).join("")}`;
   }
@@ -181,7 +181,8 @@
   async function renderReader(itemId, requestedChapter) {
     const detail = showDetailHost();
     if (!detail) return;
-    detail.innerHTML = '<p class="al-empty">Loading 1 Enoch…</p>';
+    const catalogItem = catalog.items.find(entry => entry.id === itemId);
+    detail.innerHTML = `<p class="al-empty">Loading ${escapeHtml(catalogItem?.title || "book")}…</p>`;
 
     const response = await fetch(`data/ancient-library/${itemId}/book.json`, { cache: "no-cache" });
     if (!response.ok) throw new Error(`Book request failed: ${response.status}`);
@@ -195,7 +196,7 @@
 
     detail.innerHTML = `
       <div class="al-reader-heading">
-        <a class="al-back" href="${escapeHtml(buildLibraryUrl(itemId))}">← About 1 Enoch</a>
+        <a class="al-back" href="${escapeHtml(buildLibraryUrl(itemId))}">← About ${escapeHtml(activeBookData.shortTitle)}</a>
         <p class="al-status">R. H. Charles · 1917 · Public-domain edition</p>
         <h2>${escapeHtml(activeBookData.shortTitle)} — Chapter ${chapterNumber}</h2>
         <p class="al-authority">${escapeHtml(activeBookData.authorityNotice)}</p>
@@ -207,7 +208,7 @@
           </select>
         </label>
         <label class="al-search-label">Search this book
-          <input id="alBookSearch" type="search" placeholder="Search all 108 chapters" autocomplete="off">
+          <input id="alBookSearch" type="search" placeholder="Search all ${maximum} chapters" autocomplete="off">
         </label>
         <button id="alCopyChapterLink" type="button">Copy chapter link</button>
       </div>
@@ -216,14 +217,14 @@
         ${previous ? `<a href="${escapeHtml(previous)}">← Chapter ${chapterNumber - 1}</a>` : "<span></span>"}
         ${next ? `<a href="${escapeHtml(next)}">Chapter ${chapterNumber + 1} →</a>` : "<span></span>"}
       </nav>
-      <article class="al-reading-text" aria-label="1 Enoch chapter ${chapterNumber}">${renderVerses(chapter)}</article>
+      <article class="al-reading-text" aria-label="${escapeHtml(activeBookData.shortTitle)} chapter ${chapterNumber}">${renderVerses(chapter)}</article>
       <nav class="al-chapter-nav" aria-label="Chapter navigation">
         ${previous ? `<a href="${escapeHtml(previous)}">← Chapter ${chapterNumber - 1}</a>` : "<span></span>"}
         ${next ? `<a href="${escapeHtml(next)}">Chapter ${chapterNumber + 1} →</a>` : "<span></span>"}
       </nav>
       <footer class="al-source-note">
-        <strong>Text:</strong> R. H. Charles, first published 1917. Digitized as Project Gutenberg eBook 77935.
-        <a href="${escapeHtml(activeBookData.source.url)}" target="_blank" rel="noopener noreferrer">Project Gutenberg ↗</a>
+        <strong>Text:</strong> R. H. Charles, first published ${escapeHtml(activeBookData.originalPublication)}.
+        <a href="${escapeHtml(activeBookData.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(activeBookData.source.name)} ↗</a>
         <a href="${escapeHtml(activeBookData.externalSources[0].url)}" target="_blank" rel="noopener noreferrer">Sacred Texts ↗</a>
       </footer>`;
 
