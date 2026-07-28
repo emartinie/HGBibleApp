@@ -1,6 +1,6 @@
 (() => {
   const CATEGORY_ORDER = ["second-temple", "historical", "early-christian", "lost-disputed"];
-  const READER_BOOKS = new Set(["1-enoch", "jubilees", "testaments-twelve-patriarchs", "psalms-solomon", "4-ezra", "didache", "1-clement", "shepherd-hermas"]);
+  const READER_BOOKS = new Set(["1-enoch", "jubilees", "testaments-twelve-patriarchs", "psalms-solomon", "4-ezra", "didache", "1-clement", "shepherd-hermas", "suetonius"]);
   let catalog = null;
   let activeRoot = null;
   let activeCategory = "all";
@@ -40,7 +40,7 @@
       ? `<a class="al-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">View verified external edition ↗</a>`
       : `<span class="al-muted-action">External edition being verified</span>`;
     const readerLink = READER_BOOKS.has(item.id)
-      ? `<a class="al-reader-link" href="${escapeHtml(buildLibraryUrl(item.id, 1, item.id === "testaments-twelve-patriarchs" ? "reuben" : null))}">Read in the app →</a>`
+      ? `<a class="al-reader-link" href="${escapeHtml(buildLibraryUrl(item.id, 1, item.defaultWork || (item.id === "testaments-twelve-patriarchs" ? "reuben" : null)))}">Read in the app →</a>`
       : `<a class="al-link" href="${escapeHtml(buildLibraryUrl(item.id))}">About this work</a>`;
 
     return `
@@ -92,7 +92,7 @@
       ? `<p><a class="al-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">View ${escapeHtml(item.edition || "external edition")} at ${escapeHtml(item.sourceName || "the source archive")} ↗</a></p>`
       : `<p class="al-muted-action">A redistribution-safe edition has not yet been selected. No text will be imported until the exact edition and terms are verified.</p>`;
     const readAction = READER_BOOKS.has(item.id)
-      ? `<p><a class="al-reader-link" href="${escapeHtml(buildLibraryUrl(item.id, 1, item.id === "testaments-twelve-patriarchs" ? "reuben" : null))}">Begin reading chapter 1 →</a></p>`
+      ? `<p><a class="al-reader-link" href="${escapeHtml(buildLibraryUrl(item.id, 1, item.defaultWork || (item.id === "testaments-twelve-patriarchs" ? "reuben" : null)))}">Begin reading chapter 1 →</a></p>`
       : "";
 
     detail.innerHTML = `
