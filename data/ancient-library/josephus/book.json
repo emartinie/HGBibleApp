@@ -108,12 +108,16 @@
           "title": "Book 20",
           "file": "antiquities-book-20.json"
         }
-      ]
+      ],
+      "estimatedDate": "c. 93–94 CE",
+      "purpose": "To present the history, laws, and antiquity of the Jewish people from creation to the outbreak of the revolt, especially for Greek- and Roman-reading audiences."
     },
     {
       "id": "life",
       "title": "The Life of Flavius Josephus",
-      "file": "life.json"
+      "file": "life.json",
+      "estimatedDate": "c. 99 CE; possibly slightly earlier or later",
+      "purpose": "To defend Josephus’s conduct and reputation—especially his leadership in Galilee—while answering rival accounts associated with Justus of Tiberias."
     },
     {
       "id": "against-apion",
@@ -129,7 +133,9 @@
           "title": "Book 2",
           "file": "against-apion-book-2.json"
         }
-      ]
+      ],
+      "estimatedDate": "c. 97–100 CE",
+      "purpose": "To answer anti-Jewish accusations and argue for the antiquity, coherence, and moral seriousness of the Jewish people and their laws."
     },
     {
       "id": "war",
@@ -170,8 +176,9 @@
           "title": "Book 7",
           "file": "war-book-7.json"
         }
-      ]
+      ],
+      "estimatedDate": "c. 75–79 CE",
+      "purpose": "To recount the Jewish revolt against Rome and Jerusalem’s destruction, explain the conflict’s causes, and present Josephus’s eyewitness interpretation of the war."
     }
   ]
 }
-
