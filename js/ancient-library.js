@@ -14,19 +14,30 @@
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
-  function buildLibraryUrl(itemId, chapter, divisionId) {
+  function buildLibraryUrl(itemId, chapter, workId, volumeId) {
     const url = new URL(window.location.href);
     url.searchParams.set("card", "ancient-library");
     if (itemId) url.searchParams.set("book", itemId);
     else url.searchParams.delete("book");
     if (chapter) url.searchParams.set("chapter", String(chapter));
     else url.searchParams.delete("chapter");
-    if (divisionId) url.searchParams.set("work", divisionId);
+    if (workId) url.searchParams.set("work", workId);
     else url.searchParams.delete("work");
+    if (volumeId) url.searchParams.set("volume", volumeId);
+    else url.searchParams.delete("volume");
     url.searchParams.delete("testament");
     url.searchParams.delete("q");
     url.hash = "";
     return `${url.pathname}${url.search}`;
+  }
+
+  function chapterUrl(chapter) {
+    if (!activeBookData || !chapter) return buildLibraryUrl();
+    if (activeCollectionManifest) {
+      const hasNestedVolume = chapter.divisionId && chapter.divisionId !== activeBookData.activeWork?.id;
+      return buildLibraryUrl(activeBookData.id, chapter.localChapter || chapter.number, activeBookData.activeWork?.id, hasNestedVolume ? chapter.divisionId : null);
+    }
+    return buildLibraryUrl(activeBookData.id, chapter.localChapter || chapter.number, chapter.divisionId);
   }
 
   function categoryById(id) {
@@ -143,7 +154,7 @@
     resultsHost.innerHTML = `
       <div class="al-search-summary">${matches.length ? `${matches.length}${matches.length === 100 ? "+" : ""} matches` : "No matches"} for “${escapeHtml(query)}”</div>
       ${matches.map(match => `
-        <a class="al-search-result" href="${escapeHtml(buildLibraryUrl(activeBookData.id, match.localChapter || match.chapter, match.divisionId))}#al-verse-${escapeHtml(match.verse)}">
+        <a class="al-search-result" href="${escapeHtml(chapterUrl(activeBookData.chapters.find(entry => entry.number === match.chapter)))}#al-verse-${escapeHtml(match.verse)}">
           <strong>${escapeHtml(match.divisionTitle ? `${match.divisionTitle} ${match.localChapter}:${match.verse}` : `${activeBookData.shortTitle} ${match.chapter}:${match.verse}`)}</strong>
           <span>${escapeHtml(match.text.replaceAll("\n", " ").slice(0, 180))}${match.text.length > 180 ? "…" : ""}</span>
         </a>`).join("")}`;
@@ -162,7 +173,7 @@
 
     select?.addEventListener("change", () => {
       const selected = activeBookData.chapters.find(entry => entry.number === Number(select.value));
-      window.location.href = buildLibraryUrl(activeBookData.id, selected?.localChapter || selected?.number, selected?.divisionId);
+      window.location.href = chapterUrl(selected);
     });
 
     search?.addEventListener("input", () => renderReaderSearchResults(search.value));
@@ -177,7 +188,7 @@
       const playlist = chapter.verses.map(verse => ({
         title: chapter.divisionTitle ? `${chapter.divisionTitle} ${chapter.localChapter}:${verse.number}` : `${activeBookData.shortTitle} ${chapterNumber}:${verse.number}`,
         text: verse.text,
-        ref: `${window.location.origin}${buildLibraryUrl(activeBookData.id, chapter.localChapter || chapterNumber, chapter.divisionId)}#al-verse-${verse.number}`
+        ref: `${window.location.origin}${chapterUrl(chapter)}#al-verse-${verse.number}`
       }));
       if (player.loadTextPlaylist(playlist, { autoplay: true })) {
         player.setMinimized?.(false);
@@ -208,7 +219,7 @@
     });
   }
 
-  async function renderReader(itemId, requestedChapter, requestedDivision) {
+  async function renderReader(itemId, requestedChapter, requestedWork, requestedVolume) {
     const detail = showDetailHost();
     if (!detail) return;
     const catalogItem = catalog.items.find(entry => entry.id === itemId);
@@ -219,7 +230,7 @@
     activeBookData = await response.json();
     activeCollectionManifest = activeBookData.works?.length ? activeBookData : null;
     if (activeCollectionManifest) {
-      const selectedWork = activeCollectionManifest.works.find(work => work.id === requestedDivision) || activeCollectionManifest.works[0];
+      const selectedWork = activeCollectionManifest.works.find(work => work.id === requestedWork) || activeCollectionManifest.works[0];
       const workResponse = await fetch(`data/ancient-library/${itemId}/${selectedWork.file}`, { cache: "no-cache" });
       if (!workResponse.ok) throw new Error(`Collection work request failed: ${workResponse.status}`);
       const workData = await workResponse.json();
@@ -232,12 +243,15 @@
         activeWork: selectedWork,
         chapters: workData.chapters.map(chapter => ({
           ...chapter,
-          divisionId: selectedWork.id,
-          divisionTitle: selectedWork.title,
-          localChapter: chapter.number
+          divisionId: chapter.divisionId || selectedWork.id,
+          divisionTitle: chapter.divisionTitle || selectedWork.title,
+          localChapter: chapter.localChapter || chapter.number
         }))
       };
-      requestedDivision = selectedWork.id;
+      requestedWork = selectedWork.id;
+    }
+
+    const requestedDivision = activeCollectionManifest ? (requestedVolume || requestedWork) : requestedWork;
     }
 
     const maximum = activeBookData.chapters.length;
@@ -252,8 +266,8 @@
     const chapterLabel = chapter.divisionTitle ? `${chapter.divisionTitle} — Chapter ${chapter.localChapter}` : `${activeBookData.shortTitle} — Chapter ${chapter.sourceChapter || chapterNumber}`;
     const previousChapter = activeBookData.chapters[chapterNumber - 2];
     const nextChapter = activeBookData.chapters[chapterNumber];
-    const previous = previousChapter ? buildLibraryUrl(itemId, previousChapter.localChapter || previousChapter.number, previousChapter.divisionId) : null;
-    const next = nextChapter ? buildLibraryUrl(itemId, nextChapter.localChapter || nextChapter.number, nextChapter.divisionId) : null;
+    const previous = previousChapter ? chapterUrl(previousChapter) : null;
+    const next = nextChapter ? chapterUrl(nextChapter) : null;
 
     detail.innerHTML = `
       <div class="al-reader-heading">
@@ -327,8 +341,9 @@
       const params = new URLSearchParams(window.location.search);
       const itemId = params.get("book");
       const chapter = params.get("chapter");
-      const division = params.get("work") || params.get("testament");
-      if (itemId && chapter && READER_BOOKS.has(itemId)) await renderReader(itemId, chapter, division);
+      const work = params.get("work") || params.get("testament");
+      const volume = params.get("volume");
+      if (itemId && chapter && READER_BOOKS.has(itemId)) await renderReader(itemId, chapter, work, volume);
       else renderDetail(itemId);
     } catch (error) {
       console.error("Ancient Library failed to load", error);
