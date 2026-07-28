@@ -261,7 +261,6 @@
     }
 
     const requestedDivision = activeCollectionManifest ? (requestedVolume || requestedWork) : requestedWork;
-    }
 
     const maximum = activeBookData.chapters.length;
     let chapter = requestedDivision
