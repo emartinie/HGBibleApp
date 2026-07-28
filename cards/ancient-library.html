@@ -1,0 +1,93 @@
+<section id="ancientLibraryCard" class="ancient-library" aria-labelledby="ancientLibraryTitle">
+  <style>
+    #ancientLibraryCard {
+      --al-gold: #f3c878;
+      --al-blue: #7cc7ff;
+      --al-text: #eef3ff;
+      --al-muted: #a8b2c7;
+      display: grid;
+      gap: 1rem;
+      width: 100%;
+      color: var(--al-text);
+    }
+
+    #ancientLibraryCard * { box-sizing: border-box; }
+
+    #ancientLibraryCard .al-hero,
+    #ancientLibraryCard .al-catalog,
+    #ancientLibraryCard .al-detail {
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 1.25rem;
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+    }
+
+    #ancientLibraryCard .al-hero { padding: clamp(1.1rem, 4vw, 2rem); }
+    #ancientLibraryCard .al-kicker { margin: 0 0 .4rem; color: var(--al-gold); font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    #ancientLibraryCard h1 { margin: 0; color: #fff4d6; font: 750 clamp(1.8rem, 7vw, 2.8rem)/1.08 Georgia, serif; }
+    #ancientLibraryCard .al-lede { max-width: 46rem; margin: .8rem 0 0; color: var(--al-muted); }
+
+    #ancientLibraryCard .al-authority {
+      margin-top: 1rem;
+      padding: .85rem 1rem;
+      border-left: 3px solid var(--al-gold);
+      border-radius: .65rem;
+      background: rgba(243,200,120,.07);
+      color: #eadfca;
+      font-size: .88rem;
+    }
+
+    #ancientLibraryCard .al-filters { display: flex; gap: .45rem; overflow-x: auto; padding: .1rem 0 .35rem; scrollbar-width: thin; }
+    #ancientLibraryCard .al-filter { flex: 0 0 auto; min-height: 2.35rem; padding: 0 .85rem; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; background: rgba(255,255,255,.04); color: var(--al-muted); cursor: pointer; }
+    #ancientLibraryCard .al-filter[aria-pressed="true"] { border-color: rgba(243,200,120,.55); background: rgba(243,200,120,.12); color: #fff4d6; }
+
+    #ancientLibraryCard .al-catalog { padding: clamp(.85rem, 3vw, 1.25rem); }
+    #ancientLibraryCard .al-section + .al-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.08); }
+    #ancientLibraryCard .al-section h2 { margin: 0; color: #dff3ff; font: 700 1.25rem/1.2 Georgia, serif; }
+    #ancientLibraryCard .al-section-note { margin: .35rem 0 1rem; color: var(--al-muted); font-size: .84rem; }
+    #ancientLibraryCard .al-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .7rem; }
+
+    #ancientLibraryCard .al-item { display: grid; gap: .55rem; align-content: start; min-width: 0; padding: 1rem; border: 1px solid rgba(255,255,255,.09); border-radius: .9rem; background: rgba(5,8,13,.38); }
+    #ancientLibraryCard .al-item h3 { margin: 0; color: #fff8e8; font-size: 1rem; }
+    #ancientLibraryCard .al-item p { margin: 0; color: var(--al-muted); font-size: .84rem; }
+    #ancientLibraryCard .al-badges { display: flex; flex-wrap: wrap; gap: .35rem; }
+    #ancientLibraryCard .al-badge { padding: .18rem .48rem; border-radius: 999px; background: rgba(124,199,255,.09); color: #ccecff; font-size: .66rem; font-weight: 750; letter-spacing: .04em; }
+    #ancientLibraryCard .al-badge.lost { background: rgba(243,200,120,.1); color: #ffe0a1; }
+    #ancientLibraryCard .al-actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: .2rem; }
+    #ancientLibraryCard .al-link { color: var(--al-blue); font-size: .82rem; font-weight: 750; text-decoration: underline; text-underline-offset: .2em; }
+    #ancientLibraryCard .al-muted-action { color: #7f8a9c; font-size: .78rem; }
+
+    #ancientLibraryCard .al-detail { padding: clamp(1rem, 4vw, 1.5rem); }
+    #ancientLibraryCard .al-detail[hidden] { display: none; }
+    #ancientLibraryCard .al-detail h2 { margin: .25rem 0 .6rem; color: #fff4d6; font: 750 clamp(1.45rem, 5vw, 2rem)/1.15 Georgia, serif; }
+    #ancientLibraryCard .al-detail p { color: var(--al-muted); }
+    #ancientLibraryCard .al-back { display: inline-block; margin-bottom: .5rem; color: var(--al-blue); }
+    #ancientLibraryCard .al-status { margin: 0; color: var(--al-gold); font-size: .76rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+
+    #ancientLibraryCard .al-empty { padding: 2rem 1rem; color: var(--al-muted); text-align: center; }
+
+    @media (max-width: 540px) {
+      #ancientLibraryCard .al-grid { grid-template-columns: 1fr; }
+      #ancientLibraryCard .al-hero { padding-top: 1.3rem; }
+    }
+  </style>
+
+  <header class="al-hero">
+    <p class="al-kicker">Primary sources and ancient witnesses</p>
+    <h1 id="ancientLibraryTitle">Ancient Library</h1>
+    <p class="al-lede">Explore literature that illuminates the Jewish, Roman, and early Christian worlds surrounding Scripture.</p>
+    <p class="al-authority"><strong>How to use this library:</strong> Inclusion does not indicate equal authority with Scripture. Each work is identified by its historical category, surviving status, edition, and source.</p>
+  </header>
+
+  <div class="al-filters" role="group" aria-label="Filter Ancient Library">
+    <button class="al-filter" type="button" data-category="all" aria-pressed="true">All</button>
+    <button class="al-filter" type="button" data-category="second-temple">Second Temple Jewish</button>
+    <button class="al-filter" type="button" data-category="historical">Historians &amp; Philosophers</button>
+    <button class="al-filter" type="button" data-category="early-christian">Early Christian</button>
+    <button class="al-filter" type="button" data-category="lost-disputed">Lost &amp; Disputed</button>
+  </div>
+
+  <section id="ancientLibraryDetail" class="al-detail" aria-live="polite" hidden></section>
+  <div id="ancientLibraryCatalog" class="al-catalog" aria-live="polite">
+    <p class="al-empty">Loading the Ancient Library…</p>
+  </div>
+</section>
