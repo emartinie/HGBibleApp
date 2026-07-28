@@ -30,11 +30,13 @@
       "category": "second-temple",
       "date": "Composite work, approximately third century BCE to first century CE",
       "description": "An influential collection of Jewish apocalyptic writings concerning the Watchers, judgment, heavenly journeys, wisdom, and restoration.",
-      "edition": "R. H. Charles translation, 1917",
+      "edition": "R. H. Charles translation, first published 1917",
       "sourceName": "Internet Sacred Text Archive",
       "sourceUrl": "https://sacred-texts.com/bib/boe/index.htm",
-      "status": "Source link verified; in-app text planned",
-      "survival": "surviving"
+      "status": "In-app reader available",
+      "survival": "surviving",
+      "readerSourceName": "Project Gutenberg",
+      "readerSourceUrl": "https://www.gutenberg.org/ebooks/77935"
     },
     {
       "id": "jubilees",
