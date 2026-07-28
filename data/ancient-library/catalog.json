@@ -44,11 +44,13 @@
       "category": "second-temple",
       "date": "Approximately second century BCE",
       "description": "A retelling of Genesis and part of Exodus arranged around jubilees, with particular attention to covenant, calendar, purity, and Torah.",
-      "edition": "R. H. Charles translation, 1917",
+      "edition": "R. H. Charles translation, first published 1902; 1917 series edition",
       "sourceName": "Internet Sacred Text Archive",
       "sourceUrl": "https://www.sacred-texts.com/bib/jub/index.htm",
-      "status": "Source link verified; in-app text planned",
-      "survival": "surviving"
+      "status": "In-app reader available",
+      "survival": "surviving",
+      "readerSourceName": "Public-domain structured transcription",
+      "readerSourceUrl": "https://github.com/jaubut/Bible/blob/master/data/extra-books/jubilees.json"
     },
     {
       "id": "testaments-twelve-patriarchs",
