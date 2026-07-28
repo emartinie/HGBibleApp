@@ -8,228 +8,317 @@
     {
       "id": "on-the-creation",
       "title": "On the Creation",
-      "file": "01-on-the-creation.json"
+      "file": "01-on-the-creation.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To explain Genesis 1 as a philosophically ordered account of creation and to present Moses as a wise lawgiver whose law accords with the structure of the cosmos."
     },
     {
       "id": "allegorical-interpretation-i",
       "title": "Allegorical Interpretation, I",
-      "file": "02-allegorical-interpretation-i.json"
+      "file": "02-allegorical-interpretation-i.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To interpret the early chapters of Genesis allegorically as teachings about the soul, reason, sensation, virtue, and humanity’s relationship with God."
     },
     {
       "id": "allegorical-interpretation-ii",
       "title": "Allegorical Interpretation, II",
-      "file": "03-allegorical-interpretation-ii.json"
+      "file": "03-allegorical-interpretation-ii.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To continue Philo’s allegorical reading of Genesis, using Adam, Eve, Eden, and related figures to examine the movements and failures of the human soul."
     },
     {
       "id": "allegorical-interpretation-iii",
       "title": "Allegorical Interpretation, III",
-      "file": "04-allegorical-interpretation-iii.json"
+      "file": "04-allegorical-interpretation-iii.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To extend the allegorical interpretation of Genesis by contrasting virtue and passion and explaining biblical characters and actions as realities within the soul."
     },
     {
       "id": "on-the-cherubim",
       "title": "On the Cherubim",
-      "file": "05-on-the-cherubim.json"
+      "file": "05-on-the-cherubim.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To interpret the cherubim, the flaming sword, Cain, and related Genesis passages as symbols of divine powers, human desire, and the soul’s moral choices."
     },
     {
       "id": "on-the-birth-of-abel-and-the-sacrifices-offered-by-him-and-by-his-brother-cain",
       "title": "On the Birth of Abel and the Sacrifices Offered by Him and by His Brother Cain",
-      "file": "06-on-the-birth-of-abel-and-the-sacrifices-offered-by-him-and-by-his-brother-cain.json"
+      "file": "06-on-the-birth-of-abel-and-the-sacrifices-offered-by-him-and-by-his-brother-cain.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To contrast Abel and Cain as patterns of God-centered and self-centered life and to explain what makes worship and sacrifice acceptable."
     },
     {
       "id": "that-the-worse-is-wont-to-attack-the-better",
       "title": "That the Worse is Wont to Attack the Better",
-      "file": "07-that-the-worse-is-wont-to-attack-the-better.json"
+      "file": "07-that-the-worse-is-wont-to-attack-the-better.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To use Cain’s attack on Abel as an allegory of vice opposing virtue and to encourage the soul’s resistance to passion and false reasoning."
     },
     {
       "id": "on-the-posterity-of-cain-and-his-exile",
       "title": "On the Posterity of Cain and His Exile",
-      "file": "08-on-the-posterity-of-cain-and-his-exile.json"
+      "file": "08-on-the-posterity-of-cain-and-his-exile.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To interpret Cain’s descendants and exile as a spiritual history of self-love, pleasure, violence, and alienation from God."
     },
     {
       "id": "on-the-giants",
       "title": "On the Giants",
-      "file": "09-on-the-giants.json"
+      "file": "09-on-the-giants.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To interpret Genesis 6 and the giants as an account of souls drawn toward bodily passion rather than heaven, virtue, and the Spirit of God."
     },
     {
       "id": "on-the-unchangableness-of-god",
       "title": "On the Unchangableness of God",
-      "file": "10-on-the-unchangableness-of-god.json"
+      "file": "10-on-the-unchangableness-of-god.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To defend God’s unchanging nature while explaining biblical language about divine grief, anger, and judgment in ways consistent with divine perfection."
     },
     {
       "id": "on-husbandry",
       "title": "On Husbandry",
-      "file": "11-on-husbandry.json"
+      "file": "11-on-husbandry.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To use biblical farming imagery to distinguish the wise cultivation of the soul from destructive self-indulgence and false education."
     },
     {
       "id": "concerning-noah-s-work-as-a-planter",
       "title": "Concerning Noah's Work as a Planter",
-      "file": "12-concerning-noah-s-work-as-a-planter.json"
+      "file": "12-concerning-noah-s-work-as-a-planter.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To interpret Noah as a planter of virtue and to explore how education, cultivation, and disciplined practice shape the soul."
     },
     {
       "id": "on-drunkenness",
       "title": "On Drunkenness",
-      "file": "13-on-drunkenness.json"
+      "file": "13-on-drunkenness.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To examine literal and figurative drunkenness as loss of reason, while contrasting intoxication by passion with sober wisdom and divine inspiration."
     },
     {
       "id": "on-the-prayers-and-curses-uttered-by-noah-when-he-became-sober",
       "title": "On the Prayers and Curses Uttered by Noah When He Became Sober",
-      "file": "14-on-the-prayers-and-curses-uttered-by-noah-when-he-became-sober.json"
+      "file": "14-on-the-prayers-and-curses-uttered-by-noah-when-he-became-sober.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To interpret Noah’s words after becoming sober and explain the moral and symbolic significance of blessing, servitude, family, and self-mastery."
     },
     {
       "id": "on-the-confusion-of-tongues",
       "title": "On the Confusion of Tongues",
-      "file": "15-on-the-confusion-of-tongues.json"
+      "file": "15-on-the-confusion-of-tongues.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To interpret Babel and the confusion of languages as a judgment on arrogance and as an allegory of disordered passions, speech, and thought."
     },
     {
       "id": "on-the-migration-of-abraham",
       "title": "On the Migration of Abraham",
-      "file": "16-on-the-migration-of-abraham.json"
+      "file": "16-on-the-migration-of-abraham.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To portray Abraham’s migration as the soul’s departure from bodily attachments and merely human reasoning toward God, wisdom, and virtue."
     },
     {
       "id": "who-is-the-heir-of-divine-things",
       "title": "Who is the Heir of Divine Things?",
-      "file": "17-who-is-the-heir-of-divine-things.json"
+      "file": "17-who-is-the-heir-of-divine-things.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To explain what it means to inherit divine things through Abraham’s story, emphasizing faith, spiritual perception, virtue, and God’s gifts."
     },
     {
       "id": "on-mating-with-the-preliminary-studies",
       "title": "On Mating with the Preliminary Studies",
-      "file": "18-on-mating-with-the-preliminary-studies.json"
+      "file": "18-on-mating-with-the-preliminary-studies.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To use Abraham, Sarah, and Hagar to explain how preliminary education can serve wisdom without replacing the higher pursuit of virtue."
     },
     {
       "id": "on-flight-and-finding",
       "title": "On Flight and Finding",
-      "file": "19-on-flight-and-finding.json"
+      "file": "19-on-flight-and-finding.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To interpret biblical stories of fleeing and finding as movements of the soul away from passion and toward refuge, discipline, self-knowledge, and God."
     },
     {
       "id": "on-the-change-of-names",
       "title": "On the Change of Names",
-      "file": "20-on-the-change-of-names.json"
+      "file": "20-on-the-change-of-names.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To explain the changes of biblical names as signs of transformed character, deeper perception, and progress from created things toward knowledge of God."
     },
     {
       "id": "on-dreams-that-they-are-god-sent",
       "title": "On Dreams, That They are God-Sent",
-      "file": "21-on-dreams-that-they-are-god-sent.json"
+      "file": "21-on-dreams-that-they-are-god-sent.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain",
+      "purpose": "To classify and interpret biblical dreams, distinguishing divine revelation from dreams arising through the soul, imagination, or confused passion."
     },
     {
       "id": "on-abraham",
       "title": "On Abraham",
-      "file": "22-on-abraham.json"
+      "file": "22-on-abraham.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To present Abraham’s life as an unwritten embodiment of natural law and as a model of faith, hospitality, virtue, and devotion to the one God."
     },
     {
       "id": "on-joseph",
       "title": "On Joseph",
-      "file": "23-on-joseph.json"
+      "file": "23-on-joseph.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To present Joseph as a statesman and political administrator, examining prudence, self-control, governance, and life amid the complexities of public power."
     },
     {
       "id": "on-the-life-of-moses-i",
       "title": "On the Life of Moses, I",
-      "file": "24-on-the-life-of-moses-i.json"
+      "file": "24-on-the-life-of-moses-i.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To present Moses to non-Jewish and Jewish readers as an exemplary king and lawgiver whose life reveals wisdom, courage, justice, and divine calling."
     },
     {
       "id": "on-the-life-of-moses-ii",
       "title": "On the Life of Moses, II",
-      "file": "25-on-the-life-of-moses-ii.json"
+      "file": "25-on-the-life-of-moses-ii.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To continue the portrait of Moses as lawgiver, priest, and prophet and to explain the character, purpose, and sacred authority of his work."
     },
     {
       "id": "the-decalogue",
       "title": "The Decalogue",
-      "file": "26-the-decalogue.json"
+      "file": "26-the-decalogue.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To explain the Ten Commandments as universal headings of the Mosaic law and to show their order, ethical reach, and grounding in devotion to God."
     },
     {
       "id": "the-special-laws-i",
       "title": "The Special Laws, I",
-      "file": "27-the-special-laws-i.json"
+      "file": "27-the-special-laws-i.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To organize laws associated with the first commandments, explaining priesthood, worship, sacrifice, holiness, and devotion to the one God."
     },
     {
       "id": "the-special-laws-ii",
       "title": "The Special Laws, II",
-      "file": "28-the-special-laws-ii.json"
+      "file": "28-the-special-laws-ii.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To organize and interpret laws concerning worship, festivals, vows, social duties, and the practical formation of a just and grateful community."
     },
     {
       "id": "the-special-laws-iii",
       "title": "The Special Laws, III",
-      "file": "29-the-special-laws-iii.json"
+      "file": "29-the-special-laws-iii.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To explain laws governing marriage, sexual conduct, family relationships, and justice, relating particular commands to broader moral principles."
     },
     {
       "id": "the-special-laws-iv",
       "title": "The Special Laws, IV",
-      "file": "30-the-special-laws-iv.json"
+      "file": "30-the-special-laws-iv.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To explain laws concerning property, testimony, appetite, justice, and social responsibility as applications of the Decalogue’s general principles."
     },
     {
       "id": "on-the-virtues",
       "title": "On the Virtues",
-      "file": "31-on-the-virtues.json"
+      "file": "31-on-the-virtues.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To gather Mosaic teachings and narratives around courage, humanity, repentance, and nobility, presenting virtue as the lived purpose of the law."
     },
     {
       "id": "on-rewards-and-punishments",
       "title": "On Rewards and Punishments",
-      "file": "32-on-rewards-and-punishments.json"
+      "file": "32-on-rewards-and-punishments.json",
+      "estimatedDate": "Probably c. 20–40 CE; exact date uncertain",
+      "purpose": "To conclude the exposition of the law by describing the blessings of obedience, the consequences of rebellion, and the possibility of repentance and restoration."
     },
     {
       "id": "every-good-man-is-free",
       "title": "Every Good Man is Free",
-      "file": "33-every-good-man-is-free.json"
+      "file": "33-every-good-man-is-free.json",
+      "estimatedDate": "Probably an early work, within the first half of the first century CE",
+      "purpose": "To argue in Stoic terms that the truly virtuous person is inwardly free even under outward oppression, while the person ruled by passion is a slave."
     },
     {
       "id": "on-the-contemplative-life-or-suppliants",
       "title": "On the Contemplative Life or Suppliants",
-      "file": "34-on-the-contemplative-life-or-suppliants.json"
+      "file": "34-on-the-contemplative-life-or-suppliants.json",
+      "estimatedDate": "First half of the first century CE; exact date and relationship to Philo’s other works are uncertain",
+      "purpose": "To describe the Therapeutae and their disciplined communal life of prayer, study, simplicity, worship, and contemplation as an example of devotion."
     },
     {
       "id": "on-the-eternity-of-the-world",
       "title": "On the Eternity of the World",
-      "file": "35-on-the-eternity-of-the-world.json"
+      "file": "35-on-the-eternity-of-the-world.json",
+      "estimatedDate": "Date uncertain; attribution to Philo has been disputed",
+      "purpose": "To survey and assess philosophical arguments about whether the cosmos is created, destructible, or eternal; the surviving work may not preserve its original conclusion."
     },
     {
       "id": "flaccus",
       "title": "Flaccus",
-      "file": "36-flaccus.json"
+      "file": "36-flaccus.json",
+      "estimatedDate": "After 41 CE, probably in the early 40s CE",
+      "purpose": "To recount the persecution of Alexandria’s Jewish community under the prefect Flaccus, condemn his abuses, and interpret his downfall as divine justice."
     },
     {
       "id": "hypothetica-apology-for-the-jews",
       "title": "Hypothetica: Apology for the Jews",
-      "file": "37-hypothetica-apology-for-the-jews.json"
+      "file": "37-hypothetica-apology-for-the-jews.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain; survives only in fragments",
+      "purpose": "To defend Jewish origins, laws, communal discipline, and moral practice for a wider Greco-Roman audience."
     },
     {
       "id": "on-providence-fragment-i",
       "title": "On Providence: Fragment I",
-      "file": "38-on-providence-fragment-i.json"
+      "file": "38-on-providence-fragment-i.json",
+      "estimatedDate": "Date uncertain; preserved fragmentarily and with textual complications",
+      "purpose": "To defend divine providence against objections raised by suffering, disorder, and apparent injustice in the world."
     },
     {
       "id": "on-providence-fragment-ii",
       "title": "On Providence: Fragment II",
-      "file": "39-on-providence-fragment-ii.json"
+      "file": "39-on-providence-fragment-ii.json",
+      "estimatedDate": "Date uncertain; preserved fragmentarily and with textual complications",
+      "purpose": "To continue the defense of divine providence by considering the ordered cosmos, moral government, and the place of apparent evil."
     },
     {
       "id": "on-the-embassy-to-gaius-the-first-part-of-the-treatise-on-virtues",
       "title": "On the Embassy to Gaius: The First Part of the Treatise on Virtues",
-      "file": "40-on-the-embassy-to-gaius-the-first-part-of-the-treatise-on-virtues.json"
+      "file": "40-on-the-embassy-to-gaius-the-first-part-of-the-treatise-on-virtues.json",
+      "estimatedDate": "After 41 CE, probably in the early 40s CE",
+      "purpose": "To record the Alexandrian Jewish embassy to Emperor Gaius, expose the danger of imperial claims to divinity, and defend Jewish loyalty to God and ancestral law."
     },
     {
       "id": "questions-and-answers-on-genesis-i",
       "title": "Questions and Answers on Genesis, I",
-      "file": "41-questions-and-answers-on-genesis-i.json"
+      "file": "41-questions-and-answers-on-genesis-i.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain; surviving transmission is incomplete",
+      "purpose": "To answer interpretive questions arising from Genesis by combining literal explanation, allegory, philosophy, and moral instruction."
     },
     {
       "id": "questions-and-answers-on-genesis-ii",
       "title": "Questions and Answers on Genesis, II",
-      "file": "42-questions-and-answers-on-genesis-ii.json"
+      "file": "42-questions-and-answers-on-genesis-ii.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain; surviving transmission is incomplete",
+      "purpose": "To continue a question-and-answer interpretation of Genesis, explaining difficult details through literal, symbolic, philosophical, and ethical readings."
     },
     {
       "id": "questions-and-answers-on-genesis-iii",
       "title": "Questions and Answers on Genesis, III",
-      "file": "43-questions-and-answers-on-genesis-iii.json"
+      "file": "43-questions-and-answers-on-genesis-iii.json",
+      "estimatedDate": "First half of the first century CE; exact date uncertain; surviving transmission is fragmentary",
+      "purpose": "To preserve further answers to interpretive problems in Genesis, especially through allegorical and philosophical exposition."
     },
     {
       "id": "appendix-1-concerning-the-world",
       "title": "Appendix 1: Concerning the World",
-      "file": "44-appendix-1-concerning-the-world.json"
+      "file": "44-appendix-1-concerning-the-world.json",
+      "estimatedDate": "Date and authorship uncertain; included in older collections of Philonic writings",
+      "purpose": "To discuss the world’s creation, structure, order, and relation to its Creator in a philosophical-theological framework."
     },
     {
       "id": "appendix-2-fragments",
       "title": "Appendix 2: Fragments",
-      "file": "45-appendix-2-fragments.json"
+      "file": "45-appendix-2-fragments.json",
+      "estimatedDate": "Various dates; fragmentary material attributed to Philo with differing degrees of confidence",
+      "purpose": "To preserve otherwise lost portions and testimonies associated with Philonic interpretation, philosophy, and Jewish apologetic thought."
     }
   ]
 }
-
