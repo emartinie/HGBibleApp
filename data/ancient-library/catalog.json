@@ -36,7 +36,8 @@
       "status": "In-app reader available",
       "survival": "surviving",
       "readerSourceName": "Project Gutenberg",
-      "readerSourceUrl": "https://www.gutenberg.org/ebooks/77935"
+      "readerSourceUrl": "https://www.gutenberg.org/ebooks/77935",
+      "purpose": "To explain the origin and judgment of evil powers, call the righteous to faithfulness, and offer hope that God will finally judge wickedness and restore creation."
     },
     {
       "id": "jubilees",
@@ -50,7 +51,8 @@
       "status": "In-app reader available",
       "survival": "surviving",
       "readerSourceName": "Public-domain structured transcription",
-      "readerSourceUrl": "https://github.com/jaubut/Bible/blob/master/data/extra-books/jubilees.json"
+      "readerSourceUrl": "https://github.com/jaubut/Bible/blob/master/data/extra-books/jubilees.json",
+      "purpose": "To retell Israel’s earliest history through covenant, calendar, purity, and Torah, presenting Israel’s way of life as established from creation."
     },
     {
       "id": "testaments-twelve-patriarchs",
@@ -62,7 +64,8 @@
       "sourceName": "Sefaria",
       "sourceUrl": "https://www.sefaria.org/The_Testaments_of_the_Twelve_Patriarchs",
       "status": "In-app reader available",
-      "survival": "surviving"
+      "survival": "surviving",
+      "purpose": "To place ethical warnings, calls to repentance, and future hope into farewell speeches attributed to Jacob’s twelve sons."
     },
     {
       "id": "life-adam-eve",
@@ -74,7 +77,8 @@
       "sourceName": null,
       "sourceUrl": null,
       "status": "Edition review required",
-      "survival": "surviving"
+      "survival": "surviving",
+      "purpose": "To expand the biblical account of Adam and Eve after Eden and reflect on repentance, death, temptation, and hope after humanity’s fall."
     },
     {
       "id": "psalms-solomon",
@@ -86,7 +90,8 @@
       "sourceName": "Wesley Center",
       "sourceUrl": "https://wesley.nnu.edu/sermons-essays-books/noncanonical-literature/noncanonical-literature-ot-pseudepigrapha/the-psalms-of-solomon/",
       "status": "In-app reader available",
-      "survival": "surviving"
+      "survival": "surviving",
+      "purpose": "To interpret national crisis through prayer, condemn corrupt rulers and sinners, encourage the righteous, and express hope for God’s just Messiah."
     },
     {
       "id": "4-ezra",
@@ -98,7 +103,8 @@
       "sourceName": "Bible API",
       "sourceUrl": "https://bible-api.com/2%20Esdras%203?translation=kjv",
       "status": "In-app reader available",
-      "survival": "surviving"
+      "survival": "surviving",
+      "purpose": "To wrestle with how God can be just after Jerusalem’s destruction and to offer apocalyptic hope for Israel’s future restoration."
     },
     {
       "id": "2-baruch",
@@ -110,7 +116,8 @@
       "sourceName": null,
       "sourceUrl": null,
       "status": "Edition review required",
-      "survival": "surviving"
+      "survival": "surviving",
+      "purpose": "To help faithful Jews understand Jerusalem’s destruction, endure grief, remain obedient, and hope for judgment and restoration."
     },
     {
       "id": "josephus",
@@ -123,7 +130,8 @@
       "sourceUrl": "https://github.com/PerseusDL/canonical-greekLit",
       "status": "In-app collection available",
       "survival": "surviving",
-      "defaultWork": "antiquities"
+      "defaultWork": "antiquities",
+      "purpose": "To preserve and interpret Jewish history for Jewish and Greco-Roman audiences, explain the revolt against Rome, and defend the antiquity and character of the Jewish people."
     },
     {
       "id": "philo",
@@ -136,7 +144,8 @@
       "sourceUrl": "https://www.earlychristianwritings.com/yonge/index.html",
       "status": "In-app collection available",
       "survival": "surviving",
-      "defaultWork": "on-the-creation"
+      "defaultWork": "on-the-creation",
+      "purpose": "To interpret the Torah for an educated Jewish and Greco-Roman world, showing how biblical faith, moral formation, and philosophical reasoning could be understood together."
     },
     {
       "id": "tacitus",
@@ -149,7 +158,8 @@
       "sourceUrl": "https://github.com/PerseusDL/canonical-latinLit",
       "status": "In-app collection available",
       "survival": "surviving",
-      "defaultWork": "annals"
+      "defaultWork": "annals",
+      "purpose": "To investigate Rome’s emperors, wars, and political life, exposing how ambition, fear, corruption, and resistance shaped imperial power."
     },
     {
       "id": "suetonius",
@@ -162,7 +172,8 @@
       "sourceUrl": "https://www.gutenberg.org/ebooks/6400",
       "status": "In-app collection available",
       "survival": "surviving",
-      "defaultWork": "julius-caesar"
+      "defaultWork": "julius-caesar",
+      "purpose": "To preserve biographical portraits of Rome’s rulers through their ancestry, careers, habits, virtues, faults, sayings, and reported omens."
     },
     {
       "id": "didache",
@@ -174,7 +185,8 @@
       "sourceName": "Wikisource",
       "sourceUrl": "https://en.wikisource.org/wiki/Didache_(Lightfoot_translation)",
       "status": "In-app reader available",
-      "survival": "surviving"
+      "survival": "surviving",
+      "purpose": "To give early communities practical instruction for moral conduct, baptism, fasting, prayer, communal meals, traveling teachers, and church order."
     },
     {
       "id": "1-clement",
@@ -186,7 +198,8 @@
       "sourceName": "Wikisource",
       "sourceUrl": "https://en.wikisource.org/wiki/1_Clement_(Lightfoot_translation)",
       "status": "In-app reader available",
-      "survival": "surviving"
+      "survival": "surviving",
+      "purpose": "To urge the Corinthian believers to end division, restore rightful leadership, practice humility, and recover peace and order."
     },
     {
       "id": "shepherd-hermas",
@@ -198,7 +211,8 @@
       "sourceName": "Wikisource / Lexica Bible structured text",
       "sourceUrl": "https://en.wikisource.org/wiki/Shepherd_of_Hermas",
       "status": "In-app reader available",
-      "survival": "surviving"
+      "survival": "surviving",
+      "purpose": "To call Christians to repentance and moral faithfulness through visions, commandments, and symbolic parables about the life and judgment of the church."
     },
     {
       "id": "biblical-jashar",
@@ -210,7 +224,8 @@
       "sourceName": null,
       "sourceUrl": null,
       "status": "Reference guide planned; no surviving text",
-      "survival": "lost"
+      "survival": "lost",
+      "purpose": "Its original purpose is unknown because the work is lost; the surviving biblical references suggest it preserved poetic or heroic traditions remembered in ancient Israel."
     },
     {
       "id": "later-jashar",
@@ -222,7 +237,8 @@
       "sourceName": null,
       "sourceUrl": null,
       "status": "Comparison guide planned",
-      "survival": "disputed"
+      "survival": "disputed",
+      "purpose": "Purposes vary by work; these later compositions retell biblical history or offer moral teaching, but they should not be confused with the lost source cited in Joshua and Samuel."
     },
     {
       "id": "wars-of-the-lord",
@@ -234,7 +250,8 @@
       "sourceName": null,
       "sourceUrl": null,
       "status": "Reference guide planned; no surviving text",
-      "survival": "lost"
+      "survival": "lost",
+      "purpose": "Its original purpose is unknown because the work is lost; Numbers preserves only a brief poetic citation that appears connected with Israel’s journeys and victories."
     },
     {
       "id": "other-lost-scriptural-works",
@@ -246,7 +263,8 @@
       "sourceName": null,
       "sourceUrl": null,
       "status": "Reference catalog planned",
-      "survival": "lost"
+      "survival": "lost",
+      "purpose": "Their individual purposes cannot be established from the surviving references alone; they appear to have preserved royal, prophetic, or historical records known to biblical writers."
     }
   ]
 }
