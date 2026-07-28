@@ -62,6 +62,8 @@
         </div>
         <h3>${escapeHtml(item.title)}</h3>
         <p>${escapeHtml(item.description)}</p>
+        <p><strong>Estimated writing date:</strong> ${escapeHtml(item.date)}</p>
+        <p><strong>Why this work was written:</strong> ${escapeHtml(item.purpose)}</p>
         <div class="al-actions">${readerLink}${sourceLink}</div>
       </article>`;
   }
@@ -115,7 +117,8 @@
         <span class="al-badge${item.survival !== "surviving" ? " lost" : ""}">${escapeHtml(item.survival)}</span>
       </div>
       <p>${escapeHtml(item.description)}</p>
-      <p><strong>Approximate date:</strong> ${escapeHtml(item.date)}</p>
+      <p><strong>Estimated writing date:</strong> ${escapeHtml(item.date)}</p>
+      <p><strong>Why this work was written:</strong> ${escapeHtml(item.purpose)}</p>
       ${item.edition ? `<p><strong>Edition:</strong> ${escapeHtml(item.edition)}</p>` : ""}
       <p class="al-authority">${escapeHtml(category?.notice || "This source is not presented as equal in authority to Scripture.")}</p>
       ${readAction}${source}`;
@@ -278,7 +281,7 @@
     const next = nextChapter ? chapterUrl(nextChapter) : null;
     const activeDivision = activeBookData.divisions?.find(division => division.id === chapter.divisionId);
     const estimatedDate = activeBookData.activeWork?.estimatedDate || activeDivision?.estimatedDate || catalogItem?.date || "Date uncertain";
-    const purpose = activeBookData.activeWork?.purpose || activeDivision?.purpose || catalogItem?.description || "";
+    const purpose = activeBookData.activeWork?.purpose || activeDivision?.purpose || catalogItem?.purpose || catalogItem?.description || "";
 
     detail.innerHTML = `
       <div class="al-reader-heading">
