@@ -1,0 +1,235 @@
+{
+  "id": "philo",
+  "title": "The Works of Philo Judaeus",
+  "shortTitle": "Philo",
+  "authorityNotice": "Ancient Jewish philosophical and biblical interpretation. It is included for historical study and is not presented as Scripture.",
+  "collectionNotice": "This collection follows the forty-five-work C. D. Yonge contents list. Appendix materials and fragmentary works are identified in their titles.",
+  "works": [
+    {
+      "id": "on-the-creation",
+      "title": "On the Creation",
+      "file": "01-on-the-creation.json"
+    },
+    {
+      "id": "allegorical-interpretation-i",
+      "title": "Allegorical Interpretation, I",
+      "file": "02-allegorical-interpretation-i.json"
+    },
+    {
+      "id": "allegorical-interpretation-ii",
+      "title": "Allegorical Interpretation, II",
+      "file": "03-allegorical-interpretation-ii.json"
+    },
+    {
+      "id": "allegorical-interpretation-iii",
+      "title": "Allegorical Interpretation, III",
+      "file": "04-allegorical-interpretation-iii.json"
+    },
+    {
+      "id": "on-the-cherubim",
+      "title": "On the Cherubim",
+      "file": "05-on-the-cherubim.json"
+    },
+    {
+      "id": "on-the-birth-of-abel-and-the-sacrifices-offered-by-him-and-by-his-brother-cain",
+      "title": "On the Birth of Abel and the Sacrifices Offered by Him and by His Brother Cain",
+      "file": "06-on-the-birth-of-abel-and-the-sacrifices-offered-by-him-and-by-his-brother-cain.json"
+    },
+    {
+      "id": "that-the-worse-is-wont-to-attack-the-better",
+      "title": "That the Worse is Wont to Attack the Better",
+      "file": "07-that-the-worse-is-wont-to-attack-the-better.json"
+    },
+    {
+      "id": "on-the-posterity-of-cain-and-his-exile",
+      "title": "On the Posterity of Cain and His Exile",
+      "file": "08-on-the-posterity-of-cain-and-his-exile.json"
+    },
+    {
+      "id": "on-the-giants",
+      "title": "On the Giants",
+      "file": "09-on-the-giants.json"
+    },
+    {
+      "id": "on-the-unchangableness-of-god",
+      "title": "On the Unchangableness of God",
+      "file": "10-on-the-unchangableness-of-god.json"
+    },
+    {
+      "id": "on-husbandry",
+      "title": "On Husbandry",
+      "file": "11-on-husbandry.json"
+    },
+    {
+      "id": "concerning-noah-s-work-as-a-planter",
+      "title": "Concerning Noah's Work as a Planter",
+      "file": "12-concerning-noah-s-work-as-a-planter.json"
+    },
+    {
+      "id": "on-drunkenness",
+      "title": "On Drunkenness",
+      "file": "13-on-drunkenness.json"
+    },
+    {
+      "id": "on-the-prayers-and-curses-uttered-by-noah-when-he-became-sober",
+      "title": "On the Prayers and Curses Uttered by Noah When He Became Sober",
+      "file": "14-on-the-prayers-and-curses-uttered-by-noah-when-he-became-sober.json"
+    },
+    {
+      "id": "on-the-confusion-of-tongues",
+      "title": "On the Confusion of Tongues",
+      "file": "15-on-the-confusion-of-tongues.json"
+    },
+    {
+      "id": "on-the-migration-of-abraham",
+      "title": "On the Migration of Abraham",
+      "file": "16-on-the-migration-of-abraham.json"
+    },
+    {
+      "id": "who-is-the-heir-of-divine-things",
+      "title": "Who is the Heir of Divine Things?",
+      "file": "17-who-is-the-heir-of-divine-things.json"
+    },
+    {
+      "id": "on-mating-with-the-preliminary-studies",
+      "title": "On Mating with the Preliminary Studies",
+      "file": "18-on-mating-with-the-preliminary-studies.json"
+    },
+    {
+      "id": "on-flight-and-finding",
+      "title": "On Flight and Finding",
+      "file": "19-on-flight-and-finding.json"
+    },
+    {
+      "id": "on-the-change-of-names",
+      "title": "On the Change of Names",
+      "file": "20-on-the-change-of-names.json"
+    },
+    {
+      "id": "on-dreams-that-they-are-god-sent",
+      "title": "On Dreams, That They are God-Sent",
+      "file": "21-on-dreams-that-they-are-god-sent.json"
+    },
+    {
+      "id": "on-abraham",
+      "title": "On Abraham",
+      "file": "22-on-abraham.json"
+    },
+    {
+      "id": "on-joseph",
+      "title": "On Joseph",
+      "file": "23-on-joseph.json"
+    },
+    {
+      "id": "on-the-life-of-moses-i",
+      "title": "On the Life of Moses, I",
+      "file": "24-on-the-life-of-moses-i.json"
+    },
+    {
+      "id": "on-the-life-of-moses-ii",
+      "title": "On the Life of Moses, II",
+      "file": "25-on-the-life-of-moses-ii.json"
+    },
+    {
+      "id": "the-decalogue",
+      "title": "The Decalogue",
+      "file": "26-the-decalogue.json"
+    },
+    {
+      "id": "the-special-laws-i",
+      "title": "The Special Laws, I",
+      "file": "27-the-special-laws-i.json"
+    },
+    {
+      "id": "the-special-laws-ii",
+      "title": "The Special Laws, II",
+      "file": "28-the-special-laws-ii.json"
+    },
+    {
+      "id": "the-special-laws-iii",
+      "title": "The Special Laws, III",
+      "file": "29-the-special-laws-iii.json"
+    },
+    {
+      "id": "the-special-laws-iv",
+      "title": "The Special Laws, IV",
+      "file": "30-the-special-laws-iv.json"
+    },
+    {
+      "id": "on-the-virtues",
+      "title": "On the Virtues",
+      "file": "31-on-the-virtues.json"
+    },
+    {
+      "id": "on-rewards-and-punishments",
+      "title": "On Rewards and Punishments",
+      "file": "32-on-rewards-and-punishments.json"
+    },
+    {
+      "id": "every-good-man-is-free",
+      "title": "Every Good Man is Free",
+      "file": "33-every-good-man-is-free.json"
+    },
+    {
+      "id": "on-the-contemplative-life-or-suppliants",
+      "title": "On the Contemplative Life or Suppliants",
+      "file": "34-on-the-contemplative-life-or-suppliants.json"
+    },
+    {
+      "id": "on-the-eternity-of-the-world",
+      "title": "On the Eternity of the World",
+      "file": "35-on-the-eternity-of-the-world.json"
+    },
+    {
+      "id": "flaccus",
+      "title": "Flaccus",
+      "file": "36-flaccus.json"
+    },
+    {
+      "id": "hypothetica-apology-for-the-jews",
+      "title": "Hypothetica: Apology for the Jews",
+      "file": "37-hypothetica-apology-for-the-jews.json"
+    },
+    {
+      "id": "on-providence-fragment-i",
+      "title": "On Providence: Fragment I",
+      "file": "38-on-providence-fragment-i.json"
+    },
+    {
+      "id": "on-providence-fragment-ii",
+      "title": "On Providence: Fragment II",
+      "file": "39-on-providence-fragment-ii.json"
+    },
+    {
+      "id": "on-the-embassy-to-gaius-the-first-part-of-the-treatise-on-virtues",
+      "title": "On the Embassy to Gaius: The First Part of the Treatise on Virtues",
+      "file": "40-on-the-embassy-to-gaius-the-first-part-of-the-treatise-on-virtues.json"
+    },
+    {
+      "id": "questions-and-answers-on-genesis-i",
+      "title": "Questions and Answers on Genesis, I",
+      "file": "41-questions-and-answers-on-genesis-i.json"
+    },
+    {
+      "id": "questions-and-answers-on-genesis-ii",
+      "title": "Questions and Answers on Genesis, II",
+      "file": "42-questions-and-answers-on-genesis-ii.json"
+    },
+    {
+      "id": "questions-and-answers-on-genesis-iii",
+      "title": "Questions and Answers on Genesis, III",
+      "file": "43-questions-and-answers-on-genesis-iii.json"
+    },
+    {
+      "id": "appendix-1-concerning-the-world",
+      "title": "Appendix 1: Concerning the World",
+      "file": "44-appendix-1-concerning-the-world.json"
+    },
+    {
+      "id": "appendix-2-fragments",
+      "title": "Appendix 2: Fragments",
+      "file": "45-appendix-2-fragments.json"
+    }
+  ]
+}
+
