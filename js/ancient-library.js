@@ -1,6 +1,6 @@
 (() => {
   const CATEGORY_ORDER = ["second-temple", "historical", "early-christian", "lost-disputed"];
-  const READER_BOOKS = new Set(["1-enoch", "jubilees", "testaments-twelve-patriarchs", "psalms-solomon", "4-ezra", "didache", "1-clement"]);
+  const READER_BOOKS = new Set(["1-enoch", "jubilees", "testaments-twelve-patriarchs", "psalms-solomon", "4-ezra", "didache", "1-clement", "shepherd-hermas"]);
   let catalog = null;
   let activeRoot = null;
   let activeCategory = "all";
