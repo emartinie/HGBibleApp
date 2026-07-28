@@ -58,10 +58,10 @@
       "category": "second-temple",
       "date": "Disputed composition and transmission history",
       "description": "Testamentary speeches attributed to Jacob’s sons, combining ethical instruction, apocalyptic expectation, and a complicated textual history.",
-      "edition": null,
-      "sourceName": null,
-      "sourceUrl": null,
-      "status": "Edition review required",
+      "edition": "R. H. Charles, 1908",
+      "sourceName": "Sefaria",
+      "sourceUrl": "https://www.sefaria.org/The_Testaments_of_the_Twelve_Patriarchs",
+      "status": "In-app reader available",
       "survival": "surviving"
     },
     {
