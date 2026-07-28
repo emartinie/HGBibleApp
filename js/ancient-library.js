@@ -220,7 +220,7 @@
 
     requestAnimationFrame(() => {
       const hashTarget = window.location.hash && activeRoot.querySelector(window.location.hash);
-      hashTarget?.scrollIntoView({ block: "center" });
+      hashTarget?.scrollIntoView?.({ block: "center" });
     });
   }
 
