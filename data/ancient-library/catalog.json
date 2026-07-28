@@ -154,11 +154,12 @@
       "category": "historical",
       "date": "Approximately 69–after 122 CE",
       "description": "Roman biographer whose Lives of the Caesars preserves traditions about the emperors and imperial administration.",
-      "edition": null,
-      "sourceName": null,
-      "sourceUrl": null,
-      "status": "Relevant works and editions under review",
-      "survival": "surviving"
+      "edition": "Alexander Thomson translation, revised by T. Forester",
+      "sourceName": "Project Gutenberg",
+      "sourceUrl": "https://www.gutenberg.org/ebooks/6400",
+      "status": "In-app collection available",
+      "survival": "surviving",
+      "defaultWork": "julius-caesar"
     },
     {
       "id": "didache",
