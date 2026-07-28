@@ -178,10 +178,10 @@
       "category": "early-christian",
       "date": "Commonly dated near the end of the first century CE",
       "description": "A lengthy letter from the church at Rome to Corinth concerning division, humility, order, repentance, and communal peace.",
-      "edition": null,
-      "sourceName": null,
-      "sourceUrl": null,
-      "status": "Edition review required",
+      "edition": "Joseph Barber Lightfoot translation",
+      "sourceName": "Wikisource",
+      "sourceUrl": "https://en.wikisource.org/wiki/1_Clement_(Lightfoot_translation)",
+      "status": "In-app reader available",
       "survival": "surviving"
     },
     {
