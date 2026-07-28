@@ -10,17 +10,23 @@
     {
       "id": "visions",
       "title": "Book of Visions",
-      "chapterCount": 24
+      "chapterCount": 24,
+      "estimatedDate": "Composed in stages, probably c. 100–150 CE",
+      "purpose": "To call Hermas, his household, and the church to repentance through revelations about sin, testing, purification, and the church’s future."
     },
     {
       "id": "mandates",
       "title": "Book of Mandates",
-      "chapterCount": 24
+      "chapterCount": 24,
+      "estimatedDate": "Composed in stages, probably c. 100–150 CE",
+      "purpose": "To give practical moral commands concerning faith, truthfulness, self-control, patience, discernment, repentance, and righteous living."
     },
     {
       "id": "similitudes",
       "title": "Book of Similitudes",
-      "chapterCount": 53
+      "chapterCount": 53,
+      "estimatedDate": "Composed in stages, probably c. 100–150 CE",
+      "purpose": "To explain repentance, judgment, discipleship, wealth, suffering, and the building of the church through extended symbolic parables."
     }
   ],
   "chapters": [
