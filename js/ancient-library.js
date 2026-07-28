@@ -276,8 +276,9 @@
     const nextChapter = activeBookData.chapters[chapterNumber];
     const previous = previousChapter ? chapterUrl(previousChapter) : null;
     const next = nextChapter ? chapterUrl(nextChapter) : null;
-    const estimatedDate = activeBookData.activeWork?.estimatedDate || catalogItem?.date || "Date uncertain";
-    const purpose = activeBookData.activeWork?.purpose || catalogItem?.description || "";
+    const activeDivision = activeBookData.divisions?.find(division => division.id === chapter.divisionId);
+    const estimatedDate = activeBookData.activeWork?.estimatedDate || activeDivision?.estimatedDate || catalogItem?.date || "Date uncertain";
+    const purpose = activeBookData.activeWork?.purpose || activeDivision?.purpose || catalogItem?.description || "";
 
     detail.innerHTML = `
       <div class="al-reader-heading">
