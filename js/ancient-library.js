@@ -1,6 +1,6 @@
 (() => {
   const CATEGORY_ORDER = ["second-temple", "historical", "early-christian", "lost-disputed"];
-  const READER_BOOKS = new Set(["1-enoch", "jubilees", "testaments-twelve-patriarchs", "psalms-solomon"]);
+  const READER_BOOKS = new Set(["1-enoch", "jubilees", "testaments-twelve-patriarchs", "psalms-solomon", "4-ezra"]);
   let catalog = null;
   let activeRoot = null;
   let activeCategory = "all";
@@ -220,7 +220,7 @@
       chapter = activeBookData.chapters.find(entry => entry.number === chapterNumber);
     }
     const chapterNumber = chapter.number;
-    const chapterLabel = chapter.divisionTitle ? `${chapter.divisionTitle} — Chapter ${chapter.localChapter}` : `${activeBookData.shortTitle} — Chapter ${chapterNumber}`;
+    const chapterLabel = chapter.divisionTitle ? `${chapter.divisionTitle} — Chapter ${chapter.localChapter}` : `${activeBookData.shortTitle} — Chapter ${chapter.sourceChapter || chapterNumber}`;
     const previousChapter = activeBookData.chapters[chapterNumber - 2];
     const nextChapter = activeBookData.chapters[chapterNumber];
     const previous = previousChapter ? buildLibraryUrl(itemId, previousChapter.localChapter || previousChapter.number, previousChapter.divisionId) : null;
