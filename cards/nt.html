@@ -1,4 +1,97 @@
 <style>
+  #ntCard {
+    --nt-gold: #f3c878;
+    --nt-blue: #7cc7ff;
+    --nt-text: #eef3ff;
+    --nt-muted: #a8b2c7;
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    color: var(--nt-text);
+  }
+
+  #ntCard * { box-sizing: border-box; }
+
+  #ntCard .nt-hero,
+  #ntCard #nt-reader-host {
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 1.25rem;
+    background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+  }
+
+  #ntCard .nt-hero { padding: clamp(1.1rem, 4vw, 2rem); }
+  #ntCard .nt-kicker {
+    margin: 0 0 .4rem;
+    color: var(--nt-gold);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  #ntCard .nt-hero h1 {
+    margin: 0;
+    color: #fff4d6;
+    font: 750 clamp(1.8rem, 7vw, 2.8rem)/1.08 Georgia, serif;
+  }
+  #ntCard .nt-lede {
+    max-width: 46rem;
+    margin: .8rem 0 0;
+    color: var(--nt-muted);
+  }
+  #ntCard .nt-orientation {
+    max-width: 48rem;
+    margin: 1rem 0 0;
+    padding: .85rem 1rem;
+    border-left: 3px solid var(--nt-gold);
+    border-radius: .65rem;
+    background: rgba(243,200,120,.07);
+    color: #eadfca;
+    font-size: .88rem;
+  }
+  #ntCard .nt-orientation strong { color: #fff4d6; }
+
+  #ntCard > .card-topbar {
+    justify-content: flex-end;
+    margin: 0;
+    padding: .3rem;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 999px;
+    background: rgba(7,10,17,.72);
+  }
+
+  #ntCard #nt-reader-host {
+    min-width: 0;
+    padding: clamp(.9rem, 3vw, 1.35rem);
+  }
+
+  #ntCard #nt-root {
+    width: min(100%, 48rem);
+    margin-inline: auto;
+  }
+
+  #ntCard #nt-header h1,
+  #ntCard #nt-header h2,
+  #ntCard #nt-header h3 {
+    color: #fff4d6;
+    font-family: Georgia, serif;
+  }
+
+  #ntCard #nt-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    border-radius: .9rem;
+    background: rgba(7,10,17,.94);
+    backdrop-filter: blur(14px);
+  }
+
+  #ntCard #nt-content > section,
+  #ntCard #nt-panel > section,
+  #ntCard #nt-content > article {
+    border-color: rgba(255,255,255,.1);
+    background-color: rgba(5,8,13,.38);
+  }
+
   .scripture-reader {
     display: flex;
     flex-direction: column;
@@ -7,20 +100,24 @@
 
   .scripture-reader p {
     margin: 0;
-    padding: 0.4rem 0.65rem;
-    border-radius: 0.75rem;
-    line-height: 1.8;
+    padding: 0.7rem 0;
+    border-top: 1px solid rgba(255,255,255,.055);
+    border-radius: 0;
+    color: #edf1f7;
+    font: 400 clamp(1rem, 2.5vw, 1.08rem)/1.75 Georgia, serif;
     transition: 0.2s ease;
   }
 
+  .scripture-reader p:first-child { border-top: 0; }
+
   .scripture-reader p:hover {
-    background: rgba(30, 41, 59, 0.35);
+    background: rgba(243,200,120,.045);
   }
 
   .scripture-reader .v-num,
   .scripture-reader [data-number],
   .scripture-reader .verse-number {
-    color: rgb(148 163 184);
+    color: var(--nt-gold);
     font-size: 0.8em;
     margin-right: 0.45rem;
   }
@@ -200,7 +297,7 @@
   }
 </style>
 
-<section class="hg-panel">
+<section id="ntCard" class="nt-library" aria-labelledby="ntCardTitle">
 <div class="card-topbar">
 
   <!-- existing fullscreen -->
@@ -221,12 +318,12 @@
   <button class="card-icon-btn utility" title="Help">?</button>
 
 </div>
-<details class="orientation-block hg-panel hg-section p-4 my-4">
-  <summary class="cursor-pointer text-lg font-semibold text-amber-300">
-    Walk Through the New Testament</summary>
-  <p class="text-sm text-slate-300 mt-2">This card brings New Testament introductions, notes, summaries, review questions etc. for every chapter in the NT plus historical connections into one study space. It exists to help you move from the text toward context without losing sight of the passage itself.</p>
-  <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Choose a book or chapter and begin with its introduction or first available chapter.</p>
-</details>
+<header class="nt-hero">
+  <p class="nt-kicker">Scripture, context, and guided study</p>
+  <h1 id="ntCardTitle">New Testament Library</h1>
+  <p class="nt-lede">Read the New Testament alongside introductions, chapter notes, summaries, review questions, and historical connections.</p>
+  <p class="nt-orientation"><strong>Start here:</strong> Choose a book and chapter, then move from the text into its context without losing sight of the passage itself.</p>
+</header>
 <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
 <!-- Temporary nav triage: hidden because secondary/tertiary nav controls are currently unreliable. -->
          <div class="card-topbar scripture-subnav" style="display: none;">
