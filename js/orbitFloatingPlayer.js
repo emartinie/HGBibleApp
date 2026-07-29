@@ -479,242 +479,68 @@
   function buildPlayer() {
     const existing = document.getElementById(ORBIT_ID);
     if (existing) existing.remove();
-
     const player = document.createElement("div");
     player.id = ORBIT_ID;
     player.setAttribute("role", "region");
     player.setAttribute("aria-label", "Orbit media player");
-    Object.assign(player.style, {
-      position: "fixed",
-      bottom: "1rem",
-      right: "1rem",
-      width: "190px",
-      height: "190px",
-      borderRadius: "50%",
-      backdropFilter: "blur(8px)",
-      background: "radial-gradient(120% 120% at 30% 30%, rgba(31,41,55,0.95), rgba(17,24,39,0.92))",
-      boxShadow: "0 12px 28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.08)",
-      color: "#fff",
-      cursor: "grab",
-      overflow: "visible",
-      padding: "10px",
-      userSelect: "none",
-      zIndex: 9999
-    });
-
-    const style = document.createElement("style");
-    style.id = "orbit-player-styles";
-    style.textContent = `
-      #floatingPlayer .hidden { display: none !important; }
-      #floatingPlayer.is-docked .orbit-control { transform: none !important; }
-      #floatingPlayer.is-docked .orbit-controls {
-        display: grid;
-        grid-template-columns: repeat(7, minmax(0, 1fr));
-        align-items: center;
-        gap: 6px;
-        position: absolute;
-        inset: 30px 8px 24px;
-        width: auto;
-        height: auto;
-      }
-      #floatingPlayer.is-docked .orbit-control {
-        position: static !important;
-        min-width: 0 !important;
-        width: 100%;
-        padding: 5px 3px !important;
-        font-size: 11px !important;
-      }
-    `;
-    if (!document.getElementById(style.id)) document.head.appendChild(style);
-
-    const ring = document.createElement("div");
-    Object.assign(ring.style, {
-      position: "absolute",
-      inset: "8px",
-      borderRadius: "inherit",
-      background: "conic-gradient(from 0deg, rgba(59,130,246,0.22), rgba(34,197,94,0.22), rgba(59,130,246,0.22))",
-      filter: "blur(8px)",
-      opacity: "0.65",
-      pointerEvents: "none"
-    });
-
-    const faceWrap = document.createElement("div");
-    Object.assign(faceWrap.style, {
-      position: "absolute",
-      inset: "18px",
-      borderRadius: "50%",
-      overflow: "hidden",
-      pointerEvents: "none"
-    });
-
-    const logo = document.createElement("img");
-    logo.id = "orbitLogo";
-    logo.src = "images/HGHouses.png";
-    logo.alt = "";
-    Object.assign(logo.style, {
-      width: "100%",
-      height: "100%",
-      objectFit: "contain"
-    });
-
-    const video = document.createElement("video");
-    video.id = "orbitVideo";
-    video.src = DEFAULT_VIDEO_SRC;
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "metadata";
-    video.className = "hidden";
-    Object.assign(video.style, {
-      width: "100%",
-      height: "100%",
-      objectFit: "cover"
-    });
-
-    const sonograph = document.createElement("canvas");
-    sonograph.id = "orbitSonograph";
-    sonograph.width = 180;
-    sonograph.height = 180;
-    sonograph.className = "hidden";
-    Object.assign(sonograph.style, {
-      width: "100%",
-      height: "100%"
-    });
-
-    const title = document.createElement("div");
-    Object.assign(title.style, {
-      position: "absolute",
-      top: "10px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      maxWidth: "78%",
-      overflow: "hidden",
-      textAlign: "center",
-      textOverflow: "ellipsis",
-      whiteSpace: "nowrap",
-      fontSize: "13px",
-      fontWeight: "700",
-      textShadow: "0 1px 1px rgba(0,0,0,0.55)",
-      zIndex: 3
-    });
-
-    const timeDisplay = document.createElement("div");
-    timeDisplay.id = "orbitTime";
-    Object.assign(timeDisplay.style, { position: "absolute", bottom: "28px", left: "50%", transform: "translateX(-50%)", color: "#dbeafe", fontSize: "10px", zIndex: "6", whiteSpace: "nowrap" });
-    timeDisplay.textContent = "0:00 / 0:00";
-
-    const nowPlaying = document.createElement("div");
-    nowPlaying.id = "fpNowPlaying";
-    Object.assign(nowPlaying.style, {
-      position: "absolute",
-      bottom: "12px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      width: "78%",
-      overflow: "hidden",
-      textAlign: "center",
-      textOverflow: "ellipsis",
-      whiteSpace: "nowrap",
-      color: "#bfdbfe",
-      fontSize: "12px",
-      zIndex: 3
-    });
-
-    const svgNS = "http://www.w3.org/2000/svg";
-    const size = 170;
-    const radius = 76;
-    const circumference = 2 * Math.PI * radius;
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("width", size);
-    svg.setAttribute("height", size);
-    Object.assign(svg.style, {
-      position: "absolute",
-      top: "10px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      overflow: "visible",
-      pointerEvents: "none"
-    });
-    const progress = document.createElementNS(svgNS, "circle");
-    progress.setAttribute("cx", size / 2);
-    progress.setAttribute("cy", size / 2);
-    progress.setAttribute("r", radius);
-    progress.setAttribute("stroke", "#38bdf8");
-    progress.setAttribute("stroke-width", "5");
-    progress.setAttribute("fill", "none");
-    progress.setAttribute("stroke-linecap", "round");
-    progress.setAttribute("stroke-dasharray", String(circumference));
-    progress.setAttribute("stroke-dashoffset", String(circumference));
-    progress.setAttribute("transform", `rotate(-90 ${size / 2} ${size / 2})`);
-    progress.dataset.circumference = String(circumference);
-    svg.appendChild(progress);
-
-    const controls = document.createElement("div");
-    controls.className = "orbit-controls";
-    Object.assign(controls.style, {
-      position: "absolute",
-      inset: "0",
-      pointerEvents: "none",
-      zIndex: 4
-    });
-
-    const buttons = [
-      ["previous", "Prev", previousTrack],
-      ["rewind", "−15", () => seekBy(-15)],
-      ["playPause", "Play", () => isPaused() ? playCurrent() : pauseCurrent()],
-      ["forward", "+15", () => seekBy(15)],
-      ["next", "Next", () => nextTrack()],
-      ["lang", "ENG", cycleLang],
-      ["sleep", "Auto", () => { state.autoNext = !state.autoNext; updateNowPlaying(); }],
-      ["playlist", "Psalms", () => loadPlaylist(DEFAULT_PLAYLIST, { autoplay: true })],
-      ["speed", "1x", cycleSpeed],
-      ["video", "Video", toggleVideo],
-      ["sonograph", "Wave", toggleSonograph],
-      ["dock", "Dock", () => setDocked(!state.docked)],
-      ["minimize", "Hide", () => setMinimized(!state.minimized)],
-      ["share", "Share", shareCurrent],
-      ["favorite", "Fav", favoriteCurrent]
-    ];
-
-    buttons.forEach(([key, label, handler], index) => {
-      const button = createButton(label, label, handler);
-      const angle = (index / buttons.length) * 2 * Math.PI;
-      const orbitRadius = 43;
-      Object.assign(button.style, {
-        left: `${50 + orbitRadius * Math.cos(angle)}%`,
-        top: `${50 + orbitRadius * Math.sin(angle)}%`,
-        transform: "translate(-50%, -50%)"
-      });
-      controls.appendChild(button);
-      state.els[key] = button;
-    });
-
-    faceWrap.appendChild(logo);
-    faceWrap.appendChild(video);
-    faceWrap.appendChild(sonograph);
-    player.appendChild(ring);
-    player.appendChild(faceWrap);
-    player.appendChild(svg);
-    player.appendChild(title);
-    player.appendChild(nowPlaying);
-    player.appendChild(timeDisplay);
-    player.appendChild(controls);
-
-    state.player = player;
-    state.els = {
-      ...state.els,
-      faceWrap,
-      logo,
-      video,
-      sonograph,
-      title,
-      nowPlaying,
-      timeDisplay,
-      progress
+    Object.assign(player.style, {position:"fixed",bottom:"1rem",right:"1rem",width:"190px",height:"190px",borderRadius:"50%",backdropFilter:"blur(12px)",background:"radial-gradient(circle at 30% 30%,rgba(31,41,55,.97),rgba(7,10,17,.95))",boxShadow:"0 12px 28px rgba(0,0,0,.48),inset 0 0 0 1px rgba(255,255,255,.1)",color:"#fff",cursor:"grab",overflow:"visible",padding:"10px",userSelect:"none",zIndex:9999});
+    const style=document.createElement("style");
+    style.id="orbit-player-styles";
+    style.textContent=[
+      "#floatingPlayer .hidden{display:none!important}",
+      "#floatingPlayer .orbit-primary{position:absolute;inset:0;pointer-events:none;z-index:7}",
+      "#floatingPlayer .orbit-drawer[hidden]{display:none!important}",
+      "#floatingPlayer .orbit-drawer{position:absolute;right:0;bottom:calc(100% + 10px);width:min(324px,calc(100vw - 24px));display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:12px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(7,10,17,.98);box-shadow:0 18px 42px rgba(0,0,0,.55);z-index:20}",
+      "#floatingPlayer .orbit-drawer .orbit-control{position:static!important;transform:none!important;width:100%;min-width:0!important}",
+      "#floatingPlayer .orbit-volume-row,#floatingPlayer .orbit-seek-row{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:center;color:#cbd5e1;font-size:11px}",
+      "#floatingPlayer input[type=range]{width:100%;accent-color:#38bdf8}",
+      "#floatingPlayer .orbit-time{position:absolute;left:50%;bottom:31px;transform:translateX(-50%);color:#dbeafe;font-size:10px;white-space:nowrap;z-index:6;pointer-events:none}",
+      "#floatingPlayer.is-docked .orbit-primary{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;inset:36px 10px auto;height:auto}",
+      "#floatingPlayer.is-docked .orbit-primary .orbit-control{position:static!important;transform:none!important;width:100%;min-width:0!important}",
+      "#floatingPlayer.is-docked .orbit-time{bottom:10px}",
+      "@media(max-width:540px){#floatingPlayer:not(.is-docked){width:164px!important;height:164px!important}#floatingPlayer .orbit-drawer{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 12px);width:auto}}"
+    ].join("");
+    document.getElementById(style.id)?.remove(); document.head.appendChild(style);
+    const ring=document.createElement("div");
+    Object.assign(ring.style,{position:"absolute",inset:"8px",borderRadius:"inherit",background:"conic-gradient(rgba(59,130,246,.25),rgba(243,200,120,.24),rgba(59,130,246,.25))",filter:"blur(8px)",opacity:".68",pointerEvents:"none"});
+    const faceWrap=document.createElement("div");
+    Object.assign(faceWrap.style,{position:"absolute",inset:"28px",borderRadius:"50%",overflow:"hidden",pointerEvents:"none"});
+    const logo=document.createElement("img"); logo.id="orbitLogo";logo.src="images/HGHouses.png";logo.alt="";Object.assign(logo.style,{width:"100%",height:"100%",objectFit:"contain"});
+    const video=document.createElement("video");video.id="orbitVideo";video.src=DEFAULT_VIDEO_SRC;video.muted=true;video.loop=true;video.playsInline=true;video.preload="metadata";video.className="hidden";Object.assign(video.style,{width:"100%",height:"100%",objectFit:"cover"});
+    const sonograph=document.createElement("canvas");sonograph.id="orbitSonograph";sonograph.width=180;sonograph.height=180;sonograph.className="hidden";Object.assign(sonograph.style,{width:"100%",height:"100%"});
+    faceWrap.append(logo,video,sonograph);
+    const title=document.createElement("div");Object.assign(title.style,{position:"absolute",top:"11px",left:"50%",transform:"translateX(-50%)",width:"58%",overflow:"hidden",textAlign:"center",textOverflow:"ellipsis",whiteSpace:"nowrap",fontSize:"12px",fontWeight:"700",zIndex:"5"});
+    const nowPlaying=document.createElement("div");nowPlaying.id="fpNowPlaying";Object.assign(nowPlaying.style,{position:"absolute",bottom:"15px",left:"50%",transform:"translateX(-50%)",width:"58%",overflow:"hidden",textAlign:"center",textOverflow:"ellipsis",whiteSpace:"nowrap",color:"#bfdbfe",fontSize:"10px",zIndex:"5"});
+    const timeDisplay=document.createElement("div");timeDisplay.id="orbitTime";timeDisplay.className="orbit-time";timeDisplay.textContent="0:00 / 0:00";
+    const ns="http://www.w3.org/2000/svg",size=170,radius=76,circumference=2*Math.PI*radius;
+    const svg=document.createElementNS(ns,"svg");svg.setAttribute("width",size);svg.setAttribute("height",size);Object.assign(svg.style,{position:"absolute",top:"10px",left:"50%",transform:"translateX(-50%)",overflow:"visible",pointerEvents:"none"});
+    const progress=document.createElementNS(ns,"circle");
+    [["cx",85],["cy",85],["r",radius],["stroke","#38bdf8"],["stroke-width",5],["fill","none"],["stroke-linecap","round"],["stroke-dasharray",circumference],["stroke-dashoffset",circumference],["transform","rotate(-90 85 85)"]].forEach(([k,v])=>progress.setAttribute(k,String(v)));
+    progress.dataset.circumference=String(circumference);svg.appendChild(progress);
+    const primary=document.createElement("div");primary.className="orbit-primary";
+    const drawer=document.createElement("div");drawer.className="orbit-drawer";drawer.hidden=true;
+    const add=(host,key,label,titleText,handler,position)=>{
+      const button=createButton(label,titleText,handler);if(position)Object.assign(button.style,position);host.appendChild(button);state.els[key]=button;return button;
     };
-
-    document.body.appendChild(player);
-    enableDragging();
+    const pos=(left,top)=>({left,top,transform:"translate(-50%,-50%)"});
+    add(primary,"previous","‹","Previous",previousTrack,pos("13%","50%"));
+    add(primary,"playPause","Play","Play or pause",()=>isPaused()?playCurrent():pauseCurrent(),pos("50%","82%"));
+    add(primary,"next","›","Next",()=>nextTrack(),pos("87%","50%"));
+    let settings;
+    settings=add(primary,"settings","•••","More player controls",()=>{drawer.hidden=!drawer.hidden;settings.setAttribute("aria-expanded",String(!drawer.hidden));},pos("82%","18%"));
+    settings.setAttribute("aria-expanded","false");
+    add(primary,"minimize","Hide","Hide player face",()=>setMinimized(!state.minimized),pos("18%","18%"));
+    [["rewind","−15s","Rewind 15 seconds",()=>seekBy(-15)],["forward","+15s","Forward 15 seconds",()=>seekBy(15)],["stop","Stop","Stop",stopCurrent],["speed","1x","Playback speed",cycleSpeed],["lang","ENG","Audio language",cycleLang],["sleep","Auto","Automatic next track",()=>{state.autoNext=!state.autoNext;updateNowPlaying();}],["playlist","Psalms","Load Psalms",()=>loadPlaylist(DEFAULT_PLAYLIST,{autoplay:true})],["dock","Dock","Dock or float",()=>setDocked(!state.docked)],["video","Video","Video face",toggleVideo],["sonograph","Wave","Waveform",toggleSonograph],["share","Share","Share",shareCurrent],["favorite","Fav","Favorite",favoriteCurrent]].forEach(args=>add(drawer,...args));
+    const seekRow=document.createElement("label");seekRow.className="orbit-seek-row";seekRow.textContent="Position";
+    const seek=document.createElement("input");seek.type="range";seek.min="0";seek.max="1000";seek.value="0";seek.setAttribute("aria-label","Seek through track");
+    on(seek,"input",()=>{if(state.mode==="audio"&&Number.isFinite(state.audio.duration))state.audio.currentTime=state.audio.duration*Number(seek.value)/1000;});seekRow.appendChild(seek);drawer.prepend(seekRow);
+    const volumeRow=document.createElement("label");volumeRow.className="orbit-volume-row";volumeRow.textContent="Volume";
+    const volume=document.createElement("input");volume.type="range";volume.min="0";volume.max="1";volume.step=".05";volume.value=String(state.audio.volume);
+    let mute;on(volume,"input",()=>{state.audio.muted=false;state.audio.volume=Number(volume.value);mute.textContent=state.audio.volume?"Mute":"Unmute";persistPlayback();});volumeRow.appendChild(volume);drawer.appendChild(volumeRow);
+    mute=add(drawer,"mute","Mute","Mute or unmute",()=>{state.audio.muted=!state.audio.muted;mute.textContent=state.audio.muted?"Unmute":"Mute";});
+    player.append(ring,faceWrap,svg,title,nowPlaying,timeDisplay,primary,drawer);
+    state.player=player;state.els={...state.els,faceWrap,logo,video,sonograph,title,nowPlaying,timeDisplay,progress,drawer,seek,volume,mute};
+    document.body.appendChild(player);enableDragging();
   }
 
   function enableDragging() {
