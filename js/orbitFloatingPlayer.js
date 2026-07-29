@@ -169,6 +169,11 @@
     state.els.lang.textContent = state.mode === "speech" ? "Voice" : state.lang.toUpperCase();
     state.els.minimize.textContent = state.minimized ? "Show" : "Hide";
     state.els.dock.textContent = state.docked ? "Float" : "Dock";
+    if ("mediaSession" in navigator) {
+      const item = currentItem();
+      navigator.mediaSession.metadata = item ? new MediaMetadata({ title: item.title, artist: "HG Bible App", album: state.mode === "speech" ? "Device narration" : "HomeGroups" }) : null;
+      navigator.mediaSession.playbackState = isPaused() ? "paused" : "playing";
+    }
 
     window.dispatchEvent(new CustomEvent("player:nowPlaying", {
       detail: {
@@ -327,6 +332,21 @@
     const idx = LANGS.indexOf(state.lang);
     state.lang = LANGS[(idx + 1) % LANGS.length];
     loadTrack({ autoplay: !state.audio.paused });
+  }
+
+  function seekBy(seconds) {
+    if (state.mode !== "audio" || !Number.isFinite(state.audio.duration)) return;
+    state.audio.currentTime = Math.max(0, Math.min(state.audio.duration, state.audio.currentTime + seconds));
+  }
+
+  function formatTime(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+    return `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
+  }
+
+  function persistPlayback() {
+    if (state.mode !== "audio" || !currentItem()) return;
+    try { localStorage.setItem("hg-orbit-playback", JSON.stringify({ src: currentSrc(), time: state.audio.currentTime, rate: state.audio.playbackRate, volume: state.audio.volume })); } catch {}
   }
 
   function cycleSpeed() {
@@ -578,6 +598,11 @@
       zIndex: 3
     });
 
+    const timeDisplay = document.createElement("div");
+    timeDisplay.id = "orbitTime";
+    Object.assign(timeDisplay.style, { position: "absolute", bottom: "28px", left: "50%", transform: "translateX(-50%)", color: "#dbeafe", fontSize: "10px", zIndex: "6", whiteSpace: "nowrap" });
+    timeDisplay.textContent = "0:00 / 0:00";
+
     const nowPlaying = document.createElement("div");
     nowPlaying.id = "fpNowPlaying";
     Object.assign(nowPlaying.style, {
@@ -635,8 +660,9 @@
 
     const buttons = [
       ["previous", "Prev", previousTrack],
+      ["rewind", "−15", () => seekBy(-15)],
       ["playPause", "Play", () => isPaused() ? playCurrent() : pauseCurrent()],
-      ["stop", "Stop", stopCurrent],
+      ["forward", "+15", () => seekBy(15)],
       ["next", "Next", () => nextTrack()],
       ["lang", "ENG", cycleLang],
       ["sleep", "Auto", () => { state.autoNext = !state.autoNext; updateNowPlaying(); }],
@@ -671,6 +697,7 @@
     player.appendChild(svg);
     player.appendChild(title);
     player.appendChild(nowPlaying);
+    player.appendChild(timeDisplay);
     player.appendChild(controls);
 
     state.player = player;
@@ -682,6 +709,7 @@
       sonograph,
       title,
       nowPlaying,
+      timeDisplay,
       progress
     };
 
@@ -743,11 +771,27 @@
     on(state.audio, "play", () => updateNowPlaying({ action: "play" }));
     on(state.audio, "pause", () => updateNowPlaying({ action: "pause" }));
     on(state.audio, "timeupdate", () => {
-      if (Number.isFinite(state.audio.duration) && state.audio.duration > 0) {
-        updateProgress(state.audio.currentTime / state.audio.duration);
+      if (Number.isFinite(state.audio.duration) && state.audio.duration > 0) updateProgress(state.audio.currentTime / state.audio.duration);
+      if (state.els.timeDisplay) state.els.timeDisplay.textContent = `${formatTime(state.audio.currentTime)} / ${formatTime(state.audio.duration)}`;
+      if (Math.floor(state.audio.currentTime) % 5 === 0) persistPlayback();
+      if ("mediaSession" in navigator && Number.isFinite(state.audio.duration) && state.audio.duration > 0) {
+        try { navigator.mediaSession.setPositionState({ duration: state.audio.duration, playbackRate: state.audio.playbackRate, position: Math.min(state.audio.currentTime, state.audio.duration) }); } catch {}
       }
     });
-    on(state.audio, "loadedmetadata", () => updateProgress(0));
+    on(state.audio, "loadedmetadata", () => {
+      updateProgress(0);
+      try {
+        const saved = JSON.parse(localStorage.getItem("hg-orbit-playback") || "null");
+        if (saved?.src === currentSrc()) {
+          state.audio.currentTime = Math.min(Number(saved.time) || 0, state.audio.duration || 0);
+          state.audio.playbackRate = Number(saved.rate) || 1;
+          state.audio.volume = Math.max(0, Math.min(1, Number(saved.volume ?? 1)));
+          state.els.speed.textContent = `${state.audio.playbackRate}x`;
+        }
+      } catch {}
+    });
+    on(state.audio, "waiting", () => { state.els.nowPlaying.textContent = "Loading audio…"; });
+    on(state.audio, "error", () => { state.els.nowPlaying.textContent = "Audio unavailable"; });
     on(state.audio, "ended", () => {
       updateNowPlaying({ action: "ended" });
       if (state.autoNext && state.playlist.length > 1) nextTrack(true);
@@ -766,6 +810,11 @@
 
     window.toggleOrbitVideo = toggleVideo;
     window.toggleOrbitSonograph = toggleSonograph;
+
+    if ("mediaSession" in navigator) {
+      const handlers = { play: playCurrent, pause: pauseCurrent, previoustrack: previousTrack, nexttrack: () => nextTrack(), seekbackward: detail => seekBy(detail.seekOffset || 15), seekforward: detail => seekBy(detail.seekOffset || 15), seekto: detail => { if (state.mode === "audio" && Number.isFinite(detail.seekTime)) state.audio.currentTime = detail.seekTime; } };
+      Object.entries(handlers).forEach(([action, handler]) => { try { navigator.mediaSession.setActionHandler(action, handler); } catch {} });
+    }
 
     const initialPlaylist =
       window.weekData?.sections?.audio_playlist ||
