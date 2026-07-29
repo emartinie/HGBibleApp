@@ -367,6 +367,7 @@
     if (!circle) return;
     const circumference = Number(circle.dataset.circumference || 0);
     circle.setAttribute("stroke-dashoffset", String(circumference * (1 - Math.max(0, Math.min(1, ratio)))));
+    if (state.els.seek && state.mode === "audio") state.els.seek.value = String(Math.round(Math.max(0, Math.min(1, ratio)) * 1000));
   }
 
   function setDocked(nextDocked) {
