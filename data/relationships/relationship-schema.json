@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://homegroups.org/data/relationships/relationship-schema.json",
+  "title": "HomeGroups Relationship",
+  "description": "A normalized, descriptive connection between two HomeGroups data nodes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "fromType",
+    "fromId",
+    "relationship",
+    "toType",
+    "toId",
+    "classification",
+    "sources",
+    "confidence",
+    "notes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^rel-[a-z0-9][a-z0-9-]*$"
+    },
+    "fromType": {
+      "$ref": "#/$defs/nodeType"
+    },
+    "fromId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "relationship": {
+      "$ref": "#/$defs/relationshipType"
+    },
+    "toType": {
+      "$ref": "#/$defs/nodeType"
+    },
+    "toId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "classification": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "explicit",
+        "probable",
+        "possible",
+        "disputed",
+        "unclassified"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "nodeType": {
+      "type": "string",
+      "enum": [
+        "covenant",
+        "commandment",
+        "scripture",
+        "investigation",
+        "timeline",
+        "article",
+        "studyhub",
+        "source",
+        "teacher",
+        "intertext",
+        "calendar",
+        "hebrewWord",
+        "greekWord",
+        "event",
+        "media"
+      ]
+    },
+    "relationshipType": {
+      "type": "string",
+      "enum": [
+        "HAS_COMMANDMENT",
+        "HAS_SOURCE",
+        "HAS_ARTICLE",
+        "HAS_EVENT",
+        "HAS_TIMELINE_EVENT",
+        "HAS_INVESTIGATION",
+        "HAS_MEDIA",
+        "HAS_LANGUAGE_NOTE",
+        "FULFILLS",
+        "RENEWS",
+        "QUOTES",
+        "CITES",
+        "REFERENCES",
+        "COMMENTS_ON",
+        "PARALLELS",
+        "RELATED_TO",
+        "IS_SIGN_OF",
+        "IS_PART_OF",
+        "IS_ASSOCIATED_WITH"
+      ]
+    }
+  }
+}
