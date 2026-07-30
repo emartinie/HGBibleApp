@@ -7,15 +7,73 @@
     "covenantIds": [
       "mosaic"
     ],
-    "description": "The Decalogue and accompanying Sinai narrative context.",
-    "sections": [],
+    "literarySetting": "Israel stands at Sinai after the exodus from Egypt. The chapter follows the preparation described in Exodus 19.",
+    "speakerOrNarrator": "Exodus 20:1 introduces God as speaking the words; narrative description resumes in Exodus 20:18.",
+    "tabletContext": "The chapter presents the spoken formulations. Exodus 24:12 and 31:18 later connect divine instruction with stone tablets.",
+    "structuralSections": [
+      {
+        "label": "Opening identification",
+        "references": [
+          "Exodus 20:1–2"
+        ]
+      },
+      {
+        "label": "Commands commonly identified as the Decalogue",
+        "references": [
+          "Exodus 20:3–17"
+        ]
+      },
+      {
+        "label": "The people’s response",
+        "references": [
+          "Exodus 20:18–21"
+        ]
+      },
+      {
+        "label": "Altar instructions",
+        "references": [
+          "Exodus 20:22–26"
+        ]
+      }
+    ],
+    "repeatedThemes": [
+      "Exclusive worship",
+      "Name",
+      "Sabbath",
+      "Parents",
+      "Murder",
+      "Adultery",
+      "Theft",
+      "False witness",
+      "Coveting"
+    ],
+    "distinctiveThemes": [
+      "The exodus is stated in the opening identification",
+      "The Sabbath rationale points to creation"
+    ],
+    "observations": [
+      {
+        "classification": "Text states",
+        "summary": "God speaks the words introduced in Exodus 20:1.",
+        "references": [
+          "Exodus 20:1"
+        ]
+      },
+      {
+        "classification": "Traditional identification",
+        "summary": "Jewish and Christian traditions commonly identify Exodus 20:2–17 as a Decalogue formulation, while differing in enumeration.",
+        "references": [
+          "Exodus 20:2–17"
+        ]
+      }
+    ],
     "sourceLinks": [
       {
-        "label": "Sefaria: Exodus 20",
+        "label": "Open Exodus 20 in Sefaria",
         "url": "https://www.sefaria.org/Exodus.20"
       }
     ],
-    "notes": "Reference metadata only; biblical text is not duplicated."
+    "notes": "Reference and structural metadata only; biblical text is not duplicated."
   },
   {
     "id": "exodus-34",
@@ -25,15 +83,98 @@
     "covenantIds": [
       "mosaic"
     ],
-    "description": "Covenant renewal material following the golden calf episode.",
-    "sections": [],
+    "literarySetting": "The chapter follows the golden calf incident, Moses’ breaking of the first tablets, and his intercession.",
+    "speakerOrNarrator": "The chapter alternates narrative and divine speech; Moses writes covenant words according to Exodus 34:27.",
+    "tabletContext": "Moses cuts replacement tablets. Exodus 34:1 says words from the first tablets will be written on them; Exodus 34:28 associates the tablets with the words of the covenant and the Ten Words.",
+    "structuralSections": [
+      {
+        "label": "Replacement tablets and ascent",
+        "references": [
+          "Exodus 34:1–4"
+        ]
+      },
+      {
+        "label": "Divine proclamation and Moses’ response",
+        "references": [
+          "Exodus 34:5–9"
+        ]
+      },
+      {
+        "label": "Covenant announcement and commands",
+        "references": [
+          "Exodus 34:10–26"
+        ]
+      },
+      {
+        "label": "Writing, forty days, and the Ten Words",
+        "references": [
+          "Exodus 34:27–28"
+        ]
+      },
+      {
+        "label": "Moses’ radiant face",
+        "references": [
+          "Exodus 34:29–35"
+        ]
+      }
+    ],
+    "repeatedThemes": [
+      "Exclusive worship",
+      "Covenant loyalty",
+      "Festival observance",
+      "Sabbath",
+      "Firstborn",
+      "Unleavened bread"
+    ],
+    "distinctiveThemes": [
+      "Replacement tablets after the golden calf breach",
+      "Commands concerning covenant relations with inhabitants of the land",
+      "Festival and firstborn instructions"
+    ],
+    "observations": [
+      {
+        "classification": "Text states",
+        "summary": "Moses broke the first tablets after seeing the calf and dancing.",
+        "references": [
+          "Exodus 32:19"
+        ]
+      },
+      {
+        "classification": "Text states",
+        "summary": "The replacement tablets are to receive the words that were on the first tablets.",
+        "references": [
+          "Exodus 34:1"
+        ]
+      },
+      {
+        "classification": "Structural observation",
+        "summary": "Exodus 34:10–26 contains a sequence of covenant commands.",
+        "references": [
+          "Exodus 34:10–26"
+        ]
+      },
+      {
+        "classification": "Text states",
+        "summary": "Exodus 34:27 refers to “these words,” and verse 28 refers to “the words of the covenant, the Ten Words.”",
+        "references": [
+          "Exodus 34:27–28"
+        ]
+      },
+      {
+        "classification": "Disputed interpretation",
+        "summary": "The precise referent of the phrases in Exodus 34:27–28 and their relationship to the preceding commands are interpreted differently.",
+        "references": [
+          "Exodus 34:27–28"
+        ]
+      }
+    ],
     "sourceLinks": [
       {
-        "label": "Sefaria: Exodus 34",
+        "label": "Open Exodus 34 in Sefaria",
         "url": "https://www.sefaria.org/Exodus.34"
       }
     ],
-    "notes": "Reference metadata only; biblical text is not duplicated."
+    "notes": "The comparison does not claim that Exodus 34 replaces Exodus 20 or that the passages are identical."
   },
   {
     "id": "deuteronomy-5",
@@ -43,14 +184,79 @@
     "covenantIds": [
       "mosaic"
     ],
-    "description": "Moses’ retelling of the Horeb covenant and Decalogue.",
-    "sections": [],
+    "literarySetting": "In Moab, Moses addresses Israel’s next generation and recalls the covenant made at Horeb.",
+    "speakerOrNarrator": "Moses narrates the Horeb setting and recites the covenant words to Israel.",
+    "tabletContext": "Moses says the words were written on two stone tablets and given to him.",
+    "structuralSections": [
+      {
+        "label": "Call to hear and covenant setting",
+        "references": [
+          "Deuteronomy 5:1–5"
+        ]
+      },
+      {
+        "label": "Decalogue formulation",
+        "references": [
+          "Deuteronomy 5:6–21"
+        ]
+      },
+      {
+        "label": "Tablets and the people’s response",
+        "references": [
+          "Deuteronomy 5:22–27"
+        ]
+      },
+      {
+        "label": "God’s response and call to obedience",
+        "references": [
+          "Deuteronomy 5:28–33"
+        ]
+      }
+    ],
+    "repeatedThemes": [
+      "Exclusive worship",
+      "Name",
+      "Sabbath",
+      "Parents",
+      "Murder",
+      "Adultery",
+      "Theft",
+      "False witness",
+      "Coveting"
+    ],
+    "distinctiveThemes": [
+      "The Sabbath rationale points to Israel’s deliverance from slavery",
+      "Wife and house are expressed separately in the coveting command"
+    ],
+    "observations": [
+      {
+        "classification": "Text states",
+        "summary": "Moses recalls the covenant made at Horeb and addresses Israel.",
+        "references": [
+          "Deuteronomy 5:1–5"
+        ]
+      },
+      {
+        "classification": "Text states",
+        "summary": "The words are said to have been written on two stone tablets.",
+        "references": [
+          "Deuteronomy 5:22"
+        ]
+      },
+      {
+        "classification": "Traditional identification",
+        "summary": "Jewish and Christian traditions commonly identify Deuteronomy 5:6–21 as a Decalogue formulation, while differing in enumeration.",
+        "references": [
+          "Deuteronomy 5:6–21"
+        ]
+      }
+    ],
     "sourceLinks": [
       {
-        "label": "Sefaria: Deuteronomy 5",
+        "label": "Open Deuteronomy 5 in Sefaria",
         "url": "https://www.sefaria.org/Deuteronomy.5"
       }
     ],
-    "notes": "Reference metadata only; biblical text is not duplicated."
+    "notes": "Reference and structural metadata only; biblical text is not duplicated."
   }
 ]
