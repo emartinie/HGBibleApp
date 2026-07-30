@@ -221,7 +221,7 @@
     const close = document.createElement("button");
     close.type = "button";
     close.className = "covenant-close";
-    close.textContent = "×";
+    close.textContent = "Ã—";
     close.setAttribute("aria-label", "Close covenant detail");
     close.addEventListener("click", () => closeCovenantDetail(container));
     header.append(copy, close);
@@ -278,7 +278,7 @@
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.className = "mt-3 inline-block text-sm font-semibold text-sky-300 underline";
-      link.textContent = source.label + " ↗";
+      link.textContent = source.label + " â†—";
       card.appendChild(link);
     });
     return card;
@@ -324,7 +324,7 @@
         button.type = "button";
         button.className = "covenant-commandment";
         appendText(button, "strong", commandment.title, "block text-sm");
-        appendText(button, "span", commandment.code + " · " + commandment.reference, "block text-xs text-sky-300");
+        appendText(button, "span", commandment.code + " Â· " + commandment.reference, "block text-xs text-sky-300");
         button.addEventListener("click", () => {
           activeCommandmentId = String(commandment.id);
           window.HGRoute?.setCardState?.("commandments", { id: activeCommandmentId }, {
@@ -344,15 +344,56 @@
       (covenant.ntReferences || []).forEach(reference => appendText(body, "p", reference, "covenant-ref"));
     });
 
-    appendSection(container, "Ancient source hooks", false, body => {
+    appendSection(container, "Ancient Sources", false, body => {
+      const labels = { philo: "Philo", josephus: "Josephus", jubilees: "Jubilees" };
       const groups = Object.entries(covenant.relatedSources || {}).filter(([, entries]) => Array.isArray(entries) && entries.length);
       if (!groups.length) {
-        appendText(body, "p", "Precise Philo, Josephus, and Jubilees references remain intentionally deferred pending verification.", "text-sm text-slate-400");
+        appendText(body, "p", "No verified ancient-source references are available for this covenant yet.", "text-sm text-slate-400");
         return;
       }
-      groups.forEach(([name, entries]) => {
-        appendText(body, "h6", name, "font-semibold text-sky-200");
-        entries.forEach(entry => appendText(body, "p", entry.reference || entry, "text-sm text-slate-300"));
+
+      groups.forEach(([name, entries], groupIndex) => {
+        const group = document.createElement("details");
+        group.className = "covenant-source-group";
+        group.open = groupIndex === 0;
+        const heading = document.createElement("summary");
+        heading.textContent = (labels[name] || name) + " (" + entries.length + ")";
+        const list = document.createElement("div");
+        list.className = "covenant-source-list";
+
+        entries.forEach(entry => {
+          const card = document.createElement("article");
+          card.className = "covenant-source-card";
+          appendText(card, "h6", [entry.author, entry.work, entry.location].filter(Boolean).join(" Â· "), "covenant-source-title");
+          if (entry.summary) appendText(card, "p", entry.summary, "covenant-source-summary");
+          if (Array.isArray(entry.topics) && entry.topics.length) {
+            const topics = document.createElement("div");
+            topics.className = "covenant-source-topics";
+            entry.topics.forEach(topic => appendText(topics, "span", topic, "comparison-label"));
+            card.appendChild(topics);
+          }
+          if (Array.isArray(entry.externalLinks) && entry.externalLinks.length) {
+            const actions = document.createElement("div");
+            actions.className = "covenant-source-actions";
+            entry.externalLinks.filter(link => link?.url).forEach(linkData => {
+              const link = document.createElement("a");
+              link.href = linkData.url;
+              link.className = "covenant-source-link";
+              link.textContent = linkData.label || "Open source";
+              if (/^https?:/i.test(linkData.url)) {
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.textContent += " â†—";
+              }
+              actions.appendChild(link);
+            });
+            if (actions.children.length) card.appendChild(actions);
+          }
+          list.appendChild(card);
+        });
+
+        group.append(heading, list);
+        body.appendChild(group);
       });
     });
 
@@ -606,7 +647,7 @@
 
         appendText(row, "div", cmd.title || "Untitled commandment", "font-semibold text-white");
         appendText(row, "div", cmd.reference || "No reference listed", "text-xs text-slate-300");
-        appendText(row, "div", `${cmd.type || "unknown"} • ${cmd.category || "Uncategorized"}`, "text-xs text-slate-400");
+        appendText(row, "div", `${cmd.type || "unknown"} â€¢ ${cmd.category || "Uncategorized"}`, "text-xs text-slate-400");
 
         row.lastChild.textContent = `${cmd.code || "No code"} \u2022 ${cmd.type || "unknown"} \u2022 ${cmd.category || "Uncategorized"}`;
         if (Array.isArray(cmd.themes) && cmd.themes.length) {
@@ -708,3 +749,4 @@
 
   initCommandmentsCard();
 })();
+
