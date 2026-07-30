@@ -47,6 +47,11 @@
     return (await load()).associations.filter(item => String(item.commandmentId) === stableId);
   }
 
+  async function getAssociationsForCovenant(covenantId) {
+    const stableId = String(covenantId || "");
+    return (await load()).associations.filter(item => item.covenantId === stableId);
+  }
+
   async function getComparisonMetadata(ids) {
     const comparisons = (await load()).comparisons;
     if (!ids) return comparisons.slice();
@@ -63,6 +68,7 @@
     getAll,
     getById,
     getAssociationsForCommandment,
+    getAssociationsForCovenant,
     getComparisonMetadata,
     clearCache
   });
