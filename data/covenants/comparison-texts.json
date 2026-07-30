@@ -1,0 +1,56 @@
+[
+  {
+    "id": "exodus-20",
+    "title": "Exodus 20",
+    "reference": "Exodus 20",
+    "sefariaRef": "Exodus.20",
+    "covenantIds": [
+      "mosaic"
+    ],
+    "description": "The Decalogue and accompanying Sinai narrative context.",
+    "sections": [],
+    "sourceLinks": [
+      {
+        "label": "Sefaria: Exodus 20",
+        "url": "https://www.sefaria.org/Exodus.20"
+      }
+    ],
+    "notes": "Reference metadata only; biblical text is not duplicated."
+  },
+  {
+    "id": "exodus-34",
+    "title": "Exodus 34",
+    "reference": "Exodus 34",
+    "sefariaRef": "Exodus.34",
+    "covenantIds": [
+      "mosaic"
+    ],
+    "description": "Covenant renewal material following the golden calf episode.",
+    "sections": [],
+    "sourceLinks": [
+      {
+        "label": "Sefaria: Exodus 34",
+        "url": "https://www.sefaria.org/Exodus.34"
+      }
+    ],
+    "notes": "Reference metadata only; biblical text is not duplicated."
+  },
+  {
+    "id": "deuteronomy-5",
+    "title": "Deuteronomy 5",
+    "reference": "Deuteronomy 5",
+    "sefariaRef": "Deuteronomy.5",
+    "covenantIds": [
+      "mosaic"
+    ],
+    "description": "Moses’ retelling of the Horeb covenant and Decalogue.",
+    "sections": [],
+    "sourceLinks": [
+      {
+        "label": "Sefaria: Deuteronomy 5",
+        "url": "https://www.sefaria.org/Deuteronomy.5"
+      }
+    ],
+    "notes": "Reference metadata only; biblical text is not duplicated."
+  }
+]
