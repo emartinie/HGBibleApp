@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "description": "Authoritative published-investigation identity, routing, file, review status, and manually curated relationship metadata. Investigation HTML remains authoritative for prose and presentation.",
+  "investigations": [
+    {
+      "id": "why-trust-matters-more-than-agreement",
+      "title": "Trust Over Agreement #000",
+      "file": "why-trust-matters-more-than-agreement.html",
+      "order": 0,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "where-did-the-sabbath-go",
+      "title": "Where Did the Sabbath Go? #001",
+      "file": "where_did_the_sabbath_go.html",
+      "order": 1,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "who-was-paul-or-rabbi-shaul-investigation-v1",
+      "title": "Who was Paul, or Rabbi Shaul? #002",
+      "file": "who-was-paul-or-rabbi-shaul-investigation-v1.html",
+      "order": 2,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "was-yeshua-born-september-11-3-bc",
+      "title": "Was Jesus born September 11th? #003",
+      "file": "was-yeshua-born-september-11-3-bc.html",
+      "order": 3,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "investigating-food-laws",
+      "title": "Was Clean and Unclean Food Changed? #004",
+      "file": "investigating-food-laws.html",
+      "order": 4,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "equidistant-letter-sequences-in-the-torah",
+      "title": "Did the Creator leave His fingerprint in the Torah? #005",
+      "file": "equidistant-letter-sequences-in-the-torah.html",
+      "order": 5,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "is-the-son-the-father",
+      "title": "Is the Son the Father? #006",
+      "file": "is-the-son-the-father.html",
+      "order": 6,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "messiah2030",
+      "title": "Messiah 2030: Claims, Evidence, and Method correct? #007",
+      "file": "messiah-2030-claims-evidence-and-method.html",
+      "order": 7,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "what-should-all-biblical-believers-be-called",
+      "title": "What Should All Biblical Believers Be Called? #008",
+      "file": "what-should-all-biblical-believers-be-called.html",
+      "order": 8,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "genesis-5-gospel-in-the-names-claim",
+      "title": "The Genesis 5 Gospel in the Names Claim? #009",
+      "file": "genesis-5-gospel-in-the-names-claim.html",
+      "order": 9,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "biblical-references-to-non-canonical-and-lost-sources",
+      "title": "Biblical References to Non-Canonical and Lost Sources? #010",
+      "file": "biblical-references-to-non-canonical-and-lost-sources.html",
+      "order": 10,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "non-canonical-sources-quoted-or-echoed-in-the-new-testament",
+      "title": "Non-Canonical Sources Quoted or Echoed in the New Testament? #011",
+      "file": "non-canonical-sources-quoted-or-echoed-in-the-new-testament.html",
+      "order": 11,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "testing-prophetic-claims",
+      "title": "Testing Prophetic Claims #012",
+      "file": "testing-prophetic-claims.html",
+      "order": 12,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "continuity-of-progressive-revelation",
+      "title": "The Continuity of Progressive Revelation #013",
+      "file": "continuity-of-progressive-revelation.html",
+      "order": 13,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "who-was-rabban-gamaliel-the-elder",
+      "title": "Who Was Rabban Gamaliel the Elder? #014",
+      "file": "who-was-rabban-gamaliel-the-elder.html",
+      "order": 14,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    },
+    {
+      "id": "did-jewish-followers-of-yeshua-leave-judaism",
+      "title": "Did the Jewish Followers of Yeshua Leave Judaism? #015",
+      "file": "did-jewish-followers-of-yeshua-leave-judaism.html",
+      "order": 15,
+      "publicationStatus": "published",
+      "reviewStatus": "unreviewed",
+      "relationships": {
+        "scriptureReferences": [],
+        "covenants": [],
+        "commandments": [],
+        "ancientSources": [],
+        "intertext": [],
+        "articles": [],
+        "media": [],
+        "relatedInvestigations": []
+      }
+    }
+  ]
+}
