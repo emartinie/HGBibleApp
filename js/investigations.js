@@ -19,28 +19,51 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const INVESTIGATIONS = [
-  { title: "Trust Over Agreement #000", file: "why-trust-matters-more-than-agreement.html" },
-  { title: "Where Did the Sabbath Go? #001", file: "where_did_the_sabbath_go.html" },
-  { title: "Who was Paul, or Rabbi Shaul? #002", file: "who-was-paul-or-rabbi-shaul-investigation-v1.html" },
-  { title: "Was Jesus born September 11th? #003", file: "was-yeshua-born-september-11-3-bc.html" },
-  { title: "Was Clean and Unclean Food Changed? #004", file: "investigating-food-laws.html" },
-  { title: "Did the Creator leave His fingerprint in the Torah? #005", file: "equidistant-letter-sequences-in-the-torah.html" },
-  { title: "Is the Son the Father? #006", file: "is-the-son-the-father.html" },
-  { title: "Messiah 2030: Claims, Evidence, and Method correct? #007", file: "messiah-2030-claims-evidence-and-method.html" },
-  { title: "What Should All Biblical Believers Be Called? #008", file: "what-should-all-biblical-believers-be-called.html" },
-  { title: "The Genesis 5 Gospel in the Names Claim? #009", file: "genesis-5-gospel-in-the-names-claim.html" },
-  { title: "Biblical References to Non-Canonical and Lost Sources? #010", file: "biblical-references-to-non-canonical-and-lost-sources.html" },
-  { title: "Non-Canonical Sources Quoted or Echoed in the New Testament? #011", file: "non-canonical-sources-quoted-or-echoed-in-the-new-testament.html" },
-  { title: "Testing Prophetic Claims #012", file: "testing-prophetic-claims.html" },
-  { title: "The Continuity of Progressive Revelation #013", file: "continuity-of-progressive-revelation.html" },
-  { title: "Who Was Rabban Gamaliel the Elder? #014", file: "who-was-rabban-gamaliel-the-elder.html" },
-  { title: "Did the Jewish Followers of Yeshua Leave Judaism? #015", file: "did-jewish-followers-of-yeshua-leave-judaism.html" }
-];
+const PUBLISHED_MANIFEST_URL = "data/investigations/published-investigations.json";
+let INVESTIGATIONS = [];
+let publishedManifestPromise = null;
+
+async function loadPublishedInvestigations(signal) {
+  if (INVESTIGATIONS.length) return INVESTIGATIONS;
+  if (publishedManifestPromise) return publishedManifestPromise;
+
+  publishedManifestPromise = fetch(PUBLISHED_MANIFEST_URL, { signal })
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(manifest => {
+      if (!Array.isArray(manifest?.investigations)) {
+        throw new Error("Published investigation manifest is invalid.");
+      }
+
+      const ids = new Set();
+      const files = new Set();
+      const records = manifest.investigations
+        .filter(item => item?.publicationStatus === "published")
+        .sort((a, b) => a.order - b.order)
+        .map(item => {
+          if (!item.id || !item.title || !item.file || ids.has(item.id) || files.has(item.file)) {
+            throw new Error("Published investigation manifest contains an invalid or duplicate record.");
+          }
+          ids.add(item.id);
+          files.add(item.file);
+          return item;
+        });
+
+      INVESTIGATIONS = records;
+      return INVESTIGATIONS;
+    })
+    .finally(() => {
+      publishedManifestPromise = null;
+    });
+
+  return publishedManifestPromise;
+}
 
 function getInvestigationId(item) {
   if (!item) return "";
-  if (item.file === "messiah-2030-claims-evidence-and-method.html") return "messiah2030";
+  if (item.id) return String(item.id);
   return String(item.file || "")
     .replace(/\.html$/i, "")
     .replace(/[^a-z0-9]+/gi, "-")
@@ -567,7 +590,15 @@ async function initInvestigationsCard(root = document) {
   if (!el("investigationList") || !el("investigationViewer")) return;
   activeController = new AbortController();
   const { signal } = activeController;
-  searchPublishedInvestigations(el("investigationSearch")?.value || "");
+  try {
+    await loadPublishedInvestigations(signal);
+    if (signal.aborted) return;
+    searchPublishedInvestigations(el("investigationSearch")?.value || "");
+  } catch (error) {
+    if (error.name === "AbortError") return;
+    console.warn("Published investigation manifest unavailable", error);
+    renderPublishedStatus("Published investigations are temporarily unavailable. The research backlog and voting tools remain available.");
+  }
 
   activeRoot.querySelectorAll("[data-investigation-view]").forEach(button => button.addEventListener("click", () => selectView(button.dataset.investigationView), { signal }));
   el("investigationSearch")?.addEventListener("input", event => searchPublishedInvestigations(event.target.value), { signal });
@@ -638,4 +669,3 @@ window.HGRoute?.registerCard?.("investigations", {
     return activeInvestigationId ? { id: activeInvestigationId } : {};
   }
 });
-
