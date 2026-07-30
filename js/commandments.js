@@ -391,6 +391,12 @@
                 link.target = "_blank";
                 link.rel = "noopener noreferrer";
                 link.textContent += " â†—";
+              } else if (linkData.url.startsWith("?card=ancient-library")) {
+                link.addEventListener("click", event => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  window.location.assign(link.href);
+                });
               }
               actions.appendChild(link);
             });
