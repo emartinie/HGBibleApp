@@ -420,15 +420,21 @@
     "mediator": "Moses",
     "scriptureRange": [
       {
-        "summary": "Arrival at Sinai and covenant proposal",
+        "summary": "Covenant initiation and Israel’s response at Sinai",
         "references": [
           "Exodus 19"
         ]
       },
       {
-        "summary": "Covenant words and ordinances",
+        "summary": "The Decalogue and the people’s response",
         "references": [
-          "Exodus 20–23"
+          "Exodus 20"
+        ]
+      },
+      {
+        "summary": "Covenant ordinances",
+        "references": [
+          "Exodus 21–23"
         ]
       },
       {
@@ -438,21 +444,39 @@
         ]
       },
       {
-        "summary": "Covenant renewal after the golden calf",
+        "summary": "The Sabbath identified as a sign",
+        "references": [
+          "Exodus 31:12–17"
+        ]
+      },
+      {
+        "summary": "Golden calf breach and Moses’ intercession",
+        "references": [
+          "Exodus 32"
+        ]
+      },
+      {
+        "summary": "Replacement tablets and covenant renewal",
         "references": [
           "Exodus 34"
         ]
       },
       {
-        "summary": "Horeb covenant retold",
+        "summary": "Blessings, warnings, and covenant consequences",
+        "references": [
+          "Leviticus 26"
+        ]
+      },
+      {
+        "summary": "Horeb covenant and Decalogue retold",
         "references": [
           "Deuteronomy 5"
         ]
       },
       {
-        "summary": "Blessings and curses",
+        "summary": "Covenant ceremony, blessings, curses, and restoration appeal",
         "references": [
-          "Deuteronomy 28"
+          "Deuteronomy 27–30"
         ]
       }
     ],
@@ -490,17 +514,31 @@
     ],
     "blessings": [
       {
-        "summary": "Covenant blessings are enumerated",
+        "summary": "Covenant blessings are described for obedience",
         "references": [
+          "Leviticus 26:3–13",
           "Deuteronomy 28:1–14"
+        ]
+      },
+      {
+        "summary": "Restoration following return to God is described",
+        "references": [
+          "Deuteronomy 30:1–10"
         ]
       }
     ],
     "curses": [
       {
-        "summary": "Covenant curses are enumerated",
+        "summary": "Covenant warnings and consequences are described",
         "references": [
+          "Leviticus 26:14–39",
           "Deuteronomy 28:15–68"
+        ]
+      },
+      {
+        "summary": "Blessing and curse, life and death, are set before Israel",
+        "references": [
+          "Deuteronomy 30:15–20"
         ]
       }
     ],
@@ -569,6 +607,54 @@
       "exodus-20",
       "exodus-34",
       "deuteronomy-5"
+    ],
+    "detailSections": [
+      {
+        "id": "initiation",
+        "title": "Covenant initiation",
+        "classification": "Text states",
+        "summary": "Israel arrives at Sinai. God proposes a covenant relationship, and the people answer that they will do what God has spoken.",
+        "references": [
+          "Exodus 19:1–8"
+        ]
+      },
+      {
+        "id": "ratification",
+        "title": "Covenant ratification",
+        "classification": "Text states",
+        "summary": "Moses reports the words and ordinances, records them, builds an altar, reads the covenant document, and applies covenant blood after the people affirm their response.",
+        "references": [
+          "Exodus 24:3–8"
+        ]
+      },
+      {
+        "id": "breach",
+        "title": "Golden calf breach",
+        "classification": "Text states",
+        "summary": "While Moses is on the mountain, the people make and worship a calf. Moses breaks the tablets after descending and seeing the calf and dancing.",
+        "references": [
+          "Exodus 32:1–20"
+        ]
+      },
+      {
+        "id": "renewal",
+        "title": "Covenant renewal",
+        "classification": "Text states",
+        "summary": "Moses is commanded to cut two replacement tablets. Exodus 34 presents renewed covenant words and commands following the breach.",
+        "references": [
+          "Exodus 34:1–28"
+        ]
+      },
+      {
+        "id": "investigation",
+        "title": "The Exodus 34 question",
+        "classification": "Disputed interpretation",
+        "summary": "Exodus 34:1 says the replacement tablets will bear the words that were on the first tablets. Verses 27–28 refer to “these words,” “the words of the covenant,” and “the Ten Words.” The precise grammatical and literary relationship between those phrases and the preceding commands is interpreted differently. This engine presents the observations without selecting one identification.",
+        "references": [
+          "Exodus 34:1",
+          "Exodus 34:10–28"
+        ]
+      }
     ]
   },
   {
