@@ -1,0 +1,933 @@
+[
+  {
+    "id": "creation",
+    "title": "Creation Covenant (Proposed)",
+    "shortTitle": "Creation",
+    "aliases": [
+      "Covenant with Creation",
+      "Adamic Covenant"
+    ],
+    "category": "primordial",
+    "classification": {
+      "status": "disputed",
+      "description": "Genesis 1–3 does not explicitly use the Hebrew word for covenant. Some interpreters describe these relationships as covenantal; Hosea 6:7 is textually and interpretively disputed."
+    },
+    "summary": "A proposed covenantal framework for the relationships, responsibilities, and consequences described at creation.",
+    "parties": [
+      "God",
+      "Humanity"
+    ],
+    "mediator": null,
+    "scriptureRange": [
+      {
+        "summary": "Creation, vocation, command, and consequence",
+        "references": [
+          "Genesis 1:26–31",
+          "Genesis 2:15–17",
+          "Genesis 3:14–24"
+        ]
+      },
+      {
+        "summary": "A disputed possible reference to Adam and covenant transgression",
+        "references": [
+          "Hosea 6:7"
+        ]
+      }
+    ],
+    "covenantSign": [],
+    "promises": [
+      {
+        "summary": "Humanity is blessed and commissioned to be fruitful and exercise stewardship",
+        "references": [
+          "Genesis 1:28"
+        ]
+      }
+    ],
+    "obligations": [
+      {
+        "summary": "Humanity is placed in the garden to work and keep it",
+        "references": [
+          "Genesis 2:15"
+        ]
+      },
+      {
+        "summary": "The tree of the knowledge of good and evil is prohibited",
+        "references": [
+          "Genesis 2:16–17"
+        ]
+      }
+    ],
+    "blessings": [
+      {
+        "summary": "Fruitfulness, provision, and delegated rule are described",
+        "references": [
+          "Genesis 1:28–30"
+        ]
+      }
+    ],
+    "curses": [
+      {
+        "summary": "Consequences are announced after disobedience",
+        "references": [
+          "Genesis 3:14–19"
+        ]
+      }
+    ],
+    "duration": {
+      "description": "Not explicitly stated as a covenant duration.",
+      "references": []
+    },
+    "fulfillmentNotes": [],
+    "relatedSources": {
+      "josephus": [],
+      "philo": [],
+      "jubilees": [],
+      "firstEnoch": [],
+      "deadSeaScrolls": [],
+      "mishnah": [],
+      "talmud": [],
+      "churchFathers": [],
+      "other": []
+    },
+    "ntReferences": [],
+    "sefariaLinks": [
+      {
+        "label": "Genesis 1–3",
+        "url": "https://www.sefaria.org/Genesis.1-3"
+      },
+      {
+        "label": "Hosea 6:7",
+        "url": "https://www.sefaria.org/Hosea.6.7"
+      }
+    ],
+    "timelineEvents": [
+      {
+        "summary": "Creation and placement of humanity in Eden",
+        "references": [
+          "Genesis 1–2"
+        ]
+      },
+      {
+        "summary": "Human disobedience and expulsion from Eden",
+        "references": [
+          "Genesis 3"
+        ]
+      }
+    ],
+    "comparisonTexts": []
+  },
+  {
+    "id": "noahic",
+    "title": "Noahic Covenant",
+    "shortTitle": "Noah",
+    "aliases": [
+      "Covenant with Noah"
+    ],
+    "category": "universal",
+    "classification": {
+      "status": "explicit",
+      "description": "Genesis explicitly calls this arrangement a covenant."
+    },
+    "summary": "God establishes a covenant with Noah, his descendants, and every living creature following the flood.",
+    "parties": [
+      "God",
+      "Noah",
+      "Noah’s descendants",
+      "Every living creature"
+    ],
+    "mediator": "Noah",
+    "scriptureRange": [
+      {
+        "summary": "Covenant announcement and sign",
+        "references": [
+          "Genesis 8:20–9:17"
+        ]
+      }
+    ],
+    "covenantSign": [
+      {
+        "summary": "The bow in the cloud",
+        "references": [
+          "Genesis 9:12–17"
+        ]
+      }
+    ],
+    "promises": [
+      {
+        "summary": "God promises not again to destroy all flesh by floodwaters",
+        "references": [
+          "Genesis 9:11"
+        ]
+      },
+      {
+        "summary": "The ordered cycles of the earth will continue",
+        "references": [
+          "Genesis 8:21–22"
+        ]
+      }
+    ],
+    "obligations": [
+      {
+        "summary": "Noah and his family are told to be fruitful and multiply",
+        "references": [
+          "Genesis 9:1",
+          "Genesis 9:7"
+        ]
+      },
+      {
+        "summary": "Blood is not to be consumed with the flesh",
+        "references": [
+          "Genesis 9:4"
+        ]
+      },
+      {
+        "summary": "An accounting is required for human bloodshed",
+        "references": [
+          "Genesis 9:5–6"
+        ]
+      }
+    ],
+    "blessings": [
+      {
+        "summary": "Noah and his sons are blessed",
+        "references": [
+          "Genesis 9:1"
+        ]
+      }
+    ],
+    "curses": [],
+    "duration": {
+      "description": "Described as an everlasting covenant for all generations.",
+      "references": [
+        "Genesis 9:12",
+        "Genesis 9:16"
+      ]
+    },
+    "fulfillmentNotes": [],
+    "relatedSources": {
+      "josephus": [],
+      "philo": [],
+      "jubilees": [],
+      "firstEnoch": [],
+      "deadSeaScrolls": [],
+      "mishnah": [],
+      "talmud": [],
+      "churchFathers": [],
+      "other": []
+    },
+    "ntReferences": [
+      "Matthew 24:37–39",
+      "Hebrews 11:7",
+      "1 Peter 3:20–21",
+      "2 Peter 2:5"
+    ],
+    "sefariaLinks": [
+      {
+        "label": "Genesis 8:20–9:17",
+        "url": "https://www.sefaria.org/Genesis.8.20-9.17"
+      }
+    ],
+    "timelineEvents": [
+      {
+        "summary": "Flood subsides and Noah offers burnt offerings",
+        "references": [
+          "Genesis 8:13–22"
+        ]
+      },
+      {
+        "summary": "Covenant established and bow appointed",
+        "references": [
+          "Genesis 9:8–17"
+        ]
+      }
+    ],
+    "comparisonTexts": []
+  },
+  {
+    "id": "abrahamic",
+    "title": "Abrahamic Covenant",
+    "shortTitle": "Abraham",
+    "aliases": [
+      "Covenant with Abraham"
+    ],
+    "category": "ancestral",
+    "classification": {
+      "status": "explicit",
+      "description": "Genesis explicitly describes covenants made with Abram or Abraham."
+    },
+    "summary": "God binds promises concerning descendants, land, blessing, and Abraham’s relationship to nations to Abraham and his offspring.",
+    "parties": [
+      "God",
+      "Abraham",
+      "Abraham’s offspring"
+    ],
+    "mediator": "Abraham",
+    "scriptureRange": [
+      {
+        "summary": "Initial call and promises",
+        "references": [
+          "Genesis 12:1–3"
+        ]
+      },
+      {
+        "summary": "Covenant ceremony",
+        "references": [
+          "Genesis 15:1–21"
+        ]
+      },
+      {
+        "summary": "Covenant, name change, and circumcision",
+        "references": [
+          "Genesis 17:1–27"
+        ]
+      },
+      {
+        "summary": "Promises reaffirmed after the binding of Isaac",
+        "references": [
+          "Genesis 22:15–18"
+        ]
+      }
+    ],
+    "covenantSign": [
+      {
+        "summary": "Circumcision",
+        "references": [
+          "Genesis 17:9–14"
+        ]
+      }
+    ],
+    "promises": [
+      {
+        "summary": "A great nation, blessing, a great name, and blessing extending to the families of the earth",
+        "references": [
+          "Genesis 12:2–3"
+        ]
+      },
+      {
+        "summary": "Numerous offspring and land",
+        "references": [
+          "Genesis 15:5",
+          "Genesis 15:18–21",
+          "Genesis 17:4–8"
+        ]
+      }
+    ],
+    "obligations": [
+      {
+        "summary": "Abraham is called to walk before God and be blameless",
+        "references": [
+          "Genesis 17:1"
+        ]
+      },
+      {
+        "summary": "Male members of the household are to be circumcised",
+        "references": [
+          "Genesis 17:9–14"
+        ]
+      }
+    ],
+    "blessings": [
+      {
+        "summary": "Abraham is blessed and is to become a blessing",
+        "references": [
+          "Genesis 12:2–3"
+        ]
+      }
+    ],
+    "curses": [],
+    "duration": {
+      "description": "The covenant and possession are described with everlasting language in Genesis 17.",
+      "references": [
+        "Genesis 17:7–8",
+        "Genesis 17:13",
+        "Genesis 17:19"
+      ]
+    },
+    "fulfillmentNotes": [],
+    "relatedSources": {
+      "josephus": [],
+      "philo": [],
+      "jubilees": [],
+      "firstEnoch": [],
+      "deadSeaScrolls": [],
+      "mishnah": [],
+      "talmud": [],
+      "churchFathers": [],
+      "other": []
+    },
+    "ntReferences": [
+      "Luke 1:72–73",
+      "Acts 3:25–26",
+      "Romans 4:1–25",
+      "Galatians 3:6–29",
+      "Hebrews 6:13–20"
+    ],
+    "sefariaLinks": [
+      {
+        "label": "Genesis 12",
+        "url": "https://www.sefaria.org/Genesis.12"
+      },
+      {
+        "label": "Genesis 15",
+        "url": "https://www.sefaria.org/Genesis.15"
+      },
+      {
+        "label": "Genesis 17",
+        "url": "https://www.sefaria.org/Genesis.17"
+      }
+    ],
+    "timelineEvents": [
+      {
+        "summary": "Abram is called from his land",
+        "references": [
+          "Genesis 12:1–4"
+        ]
+      },
+      {
+        "summary": "Covenant ceremony",
+        "references": [
+          "Genesis 15:7–21"
+        ]
+      },
+      {
+        "summary": "Circumcision appointed",
+        "references": [
+          "Genesis 17:9–27"
+        ]
+      }
+    ],
+    "comparisonTexts": []
+  },
+  {
+    "id": "mosaic",
+    "title": "Mosaic / Sinai Covenant",
+    "shortTitle": "Sinai",
+    "aliases": [
+      "Mosaic Covenant",
+      "Sinai Covenant",
+      "Horeb Covenant"
+    ],
+    "category": "national",
+    "classification": {
+      "status": "explicit",
+      "description": "Exodus and Deuteronomy explicitly identify covenant-making at Sinai or Horeb."
+    },
+    "summary": "God enters into covenant with Israel at Sinai, giving covenant words, laws, worship instructions, and stated blessings and consequences.",
+    "parties": [
+      "God",
+      "Israel"
+    ],
+    "mediator": "Moses",
+    "scriptureRange": [
+      {
+        "summary": "Arrival at Sinai and covenant proposal",
+        "references": [
+          "Exodus 19"
+        ]
+      },
+      {
+        "summary": "Covenant words and ordinances",
+        "references": [
+          "Exodus 20–23"
+        ]
+      },
+      {
+        "summary": "Covenant ratification",
+        "references": [
+          "Exodus 24"
+        ]
+      },
+      {
+        "summary": "Covenant renewal after the golden calf",
+        "references": [
+          "Exodus 34"
+        ]
+      },
+      {
+        "summary": "Horeb covenant retold",
+        "references": [
+          "Deuteronomy 5"
+        ]
+      },
+      {
+        "summary": "Blessings and curses",
+        "references": [
+          "Deuteronomy 28"
+        ]
+      }
+    ],
+    "covenantSign": [
+      {
+        "summary": "The Sabbath is called a sign between God and Israel",
+        "references": [
+          "Exodus 31:12–17"
+        ]
+      }
+    ],
+    "promises": [
+      {
+        "summary": "Israel is described as God’s treasured possession, a kingdom of priests, and a holy nation if the covenant is kept",
+        "references": [
+          "Exodus 19:5–6"
+        ]
+      }
+    ],
+    "obligations": [
+      {
+        "summary": "Israel agrees to do what God has spoken",
+        "references": [
+          "Exodus 19:8",
+          "Exodus 24:3",
+          "Exodus 24:7"
+        ]
+      },
+      {
+        "summary": "The covenant words and ordinances are given",
+        "references": [
+          "Exodus 20–23"
+        ]
+      }
+    ],
+    "blessings": [
+      {
+        "summary": "Covenant blessings are enumerated",
+        "references": [
+          "Deuteronomy 28:1–14"
+        ]
+      }
+    ],
+    "curses": [
+      {
+        "summary": "Covenant curses are enumerated",
+        "references": [
+          "Deuteronomy 28:15–68"
+        ]
+      }
+    ],
+    "duration": {
+      "description": "Different commands and institutions use continuing or everlasting language; this record does not resolve later interpretive questions about covenant duration.",
+      "references": [
+        "Exodus 31:16–17",
+        "Leviticus 24:8"
+      ]
+    },
+    "fulfillmentNotes": [],
+    "relatedSources": {
+      "josephus": [],
+      "philo": [],
+      "jubilees": [],
+      "firstEnoch": [],
+      "deadSeaScrolls": [],
+      "mishnah": [],
+      "talmud": [],
+      "churchFathers": [],
+      "other": []
+    },
+    "ntReferences": [
+      "Matthew 5:17–20",
+      "Acts 7:38",
+      "Romans 9:4",
+      "Galatians 3:15–25",
+      "Hebrews 8:6–13",
+      "Hebrews 9:18–22"
+    ],
+    "sefariaLinks": [
+      {
+        "label": "Exodus 19–24",
+        "url": "https://www.sefaria.org/Exodus.19-24"
+      },
+      {
+        "label": "Exodus 34",
+        "url": "https://www.sefaria.org/Exodus.34"
+      },
+      {
+        "label": "Deuteronomy 5",
+        "url": "https://www.sefaria.org/Deuteronomy.5"
+      }
+    ],
+    "timelineEvents": [
+      {
+        "summary": "Israel arrives at Sinai",
+        "references": [
+          "Exodus 19:1–2"
+        ]
+      },
+      {
+        "summary": "Covenant ratified with blood",
+        "references": [
+          "Exodus 24:3–8"
+        ]
+      },
+      {
+        "summary": "Covenant renewed",
+        "references": [
+          "Exodus 34:1–28"
+        ]
+      }
+    ],
+    "comparisonTexts": [
+      "exodus-20",
+      "exodus-34",
+      "deuteronomy-5"
+    ]
+  },
+  {
+    "id": "priestly-phinehas",
+    "title": "Priestly Covenant with Phinehas",
+    "shortTitle": "Phinehas",
+    "aliases": [
+      "Priestly Covenant",
+      "Covenant of Peace"
+    ],
+    "category": "priestly",
+    "classification": {
+      "status": "explicit",
+      "description": "Numbers 25 explicitly calls the grant to Phinehas a covenant of peace and a covenant of perpetual priesthood."
+    },
+    "summary": "God grants Phinehas a covenant of peace and perpetual priesthood following his action during the crisis at Peor.",
+    "parties": [
+      "God",
+      "Phinehas",
+      "Phinehas’s descendants"
+    ],
+    "mediator": "Phinehas",
+    "scriptureRange": [
+      {
+        "summary": "Covenant of peace and perpetual priesthood",
+        "references": [
+          "Numbers 25:10–13"
+        ]
+      }
+    ],
+    "covenantSign": [],
+    "promises": [
+      {
+        "summary": "A covenant of peace",
+        "references": [
+          "Numbers 25:12"
+        ]
+      },
+      {
+        "summary": "A covenant of perpetual priesthood for Phinehas and his descendants",
+        "references": [
+          "Numbers 25:13"
+        ]
+      }
+    ],
+    "obligations": [],
+    "blessings": [
+      {
+        "summary": "Perpetual priesthood is granted",
+        "references": [
+          "Numbers 25:13"
+        ]
+      }
+    ],
+    "curses": [],
+    "duration": {
+      "description": "The priesthood grant is described as perpetual.",
+      "references": [
+        "Numbers 25:13"
+      ]
+    },
+    "fulfillmentNotes": [],
+    "relatedSources": {
+      "josephus": [],
+      "philo": [],
+      "jubilees": [],
+      "firstEnoch": [],
+      "deadSeaScrolls": [],
+      "mishnah": [],
+      "talmud": [],
+      "churchFathers": [],
+      "other": []
+    },
+    "ntReferences": [],
+    "sefariaLinks": [
+      {
+        "label": "Numbers 25:10–13",
+        "url": "https://www.sefaria.org/Numbers.25.10-13"
+      }
+    ],
+    "timelineEvents": [
+      {
+        "summary": "Crisis at Peor and the action of Phinehas",
+        "references": [
+          "Numbers 25:1–9"
+        ]
+      },
+      {
+        "summary": "Covenant grant announced",
+        "references": [
+          "Numbers 25:10–13"
+        ]
+      }
+    ],
+    "comparisonTexts": []
+  },
+  {
+    "id": "davidic",
+    "title": "Davidic Covenant",
+    "shortTitle": "David",
+    "aliases": [
+      "Covenant with David"
+    ],
+    "category": "royal",
+    "classification": {
+      "status": "explicit",
+      "description": "Later biblical texts explicitly describe God’s promises to David as a covenant."
+    },
+    "summary": "God promises to establish David’s house and kingdom, with a continuing relationship between God and David’s royal descendant.",
+    "parties": [
+      "God",
+      "David",
+      "David’s house"
+    ],
+    "mediator": "David",
+    "scriptureRange": [
+      {
+        "summary": "Dynastic promise delivered through Nathan",
+        "references": [
+          "2 Samuel 7:8–17"
+        ]
+      },
+      {
+        "summary": "The promise described as covenant",
+        "references": [
+          "Psalm 89:3–4",
+          "Psalm 89:28–37"
+        ]
+      },
+      {
+        "summary": "Covenant and oath remembered",
+        "references": [
+          "Psalm 132:11–12"
+        ]
+      }
+    ],
+    "covenantSign": [],
+    "promises": [
+      {
+        "summary": "God promises to make David a house",
+        "references": [
+          "2 Samuel 7:11"
+        ]
+      },
+      {
+        "summary": "David’s offspring, throne, and kingdom are promised establishment",
+        "references": [
+          "2 Samuel 7:12–16"
+        ]
+      }
+    ],
+    "obligations": [
+      {
+        "summary": "Psalm 132 presents obedience by David’s sons as relevant to their continuing rule",
+        "references": [
+          "Psalm 132:12"
+        ]
+      }
+    ],
+    "blessings": [
+      {
+        "summary": "Enduring royal house and throne are promised",
+        "references": [
+          "2 Samuel 7:16"
+        ]
+      }
+    ],
+    "curses": [
+      {
+        "summary": "Discipline for iniquity is stated without removal of steadfast love",
+        "references": [
+          "2 Samuel 7:14–15"
+        ]
+      }
+    ],
+    "duration": {
+      "description": "The house and throne are described with continuing or forever language.",
+      "references": [
+        "2 Samuel 7:16",
+        "Psalm 89:28–29",
+        "Psalm 89:36–37"
+      ]
+    },
+    "fulfillmentNotes": [],
+    "relatedSources": {
+      "josephus": [],
+      "philo": [],
+      "jubilees": [],
+      "firstEnoch": [],
+      "deadSeaScrolls": [],
+      "mishnah": [],
+      "talmud": [],
+      "churchFathers": [],
+      "other": []
+    },
+    "ntReferences": [
+      "Luke 1:32–33",
+      "Acts 2:29–36",
+      "Acts 13:22–23",
+      "Romans 1:3",
+      "2 Timothy 2:8"
+    ],
+    "sefariaLinks": [
+      {
+        "label": "2 Samuel 7",
+        "url": "https://www.sefaria.org/II_Samuel.7"
+      },
+      {
+        "label": "Psalm 89",
+        "url": "https://www.sefaria.org/Psalms.89"
+      }
+    ],
+    "timelineEvents": [
+      {
+        "summary": "Nathan delivers the dynastic promise to David",
+        "references": [
+          "2 Samuel 7:4–17"
+        ]
+      }
+    ],
+    "comparisonTexts": []
+  },
+  {
+    "id": "new",
+    "title": "New Covenant",
+    "shortTitle": "New",
+    "aliases": [
+      "Renewed Covenant"
+    ],
+    "category": "restoration",
+    "classification": {
+      "status": "explicit",
+      "description": "Jeremiah explicitly promises a new covenant with the house of Israel and the house of Judah; New Testament texts explicitly use the same covenant language."
+    },
+    "summary": "Jeremiah promises a new covenant characterized by internalized instruction, restored relationship, knowledge of God, and forgiveness.",
+    "parties": [
+      "God",
+      "House of Israel",
+      "House of Judah"
+    ],
+    "mediator": "Jesus, identified as mediator in Hebrews 9:15 and 12:24",
+    "scriptureRange": [
+      {
+        "summary": "Promise of a new covenant",
+        "references": [
+          "Jeremiah 31:31–34"
+        ]
+      },
+      {
+        "summary": "Everlasting covenant and restored faithfulness",
+        "references": [
+          "Jeremiah 32:37–41"
+        ]
+      },
+      {
+        "summary": "Cleansing, new heart, and God’s spirit",
+        "references": [
+          "Ezekiel 36:22–28"
+        ]
+      },
+      {
+        "summary": "New covenant language at the meal",
+        "references": [
+          "Luke 22:20"
+        ]
+      },
+      {
+        "summary": "Jeremiah’s promise quoted and discussed",
+        "references": [
+          "Hebrews 8:6–13"
+        ]
+      }
+    ],
+    "covenantSign": [],
+    "promises": [
+      {
+        "summary": "God’s instruction written on the heart",
+        "references": [
+          "Jeremiah 31:33"
+        ]
+      },
+      {
+        "summary": "Restored covenant relationship and knowledge of God",
+        "references": [
+          "Jeremiah 31:33–34"
+        ]
+      },
+      {
+        "summary": "Forgiveness and no further remembrance of sin",
+        "references": [
+          "Jeremiah 31:34"
+        ]
+      }
+    ],
+    "obligations": [],
+    "blessings": [
+      {
+        "summary": "Gathering, security, one heart and one way are promised",
+        "references": [
+          "Jeremiah 32:37–40"
+        ]
+      }
+    ],
+    "curses": [],
+    "duration": {
+      "description": "Jeremiah 32 describes an everlasting covenant in the restoration context.",
+      "references": [
+        "Jeremiah 32:40"
+      ]
+    },
+    "fulfillmentNotes": [],
+    "relatedSources": {
+      "josephus": [],
+      "philo": [],
+      "jubilees": [],
+      "firstEnoch": [],
+      "deadSeaScrolls": [],
+      "mishnah": [],
+      "talmud": [],
+      "churchFathers": [],
+      "other": []
+    },
+    "ntReferences": [
+      "Luke 22:20",
+      "1 Corinthians 11:25",
+      "2 Corinthians 3:6",
+      "Hebrews 8:6–13",
+      "Hebrews 9:15",
+      "Hebrews 10:15–18",
+      "Hebrews 12:24"
+    ],
+    "sefariaLinks": [
+      {
+        "label": "Jeremiah 31:31–34",
+        "url": "https://www.sefaria.org/Jeremiah.31.31-34"
+      },
+      {
+        "label": "Jeremiah 32:37–41",
+        "url": "https://www.sefaria.org/Jeremiah.32.37-41"
+      },
+      {
+        "label": "Ezekiel 36:22–28",
+        "url": "https://www.sefaria.org/Ezekiel.36.22-28"
+      }
+    ],
+    "timelineEvents": [
+      {
+        "summary": "Jeremiah announces the new covenant",
+        "references": [
+          "Jeremiah 31:31–34"
+        ]
+      },
+      {
+        "summary": "Jesus uses new covenant language at the meal",
+        "references": [
+          "Luke 22:20"
+        ]
+      }
+    ],
+    "comparisonTexts": []
+  }
+]
