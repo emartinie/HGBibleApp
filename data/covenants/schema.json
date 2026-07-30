@@ -121,6 +121,12 @@
       },
       "comparisonTexts": {
         "type": "array"
+      },
+      "detailSections": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
       }
     }
   }
