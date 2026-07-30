@@ -323,5 +323,20 @@
     },
     "source": "data/commandments/commandments.json",
     "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 215,
+    "covenantId": "abrahamic",
+    "basisReferences": [
+      "Genesis 17:10",
+      "Genesis 17:12–14",
+      "Genesis 17:23–27"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "The existing commandment record directly cites Genesis 17:10. No additional Abrahamic associations are asserted where the current dataset lacks a matching direct command."
   }
 ]
