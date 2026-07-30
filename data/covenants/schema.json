@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://homegroups.org/data/covenants/schema.json",
+  "title": "HG Bible App Covenant Dataset",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "title",
+      "shortTitle",
+      "aliases",
+      "category",
+      "classification",
+      "summary",
+      "parties",
+      "mediator",
+      "scriptureRange",
+      "covenantSign",
+      "promises",
+      "obligations",
+      "blessings",
+      "curses",
+      "duration",
+      "fulfillmentNotes",
+      "relatedSources",
+      "ntReferences",
+      "sefariaLinks",
+      "timelineEvents",
+      "comparisonTexts"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "title": {
+        "type": "string"
+      },
+      "shortTitle": {
+        "type": "string"
+      },
+      "aliases": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "category": {
+        "type": "string"
+      },
+      "classification": {
+        "type": "object",
+        "required": [
+          "status",
+          "description"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "explicit",
+              "proposed",
+              "disputed"
+            ]
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "summary": {
+        "type": "string"
+      },
+      "parties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "mediator": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "scriptureRange": {
+        "type": "array"
+      },
+      "covenantSign": {
+        "type": "array"
+      },
+      "promises": {
+        "type": "array"
+      },
+      "obligations": {
+        "type": "array"
+      },
+      "blessings": {
+        "type": "array"
+      },
+      "curses": {
+        "type": "array"
+      },
+      "duration": {
+        "type": "object"
+      },
+      "fulfillmentNotes": {
+        "type": "array"
+      },
+      "relatedSources": {
+        "type": "object"
+      },
+      "ntReferences": {
+        "type": "array"
+      },
+      "sefariaLinks": {
+        "type": "array"
+      },
+      "timelineEvents": {
+        "type": "array"
+      },
+      "comparisonTexts": {
+        "type": "array"
+      }
+    }
+  }
+}
