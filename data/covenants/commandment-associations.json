@@ -1,1 +1,327 @@
-[]
+[
+  {
+    "commandmentId": 1,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:2"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 53,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 34:23; Deuteronomy 16:16"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 81,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 34:20"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 135,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 34:21"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 155,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:8"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 210,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:12"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 250,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:4"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 253,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:5"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 254,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:5"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 310,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:7"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 363,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 34:25"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 435,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 34:26"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 491,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:13"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 513,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:17"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 514,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Deuteronomy 5:18"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 533,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:16"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 537,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:13"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 568,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 20:10"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 232,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 21:2"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 236,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 21:18"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 237,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 21:28"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 238,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 21:33"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 239,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 21:37"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 240,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 22:4"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  },
+  {
+    "commandmentId": 242,
+    "covenantId": "mosaic",
+    "basisReferences": [
+      "Exodus 22:6"
+    ],
+    "classification": {
+      "status": "direct-reference",
+      "system": "existing-commandment-reference"
+    },
+    "source": "data/commandments/commandments.json",
+    "notes": "Included because the existing commandment record directly cites a core Sinai or covenant-renewal passage; no broader covenant classification is asserted."
+  }
+]
