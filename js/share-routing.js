@@ -14,6 +14,7 @@
     "from",
     "file",
     "id",
+    "covenant",
     "date",
     "model",
     "event"
