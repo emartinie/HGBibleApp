@@ -13,6 +13,9 @@
   let activeCommandmentId = initialRoute?.card === "commandments" && initialRoute.id
     ? String(initialRoute.id)
     : "";
+  let activeCovenantId = initialRoute?.card === "commandments" && initialRoute.covenant
+    ? String(initialRoute.covenant)
+    : "";
   const FILTERS = [
     "All",
     "Positive",
@@ -152,37 +155,220 @@
     return Array.isArray(references) && references.length ? references[0] : "References being prepared";
   }
 
-  function renderCovenantOverview(container, covenant) {
+  function appendFact(parent, label, value) {
+    if (!value) return;
+    const box = document.createElement("div");
+    box.className = "covenant-fact";
+    appendText(box, "strong", label, "text-xs uppercase tracking-wider text-sky-200");
+    appendText(box, "p", value, "mt-1 text-sm leading-relaxed text-slate-300");
+    parent.appendChild(box);
+  }
+
+  function appendReferences(parent, references) {
+    const values = (references || []).filter(Boolean);
+    if (!values.length) return;
+    appendText(parent, "p", values.join("; "), "covenant-ref");
+  }
+
+  function appendClaimList(parent, items, emptyText) {
+    const values = (items || []).filter(Boolean);
+    if (!values.length) {
+      if (emptyText) appendText(parent, "p", emptyText, "text-sm text-slate-400");
+      return;
+    }
+    values.forEach(item => {
+      const block = document.createElement("div");
+      appendText(block, "p", item.summary || String(item), "text-sm text-slate-300");
+      appendReferences(block, item.references);
+      parent.appendChild(block);
+    });
+  }
+
+  function appendSection(parent, title, open, render) {
+    const section = document.createElement("details");
+    section.className = "covenant-section";
+    section.open = open;
+    const summary = document.createElement("summary");
+    summary.textContent = title;
+    const body = document.createElement("div");
+    body.className = "covenant-section-body";
+    render(body);
+    section.append(summary, body);
+    parent.appendChild(section);
+    return section;
+  }
+
+  function closeCovenantDetail(container) {
+    activeCovenantId = "";
+    container.hidden = true;
+    container.textContent = "";
+    document.querySelectorAll(".covenant-tile").forEach(tile => tile.setAttribute("aria-expanded", "false"));
+    window.HGRoute?.setCardState?.("commandments", { covenant: null }, {
+      announce: false,
+      source: "covenant-close"
+    });
+  }
+
+  function renderDetailHeader(container, covenant) {
     container.textContent = "";
     container.hidden = false;
-    appendText(container, "p", covenant.classification?.status || "unclassified", "text-xs font-semibold uppercase tracking-wider text-amber-300");
-    appendText(container, "h4", covenant.title, "mt-1 text-lg font-semibold text-orange-200");
-    appendText(container, "p", covenant.summary || "", "mt-2 text-sm leading-relaxed text-slate-300");
+    const header = document.createElement("header");
+    header.className = "covenant-detail-header";
+    const copy = document.createElement("div");
+    appendText(copy, "p", covenant.classification?.status || "unclassified", "text-xs font-semibold uppercase tracking-wider text-amber-300");
+    appendText(copy, "h4", covenant.title, "mt-1 text-xl font-semibold text-orange-200");
+    appendText(copy, "p", covenant.summary || "", "mt-2 text-sm leading-relaxed text-slate-300");
+    const close = document.createElement("button");
+    close.type = "button";
+    close.className = "covenant-close";
+    close.textContent = "×";
+    close.setAttribute("aria-label", "Close covenant detail");
+    close.addEventListener("click", () => closeCovenantDetail(container));
+    header.append(copy, close);
+    container.appendChild(header);
+  }
+
+  function renderGenericCovenantOverview(container, covenant) {
+    renderDetailHeader(container, covenant);
+    const facts = document.createElement("div");
+    facts.className = "covenant-facts";
+    const references = (covenant.scriptureRange || []).flatMap(item => item.references || []).join("; ");
+    const signs = (covenant.covenantSign || []).map(item => item.summary).filter(Boolean).join("; ");
+    appendFact(facts, "Biblical references", references);
+    appendFact(facts, "Parties", (covenant.parties || []).join(", "));
+    appendFact(facts, "Mediator", covenant.mediator || "None identified in this record");
+    appendFact(facts, "Sign", signs || "No explicit sign identified in this record");
+    container.appendChild(facts);
+  }
+
+  function renderComparisonCard(comparison) {
+    const card = document.createElement("article");
+    card.className = "comparison-card";
+    appendText(card, "h6", comparison.title, "font-semibold text-amber-100");
+    appendText(card, "p", comparison.reference, "covenant-ref");
+    appendText(card, "p", comparison.literarySetting || "", "mt-2 text-sm text-slate-300");
+    appendFact(card, "Speaker or narrator", comparison.speakerOrNarrator);
+    appendFact(card, "Tablet or covenant context", comparison.tabletContext);
+
+    if (comparison.structuralSections?.length) {
+      const labels = document.createElement("div");
+      labels.className = "mt-2";
+      comparison.structuralSections.forEach(section => {
+        const span = appendText(labels, "span", section.label, "comparison-label");
+        span.title = (section.references || []).join("; ");
+      });
+      card.appendChild(labels);
+    }
+
+    appendFact(card, "Key repeated themes", (comparison.repeatedThemes || []).join(", "));
+    appendFact(card, "Key distinctive themes", (comparison.distinctiveThemes || []).join(", "));
+
+    (comparison.observations || []).forEach(observation => {
+      const block = document.createElement("div");
+      block.className = "mt-2";
+      appendText(block, "span", observation.classification, "comparison-label");
+      appendText(block, "p", observation.summary, "text-sm text-slate-300");
+      appendReferences(block, observation.references);
+      card.appendChild(block);
+    });
+
+    (comparison.sourceLinks || []).forEach(source => {
+      const link = document.createElement("a");
+      link.href = source.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.className = "mt-3 inline-block text-sm font-semibold text-sky-300 underline";
+      link.textContent = source.label + " ↗";
+      card.appendChild(link);
+    });
+    return card;
+  }
+
+  async function renderMosaicDetail(container, covenant, engine, commandments) {
+    renderDetailHeader(container, covenant);
 
     const facts = document.createElement("div");
-    facts.className = "mt-3 grid gap-2 text-sm";
-
-    const addFact = (label, value) => {
-      if (!value) return;
-      const row = document.createElement("p");
-      row.className = "text-slate-300";
-      const strong = document.createElement("strong");
-      strong.className = "text-sky-200";
-      strong.textContent = label + ": ";
-      row.append(strong, document.createTextNode(value));
-      facts.appendChild(row);
-    };
-
-    const references = (covenant.scriptureRange || [])
-      .flatMap(item => Array.isArray(item.references) ? item.references : [])
-      .join("; ");
-    const signs = (covenant.covenantSign || []).map(item => item.summary).filter(Boolean).join("; ");
-
-    addFact("Biblical references", references);
-    addFact("Parties", (covenant.parties || []).join(", "));
-    addFact("Mediator", covenant.mediator || "None identified in this record");
-    addFact("Sign", signs || "No explicit sign identified in this record");
+    facts.className = "covenant-facts";
+    appendFact(facts, "Parties", (covenant.parties || []).join(", "));
+    appendFact(facts, "Mediator", covenant.mediator || "None identified");
+    appendFact(facts, "Sign", (covenant.covenantSign || []).map(item => item.summary).join("; ") || "No explicit sign identified");
+    appendFact(facts, "Duration language", covenant.duration?.description || "");
     container.appendChild(facts);
+
+    appendSection(container, "Primary covenant passages", true, body => {
+      appendClaimList(body, covenant.scriptureRange, "No passages listed.");
+    });
+
+    (covenant.detailSections || []).forEach((section, index) => {
+      appendSection(container, section.title, index < 2, body => {
+        appendText(body, "span", section.classification, "comparison-label");
+        appendText(body, "p", section.summary, "text-sm text-slate-300");
+        appendReferences(body, section.references);
+      });
+    });
+
+    appendSection(container, "Promises", false, body => appendClaimList(body, covenant.promises, "No promises classified in this record."));
+    appendSection(container, "Obligations", false, body => appendClaimList(body, covenant.obligations, "No obligations classified in this record."));
+    appendSection(container, "Blessings", false, body => appendClaimList(body, covenant.blessings, "No blessings classified in this record."));
+    appendSection(container, "Curses and covenant consequences", false, body => appendClaimList(body, covenant.curses, "No curses classified in this record."));
+
+    const associations = await engine.getAssociationsForCovenant("mosaic");
+    const byId = new Map(commandments.map(commandment => [String(commandment.id), commandment]));
+    appendSection(container, "Related commandments", true, body => {
+      const list = document.createElement("div");
+      list.className = "covenant-commandments";
+      associations.forEach(association => {
+        const commandment = byId.get(String(association.commandmentId));
+        if (!commandment) return;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "covenant-commandment";
+        appendText(button, "strong", commandment.title, "block text-sm");
+        appendText(button, "span", commandment.code + " · " + commandment.reference, "block text-xs text-sky-300");
+        button.addEventListener("click", () => {
+          activeCommandmentId = String(commandment.id);
+          window.HGRoute?.setCardState?.("commandments", { id: activeCommandmentId }, {
+            announce: false,
+            source: "covenant-commandment"
+          });
+          lastRenderedContainer = null;
+          renderIfReady().then(() => document.querySelector('[data-commandment-id="' + activeCommandmentId + '"]')?.scrollIntoView({ behavior: "smooth", block: "center" }));
+        });
+        list.appendChild(button);
+      });
+      if (!list.children.length) appendText(list, "p", "No associated commandments could be resolved.", "text-sm text-slate-400");
+      body.appendChild(list);
+    });
+
+    appendSection(container, "New Testament references", false, body => {
+      (covenant.ntReferences || []).forEach(reference => appendText(body, "p", reference, "covenant-ref"));
+    });
+
+    appendSection(container, "Ancient source hooks", false, body => {
+      const groups = Object.entries(covenant.relatedSources || {}).filter(([, entries]) => Array.isArray(entries) && entries.length);
+      if (!groups.length) {
+        appendText(body, "p", "Precise Philo, Josephus, and Jubilees references remain intentionally deferred pending verification.", "text-sm text-slate-400");
+        return;
+      }
+      groups.forEach(([name, entries]) => {
+        appendText(body, "h6", name, "font-semibold text-sky-200");
+        entries.forEach(entry => appendText(body, "p", entry.reference || entry, "text-sm text-slate-300"));
+      });
+    });
+
+    const comparisons = await engine.getComparisonMetadata(covenant.comparisonTexts || []);
+    appendSection(container, "Passage comparison", true, body => {
+      appendText(body, "p", "Compare textual observations without deciding between competing identifications.", "text-sm text-slate-300");
+      const grid = document.createElement("div");
+      grid.className = "comparison-grid";
+      comparisons.forEach(comparison => grid.appendChild(renderComparisonCard(comparison)));
+      body.appendChild(grid);
+    });
+  }
+
+  async function renderSelectedCovenant(container, covenant, engine, commandments) {
+    if (covenant.id === "mosaic") await renderMosaicDetail(container, covenant, engine, commandments);
+    else renderGenericCovenantOverview(container, covenant);
   }
 
   async function renderCovenantsIfReady() {
@@ -193,7 +379,10 @@
 
     try {
       const engine = await loadCovenantEngine();
-      const covenants = engine ? await engine.getAll() : [];
+      const [covenants, commandments] = await Promise.all([
+        engine ? engine.getAll() : Promise.resolve([]),
+        loadCommandments().catch(() => [])
+      ]);
       if (requestId !== covenantRenderRequestId || !document.body.contains(container)) return;
 
       container.textContent = "";
@@ -206,35 +395,44 @@
       const grid = document.createElement("div");
       grid.className = "covenant-grid";
 
-      covenants.forEach((covenant) => {
+      covenants.forEach(covenant => {
         const tile = document.createElement("button");
         tile.type = "button";
         tile.className = "covenant-tile";
         tile.dataset.covenantId = covenant.id;
-        tile.setAttribute("aria-expanded", "false");
+        tile.setAttribute("aria-expanded", String(covenant.id === activeCovenantId));
         tile.setAttribute("aria-controls", "covenantOverview");
-
         appendText(tile, "span", covenant.classification?.status || "unclassified", "covenant-status " + (covenant.classification?.status || ""));
         appendText(tile, "strong", covenant.title, "text-base text-amber-100");
         appendText(tile, "span", (covenant.parties || []).join(", "), "text-xs text-slate-300");
         appendText(tile, "span", firstReference(covenant), "text-xs text-sky-300");
 
-        tile.addEventListener("click", () => {
+        tile.addEventListener("click", async () => {
           const wasOpen = tile.getAttribute("aria-expanded") === "true";
           grid.querySelectorAll("button").forEach(button => button.setAttribute("aria-expanded", "false"));
           if (wasOpen) {
-            overview.hidden = true;
-            overview.textContent = "";
+            closeCovenantDetail(overview);
             return;
           }
+          activeCovenantId = covenant.id;
           tile.setAttribute("aria-expanded", "true");
-          renderCovenantOverview(overview, covenant);
+          window.HGRoute?.setCardState?.("commandments", { covenant: activeCovenantId }, {
+            announce: false,
+            source: "covenant-select"
+          });
+          await renderSelectedCovenant(overview, covenant, engine, commandments);
+          overview.scrollIntoView({ behavior: "smooth", block: "start" });
         });
-
         grid.appendChild(tile);
       });
 
       container.appendChild(grid);
+      const selected = covenants.find(covenant => covenant.id === activeCovenantId);
+      if (selected) await renderSelectedCovenant(overview, selected, engine, commandments);
+      else if (overview) {
+        overview.hidden = true;
+        overview.textContent = "";
+      }
       lastRenderedCovenantContainer = container;
     } catch {
       if (requestId !== covenantRenderRequestId || !document.body.contains(container)) return;
@@ -490,14 +688,21 @@
 
   window.HGRoute?.registerCard?.("commandments", {
     getState() {
-      return activeCommandmentId ? { id: activeCommandmentId } : {};
+      return {
+        ...(activeCommandmentId ? { id: activeCommandmentId } : {}),
+        ...(activeCovenantId ? { covenant: activeCovenantId } : {})
+      };
     },
     async restore(route) {
       activeCommandmentId = route?.card === "commandments" && route.id
         ? String(route.id)
         : "";
+      activeCovenantId = route?.card === "commandments" && route.covenant
+        ? String(route.covenant)
+        : "";
       lastRenderedContainer = null;
-      await renderIfReady();
+      lastRenderedCovenantContainer = null;
+      await Promise.all([renderCovenantsIfReady(), renderIfReady()]);
     }
   });
 
