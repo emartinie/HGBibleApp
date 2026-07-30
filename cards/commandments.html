@@ -6,6 +6,20 @@
     #covenantsLanding .covenant-status { justify-self:start; padding:.18rem .48rem; border-radius:999px; background:rgba(124,199,255,.1); color:#ccecff; font-size:.66rem; font-weight:750; text-transform:uppercase; }
     #covenantsLanding .covenant-status.disputed, #covenantsLanding .covenant-status.proposed { background:rgba(243,200,120,.12); color:#ffe0a1; }
     #covenantOverview[hidden] { display:none; }
+    #covenantOverview { max-width:60rem; margin-inline:auto; }
+    #covenantOverview .covenant-detail-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+    #covenantOverview .covenant-close { flex:0 0 auto; min-width:2.5rem; min-height:2.5rem; border:1px solid rgba(255,255,255,.16); border-radius:999px; background:rgba(15,23,42,.8); color:#fff; }
+    #covenantOverview .covenant-facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr)); gap:.65rem; margin-top:1rem; }
+    #covenantOverview .covenant-fact, #covenantOverview .covenant-section, #covenantOverview .comparison-card { padding:.85rem; border:1px solid rgba(255,255,255,.09); border-radius:.8rem; background:rgba(5,8,13,.38); }
+    #covenantOverview .covenant-section { margin-top:.65rem; }
+    #covenantOverview .covenant-section summary { color:#dff3ff; font-weight:750; cursor:pointer; }
+    #covenantOverview .covenant-section-body { display:grid; gap:.6rem; margin-top:.75rem; color:#cbd5e1; font-size:.86rem; line-height:1.6; }
+    #covenantOverview .covenant-ref { color:#7cc7ff; font-size:.78rem; }
+    #covenantOverview .comparison-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr)); gap:.7rem; margin-top:.75rem; }
+    #covenantOverview .comparison-label { display:inline-block; margin:.2rem .25rem .2rem 0; padding:.16rem .42rem; border-radius:999px; background:rgba(124,199,255,.1); color:#ccecff; font-size:.64rem; font-weight:750; }
+    #covenantOverview .covenant-commandments { display:grid; gap:.45rem; }
+    #covenantOverview .covenant-commandment { width:100%; padding:.7rem; border:1px solid rgba(255,255,255,.1); border-radius:.7rem; background:rgba(15,23,42,.65); color:#eef3ff; text-align:left; }
+    @media(max-width:540px) { #covenantOverview { padding:.85rem; } #covenantOverview .comparison-grid { grid-template-columns:1fr; } }
   </style>
   <div class="card-topbar overflow-x-auto" aria-label="Card controls">
 
