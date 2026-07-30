@@ -1,5 +1,9 @@
 (function () {
   const DATA_URL = "data/commandments/commandments.json";
+  const COVENANT_ENGINE_URL = "js/covenant-engine.js";
+  let covenantEnginePromise = null;
+  let covenantRenderRequestId = 0;
+  let lastRenderedCovenantContainer = null;
   let commandmentsPromise = null;
   let lastRenderedContainer = null;
   let activeFilter = "All";
@@ -115,6 +119,129 @@
 
       return searchableText.includes(normalizedQuery);
     });
+  }
+
+  function loadCovenantEngine() {
+    if (window.HGCovenants) return Promise.resolve(window.HGCovenants);
+    if (covenantEnginePromise) return covenantEnginePromise;
+
+    covenantEnginePromise = new Promise((resolve) => {
+      const existing = document.querySelector('script[data-hg-covenant-engine="true"]');
+      const finish = () => resolve(window.HGCovenants || null);
+
+      if (existing) {
+        existing.addEventListener("load", finish, { once: true });
+        existing.addEventListener("error", () => resolve(null), { once: true });
+        window.setTimeout(finish, 3000);
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = COVENANT_ENGINE_URL;
+      script.dataset.hgCovenantEngine = "true";
+      script.onload = finish;
+      script.onerror = () => resolve(null);
+      document.head.appendChild(script);
+    });
+
+    return covenantEnginePromise;
+  }
+
+  function firstReference(covenant) {
+    const references = covenant.scriptureRange?.[0]?.references;
+    return Array.isArray(references) && references.length ? references[0] : "References being prepared";
+  }
+
+  function renderCovenantOverview(container, covenant) {
+    container.textContent = "";
+    container.hidden = false;
+    appendText(container, "p", covenant.classification?.status || "unclassified", "text-xs font-semibold uppercase tracking-wider text-amber-300");
+    appendText(container, "h4", covenant.title, "mt-1 text-lg font-semibold text-orange-200");
+    appendText(container, "p", covenant.summary || "", "mt-2 text-sm leading-relaxed text-slate-300");
+
+    const facts = document.createElement("div");
+    facts.className = "mt-3 grid gap-2 text-sm";
+
+    const addFact = (label, value) => {
+      if (!value) return;
+      const row = document.createElement("p");
+      row.className = "text-slate-300";
+      const strong = document.createElement("strong");
+      strong.className = "text-sky-200";
+      strong.textContent = label + ": ";
+      row.append(strong, document.createTextNode(value));
+      facts.appendChild(row);
+    };
+
+    const references = (covenant.scriptureRange || [])
+      .flatMap(item => Array.isArray(item.references) ? item.references : [])
+      .join("; ");
+    const signs = (covenant.covenantSign || []).map(item => item.summary).filter(Boolean).join("; ");
+
+    addFact("Biblical references", references);
+    addFact("Parties", (covenant.parties || []).join(", "));
+    addFact("Mediator", covenant.mediator || "None identified in this record");
+    addFact("Sign", signs || "No explicit sign identified in this record");
+    container.appendChild(facts);
+  }
+
+  async function renderCovenantsIfReady() {
+    const requestId = ++covenantRenderRequestId;
+    const container = document.getElementById("covenantsLanding");
+    const overview = document.getElementById("covenantOverview");
+    if (!container || container === lastRenderedCovenantContainer) return;
+
+    try {
+      const engine = await loadCovenantEngine();
+      const covenants = engine ? await engine.getAll() : [];
+      if (requestId !== covenantRenderRequestId || !document.body.contains(container)) return;
+
+      container.textContent = "";
+      if (!covenants.length) {
+        appendText(container, "p", "The covenant framework is temporarily unavailable. The commandments explorer remains available below.", "text-sm text-slate-400");
+        lastRenderedCovenantContainer = container;
+        return;
+      }
+
+      const grid = document.createElement("div");
+      grid.className = "covenant-grid";
+
+      covenants.forEach((covenant) => {
+        const tile = document.createElement("button");
+        tile.type = "button";
+        tile.className = "covenant-tile";
+        tile.dataset.covenantId = covenant.id;
+        tile.setAttribute("aria-expanded", "false");
+        tile.setAttribute("aria-controls", "covenantOverview");
+
+        appendText(tile, "span", covenant.classification?.status || "unclassified", "covenant-status " + (covenant.classification?.status || ""));
+        appendText(tile, "strong", covenant.title, "text-base text-amber-100");
+        appendText(tile, "span", (covenant.parties || []).join(", "), "text-xs text-slate-300");
+        appendText(tile, "span", firstReference(covenant), "text-xs text-sky-300");
+
+        tile.addEventListener("click", () => {
+          const wasOpen = tile.getAttribute("aria-expanded") === "true";
+          grid.querySelectorAll("button").forEach(button => button.setAttribute("aria-expanded", "false"));
+          if (wasOpen) {
+            overview.hidden = true;
+            overview.textContent = "";
+            return;
+          }
+          tile.setAttribute("aria-expanded", "true");
+          renderCovenantOverview(overview, covenant);
+        });
+
+        grid.appendChild(tile);
+      });
+
+      container.appendChild(grid);
+      lastRenderedCovenantContainer = container;
+    } catch {
+      if (requestId !== covenantRenderRequestId || !document.body.contains(container)) return;
+      container.textContent = "";
+      appendText(container, "p", "The covenant framework is temporarily unavailable. The commandments explorer remains available below.", "text-sm text-slate-400");
+      lastRenderedCovenantContainer = container;
+    }
   }
 
   function renderPreview(container, commandments) {
@@ -347,12 +474,15 @@
   }
 
   function initCommandmentsCard() {
+    renderCovenantsIfReady();
     renderIfReady();
   }
 
   function destroyCommandmentsCard() {
     renderRequestId++;
+    covenantRenderRequestId++;
     lastRenderedContainer = null;
+    lastRenderedCovenantContainer = null;
   }
 
   window.initCommandmentsCard = initCommandmentsCard;
