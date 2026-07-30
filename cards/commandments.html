@@ -1,4 +1,12 @@
-<section class="hg-panel hg-card-shell" aria-labelledby="commandmentsTitle">
+<section id="covenantsCommandmentsCard" class="hg-panel hg-card-shell" aria-labelledby="commandmentsTitle">
+  <style>
+    #covenantsLanding .covenant-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr)); gap:.7rem; }
+    #covenantsLanding .covenant-tile { display:grid; gap:.45rem; width:100%; min-height:9rem; padding:1rem; border:1px solid rgba(255,255,255,.1); border-radius:.9rem; background:rgba(5,8,13,.38); color:#eef3ff; text-align:left; }
+    #covenantsLanding .covenant-tile:hover, #covenantsLanding .covenant-tile:focus-visible { border-color:rgba(243,200,120,.55); background:rgba(243,200,120,.08); outline:none; }
+    #covenantsLanding .covenant-status { justify-self:start; padding:.18rem .48rem; border-radius:999px; background:rgba(124,199,255,.1); color:#ccecff; font-size:.66rem; font-weight:750; text-transform:uppercase; }
+    #covenantsLanding .covenant-status.disputed, #covenantsLanding .covenant-status.proposed { background:rgba(243,200,120,.12); color:#ffe0a1; }
+    #covenantOverview[hidden] { display:none; }
+  </style>
   <div class="card-topbar overflow-x-auto" aria-label="Card controls">
 
     <!-- existing fullscreen -->
@@ -23,7 +31,7 @@
   </div>
     <details class="orientation-block hg-panel hg-section p-4 my-4">
   <summary class="cursor-pointer text-lg font-semibold text-amber-300">Learn the Shape of Faithful Living</summary>
-    <p class="text-sm text-slate-300 mt-2">This card gathers biblical commandments for careful reading and practical reflection. It exists to help you listen for God’s instruction while keeping each command in its scriptural setting.</p>
+    <p class="text-sm text-slate-300 mt-2">This card places biblical commandments within the larger covenant framework while preserving the complete commandment explorer. It exists to help you listen for God’s instruction while keeping each command in its scriptural setting.</p>
     <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Read the first command in context and ask what faithful response looks like today.</p>
   </details>
   <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
@@ -91,10 +99,10 @@
         Scripture Study
       </p>
       <h2 id="commandmentsTitle" class="text-xl font-semibold text-orange-300">
-        Every Bible Commandment
+        Covenants &amp; Commandments
       </h2>
       <p class="max-w-3xl text-sm leading-relaxed text-slate-300">
-        Explore biblical commandments alongside their Scripture references and related study context.
+        Explore the biblical covenants first, then continue into the complete commandments dataset with its Scripture references and related study context.
         Start with the list below, then use the study controls when you want to search, copy, navigate,
         or open connected New Testament and Jewish context.
       </p>
@@ -113,6 +121,18 @@
         Some study connections may still be in preview as the dataset grows.
       </p>
     </aside>
+
+    <section class="space-y-3 rounded-xl border border-slate-700 bg-slate-900/50 p-4" aria-labelledby="covenantsLandingTitle">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-amber-400">Biblical framework</p>
+        <h3 id="covenantsLandingTitle" class="text-lg font-semibold text-orange-300">Covenants</h3>
+        <p class="mt-1 text-sm leading-relaxed text-slate-300">Begin with the covenant settings named or proposed from the biblical texts. Classifications identify what is explicit and what remains disputed.</p>
+      </div>
+      <div id="covenantsLanding" aria-live="polite">
+        <p class="text-sm text-slate-400" role="status">Loading covenant framework…</p>
+      </div>
+      <div id="covenantOverview" class="rounded-xl border border-amber-300/20 bg-amber-300/5 p-4" aria-live="polite" hidden></div>
+    </section>
 
     <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-3">
       <div>
