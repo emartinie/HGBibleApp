@@ -248,106 +248,595 @@
     "title": "Abrahamic Covenant",
     "shortTitle": "Abraham",
     "aliases": [
-      "Covenant with Abraham"
+      "Covenant with Abraham",
+      "Covenant with the Patriarchs"
     ],
     "category": "ancestral",
     "classification": {
       "status": "explicit",
-      "description": "Genesis explicitly describes covenants made with Abram or Abraham."
+      "description": "Genesis 15 and Genesis 17 explicitly use covenant language. Other passages introduce, confirm, extend, or recall the promises."
     },
-    "summary": "God binds promises concerning descendants, land, blessing, and Abrahamâ€™s relationship to nations to Abraham and his offspring.",
+    "summary": "Genesis presents a developing sequence of divine promises and covenant actions involving Abraham, Sarah, their descendants, land, blessing, and the nations. Later biblical writings recall and interpret these passages in several ways.",
     "parties": [
       "God",
       "Abraham",
-      "Abrahamâ€™s offspring"
+      "Abraham’s offspring"
     ],
-    "mediator": "Abraham",
+    "mediator": "Abraham, as covenant recipient; the promises are later confirmed to Isaac and Jacob.",
     "scriptureRange": [
       {
-        "summary": "Initial call and promises",
+        "summary": "Initial call and promise of nation, name, blessing, and blessing involving the families of the earth",
         "references": [
-          "Genesis 12:1â€“3"
+          "Genesis 12:1–3"
         ]
       },
       {
-        "summary": "Covenant ceremony",
+        "summary": "Land and numerous-offspring promises following Abram’s separation from Lot",
         "references": [
-          "Genesis 15:1â€“21"
+          "Genesis 13:14–17"
         ]
       },
       {
-        "summary": "Covenant, name change, and circumcision",
+        "summary": "Promise of an heir, Abram’s believing response, covenant-cutting ceremony, descendant forecast, and land boundaries",
         "references": [
-          "Genesis 17:1â€“27"
+          "Genesis 15:1–21"
         ]
       },
       {
-        "summary": "Promises reaffirmed after the binding of Isaac",
+        "summary": "Covenant confirmation, name changes, circumcision sign, land language, and identification of Isaac",
         "references": [
-          "Genesis 22:15â€“18"
+          "Genesis 17:1–27"
+        ]
+      },
+      {
+        "summary": "Abraham’s household vocation is connected with justice and the promised outcome",
+        "references": [
+          "Genesis 18:17–19"
+        ]
+      },
+      {
+        "summary": "Isaac is identified as the line through whom Abraham’s offspring will be named",
+        "references": [
+          "Genesis 21:12"
+        ]
+      },
+      {
+        "summary": "An oath follows the binding of Isaac and repeats offspring, victory, nations, and obedience language",
+        "references": [
+          "Genesis 22:15–18"
+        ]
+      },
+      {
+        "summary": "The promises and oath are confirmed to Isaac",
+        "references": [
+          "Genesis 26:2–5"
+        ]
+      },
+      {
+        "summary": "Land, offspring, nations, blessing, presence, and return are promised to Jacob",
+        "references": [
+          "Genesis 28:13–15"
+        ]
+      },
+      {
+        "summary": "Jacob’s name change and the ancestral land promise are reaffirmed",
+        "references": [
+          "Genesis 35:9–12"
+        ]
+      },
+      {
+        "summary": "God remembers the covenant with Abraham, Isaac, and Jacob during Israel’s oppression",
+        "references": [
+          "Exodus 2:24"
+        ]
+      },
+      {
+        "summary": "The exodus and land promise are presented as action connected with the patriarchal covenant",
+        "references": [
+          "Exodus 6:2–8"
+        ]
+      },
+      {
+        "summary": "Leviticus appeals to the covenant with Jacob, Isaac, and Abraham in a restoration context",
+        "references": [
+          "Leviticus 26:40–45"
         ]
       }
     ],
     "covenantSign": [
       {
-        "summary": "Circumcision",
+        "summary": "Circumcision in the flesh of the foreskin",
         "references": [
-          "Genesis 17:9â€“14"
+          "Genesis 17:9–14",
+          "Genesis 17:23–27"
         ]
       }
     ],
     "promises": [
       {
-        "summary": "A great nation, blessing, a great name, and blessing extending to the families of the earth",
+        "summary": "A great nation, a great name, blessing, and blessing involving the families of the earth",
         "references": [
-          "Genesis 12:2â€“3"
+          "Genesis 12:2–3"
         ]
       },
       {
-        "summary": "Numerous offspring and land",
+        "summary": "Numerous offspring",
         "references": [
+          "Genesis 13:16",
           "Genesis 15:5",
-          "Genesis 15:18â€“21",
-          "Genesis 17:4â€“8"
+          "Genesis 17:4–6",
+          "Genesis 22:17"
+        ]
+      },
+      {
+        "summary": "Land is promised to Abraham and his offspring",
+        "references": [
+          "Genesis 13:14–17",
+          "Genesis 15:18–21",
+          "Genesis 17:8"
+        ]
+      },
+      {
+        "summary": "Sarah is blessed and Isaac is identified in the covenant’s continuation",
+        "references": [
+          "Genesis 17:15–21",
+          "Genesis 21:12"
+        ]
+      },
+      {
+        "summary": "The oath after the binding of Isaac repeats blessing, multiplied offspring, victory, and blessing involving the nations",
+        "references": [
+          "Genesis 22:15–18"
         ]
       }
     ],
     "obligations": [
       {
-        "summary": "Abraham is called to walk before God and be blameless",
+        "summary": "Abraham is told to walk before God and be blameless",
         "references": [
           "Genesis 17:1"
         ]
       },
       {
-        "summary": "Male members of the household are to be circumcised",
+        "summary": "Abraham and his household are commanded to keep the covenant sign of circumcision",
         "references": [
-          "Genesis 17:9â€“14"
+          "Genesis 17:9–14",
+          "Genesis 17:23–27"
+        ]
+      },
+      {
+        "summary": "Abraham is described as directing his household to keep the way of the Lord by doing righteousness and justice",
+        "references": [
+          "Genesis 18:19"
+        ]
+      },
+      {
+        "summary": "Genesis 22 connects the repeated oath with Abraham’s obedience",
+        "references": [
+          "Genesis 22:16–18"
         ]
       }
     ],
     "blessings": [
       {
-        "summary": "Abraham is blessed and is to become a blessing",
+        "summary": "Blessing is promised to Abraham, and blessing involving other families or nations is repeatedly described",
         "references": [
-          "Genesis 12:2â€“3"
+          "Genesis 12:2–3",
+          "Genesis 18:18",
+          "Genesis 22:18"
         ]
       }
     ],
-    "curses": [],
+    "curses": [
+      {
+        "summary": "Genesis 12 states a corresponding curse concerning the one who treats Abram with contempt",
+        "references": [
+          "Genesis 12:3"
+        ]
+      },
+      {
+        "summary": "Genesis 17 describes removal from the people for an uncircumcised male who breaks the covenant",
+        "references": [
+          "Genesis 17:14"
+        ]
+      }
+    ],
     "duration": {
-      "description": "The covenant and possession are described with everlasting language in Genesis 17.",
+      "description": "Genesis 17 uses everlasting-covenant and everlasting-possession language. This record identifies that wording without resolving later disputes over its scope or application.",
       "references": [
-        "Genesis 17:7â€“8",
+        "Genesis 17:7–8",
         "Genesis 17:13",
         "Genesis 17:19"
       ]
     },
-    "fulfillmentNotes": [],
+    "fulfillmentNotes": [
+      {
+        "classification": "Disputed interpretation",
+        "summary": "Jewish and Christian interpreters differ over how individual descendants, corporate descendants, land, nations, and later covenant texts relate to these promises.",
+        "references": [
+          "Genesis 12–22"
+        ]
+      }
+    ],
     "relatedSources": {
-      "josephus": [],
-      "philo": [],
-      "jubilees": [],
+      "josephus": [
+        {
+          "author": "Josephus",
+          "work": "Antiquities of the Jews",
+          "location": "1.7.1",
+          "topics": [
+            "Abraham’s migration",
+            "Canaan"
+          ],
+          "summary": "Josephus recounts Abram leaving Chaldea, settling in Canaan, and building an altar after the divine command.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=josephus&work=antiquities&volume=book-1&chapter=7"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://penelope.uchicago.edu/josephus/ant-1.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Josephus",
+          "work": "Antiquities of the Jews",
+          "location": "1.10.3–5",
+          "topics": [
+            "offspring",
+            "land",
+            "circumcision",
+            "Isaac"
+          ],
+          "summary": "Josephus recounts promises concerning an heir and land, followed by circumcision and the promised birth of Isaac.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=josephus&work=antiquities&volume=book-1&chapter=10"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://penelope.uchicago.edu/josephus/ant-1.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Josephus",
+          "work": "Antiquities of the Jews",
+          "location": "1.12.2–3",
+          "topics": [
+            "Isaac",
+            "Ishmael",
+            "promised line"
+          ],
+          "summary": "Josephus recounts Isaac’s birth and the separation of Hagar and Ishmael after Sarah’s concern over succession.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=josephus&work=antiquities&volume=book-1&chapter=12"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://penelope.uchicago.edu/josephus/ant-1.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Josephus",
+          "work": "Antiquities of the Jews",
+          "location": "1.13.1–4",
+          "topics": [
+            "binding of Isaac",
+            "obedience",
+            "promise"
+          ],
+          "summary": "Josephus retells the command concerning Isaac, Abraham and Isaac’s responses, and the divine intervention and promised reward.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=josephus&work=antiquities&volume=book-1&chapter=13"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://penelope.uchicago.edu/josephus/ant-1.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        }
+      ],
+      "philo": [
+        {
+          "author": "Philo",
+          "work": "On the Migration of Abraham",
+          "location": "1–14",
+          "topics": [
+            "initial call",
+            "migration",
+            "interpretation"
+          ],
+          "summary": "Philo quotes the call to leave land, kindred, and father’s house and develops both literal and allegorical interpretations of the migration.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=philo&work=on-the-migration-of-abraham&chapter=1"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.earlychristianwritings.com/yonge/book16.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Philo",
+          "work": "On the Change of Names",
+          "location": "51–58",
+          "topics": [
+            "Genesis 17",
+            "covenant",
+            "obligation"
+          ],
+          "summary": "Philo comments on the command to be blameless and on the covenant language of Genesis 17:2.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=philo&work=on-the-change-of-names&chapter=1"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.earlychristianwritings.com/yonge/book20.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Philo",
+          "work": "On the Change of Names",
+          "location": "87–88",
+          "topics": [
+            "Abraham’s name",
+            "Isaac",
+            "Jacob"
+          ],
+          "summary": "Philo interprets the name changes of Abraham and Jacob while noting that Isaac’s name is not changed.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=philo&work=on-the-change-of-names&chapter=1"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.earlychristianwritings.com/yonge/book20.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Philo",
+          "work": "On Abraham",
+          "location": "168–177",
+          "topics": [
+            "binding of Isaac",
+            "obedience",
+            "divine intervention"
+          ],
+          "summary": "Philo retells the command to offer Isaac, Abraham’s response, the journey and altar, and the interruption of the sacrifice.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=philo&work=on-abraham&chapter=1"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.earlychristianwritings.com/yonge/book22.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Philo",
+          "work": "On Abraham",
+          "location": "262–275",
+          "topics": [
+            "faith",
+            "oath",
+            "obedience"
+          ],
+          "summary": "Philo discusses Abraham’s belief in God, describes a confirming oath connected with promised gifts, and concludes with Abraham’s obedience.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=philo&work=on-abraham&chapter=1"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.earlychristianwritings.com/yonge/book22.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Philo",
+          "work": "Questions and Answers on Genesis III",
+          "location": "16",
+          "topics": [
+            "Genesis 15",
+            "covenant",
+            "land"
+          ],
+          "summary": "Philo directly comments on Genesis 15’s covenant statement and the land promised to Abraham’s seed.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=philo&work=questions-and-answers-on-genesis-iii&chapter=1"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.earlychristianwritings.com/yonge/book43.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Philo",
+          "work": "Questions and Answers on Genesis III",
+          "location": "40–51",
+          "topics": [
+            "Genesis 17",
+            "name change",
+            "land",
+            "circumcision"
+          ],
+          "summary": "These questions address Genesis 17’s covenant, Abraham’s new name, nations and land, and circumcision of males and household members.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=philo&work=questions-and-answers-on-genesis-iii&chapter=1"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.earlychristianwritings.com/yonge/book43.html"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        }
+      ],
+      "jubilees": [
+        {
+          "author": "Jubilees",
+          "work": "Book of Jubilees",
+          "location": "12:15–31",
+          "topics": [
+            "initial call",
+            "migration",
+            "nations"
+          ],
+          "summary": "Jubilees retells Abram’s life in Haran, the call to leave, the promise of a great nation, and his journey toward Canaan.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=jubilees&chapter=12"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.sacred-texts.com/bib/jub/jub30.htm"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Jubilees",
+          "work": "Book of Jubilees",
+          "location": "14:1–20",
+          "topics": [
+            "Genesis 15",
+            "covenant ceremony",
+            "seed",
+            "land"
+          ],
+          "summary": "Jubilees retells the heir and stars promises, Abraham’s believing response, the divided pieces, and the covenant concerning the land.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=jubilees&chapter=14"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.sacred-texts.com/bib/jub/jub33.htm"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Jubilees",
+          "work": "Book of Jubilees",
+          "location": "15:3–29",
+          "topics": [
+            "Genesis 17",
+            "name changes",
+            "circumcision",
+            "Isaac"
+          ],
+          "summary": "Jubilees retells the Genesis 17 covenant, name changes, land promise, circumcision sign, household observance, and covenant identification with Isaac.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=jubilees&chapter=15"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.sacred-texts.com/bib/jub/jub35.htm"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Jubilees",
+          "work": "Book of Jubilees",
+          "location": "16:10–18",
+          "topics": [
+            "Isaac",
+            "circumcision",
+            "promised line"
+          ],
+          "summary": "Jubilees recounts Isaac’s birth and eighth-day circumcision and then describes a distinguished line among Isaac’s descendants.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=jubilees&chapter=16"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.sacred-texts.com/bib/jub/jub37.htm"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        },
+        {
+          "author": "Jubilees",
+          "work": "Book of Jubilees",
+          "location": "17:15–18:16",
+          "topics": [
+            "binding of Isaac",
+            "oath",
+            "seed",
+            "nations"
+          ],
+          "summary": "Jubilees retells the testing of Abraham, binding of Isaac, substituted ram, and oath concerning multiplied seed and blessing among the nations.",
+          "classification": "ancient-source",
+          "externalLinks": [
+            {
+              "label": "Read in Ancient Library",
+              "url": "?card=ancient-library&book=jubilees&chapter=17"
+            },
+            {
+              "label": "Open verification edition",
+              "url": "https://www.sacred-texts.com/bib/jub/jub40.htm"
+            }
+          ],
+          "notes": "This passage is a later retelling or interpretation of biblical tradition, not independent evidence of the events described in Genesis."
+        }
+      ],
       "firstEnoch": [],
       "deadSeaScrolls": [],
       "mishnah": [],
@@ -356,11 +845,76 @@
       "other": []
     },
     "ntReferences": [
-      "Luke 1:72â€“73",
-      "Acts 3:25â€“26",
-      "Romans 4:1â€“25",
-      "Galatians 3:6â€“29",
-      "Hebrews 6:13â€“20"
+      {
+        "reference": "Matthew 1:1",
+        "classification": "Later biblical interpretation",
+        "summary": "Matthew introduces Jesus as son of David and son of Abraham."
+      },
+      {
+        "reference": "Luke 1:54–55",
+        "classification": "Later biblical interpretation",
+        "summary": "Mary’s song connects God’s help for Israel with the promise spoken to Abraham and his offspring."
+      },
+      {
+        "reference": "Luke 1:72–73",
+        "classification": "Later biblical interpretation",
+        "summary": "Zechariah’s prophecy describes remembrance of the covenant and oath sworn to Abraham."
+      },
+      {
+        "reference": "John 8:33–58",
+        "classification": "Disputed interpretation",
+        "summary": "Jesus and his interlocutors dispute the meaning of Abrahamic descent, Abraham’s works, and Abraham’s response to Jesus’ day."
+      },
+      {
+        "reference": "Acts 3:25–26",
+        "classification": "Later biblical interpretation",
+        "summary": "Peter calls his audience children of the prophets and covenant and applies the promise concerning the families of the earth."
+      },
+      {
+        "reference": "Acts 7:2–8",
+        "classification": "Later biblical interpretation",
+        "summary": "Stephen recounts Abraham’s call, land promise, descendant forecast, covenant of circumcision, and the patriarchal line."
+      },
+      {
+        "reference": "Romans 4:1–25",
+        "classification": "Later biblical interpretation",
+        "summary": "Paul discusses Abraham’s faith, reckoned righteousness, circumcision, and the promise in relation to circumcised and uncircumcised people."
+      },
+      {
+        "reference": "Romans 9:6–13",
+        "classification": "Later biblical interpretation",
+        "summary": "Paul distinguishes physical descent from the children of promise while discussing Isaac and Jacob."
+      },
+      {
+        "reference": "Romans 11:1–32",
+        "classification": "Disputed interpretation",
+        "summary": "Paul uses patriarchal, firstfruits, root, branches, promise, and mercy imagery in a discussion of Israel and the nations."
+      },
+      {
+        "reference": "Galatians 3:6–29",
+        "classification": "Disputed interpretation",
+        "summary": "Paul interprets Abraham’s faith, the blessing of the nations, the promise to the seed, the law, and belonging to Messiah."
+      },
+      {
+        "reference": "Galatians 4:21–31",
+        "classification": "Disputed interpretation",
+        "summary": "Paul gives an allegorical reading of Hagar, Sarah, their children, and two covenants."
+      },
+      {
+        "reference": "Hebrews 6:13–20",
+        "classification": "Later biblical interpretation",
+        "summary": "Hebrews appeals to God’s oath to Abraham as grounds for the certainty of the promise and hope."
+      },
+      {
+        "reference": "Hebrews 11:8–19",
+        "classification": "Later biblical interpretation",
+        "summary": "Hebrews presents Abraham and Sarah as acting by faith regarding land, offspring, promise, and Isaac."
+      },
+      {
+        "reference": "James 2:21–23",
+        "classification": "Later biblical interpretation",
+        "summary": "James relates Abraham’s offering of Isaac to the completion of faith and cites Genesis 15:6."
+      }
     ],
     "sefariaLinks": [
       {
@@ -374,29 +928,166 @@
       {
         "label": "Genesis 17",
         "url": "https://www.sefaria.org/Genesis.17"
+      },
+      {
+        "label": "Genesis 22",
+        "url": "https://www.sefaria.org/Genesis.22"
       }
     ],
     "timelineEvents": [
       {
-        "summary": "Abram is called from his land",
+        "summary": "Initial call and promise",
         "references": [
-          "Genesis 12:1â€“4"
+          "Genesis 12:1–3"
         ]
       },
       {
-        "summary": "Covenant ceremony",
+        "summary": "Covenant-cutting ceremony",
         "references": [
-          "Genesis 15:7â€“21"
+          "Genesis 15:7–21"
         ]
       },
       {
-        "summary": "Circumcision appointed",
+        "summary": "Covenant sign and name changes",
         "references": [
-          "Genesis 17:9â€“27"
+          "Genesis 17:1–27"
+        ]
+      },
+      {
+        "summary": "Oath after the binding of Isaac",
+        "references": [
+          "Genesis 22:15–18"
+        ]
+      },
+      {
+        "summary": "Promises confirmed to Isaac",
+        "references": [
+          "Genesis 26:2–5"
+        ]
+      },
+      {
+        "summary": "Promises confirmed to Jacob",
+        "references": [
+          "Genesis 28:13–15",
+          "Genesis 35:9–12"
         ]
       }
     ],
-    "comparisonTexts": []
+    "comparisonTexts": [
+      "genesis-12",
+      "genesis-15",
+      "genesis-17",
+      "genesis-22"
+    ],
+    "comparisonIntro": "Follow the Abrahamic material across four stages without treating a later passage as a replacement for an earlier one.",
+    "detailSections": [
+      {
+        "id": "initial-call",
+        "title": "Initial call and promise",
+        "classification": "Text states",
+        "summary": "Abram is called to leave his land, kindred, and father’s house. Nation, blessing, name, and blessing involving the families of the earth are introduced.",
+        "references": [
+          "Genesis 12:1–3"
+        ]
+      },
+      {
+        "id": "land-expansion",
+        "title": "Land and offspring restated",
+        "classification": "Text states",
+        "summary": "After Lot separates from Abram, the land is shown and promised, and Abram’s offspring are compared with the dust of the earth.",
+        "references": [
+          "Genesis 13:14–17"
+        ]
+      },
+      {
+        "id": "covenant-ceremony",
+        "title": "Covenant-making ceremony",
+        "classification": "Text states",
+        "summary": "Genesis 15 joins an heir promise and Abram’s believing response with divided animals, a descendant forecast, a passing fire-symbol, explicit covenant language, and specified land boundaries.",
+        "references": [
+          "Genesis 15:1–21"
+        ]
+      },
+      {
+        "id": "confirmation-sign",
+        "title": "Covenant confirmation and sign",
+        "classification": "Text states",
+        "summary": "Genesis 17 confirms the covenant, commands circumcision as its sign, uses everlasting language, and applies the sign throughout Abraham’s male household.",
+        "references": [
+          "Genesis 17:1–14",
+          "Genesis 17:23–27"
+        ]
+      },
+      {
+        "id": "name-changes",
+        "title": "Name changes",
+        "classification": "Text states",
+        "summary": "Abram is renamed Abraham and Sarai is renamed Sarah within the Genesis 17 covenant account.",
+        "references": [
+          "Genesis 17:5",
+          "Genesis 17:15"
+        ]
+      },
+      {
+        "id": "isaac-line",
+        "title": "Isaac and the promised line",
+        "classification": "Text states",
+        "summary": "Ishmael is promised blessing and nationhood, while the covenant is said to be established with Isaac and his offspring. Genesis 21 again identifies Isaac in the naming of Abraham’s offspring.",
+        "references": [
+          "Genesis 17:18–21",
+          "Genesis 21:12"
+        ]
+      },
+      {
+        "id": "household-obligation",
+        "title": "Household vocation",
+        "classification": "Text states",
+        "summary": "Genesis 18 connects Abraham’s directing of his children and household toward righteousness and justice with the promised outcome.",
+        "references": [
+          "Genesis 18:17–19"
+        ]
+      },
+      {
+        "id": "covenant-oath",
+        "title": "Covenant oath after the binding of Isaac",
+        "classification": "Text states",
+        "summary": "After Abraham does not withhold Isaac, the divine speech includes an oath and repeats blessing, offspring, victory, nations, and obedience language.",
+        "references": [
+          "Genesis 22:15–18"
+        ]
+      },
+      {
+        "id": "patriarchal-confirmations",
+        "title": "Confirmations to Isaac and Jacob",
+        "classification": "Text states",
+        "summary": "Genesis confirms ancestral promises to Isaac and Jacob, including land, offspring, nations, blessing, presence, and return.",
+        "references": [
+          "Genesis 26:2–5",
+          "Genesis 28:13–15",
+          "Genesis 35:9–12"
+        ]
+      },
+      {
+        "id": "later-appeals",
+        "title": "Later biblical appeals",
+        "classification": "Later biblical interpretation",
+        "summary": "Exodus and Leviticus appeal to the covenant with Abraham, Isaac, and Jacob in connection with deliverance, land, remembrance, and restoration.",
+        "references": [
+          "Exodus 2:24",
+          "Exodus 6:2–8",
+          "Leviticus 26:40–45"
+        ]
+      },
+      {
+        "id": "interpretive-questions",
+        "title": "Questions readers interpret differently",
+        "classification": "Disputed interpretation",
+        "summary": "The texts use singular and collective offspring language, name individual descendants, address land and nations, and contain commands alongside divine promises. Jewish, Christian, and scholarly interpretations differ over how those elements relate and continue.",
+        "references": [
+          "Genesis 12–22"
+        ]
+      }
+    ]
   },
   {
     "id": "mosaic",
@@ -1387,4 +2078,3 @@
     "comparisonTexts": []
   }
 ]
-
