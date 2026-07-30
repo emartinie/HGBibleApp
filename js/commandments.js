@@ -1,7 +1,9 @@
 (function () {
   const DATA_URL = "data/commandments/commandments.json";
   const COVENANT_ENGINE_URL = "js/covenant-engine.js";
+  const RELATIONSHIP_ENGINE_URL = "js/relationship-engine.js";
   let covenantEnginePromise = null;
+  let relationshipEnginePromise = null;
   let covenantRenderRequestId = 0;
   let lastRenderedCovenantContainer = null;
   let commandmentsPromise = null;
@@ -150,6 +152,32 @@
     return covenantEnginePromise;
   }
 
+  function loadRelationshipEngine() {
+    if (window.HGRelationships) return Promise.resolve(window.HGRelationships);
+    if (relationshipEnginePromise) return relationshipEnginePromise;
+
+    relationshipEnginePromise = new Promise((resolve) => {
+      const existing = document.querySelector('script[data-hg-relationship-engine="true"]');
+      const finish = () => resolve(window.HGRelationships || null);
+
+      if (existing) {
+        existing.addEventListener("load", finish, { once: true });
+        existing.addEventListener("error", () => resolve(null), { once: true });
+        window.setTimeout(finish, 3000);
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = RELATIONSHIP_ENGINE_URL;
+      script.dataset.hgRelationshipEngine = "true";
+      script.onload = finish;
+      script.onerror = () => resolve(null);
+      document.head.appendChild(script);
+    });
+
+    return relationshipEnginePromise;
+  }
+
   function firstReference(covenant) {
     const references = covenant.scriptureRange?.[0]?.references;
     return Array.isArray(references) && references.length ? references[0] : "References being prepared";
@@ -285,6 +313,50 @@
     return card;
   }
 
+  async function renderConnectedResources(container, covenant) {
+    try {
+      const relationshipEngine = await loadRelationshipEngine();
+      if (!relationshipEngine) return;
+      const relationships = await relationshipEngine.getOutgoing({
+        type: "covenant",
+        id: covenant.id
+      });
+      const groups = [
+        { relationship: "HAS_COMMANDMENT", label: "Commandment", target: "Related commandments" },
+        { relationship: "HAS_SOURCE", label: "Ancient Source", target: "Ancient Sources" },
+        { relationship: "REFERENCES", label: "NT Reference", target: "New Testament references" },
+        { relationship: "PARALLELS", label: "Comparison Passage", target: "Passage comparison" }
+      ].map((group) => ({
+        ...group,
+        count: relationships.filter((item) => item.relationship === group.relationship).length
+      })).filter((group) => group.count > 0);
+
+      if (!groups.length) return;
+      appendSection(container, "Connected Resources", true, body => {
+        const list = document.createElement("div");
+        list.className = "connected-resources-list";
+        groups.forEach((group) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "connected-resource-count";
+          button.textContent = group.count + " " + group.label + (group.count === 1 ? "" : "s");
+          button.addEventListener("click", () => {
+            const section = [...container.querySelectorAll(".covenant-section")].find((candidate) =>
+              candidate.querySelector(":scope > summary")?.textContent === group.target
+            );
+            if (!section) return;
+            section.open = true;
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+          list.appendChild(button);
+        });
+        body.appendChild(list);
+      });
+    } catch (error) {
+      console.warn("[Commandments] Connected Resources is unavailable.", error);
+    }
+  }
+
   async function renderFullCovenantDetail(container, covenant, engine, commandments) {
     renderDetailHeader(container, covenant);
 
@@ -295,6 +367,8 @@
     appendFact(facts, "Sign", (covenant.covenantSign || []).map(item => item.summary).join("; ") || "No explicit sign identified");
     appendFact(facts, "Duration language", covenant.duration?.description || "");
     container.appendChild(facts);
+
+    await renderConnectedResources(container, covenant);
 
     appendSection(container, "Primary covenant passages", true, body => {
       appendClaimList(body, covenant.scriptureRange, "No passages listed.");
