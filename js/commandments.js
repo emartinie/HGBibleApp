@@ -221,7 +221,7 @@
     const close = document.createElement("button");
     close.type = "button";
     close.className = "covenant-close";
-    close.textContent = "Ã—";
+    close.textContent = "×";
     close.setAttribute("aria-label", "Close covenant detail");
     close.addEventListener("click", () => closeCovenantDetail(container));
     header.append(copy, close);
@@ -279,7 +279,7 @@
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.className = "mt-3 inline-block text-sm font-semibold text-sky-300 underline";
-      link.textContent = source.label + " â†—";
+      link.textContent = source.label + " ↗";
       card.appendChild(link);
     });
     return card;
@@ -325,7 +325,7 @@
         button.type = "button";
         button.className = "covenant-commandment";
         appendText(button, "strong", commandment.title, "block text-sm");
-        appendText(button, "span", commandment.code + " Â· " + commandment.reference, "block text-xs text-sky-300");
+        appendText(button, "span", commandment.code + " · " + commandment.reference, "block text-xs text-sky-300");
         button.addEventListener("click", () => {
           activeCommandmentId = String(commandment.id);
           window.HGRoute?.setCardState?.("commandments", { id: activeCommandmentId }, {
@@ -383,7 +383,7 @@
         entries.forEach(entry => {
           const card = document.createElement("article");
           card.className = "covenant-source-card";
-          appendText(card, "h6", [entry.author, entry.work, entry.location].filter(Boolean).join(" Â· "), "covenant-source-title");
+          appendText(card, "h6", [entry.author, entry.work, entry.location].filter(Boolean).join(" · "), "covenant-source-title");
           if (entry.summary) appendText(card, "p", entry.summary, "covenant-source-summary");
           if (Array.isArray(entry.topics) && entry.topics.length) {
             const topics = document.createElement("div");
@@ -402,11 +402,11 @@
               if (/^https?:/i.test(linkData.url)) {
                 link.target = "_blank";
                 link.rel = "noopener noreferrer";
-                link.textContent += " â†—";
+                link.textContent += " ↗";
               } else if (linkData.url.startsWith("?card=ancient-library")) {
                 link.target = "_blank";
                 link.rel = "noopener noreferrer";
-                link.textContent += " â†—";
+                link.textContent += " ↗";
               }
               actions.appendChild(link);
             });
@@ -671,7 +671,7 @@
 
         appendText(row, "div", cmd.title || "Untitled commandment", "font-semibold text-white");
         appendText(row, "div", cmd.reference || "No reference listed", "text-xs text-slate-300");
-        appendText(row, "div", `${cmd.type || "unknown"} â€¢ ${cmd.category || "Uncategorized"}`, "text-xs text-slate-400");
+        appendText(row, "div", `${cmd.type || "unknown"} • ${cmd.category || "Uncategorized"}`, "text-xs text-slate-400");
 
         row.lastChild.textContent = `${cmd.code || "No code"} \u2022 ${cmd.type || "unknown"} \u2022 ${cmd.category || "Uncategorized"}`;
         if (Array.isArray(cmd.themes) && cmd.themes.length) {
