@@ -258,5 +258,356 @@
       }
     ],
     "notes": "Reference and structural metadata only; biblical text is not duplicated."
+  },
+  {
+    "id": "genesis-12",
+    "title": "Genesis 12",
+    "reference": "Genesis 12:1–3",
+    "sefariaRef": "Genesis.12.1-3",
+    "covenantIds": [
+      "abrahamic"
+    ],
+    "literarySetting": "Abram is called to leave land, kindred, and father’s house for a land God will show him.",
+    "comparisonFacts": [
+      {
+        "label": "Promise elements",
+        "value": "Great nation, blessing, great name, becoming a blessing"
+      },
+      {
+        "label": "Covenant terminology",
+        "value": "The word covenant is not used in this passage"
+      },
+      {
+        "label": "Ritual or sign",
+        "value": "None stated"
+      },
+      {
+        "label": "Named descendants",
+        "value": "None named"
+      },
+      {
+        "label": "Land language",
+        "value": "A land God will show Abram"
+      },
+      {
+        "label": "Nations language",
+        "value": "All families of the earth are included in the blessing statement"
+      },
+      {
+        "label": "Human response or obligation",
+        "value": "Abram is commanded to go"
+      },
+      {
+        "label": "Later biblical reuse",
+        "value": "Acts 3:25–26; Galatians 3:8"
+      }
+    ],
+    "structuralSections": [
+      {
+        "label": "Call and departure",
+        "references": [
+          "Genesis 12:1"
+        ]
+      },
+      {
+        "label": "Promises",
+        "references": [
+          "Genesis 12:2–3"
+        ]
+      }
+    ],
+    "repeatedThemes": [
+      "Land",
+      "offspring or nation",
+      "blessing",
+      "other peoples"
+    ],
+    "distinctiveThemes": [
+      "The sequence begins with a call to leave",
+      "The destination is not yet geographically defined"
+    ],
+    "observations": [
+      {
+        "classification": "Text states",
+        "summary": "Nation, blessing, name, and families-of-the-earth language appear before Genesis explicitly calls the arrangement a covenant.",
+        "references": [
+          "Genesis 12:1–3"
+        ]
+      }
+    ],
+    "sourceLinks": [
+      {
+        "label": "Open Genesis 12 in Sefaria",
+        "url": "https://www.sefaria.org/Genesis.12.1-3"
+      }
+    ],
+    "notes": "Developmental metadata only; this entry does not claim that later passages replace this promise."
+  },
+  {
+    "id": "genesis-15",
+    "title": "Genesis 15",
+    "reference": "Genesis 15",
+    "sefariaRef": "Genesis.15",
+    "covenantIds": [
+      "abrahamic"
+    ],
+    "literarySetting": "Abram remains childless after the events of Genesis 14 and asks about an heir.",
+    "comparisonFacts": [
+      {
+        "label": "Promise elements",
+        "value": "A biological heir, innumerable offspring, future deliverance, land"
+      },
+      {
+        "label": "Covenant terminology",
+        "value": "Genesis 15:18 explicitly says God made a covenant with Abram"
+      },
+      {
+        "label": "Ritual or sign",
+        "value": "Divided animals; smoking fire pot and flaming torch pass between the pieces"
+      },
+      {
+        "label": "Named descendants",
+        "value": "No son is named; the heir is said to come from Abram"
+      },
+      {
+        "label": "Land language",
+        "value": "Boundaries from the river of Egypt to the Euphrates are specified"
+      },
+      {
+        "label": "Nations language",
+        "value": "No families-of-the-earth formula in this chapter"
+      },
+      {
+        "label": "Human response or obligation",
+        "value": "Abram believes; the chapter records his preparation of the animals"
+      },
+      {
+        "label": "Later biblical reuse",
+        "value": "Romans 4; Galatians 3; James 2:23"
+      }
+    ],
+    "structuralSections": [
+      {
+        "label": "Heir and faith",
+        "references": [
+          "Genesis 15:1–6"
+        ]
+      },
+      {
+        "label": "Covenant ceremony and land",
+        "references": [
+          "Genesis 15:7–21"
+        ]
+      }
+    ],
+    "repeatedThemes": [
+      "offspring",
+      "land",
+      "promise"
+    ],
+    "distinctiveThemes": [
+      "Explicit covenant-making language",
+      "A formal ceremony with divided animals",
+      "Forecast of oppression and return"
+    ],
+    "observations": [
+      {
+        "classification": "Text states",
+        "summary": "Genesis 15:6 reports Abram’s belief, and Genesis 15:18 explicitly identifies covenant-making.",
+        "references": [
+          "Genesis 15:6",
+          "Genesis 15:18"
+        ]
+      }
+    ],
+    "sourceLinks": [
+      {
+        "label": "Open Genesis 15 in Sefaria",
+        "url": "https://www.sefaria.org/Genesis.15"
+      }
+    ],
+    "notes": "Developmental metadata only; this entry does not claim that later passages replace this covenant ceremony."
+  },
+  {
+    "id": "genesis-17",
+    "title": "Genesis 17",
+    "reference": "Genesis 17",
+    "sefariaRef": "Genesis.17",
+    "covenantIds": [
+      "abrahamic"
+    ],
+    "literarySetting": "Abram is ninety-nine, and the chapter precedes Isaac’s conception and birth.",
+    "comparisonFacts": [
+      {
+        "label": "Promise elements",
+        "value": "Numerous nations, kings, land, divine relationship, Isaac"
+      },
+      {
+        "label": "Covenant terminology",
+        "value": "Covenant language is repeated throughout; everlasting language is used"
+      },
+      {
+        "label": "Ritual or sign",
+        "value": "Circumcision is commanded as the covenant sign"
+      },
+      {
+        "label": "Named descendants",
+        "value": "Isaac and Ishmael are both named; the covenant is specified with Isaac"
+      },
+      {
+        "label": "Land language",
+        "value": "Canaan is described as an everlasting possession"
+      },
+      {
+        "label": "Nations language",
+        "value": "Abraham is called father of a multitude of nations; Sarah is connected with nations and kings"
+      },
+      {
+        "label": "Human response or obligation",
+        "value": "Walk before God, be blameless, keep the covenant, circumcise the household"
+      },
+      {
+        "label": "Later biblical reuse",
+        "value": "Acts 7:8; Romans 4:9–12"
+      }
+    ],
+    "structuralSections": [
+      {
+        "label": "Covenant and Abraham’s name",
+        "references": [
+          "Genesis 17:1–14"
+        ]
+      },
+      {
+        "label": "Sarah, Isaac, and Ishmael",
+        "references": [
+          "Genesis 17:15–22"
+        ]
+      },
+      {
+        "label": "Household circumcision",
+        "references": [
+          "Genesis 17:23–27"
+        ]
+      }
+    ],
+    "repeatedThemes": [
+      "offspring",
+      "land",
+      "nations",
+      "divine relationship"
+    ],
+    "distinctiveThemes": [
+      "Name changes",
+      "Circumcision sign",
+      "Isaac named before birth"
+    ],
+    "observations": [
+      {
+        "classification": "Text states",
+        "summary": "Genesis 17 contains both divine promises and commands addressed to Abraham and his household.",
+        "references": [
+          "Genesis 17:1–14"
+        ]
+      }
+    ],
+    "sourceLinks": [
+      {
+        "label": "Open Genesis 17 in Sefaria",
+        "url": "https://www.sefaria.org/Genesis.17"
+      }
+    ],
+    "notes": "The record identifies textual elements without resolving later disputes concerning descendants, land, or duration."
+  },
+  {
+    "id": "genesis-22",
+    "title": "Genesis 22",
+    "reference": "Genesis 22:1–19",
+    "sefariaRef": "Genesis.22.1-19",
+    "covenantIds": [
+      "abrahamic"
+    ],
+    "literarySetting": "Abraham is tested concerning Isaac after Isaac’s birth and after the separation of Hagar and Ishmael.",
+    "comparisonFacts": [
+      {
+        "label": "Promise elements",
+        "value": "Blessing, multiplied offspring, possession of enemy gates, blessing among nations"
+      },
+      {
+        "label": "Covenant terminology",
+        "value": "The word covenant is not used; the divine speech includes an oath"
+      },
+      {
+        "label": "Ritual or sign",
+        "value": "Isaac is bound; a ram is offered in his place"
+      },
+      {
+        "label": "Named descendants",
+        "value": "Isaac is the named son involved in the test"
+      },
+      {
+        "label": "Land language",
+        "value": "No territorial boundaries are stated here"
+      },
+      {
+        "label": "Nations language",
+        "value": "All nations of the earth are included in the blessing statement"
+      },
+      {
+        "label": "Human response or obligation",
+        "value": "The oath speech states that Abraham obeyed God’s voice"
+      },
+      {
+        "label": "Later biblical reuse",
+        "value": "Hebrews 6:13–20; Hebrews 11:17–19; James 2:21–23"
+      }
+    ],
+    "structuralSections": [
+      {
+        "label": "Test and journey",
+        "references": [
+          "Genesis 22:1–8"
+        ]
+      },
+      {
+        "label": "Binding and intervention",
+        "references": [
+          "Genesis 22:9–14"
+        ]
+      },
+      {
+        "label": "Oath and repeated promises",
+        "references": [
+          "Genesis 22:15–18"
+        ]
+      }
+    ],
+    "repeatedThemes": [
+      "offspring",
+      "blessing",
+      "nations",
+      "obedience"
+    ],
+    "distinctiveThemes": [
+      "The binding of Isaac",
+      "A divine oath",
+      "Possession of enemy gates"
+    ],
+    "observations": [
+      {
+        "classification": "Text states",
+        "summary": "The oath follows Abraham’s action and repeats earlier offspring and nations themes with explicit obedience language.",
+        "references": [
+          "Genesis 22:15–18"
+        ]
+      }
+    ],
+    "sourceLinks": [
+      {
+        "label": "Open Genesis 22 in Sefaria",
+        "url": "https://www.sefaria.org/Genesis.22.1-19"
+      }
+    ],
+    "notes": "This entry presents the oath as a later stage in Genesis and does not claim that it replaces earlier promises or the Genesis 15 covenant ceremony."
   }
 ]
