@@ -249,6 +249,7 @@
     appendText(card, "p", comparison.literarySetting || "", "mt-2 text-sm text-slate-300");
     appendFact(card, "Speaker or narrator", comparison.speakerOrNarrator);
     appendFact(card, "Tablet or covenant context", comparison.tabletContext);
+    (comparison.comparisonFacts || []).forEach(fact => appendFact(card, fact.label, fact.value));
 
     if (comparison.structuralSections?.length) {
       const labels = document.createElement("div");
@@ -284,7 +285,7 @@
     return card;
   }
 
-  async function renderMosaicDetail(container, covenant, engine, commandments) {
+  async function renderFullCovenantDetail(container, covenant, engine, commandments) {
     renderDetailHeader(container, covenant);
 
     const facts = document.createElement("div");
@@ -312,7 +313,7 @@
     appendSection(container, "Blessings", false, body => appendClaimList(body, covenant.blessings, "No blessings classified in this record."));
     appendSection(container, "Curses and covenant consequences", false, body => appendClaimList(body, covenant.curses, "No curses classified in this record."));
 
-    const associations = await engine.getAssociationsForCovenant("mosaic");
+    const associations = await engine.getAssociationsForCovenant(covenant.id);
     const byId = new Map(commandments.map(commandment => [String(commandment.id), commandment]));
     appendSection(container, "Related commandments", true, body => {
       const list = document.createElement("div");
@@ -341,7 +342,18 @@
     });
 
     appendSection(container, "New Testament references", false, body => {
-      (covenant.ntReferences || []).forEach(reference => appendText(body, "p", reference, "covenant-ref"));
+      (covenant.ntReferences || []).forEach(reference => {
+        if (typeof reference === "string") {
+          appendText(body, "p", reference, "covenant-ref");
+          return;
+        }
+        const block = document.createElement("article");
+        block.className = "covenant-nt-reference";
+        appendText(block, "h6", reference.reference, "font-semibold text-sky-200");
+        if (reference.classification) appendText(block, "span", reference.classification, "comparison-label");
+        appendText(block, "p", reference.summary || "", "text-sm text-slate-300");
+        body.appendChild(block);
+      });
     });
 
     appendSection(container, "Ancient Sources", false, body => {
@@ -410,7 +422,7 @@
 
     const comparisons = await engine.getComparisonMetadata(covenant.comparisonTexts || []);
     appendSection(container, "Passage comparison", true, body => {
-      appendText(body, "p", "Compare textual observations without deciding between competing identifications.", "text-sm text-slate-300");
+      appendText(body, "p", covenant.comparisonIntro || "Compare textual observations without deciding between competing identifications.", "text-sm text-slate-300");
       const grid = document.createElement("div");
       grid.className = "comparison-grid";
       comparisons.forEach(comparison => grid.appendChild(renderComparisonCard(comparison)));
@@ -419,7 +431,8 @@
   }
 
   async function renderSelectedCovenant(container, covenant, engine, commandments) {
-    if (covenant.id === "mosaic") await renderMosaicDetail(container, covenant, engine, commandments);
+    const hasFullDetail = (covenant.detailSections || []).length || (covenant.comparisonTexts || []).length;
+    if (hasFullDetail) await renderFullCovenantDetail(container, covenant, engine, commandments);
     else renderGenericCovenantOverview(container, covenant);
   }
 
