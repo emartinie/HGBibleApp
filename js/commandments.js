@@ -346,7 +346,14 @@
 
     appendSection(container, "Ancient Sources", false, body => {
       const labels = { philo: "Philo", josephus: "Josephus", jubilees: "Jubilees" };
-      const groups = Object.entries(covenant.relatedSources || {}).filter(([, entries]) => Array.isArray(entries) && entries.length);
+      const sourceOrder = ["philo", "josephus", "jubilees"];
+      const groups = Object.entries(covenant.relatedSources || {})
+        .filter(([, entries]) => Array.isArray(entries) && entries.length)
+        .sort(([a], [b]) => {
+          const aIndex = sourceOrder.indexOf(a);
+          const bIndex = sourceOrder.indexOf(b);
+          return (aIndex < 0 ? sourceOrder.length : aIndex) - (bIndex < 0 ? sourceOrder.length : bIndex);
+        });
       if (!groups.length) {
         appendText(body, "p", "No verified ancient-source references are available for this covenant yet.", "text-sm text-slate-400");
         return;
