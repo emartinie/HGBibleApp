@@ -10,7 +10,7 @@
     "category": "primordial",
     "classification": {
       "status": "disputed",
-      "description": "Genesis 1â€“3 does not explicitly use the Hebrew word for covenant. Some interpreters describe these relationships as covenantal; Hosea 6:7 is textually and interpretively disputed."
+      "description": "Genesis 1–3 does not explicitly use the Hebrew word for covenant. Some interpreters describe these relationships as covenantal; Hosea 6:7 is textually and interpretively disputed."
     },
     "summary": "A proposed covenantal framework for the relationships, responsibilities, and consequences described at creation.",
     "parties": [
@@ -22,9 +22,9 @@
       {
         "summary": "Creation, vocation, command, and consequence",
         "references": [
-          "Genesis 1:26â€“31",
-          "Genesis 2:15â€“17",
-          "Genesis 3:14â€“24"
+          "Genesis 1:26–31",
+          "Genesis 2:15–17",
+          "Genesis 3:14–24"
         ]
       },
       {
@@ -53,7 +53,7 @@
       {
         "summary": "The tree of the knowledge of good and evil is prohibited",
         "references": [
-          "Genesis 2:16â€“17"
+          "Genesis 2:16–17"
         ]
       }
     ],
@@ -61,7 +61,7 @@
       {
         "summary": "Fruitfulness, provision, and delegated rule are described",
         "references": [
-          "Genesis 1:28â€“30"
+          "Genesis 1:28–30"
         ]
       }
     ],
@@ -69,7 +69,7 @@
       {
         "summary": "Consequences are announced after disobedience",
         "references": [
-          "Genesis 3:14â€“19"
+          "Genesis 3:14–19"
         ]
       }
     ],
@@ -92,7 +92,7 @@
     "ntReferences": [],
     "sefariaLinks": [
       {
-        "label": "Genesis 1â€“3",
+        "label": "Genesis 1–3",
         "url": "https://www.sefaria.org/Genesis.1-3"
       },
       {
@@ -104,7 +104,7 @@
       {
         "summary": "Creation and placement of humanity in Eden",
         "references": [
-          "Genesis 1â€“2"
+          "Genesis 1–2"
         ]
       },
       {
@@ -132,7 +132,7 @@
     "parties": [
       "God",
       "Noah",
-      "Noahâ€™s descendants",
+      "Noah’s descendants",
       "Every living creature"
     ],
     "mediator": "Noah",
@@ -140,7 +140,7 @@
       {
         "summary": "Covenant announcement and sign",
         "references": [
-          "Genesis 8:20â€“9:17"
+          "Genesis 8:20–9:17"
         ]
       }
     ],
@@ -148,7 +148,7 @@
       {
         "summary": "The bow in the cloud",
         "references": [
-          "Genesis 9:12â€“17"
+          "Genesis 9:12–17"
         ]
       }
     ],
@@ -162,7 +162,7 @@
       {
         "summary": "The ordered cycles of the earth will continue",
         "references": [
-          "Genesis 8:21â€“22"
+          "Genesis 8:21–22"
         ]
       }
     ],
@@ -183,7 +183,7 @@
       {
         "summary": "An accounting is required for human bloodshed",
         "references": [
-          "Genesis 9:5â€“6"
+          "Genesis 9:5–6"
         ]
       }
     ],
@@ -216,14 +216,14 @@
       "other": []
     },
     "ntReferences": [
-      "Matthew 24:37â€“39",
+      "Matthew 24:37–39",
       "Hebrews 11:7",
-      "1 Peter 3:20â€“21",
+      "1 Peter 3:20–21",
       "2 Peter 2:5"
     ],
     "sefariaLinks": [
       {
-        "label": "Genesis 8:20â€“9:17",
+        "label": "Genesis 8:20–9:17",
         "url": "https://www.sefaria.org/Genesis.8.20-9.17"
       }
     ],
@@ -231,13 +231,13 @@
       {
         "summary": "Flood subsides and Noah offers burnt offerings",
         "references": [
-          "Genesis 8:13â€“22"
+          "Genesis 8:13–22"
         ]
       },
       {
         "summary": "Covenant established and bow appointed",
         "references": [
-          "Genesis 9:8â€“17"
+          "Genesis 9:8–17"
         ]
       }
     ],
@@ -1111,13 +1111,13 @@
     "mediator": "Moses",
     "scriptureRange": [
       {
-        "summary": "Covenant initiation and Israelâ€™s response at Sinai",
+        "summary": "Covenant initiation and Israel’s response at Sinai",
         "references": [
           "Exodus 19"
         ]
       },
       {
-        "summary": "The Decalogue and the peopleâ€™s response",
+        "summary": "The Decalogue and the people’s response",
         "references": [
           "Exodus 20"
         ]
@@ -1125,7 +1125,7 @@
       {
         "summary": "Covenant ordinances",
         "references": [
-          "Exodus 21â€“23"
+          "Exodus 21–23"
         ]
       },
       {
@@ -1137,11 +1137,11 @@
       {
         "summary": "The Sabbath identified as a sign",
         "references": [
-          "Exodus 31:12â€“17"
+          "Exodus 31:12–17"
         ]
       },
       {
-        "summary": "Golden calf breach and Mosesâ€™ intercession",
+        "summary": "Golden calf breach and Moses’ intercession",
         "references": [
           "Exodus 32"
         ]
@@ -1167,7 +1167,7 @@
       {
         "summary": "Covenant ceremony, blessings, curses, and restoration appeal",
         "references": [
-          "Deuteronomy 27â€“30"
+          "Deuteronomy 27–30"
         ]
       }
     ],
@@ -1175,15 +1175,15 @@
       {
         "summary": "The Sabbath is called a sign between God and Israel",
         "references": [
-          "Exodus 31:12â€“17"
+          "Exodus 31:12–17"
         ]
       }
     ],
     "promises": [
       {
-        "summary": "Israel is described as Godâ€™s treasured possession, a kingdom of priests, and a holy nation if the covenant is kept",
+        "summary": "Israel is described as God’s treasured possession, a kingdom of priests, and a holy nation if the covenant is kept",
         "references": [
-          "Exodus 19:5â€“6"
+          "Exodus 19:5–6"
         ]
       }
     ],
@@ -1199,7 +1199,7 @@
       {
         "summary": "The covenant words and ordinances are given",
         "references": [
-          "Exodus 20â€“23"
+          "Exodus 20–23"
         ]
       }
     ],
@@ -1207,14 +1207,14 @@
       {
         "summary": "Covenant blessings are described for obedience",
         "references": [
-          "Leviticus 26:3â€“13",
-          "Deuteronomy 28:1â€“14"
+          "Leviticus 26:3–13",
+          "Deuteronomy 28:1–14"
         ]
       },
       {
         "summary": "Restoration following return to God is described",
         "references": [
-          "Deuteronomy 30:1â€“10"
+          "Deuteronomy 30:1–10"
         ]
       }
     ],
@@ -1222,21 +1222,21 @@
       {
         "summary": "Covenant warnings and consequences are described",
         "references": [
-          "Leviticus 26:14â€“39",
-          "Deuteronomy 28:15â€“68"
+          "Leviticus 26:14–39",
+          "Deuteronomy 28:15–68"
         ]
       },
       {
         "summary": "Blessing and curse, life and death, are set before Israel",
         "references": [
-          "Deuteronomy 30:15â€“20"
+          "Deuteronomy 30:15–20"
         ]
       }
     ],
     "duration": {
       "description": "Different commands and institutions use continuing or everlasting language; this record does not resolve later interpretive questions about covenant duration.",
       "references": [
-        "Exodus 31:16â€“17",
+        "Exodus 31:16–17",
         "Leviticus 24:8"
       ]
     },
@@ -1246,7 +1246,7 @@
         {
           "author": "Josephus",
           "work": "Antiquities of the Jews",
-          "location": "3.5.1â€“3",
+          "location": "3.5.1–3",
           "topics": [
             "Sinai",
             "Moses ascends",
@@ -1269,7 +1269,7 @@
         {
           "author": "Josephus",
           "work": "Antiquities of the Jews",
-          "location": "3.5.4â€“6",
+          "location": "3.5.4–6",
           "topics": [
             "delivery of the law",
             "Decalogue",
@@ -1292,7 +1292,7 @@
         {
           "author": "Josephus",
           "work": "Antiquities of the Jews",
-          "location": "3.5.7â€“8",
+          "location": "3.5.7–8",
           "topics": [
             "Moses ascends",
             "forty days",
@@ -1340,7 +1340,7 @@
         {
           "author": "Philo",
           "work": "On the Decalogue",
-          "location": "2â€“17",
+          "location": "2–17",
           "topics": [
             "Sinai setting",
             "delivery of the law"
@@ -1362,7 +1362,7 @@
         {
           "author": "Philo",
           "work": "On the Decalogue",
-          "location": "18â€“20",
+          "location": "18–20",
           "topics": [
             "Decalogue",
             "Moses as mediator"
@@ -1384,7 +1384,7 @@
         {
           "author": "Philo",
           "work": "On the Decalogue",
-          "location": "32â€“39",
+          "location": "32–39",
           "topics": [
             "Decalogue",
             "divine voice",
@@ -1407,7 +1407,7 @@
         {
           "author": "Philo",
           "work": "On the Decalogue",
-          "location": "154â€“175",
+          "location": "154–175",
           "topics": [
             "Decalogue",
             "special laws",
@@ -1430,7 +1430,7 @@
         {
           "author": "Philo",
           "work": "On the Life of Moses II",
-          "location": "68â€“75",
+          "location": "68–75",
           "topics": [
             "Moses ascends",
             "forty days",
@@ -1453,7 +1453,7 @@
         {
           "author": "Philo",
           "work": "On the Life of Moses II",
-          "location": "161â€“173",
+          "location": "161–173",
           "topics": [
             "golden calf",
             "Moses' intercession",
@@ -1478,7 +1478,7 @@
         {
           "author": "Jubilees",
           "work": "Book of Jubilees",
-          "location": "1:1â€“5",
+          "location": "1:1–5",
           "topics": [
             "Sinai",
             "Moses ascends",
@@ -1502,7 +1502,7 @@
         {
           "author": "Jubilees",
           "work": "Book of Jubilees",
-          "location": "1:8â€“18",
+          "location": "1:8–18",
           "topics": [
             "covenant obligations",
             "Sabbath",
@@ -1525,7 +1525,7 @@
         {
           "author": "Jubilees",
           "work": "Book of Jubilees",
-          "location": "1:27â€“29",
+          "location": "1:27–29",
           "topics": [
             "revelation",
             "tablets",
@@ -1548,7 +1548,7 @@
         {
           "author": "Jubilees",
           "work": "Book of Jubilees",
-          "location": "2:17â€“33",
+          "location": "2:17–33",
           "topics": [
             "Sabbath",
             "covenant sign",
@@ -1571,7 +1571,7 @@
         {
           "author": "Jubilees",
           "work": "Book of Jubilees",
-          "location": "6:11â€“22",
+          "location": "6:11–22",
           "topics": [
             "covenant ratification",
             "covenant renewal",
@@ -1594,7 +1594,7 @@
         {
           "author": "Jubilees",
           "work": "Book of Jubilees",
-          "location": "50:1â€“13",
+          "location": "50:1–13",
           "topics": [
             "Sinai",
             "Sabbath",
@@ -1623,16 +1623,16 @@
       "other": []
     },
     "ntReferences": [
-      "Matthew 5:17â€“20",
+      "Matthew 5:17–20",
       "Acts 7:38",
       "Romans 9:4",
-      "Galatians 3:15â€“25",
-      "Hebrews 8:6â€“13",
-      "Hebrews 9:18â€“22"
+      "Galatians 3:15–25",
+      "Hebrews 8:6–13",
+      "Hebrews 9:18–22"
     ],
     "sefariaLinks": [
       {
-        "label": "Exodus 19â€“24",
+        "label": "Exodus 19–24",
         "url": "https://www.sefaria.org/Exodus.19-24"
       },
       {
@@ -1648,19 +1648,19 @@
       {
         "summary": "Israel arrives at Sinai",
         "references": [
-          "Exodus 19:1â€“2"
+          "Exodus 19:1–2"
         ]
       },
       {
         "summary": "Covenant ratified with blood",
         "references": [
-          "Exodus 24:3â€“8"
+          "Exodus 24:3–8"
         ]
       },
       {
         "summary": "Covenant renewed",
         "references": [
-          "Exodus 34:1â€“28"
+          "Exodus 34:1–28"
         ]
       }
     ],
@@ -1676,7 +1676,7 @@
         "classification": "Text states",
         "summary": "Israel arrives at Sinai. God proposes a covenant relationship, and the people answer that they will do what God has spoken.",
         "references": [
-          "Exodus 19:1â€“8"
+          "Exodus 19:1–8"
         ]
       },
       {
@@ -1685,7 +1685,7 @@
         "classification": "Text states",
         "summary": "Moses reports the words and ordinances, records them, builds an altar, reads the covenant document, and applies covenant blood after the people affirm their response.",
         "references": [
-          "Exodus 24:3â€“8"
+          "Exodus 24:3–8"
         ]
       },
       {
@@ -1694,7 +1694,7 @@
         "classification": "Text states",
         "summary": "While Moses is on the mountain, the people make and worship a calf. Moses breaks the tablets after descending and seeing the calf and dancing.",
         "references": [
-          "Exodus 32:1â€“20"
+          "Exodus 32:1–20"
         ]
       },
       {
@@ -1703,17 +1703,17 @@
         "classification": "Text states",
         "summary": "Moses is commanded to cut two replacement tablets. Exodus 34 presents renewed covenant words and commands following the breach.",
         "references": [
-          "Exodus 34:1â€“28"
+          "Exodus 34:1–28"
         ]
       },
       {
         "id": "investigation",
         "title": "The Exodus 34 question",
         "classification": "Disputed interpretation",
-        "summary": "Exodus 34:1 says the replacement tablets will bear the words that were on the first tablets. Verses 27â€“28 refer to â€œthese words,â€ â€œthe words of the covenant,â€ and â€œthe Ten Words.â€ The precise grammatical and literary relationship between those phrases and the preceding commands is interpreted differently. This engine presents the observations without selecting one identification.",
+        "summary": "Exodus 34:1 says the replacement tablets will bear the words that were on the first tablets. Verses 27–28 refer to “these words,” “the words of the covenant,” and “the Ten Words.” The precise grammatical and literary relationship between those phrases and the preceding commands is interpreted differently. This engine presents the observations without selecting one identification.",
         "references": [
           "Exodus 34:1",
-          "Exodus 34:10â€“28"
+          "Exodus 34:10–28"
         ]
       }
     ]
@@ -1735,14 +1735,14 @@
     "parties": [
       "God",
       "Phinehas",
-      "Phinehasâ€™s descendants"
+      "Phinehas’s descendants"
     ],
     "mediator": "Phinehas",
     "scriptureRange": [
       {
         "summary": "Covenant of peace and perpetual priesthood",
         "references": [
-          "Numbers 25:10â€“13"
+          "Numbers 25:10–13"
         ]
       }
     ],
@@ -1792,7 +1792,7 @@
     "ntReferences": [],
     "sefariaLinks": [
       {
-        "label": "Numbers 25:10â€“13",
+        "label": "Numbers 25:10–13",
         "url": "https://www.sefaria.org/Numbers.25.10-13"
       }
     ],
@@ -1800,13 +1800,13 @@
       {
         "summary": "Crisis at Peor and the action of Phinehas",
         "references": [
-          "Numbers 25:1â€“9"
+          "Numbers 25:1–9"
         ]
       },
       {
         "summary": "Covenant grant announced",
         "references": [
-          "Numbers 25:10â€“13"
+          "Numbers 25:10–13"
         ]
       }
     ],
@@ -1822,33 +1822,33 @@
     "category": "royal",
     "classification": {
       "status": "explicit",
-      "description": "Later biblical texts explicitly describe Godâ€™s promises to David as a covenant."
+      "description": "Later biblical texts explicitly describe God’s promises to David as a covenant."
     },
-    "summary": "God promises to establish Davidâ€™s house and kingdom, with a continuing relationship between God and Davidâ€™s royal descendant.",
+    "summary": "God promises to establish David’s house and kingdom, with a continuing relationship between God and David’s royal descendant.",
     "parties": [
       "God",
       "David",
-      "Davidâ€™s house"
+      "David’s house"
     ],
     "mediator": "David",
     "scriptureRange": [
       {
         "summary": "Dynastic promise delivered through Nathan",
         "references": [
-          "2 Samuel 7:8â€“17"
+          "2 Samuel 7:8–17"
         ]
       },
       {
         "summary": "The promise described as covenant",
         "references": [
-          "Psalm 89:3â€“4",
-          "Psalm 89:28â€“37"
+          "Psalm 89:3–4",
+          "Psalm 89:28–37"
         ]
       },
       {
         "summary": "Covenant and oath remembered",
         "references": [
-          "Psalm 132:11â€“12"
+          "Psalm 132:11–12"
         ]
       }
     ],
@@ -1861,15 +1861,15 @@
         ]
       },
       {
-        "summary": "Davidâ€™s offspring, throne, and kingdom are promised establishment",
+        "summary": "David’s offspring, throne, and kingdom are promised establishment",
         "references": [
-          "2 Samuel 7:12â€“16"
+          "2 Samuel 7:12–16"
         ]
       }
     ],
     "obligations": [
       {
-        "summary": "Psalm 132 presents obedience by Davidâ€™s sons as relevant to their continuing rule",
+        "summary": "Psalm 132 presents obedience by David’s sons as relevant to their continuing rule",
         "references": [
           "Psalm 132:12"
         ]
@@ -1887,7 +1887,7 @@
       {
         "summary": "Discipline for iniquity is stated without removal of steadfast love",
         "references": [
-          "2 Samuel 7:14â€“15"
+          "2 Samuel 7:14–15"
         ]
       }
     ],
@@ -1895,8 +1895,8 @@
       "description": "The house and throne are described with continuing or forever language.",
       "references": [
         "2 Samuel 7:16",
-        "Psalm 89:28â€“29",
-        "Psalm 89:36â€“37"
+        "Psalm 89:28–29",
+        "Psalm 89:36–37"
       ]
     },
     "fulfillmentNotes": [],
@@ -1912,9 +1912,9 @@
       "other": []
     },
     "ntReferences": [
-      "Luke 1:32â€“33",
-      "Acts 2:29â€“36",
-      "Acts 13:22â€“23",
+      "Luke 1:32–33",
+      "Acts 2:29–36",
+      "Acts 13:22–23",
       "Romans 1:3",
       "2 Timothy 2:8"
     ],
@@ -1932,7 +1932,7 @@
       {
         "summary": "Nathan delivers the dynastic promise to David",
         "references": [
-          "2 Samuel 7:4â€“17"
+          "2 Samuel 7:4–17"
         ]
       }
     ],
@@ -1961,19 +1961,19 @@
       {
         "summary": "Promise of a new covenant",
         "references": [
-          "Jeremiah 31:31â€“34"
+          "Jeremiah 31:31–34"
         ]
       },
       {
         "summary": "Everlasting covenant and restored faithfulness",
         "references": [
-          "Jeremiah 32:37â€“41"
+          "Jeremiah 32:37–41"
         ]
       },
       {
-        "summary": "Cleansing, new heart, and Godâ€™s spirit",
+        "summary": "Cleansing, new heart, and God’s spirit",
         "references": [
-          "Ezekiel 36:22â€“28"
+          "Ezekiel 36:22–28"
         ]
       },
       {
@@ -1983,16 +1983,16 @@
         ]
       },
       {
-        "summary": "Jeremiahâ€™s promise quoted and discussed",
+        "summary": "Jeremiah’s promise quoted and discussed",
         "references": [
-          "Hebrews 8:6â€“13"
+          "Hebrews 8:6–13"
         ]
       }
     ],
     "covenantSign": [],
     "promises": [
       {
-        "summary": "Godâ€™s instruction written on the heart",
+        "summary": "God’s instruction written on the heart",
         "references": [
           "Jeremiah 31:33"
         ]
@@ -2000,7 +2000,7 @@
       {
         "summary": "Restored covenant relationship and knowledge of God",
         "references": [
-          "Jeremiah 31:33â€“34"
+          "Jeremiah 31:33–34"
         ]
       },
       {
@@ -2015,7 +2015,7 @@
       {
         "summary": "Gathering, security, one heart and one way are promised",
         "references": [
-          "Jeremiah 32:37â€“40"
+          "Jeremiah 32:37–40"
         ]
       }
     ],
@@ -2042,22 +2042,22 @@
       "Luke 22:20",
       "1 Corinthians 11:25",
       "2 Corinthians 3:6",
-      "Hebrews 8:6â€“13",
+      "Hebrews 8:6–13",
       "Hebrews 9:15",
-      "Hebrews 10:15â€“18",
+      "Hebrews 10:15–18",
       "Hebrews 12:24"
     ],
     "sefariaLinks": [
       {
-        "label": "Jeremiah 31:31â€“34",
+        "label": "Jeremiah 31:31–34",
         "url": "https://www.sefaria.org/Jeremiah.31.31-34"
       },
       {
-        "label": "Jeremiah 32:37â€“41",
+        "label": "Jeremiah 32:37–41",
         "url": "https://www.sefaria.org/Jeremiah.32.37-41"
       },
       {
-        "label": "Ezekiel 36:22â€“28",
+        "label": "Ezekiel 36:22–28",
         "url": "https://www.sefaria.org/Ezekiel.36.22-28"
       }
     ],
@@ -2065,7 +2065,7 @@
       {
         "summary": "Jeremiah announces the new covenant",
         "references": [
-          "Jeremiah 31:31â€“34"
+          "Jeremiah 31:31–34"
         ]
       },
       {
