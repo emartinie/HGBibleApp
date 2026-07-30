@@ -38,50 +38,50 @@
     <button class="card-fullscreen-btn card-icon-btn primary"
             type="button"
             title="Expand Card"
-            aria-label="Expand Commandments card">â›¶</button>
+            aria-label="Expand Commandments card">⛶</button>
 
-    <button class="card-icon-btn nav" type="button" title="Home" aria-label="Go home">âŒ‚</button>
-    <button class="card-icon-btn nav" type="button" title="Previous" aria-label="Go to previous card">â†</button>
-    <button class="card-icon-btn nav" type="button" title="Next" aria-label="Go to next card">â†’</button>
+    <button class="card-icon-btn nav" type="button" title="Home" aria-label="Go home">⌂</button>
+    <button class="card-icon-btn nav" type="button" title="Previous" aria-label="Go to previous card">←</button>
+    <button class="card-icon-btn nav" type="button" title="Next" aria-label="Go to next card">→</button>
 
     <button class="card-icon-btn audio" type="button" title="Audio Guide" aria-label="Open audio guide">ðŸŽ§</button>
-    <button class="card-icon-btn audio" type="button" title="Video Walkthrough" aria-label="Open video walkthrough">â–¶</button>
+    <button class="card-icon-btn audio" type="button" title="Video Walkthrough" aria-label="Open video walkthrough">▶</button>
 
-    <button class="card-icon-btn utility" type="button" title="Search Card" aria-label="Search this card">âŒ•</button>
-    <button class="card-icon-btn utility" type="button" title="Bookmark" aria-label="Bookmark this card">â˜…</button>
-    <button class="card-icon-btn utility" type="button" title="Share" aria-label="Share this card">â‡ª</button>
-    <button class="card-icon-btn utility" type="button" title="Notes" aria-label="Open notes">âœŽ</button>
+    <button class="card-icon-btn utility" type="button" title="Search Card" aria-label="Search this card">⌕</button>
+    <button class="card-icon-btn utility" type="button" title="Bookmark" aria-label="Bookmark this card">★</button>
+    <button class="card-icon-btn utility" type="button" title="Share" aria-label="Share this card">⇪</button>
+    <button class="card-icon-btn utility" type="button" title="Notes" aria-label="Open notes">✎</button>
     <button class="card-icon-btn utility" type="button" title="Help" aria-label="Open help">?</button>
 
   </div>
     <details class="orientation-block hg-panel hg-section p-4 my-4">
   <summary class="cursor-pointer text-lg font-semibold text-amber-300">Learn the Shape of Faithful Living</summary>
-    <p class="text-sm text-slate-300 mt-2">This card places biblical commandments within the larger covenant framework while preserving the complete commandment explorer. It exists to help you listen for Godâ€™s instruction while keeping each command in its scriptural setting.</p>
+    <p class="text-sm text-slate-300 mt-2">This card places biblical commandments within the larger covenant framework while preserving the complete commandment explorer. It exists to help you listen for God’s instruction while keeping each command in its scriptural setting.</p>
     <p class="text-sm text-cyan-300 mt-2"><strong>Start here:</strong> Read the first command in context and ask what faithful response looks like today.</p>
   </details>
-  <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">â›¶</button>-->
+  <!--<button class="card-fullscreen-btn" type="button" title="Expand" aria-pressed="false">⛶</button>-->
 
   <!-- Temporary nav triage: hidden because secondary/tertiary nav controls are currently unreliable. -->
   <div class="card-topbar scripture-subnav overflow-x-auto" aria-label="Commandments study controls" style="display: none;">
 
     <button class="card-icon-btn scripture" id="scriptureSearchBtn" type="button" title="Search" aria-label="Search Scripture">
-      âŒ•
+      ⌕
     </button>
 
     <button class="card-icon-btn scripture" id="scriptureReloadBtn" type="button" title="Reload" aria-label="Reload commandments">
-      â†»
+      ↻
     </button>
 
     <button class="card-icon-btn scripture" id="scripturePrevBtn" type="button" title="Previous Verse" aria-label="Go to previous verse">
-      â†
+      ←
     </button>
 
     <button class="card-icon-btn scripture" id="scriptureNextBtn" type="button" title="Next Verse" aria-label="Go to next verse">
-      â†’
+      →
     </button>
 
     <button class="card-icon-btn scripture" id="copyScriptureBtn" type="button" title="Copy" aria-label="Copy Scripture">
-      â§‰
+      ⧉
     </button>
 
     <button class="card-icon-btn scripture"
@@ -89,31 +89,31 @@
             onclick="document.getElementById('scriptureContent').scrollTop = 0"
             title="Top"
             aria-label="Scroll Scripture content to top">
-      â†‘
+      ↑
     </button>
 
     <button class="card-icon-btn scripture" type="button" onclick="goToNT()" title="New Testament" aria-label="Open New Testament view">
-      âœ
+      ✝
     </button>
 
     <button class="card-icon-btn scripture" type="button" onclick="goBackToCommandments()" title="Commandments" aria-label="Return to Commandments">
-      âŒ˜
+      ⌘
     </button>
 
     <button class="card-icon-btn scripture" id="openBridgeBtn" type="button" title="Related Context" aria-label="Open related context">
-      â›“
+      ⛓
     </button>
 
     <button class="card-icon-btn scripture" id="openSefariaContextBtn" type="button" title="Jewish Context" aria-label="Open Jewish context">
-      âœ¡
+      ✡
     </button>
 
     <button class="card-icon-btn scripture" id="ntHomeHeaderBtn" type="button" title="Notes" aria-label="Open New Testament notes">
-      â˜°
+      ☰
     </button>
 
     <button class="card-icon-btn scripture" id="ntQuotesHeaderBtn" type="button" title="Quotes" aria-label="Open New Testament quotations">
-      â
+      ❝
     </button>
 
   </div>
@@ -154,7 +154,7 @@
         <p class="mt-1 text-sm leading-relaxed text-slate-300">Begin with the covenant settings named or proposed from the biblical texts. Classifications identify what is explicit and what remains disputed.</p>
       </div>
       <div id="covenantsLanding" aria-live="polite">
-        <p class="text-sm text-slate-400" role="status">Loading covenant frameworkâ€¦</p>
+        <p class="text-sm text-slate-400" role="status">Loading covenant framework…</p>
       </div>
       <div id="covenantOverview" class="rounded-xl border border-amber-300/20 bg-amber-300/5 p-4" aria-live="polite" hidden></div>
     </section>
@@ -171,7 +171,7 @@
 
     <div id="commandmentsList" class="space-y-2 text-sm" aria-live="polite">
       <div class="rounded-xl border border-dashed border-slate-700 bg-slate-900/40 p-5 text-center" role="status">
-        <p class="font-medium text-slate-200">Loading commandmentsâ€¦</p>
+        <p class="font-medium text-slate-200">Loading commandments…</p>
         <p class="mt-1 text-xs text-slate-400">
           The available commandment entries will appear here.
         </p>
