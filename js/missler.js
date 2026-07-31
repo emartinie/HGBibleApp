@@ -89,6 +89,10 @@
     { id: "teacher-11", enabled: false, placeholder: true }
   ];
 
+  // Add a debate only after its title, participants, description, and
+  // embeddable YouTube ID have been approved. Empty by design for now.
+  const debates = [];
+
   let selectedTeacherId = "chuck-missler";
 
   function getScope(root) {
@@ -107,7 +111,9 @@
       player: scope.querySelector("#misslerPlayer"),
       carousel: scope.querySelector("#misslerCarousel"),
       selector: scope.querySelector("#teacherSelector"),
-      selectorStatus: scope.querySelector("#teacherSelectorStatus")
+      selectorStatus: scope.querySelector("#teacherSelectorStatus"),
+      debateSelector: scope.querySelector("#debateSelector"),
+      debateSelectorStatus: scope.querySelector("#debateSelectorStatus")
     };
   }
 
@@ -200,6 +206,70 @@
     updateTeacherButtons(root);
   }
 
+  function getApprovedDebates() {
+    return debates.filter(debate =>
+      debate.enabled &&
+      debate.title &&
+      debate.participants &&
+      debate.description &&
+      debate.youtubeId
+    );
+  }
+
+  function renderDebates(root) {
+    const { debateSelector, debateSelectorStatus } = getDom(root);
+    if (!debateSelector) return;
+
+    const approvedDebates = getApprovedDebates();
+    debateSelector.replaceChildren();
+
+    approvedDebates.forEach(debate => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "hg-panel p-3 text-left rounded hover:bg-slate-800 transition focus:outline-none focus:ring-2 focus:ring-amber-300";
+      button.dataset.debateId = debate.id;
+      button.setAttribute("aria-label", `Play ${debate.title}: ${debate.participants}`);
+
+      const title = document.createElement("strong");
+      title.className = "block text-amber-300";
+      title.textContent = debate.title;
+
+      const participants = document.createElement("span");
+      participants.className = "block text-sm text-slate-200 mt-1";
+      participants.textContent = debate.participants;
+
+      const description = document.createElement("span");
+      description.className = "block text-xs text-slate-400 mt-2";
+      description.textContent = debate.description;
+
+      button.append(title, participants, description);
+      button.addEventListener("click", () => {
+        const { player } = getDom(root);
+        if (!player) return;
+
+        selectedTeacherId = "";
+        updateTeacherButtons(root);
+        player.src = `https://www.youtube.com/embed/${debate.youtubeId}?rel=0&autoplay=0`;
+        player.title = `${debate.title} – ${debate.participants}`;
+        player.dataset.debateId = debate.id;
+        delete player.dataset.teacherId;
+        delete player.dataset.videoIndex;
+
+        if (debateSelectorStatus) {
+          debateSelectorStatus.textContent = `Selected debate: ${debate.title}.`;
+        }
+      });
+
+      debateSelector.appendChild(button);
+    });
+
+    if (debateSelectorStatus) {
+      debateSelectorStatus.textContent = approvedDebates.length
+        ? "Choose a debate to play it in the teaching player above."
+        : "Approved debates will appear here.";
+    }
+  }
+
   function selectTeacher(teacherId, root = document) {
     const teacher = getTeacher(teacherId);
     if (!teacher) return;
@@ -235,25 +305,29 @@
   }
 
   window.initMissler = function initMissler(root = document) {
-    const { player, carousel, selector } = getDom(root);
-    if (!player || !carousel || !selector) return;
+    const { player, carousel, selector, debateSelector } = getDom(root);
+    if (!player || !carousel || !selector || !debateSelector) return;
 
     selectedTeacherId = "chuck-missler";
     renderTeacherButtons(root);
+    renderDebates(root);
     selectTeacher(selectedTeacherId, root);
   };
 
   window.destroyMissler = function destroyMissler(root = document) {
-    const { player, carousel, selector } = getDom(root);
+    const { player, carousel, selector, debateSelector, debateSelectorStatus } = getDom(root);
 
     if (player) {
       player.src = "";
       delete player.dataset.teacherId;
       delete player.dataset.videoIndex;
+      delete player.dataset.debateId;
     }
 
     if (carousel) carousel.innerHTML = "";
     if (selector) selector.innerHTML = "";
+    if (debateSelector) debateSelector.innerHTML = "";
+    if (debateSelectorStatus) debateSelectorStatus.textContent = "Approved debates will appear here.";
 
     selectedTeacherId = "chuck-missler";
   };
