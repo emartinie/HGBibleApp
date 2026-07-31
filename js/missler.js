@@ -90,8 +90,17 @@
   ];
 
   // Add a debate only after its title, participants, description, and
-  // embeddable YouTube ID have been approved. Empty by design for now.
-  const debates = [];
+  // embeddable YouTube ID have been approved.
+  const debates = [
+    {
+      id: "acts-15-law-of-moses",
+      enabled: true,
+      title: "Acts 15 and the Law of Moses",
+      participants: "Solberg and Wilber",
+      description: "A live debate on Acts 15 and the Law of Moses.",
+      youtubeId: "nVdfMV92alM"
+    }
+  ];
 
   let selectedTeacherId = "chuck-missler";
 
