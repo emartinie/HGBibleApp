@@ -1,0 +1,1606 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-31T00:42:10.417Z",
+  "source": {
+    "application": "HomeGroups Bible App",
+    "ref": "main",
+    "commit": "affbdfee496bed7acacb7cefd4cadb473e47dbcc",
+    "generator": "scripts/generate-pwa-health-report.mjs",
+    "fingerprint": "100af963863b68206c3495e47efcabbba4d817e79d63ca390549ae487d5e33ff"
+  },
+  "methodology": {
+    "assetBytes": "Filesystem byte sizes, excluding .git, node_modules, and this generated report.",
+    "startup": "Static local src/href references in index.html. Browser runtime transfer values are reported separately.",
+    "cards": "cards/*.html paired with same-name js/*.js plus statically discoverable local references.",
+    "records": "Top-level array length; for objects, largest top-level array length or key count. This is structural, not semantic.",
+    "cautions": [
+      "Dynamic paths assembled at runtime may not be attributed.",
+      "Remote CDN resources are not included in repository bytes.",
+      "Generated/authoritative labels are conservative heuristics unless declared in source."
+    ]
+  },
+  "assets": {
+    "totalBytes": 112131608,
+    "fileCount": 711,
+    "byType": {
+      "html": {
+        "bytes": 8571368,
+        "files": 322
+      },
+      "audio": {
+        "bytes": 41573986,
+        "files": 10
+      },
+      "miscellaneous": {
+        "bytes": 4169087,
+        "files": 43
+      },
+      "data": {
+        "bytes": 29705115,
+        "files": 234
+      },
+      "javascript": {
+        "bytes": 657588,
+        "files": 78
+      },
+      "css": {
+        "bytes": 11064,
+        "files": 1
+      },
+      "image": {
+        "bytes": 20017788,
+        "files": 21
+      },
+      "video": {
+        "bytes": 7425612,
+        "files": 2
+      }
+    },
+    "byAllocation": {
+      "content-dataset": {
+        "bytes": 37551475,
+        "files": 504
+      },
+      "optional-media": {
+        "bytes": 69018461,
+        "files": 43
+      },
+      "development-only": {
+        "bytes": 3920642,
+        "files": 12
+      },
+      "dynamic": {
+        "bytes": 1450848,
+        "files": 138
+      },
+      "core": {
+        "bytes": 190182,
+        "files": 14
+      }
+    },
+    "largest": [
+      {
+        "path": "investigations/topics/HG-Bible-App-Content-Backlog.xlsx.inspect.ndjson",
+        "bytes": 7897980,
+        "extension": ".ndjson",
+        "type": "data",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/emor.mp3",
+        "bytes": 7363247,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/omer-meditations/malchut-day46.mp3",
+        "bytes": 7116719,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/kedoshim.mp3",
+        "bytes": 5820719,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/weeks/kedoshim.mp3",
+        "bytes": 5820719,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/behar.mp3",
+        "bytes": 5793839,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/nasso.mp3",
+        "bytes": 5458223,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "videos/bg-motion.mp4",
+        "bytes": 4569043,
+        "extension": ".mp4",
+        "type": "video",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "BookDraft/_HomeGroups_Working_Manuscript_Formatted (Autosaved).docx",
+        "bytes": 3817120,
+        "extension": ".docx",
+        "type": "miscellaneous",
+        "allocation": "development-only"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/bechukotai.mp3",
+        "bytes": 3588911,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "images/camp Image Jul 9, 2026, 10_48_47 PM.png",
+        "bytes": 3296745,
+        "extension": ".png",
+        "type": "image",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "videos/firevideos.mp4",
+        "bytes": 2856569,
+        "extension": ".mp4",
+        "type": "video",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "images/shema Image Jul 10, 2026, 12_03_56 AM.png",
+        "bytes": 2595090,
+        "extension": ".png",
+        "type": "image",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "images/eber Image Jul 9, 2026, 10_47_01 PM (2).png",
+        "bytes": 2465630,
+        "extension": ".png",
+        "type": "image",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "images/camp Image Jul 9, 2026, 10_52_06 PM.png",
+        "bytes": 2230960,
+        "extension": ".png",
+        "type": "image",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "images/eber Image Jul 9, 2026, 10_47_01 PM (1).png",
+        "bytes": 2183869,
+        "extension": ".png",
+        "type": "image",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "images/infograph Image Jul 9, 2026, 11_25_38 PM.png",
+        "bytes": 2160167,
+        "extension": ".png",
+        "type": "image",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "images/shemaimage.png",
+        "bytes": 2091862,
+        "extension": ".png",
+        "type": "image",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "investigations/topics/content-backlog.json",
+        "bytes": 1371228,
+        "extension": ".json",
+        "type": "data",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "images/HGHousesnew.png",
+        "bytes": 1258063,
+        "extension": ".png",
+        "type": "image",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "data/nt/acts.json",
+        "bytes": 757661,
+        "extension": ".json",
+        "type": "data",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "data/quizzes/nt_questions.json",
+        "bytes": 678515,
+        "extension": ".json",
+        "type": "data",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "data/HomeGroupsMap.geojson",
+        "bytes": 662991,
+        "extension": ".geojson",
+        "type": "data",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "HomeGroupsMap.geojson",
+        "bytes": 662991,
+        "extension": ".geojson",
+        "type": "data",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "data/nt/revelation.json",
+        "bytes": 489303,
+        "extension": ".json",
+        "type": "data",
+        "allocation": "content-dataset"
+      }
+    ],
+    "files": [
+      {
+        "path": "articles/a_note_on_trust.html",
+        "bytes": 27993,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/almost_there_but_not_quite.html",
+        "bytes": 33098,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/debating_arguing_discussing_and_disagreeing_midrash.html",
+        "bytes": 3066,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/dietary_expectations.html",
+        "bytes": 16715,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/first_blog_post_the_second_commandment_and_the_second_ammendment.html",
+        "bytes": 14081,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/jesus_yeshua_fulfillment_of_prophecy.html",
+        "bytes": 154472,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/kingdom_mindedness.html",
+        "bytes": 41712,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/learn_the_bible_in_24_hours.html",
+        "bytes": 4505,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/letter_to_a_friend.html",
+        "bytes": 35870,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/list_of_sins.html",
+        "bytes": 95596,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/marriage.html",
+        "bytes": 82439,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/misconceptions_of_ekklesia.html",
+        "bytes": 18673,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/qanon_phenomenon_who_is_q_for_christians.html",
+        "bytes": 24952,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/relational_discipleship_101_notes.html",
+        "bytes": 6080,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/sola_scriptura_the_holidays.html",
+        "bytes": 24282,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/study_tools.html",
+        "bytes": 7455,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/surrendering_anger.html",
+        "bytes": 37641,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/taking_our_churches_and_our_country_back.html",
+        "bytes": 43102,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/the_book_of_revelation_hebrew_roots.html",
+        "bytes": 70851,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/the_commandments_of_jesus.html",
+        "bytes": 29711,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/the_hebrew_pages_of_the_new_testament.html",
+        "bytes": 2311,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/the_law_is_dead.html",
+        "bytes": 21896,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/the_prodigal_son.html",
+        "bytes": 12288,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/the_remnant.html",
+        "bytes": 26416,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/the_story.html",
+        "bytes": 14475,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/torah_commandments.html",
+        "bytes": 105297,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/understanding_denominations.html",
+        "bytes": 27496,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/where_did_the_sabbath_go.html",
+        "bytes": 23950,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/who_is_jesus.html",
+        "bytes": 20859,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/who_is_q_for_christians.html",
+        "bytes": 24939,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/who_was_paul.html",
+        "bytes": 7825,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "articles/why-trust-matters-more-than-agreement.html",
+        "bytes": 22595,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "assets/sounds/heart-and-soul.mp3",
+        "bytes": 293125,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/letters/text.txt",
+        "bytes": 1,
+        "extension": ".txt",
+        "type": "miscellaneous",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/score-down.mp3",
+        "bytes": 265822,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/score-up.mp3",
+        "bytes": 52662,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/test.txt",
+        "bytes": 9,
+        "extension": ".txt",
+        "type": "miscellaneous",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/omer-meditations/malchut-day46.mp3",
+        "bytes": 7116719,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/omer-meditations/txt.txt.",
+        "bytes": 1,
+        "extension": ".",
+        "type": "miscellaneous",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/bechukotai.mp3",
+        "bytes": 3588911,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/behar.mp3",
+        "bytes": 5793839,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/emor.mp3",
+        "bytes": 7363247,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/kedoshim.mp3",
+        "bytes": 5820719,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/nasso.mp3",
+        "bytes": 5458223,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/orientations/txt.txt",
+        "bytes": 1,
+        "extension": ".txt",
+        "type": "miscellaneous",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/weeks/kedoshim.mp3",
+        "bytes": 5820719,
+        "extension": ".mp3",
+        "type": "audio",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/sounds/voice/weeks/week30",
+        "bytes": 1,
+        "extension": "",
+        "type": "miscellaneous",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "assets/test.txt",
+        "bytes": 9,
+        "extension": ".txt",
+        "type": "miscellaneous",
+        "allocation": "optional-media"
+      },
+      {
+        "path": "bible_questions_with_hints.json",
+        "bytes": 183773,
+        "extension": ".json",
+        "type": "data",
+        "allocation": "content-dataset"
+      },
+      {
+        "path": "BookDraft/_HomeGroups_Working_Manuscript_Formatted (Autosaved).docx",
+        "bytes": 3817120,
+        "extension": ".docx",
+        "type": "miscellaneous",
+        "allocation": "development-only"
+      },
+      {
+        "path": "BookDraft/txt.txt",
+        "bytes": 1,
+        "extension": ".txt",
+        "type": "miscellaneous",
+        "allocation": "development-only"
+      },
+      {
+        "path": "build_reading_schedule.mjs",
+        "bytes": 12371,
+        "extension": ".mjs",
+        "type": "javascript",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/alephbet (1).html",
+        "bytes": 10478,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/alephbet.html",
+        "bytes": 11079,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/amateurradio.html",
+        "bytes": 8450,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/ancient-library.html",
+        "bytes": 10580,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/articles.html",
+        "bytes": 2240,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/beready.html",
+        "bytes": 11537,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/bible.html",
+        "bytes": 10796,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/biblebingo.html",
+        "bytes": 4936,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/calendar.html",
+        "bytes": 7243,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/commandments.html",
+        "bytes": 12814,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/commentary.html",
+        "bytes": 4979,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/discipleship.html",
+        "bytes": 12022,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/fallfeasts.html",
+        "bytes": 8694,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/frontporch.html",
+        "bytes": 8910,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/greekalphabet.html",
+        "bytes": 6935,
+        "extension": ".html",
+        "type": "html",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/greekalphabet.js",
+        "bytes": 6840,
+        "extension": ".js",
+        "type": "javascript",
+        "allocation": "dynamic"
+      },
+      {
+        "path": "cards/identitycrisis",
+        "bytes": 143517,
+        "extension": "",
+        "type": "miscellaneous",
+        "…54775 tokens truncated…{
+        "path": "firebase/investigation-ballot.current.json",
+        "purpose": "investigation ballot.current",
+        "bytes": 1310,
+        "recordCount": 7,
+        "parseStatus": "valid",
+        "loading": "on-demand or unreferenced",
+        "status": "authoritative status not declared",
+        "consumers": []
+      },
+      {
+        "path": "manifest.json",
+        "purpose": "manifest",
+        "bytes": 804,
+        "recordCount": 12,
+        "parseStatus": "valid",
+        "loading": "startup",
+        "status": "authoritative status not declared",
+        "consumers": [
+          "service-worker.js"
+        ]
+      },
+      {
+        "path": "data/journeys/27-things.json",
+        "purpose": "27 things",
+        "bytes": 602,
+        "recordCount": 6,
+        "parseStatus": "valid",
+        "loading": "on-demand or unreferenced",
+        "status": "authoritative status not declared",
+        "consumers": [
+          "js/discipleship.js"
+        ]
+      },
+      {
+        "path": "data/interlinear/week29.json",
+        "purpose": "week29",
+        "bytes": 381,
+        "recordCount": 1,
+        "parseStatus": "valid",
+        "loading": "on-demand or unreferenced",
+        "status": "generated or derived (heuristic)",
+        "consumers": []
+      },
+      {
+        "path": "data/journeys/yeshua-red-letter-patterns.json",
+        "purpose": "yeshua red letter patterns",
+        "bytes": 332,
+        "recordCount": 3,
+        "parseStatus": "valid",
+        "loading": "on-demand or unreferenced",
+        "status": "authoritative status not declared",
+        "consumers": [
+          "js/discipleship.js"
+        ]
+      },
+      {
+        "path": "data/journeys/learn-to-pray.json",
+        "purpose": "learn to pray",
+        "bytes": 176,
+        "recordCount": 4,
+        "parseStatus": "valid",
+        "loading": "on-demand or unreferenced",
+        "status": "authoritative status not declared",
+        "consumers": [
+          "js/discipleship.js"
+        ]
+      },
+      {
+        "path": "firebase.json",
+        "purpose": "firebase",
+        "bytes": 87,
+        "recordCount": 1,
+        "parseStatus": "valid",
+        "loading": "on-demand or unreferenced",
+        "status": "authoritative status not declared",
+        "consumers": []
+      },
+      {
+        "path": "data/nt/matthew.json",
+        "purpose": "matthew",
+        "bytes": 65,
+        "recordCount": 3,
+        "parseStatus": "valid",
+        "loading": "on-demand or unreferenced",
+        "status": "authoritative status not declared",
+        "consumers": []
+      },
+      {
+        "path": "data/relationships/relationships.json",
+        "purpose": "relationships",
+        "bytes": 3,
+        "recordCount": 0,
+        "parseStatus": "valid",
+        "loading": "on-demand or unreferenced",
+        "status": "authoritative status not declared",
+        "consumers": [
+          "js/relationship-engine.js"
+        ]
+      },
+      {
+        "path": "tauri.conf.json",
+        "purpose": "tauri.conf",
+        "bytes": 0,
+        "recordCount": null,
+        "parseStatus": "invalid",
+        "loading": "on-demand or unreferenced",
+        "status": "authoritative status not declared",
+        "consumers": []
+      }
+    ]
+  },
+  "architecture": {
+    "modules": [
+      {
+        "path": "build_reading_schedule.mjs",
+        "bytes": 12371,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "cards/greekalphabet.js",
+        "bytes": 6840,
+        "dependencies": [],
+        "globals": [
+          "destroyGreekAlphabetCard",
+          "initGreekAlphabetCard",
+          "speechSynthesis"
+        ]
+      },
+      {
+        "path": "interactionLoader.js",
+        "bytes": 3062,
+        "dependencies": [],
+        "globals": [
+          "interactionLoader"
+        ]
+      },
+      {
+        "path": "investigations/topics/build_topic_backlog.mjs",
+        "bytes": 21102,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/about.js",
+        "bytes": 1733,
+        "dependencies": [],
+        "globals": [
+          "openAboutHomeGroups",
+          "setTimeout"
+        ]
+      },
+      {
+        "path": "js/alephbet.js",
+        "bytes": 3669,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/amateurradio.js",
+        "bytes": 2178,
+        "dependencies": [],
+        "globals": [
+          "open",
+          "openPorchPanel"
+        ]
+      },
+      {
+        "path": "js/ancient-library.js",
+        "bytes": 20721,
+        "dependencies": [],
+        "globals": [
+          "__orbitPlayer",
+          "alert",
+          "destroyAncientLibraryCard",
+          "initAncientLibraryCard",
+          "location"
+        ]
+      },
+      {
+        "path": "js/app.js",
+        "bytes": 22891,
+        "dependencies": [
+          "js/firebaseTimeLoader.js",
+          "js/timeStore.js",
+          "js/cardRenderer.js"
+        ],
+        "globals": [
+          "HGRoute",
+          "addEventListener",
+          "getComputedStyle",
+          "goBackToCommandments",
+          "goToNT",
+          "loadCard",
+          "loadFromReference",
+          "loadFromSefaria",
+          "location",
+          "pendingArticleFile",
+          "toggleCardSection",
+          "toggleSection"
+        ]
+      },
+      {
+        "path": "js/articles.js",
+        "bytes": 7924,
+        "dependencies": [],
+        "globals": [
+          "HGRoute",
+          "destroyArticlesCard",
+          "history",
+          "initArticlesCard",
+          "location",
+          "pendingArticleFile"
+        ]
+      },
+      {
+        "path": "js/beready.js",
+        "bytes": 105,
+        "dependencies": [],
+        "globals": [
+          "initBeReadyCard"
+        ]
+      },
+      {
+        "path": "js/bible.js",
+        "bytes": 1,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/biblebingo.js",
+        "bytes": 5846,
+        "dependencies": [],
+        "globals": [
+          "biblebingo",
+          "dispatchEvent"
+        ]
+      },
+      {
+        "path": "js/bullseyeMedia.js",
+        "bytes": 3536,
+        "dependencies": [],
+        "globals": [
+          "__orbitPlayer",
+          "setTimeout",
+          "toggleOrbitSonograph",
+          "toggleOrbitVideo"
+        ]
+      },
+      {
+        "path": "js/calendar.js",
+        "bytes": 13975,
+        "dependencies": [],
+        "globals": [
+          "HGRoute",
+          "destroyCalendarCard",
+          "initCalendarCard",
+          "openCalendarInfo",
+          "openHolyDayDetails",
+          "setCalendarType"
+        ]
+      },
+      {
+        "path": "js/cardRenderer.js",
+        "bytes": 1078,
+        "dependencies": [
+          "js/timeStore.js"
+        ],
+        "globals": []
+      },
+      {
+        "path": "js/commandments.js",
+        "bytes": 34851,
+        "dependencies": [],
+        "globals": [
+          "HGCovenants",
+          "HGRelationships",
+          "HGRoute",
+          "destroyCommandmentsCard",
+          "initCommandmentsCard",
+          "setTimeout"
+        ]
+      },
+      {
+        "path": "js/commentary.js",
+        "bytes": 10584,
+        "dependencies": [
+          "js/weekEngine.js"
+        ],
+        "globals": [
+          "loadCard",
+          "sefaria"
+        ]
+      },
+      {
+        "path": "js/covenant-engine.js",
+        "bytes": 2115,
+        "dependencies": [],
+        "globals": [
+          "HGCovenants"
+        ]
+      },
+      {
+        "path": "js/dailyReadingSchedule.js",
+        "bytes": 2722,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/discipleship.js",
+        "bytes": 15691,
+        "dependencies": [],
+        "globals": [
+          "JOURNEY_INDEX",
+          "confirm",
+          "destroyDiscipleshipCard",
+          "initDiscipleshipCard",
+          "loadCard",
+          "location",
+          "pendingArticleFile"
+        ]
+      },
+      {
+        "path": "js/fallfeasts.js",
+        "bytes": 6491,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/firebase-init.js",
+        "bytes": 762,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/firebaseTimeLoader.js",
+        "bytes": 2156,
+        "dependencies": [
+          "js/firebase-init.js",
+          "js/timeEngine.js"
+        ],
+        "globals": []
+      },
+      {
+        "path": "js/fullscreen.js",
+        "bytes": 1911,
+        "dependencies": [],
+        "globals": [
+          "L",
+          "setCardFullscreen"
+        ]
+      },
+      {
+        "path": "js/greekalphabet.js",
+        "bytes": 6840,
+        "dependencies": [],
+        "globals": [
+          "destroyGreekAlphabetCard",
+          "initGreekAlphabetCard",
+          "speechSynthesis"
+        ]
+      },
+      {
+        "path": "js/interlinear.js",
+        "bytes": 116,
+        "dependencies": [],
+        "globals": [
+          "initInterlinearCard"
+        ]
+      },
+      {
+        "path": "js/intertext-quotes.js",
+        "bytes": 9525,
+        "dependencies": [],
+        "globals": [
+          "HGRoute",
+          "initIntertextQuotes",
+          "intertextData"
+        ]
+      },
+      {
+        "path": "js/investigations.js",
+        "bytes": 25608,
+        "dependencies": [
+          "js/firebase-init.js"
+        ],
+        "globals": [
+          "HGRoute",
+          "confirm",
+          "destroyInvestigationsCard",
+          "initInvestigationsCard",
+          "pendingInvestigationFile"
+        ]
+      },
+      {
+        "path": "js/jesus.js",
+        "bytes": 4597,
+        "dependencies": [],
+        "globals": [
+          "destroyJesusCard",
+          "initJesusCard",
+          "speechSynthesis"
+        ]
+      },
+      {
+        "path": "js/listen.js",
+        "bytes": 7921,
+        "dependencies": [],
+        "globals": [
+          "destroyListenCard",
+          "initListenCard",
+          "speechSynthesis"
+        ]
+      },
+      {
+        "path": "js/mainstage.js",
+        "bytes": 28662,
+        "dependencies": [
+          "js/weekEngine.js"
+        ],
+        "globals": [
+          "HGRoute",
+          "__orbitPlayer",
+          "currentWeek",
+          "currentWeekData",
+          "dispatchEvent",
+          "globalAudio",
+          "loadCard",
+          "location",
+          "mainPlaylist",
+          "playOrientation",
+          "toggleSection",
+          "weeklyCommentary"
+        ]
+      },
+      {
+        "path": "js/missler.js",
+        "bytes": 10972,
+        "dependencies": [],
+        "globals": [
+          "destroyMissler",
+          "initMissler"
+        ]
+      },
+      {
+        "path": "js/modal.js",
+        "bytes": 5436,
+        "dependencies": [],
+        "globals": [
+          "openDockCModal"
+        ]
+      },
+      {
+        "path": "js/nt.js",
+        "bytes": 52270,
+        "dependencies": [],
+        "globals": [
+          "HGRoute",
+          "__ntLinksIntercepted",
+          "addEventListener",
+          "dispatchEvent",
+          "getIntertextContext",
+          "getSefariaContext",
+          "history",
+          "intertextData",
+          "loadCard",
+          "location",
+          "openPorchPanel",
+          "sefariaData"
+        ]
+      },
+      {
+        "path": "js/omercount.js",
+        "bytes": 13041,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/orbitFloatingPlayer.js",
+        "bytes": 29345,
+        "dependencies": [],
+        "globals": [
+          "__orbitPlayer",
+          "alert",
+          "currentWeekData",
+          "dispatchEvent",
+          "globalAudio",
+          "innerWidth",
+          "location",
+          "mainPlaylist",
+          "speechSynthesis",
+          "toggleOrbitSonograph",
+          "toggleOrbitVideo",
+          "weekData"
+        ]
+      },
+      {
+        "path": "js/origins.js",
+        "bytes": 2424,
+        "dependencies": [],
+        "globals": [
+          "goDeeperOrigins",
+          "openOriginsInfo"
+        ]
+      },
+      {
+        "path": "js/podcast.js",
+        "bytes": 732,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/prayermap.js",
+        "bytes": 19521,
+        "dependencies": [
+          "js/firebase-init.js"
+        ],
+        "globals": [
+          "alert",
+          "currentMap",
+          "destroyPrayerMapCard",
+          "initPrayerMapCard",
+          "prayerMapInitialized"
+        ]
+      },
+      {
+        "path": "js/prayerStore.dev.js",
+        "bytes": 1217,
+        "dependencies": [],
+        "globals": [
+          "listenForPrayers"
+        ]
+      },
+      {
+        "path": "js/prayerTicker.dev.js",
+        "bytes": 3570,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/prezis.js",
+        "bytes": 4908,
+        "dependencies": [],
+        "globals": [
+          "destroyPrezis",
+          "initPrezis"
+        ]
+      },
+      {
+        "path": "js/prod-fullscreen.js",
+        "bytes": 1911,
+        "dependencies": [],
+        "globals": [
+          "L",
+          "setCardFullscreen"
+        ]
+      },
+      {
+        "path": "js/pwa-health.js",
+        "bytes": 24639,
+        "dependencies": [],
+        "globals": [
+          "__pwaHealthAbort",
+          "addEventListener",
+          "destroyPwaHealthCard",
+          "indexedDB",
+          "initPwaHealthCard"
+        ]
+      },
+      {
+        "path": "js/pwa.js",
+        "bytes": 569,
+        "dependencies": [],
+        "globals": [
+          "addEventListener"
+        ]
+      },
+      {
+        "path": "js/quizzes.js",
+        "bytes": 3686,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/radiomap.js",
+        "bytes": 2900,
+        "dependencies": [],
+        "globals": [
+          "destroyRadioMapCard",
+          "initRadioMapCard"
+        ]
+      },
+      {
+        "path": "js/relationship-engine.js",
+        "bytes": 10036,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/sacred-time-prototype.js",
+        "bytes": 13803,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/SAVEorbitFloatingPlayer.js",
+        "bytes": 19355,
+        "dependencies": [],
+        "globals": [
+          "__floatingPlayerLoaded",
+          "addEventListener",
+          "dispatchEvent",
+          "innerHeight",
+          "innerWidth",
+          "location",
+          "weekData"
+        ]
+      },
+      {
+        "path": "js/scholars.js",
+        "bytes": 6406,
+        "dependencies": [],
+        "globals": [
+          "HGRoute",
+          "destroyScholarsCard",
+          "initScholarsCard"
+        ]
+      },
+      {
+        "path": "js/scripture.js",
+        "bytes": 6986,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/scriptureapi.js",
+        "bytes": 11592,
+        "dependencies": [],
+        "globals": [
+          "HGRoute",
+          "loadCard"
+        ]
+      },
+      {
+        "path": "js/scriptureold.js",
+        "bytes": 1528,
+        "dependencies": [],
+        "globals": [
+          "addEventListener"
+        ]
+      },
+      {
+        "path": "js/sefaria.js",
+        "bytes": 13306,
+        "dependencies": [],
+        "globals": [
+          "destroySefariaCard",
+          "initSefariaCard"
+        ]
+      },
+      {
+        "path": "js/sefaria2.js",
+        "bytes": 6002,
+        "dependencies": [],
+        "globals": [
+          "initSefariaLibraryCard",
+          "open"
+        ]
+      },
+      {
+        "path": "js/share-routing.js",
+        "bytes": 15828,
+        "dependencies": [],
+        "globals": [
+          "HGRoute",
+          "addEventListener",
+          "clearTimeout",
+          "dispatchEvent",
+          "hgBuildRoute",
+          "hgRestoreRoute",
+          "hgSetRoute",
+          "history",
+          "innerWidth",
+          "loadCard",
+          "location",
+          "matchMedia",
+          "setTimeout"
+        ]
+      },
+      {
+        "path": "js/sources.js",
+        "bytes": 2596,
+        "dependencies": [],
+        "globals": [
+          "initSourcesCard",
+          "loadCard",
+          "pendingInvestigationFile"
+        ]
+      },
+      {
+        "path": "js/stateManager.js",
+        "bytes": 1933,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/stewardship-card.js",
+        "bytes": 116,
+        "dependencies": [],
+        "globals": [
+          "initStewardshipCard"
+        ]
+      },
+      {
+        "path": "js/store.js",
+        "bytes": 4065,
+        "dependencies": [],
+        "globals": [
+          "destroyStoreCard",
+          "initStoreCard",
+          "location",
+          "open"
+        ]
+      },
+      {
+        "path": "js/studyhub.js",
+        "bytes": 4543,
+        "dependencies": [],
+        "globals": [
+          "currentWeek",
+          "initStudyHubCard",
+          "loadCard"
+        ]
+      },
+      {
+        "path": "js/sukkotcount.js",
+        "bytes": 4850,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/TESTnt.js",
+        "bytes": 26140,
+        "dependencies": [],
+        "globals": [
+          "addEventListener",
+          "dispatchEvent",
+          "history",
+          "loadCard",
+          "location",
+          "openPorchPanel"
+        ]
+      },
+      {
+        "path": "js/textSizePreference.js",
+        "bytes": 2183,
+        "dependencies": [],
+        "globals": [
+          "HGTextSizePreference"
+        ]
+      },
+      {
+        "path": "js/timeEngine.js",
+        "bytes": 2020,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/timeStore.js",
+        "bytes": 1362,
+        "dependencies": [
+          "js/timeEngine.js"
+        ],
+        "globals": []
+      },
+      {
+        "path": "js/today.js",
+        "bytes": 1916,
+        "dependencies": [],
+        "globals": [
+          "getWeekNumber",
+          "initTodayCard"
+        ]
+      },
+      {
+        "path": "js/topNav.js",
+        "bytes": 5483,
+        "dependencies": [],
+        "globals": [
+          "location"
+        ]
+      },
+      {
+        "path": "js/trivia.js",
+        "bytes": 7681,
+        "dependencies": [],
+        "globals": [
+          "destroyTriviaCard",
+          "initTriviaCard"
+        ]
+      },
+      {
+        "path": "js/weekEngine.js",
+        "bytes": 615,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "js/weeklyScriptureLoader.js",
+        "bytes": 3585,
+        "dependencies": [],
+        "globals": [
+          "currentWeek"
+        ]
+      },
+      {
+        "path": "js/youtube.js",
+        "bytes": 1753,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "mapViewToggle.dev.js",
+        "bytes": 836,
+        "dependencies": [],
+        "globals": [
+          "map"
+        ]
+      },
+      {
+        "path": "prayerMap.dev.js",
+        "bytes": 2381,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "scripts/generate-pwa-health-report.mjs",
+        "bytes": 11009,
+        "dependencies": [],
+        "globals": []
+      },
+      {
+        "path": "service-worker.js",
+        "bytes": 2954,
+        "dependencies": [],
+        "globals": []
+      }
+    ],
+    "lifecycleRegistered": 24,
+    "cleanupRegistered": 17,
+    "sharedInfrastructure": [
+      "js/app.js",
+      "js/share-routing.js",
+      "js/mainstage.js",
+      "js/timeStore.js",
+      "js/pwa.js"
+    ],
+    "observations": [
+      "Cards are fetched and initialized on demand through the shared loader.",
+      "MainStage is embedded in index.html and initialized at startup.",
+      "Card lifecycle cleanup is explicit only where registered; absence alone is not proof of a leak.",
+      "Several startup libraries and media embeds are remote and therefore excluded from repository footprint."
+    ]
+  }
+}
+

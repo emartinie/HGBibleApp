@@ -1,0 +1,20 @@
+<section id="pwaHealth" class="pwa-health" aria-labelledby="pwaHealthTitle">
+  <style>
+    .pwa-health{--ph-bg:#07111f;--ph-panel:#0d1b2d;--ph-line:#28415f;--ph-text:#e7f0fa;--ph-muted:#9fb1c5;--ph-good:#59d499;--ph-watch:#f4c76b;--ph-bad:#ff7d87;color:var(--ph-text);background:linear-gradient(160deg,#07111f,#0a1627 52%,#0d2230);border:1px solid var(--ph-line);border-radius:18px;padding:clamp(14px,3vw,28px);width:100%;font:14px/1.5 system-ui,sans-serif}
+    .pwa-health *{box-sizing:border-box}.ph-head{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}.ph-kicker{margin:0;color:#7dd3fc;text-transform:uppercase;letter-spacing:.12em;font-size:.74rem;font-weight:800}.pwa-health h2{font-size:clamp(1.45rem,4vw,2.25rem);margin:.15rem 0}.ph-sub,.ph-note{color:var(--ph-muted);margin:.25rem 0}.ph-actions{display:flex;gap:8px;flex-wrap:wrap}.ph-btn{border:1px solid #3b5879;background:#132945;color:#eef7ff;padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}.ph-btn:hover{background:#1a3658}.ph-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:18px 0}.ph-stat{background:rgba(13,27,45,.92);border:1px solid var(--ph-line);border-radius:14px;padding:13px;min-width:0}.ph-stat span{display:block;color:var(--ph-muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.06em}.ph-stat strong{display:block;font-size:1.18rem;margin-top:4px;overflow-wrap:anywhere}.ph-status{color:var(--ph-good)}.ph-sections{display:grid;gap:10px}.pwa-health details{background:rgba(13,27,45,.86);border:1px solid var(--ph-line);border-radius:14px;overflow:hidden}.pwa-health summary{cursor:pointer;padding:13px 15px;font-size:1rem;font-weight:800;list-style-position:inside}.ph-body{padding:0 15px 16px}.ph-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.ph-card{background:#091624;border:1px solid #223a56;border-radius:11px;padding:11px}.ph-card h4{margin:0 0 5px}.ph-table-wrap{overflow:auto;border:1px solid #223a56;border-radius:10px}.ph-table{border-collapse:collapse;width:100%;min-width:620px}.ph-table th,.ph-table td{text-align:left;padding:8px 9px;border-bottom:1px solid #203750;vertical-align:top}.ph-table th{position:sticky;top:0;background:#10243b;color:#bfe5ff}.ph-table tr:last-child td{border:0}.ph-pill{display:inline-block;border:1px solid #3a5877;border-radius:999px;padding:2px 7px;font-size:.72rem;color:#cde8fc}.ph-warning{border-left:3px solid var(--ph-watch);padding-left:10px}.ph-good{color:var(--ph-good)}.ph-watch{color:var(--ph-watch)}.ph-bad{color:var(--ph-bad)}.ph-empty{color:var(--ph-muted);font-style:italic}.ph-meta{font-size:.78rem;color:var(--ph-muted);overflow-wrap:anywhere}.ph-bar{height:7px;background:#172a40;border-radius:8px;overflow:hidden;margin-top:5px}.ph-bar i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#59d499)}@media(max-width:520px){.pwa-health{border-radius:12px;padding:12px}.ph-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.ph-stat strong{font-size:1rem}}
+  </style>
+  <header class="ph-head">
+    <div>
+      <p class="ph-kicker">Local developer observability</p>
+      <h2 id="pwaHealthTitle">PWA Health &amp; Resources</h2>
+      <p class="ph-sub">Read-only measurements. No telemetry, cache mutation, or private-content inspection.</p>
+    </div>
+    <div class="ph-actions">
+      <button class="ph-btn" type="button" data-ph-refresh>Refresh live data</button>
+      <button class="ph-btn" type="button" data-ph-export>Export JSON</button>
+    </div>
+  </header>
+  <div class="ph-summary" data-ph-summary aria-live="polite"><div class="ph-stat"><span>Status</span><strong>Measuringâ€¦</strong></div></div>
+  <div class="ph-sections" data-ph-sections></div>
+</section>
+

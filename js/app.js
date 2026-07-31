@@ -1,4 +1,4 @@
-console.log("🔥 app.js START");
+console.log("ðŸ”¥ app.js START");
 
 import { initializeTimeSystem } from "./firebaseTimeLoader.js";
 import { TimeStore } from "./timeStore.js";
@@ -7,13 +7,13 @@ import { TimeStore } from "./timeStore.js";
 console.time("BOOT TRACE");
 
 //await initializeTimeSystem();
-console.log("✔ time system ready");
+console.log("âœ” time system ready");
 
 //initializeCardRenderer();
-//console.log("✔ card renderer init");
+//console.log("âœ” card renderer init");
 
 TimeStore.start();
-console.log("✔ time store started");
+console.log("âœ” time store started");
 
 console.timeEnd("BOOT TRACE");
 
@@ -80,6 +80,7 @@ console.log("APP JS RUN ID:", Date.now());
     scholars: { init: "initScholarsCard", cleanup: "destroyScholarsCard" },
     prayermap: { init: "initPrayerMapCard", cleanup: "destroyPrayerMapCard" },
     prezis: { init: "initPrezis", cleanup: "destroyPrezis" },
+    "pwa-health": { init: "initPwaHealthCard", cleanup: "destroyPwaHealthCard" },
     radiomap: { init: "initRadioMapCard", cleanup: "destroyRadioMapCard" },
     sefaria: { init: "initSefariaCard", cleanup: "destroySefariaCard" },
     sources: { init: "initSourcesCard" },
@@ -418,12 +419,12 @@ function cleanupActiveCard() {
     openLink.target = "_blank";
     openLink.rel = "noopener noreferrer";
     openLink.className = "ui-btn";
-    openLink.textContent = "Open full page ↗";
+    openLink.textContent = "Open full page â†—";
     openLink.setAttribute("aria-label", `Open ${title} in a new tab`);
 
     const frameStatus = document.createElement("span");
     frameStatus.className = "text-xs text-slate-400";
-    frameStatus.textContent = "Loading prototype…";
+    frameStatus.textContent = "Loading prototypeâ€¦";
     frameStatus.setAttribute("aria-live", "polite");
 
     const frame = document.createElement("iframe");
@@ -671,7 +672,7 @@ function loadFromUrl() {
 
     if (params.has("card")) {
       const route = window.HGRoute.read();
-      console.log("🌐 Restoring route:", route);
+      console.log("ðŸŒ Restoring route:", route);
       loadCard(route.card || "mainstage", { fromRoute: true });
       return;
     }
@@ -693,11 +694,11 @@ function loadFromUrl() {
   // Legacy fallback when the centralized router is unavailable.
   if (file) {
     window.pendingArticleFile = file;
-    console.log("📰 Pending article file:", file);
+    console.log("ðŸ“° Pending article file:", file);
   }
 
   if (card) {
-    console.log("🌐 Loading card:", card);
+    console.log("ðŸŒ Loading card:", card);
     loadCard(card, { fromRoute: true });
   }
 }
@@ -724,7 +725,7 @@ function loadFromUrl() {
   });
 }
   
-console.log("🔥 before card renderer init");
+console.log("ðŸ”¥ before card renderer init");
 function init() {
   if (appInitialized) return;
   refreshDomRefs();
@@ -777,8 +778,8 @@ window.toggleCardSection = function (label) {
 
   // optional arrow flip (safe fallback)
   label.textContent = label.textContent.replace(
-    /[▼▶]$/,
-    isHidden ? "▼" : "▶"
+    /[â–¼â–¶]$/,
+    isHidden ? "â–¼" : "â–¶"
   );
 };
 
@@ -795,7 +796,7 @@ function reloadCurrentCard() {
   cleanupActiveCard();
   removeCardScript(currentCard);
 
-  console.log("🔄 Reloading card:", currentCard);
+  console.log("ðŸ”„ Reloading card:", currentCard);
 
   // reload card fresh
   loadCard(currentCard);
@@ -810,3 +811,4 @@ function wireReloadButton() {
 }
   
 })();
+
