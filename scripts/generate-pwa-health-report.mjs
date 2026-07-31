@@ -221,4 +221,3 @@ const report = {
 fs.mkdirSync(path.dirname(output), { recursive: true });
 fs.writeFileSync(output, `${JSON.stringify(report, null, 2)}\n`);
 console.log(`Wrote ${normalize(path.relative(root, output))}: ${report.assets.fileCount} files, ${report.assets.totalBytes} bytes`);
-

@@ -24,7 +24,7 @@
     <div class="ph-table-wrap"><table class="ph-table"><thead><tr>${headers.map(h => `<th>${escapeHtml(h)}</th>`).join("")}</tr></thead>
     <tbody>${rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
   const section = (title, content, open = false) => `<details${open ? " open" : ""}><summary>${escapeHtml(title)}</summary><div class="ph-body">${content}</div></details>`;
-  const unavailable = reason => `<span class="ph-empty">Unavailable â€” ${escapeHtml(reason)}</span>`;
+  const unavailable = reason => `<span class="ph-empty">Unavailable — ${escapeHtml(reason)}</span>`;
 
   async function measureCaches() {
     if (!("caches" in window)) return { supported: false, reason: "Cache Storage API is not exposed." };
@@ -207,7 +207,7 @@
       ["Cache Usage", liveReport.cache.supported ? bytes(liveReport.cache.knownBytes) : "Unavailable"],
       ["Dataset Records", staticReport.datasets.totalRecords.toLocaleString()],
       ["Loaded Scripts", activeEngines.toLocaleString()],
-      ["Largest Resource", largest ? `${largest.path} Â· ${bytes(largest.bytes)}` : "None"],
+      ["Largest Resource", largest ? `${largest.path} · ${bytes(largest.bytes)}` : "None"],
       ["Growth Capacity", growth]
     ].map(([label, value, cls = ""]) => `<div class="ph-stat"><span>${escapeHtml(label)}</span><strong class="${cls}">${escapeHtml(value)}</strong></div>`).join("");
 
@@ -254,7 +254,7 @@
       section(`5. Data Inventory (${staticReport.datasets.count})`, `${table(["Dataset", "Structural records", "Size", "Loading", "Authority", "Consumers"], datasetRows)}<p class="ph-note">Record counts are structural and may not equal domain records for nested objects. The source scanner does not duplicate data.</p>`),
       section("6. Storage & Cache Health", `<div class="ph-grid">
         <div class="ph-card"><h4>Browser storage</h4>${liveReport.storage.usageBytes == null ? unavailable(liveReport.storage.error || "estimate unavailable") : `${bytes(liveReport.storage.usageBytes)} / ${bytes(liveReport.storage.quotaBytes)}${storagePercent == null ? "" : ` (${storagePercent.toFixed(2)}%)`}<div class="ph-bar"><i style="width:${Math.min(100, storagePercent || 0)}%"></i></div>`}</div>
-        <div class="ph-card"><h4>localStorage</h4>${liveReport.localStorage.supported ? `${liveReport.localStorage.entries} keys Â· ${bytes(liveReport.localStorage.approximateBytes)} estimated UTF-16` : unavailable(liveReport.localStorage.reason)}</div>
+        <div class="ph-card"><h4>localStorage</h4>${liveReport.localStorage.supported ? `${liveReport.localStorage.entries} keys · ${bytes(liveReport.localStorage.approximateBytes)} estimated UTF-16` : unavailable(liveReport.localStorage.reason)}</div>
         <div class="ph-card"><h4>IndexedDB</h4>${liveReport.indexedDb.databaseNames ? `${liveReport.indexedDb.databaseNames.length} databases visible` : unavailable(liveReport.indexedDb.reason || "database listing unavailable")}</div>
         <div class="ph-card"><h4>Duplicate cache entries</h4>${liveReport.cache.duplicateResources?.length ?? "Unavailable"}</div></div>
         ${cacheRows.length ? table(["Cache", "Entries", "Known response bytes", "Measurable"], cacheRows) : `<p>${unavailable(liveReport.cache.reason || "No caches found")}</p>`}`),
@@ -274,7 +274,7 @@
 
   async function refresh() {
     if (!root) return;
-    root.querySelector("[data-ph-summary]").innerHTML = `<div class="ph-stat"><span>Status</span><strong>Measuringâ€¦</strong></div>`;
+    root.querySelector("[data-ph-summary]").innerHTML = `<div class="ph-stat"><span>Status</span><strong>Measuring…</strong></div>`;
     try {
       staticReport ||= await fetch("data/pwa-health-report.json", { cache: "no-cache" }).then(response => {
         if (!response.ok) throw new Error(`Static health report returned ${response.status}`);
@@ -346,4 +346,3 @@
     root = null;
   };
 })();
-
