@@ -80,6 +80,7 @@ console.log("APP JS RUN ID:", Date.now());
     scholars: { init: "initScholarsCard", cleanup: "destroyScholarsCard" },
     prayermap: { init: "initPrayerMapCard", cleanup: "destroyPrayerMapCard" },
     prezis: { init: "initPrezis", cleanup: "destroyPrezis" },
+    "pwa-health": { init: "initPwaHealthCard", cleanup: "destroyPwaHealthCard" },
     radiomap: { init: "initRadioMapCard", cleanup: "destroyRadioMapCard" },
     sefaria: { init: "initSefariaCard", cleanup: "destroySefariaCard" },
     sources: { init: "initSourcesCard" },
