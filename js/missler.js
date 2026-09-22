@@ -78,17 +78,6 @@
         { title: "There is a creator-Hour 1", youtubeId: "_fG7KsbPqJc" },
       ]
     },
-      id: "jim-staley",
-      enabled: true,
-      name: "Jim Staley - Identity Crisis",
-      archiveTitle: "Identity Crisis",
-      orientation: "This card gathers archived teaching for visitors who want to explore ’s biblical studies in an organized place. Listen thoughtfully and compare every teaching with the text of Scripture.",
-      seriesTitle: "Identity Crisis",
-      attribution: "Teaching by Jim Staley.",
-      iframeTitle: "Jim Staley - Identity Crisis",
-      initialVideoIndex: 32,
-      videos: [
-            { title: "Identity Crisis", youtubeId: "Xh7kblHeBQI" },
     { id: "identity-crisis", enabled: true, placeholder: true },
     { id: "teacher-04", enabled: false, placeholder: true },
     { id: "teacher-05", enabled: false, placeholder: true },
