@@ -54,7 +54,7 @@
       videos: [
         { title: "There is a creator-Hour 1", youtubeId: "_fG7KsbPqJc" },
         { title: "There is a creator-Hour 2", youtubeId: "SYjiYvWIpAk" },
-        { title: "Hour 3", youtubeId: "0syohVIkDHc" },
+        { title: "Identity Crisis", youtubeId: "Xh7kblHeBQI" },
         { title: "Hour 4", youtubeId: "4NWuM8aRuzE" },
         { title: "Hour 5", youtubeId: "S4mZushkYFE" },
         { title: "Hour 6", youtubeId: "bjjA-FDFmXQ" },
@@ -78,7 +78,7 @@
         { title: "There is a creator-Hour 1", youtubeId: "_fG7KsbPqJc" },
       ]
     },
-    { id: "teacher-03", enabled: false, placeholder: true },
+    { id: "identity-crisis", enabled: true, placeholder: true },
     { id: "teacher-04", enabled: false, placeholder: true },
     { id: "teacher-05", enabled: false, placeholder: true },
     { id: "teacher-06", enabled: false, placeholder: true },
