@@ -3,7 +3,7 @@
     {
       id: "chuck-missler",
       enabled: true,
-      name: "Dr. Chuck Missler",
+      name: "Dr. Chuck Missler - Koinonia House",
       archiveTitle: "Explore the Chuck Missler Archive",
       orientation: "This card gathers archived teaching for visitors who want to explore Missler’s biblical studies in an organized place. Listen thoughtfully and compare every teaching with the text of Scripture.",
       seriesTitle: "Learn the Bible in 24 Hours - the best whole overview ever taught",
