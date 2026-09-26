@@ -90,9 +90,9 @@
       initialVideoIndex: 23,
       videos: [
         { title: "Identity Crisis", youtubeId: "Xh7kblHeBQI" },
-        { title: "Identity Crisis", youtubeId: "Xh7kblHeBQI" },
-        { title: "Identity Crisis", youtubeId: "Xh7kblHeBQI" },
-        { title: "Hour 4", youtubeId: "4NWuM8aRuzE" },
+        { title: "Truth or Tradition", youtubeId: "S8sKNOxyd8w" },
+        { title: "Sabbath Debate", youtubeId: "Buzmv6Agzek" },
+        { title: "Should Christians Keep the Sabbath?", youtubeId: "FF45cMglsC8" },
         { title: "Hour 5", youtubeId: "S4mZushkYFE" },
         { title: "Hour 6", youtubeId: "bjjA-FDFmXQ" },
         { title: "Hour 7", youtubeId: "N3WCH5Xmqk8" },
