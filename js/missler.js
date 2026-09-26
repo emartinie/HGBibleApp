@@ -81,7 +81,7 @@
     {
       id: "jim-staley",
       enabled: true,
-      name: "Jim Staley - Identity Crisis",
+      name: "Jim Staley - Passion for Truth Ministries",
       archiveTitle: "Identity Crisisr",
       orientation: "This card gathers archived teaching for visitors who want to explore Identity Crisis’s biblical studies in an organized place. Listen thoughtfully and compare every teaching with the text of Scripture.",
       seriesTitle: "Identity Crisis Series",
