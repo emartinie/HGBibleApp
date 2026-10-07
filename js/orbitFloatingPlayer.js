@@ -29,6 +29,7 @@
     index: 0,
     mode: "audio",
     speechRate: 1,
+    speechVoiceName: "",
     speechPaused: false,
     speechToken: 0,
     lang: "eng",
@@ -161,7 +162,9 @@
     const item = currentItem();
     const title = item?.title || "Orbit ready";
     const src = currentSrc();
-    const suffix = state.mode === "speech" ? "Device narration" : state.lang.toUpperCase();
+    const suffix = state.mode === "speech"
+      ? (state.speechVoiceName || "Device narration")
+      : state.lang.toUpperCase();
     state.els.title.textContent = item ? `${title} (${suffix})` : "Orbit";
     state.els.nowPlaying.textContent = item ? `${title} (${suffix})` : "Load a playlist";
     state.els.playPause.textContent = isPaused() ? "Play" : "Pause";
@@ -298,6 +301,24 @@
     } else loadTrack({ autoplay });
   }
 
+  // Prefer a narration voice over the device default. Voice availability varies
+  // by browser; query again for each verse because Safari can populate it late.
+  function preferredNarrationVoice(synth) {
+    const voices = (synth.getVoices?.() || [])
+      .filter(voice => /^en(?:[-_]|$)/i.test(voice.lang));
+    function score(voice) {
+      const identity = `${voice.name} ${voice.voiceURI}`;
+      const quality = /premium/i.test(identity) ? 1000
+        : /enhanced/i.test(identity) ? 500 : 0;
+      const name = /\bDaniel\b/i.test(voice.name) ? 100
+        : /\bKaren\b/i.test(voice.name) ? 80
+        : /\bMoira\b/i.test(voice.name) ? 60
+        : /\bSamantha\b/i.test(voice.name) ? 40 : 0;
+      return quality + name + (voice.default ? 1 : 0);
+    }
+    return voices.sort((a, b) => score(b) - score(a))[0] || null;
+  }
+
   function playSpeech() {
     const synth = window.speechSynthesis;
     const item = currentItem();
@@ -311,6 +332,10 @@
     stopSpeech();
     const token = state.speechToken;
     const utterance = new SpeechSynthesisUtterance(item.text);
+    const voice = preferredNarrationVoice(synth);
+    utterance.lang = voice?.lang || "en-US";
+    if (voice) utterance.voice = voice;
+    state.speechVoiceName = voice?.name || "";
     utterance.rate = state.speechRate;
     utterance.onstart = () => updateNowPlaying({ action: "play" });
     utterance.onend = () => {
@@ -594,6 +619,8 @@
   function setupFloatingPlayer() {
     if (state.player?.isConnected) return;
     buildPlayer();
+    // Start loading the voice list without delaying the user\'s Play gesture.
+    window.speechSynthesis?.getVoices?.();
 
     on(state.audio, "play", () => updateNowPlaying({ action: "play" }));
     on(state.audio, "pause", () => updateNowPlaying({ action: "pause" }));
