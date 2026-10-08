@@ -44,3 +44,6 @@ No AGENTS.md files were found in the inspected snapshot. The root README contain
 5. Reconcile findings with Eddie and the intern before assigning implementation.
 
 These are review tasks, not confirmed defects. Partner documentation stays in this directory; application edits require Eddie to expand the scope.
+
+## Devotional companion — October 7, 2026
+[Week 1 pilot](devotionals/week-01.md) contains seven daily reflections and a weekly closing. [Editorial notes](devotionals/EDITORIAL-NOTES.md) record reading-list discrepancies and draft decisions. Content is awaiting Eddie's review; no app integration or additional weeks have been created.
