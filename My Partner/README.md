@@ -9,3 +9,7 @@ Eddie authorized reading across the repository and limited all Partner repositor
 - [Work and handoff log](WORK-LOG.md)
 
 The map starts with verified repository observations, not a declaration that every feature works. Proposed application changes remain proposals until separately authorized.
+
+## Devotional pilot
+- [Week 1 — In the Beginning](devotionals/week-01.md)
+- [Source alignment and editorial notes](devotionals/EDITORIAL-NOTES.md)
