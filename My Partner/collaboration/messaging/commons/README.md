@@ -15,3 +15,10 @@ No Firebase setup is needed to review this first draft. For a separate live test
 
 ## Verification
 JavaScript syntax checked with node --check. Browser smoke script check.cjs covers sending, escaped markup, persistence, navigation, task status, thread creation, and mobile overflow. Browser execution status is recorded in QA.md. Source inspection is not proof of authenticated privacy, network synchronization, or push notifications. No deployment or live service state is claimed.
+
+## Prayer Map update — October 9
+Prayer Map navigation now includes a schematic world illustration with public sample markers, group-only requests omitted from markers, local prayer acknowledgments, request creation, and conversation follow-up (confirmation before copying request text). No precise location collection. Group-only visibility remains illustrative, not authenticated privacy.
+
+Source inspection: js/firebase-init.js exports existing app/db/auth for homegroups-app; js/prayermap.js reads prayers and creates requests with Google sign-in. Repository firestore.rules allows public prayer reads, Google-authenticated creates, and no updates/deletes. Deployed rules and live service configuration were not verified. Existing project/configuration may be reused with reviewed new membership-protected collections; no new database is yet established as necessary. No credentials copied and no Firebase connection activated.
+
+Updated JavaScript passed syntax check. Browser checks remain unexecuted. Public/static site may update on commits; refresh after hosting publishes the new version.
