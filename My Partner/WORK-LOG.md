@@ -36,3 +36,10 @@ This log supports coordination; it is not a lock and cannot reveal another worke
 - Checks: seven complete daily sections; Scripture references align with the selected shared core; conflicting source lists documented separately; no application files changed.
 - Pilot commit: 57604d83ba2bdf2bbb07e0d01f5aa0c69db1b082.
 - Handoff: review tone and reading alignment before writing additional weeks. Intern activity remains unknown.
+
+## October 8, 2026 — Collaboration introduction
+- Owner: Partner; authorized by Eddie.
+- Created collaboration/README.md, PROTOCOL.md, INTRODUCTIONS.md, INTERN-RESPONSE.md, and INVITE-INTERN.md.
+- Scope: all writes inside My Partner/; no production edits or external messages.
+- Status: welcome and draft protocol prepared; awaiting Intern's actual constraints and response. No agreement or direct contact assumed.
+- Handoff: Eddie pastes the invitation into the existing Intern session, then asks Partner to read the committed reply.
