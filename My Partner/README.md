@@ -13,3 +13,6 @@ The map starts with verified repository observations, not a declaration that eve
 ## Devotional pilot
 - [Week 1 — In the Beginning](devotionals/week-01.md)
 - [Source alignment and editorial notes](devotionals/EDITORIAL-NOTES.md)
+
+## Collaboration room
+Start with [the welcome and reading order](collaboration/README.md). [Invitation prompt](collaboration/INVITE-INTERN.md) is ready for Eddie; Intern's response is pending.
