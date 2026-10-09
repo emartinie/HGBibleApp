@@ -47,3 +47,6 @@ These are review tasks, not confirmed defects. Partner documentation stays in th
 
 ## Devotional companion — October 7, 2026
 [Week 1 pilot](devotionals/week-01.md) contains seven daily reflections and a weekly closing. [Editorial notes](devotionals/EDITORIAL-NOTES.md) record reading-list discrepancies and draft decisions. Content is awaiting Eddie's review; no app integration or additional weeks have been created.
+
+## Commons messaging prototype — October 9, 2026
+[First interface draft](collaboration/messaging/commons/index.html), [integration notes](collaboration/messaging/commons/README.md), and [QA status](collaboration/messaging/commons/QA.md). Local sample data only. Syntax/readback verified; browser verification blocked. Existing application code and Firebase configuration untouched.
