@@ -174,6 +174,28 @@ service cloud.firestore {
         && request.auth.uid == memberId;
     }
 
+    // Commons conversations: readable only by current community members.
+    function enrolledInCommonsArea(areaId) {
+      return googleUser() && validCommonsArea(areaId)
+        && exists(/databases/$(database)/documents/commonsCommunityMembers/$(areaId)/members/$(request.auth.uid));
+    }
+
+    match /commonsCommunityPosts/{communityId}/posts/{postId} {
+      allow get, list: if enrolledInCommonsArea(communityId);
+      allow create: if enrolledInCommonsArea(communityId)
+        && request.resource.data.keys().hasOnly(['uid', 'authorName', 'body', 'createdAt'])
+        && request.resource.data.keys().hasAll(['uid', 'authorName', 'body', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.authorName is string
+        && request.resource.data.authorName.size() > 0
+        && request.resource.data.authorName.size() <= 80
+        && request.resource.data.body is string
+        && request.resource.data.body.size() > 0
+        && request.resource.data.body.size() <= 1200
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
