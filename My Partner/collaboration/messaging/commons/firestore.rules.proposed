@@ -151,6 +151,29 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // Phase 3: individual opt-in enrollment in the six existing Commons areas.
+    // Private enrollment: only the owner may read/write their own record.
+    function validCommonsArea(id) {
+      return id in ['projects', 'fellowship', 'prayer', 'study', 'discipleship', 'family'];
+    }
+
+    match /commonsCommunityMembers/{communityId}/members/{memberId} {
+      allow get: if googleUser() && validCommonsArea(communityId)
+        && request.auth.uid == memberId;
+      allow list: if false;
+      allow create: if googleUser() && validCommonsArea(communityId)
+        && request.auth.uid == memberId
+        && exists(/databases/$(database)/documents/commonsMembers/$(memberId))
+        && request.resource.data.keys().hasOnly(['uid', 'communityId', 'joinedAt'])
+        && request.resource.data.keys().hasAll(['uid', 'communityId', 'joinedAt'])
+        && request.resource.data.uid == memberId
+        && request.resource.data.communityId == communityId
+        && request.resource.data.joinedAt == request.time;
+      allow update: if false;
+      allow delete: if googleUser() && validCommonsArea(communityId)
+        && request.auth.uid == memberId;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
