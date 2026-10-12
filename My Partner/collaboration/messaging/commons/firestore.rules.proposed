@@ -126,6 +126,7 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // Commons: provider-neutral authentication; all existing ownership, enrollment, and validation checks remain.
     // Commons: opt-in private member profiles. Preserve live Prayer Map rules.
     function validCommonsProfile(data) {
       return data.keys().hasOnly(['displayName', 'about', 'interest', 'createdAt', 'updatedAt'])
@@ -140,11 +141,11 @@ service cloud.firestore {
     match /commonsMembers/{memberId} {
       allow get: if signedIn() && request.auth.uid == memberId;
       allow list: if false;
-      allow create: if googleUser() && request.auth.uid == memberId
+      allow create: if signedIn() && request.auth.uid == memberId
         && validCommonsProfile(request.resource.data)
         && request.resource.data.createdAt == request.time
         && request.resource.data.updatedAt == request.time;
-      allow update: if googleUser() && request.auth.uid == memberId
+      allow update: if signedIn() && request.auth.uid == memberId
         && validCommonsProfile(request.resource.data)
         && request.resource.data.createdAt == resource.data.createdAt
         && request.resource.data.updatedAt == request.time;
@@ -158,10 +159,10 @@ service cloud.firestore {
     }
 
     match /commonsCommunityMembers/{communityId}/members/{memberId} {
-      allow get: if googleUser() && validCommonsArea(communityId)
+      allow get: if signedIn() && validCommonsArea(communityId)
         && request.auth.uid == memberId;
       allow list: if false;
-      allow create: if googleUser() && validCommonsArea(communityId)
+      allow create: if signedIn() && validCommonsArea(communityId)
         && request.auth.uid == memberId
         && exists(/databases/$(database)/documents/commonsMembers/$(memberId))
         && request.resource.data.keys().hasOnly(['uid', 'communityId', 'joinedAt'])
@@ -170,13 +171,13 @@ service cloud.firestore {
         && request.resource.data.communityId == communityId
         && request.resource.data.joinedAt == request.time;
       allow update: if false;
-      allow delete: if googleUser() && validCommonsArea(communityId)
+      allow delete: if signedIn() && validCommonsArea(communityId)
         && request.auth.uid == memberId;
     }
 
     // Commons conversations: readable only by current community members.
     function enrolledInCommonsArea(areaId) {
-      return googleUser() && validCommonsArea(areaId)
+      return signedIn() && validCommonsArea(areaId)
         && exists(/databases/$(database)/documents/commonsCommunityMembers/$(areaId)/members/$(request.auth.uid));
     }
 
