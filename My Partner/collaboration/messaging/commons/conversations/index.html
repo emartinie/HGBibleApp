@@ -57,7 +57,7 @@ search.oninput=()=>{searchTerm=search.value.trim().toLocaleLowerCase();for(const
 refresh.onclick=()=>load();
 async function load(){
  const v=++revision;allowed=false;compose.hidden=true;posts.replaceChildren();loadedItems=[];const user=auth.currentUser;
- if(!user){note('Sign in on the Commons member page to participate.');return;}
+ if(!user){note('Redirecting to HomeGroups sign-in…');const destination=new URL('../auth/',location.href);destination.searchParams.set('next',location.pathname+location.search);location.replace(destination.href);return;}
  note('Checking your community enrollment…');
  try{
  const enrollment=await getDoc(doc(db,'commonsCommunityMembers',area.value,'members',user.uid));if(v!==revision)return;
