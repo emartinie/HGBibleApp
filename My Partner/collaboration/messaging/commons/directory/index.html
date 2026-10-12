@@ -25,20 +25,27 @@ $('#clear').onclick=()=>{if(confirm('Delete all locally created group drafts in 
 $('#export').onclick=()=>{const blob=new Blob([JSON.stringify({version:1,groups:drafts},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='homegroups-community-drafts.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};render();
 </script>
 <script type="module">
-import {auth} from '../../../../../js/firebase-init.js';
+import {auth,db} from '../../../../../js/firebase-init.js';
 import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {doc,getDoc} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const summary=document.getElementById('memberSummary');
 const names={'Bible Study & Investigation':'study','Personal Growth & Fellowship':'fellowship','Prayer & Encouragement':'prayer','Discipleship & Mentorship':'discipleship','Kingdom Projects':'projects','Marriage & Family':'family'};
-onAuthStateChanged(auth,user=>{
-summary.replaceChildren();
-if(!user){summary.hidden=false;summary.textContent='Want your personal starting place shown here? ';const a=document.createElement('a');a.href='../member/';a.textContent='Sign in and save a profile draft';summary.append(a);return;}
-let draft=null;try{draft=JSON.parse(localStorage.getItem('hg-commons-profile-draft-'+user.uid)||'null');}catch{}
-summary.hidden=false;
-const p=document.createElement('p');
-if(!draft){p.textContent='Signed in as '+(user.displayName||'HomeGroups member')+'. You have not saved a profile draft on this device.';summary.append(p);const a=document.createElement('a');a.href='../member/';a.textContent='Create your profile draft';summary.append(a);return;}
-const chosen=typeof draft.interest==='string'&&names[draft.interest]?draft.interest:null;
-p.textContent='Welcome, '+(draft.displayName||user.displayName||'friend')+'. '+(chosen?'Your chosen starting place: '+chosen+'.':'Your profile draft is saved on this device.');summary.append(p);
-if(chosen){const b=document.createElement('button');b.textContent='Explore '+chosen+' →';b.className='primary';b.onclick=()=>{const card=document.querySelector('[data-area="'+names[chosen]+'"]');if(card)card.click();else{document.getElementById('search').value='';document.getElementById('search').dispatchEvent(new Event('input'));document.querySelector('[data-area="'+names[chosen]+'"]')?.click();}};summary.append(b);}
-const a=document.createElement('a');a.href='../member/';a.textContent='Edit profile draft';a.style.marginLeft='14px';summary.append(a);
-},()=>{summary.hidden=false;summary.textContent='Unable to read sign-in state. Profile preferences remain stored locally.';});
+let generation=0;
+onAuthStateChanged(auth,async user=>{
+ const request=++generation;summary.replaceChildren();summary.hidden=false;
+ const link=(label)=>{const a=document.createElement('a');a.href='../member/';a.textContent=label;a.style.marginLeft='14px';summary.append(a);};
+ if(!user){summary.textContent='Sign in to see your personal starting place.';link('Member access');return;}
+ let draft=null,source='local';
+ try{draft=JSON.parse(localStorage.getItem('hg-commons-profile-draft-'+user.uid)||'null');}catch{}
+ try{const snap=await getDoc(doc(db,'commonsMembers',user.uid));if(request!==generation||auth.currentUser?.uid!==user.uid)return;if(snap.exists()){draft=snap.data();source='cloud';}}catch(err){if(request!==generation)return;/* Keep locally saved draft if cloud rules are not deployed. */}
+ if(request!==generation)return;
+ summary.replaceChildren();
+ const p=document.createElement('p');
+ if(!draft){p.textContent='Signed in as '+(user.displayName||'HomeGroups member')+'. No Commons profile is available yet.';summary.append(p);link('Create a profile draft');return;}
+ const chosen=typeof draft.interest==='string'&&names[draft.interest]?draft.interest:null;
+ p.textContent='Welcome, '+(draft.displayName||user.displayName||'friend')+'. '+(chosen?'Your chosen starting place: '+chosen+'.':'Choose a starting place in your profile.')+(source==='cloud'?' Your Commons membership is saved in Firebase.':' This profile draft is stored on this device only.');
+ summary.append(p);
+ if(chosen){const b=document.createElement('button');b.textContent='Explore '+chosen+' →';b.className='primary';b.onclick=()=>{document.getElementById('search').value='';document.getElementById('search').dispatchEvent(new Event('input'));document.querySelector('[data-area="'+names[chosen]+'"]')?.click();};summary.append(b);}
+ link(source==='cloud'?'Edit Commons profile':'Edit local draft');
+},()=>{summary.hidden=false;summary.textContent='Unable to read sign-in state. Local profile drafts remain on this device.';});
 </script></body></html>
