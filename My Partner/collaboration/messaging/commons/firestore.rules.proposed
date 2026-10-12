@@ -1,0 +1,156 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function googleUser() {
+      return signedIn()
+        && request.auth.token.firebase.sign_in_provider == 'google.com';
+    }
+
+    function currentBallot() {
+      return get(/databases/$(database)/documents/investigationBallots/current).data;
+    }
+
+    function validVote(data) {
+      let ballot = currentBallot();
+      return googleUser()
+        && ballot.status == 'open'
+        && data.keys().hasOnly(['uid', 'ballotId', 'topicIds', 'updatedAt'])
+        && data.uid == request.auth.uid
+        && data.ballotId == ballot.ballotId
+        && data.topicIds is list
+        && data.topicIds.size() > 0
+        && data.topicIds.size() <= ballot.maxSelections
+        && data.topicIds.hasOnly(ballot.candidateTopicIds)
+        && data.updatedAt == request.time;
+    }
+
+    match /appConfig/main {
+      allow get: if true;
+      allow list, create, update, delete: if false;
+    }
+
+    match /users/{userId}/settings/{settingId} {
+      allow read, write: if signedIn() && request.auth.uid == userId;
+    }
+
+    match /prayers/{prayerId} {
+      allow read: if true;
+      allow create: if googleUser()
+        && request.resource.data.keys().hasOnly(['lat', 'lng', 'name', 'message', 'prayed', 'ownerUid', 'createdAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.lat is number
+        && request.resource.data.lng is number
+        && request.resource.data.lat >= -90 && request.resource.data.lat <= 90
+        && request.resource.data.lng >= -180 && request.resource.data.lng <= 180
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 1000
+        && request.resource.data.prayed == false
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    match /feasts/{feastId} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['name', 'feastType', 'lat', 'lng', 'ownerUid', 'createdAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80
+        && request.resource.data.feastType in ['Shavuot', 'Sukkot']
+        && request.resource.data.lat is number
+        && request.resource.data.lng is number
+        && request.resource.data.lat >= -90 && request.resource.data.lat <= 90
+        && request.resource.data.lng >= -180 && request.resource.data.lng <= 180
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    match /investigationBallots/current {
+      allow get: if true;
+      allow list, create, update, delete: if false;
+    }
+
+    match /investigationVotes/{ballotId}/users/{userId} {
+      allow get: if googleUser() && request.auth.uid == userId;
+      allow list: if false;
+      allow create, update: if signedIn()
+        && request.auth.uid == userId
+        && ballotId == currentBallot().ballotId
+        && validVote(request.resource.data);
+      allow delete: if googleUser()
+        && request.auth.uid == userId
+        && ballotId == currentBallot().ballotId
+        && currentBallot().status == 'open';
+    }
+
+    match /investigationSuggestionUsers/{userId}/suggestions/{suggestionId} {
+      allow read: if googleUser() && request.auth.uid == userId;
+      allow create: if googleUser()
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly([
+          'uid',
+          'topic',
+          'why',
+          'evidence',
+          'context',
+          'status',
+          'createdAt'
+        ])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.topic is string
+        && request.resource.data.topic.size() > 0
+        && request.resource.data.topic.size() <= 180
+        && request.resource.data.why is string
+        && request.resource.data.why.size() <= 1200
+        && request.resource.data.evidence is string
+        && request.resource.data.evidence.size() <= 1200
+        && request.resource.data.context is string
+        && request.resource.data.context.size() <= 1200
+        && request.resource.data.status == 'submitted'
+        && request.resource.data.createdAt == request.time;
+      allow update: if googleUser()
+        && request.auth.uid == userId
+        && resource.data.uid == request.auth.uid
+        && resource.data.status == 'submitted'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'withdrawnAt'])
+        && request.resource.data.status == 'withdrawn'
+        && request.resource.data.withdrawnAt == request.time;
+      allow delete: if false;
+    }
+
+    // Commons: opt-in private member profiles. Review and emulator-test before deployment.
+    function validCommonsProfile(data) {
+      return data.keys().hasOnly(['displayName', 'about', 'interest', 'createdAt', 'updatedAt'])
+        && data.keys().hasAll(['displayName', 'about', 'interest', 'createdAt', 'updatedAt'])
+        && data.displayName is string && data.displayName.size() > 0 && data.displayName.size() <= 80
+        && data.about is string && data.about.size() <= 500
+        && data.interest in ['', 'Bible Study & Investigation', 'Personal Growth & Fellowship',
+          'Prayer & Encouragement', 'Discipleship & Mentorship', 'Kingdom Projects', 'Marriage & Family']
+        && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+
+    match /commonsMembers/{memberId} {
+      allow get: if signedIn() && request.auth.uid == memberId;
+      allow list: if false;
+      allow create: if googleUser() && request.auth.uid == memberId
+        && validCommonsProfile(request.resource.data)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if googleUser() && request.auth.uid == memberId
+        && validCommonsProfile(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
