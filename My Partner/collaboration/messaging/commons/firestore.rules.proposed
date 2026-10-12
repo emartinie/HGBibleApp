@@ -40,7 +40,7 @@ service cloud.firestore {
 
     match /prayers/{prayerId} {
       allow read: if true;
-      allow create: if googleUser()
+      allow create: if signedIn()
         && request.resource.data.keys().hasOnly(['lat', 'lng', 'name', 'message', 'prayed', 'ownerUid', 'createdAt'])
         && request.resource.data.ownerUid == request.auth.uid
         && request.resource.data.lat is number
@@ -52,7 +52,10 @@ service cloud.firestore {
         && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 1000
         && request.resource.data.prayed == false
         && request.resource.data.createdAt == request.time;
-      allow update, delete: if false;
+      allow update: if signedIn()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['prayed'])
+        && request.resource.data.prayed is bool;
+      allow delete: if false;
     }
 
     match /feasts/{feastId} {
@@ -123,7 +126,7 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    // Commons: opt-in private member profiles. Review and emulator-test before deployment.
+    // Commons: opt-in private member profiles. Preserve live Prayer Map rules.
     function validCommonsProfile(data) {
       return data.keys().hasOnly(['displayName', 'about', 'interest', 'createdAt', 'updatedAt'])
         && data.keys().hasAll(['displayName', 'about', 'interest', 'createdAt', 'updatedAt'])
