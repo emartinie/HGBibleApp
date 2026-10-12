@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HomeGroups Commons · Community Conversations</title>
-<style>:root{font-family:system-ui,sans-serif;color:#263d32;background:#f5f4ee}*{box-sizing:border-box}body{margin:0}header{background:#203b30;color:white;padding:24px max(20px,calc((100vw - 850px)/2))}header a{color:#e0e9df}main{max-width:850px;margin:auto;padding:24px 18px 70px}h1,h2{font-family:Georgia,serif}h1{margin:12px 0}select,textarea,button{font:inherit}select,textarea{width:100%;padding:12px;border:1px solid #bccbc0;border-radius:9px;background:white}textarea{min-height:100px}button{border:1px solid #285c48;border-radius:9px;padding:11px 16px;background:#285c48;color:white;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.panel,.post{background:white;border:1px solid #d9e3da;border-radius:13px;padding:20px;margin:15px 0}.notice{padding:15px;border-radius:10px;background:#fff3d8;border:1px solid #ead5a6}.muted,small{color:#62756a}.post p{white-space:pre-wrap;overflow-wrap:anywhere}.replies{margin:14px 0 0 15px;border-left:3px solid #dce8dd;padding-left:14px}.reply{padding:10px 0;border-bottom:1px solid #e7ede7}.reply p{margin:5px 0}.replyform textarea{min-height:70px;margin-top:10px}.replyform button{margin-top:8px}label{display:block;font-weight:650;margin:15px 0 7px}#posts{margin-top:22px}</style></head>
+<style>:root{font-family:system-ui,sans-serif;color:#263d32;background:#f5f4ee}*{box-sizing:border-box}body{margin:0}header{background:#203b30;color:white;padding:24px max(20px,calc((100vw - 850px)/2))}header a{color:#e0e9df}main{max-width:850px;margin:auto;padding:24px 18px 70px}h1,h2{font-family:Georgia,serif}h1{margin:12px 0}select,textarea,button{font:inherit}select,textarea{width:100%;padding:12px;border:1px solid #bccbc0;border-radius:9px;background:white}textarea{min-height:100px}button{border:1px solid #285c48;border-radius:9px;padding:11px 16px;background:#285c48;color:white;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.panel,.post{background:white;border:1px solid #d9e3da;border-radius:13px;padding:20px;margin:15px 0}.notice{padding:15px;border-radius:10px;background:#fff3d8;border:1px solid #ead5a6}.muted,small{color:#62756a}.post p{white-space:pre-wrap;overflow-wrap:anywhere}.replies{margin:14px 0 0 15px;border-left:3px solid #dce8dd;padding-left:14px}.reply{padding:10px 0;border-bottom:1px solid #e7ede7}.reply p{margin:5px 0}.replyform textarea{min-height:70px;margin-top:10px}.replyform button{margin-top:8px}label{display:block;font-weight:650;margin:15px 0 7px}.tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.tools input{flex:1;min-width:180px;padding:11px;border:1px solid #bccbc0;border-radius:9px;font:inherit}.tools button{background:#fff;color:#285c48}.replies summary{cursor:pointer;font-weight:650;padding:7px 0}.replies details[open] summary{margin-bottom:8px}#posts{margin-top:22px}</style></head>
 <body><header><a href="../directory/">← Community directory</a><h1>Community conversations</h1><div>HomeGroups Commons · Members-only pilot</div></header>
 <main><p>Share ideas, questions, and encouragement with others who have joined the same community. Posts are visible to <strong>all current members of that community</strong>; do not share private counseling, medical, or sensitive prayer details.</p>
 <div id="status" class="notice" role="status">Checking your Commons membership…</div>
 <section class="panel"><label for="area">Choose community</label><select id="area"><option value="projects">Kingdom Projects</option><option value="fellowship">Personal Growth & Fellowship</option><option value="prayer">Prayer & Encouragement</option><option value="study">Bible Study & Investigation</option><option value="discipleship">Discipleship & Mentorship</option><option value="family">Marriage & Family</option></select>
 <form id="compose" hidden><label for="message">New community message</label><textarea id="message" maxlength="1200" required placeholder="What would you like to share with this community?"></textarea><p class="muted"><small>1–1,200 characters. Messages and replies are not editable or deletable in this pilot. Be considerate and avoid personal information.</small></p><button id="send" type="submit">Post message</button></form></section>
-<section aria-label="Community messages"><h2>Conversation</h2><div id="posts" aria-live="polite"></div></section>
+<section aria-label="Community messages"><h2>Conversation</h2><div class="tools"><input id="search" type="search" aria-label="Search loaded messages" placeholder="Search recent messages and replies…"><button id="refresh" type="button">Refresh messages</button></div><p id="searchInfo" class="muted"><small>Searches the 30 most recent messages and their loaded replies.</small></p><div id="posts" aria-live="polite"></div></section>
 </main>
 <script type="module">
 import {auth,db} from '../../../../../js/firebase-init.js';
@@ -15,7 +15,7 @@ import {doc,getDoc,collection,getDocs,query,orderBy,limit,addDoc,serverTimestamp
 const ids=['projects','fellowship','prayer','study','discipleship','family'];
 const area=document.getElementById('area'),status=document.getElementById('status'),posts=document.getElementById('posts'),compose=document.getElementById('compose'),message=document.getElementById('message'),send=document.getElementById('send');
 const requested=new URLSearchParams(location.search).get('area');if(ids.includes(requested))area.value=requested;
-let revision=0,allowed=false;
+let revision=0,allowed=false,loadedItems=[],loadedArea="",searchTerm="";const search=document.getElementById("search"),refresh=document.getElementById("refresh"),searchInfo=document.getElementById("searchInfo");
 function note(value){status.textContent=value}
 function node(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=value;return el;}
 async function render(items,selected,v){
@@ -26,7 +26,7 @@ async function render(items,selected,v){
   const data=item.data(),article=node('article','post'),title=node('strong','',typeof data.authorName==='string'?data.authorName:'Commons member');
   const stamp=node('small','',' · '+(data.createdAt?.toDate?.().toLocaleString()||'Recently'));
   article.append(title,stamp,node('p','',typeof data.body==='string'?data.body:''));
-  const replies=node('div','replies'),heading=node('strong','','Replies');replies.append(heading);
+  const replies=node('div','replies'),details=node('details'),heading=node('summary','','Replies · loading…');details.append(heading);replies.append(details);
   const form=node('form','replyform'),input=node('textarea');input.maxLength=1200;input.required=true;input.placeholder='Write a reply…';input.setAttribute('aria-label','Reply to '+title.textContent);
   const submit=node('button','','Post reply');submit.type='submit';form.append(input,submit);
   form.onsubmit=async e=>{
@@ -40,24 +40,30 @@ async function render(items,selected,v){
     input.value='';await load();note('Reply saved in Firebase.');
    }catch(err){note('Reply not saved: '+(err.code||err.message));}finally{submit.disabled=false;}
   };
-  replies.append(form);article.append(replies);posts.append(article);
+  details.append(form);article.append(replies);posts.append(article);
   try{
    const snap=await getDocs(query(collection(db,'commonsCommunityPosts',selected,'posts',item.id,'replies'),orderBy('createdAt','asc'),limit(30)));
    if(v!==revision)return;
-   if(snap.empty)replies.insertBefore(node('p','muted','No replies yet.'),form);
-   snap.forEach(reply=>{const d=reply.data(),el=node('div','reply');el.append(node('strong','',typeof d.authorName==='string'?d.authorName:'Commons member'),node('small','',' · '+(d.createdAt?.toDate?.().toLocaleString()||'Recently')),node('p','',typeof d.body==='string'?d.body:''));replies.insertBefore(el,form);});
-  }catch(err){replies.insertBefore(node('p','muted',err.code==='permission-denied'?'Replies are awaiting Firestore permission activation.':'Replies unavailable: '+(err.code||err.message)),form);form.hidden=true;}
+   heading.textContent='Replies · '+snap.size+(snap.size===30?' (first 30)':'');
+   if(snap.empty)details.insertBefore(node('p','muted','No replies yet.'),form);
+   snap.forEach(reply=>{const d=reply.data(),el=node('div','reply');el.append(node('strong','',typeof d.authorName==='string'?d.authorName:'Commons member'),node('small','',' · '+(d.createdAt?.toDate?.().toLocaleString()||'Recently')),node('p','',typeof d.body==='string'?d.body:''));details.insertBefore(el,form);});
+  }catch(err){heading.textContent='Replies unavailable';details.insertBefore(node('p','muted',err.code==='permission-denied'?'Replies are awaiting Firestore permission activation.':'Replies unavailable: '+(err.code||err.message)),form);form.hidden=true;}
+  if(searchTerm){const match=article.textContent.toLocaleLowerCase().includes(searchTerm);article.hidden=!match;}
  }
+ updateSearchInfo();
 }
+function updateSearchInfo(){const visible=[...posts.querySelectorAll('article.post')].filter(el=>!el.hidden).length;searchInfo.textContent=searchTerm?'Showing '+visible+' matching messages from the latest '+loadedItems.length+' loaded posts.':'Showing the latest '+loadedItems.length+' messages; replies are expandable. Search includes loaded replies.';}
+search.oninput=()=>{searchTerm=search.value.trim().toLocaleLowerCase();for(const article of posts.querySelectorAll('article.post'))article.hidden=!!searchTerm&&!article.textContent.toLocaleLowerCase().includes(searchTerm);updateSearchInfo();};
+refresh.onclick=()=>load();
 async function load(){
- const v=++revision;allowed=false;compose.hidden=true;posts.replaceChildren();const user=auth.currentUser;
+ const v=++revision;allowed=false;compose.hidden=true;posts.replaceChildren();loadedItems=[];const user=auth.currentUser;
  if(!user){note('Sign in on the Commons member page to participate.');return;}
  note('Checking your community enrollment…');
  try{
  const enrollment=await getDoc(doc(db,'commonsCommunityMembers',area.value,'members',user.uid));if(v!==revision)return;
  if(!enrollment.exists()){note('Join this community in the directory before reading or posting messages.');return;}
  const snap=await getDocs(query(collection(db,'commonsCommunityPosts',area.value,'posts'),orderBy('createdAt','desc'),limit(30)));if(v!==revision)return;
- allowed=true;compose.hidden=false;note('You are enrolled. Showing the 30 most recent community messages.');await render(snap.docs,area.value,v);
+ allowed=true;compose.hidden=false;loadedItems=snap.docs;loadedArea=area.value;note('You are enrolled. Showing the 30 most recent community messages.');await render(snap.docs,area.value,v);
  }catch(e){if(v!==revision)return;note(e.code==='permission-denied'?'Community conversations are prepared but their Firestore permissions are not yet active.':'Unable to load conversations: '+(e.code||e.message));}
 }
 area.onchange=load;onAuthStateChanged(auth,load);
