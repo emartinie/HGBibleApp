@@ -196,6 +196,25 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // Replies belong to an existing community post and inherit membership access.
+    match /commonsCommunityPosts/{communityId}/posts/{postId}/replies/{replyId} {
+      allow get, list: if enrolledInCommonsArea(communityId)
+        && exists(/databases/$(database)/documents/commonsCommunityPosts/$(communityId)/posts/$(postId));
+      allow create: if enrolledInCommonsArea(communityId)
+        && exists(/databases/$(database)/documents/commonsCommunityPosts/$(communityId)/posts/$(postId))
+        && request.resource.data.keys().hasOnly(['uid', 'authorName', 'body', 'createdAt'])
+        && request.resource.data.keys().hasAll(['uid', 'authorName', 'body', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.authorName is string
+        && request.resource.data.authorName.size() > 0
+        && request.resource.data.authorName.size() <= 80
+        && request.resource.data.body is string
+        && request.resource.data.body.size() > 0
+        && request.resource.data.body.size() <= 1200
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
