@@ -21,3 +21,9 @@ Eddie can explicitly join Commons, save profile, sign out, sign in on a differen
 
 ## Note
 An Auto-ID placeholder document exists in `commonsMembers`, created manually in Firebase Console. Leave it untouched during pilot; it is not an authenticated member document.
+
+## October 12 continuation (intern unavailable)
+- Directory now reads `commonsMembers/{uid}` after sign-in and prefers a saved cloud profile when readable. If unavailable, it uses the existing local draft and clearly labels it local-only.
+- Directory commit: `69f55519003ada803acadb5c40eb47d1d7004025`.
+- No Firestore rules were deployed and no production code outside `My Partner` was modified.
+- Before enabling real memberships: emulator-test proposed rules, confirm current root rules match the draft's baseline, review UI and consent, then request deployment approval.
