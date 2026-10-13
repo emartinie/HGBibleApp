@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HomeGroups Commons · My Communities</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HomeGroups Commons · Unread Activity</title>
 <style>:root{font-family:system-ui,sans-serif;color:#263d32;background:#f5f4ee}*{box-sizing:border-box}body{margin:0}header{background:#203b30;color:white;padding:24px max(20px,calc((100vw - 850px)/2))}header a{color:#e0e9df}main{max-width:850px;margin:auto;padding:24px 18px 70px}h1,h2{font-family:Georgia,serif}.panel,.entry{background:white;border:1px solid #d9e3da;border-radius:13px;padding:17px;margin:12px 0}.muted,small{color:#62756a}.notice{padding:14px;border-radius:10px;background:#fff3d8;border:1px solid #ead5a6}.entry a{color:#245b43;font:700 1.15rem Georgia,serif;text-decoration:none}.entry a:hover{text-decoration:underline}.entry p{overflow-wrap:anywhere;white-space:pre-wrap}.reply-activity{background:#eef5ed;border-radius:9px;padding:10px;margin-top:10px}.reply-activity small{display:block}.reply-activity p{margin:5px 0}.unread{display:inline-block;background:#285c48;color:white;border-radius:14px;font-size:.75rem;font-weight:700;padding:4px 9px;margin-left:9px}.entry .activity-stamp{font-weight:650;color:#285c48}.topic{display:inline-block;color:#285c48;background:#e8f1e9;border-radius:20px;padding:5px 9px;font-size:.78rem;font-weight:700;margin:6px 0}button{border:1px solid #285c48;border-radius:9px;padding:10px 15px;background:#285c48;color:white;cursor:pointer}button:disabled{opacity:.5}nav{display:flex;gap:15px;flex-wrap:wrap}nav a{color:#285c48}select{font:inherit;padding:9px;border:1px solid #bccbc0;border-radius:9px;max-width:100%}</style></head>
-<body><header><a href="../directory/">← Community directory</a><h1>My Commons activity</h1><div>Recent discussions across communities you've joined</div></header>
+<body><header><a href="../directory/">← Community directory</a><h1>My Commons activity</h1><div>Unread discussions across communities you've joined</div></header>
 <main><nav><a href="../conversations/">Community conversations</a><a href="../member/">My profile</a><a href="../auth/">My account</a></nav>
-<p>See recent discussion starters across your joined communities in one place. Only communities you're enrolled in are checked; this page doesn't expose private membership lists.</p>
+<p>Your unread inbox for discussions in communities you have joined. Each discussion appears once and returns when a new reply arrives.</p>
 <div id="status" class="notice" role="status">Checking membership…</div>
-<section class="panel"><label for="filter">Community: </label><select id="filter"><option value="">All joined communities</option></select> <button id="reload" type="button">Refresh</button><p class="muted"><small>Shows up to 10 recent discussions per joined community and the latest reply on each. Unread indicators are tracked in this browser only, per signed-in account. Opening a discussion here marks its current activity as seen. Activity is based on loaded discussions, not a complete site-wide history.</small></p></section>
-<h2>Recent community activity</h2><div id="results"></div></main>
+<section class="panel"><label for="filter">Community: </label><select id="filter"><option value="">All joined communities</option></select> <button id="reload" type="button">Refresh</button><p class="muted"><small>Checks discussion starters and their latest replies across your joined communities, including older discussions. Read status is saved in this browser only, per signed-in account. Opening a discussion here marks its current activity as read.</small></p></section>
+<h2>Unread community activity</h2><div id="results"></div></main>
 <script type="module">
 import {auth,db} from '../../../../../js/firebase-init.js';
 import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import {doc,getDoc,collection,getDocs,query,orderBy,limit} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import {doc,getDoc,collection,getDocs,query,orderBy,limit,startAfter} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const areas={projects:'Kingdom Projects',fellowship:'Personal Growth & Fellowship',prayer:'Prayer & Encouragement',study:'Bible Study & Investigation',discipleship:'Discipleship & Mentorship',family:'Marriage & Family'};
 const topics=['General discussion','Questions & answers','Ideas & projects','Resources & learning','Encouragement & testimony','Announcements'];
 const status=document.getElementById('status'),results=document.getElementById('results'),filter=document.getElementById('filter'),reload=document.getElementById('reload');let all=[],version=0;
@@ -21,14 +21,14 @@ function activityMillis(x){return Math.max(x.data.createdAt?.toMillis?.()||0,x.l
 function wasSeen(x){try{return Number(localStorage.getItem(seenKey(x))||0)>=activityMillis(x);}catch{return false;}}
 function markSeen(x){try{localStorage.setItem(seenKey(x),String(activityMillis(x)));}catch{}}
 function render(){
- results.replaceChildren();const list=all.filter(x=>!filter.value||x.area===filter.value);
- if(!list.length){results.append(el('p','No recent discussions found in the selected communities.','muted'));return;}
+ results.replaceChildren();const list=all.filter(x=>(!filter.value||x.area===filter.value)&&!wasSeen(x)&&!x.replyError);
+ if(!list.length){results.append(el('p','You're all caught up! No unread discussions in the selected communities.','muted'));return;}
  for(const x of list){
   const d=x.data,parsed=parse(d.body),box=el('article',undefined,'entry');
   const label=el('span',areas[x.area]+' · '+parsed.topic,'topic'),link=el('a',parsed.title);
-  link.href='../conversations/?area='+encodeURIComponent(x.area)+'#post-'+encodeURIComponent(x.id);link.addEventListener('click',()=>{markSeen(x);});
+  link.href='../conversations/?area='+encodeURIComponent(x.area)+'#post-'+encodeURIComponent(x.id);link.addEventListener('click',()=>{markSeen(x);box.remove();const remaining=results.querySelectorAll('.entry').length;if(!remaining)render();});
   const meta=el('small','Started by '+(typeof d.authorName==='string'?d.authorName:'Commons member')+' · '+(d.createdAt?.toDate?.().toLocaleString()||'Recently'));
-  box.append(label,el('div'),link);if(!wasSeen(x)&&!x.replyError)box.append(el('span','New activity','unread'));box.append(el('div'),meta,el('p',parsed.body.slice(0,200)+(parsed.body.length>200?'…':'')));
+  box.append(label,el('div'),link);box.append(el('span','Unread','unread'));box.append(el('div'),meta,el('p',parsed.body.slice(0,200)+(parsed.body.length>200?'…':'')));
   if(x.latestReply){
    const reply=x.latestReply,activity=el('div',undefined,'reply-activity');
    activity.append(el('small','Latest reply · '+(reply.createdAt?.toDate?.().toLocaleString()||'Recently')+' · '+(typeof reply.authorName==='string'?reply.authorName:'Commons member'),'activity-stamp'));
@@ -42,17 +42,37 @@ function render(){
 async function load(){const v=++version,user=auth.currentUser;if(!user){const next=new URL('../auth/',location.href);next.searchParams.set('next',location.pathname+location.search);location.replace(next.href);return;}reload.disabled=true;status.textContent='Checking your communities…';results.replaceChildren();all=[];filter.replaceChildren();const defaultOption=el('option','All joined communities');defaultOption.value='';filter.append(defaultOption);
 try{const checks=await Promise.all(Object.keys(areas).map(async id=>({id,member:await getDoc(doc(db,'commonsCommunityMembers',id,'members',user.uid))})));if(v!==version)return;const joined=checks.filter(x=>x.member.exists()).map(x=>x.id);if(!joined.length){status.textContent='You have not joined any Commons communities yet. Visit the community directory to join one.';return;}
 for(const id of joined){const option=el('option',areas[id]);option.value=id;filter.append(option);}
-const loaded=await Promise.allSettled(joined.map(async id=>{const snap=await getDocs(query(collection(db,'commonsCommunityPosts',id,'posts'),orderBy('createdAt','desc'),limit(10)));return snap.docs.map(d=>({area:id,id:d.id,data:d.data()}));}));if(v!==version)return;all=loaded.filter(x=>x.status==='fulfilled').flatMap(x=>x.value);
+// Scan all discussion starters in pages so older conversations with new replies aren't missed.
+const loaded=await Promise.allSettled(joined.map(async id=>{
+ const posts=[];let cursor=null;
+ while(true){
+  if(v!==version)return posts;
+  const constraints=[orderBy('createdAt','desc'),limit(100)];
+  if(cursor)constraints.push(startAfter(cursor));
+  const snap=await getDocs(query(collection(db,'commonsCommunityPosts',id,'posts'),...constraints));
+  posts.push(...snap.docs.map(d=>({area:id,id:d.id,data:d.data()})));
+  status.textContent='Scanning joined communities… '+posts.length+' discussions checked in '+areas[id]+'.';
+  if(snap.size<100)break;
+  cursor=snap.docs[snap.docs.length-1];
+ }
+ return posts;
+}));if(v!==version)return;all=loaded.filter(x=>x.status==='fulfilled').flatMap(x=>x.value);
 status.textContent='Joined communities: '+joined.length+'. Checking latest replies for '+all.length+' discussions…';
-const replyResults=await Promise.allSettled(all.map(async x=>{
- const snap=await getDocs(query(collection(db,'commonsCommunityPosts',x.area,'posts',x.id,'replies'),orderBy('createdAt','desc'),limit(1)));
- return snap.empty?null:snap.docs[0].data();
-}));
+const replyResults=[];
+for(let i=0;i<all.length;i+=20){
+ const batch=await Promise.allSettled(all.slice(i,i+20).map(async x=>{
+  const snap=await getDocs(query(collection(db,'commonsCommunityPosts',x.area,'posts',x.id,'replies'),orderBy('createdAt','desc'),limit(1)));
+  return snap.empty?null:snap.docs[0].data();
+ }));
+ replyResults.push(...batch);
+ if(v!==version)return;
+ status.textContent='Checking latest replies… '+Math.min(i+20,all.length)+' of '+all.length+' discussions.';
+}
 if(v!==version)return;
 replyResults.forEach((result,i)=>{if(result.status==='fulfilled')all[i].latestReply=result.value;else all[i].replyError=true;});
 all.sort((a,b)=>activityMillis(b)-activityMillis(a));
 const failed=loaded.filter(x=>x.status==='rejected').length,replyFailures=replyResults.filter(x=>x.status==='rejected').length;
-status.textContent='Joined communities: '+joined.length+'. Showing '+all.length+' discussions, newest activity first.'+(failed?' Could not load '+failed+' communities.':'')+(replyFailures?' Latest replies unavailable for '+replyFailures+' discussions.':'');
+status.textContent='Joined communities: '+joined.length+'. '+all.filter(x=>!wasSeen(x)&&!x.replyError).length+' unread discussions (of '+all.length+' checked), newest activity first.'+(failed?' Could not load '+failed+' communities.':'')+(replyFailures?' Latest replies unavailable for '+replyFailures+' discussions.':'');
 render();
 }catch(e){if(v===version)status.textContent='Unable to load community activity: '+(e.code||e.message);}finally{if(v===version)reload.disabled=false;}}
 filter.onchange=render;reload.onclick=load;onAuthStateChanged(auth,load);
