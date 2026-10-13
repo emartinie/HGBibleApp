@@ -181,6 +181,21 @@ service cloud.firestore {
         && exists(/databases/$(database)/documents/commonsCommunityMembers/$(areaId)/members/$(request.auth.uid));
     }
 
+    // Proposed only: per-user discussion read markers, scoped to an enrolled community.
+    // Client writes serverTimestamp() as seenAt; other users cannot list or read markers.
+    match /commonsDiscussionReads/{userId}/communities/{communityId}/posts/{postId} {
+      allow get: if signedIn() && request.auth.uid == userId
+        && enrolledInCommonsArea(communityId);
+      allow list: if false;
+      allow create, update: if signedIn() && request.auth.uid == userId
+        && enrolledInCommonsArea(communityId)
+        && exists(/databases/$(database)/documents/commonsCommunityPosts/$(communityId)/posts/$(postId))
+        && request.resource.data.keys().hasOnly(['seenAt'])
+        && request.resource.data.keys().hasAll(['seenAt'])
+        && request.resource.data.seenAt == request.time;
+      allow delete: if false;
+    }
+
     match /commonsCommunityPosts/{communityId}/posts/{postId} {
       allow get, list: if enrolledInCommonsArea(communityId);
       allow create: if enrolledInCommonsArea(communityId)
