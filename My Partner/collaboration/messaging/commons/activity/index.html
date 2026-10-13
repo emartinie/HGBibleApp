@@ -22,7 +22,7 @@ function wasSeen(x){try{return Number(localStorage.getItem(seenKey(x))||0)>=acti
 function markSeen(x){try{localStorage.setItem(seenKey(x),String(activityMillis(x)));}catch{}}
 function render(){
  results.replaceChildren();const list=all.filter(x=>(!filter.value||x.area===filter.value)&&!wasSeen(x)&&!x.replyError);
- if(!list.length){results.append(el('p','You're all caught up! No unread discussions in the selected communities.','muted'));return;}
+ if(!list.length){results.append(el('p',"You're all caught up! No unread discussions in the selected communities.",'muted'));return;}
  for(const x of list){
   const d=x.data,parsed=parse(d.body),box=el('article',undefined,'entry');
   const label=el('span',areas[x.area]+' · '+parsed.topic,'topic'),link=el('a',parsed.title);
