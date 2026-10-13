@@ -28,7 +28,7 @@ function encodeTopic(topic,title,body){return (topic===topics[0]?'':marker+topic
 const topic=document.getElementById('topic'),topicFilter=document.getElementById('topicFilter'),discussionTitle=document.getElementById('discussionTitle');
 const area=document.getElementById('area'),status=document.getElementById('status'),posts=document.getElementById('posts'),compose=document.getElementById('compose'),message=document.getElementById('message'),send=document.getElementById('send');
 const requested=new URLSearchParams(location.search).get('area');if(ids.includes(requested))area.value=requested;
-let revision=0,allowed=false,loadedItems=[],loadedArea="",searchTerm="",lastPost=null,viewMode='index',focusedPost=null;
+let ownDisplayName='',revision=0,allowed=false,loadedItems=[],loadedArea="",searchTerm="",lastPost=null,viewMode='index',focusedPost=null;
 const discussionIndex=document.getElementById('discussionIndex'),discussionFocus=document.getElementById('discussionFocus'),indexView=document.getElementById('indexView'),expandedView=document.getElementById('expandedView'),backToIndex=document.getElementById('backToIndex');const morePosts=document.getElementById("morePosts");const search=document.getElementById("search"),refresh=document.getElementById("refresh"),searchInfo=document.getElementById("searchInfo");
 function draftKey(kind,selected,postId=''){const uid=auth.currentUser?.uid;if(!uid)return null;return 'hg-commons-draft:v1:'+uid+':'+selected+':'+kind+':'+postId;}
 function draftRead(key){if(!key)return '';try{return sessionStorage.getItem(key)||'';}catch{return '';}}
@@ -38,6 +38,7 @@ function restoreMessage(){message.value=draftRead(draftKey('post',area.value));t
 topic.addEventListener('change',()=>draftWrite(draftKey('topic',area.value),topic.value));
 discussionTitle.addEventListener('input',()=>draftWrite(draftKey('title',area.value),discussionTitle.value));
 message.addEventListener('input',()=>{draftWrite(draftKey('post',area.value),message.value);draftStatus.textContent=message.value?'Draft saved in this browser.':'Drafts are saved in this browser while you type.';});
+function shownName(data){return data.uid===auth.currentUser?.uid&&ownDisplayName?ownDisplayName:(typeof data.authorName==='string'&&data.authorName.trim()?data.authorName:'Commons member');}
 function note(value){status.textContent=value}
 function node(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=value;return el;}
 async function render(items,selected,v){
@@ -45,7 +46,7 @@ async function render(items,selected,v){
  if(!items.length){posts.append(node('p','muted','No messages yet. Your community can begin the conversation.'));return;}
  for(const item of items){
   if(v!==revision)return;
-  const data=item.data(),parsed=parseTopic(data.body),article=node('article','post'),title=node('strong','',typeof data.authorName==='string'?data.authorName:'Commons member');article.dataset.topic=parsed.topic;
+  const data=item.data(),parsed=parseTopic(data.body),article=node('article','post'),title=node('strong','',shownName(data));article.dataset.topic=parsed.topic;
   const stamp=node('small','',' · '+(data.createdAt?.toDate?.().toLocaleString()||'Recently'));article.id='post-'+item.id;
   const head=node('div','post-head'),permalink=node('a','','Link to message');permalink.href='#'+article.id;permalink.addEventListener('click',()=>{viewMode='index';focusedPost=item.id;updateView();});permalink.title='Copy or share this message link';head.append(title,node('small','',' · Member '+(typeof data.uid==='string'?data.uid.slice(0,8):'unknown')+' · unverified display name'),stamp,permalink);article.append(head,node('span','topic-label',parsed.topic));if(parsed.title)article.append(node('h3','discussion-title',parsed.title));article.append(node('p','post-preview',parsed.body));
   const replies=node('div','replies'),details=node('details'),heading=node('summary','','Replies · loading…');details.append(heading);replies.append(details);
@@ -72,7 +73,7 @@ async function render(items,selected,v){
     const constraints=[orderBy('createdAt','asc'),...(lastReply?[startAfter(lastReply)]:[]),limit(30)];
     const snap=await getDocs(query(base,...constraints));if(v!==revision)return;
     if(snap.empty&&replyCount===0)details.insertBefore(node('p','muted','No replies yet.'),moreReplies);
-    snap.forEach(reply=>{const d=reply.data(),el=node('div','reply');el.append(node('strong','',typeof d.authorName==='string'?d.authorName:'Commons member'),node('small','',' · Member '+(typeof d.uid==='string'?d.uid.slice(0,8):'unknown')+' · unverified display name'),node('small','',' · '+(d.createdAt?.toDate?.().toLocaleString()||'Recently')),node('p','',typeof d.body==='string'?d.body:''));details.insertBefore(el,moreReplies);});
+    snap.forEach(reply=>{const d=reply.data(),el=node('div','reply');el.append(node('strong','',shownName(d)),node('small','',' · Member '+(typeof d.uid==='string'?d.uid.slice(0,8):'unknown')+' · unverified display name'),node('small','',' · '+(d.createdAt?.toDate?.().toLocaleString()||'Recently')),node('p','',typeof d.body==='string'?d.body:''));details.insertBefore(el,moreReplies);});
     replyCount+=snap.size;lastReply=snap.docs[snap.docs.length-1]||lastReply;
     heading.textContent='Replies · '+replyCount+' loaded';moreReplies.hidden=snap.size<30;
     applyFilters();
@@ -124,6 +125,7 @@ async function load(){
  note('Checking your community enrollment…');
  try{
  const enrollment=await getDoc(doc(db,'commonsCommunityMembers',area.value,'members',user.uid));if(v!==revision)return;
+ try{const ownProfile=await getDoc(doc(db,'commonsMembers',user.uid));if(v!==revision)return;ownDisplayName=ownProfile.exists()&&typeof ownProfile.data().displayName==='string'?ownProfile.data().displayName.trim():'';}catch{ownDisplayName='';}
  if(!enrollment.exists()){note('Join this community in the directory before reading or posting messages.');return;}
  const snap=await getDocs(query(collection(db,'commonsCommunityPosts',area.value,'posts'),orderBy('createdAt','desc'),limit(30)));if(v!==revision)return;
  allowed=true;compose.hidden=false;restoreMessage();loadedItems=snap.docs;lastPost=snap.docs[snap.docs.length-1]||null;morePosts.hidden=snap.size<30;morePosts.dataset.hasMore=String(snap.size===30);loadedArea=area.value;note('You are enrolled. Showing recent community messages.');await render(snap.docs,area.value,v);const target=location.hash.match(/^#post-(.+)$/);if(target){focusedPost=target[1];viewMode='index';updateView();document.getElementById('posts')?.scrollIntoView({block:'start'});}
