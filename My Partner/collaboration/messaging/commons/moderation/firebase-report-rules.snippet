@@ -1,0 +1,37 @@
+// Add inside match /databases/{database}/documents in the CURRENT LIVE rules.
+// Keep every existing rule intact. Requires the existing enrolledInCommonsArea() helper.
+// Reports are write-once and private; reviewer access must be implemented separately.
+// Document ID is reporter UID + "_" + post ID + "_" + reply ID or "post".
+// This ID prevents the same member reporting the same target repeatedly.
+match /commonsReports/{reportId} {
+  allow get, list, update, delete: if false;
+  allow create: if signedIn()
+    && request.resource.data.keys().hasOnly([
+      'reporterUid', 'community', 'postId', 'replyId',
+      'reason', 'details', 'status', 'createdAt'
+    ])
+    && request.resource.data.keys().hasAll([
+      'reporterUid', 'community', 'postId', 'replyId',
+      'reason', 'details', 'status', 'createdAt'
+    ])
+    && request.resource.data.reporterUid == request.auth.uid
+    && request.resource.data.community == 'study'
+    && enrolledInCommonsArea(request.resource.data.community)
+    && request.resource.data.postId is string
+    && request.resource.data.postId.size() > 0
+    && request.resource.data.postId.size() <= 150
+    && request.resource.data.replyId is string
+    && request.resource.data.replyId.size() <= 150
+    && request.resource.data.reason in [
+      'harassment', 'threats', 'spam', 'privacy', 'personal-attack', 'other'
+    ]
+    && request.resource.data.details is string
+    && request.resource.data.details.size() <= 500
+    && request.resource.data.status == 'pending'
+    && request.resource.data.createdAt == request.time
+    && reportId == request.auth.uid + '_' + request.resource.data.postId + '_' +
+       (request.resource.data.replyId == '' ? 'post' : request.resource.data.replyId)
+    && exists(/databases/$(database)/documents/commonsCommunityPosts/study/posts/$(request.resource.data.postId));
+}
+// NOTE: For reply reports, validate reply existence as well before enabling in production.
+// NOTE: Do not add a public read rule. Privileged review should use a server/Admin SDK.
