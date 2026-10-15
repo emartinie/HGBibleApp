@@ -1,34 +1,52 @@
-# Week 1–2 production integration — staged, not deployed
+# Week 1–2 production Messaging integration
 
-## What is ready
-- `commons-week-companion.js`: standalone app-shell module, listens for the actual `weekChanged` event from `js/mainstage.js`, reads `#weekSelect` / `window.currentWeekData`, shows launcher only for Week 1/2, and supplies week context to the embedded Commons pilot.
-- `../week-context-pilot/index.html`: supports `?embedded=1&week=1|2`, receiving same-origin week updates.
-- `../week-context-pilot/context.js`: reads `data/week1.json` and `data/week2.json` (read-only).
-- Same Firestore collections and account/membership checks as prior Commons prototypes; no new Firestore rules.
+The production app shell loads `commons-week-companion.js`. It opens the existing Week 1/2 Messaging page in a floating iframe, using the same Firebase account, Kingdom Projects membership, discussion starters, and replies as the full conversation page.
 
-## Proposed production wiring — intern to review/test/apply
-Add this single module script near the end of the root `index.html` body, after the app's DOM elements:
+## Start a conversation
+
+1. Open Week 1 or Week 2 and select the floating **Messaging** button.
+2. Sign in and join Kingdom Projects if prompted.
+3. Select **Start conversation** above the discussion filters, including when no discussions exist.
+4. Enter a title and opening message. The optional study link stays tied to the week where the draft was started.
+5. Select **Post conversation**. On confirmed creation, the panel opens the new thread; use **← Discussions** to return to All recent.
+
+The title, message, and optional study link together have the existing 1,200-character body limit. A starter uses the established `[HG-TITLE:...]` body prefix and writes only `uid`, `authorName`, `body`, and a server timestamp to `commonsCommunityPosts/projects/posts`. Firebase rules, content files, and existing messages are unchanged. New replies continue to use the existing reply paths.
+
+Drafts are scoped to the signed-in account, community, and originating week. They survive failed sends, list navigation, and tab reloads when sessionStorage is available. If browser storage is blocked, an in-memory draft remains in the open Messaging window. Signing out or changing accounts removes the old account’s composer from view. Posting uses the current authenticated UID, and stale membership or week-context results cannot authorize a new account or overwrite a newer context.
+
+## Wiring and cache refresh
+
 ```html
-<script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js"></script>
+<script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js?v=20261015-compose-1"></script>
 ```
-Do not alter `js/mainstage.js`, `data/week1.json`, `data/week2.json`, or Firebase configuration unless independently justified. This module should be disabled or removed easily by removing the one script tag.
 
-## Test checklist before production
-1. Verify on published origin (same-origin Firebase auth), Week 1 and Week 2 navigation and exact context, and no launcher on unrelated cards/weeks.
-2. Verify user not signed in gets actionable sign-in link, and member missing Kingdom Projects gets community join link.
-3. Test pointer/touch drag on actual iPhone Safari and installed PWA; minimize/restore; keyboard open; viewport rotation; scroll underlying study; focus.
-4. Test authenticated posts/replies and full Commons links. **Note:** full Commons links currently use relative paths from the embedded pilot and may need to open the top-level page, not inside the iframe.
-5. Confirm iframe close preserves draft but does not leak listeners excessively; ensure no duplicate instances on SPA navigation; check page lifecycle and offline behavior.
-6. Validate no visual collision with audio player, other excursions, safe areas, or small displays.
-7. Confirm Firestore permissions and moderation readiness before broad launch.
+- `commons-week-companion.js`: floating launcher, dragging, collapse/restore, Week 1/2 context messages, and iframe lifetime.
+- `../week-context-pilot/index.html`: authenticated discussion list, Start conversation control, composer integration, and replies.
+- `../week-context-pilot/start-conversation.js`: conversation form, limits, account/week-scoped drafts, and existing Firestore starter write.
+- `../week-context-pilot/context.js`: read-only study metadata adapter; its identifiers remain provisional.
 
-## Known limitations
-- This is **staged integration**, not a production deployment or verified iPhone fix.
-- Discussion relevance still matches text in recent Kingdom Projects posts, not canonical corpus IDs.
-- The embedded page's internal Commons navigation may remain within the iframe until handoff behavior is implemented.
-- The current module uses a floating iframe to reuse existing Commons UI; later consolidation into a single reusable component is recommended.
-- Membership is Kingdom Projects only; no automatic joining.
+Root script, embedded iframe, and composer import use the `20261015-compose-1` cache marker. Existing `commons` URLs, IDs, Firebase paths, and the `commonsWeek` message protocol are retained for compatibility with the published rename.
 
-## Messaging label update — October 15, 2026
+## Verification
 
-Root `index.html` now references the integration module with `?v=20261015-messaging-1`. Visible labels use **Messaging**; the iframe URL has the same release marker to refresh its labels. Internal `commons` IDs, Firebase paths, and the `commonsWeek` message protocol remain unchanged. This release changes branding and cache URLs only; it does not introduce a second communication panel or migrate data.
+From the repository root, with Playwright and Chromium available:
+
+```sh
+node 'My Partner/collaboration/messaging/commons/production-integration/check-start-conversation.cjs'
+```
+
+The script accepts `CHROMIUM_PATH` (default `/usr/bin/chromium`). This cloud machine exposes Playwright through `NODE_PATH=/opt/codex/cua_node/lib/node_modules`. Screenshots go to `/tmp`.
+
+The test exercises the actual production module, embedded page, and composer with Firebase doubles: Week 1 at 1440px and Week 2 at 390px, empty discussion lists, exact starter path/fields, failed-send retry, permission-denied messages, pinned study references, duplicate-submit prevention, text rendering, close/minimize, owner-only draft recovery after account changes/reload, length/title validation, and stale membership/context responses. It does not send live test messages or establish deployed Firebase authorization.
+
+## Remaining limits
+
+- Membership is Kingdom Projects only, with no automatic joining.
+- Related discussions remain word matches within the 20 recent starters, rather than verified corpus relationships.
+- Editing/deleting messages is not available in this pilot.
+- Full Messaging/account/community links may navigate inside the iframe; top-level handoff remains separate work.
+- Actual signed-in Firebase posting and cross-device delivery require verification on the published origin. The cloud environment currently cannot reach Firebase’s SDK CDN or homegroups.org through its outbound proxy.
+
+## Rollback
+
+Restore the preceding versions of root `index.html`, the integration module, and embedded pilot, and remove the new composer import/helper if rolling back this release. No data migration is required. Already-posted conversations remain in the existing Firebase collection.

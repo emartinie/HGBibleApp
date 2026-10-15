@@ -60,3 +60,11 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Scope: rename visible Commons labels to Messaging in the actual Week 1/2 production module, embedded pilot, and linked communication pages; refresh module/iframe cache URLs.
 - Existing Firebase paths, browser keys, postMessage names, messages, and accounts are unchanged. Larger unpublished companion work is excluded from this release.
 - Verification: label-only source comparison, script syntax checks, and desktop/mobile tests of the actual production module and embedded page before publication.
+
+## October 15, 2026 — Add production conversation starters
+- Owner: Codex, responding to Eddie’s report that Weeks 1 and 2 had no way to start a conversation.
+- Baseline: `337923cbf77e988781a0c646f4cf8ddb72b531ea`; existing production behavior and unpublished workspace work are preserved.
+- Added Start conversation to the actual embedded production pilot, with a standalone form/helper and existing Firestore starter payload. Drafts are account/week-scoped; failed sends retain them. New threads open after confirmed creation, and the discussion list returns to All recent so the starter is visible.
+- Protected composer context from week updates and stale context/membership callbacks. Refreshed script/iframe/helper cache markers to `20261015-compose-1`.
+- Verification: Week 1 desktop (1440px) and Week 2 mobile (390px) browser regression checks, syntax checks, exact Firebase request-path/field checks, account isolation, failure recovery, draft reload, and limits. Firebase is doubled; no live test messages, Firebase rules changes, or corpus changes.
+- Affected paths: root script cache URL; production integration module/README/check script; embedded pilot and new start-conversation.js; this log and project map.

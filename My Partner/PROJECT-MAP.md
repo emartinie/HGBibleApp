@@ -54,3 +54,7 @@ These are review tasks, not confirmed defects. Partner documentation stays in th
 ## Production communication label — October 15, 2026
 
 The active Week 1/2 app-shell integration is [commons-week-companion.js](collaboration/messaging/commons/production-integration/commons-week-companion.js), loaded by root index.html. Its visible name is now **Messaging**, including the embedded pilot and linked account/community pages. Existing file names, data paths, and message protocol names retain `commons` for compatibility. This label correction preserves the existing production implementation.
+
+## Production Start conversation — October 15, 2026
+
+The Week 1/2 [embedded Messaging pilot](collaboration/messaging/commons/week-context-pilot/index.html) now provides **Start conversation** above its filters. The [composer helper](collaboration/messaging/commons/week-context-pilot/start-conversation.js) uses existing Firebase starter paths and field shapes, retains account/week-scoped drafts, and pins optional study links to the originating week. [Production integration notes and regression checks](collaboration/messaging/commons/production-integration/README.md) distinguish mocked desktop/mobile verification from live Firebase testing.
