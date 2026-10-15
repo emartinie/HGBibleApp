@@ -1,6 +1,6 @@
-// HomeGroups Week 1/2 Commons production integration candidate.
+// HomeGroups Week 1/2 Messaging production integration candidate.
 // Load from app shell as <script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js"></script>
-// This module changes no production source files. Uses same-origin Firebase Commons iframe.
+// This module changes no production source files. Uses same-origin Firebase Messaging iframe.
 const PILOT = new URL('../week-context-pilot/', import.meta.url);
 let week = 0, box, frame, collapsed = false, dragging = null;
 const css = document.createElement('style');
@@ -16,14 +16,14 @@ css.textContent = `
 @media(max-width:600px){#hg-commons-window{height:min(330px,40dvh)}}
 `;
 document.head.append(css);
-const launch=document.createElement('button');launch.id='hg-commons-launch';launch.textContent='☏ Commons';launch.hidden=true;launch.type='button';document.body.append(launch);
-box=document.createElement('section');box.id='hg-commons-window';box.hidden=true;box.setAttribute('aria-label','Commons study companion');
-box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Commons · Week 1</span><div><button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
+const launch=document.createElement('button');launch.id='hg-commons-launch';launch.textContent='☏ Messaging';launch.hidden=true;launch.type='button';document.body.append(launch);
+box=document.createElement('section');box.id='hg-commons-window';box.hidden=true;box.setAttribute('aria-label','Messaging study companion');
+box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
 const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-commons-label'),min=box.querySelector('#hg-commons-min');
 document.body.append(box);
 function validWeek(n){return n===1||n===2}
-function setWeek(n){if(!validWeek(n))return;week=n;launch.hidden=false;label.textContent='Commons · Week '+week;if(frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
-function open(){if(!validWeek(week))return;box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Commons discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week,PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week},location.origin)}}
+function setWeek(n){if(!validWeek(n))return;week=n;launch.hidden=false;label.textContent='Messaging · Week '+week;if(frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
+function open(){if(!validWeek(week))return;box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=20261015-messaging-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week},location.origin)}}
 function close(){box.hidden=true;launch.hidden=false;/* Preserve iframe and drafts for reopening. */ }
 function minimize(){collapsed=!collapsed;box.classList.toggle('minimized',collapsed);min.textContent=collapsed?'+':'−';min.setAttribute('aria-label',collapsed?'Restore companion':'Minimize companion');requestAnimationFrame(clamp)}
 function clamp(){if(box.hidden)return;const r=box.getBoundingClientRect();box.style.left=Math.max(8,Math.min(r.left,innerWidth-r.width-8))+'px';box.style.top=Math.max(8,Math.min(r.top,innerHeight-r.height-8))+'px';box.style.right='auto';box.style.bottom='auto'}

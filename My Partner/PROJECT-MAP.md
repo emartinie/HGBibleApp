@@ -50,3 +50,7 @@ These are review tasks, not confirmed defects. Partner documentation stays in th
 
 ## Commons messaging prototype — October 9, 2026
 [First interface draft](collaboration/messaging/commons/index.html), [integration notes](collaboration/messaging/commons/README.md), and [QA status](collaboration/messaging/commons/QA.md). Local sample data only. Syntax/readback verified; browser verification blocked. Existing application code and Firebase configuration untouched.
+
+## Production communication label — October 15, 2026
+
+The active Week 1/2 app-shell integration is [commons-week-companion.js](collaboration/messaging/commons/production-integration/commons-week-companion.js), loaded by root index.html. Its visible name is now **Messaging**, including the embedded pilot and linked account/community pages. Existing file names, data paths, and message protocol names retain `commons` for compatibility. This label correction preserves the existing production implementation.

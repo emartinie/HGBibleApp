@@ -1,4 +1,4 @@
-/* Commons local prototype. Sample messages are fictional, not real agent replies. */
+/* Messaging local prototype. Sample messages are fictional, not real agent replies. */
 'use strict';
 const KEY='hg-partner-commons-v1';
 const sample=()=>({version:1,threads:[

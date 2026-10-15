@@ -28,3 +28,7 @@ Do not alter `js/mainstage.js`, `data/week1.json`, `data/week2.json`, or Firebas
 - The embedded page's internal Commons navigation may remain within the iframe until handoff behavior is implemented.
 - The current module uses a floating iframe to reuse existing Commons UI; later consolidation into a single reusable component is recommended.
 - Membership is Kingdom Projects only; no automatic joining.
+
+## Messaging label update — October 15, 2026
+
+Root `index.html` now references the integration module with `?v=20261015-messaging-1`. Visible labels use **Messaging**; the iframe URL has the same release marker to refresh its labels. Internal `commons` IDs, Firebase paths, and the `commonsWeek` message protocol remain unchanged. This release changes branding and cache URLs only; it does not introduce a second communication panel or migrate data.

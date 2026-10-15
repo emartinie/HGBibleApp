@@ -53,3 +53,10 @@ This log supports coordination; it is not a lock and cannot reveal another worke
 
 ## October 9 — Commons Prayer Map update
 Partner updated Commons index.html/app.js and documentation inside My Partner/. Sample prayer requests connect to conversations; local prayer acknowledgment and visibility illustration added. Read existing Firebase initialization, prayer map and repository rules; live deployment not verified. No production Firebase writes or outside-folder edits. JavaScript syntax and GitHub readback checked; browser verification remains blocked. Private prayer storage needs enforced membership rules before integration.
+
+## October 15, 2026 — Production Messaging label correction
+- Owner: Codex, at Eddie’s request to fix the production label.
+- Baseline: `b945b743ac63bcc88ec267d5ca89fd20c1eabcde`; latest production startup/cache fixes are preserved.
+- Scope: rename visible Commons labels to Messaging in the actual Week 1/2 production module, embedded pilot, and linked communication pages; refresh module/iframe cache URLs.
+- Existing Firebase paths, browser keys, postMessage names, messages, and accounts are unchanged. Larger unpublished companion work is excluded from this release.
+- Verification: label-only source comparison, script syntax checks, and desktop/mobile tests of the actual production module and embedded page before publication.
