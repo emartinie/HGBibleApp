@@ -26,7 +26,7 @@ export function createConversationForm({ auth, db, area, displayName, context, i
   form.className = 'new-conversation';
   form.setAttribute('aria-label', 'Start conversation');
   const heading = node('h3', 'Start conversation');
-  const scope = node('p', 'In Kingdom Projects · Week ' + week + ' — ' + context.title);
+  const scope = node('p', 'In Bible Study & Investigation · Week ' + week + ' — ' + context.title);
   scope.className = 'context-hint';
   const titleLabel = node('label', 'Conversation title');
   const title = node('input');
@@ -36,12 +36,11 @@ export function createConversationForm({ auth, db, area, displayName, context, i
   const message = node('textarea');
   message.id = 'new-conversation-message'; message.maxLength = 1200; message.required = true;
   message.placeholder = 'Ask a question or share what you’re noticing…'; messageLabel.htmlFor = message.id;
-  const sourceLabel = node('label'); sourceLabel.className = 'source-check';
-  const source = node('input'); source.type = 'checkbox'; source.checked = true;
-  sourceLabel.append(source, node('span', 'Include a link to Week ' + week));
+  const sourceLabel = node('p', 'Linked to Week ' + week + '. The study link is included with your conversation.');
+  sourceLabel.className = 'context-hint';
   const counter = node('p'); counter.className = 'context-hint';
   const status = node('p'); status.className = 'context-hint'; status.setAttribute('role', 'status');
-  const privacy = node('p', 'Visible to members of Kingdom Projects. Sent conversations cannot be edited or deleted in this pilot.');
+  const privacy = node('p', 'Visible to members of Bible Study & Investigation. Sent conversations cannot be edited or deleted in this pilot.');
   privacy.className = 'context-hint';
   const actions = node('div'); actions.className = 'row';
   const back = node('button', 'Back to discussions'); back.type = 'button';
@@ -51,11 +50,10 @@ export function createConversationForm({ auth, db, area, displayName, context, i
   const draft = readDraft(key);
   title.value = typeof draft?.title === 'string' ? draft.title : '';
   message.value = typeof draft?.message === 'string' ? draft.message : '';
-  source.checked = draft?.source !== false;
   status.textContent = draft ? 'Your unfinished conversation is restored.' : 'Drafts stay with this account in this browser tab.';
   let sending = false;
-  const values = () => ({ title: title.value, message: message.value, source: source.checked });
-  const encoded = () => '[HG-TITLE:' + title.value.trim() + ']\n' + message.value.trim() + (source.checked ? '\n\nReading: ' + reading.href : '');
+  const values = () => ({ title: title.value, message: message.value });
+  const encoded = () => '[HG-TITLE:' + title.value.trim() + ']\n' + message.value.trim() + '\n\nReading: ' + reading.href;
   function saveDraft() {
     const value = values(); memoryDrafts.set(key, value);
     try { sessionStorage.setItem(key, JSON.stringify(value)); status.textContent = 'Draft saved in this browser tab.'; }
@@ -63,10 +61,10 @@ export function createConversationForm({ auth, db, area, displayName, context, i
   }
   function count() {
     const length = encoded().length;
-    counter.textContent = length + ' / 1,200 characters including the title and optional study link.';
+    counter.textContent = length + ' / 1,200 characters including the title and study link.';
     submit.disabled = sending || length > 1200;
   }
-  for (const input of [title, message, source]) input.addEventListener('input', () => { saveDraft(); count(); });
+  for (const input of [title, message]) input.addEventListener('input', () => { saveDraft(); count(); });
   back.onclick = () => { saveDraft(); if (isCurrent()) onBack(); };
   form.onsubmit = async event => {
     event.preventDefault();
@@ -77,7 +75,7 @@ export function createConversationForm({ auth, db, area, displayName, context, i
     saveDraft();
     const captured = JSON.stringify(values());
     sending = true;
-    for (const input of [title, message, source, back]) input.disabled = true;
+    for (const input of [title, message, back]) input.disabled = true;
     count(); status.textContent = 'Posting conversation…';
     const data = { uid, authorName: String(displayName || auth.currentUser.displayName || 'HomeGroups member').slice(0, 80), body, createdAt: serverTimestamp() };
     try {
@@ -89,11 +87,11 @@ export function createConversationForm({ auth, db, area, displayName, context, i
       if (isCurrent() && auth.currentUser?.uid === uid) onPosted({ id: created.id, data: () => data });
     } catch (error) {
       if (isCurrent()) status.textContent = error.code === 'permission-denied'
-        ? 'Conversation wasn’t posted. Your draft is kept. Check your Kingdom Projects membership or try again later.'
+        ? 'Conversation wasn’t posted. Your draft is kept. Check your Bible Study & Investigation membership or try again later.'
         : 'Conversation wasn’t posted. Your draft is kept; try again when you’re connected.';
     } finally {
       sending = false;
-      for (const input of [title, message, source, back]) input.disabled = false;
+      for (const input of [title, message, back]) input.disabled = false;
       count();
     }
   };

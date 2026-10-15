@@ -68,3 +68,12 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Protected composer context from week updates and stale context/membership callbacks. Refreshed script/iframe/helper cache markers to `20261015-compose-1`.
 - Verification: Week 1 desktop (1440px) and Week 2 mobile (390px) browser regression checks, syntax checks, exact Firebase request-path/field checks, account isolation, failure recovery, draft reload, and limits. Firebase is doubled; no live test messages, Firebase rules changes, or corpus changes.
 - Affected paths: root script cache URL; production integration module/README/check script; embedded pilot and new start-conversation.js; this log and project map.
+
+## October 15, 2026 — Route weekly Messaging to Bible Study
+- Owner: Codex, at Eddie’s request that week conversations belong to Bible Studies rather than Kingdom Projects.
+- Baseline: `617e4da0ff10f1a657c664b5dfb1255f11170e4a`; larger unpublished workspace work remains excluded.
+- Changed the actual Week 1/2 panel’s membership checks, discussion reads, starter/reply writes and full-conversation links to the existing `study` community (Bible Study & Investigation). No automatic enrollment, data migration, Firebase rules changes, or corpus schema additions. Existing Projects posts/drafts remain separate.
+- New weekly posts always include the originating week’s reading URL in the existing body field. Default This week filters explicit links within the 20 most recent study posts; All Bible Study includes other topics/unlinked posts; Related passages remains a word-match suggestion.
+- Cache markers: `20261015-study-1` in root script, iframe and composer import.
+- Verification: actual production module/pilot/helper in Playwright at Week 1 desktop 1440px and Week 2 mobile 390px; study-only membership/read/write and reply paths, correct full-view links, week separation, all-study browsing, pinned drafts, failure recovery and account isolation. Firebase is doubled; no live messages were sent. Signed-in production Firebase behavior remains for user verification.
+- Handoff: users must join Bible Study & Investigation if prompted; Projects membership alone does not authorize study discussions. The current-week view is a recent sample, not a complete historical week index.

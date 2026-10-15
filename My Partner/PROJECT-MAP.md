@@ -58,3 +58,7 @@ The active Week 1/2 app-shell integration is [commons-week-companion.js](collabo
 ## Production Start conversation — October 15, 2026
 
 The Week 1/2 [embedded Messaging pilot](collaboration/messaging/commons/week-context-pilot/index.html) now provides **Start conversation** above its filters. The [composer helper](collaboration/messaging/commons/week-context-pilot/start-conversation.js) uses existing Firebase starter paths and field shapes, retains account/week-scoped drafts, and pins optional study links to the originating week. [Production integration notes and regression checks](collaboration/messaging/commons/production-integration/README.md) distinguish mocked desktop/mobile verification from live Firebase testing.
+
+## Weekly Messaging community routing — October 15, 2026
+
+The [production pilot](collaboration/messaging/commons/week-context-pilot/index.html) now uses the existing Bible Study & Investigation (`study`) community for membership, starters and replies. [New weekly starters](collaboration/messaging/commons/week-context-pilot/start-conversation.js) always include an originating-week reading URL in their existing body. This week shows explicit week links in the latest 20 study posts; All Bible Study includes unlinked and other-week posts. Kingdom Projects conversations are preserved in their existing community. [Regression checks and limits](collaboration/messaging/commons/production-integration/README.md) cover mocked desktop/mobile behavior and distinguish it from live Firebase verification.
