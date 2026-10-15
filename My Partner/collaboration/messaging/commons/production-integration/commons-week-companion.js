@@ -23,7 +23,7 @@ const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-comm
 document.body.append(box);
 function validWeek(n){return n===1||n===2}
 function setWeek(n){if(!validWeek(n))return;week=n;launch.hidden=false;label.textContent='Messaging · Week '+week;if(frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
-function open(){if(!validWeek(week))return;box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=20261015-phase2-2',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week},location.origin)}}
+function open(){if(!validWeek(week))return;box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=20261015-moderation-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week},location.origin)}}
 function close(){box.hidden=true;launch.hidden=false;/* Preserve iframe and drafts for reopening. */ }
 function minimize(){collapsed=!collapsed;box.classList.toggle('minimized',collapsed);min.textContent=collapsed?'+':'−';min.setAttribute('aria-label',collapsed?'Restore companion':'Minimize companion');requestAnimationFrame(clamp)}
 function clamp(){if(box.hidden)return;const r=box.getBoundingClientRect();box.style.left=Math.max(8,Math.min(r.left,innerWidth-r.width-8))+'px';box.style.top=Math.max(8,Math.min(r.top,innerHeight-r.height-8))+'px';box.style.right='auto';box.style.bottom='auto'}
