@@ -1,0 +1,155 @@
+/* Shared with the production study companion: navy surfaces, warm headings, cream controls. */
+:root{color-scheme:dark;--bg:#0d111b;--paper:#151d2a;--ink:#eef3ff;--muted:#b8c3d5;--line:#435167;--green:#f3c878;--soft:#243247;--gold:#f3c878;--accent:#f3c878;--link:#a9d7ff;font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink)}
+[hidden],.hidden{display:none!important}
+a{color:var(--link);text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+button,input,textarea,select{font:inherit}
+button,a,input,select,textarea{touch-action:manipulation}
+button{cursor:pointer;border:1px solid #65748a;border-radius:10px;background:var(--soft);color:var(--ink);padding:10px 14px;min-height:44px;max-width:100%}
+button:hover:not(:disabled){border-color:var(--accent);background:#304058}
+button:disabled{opacity:.5;cursor:not-allowed}
+button.primary,button[type=submit],#join,#google,#signin{background:var(--accent);color:#211b10;border-color:var(--accent);font-weight:650}
+button.primary:hover:not(:disabled),button[type=submit]:hover:not(:disabled),#join:hover:not(:disabled),#google:hover:not(:disabled),#signin:hover:not(:disabled){background:#ffdaa0;color:#211b10}
+.secondary,#signout,#clearDraft{background:var(--soft)!important;color:var(--ink)!important;border:1px solid #65748a}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+input:not([type=checkbox]),textarea,select{display:block;width:100%;padding:11px 12px;border:1px solid #65748a;border-radius:9px;background:#101725;color:var(--ink);font-size:16px;min-width:0}
+textarea{resize:vertical;min-height:100px}
+input::placeholder,textarea::placeholder{color:#9caac0;opacity:1}
+label{display:block;font-weight:600;margin:16px 0 7px}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:var(--accent);line-height:1.25}
+h1{font-size:clamp(26px,4vw,38px);margin:8px 0 12px}
+h2{font-size:24px;margin:24px 0 12px}
+h3{font-size:21px;margin:12px 0}
+p{margin:10px 0 16px;overflow-wrap:anywhere}
+small,.muted,.intro,.tag,.footnote,.draft-status,#searchInfo{color:var(--muted)}
+small{font-size:.83rem}
+hr{border:0;border-top:1px solid var(--line);margin:24px 0}
+
+.messaging-shell{background:#f4eee0;color:#29241d;border-bottom:1px solid #85765d;padding:14px max(18px,calc((100% - 1040px)/2));box-shadow:0 5px 22px #0003}
+.messaging-brand-row{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.messaging-brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none}
+.messaging-mark{display:grid;place-items:center;width:36px;height:36px;border:1px solid #a19376;border-radius:11px;font-size:23px}
+.messaging-brand strong{display:block;font:600 20px Georgia,serif}
+.messaging-brand small{display:block;color:#605641;letter-spacing:.13em;font-size:9px}
+.messaging-back{font-size:.85rem;color:#403724;white-space:nowrap}
+.messaging-nav{display:flex;gap:5px;overflow:auto;scrollbar-width:thin;padding:12px 0 1px;margin:0}
+.messaging-nav a{color:#433c30;text-decoration:none;padding:7px 11px;border:1px solid transparent;border-radius:8px;white-space:nowrap;font-size:.85rem;min-height:36px;display:flex;align-items:center}
+.messaging-nav a:hover{background:#e8dfcd}
+.messaging-nav a[aria-current=page]{background:#243247;color:#fff;border-color:#243247}
+.messaging-shell :focus-visible{outline-color:#6d531d}
+.messaging-context{font-size:.79rem;margin:9px 0 0;color:#605641}
+.page-heading{max-width:1040px;margin:0 auto;padding:26px 20px 0;background:transparent;color:var(--ink)}
+.page-heading div{color:var(--muted);font-size:.9rem}
+.messaging-page main{max-width:1040px;margin:0 auto;padding:22px 20px 70px;min-width:0}
+.messaging-page main>p:first-child{margin-top:0}
+.panel,.post,.entry,.card,.group,.index-entry,.account-panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0;min-width:0;box-shadow:0 8px 24px #0002}
+.notice,.note,.discussion-focus{padding:13px 15px;border:1px solid var(--line);border-radius:10px;background:#243044;color:var(--ink);margin:16px 0;font-size:.9rem;overflow-wrap:anywhere}
+.notice strong,.note strong{color:var(--accent)}
+.row,.tools,.toolbar,.view-switch,.topic-filter{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.toolbar{margin:24px 0}
+.toolbar input{flex:1 1 230px;max-width:420px}
+.tools input{flex:1 1 210px}
+.topic-filter label{flex:1;max-width:440px}
+.view-switch{margin:16px 0}
+.view-switch button[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:#302d28}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}
+.grid .card{display:flex;flex-direction:column;gap:10px;margin:0}
+.card h2{margin:0;font-size:24px}
+.card p{margin:0;color:var(--muted)}
+.card footer{margin-top:auto;padding-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.card footer button{flex:1 1 150px}
+.card footer a{display:block;width:100%;color:var(--link)!important;font-size:.9rem}
+.tag,.topic,.topic-label{font-size:.76rem;color:#d9c18d}
+.topic,.topic-label{display:inline-block;background:#302d28;padding:5px 10px;border-radius:18px;margin:7px 0}
+.groups{margin-top:32px}
+.group h3{margin:0}
+.group p{color:var(--muted)}
+.group .row{justify-content:space-between}
+.empty{padding:22px;border:1px dashed var(--line);border-radius:10px;color:var(--muted)}
+.footnote{font-size:.8rem;margin-top:35px}
+.post-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.post-head a{font-size:.82rem}
+.post p,.entry p,.reply p{white-space:pre-wrap;overflow-wrap:anywhere}
+.discussion-title{font-size:25px;margin:10px 0}
+.post-preview{max-width:75ch}
+.replies{margin:18px 0 0 8px;border-left:2px solid var(--line);padding-left:15px}
+.reply{padding:12px 0;border-bottom:1px solid var(--line)}
+.reply p{margin:5px 0}
+.replies summary{cursor:pointer;padding:7px 0;color:var(--accent)}
+.replyform textarea{min-height:75px;margin-top:12px}
+.replyform button{margin-top:10px}
+.discussion-index{display:grid;gap:10px;margin:18px 0}
+.discussion-index:empty{display:none}
+.index-entry{margin:0;padding:15px 18px}
+.index-entry a,.entry>a{display:block;font:22px/1.3 Georgia,serif;text-decoration:none;margin:6px 0}
+.index-entry a:hover,.entry>a:hover{text-decoration:underline}
+.index-entry small{display:block}
+.index-entry p{margin:8px 0 0;color:var(--muted);font-size:.9rem}
+.post:target{outline:2px solid var(--accent);scroll-margin-top:20px}
+.reply-activity{background:#202d3d;border-radius:10px;padding:12px;margin-top:12px}
+.reply-activity small{display:block;color:#d9c18d}
+.reply-activity p{margin:6px 0}
+.unread{display:inline-block;background:var(--accent);color:#211b10;border-radius:14px;font-size:.72rem;font-weight:700;padding:3px 9px;margin-left:8px}
+.entry .activity-stamp{color:#d9c18d}
+#filter{display:inline-block;width:auto;max-width:100%;margin:8px 5px 8px 0}
+#profile{margin-top:25px;border-top:1px solid var(--line);padding-top:12px}
+#details{overflow-wrap:anywhere}
+.account-panel{max-width:700px;margin:0 auto}
+.account-panel h1{font-size:32px}
+.account-panel button{margin:4px 4px 4px 0}
+.account-panel #profile h2{margin-top:12px}
+.account-panel details{margin-top:20px}
+.account-panel summary{cursor:pointer;color:var(--muted)}
+dialog{width:min(540px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;background:var(--paper);color:var(--ink);border:1px solid #85765d;border-radius:16px;padding:24px;box-shadow:0 20px 70px #0009}
+dialog::backdrop{background:#02060ccc}
+dialog h2{margin-top:0}
+
+/* Retain the local preview's layout while keeping its sample-data identity explicit. */
+.messaging-preview .sidebar{background:var(--paper);color:var(--ink);border-right:1px solid var(--line)}
+.messaging-preview .sidebar .nav button,.messaging-preview .space{color:var(--muted)}
+.messaging-preview .sidebar .nav button.active,.messaging-preview .space.active{background:var(--soft);color:var(--accent)}
+.messaging-preview .topbar{background:var(--paper);border-color:var(--line)}
+.messaging-preview .search,.messaging-preview .bubble,.messaging-preview .column,.messaging-preview .world{background:var(--soft);color:var(--ink)}
+.messaging-preview .message.mine .bubble,.messaging-preview .thread.selected,.messaging-preview .prayer-card.selected{background:#302d28}
+.messaging-preview .stat,.messaging-preview .column .card,.messaging-preview .task select,.messaging-preview .composer select{background:var(--paper);color:var(--ink);border-color:var(--line)}
+.messaging-preview .avatar,.messaging-preview .pill,.messaging-preview .badge{background:#302d28;color:var(--accent)}
+.messaging-preview .note{color:var(--ink)!important}
+.messaging-preview .app{min-height:calc(100dvh - 120px)}
+.messaging-preview .main{max-width:none;margin:0}
+.messaging-preview .panel{padding:0;margin:0}
+.messaging-preview .aside .panel,.messaging-preview .panel.card{padding:20px}
+.messaging-preview .main .heading{align-items:start}
+.messaging-preview .main h1{font-size:32px}
+.messaging-preview .toast{background:var(--accent);color:#211b10}
+.messaging-preview .sidebar footer{border-color:var(--line)}
+
+@media(max-width:600px){.messaging-shell{padding:11px 14px}
+.messaging-brand strong{font-size:19px}
+.messaging-brand small{font-size:8px}
+.messaging-mark{width:32px;height:32px;font-size:21px}
+.messaging-brand-row{gap:8px}
+.messaging-back{font-size:.78rem}
+.messaging-nav{gap:4px;padding-top:10px;flex-wrap:wrap;overflow:visible}
+.messaging-nav a{padding:6px 9px;font-size:.8rem}
+.page-heading{padding:20px 14px 0}
+.messaging-page main{padding:18px 14px 45px}
+.panel,.post,.entry,.group,.account-panel{padding:16px}
+.grid .card{padding:18px}
+.account-panel h1{font-size:28px}
+.tools{align-items:stretch}
+.tools input{flex-basis:100%}
+.tools button{flex:1}
+.replies{padding-left:11px;margin-left:0}
+.account-panel{border-radius:12px}
+.messaging-preview .main{padding:20px 14px}
+.messaging-preview .heading{flex-wrap:wrap}
+.messaging-preview .stats{grid-template-columns:1fr}
+.messaging-preview .messages{height:300px}
+}
+
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}
+}

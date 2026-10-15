@@ -37,7 +37,7 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
     const url=new URL(route.request().url());
     if(url.hostname==='www.gstatic.com')return route.fulfill({contentType:'text/javascript',body:url.pathname.includes('firebase-auth')?sdkAuth:sdkStore});
     if(url.origin!=='http://release.test')return route.abort();
-    if(url.pathname==='/')return route.fulfill({contentType:'text/html',body:`<!doctype html><html><body><select id="weekSelect"><option value="1" ${scenario.week===1?'selected':''}>Week 1</option><option value="2" ${scenario.week===2?'selected':''}>Week 2</option></select><p>Study remains in place.</p><script>window.HGRoute={read:()=>({card:'mainstage',week:document.querySelector('#weekSelect').value})};</script><script type="module" src="/${encodeURI(production)}?v=20261015-study-1"></script></body></html>`});
+    if(url.pathname==='/')return route.fulfill({contentType:'text/html',body:`<!doctype html><html><body><select id="weekSelect"><option value="1" ${scenario.week===1?'selected':''}>Week 1</option><option value="2" ${scenario.week===2?'selected':''}>Week 2</option></select><p>Study remains in place.</p><script>window.HGRoute={read:()=>({card:'mainstage',week:document.querySelector('#weekSelect').value})};</script><script type="module" src="/${encodeURI(production)}?v=20261015-unified-1"></script></body></html>`});
     if(url.pathname==='/js/firebase-init.js')return route.fulfill({contentType:'text/javascript',body:firebase});
     let name=decodeURIComponent(url.pathname).replace(/^\//,'');if(name.endsWith('/'))name+='index.html';
     if(name==='data/week1.json'&&scenario.week===2)await new Promise(r=>setTimeout(r,180));
@@ -80,7 +80,8 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
    assert.match(result[0].data.body,new RegExp('Reading: http://release.test/\\?card=mainstage&week='+scenario.week));
    assert.deepEqual(result[0].data.createdAt,{serverTimestamp:true});
    assert.equal(await frame.locator('#deck img').count(),0,'Opening message is text, not executable HTML');
-   assert.equal(await frame.getByRole('link',{name:'Open this discussion in full Messaging',exact:true}).getAttribute('href'),'../conversations/?area=study#post-created-1');
+   const threadLink=new URL(await frame.getByRole('link',{name:'Open this discussion in full Messaging',exact:true}).getAttribute('href'));
+   assert.equal(threadLink.searchParams.get('area'),'study');assert.equal(threadLink.hash,'#post-created-1');assert.equal(threadLink.searchParams.get('week'),String(scenario.week));
    await frame.getByRole('textbox',{name:'Reply as A reader',exact:true}).fill('A reply in Bible Study');
    await frame.getByRole('button',{name:'Post reply',exact:true}).click();
    await frame.getByText('Reply saved to Messaging.',{exact:true}).waitFor();
@@ -94,7 +95,8 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
    await frame.getByRole('button',{name:'All Bible Study',exact:true}).click();
    await frame.getByRole('button',{name:/A new question/}).waitFor();
    assert.match(await frame.getByRole('button',{name:/A new question/}).innerText(),new RegExp('Week '+scenario.week));
-   assert.equal(await frame.getByRole('link',{name:'Open full Bible Study conversations',exact:true}).getAttribute('href'),'../conversations/?area=study');
+   const fullLink=new URL(await frame.getByRole('link',{name:'Open full Bible Study conversations',exact:true}).getAttribute('href'));
+   assert.equal(fullLink.searchParams.get('area'),'study');assert.equal(fullLink.searchParams.get('week'),String(otherWeek));
    await frame.locator('#deck').evaluate(()=>{
     window.messagingTest.posts.push({id:'unlinked',data:{body:'[HG-TITLE:Unlinked study]\nGenesis Noah creation',authorName:'A reader'}});
     window.messagingTest.refresh();

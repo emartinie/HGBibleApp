@@ -21,7 +21,7 @@ Drafts are scoped to the signed-in account, community, and originating week. The
 ## Wiring and cache refresh
 
 ```html
-<script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js?v=20261015-study-1"></script>
+<script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js?v=20261015-unified-1"></script>
 ```
 
 - `commons-week-companion.js`: floating launcher, dragging, collapse/restore, Week 1/2 context messages, and iframe lifetime.
@@ -29,7 +29,7 @@ Drafts are scoped to the signed-in account, community, and originating week. The
 - `../week-context-pilot/start-conversation.js`: conversation form, limits, account/week-scoped drafts, and existing Firestore starter write.
 - `../week-context-pilot/context.js`: read-only study metadata adapter; its identifiers remain provisional.
 
-Root script, embedded iframe, and composer import use the `20261015-study-1` cache marker. Existing `commons` URLs, IDs and the `commonsWeek` message protocol are retained. Weekly conversations now read and write the existing `study` community; previous Kingdom Projects posts remain there and are not moved.
+Root script, embedded iframe, and composer import use the `20261015-unified-1` cache marker. Existing `commons` URLs, IDs and the `commonsWeek` message protocol are retained. Weekly conversations now read and write the existing `study` community; previous Kingdom Projects posts remain there and are not moved.
 
 ## Verification
 
@@ -48,9 +48,21 @@ The test exercises the actual production module, embedded page, and composer wit
 - Bible Study & Investigation membership is required, with no automatic joining. Existing Kingdom Projects membership alone does not grant access.
 - Related discussions remain word matches within the 20 recent starters, rather than verified corpus relationships.
 - Editing/deleting messages is not available in this pilot.
-- Full Messaging/account/community links may navigate inside the iframe; top-level handoff remains separate work.
+- Linked Messaging screens stay in the floating iframe and use the shared shell. Return to study closes the window without reloading the reading. Direct visits return through a normal app link.
 - Actual signed-in Firebase posting and cross-device delivery require verification on the published origin. The cloud environment currently cannot reach Firebase’s SDK CDN or homegroups.org through its outbound proxy.
 
 ## Rollback
 
 Restore the preceding versions of root `index.html`, the integration module, and embedded pilot, and remove the new composer import/helper if rolling back this release. No data migration is required. Already-posted conversations remain in the existing Firebase collection.
+
+## Unified Messaging screens — October 15, 2026
+
+The live conversations, activity, directory, member-profile and sign-in pages now use [messaging-shell.css](../messaging-shell.css) and [messaging-shell.js](../messaging-shell.js). They share the production companion’s navy surfaces, gold headings and cream header, with consistent Conversations / Activity / Communities / Profile / Account navigation. The existing local preview uses the same theme but remains explicitly labeled as sample data; live navigation no longer routes into it.
+
+Links leaving the weekly panel carry the originating week and community. Explicit community links retain their own destination; changing communities updates the shell navigation. Thread links retain their source week. The shell does not read or write Firebase, change account identifiers, migrate messages, or introduce collections. Existing page modules retain account, enrollment, discussion, reply, draft and unread behavior. Product copy now describes profile saves and posting without infrastructure jargon.
+
+The existing floating frame retains its drag, minimize, close and reopen controls while displaying these pages. Its verified same-origin iframe can request Return to study; messages from any other window are ignored. The reading page remains loaded, and reopening retains the linked Messaging screen. The week context is an originating-location hint; it is not an additional full-page discussion filter or a new corpus identity.
+
+Run `node 'My Partner/collaboration/messaging/commons/production-integration/check-messaging-screens.cjs'` with the same Playwright/Chromium setup above. At 1440px and 390px it exercises all five actual live pages, responsive layout, full-page posting/replies/search, explicit community switches, enrollment, local group drafts, profile updates, Google/email/sign-out controls, unread deep links, week-bearing navigation, iframe handoff/return, sender validation, and preservation of the local preview. Firebase is doubled and no live messages or memberships are changed. The Week 1/2 starter regression also passes. Screenshots are local test artifacts in `/tmp`.
+
+Rollback this visual/navigation release by restoring its changed HTML/module files and removing the shared-shell imports. Firebase content and memberships require no rollback.
