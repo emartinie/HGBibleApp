@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HomeGroups · Moderator Management</title>
+<link rel="stylesheet" href="../messaging-shell.css?v=20261015-unified-1">
+<script type="module" src="../messaging-shell.js?v=20261015-unified-1"></script>
+<style>
+main{max-width:850px;margin:auto;padding:1rem} .admin-card{padding:1.1rem;margin:1rem 0;border:1px solid #64748b;border-radius:12px}
+.admin-card label{display:block;margin:.7rem 0}.admin-card input,.admin-card select{display:block;width:100%;max-width:450px;padding:.55rem}
+.admin-card button{margin:.4rem .4rem .4rem 0;padding:.55rem .9rem;cursor:pointer}
+.admin-card button:disabled{opacity:.5;cursor:wait}.assignment{border-top:1px solid #64748b;padding:.85rem 0}
+.muted{opacity:.8}#status{white-space:pre-wrap}
+</style></head>
+<body><div class="page-heading"><h1>Moderator management</h1><div>HomeGroups · Owner administration</div></div>
+<main>
+<p>Appoint trusted moderators to specific communities. Appointments and revocations are enforced by Firebase security rules, not by this page alone.</p>
+<p id="status" role="status">Checking owner authorization…</p>
+<section id="admin" hidden>
+<div class="admin-card">
+<h2>Community assignments</h2>
+<label for="community">Community</label>
+<select id="community">
+<option value="study">Bible Study &amp; Investigation</option>
+<option value="projects">Kingdom Projects</option>
+<option value="fellowship">Personal Growth &amp; Fellowship</option>
+<option value="prayer">Prayer &amp; Encouragement</option>
+<option value="discipleship">Discipleship &amp; Mentorship</option>
+<option value="family">Marriage &amp; Family</option>
+</select>
+<button id="reload" type="button">Refresh assignments</button>
+<div id="assignments" aria-live="polite"></div>
+</div>
+<form class="admin-card" id="appoint">
+<h2>Appoint a moderator</h2>
+<p class="muted">Enter the member's exact Firebase Authentication UID. Verify their identity before appointing them. No email address or display name grants access.</p>
+<label for="memberUid">Member Firebase UID</label>
+<input id="memberUid" autocomplete="off" maxlength="128" pattern="[A-Za-z0-9]{20,128}" required>
+<button type="submit" id="appointButton">Appoint to selected community</button>
+</form>
+<div class="admin-card"><h2>Report review</h2><p>Reports remain private. A secure, audited moderator review service is the next phase; this page does not grant report-reading privileges.</p></div>
+</section>
+<p><a href="../conversations/">Return to conversations</a></p>
+</main>
+<script type="module">
+import {auth,db} from '../../../../../js/firebase-init.js';
+import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {collection,doc,getDocs,getDoc,setDoc,updateDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+const $=id=>document.getElementById(id);
+const status=$('status'),area=$('community'),admin=$('admin'),list=$('assignments');
+let owner=null,busy=false;
+const setStatus=message=>status.textContent=message;
+function dateText(value){return value?.toDate?.().toLocaleString()||'—';}
+async function load(){
+  if(!owner)return;
+  list.textContent='Loading…';
+  try{
+    const snap=await getDocs(collection(db,'commonsModeratorAssignments',area.value,'members'));
+    list.replaceChildren();
+    if(snap.empty){list.textContent='No moderators assigned to this community.';return;}
+    const records=snap.docs.sort((a,b)=>a.id.localeCompare(b.id));
+    for(const record of records){
+      const d=record.data(),row=document.createElement('div');row.className='assignment';
+      const uid=document.createElement('strong');uid.textContent=d.uid||record.id;
+      const meta=document.createElement('p');meta.className='muted';
+      meta.textContent=(d.active?'Active':'Revoked')+' · Appointed '+dateText(d.appointedAt);
+      row.append(uid,meta);
+      const action=document.createElement('button');action.type='button';
+      action.textContent=d.active?'Revoke access':'Restore access';
+      action.addEventListener('click',async()=>{
+        if(busy)return;
+        const next=!d.active;
+        if(!confirm((next?'Restore':'Revoke')+' moderator access for '+record.id+' in '+area.value+'?'))return;
+        busy=true;action.disabled=true;setStatus('Updating moderator assignment…');
+        try{
+          await updateDoc(record.ref,{active:next,updatedAt:serverTimestamp()});
+          setStatus('Moderator access '+(next?'restored.':'revoked.'));
+          await load();
+        }catch(error){setStatus('Update failed: '+(error.code||error.message));}
+        finally{busy=false;action.disabled=false;}
+      });
+      row.append(action);list.append(row);
+    }
+  }catch(error){list.textContent='Could not load assignments: '+(error.code||error.message);}
+}
+$('appoint').addEventListener('submit',async event=>{
+  event.preventDefault();if(!owner||busy)return;
+  const uid=$('memberUid').value.trim(),community=area.value;
+  if(!/^[A-Za-z0-9]{20,128}$/.test(uid)){setStatus('Enter a valid full Firebase UID.');return;}
+  if(uid===owner.uid){setStatus('Your owner account does not need a moderator assignment.');return;}
+  if(!confirm('Appoint '+uid+' as moderator for '+community+'? Confirm you verified their identity.'))return;
+  busy=true;$('appointButton').disabled=true;setStatus('Creating moderator assignment…');
+  try{
+    const ref=doc(db,'commonsModeratorAssignments',community,'members',uid);
+    const existing=await getDoc(ref);
+    if(existing.exists()){setStatus('This UID already has an assignment here. Use Restore access if it was revoked.');return;}
+    await setDoc(ref,{uid,community,active:true,appointedBy:owner.uid,appointedAt:serverTimestamp(),updatedAt:serverTimestamp()});
+    $('memberUid').value='';setStatus('Moderator appointed successfully.');await load();
+  }catch(error){setStatus('Appointment failed: '+(error.code||error.message));}
+  finally{busy=false;$('appointButton').disabled=false;}
+});
+area.addEventListener('change',load);$('reload').addEventListener('click',load);
+onAuthStateChanged(auth,async user=>{
+  owner=null;admin.hidden=true;
+  if(!user){setStatus('Sign in to HomeGroups Messaging with your owner account to manage moderators.');return;}
+  try{
+    const token=await user.getIdTokenResult(true);
+    if(token.claims.homegroupsOwner!==true){setStatus('Access restricted to the HomeGroups owner account.');return;}
+    owner=user;admin.hidden=false;setStatus('Owner verified. You can manage community moderator assignments.');
+    await load();
+  }catch(error){setStatus('Could not verify owner access: '+(error.code||error.message));}
+});
+</script></body></html>
