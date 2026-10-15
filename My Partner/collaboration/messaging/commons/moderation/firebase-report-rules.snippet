@@ -31,7 +31,8 @@ match /commonsReports/{reportId} {
     && request.resource.data.createdAt == request.time
     && reportId == request.auth.uid + '_' + request.resource.data.postId + '_' +
        (request.resource.data.replyId == '' ? 'post' : request.resource.data.replyId)
-    && exists(/databases/$(database)/documents/commonsCommunityPosts/study/posts/$(request.resource.data.postId));
+    && exists(/databases/$(database)/documents/commonsCommunityPosts/study/posts/$(request.resource.data.postId))
+    && (request.resource.data.replyId == '' ||
+      exists(/databases/$(database)/documents/commonsCommunityPosts/study/posts/$(request.resource.data.postId)/replies/$(request.resource.data.replyId)));
 }
-// NOTE: For reply reports, validate reply existence as well before enabling in production.
 // NOTE: Do not add a public read rule. Privileged review should use a server/Admin SDK.
