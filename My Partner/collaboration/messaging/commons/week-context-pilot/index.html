@@ -14,8 +14,8 @@ import {auth,db} from '../../../../../js/firebase-init.js';
 import {loadWeekContext} from './context.js';
 import {createConversationForm} from './start-conversation.js?v=20261015-unified-1';
 import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import {collection,doc,getDoc,query,orderBy,limit,onSnapshot,addDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-let currentContext='1',viewMode='week',cachedPosts=[],postWindow=20;const contexts={};const contextSelect=document.querySelector('#study-context'),contextLabel=document.querySelector('#context-label');
+import {collection,doc,getDoc,query,orderBy,limit,startAfter,getDocs,onSnapshot,addDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+let currentContext='1',viewMode='week',cachedPosts=[],olderPosts=[],hasOlder=true,loadingOlder=false,postRequest=0;const contexts={};const contextSelect=document.querySelector('#study-context'),contextLabel=document.querySelector('#context-label');
 let contextRequest=0;
 async function chooseWeek(week){
  const key=String(week),request=++contextRequest;
@@ -102,13 +102,14 @@ function renderPosts(token){
   b.addEventListener('click',()=>{viewMode=mode;renderPosts(token)});head.append(b);
  }
  deck.append(head,node('p',context.label,'context-hint'));
- const displayed=cachedPosts.filter(d=>{
+ const displayed=[...cachedPosts,...olderPosts.filter(d=>!cachedPosts.some(p=>p.id===d.id))].filter(d=>{
   if(viewMode==='week')return linkedWeek(d.data().body)===Number(context.week);
   if(viewMode==='all')return true;
   const data=d.data(),hay=(title(data.body)+' '+topic(data.body)+' '+cleanBody(data.body)).toLowerCase();
   return context.terms.some(term=>hay.includes(term));
  });
- const descriptions={week:'Week '+context.week+' conversations linked within the '+postWindow+' most recent Bible Study posts.',related:'Word matches within the '+postWindow+' most recent Bible Study posts; suggestions, not verified content links.',all:'Up to '+postWindow+' recent Bible Study & Investigation posts, across all weeks and topics.'};
+ const loadedCount=new Set([...cachedPosts,...olderPosts].map(d=>d.id)).size;
+ const descriptions={week:'Week '+context.week+' conversations linked within '+loadedCount+' loaded Bible Study posts.',related:'Word matches within '+loadedCount+' loaded Bible Study posts; suggestions, not verified content links.',all:loadedCount+' loaded Bible Study & Investigation posts, across all weeks and topics.'};
  deck.append(node('p',descriptions[viewMode],'context-hint'));
  const list=node('div');
  displayed.forEach(d=>{
@@ -118,16 +119,37 @@ function renderPosts(token){
  });
  if(!displayed.length)list.append(node('p','No matching conversations in the posts loaded so far. Start one, load older posts, or browse All Bible Study.','muted'));
  deck.append(list);
- if(cachedPosts.length>=postWindow){const more=node('button','Load older conversations');more.type='button';more.addEventListener('click',()=>{postWindow+=20;showPosts(token)});deck.append(more)}
+ if(hasOlder){const more=node('button',loadingOlder?'Loading older conversations…':'Load older conversations');more.type='button';more.disabled=loadingOlder;more.addEventListener('click',()=>loadOlderPosts(token));deck.append(more)}
  const a=node('a','Open full Bible Study conversations');a.href=messagingLink('conversations');deck.append(a);
+}
+async function loadOlderPosts(token){
+ if(loadingOlder||!hasOlder||!cachedPosts.length||!user)return;
+ const request=postRequest,uid=user.uid,revision=accountRevision;
+ const current=()=>active&&token===epoch&&request===postRequest&&revision===accountRevision&&user?.uid===uid&&auth.currentUser?.uid===uid&&!selectedId&&!composing;
+ const all=[...cachedPosts,...olderPosts].sort((a,b)=>{
+  const x=a.data().createdAt?.toMillis?.()||0,y=b.data().createdAt?.toMillis?.()||0;
+  return y-x || b.id.localeCompare(a.id);
+ });
+ const last=all[all.length-1];if(!last)return;
+ loadingOlder=true;renderPosts(token);
+ try{
+  const snap=await getDocs(query(collection(db,'commonsCommunityPosts',area,'posts'),orderBy('createdAt','desc'),startAfter(last),limit(20)));
+  if(!current())return;
+  const known=new Set([...cachedPosts,...olderPosts].map(d=>d.id));
+  olderPosts.push(...snap.docs.filter(d=>!known.has(d.id)));
+  hasOlder=snap.size===20;
+ }catch(err){if(current())notice('Could not load older conversations: '+(err.code||err.message));}
+ finally{if(current()){loadingOlder=false;renderPosts(token)}}
 }
 function showPosts(token){
  clearListeners();notice('Loading Bible Study & Investigation discussions…');
- const uid=user?.uid,revision=accountRevision;
- const current=()=>active&&token===epoch&&revision===accountRevision&&canStart&&user?.uid===uid&&auth.currentUser?.uid===uid&&!selectedId&&!composing;
+ const request=++postRequest,uid=user?.uid,revision=accountRevision;
+ olderPosts=[];hasOlder=true;loadingOlder=false;
+ const current=()=>active&&token===epoch&&request===postRequest&&revision===accountRevision&&canStart&&user?.uid===uid&&auth.currentUser?.uid===uid&&!selectedId&&!composing;
  const base=collection(db,'commonsCommunityPosts',area,'posts');
- unsubscribePosts=onSnapshot(query(base,orderBy('createdAt','desc'),limit(postWindow)),snap=>{
-  if(!current())return;cachedPosts=snap.docs;renderPosts(token);
+ unsubscribePosts=onSnapshot(query(base,orderBy('createdAt','desc'),limit(20)),snap=>{
+  if(!current())return;
+  cachedPosts=snap.docs;hasOlder=hasOlder&&snap.size===20;renderPosts(token);
  },err=>{if(current())notice('Could not load discussions: '+(err.code||err.message));});
 }
 contextSelect.addEventListener('change',()=>chooseWeek(contextSelect.value));chooseWeek(1);
