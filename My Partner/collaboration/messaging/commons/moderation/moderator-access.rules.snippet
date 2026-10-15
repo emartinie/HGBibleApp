@@ -1,0 +1,43 @@
+// Add inside the existing Firestore database match, retaining ALL existing live rules.
+// Owner bootstrap: set a Firebase Auth custom claim {homegroupsOwner:true} on the
+// owner's verified UID using a trusted Admin SDK environment (never the browser).
+// The owner can appoint/revoke moderators; moderators cannot change their own roles.
+// Roles are per-community, never global by default.
+function hgOwner() {
+  return request.auth != null && request.auth.token.homegroupsOwner == true;
+}
+function validModeratorArea(area) {
+  return area in ['projects','fellowship','prayer','study','discipleship','family'];
+}
+function validModeratorAssignment(data, uid, area) {
+  return data.keys().hasOnly(['uid','community','active','appointedAt','appointedBy','updatedAt'])
+    && data.keys().hasAll(['uid','community','active','appointedAt','appointedBy','updatedAt'])
+    && data.uid == uid
+    && data.community == area
+    && data.active is bool
+    && data.appointedBy is string
+    && data.appointedBy.size() > 0
+    && data.appointedAt is timestamp
+    && data.updatedAt is timestamp;
+}
+match /commonsModeratorAssignments/{area}/members/{uid} {
+  allow get: if hgOwner() || (request.auth != null && request.auth.uid == uid);
+  allow list: if hgOwner();
+  allow create: if hgOwner() && validModeratorArea(area)
+    && validModeratorAssignment(request.resource.data,uid,area)
+    && request.resource.data.active == true
+    && request.resource.data.appointedBy == request.auth.uid
+    && request.resource.data.appointedAt == request.time
+    && request.resource.data.updatedAt == request.time;
+  allow update: if hgOwner() && validModeratorArea(area)
+    && validModeratorAssignment(request.resource.data,uid,area)
+    && request.resource.data.uid == resource.data.uid
+    && request.resource.data.community == resource.data.community
+    && request.resource.data.appointedAt == resource.data.appointedAt
+    && request.resource.data.appointedBy == resource.data.appointedBy
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['active','updatedAt'])
+    && request.resource.data.updatedAt == request.time;
+  allow delete: if false;
+}
+// Report review intentionally remains private until a separate, audited
+// moderator review service is deployed. Do not expose commonsReports reads.
