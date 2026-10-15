@@ -33,6 +33,29 @@ bar.addEventListener('pointermove',e=>{if(!dragging||dragging.id!==e.pointerId)r
 for(const ev of ['pointerup','pointercancel'])bar.addEventListener(ev,e=>{if(dragging?.id===e.pointerId)dragging=null});
 window.addEventListener('resize',()=>requestAnimationFrame(clamp));
 document.addEventListener('weekChanged',e=>setWeek(Number(e.detail?.week??e.detail?.weekNumber)));
-function refresh(){const routeWeek=Number(window.HGRoute?.read?.()?.week);const selectWeek=Number(document.getElementById('weekSelect')?.value);const dataWeek=Number(window.currentWeekData?.week);const route=window.HGRoute?.read?.();if(route?.card==='mainstage'&&validWeek(routeWeek))setWeek(routeWeek);else if(validWeek(selectWeek)&&(!route?.card||route.card==='mainstage'))setWeek(selectWeek);else if(validWeek(dataWeek)&&(!route?.card||route.card==='mainstage'))setWeek(dataWeek);else if(route?.card&&route.card!=='mainstage'){launch.hidden=true;close();launch.hidden=true}}
-refresh();document.getElementById('weekSelect')?.addEventListener('change',()=>setWeek(Number(document.getElementById('weekSelect').value)));
-window.addEventListener('popstate',refresh);
+function refresh(){
+ const route=window.HGRoute?.read?.();
+ const select=document.getElementById('weekSelect');
+ const selected=Number(select?.value);
+ const routeWeek=Number(route?.week);
+ const loaded=Number(window.currentWeekData?.week);
+ const globalWeek=Number(window.currentWeek);
+ // The study engine can initialize asynchronously; the selector is our primary source.
+ const n=validWeek(routeWeek)&&route?.card==='mainstage'?routeWeek:
+   validWeek(selected)?selected:
+   validWeek(globalWeek)?globalWeek:
+   validWeek(loaded)?loaded:0;
+ if(route?.card && route.card!=='mainstage'){
+   box.hidden=true;launch.hidden=true;return;
+ }
+ if(n){setWeek(n)}
+ else{launch.hidden=true;box.hidden=true}
+}
+refresh();
+document.addEventListener('weekChanged',()=>queueMicrotask(refresh));
+window.addEventListener('popstate',()=>setTimeout(refresh,0));
+const studySelect=document.getElementById('weekSelect');
+studySelect?.addEventListener('change',refresh);
+let checks=0;
+const startup=setInterval(()=>{refresh();if(++checks>=30)clearInterval(startup)},500);
+window.HGCommonsWeekCompanion=Object.freeze({refresh,open,get week(){return week},get visible(){return !launch.hidden}});
