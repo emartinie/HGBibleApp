@@ -1,0 +1,25 @@
+// ADD INSIDE the existing match /commonsReports/{reportId} block.
+// Do not replace existing allow create, owner reads, or update/delete denies.
+// Phase 1: Bible Study only. Firestore rules are additive: this grants
+// the assigned study moderator access to ONLY study reports.
+// Existing owner rule: allow get, list: if hgOwner();
+//
+// IMPORTANT: The query MUST constrain community == 'study'.
+// Firestore rules are not filters. Unfiltered queries are denied.
+// Review in emulator before production deployment.
+allow get: if request.auth != null
+  && resource.data.community == 'study'
+  && exists(/databases/$(database)/documents/commonsModeratorAssignments/study/members/$(request.auth.uid))
+  && get(/databases/$(database)/documents/commonsModeratorAssignments/study/members/$(request.auth.uid)).data.active == true;
+allow list: if request.auth != null
+  && request.query.limit != null
+  && request.query.limit <= 50
+  && resource.data.community == 'study'
+  && exists(/databases/$(database)/documents/commonsModeratorAssignments/study/members/$(request.auth.uid))
+  && get(/databases/$(database)/documents/commonsModeratorAssignments/study/members/$(request.auth.uid)).data.active == true;
+
+// Do not grant commonsReportDecisions reads or writes to moderators yet.
+// The moderator review page is read-only. Owner decisions remain owner-only.
+// Test: study moderator filtered query succeeds; same user projects query
+// fails; unassigned account study query fails; revoked moderator study query
+// fails; unfiltered report list fails; report writes/decisions remain denied.
