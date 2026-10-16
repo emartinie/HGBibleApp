@@ -13,7 +13,7 @@ main{max-width:850px;margin:auto;padding:1rem} .admin-card{padding:1.1rem;margin
 <body><div class="page-heading"><h1>Moderator management</h1><div>HomeGroups · Owner administration</div></div>
 <main>
 <p>Appoint trusted moderators to specific communities. Appointments and revocations are enforced by Firebase security rules, not by this page alone.</p>
-<section class="admin-card" aria-label="Current authenticated account"><h2>Current signed-in identity</h2><div id="identity" role="status">Checking Firebase session…</div><button type="button" id="refreshIdentity">Refresh identity and permissions</button><p class="muted">Display names do not grant permissions. Tabs on the same site can share an authentication session.</p></section><p id="status" role="status">Checking owner authorization…</p>
+<section class="admin-card" aria-label="Current authenticated account"><h2>Current signed-in identity</h2><div id="identity" role="status">Checking Firebase session…</div><button type="button" id="refreshIdentity">Refresh identity and permissions</button><p class="muted">Google/Firebase authentication names and HomeGroups Messaging profile names may differ. Neither grants permissions. Tabs on the same site can share a sign-in session.</p></section><p id="status" role="status">Checking owner authorization…</p>
 <section id="admin" hidden>
 <div class="admin-card">
 <h2>Community assignments</h2>
@@ -57,7 +57,12 @@ async function verifyIdentity(user){
   if(version!==identityVersion||auth.currentUser?.uid!==user.uid)return false;
   const isOwner=token.claims.homegroupsOwner===true;
   view.replaceChildren();
-  identityLine(view,'Authentication name',user.displayName||'Not provided');
+  identityLine(view,'Google/Firebase authentication name',user.displayName||'Not provided');
+  try{
+   const profile=await getDoc(doc(db,'commonsMembers',user.uid));
+   if(version!==identityVersion||auth.currentUser?.uid!==user.uid)return false;
+   identityLine(view,'HomeGroups Messaging profile name',profile.exists()?(profile.data().displayName||'Not set'):'No Messaging profile found');
+  }catch(e){identityLine(view,'HomeGroups Messaging profile name','Unavailable ('+(e.code||'error')+')');}
   identityLine(view,'Email',user.email||'Not provided');
   identityLine(view,'Firebase UID',user.uid);
   identityLine(view,'Owner claim',isOwner?'YES':'NO');
