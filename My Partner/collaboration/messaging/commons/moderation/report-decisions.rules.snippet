@@ -1,0 +1,24 @@
+// MERGE inside match /databases/{database}/documents; do NOT replace existing rules.
+// Each report receives at most one immutable owner decision, preserving the original report.
+// Publish only after reviewing/testing these rules.
+match /commonsReportDecisions/{reportId} {
+  allow get, list: if hgOwner();
+  allow create: if hgOwner()
+    && exists(/databases/$(database)/documents/commonsReports/$(reportId))
+    && get(/databases/$(database)/documents/commonsReports/$(reportId)).data.status == 'pending'
+    && request.resource.data.keys().hasOnly(['reportId','community','action','rationale','actorUid','decidedAt'])
+    && request.resource.data.keys().hasAll(['reportId','community','action','rationale','actorUid','decidedAt'])
+    && request.resource.data.reportId == reportId
+    && request.resource.data.community == get(/databases/$(database)/documents/commonsReports/$(reportId)).data.community
+    && request.resource.data.action in ['dismissed','resolved','escalated']
+    && request.resource.data.rationale is string
+    && request.resource.data.rationale.size() >= 5
+    && request.resource.data.rationale.size() <= 2000
+    && request.resource.data.actorUid == request.auth.uid
+    && request.resource.data.decidedAt == request.time;
+  allow update, delete: if false;
+}
+// Decisions are append-only by report ID. Original reports stay write-once.
+// This records review outcome; it does NOT remove content, modify reports, or
+// create a complete multi-event audit log. Trusted server workflows are required
+// for subsequent actions, reassignment, or moderator decisions.
