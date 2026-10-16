@@ -36,7 +36,7 @@ main{max-width:850px;margin:auto;padding:1rem} .admin-card{padding:1.1rem;margin
 <input id="memberUid" autocomplete="off" maxlength="128" pattern="[A-Za-z0-9]{20,128}" required>
 <button type="submit" id="appointButton">Appoint to selected community</button>
 </form>
-<div class="admin-card"><h2>Private report queue</h2><p class="muted">Owner-only review. Reports remain inaccessible to ordinary members. Decisions and moderator review access will be activated only after audited server-side permissions are deployed.</p><button type="button" id="loadReports">Load pending reports</button><div id="reportQueue" role="status">Not loaded.</div></div>
+<div class="admin-card"><h2>Private report queue</h2><p class="muted">Owner-only review. Reports remain inaccessible to ordinary members. Owner decisions are recorded separately and cannot be edited or deleted. Moderator review access is not enabled.</p><button type="button" id="loadReports">Load pending reports</button><div id="reportQueue" role="status">Not loaded.</div></div>
 </section>
 <p><a href="../conversations/">Return to conversations</a></p>
 </main>
@@ -111,7 +111,42 @@ $('loadReports').addEventListener('click',async()=>{
       meta.textContent='Reported '+dateText(data.createdAt)+' · '+(data.replyId?'Reply':'Conversation')+' · Reporter '+(data.reporterUid||'unknown');
       const detail=document.createElement('p');detail.textContent=data.details||'No additional context.';
       const target=document.createElement('p');target.textContent='Post ID: '+(data.postId||'unknown')+(data.replyId?' · Reply ID: '+data.replyId:'');
-      card.append(heading,meta,detail,target);queue.append(card);
+      card.append(heading,meta,detail,target);
+      const decisionRef=doc(db,'commonsReportDecisions',item.id);
+      try{
+        const prior=await getDoc(decisionRef);
+        if(prior.exists()){
+          const decision=prior.data(),result=document.createElement('p');
+          result.textContent='Decision: '+decision.action+' · '+(decision.rationale||'')+' · '+dateText(decision.decidedAt);
+          card.append(result);
+        }else{
+          const form=document.createElement('form');
+          const select=document.createElement('select');select.required=true;
+          for(const [value,label] of [['','Choose decision'],['dismissed','Dismiss'],['resolved','Resolve'],['escalated','Escalate']]){
+            const opt=document.createElement('option');opt.value=value;opt.textContent=label;select.append(opt);
+          }
+          const rationale=document.createElement('textarea');rationale.required=true;rationale.minLength=5;rationale.maxLength=2000;
+          rationale.placeholder='Reason for decision (5–2,000 characters)';rationale.setAttribute('aria-label','Decision rationale');
+          const submit=document.createElement('button');submit.type='submit';submit.textContent='Record decision';
+          form.append(select,rationale,submit);
+          form.addEventListener('submit',async event=>{
+            event.preventDefault();if(!owner||busy)return;
+            const action=select.value,reason=rationale.value.trim();
+            if(!['dismissed','resolved','escalated'].includes(action)||reason.length<5)return;
+            if(!confirm('Record permanent '+action+' decision for report '+item.id+'? This cannot be edited or deleted.'))return;
+            busy=true;submit.disabled=true;setStatus('Recording immutable decision…');
+            try{
+              await setDoc(decisionRef,{reportId:item.id,community:data.community,action,rationale:reason,actorUid:owner.uid,decidedAt:serverTimestamp()});
+              setStatus('Decision recorded. Original report preserved.');$('loadReports').click();
+            }catch(error){setStatus('Decision failed: '+(error.code||error.message));}
+            finally{busy=false;submit.disabled=false;}
+          });
+          card.append(form);
+        }
+      }catch(error){
+        const warning=document.createElement('p');warning.textContent='Decision access unavailable: '+(error.code||error.message);card.append(warning);
+      }
+      queue.append(card);
     }
   }catch(error){
     queue.textContent=error?.code==='permission-denied'
