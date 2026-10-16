@@ -8,12 +8,12 @@ main{max-width:850px;margin:auto;padding:1rem} .admin-card{padding:1.1rem;margin
 .admin-card label{display:block;margin:.7rem 0}.admin-card input,.admin-card select{display:block;width:100%;max-width:450px;padding:.55rem}
 .admin-card button{margin:.4rem .4rem .4rem 0;padding:.55rem .9rem;cursor:pointer}
 .admin-card button:disabled{opacity:.5;cursor:wait}.assignment{border-top:1px solid #64748b;padding:.85rem 0}
-.muted{opacity:.8}#status{white-space:pre-wrap}
+.muted{opacity:.8}#status{white-space:pre-wrap}.identity-line{overflow-wrap:anywhere;margin:.4rem 0}
 </style></head>
 <body><div class="page-heading"><h1>Moderator management</h1><div>HomeGroups · Owner administration</div></div>
 <main>
 <p>Appoint trusted moderators to specific communities. Appointments and revocations are enforced by Firebase security rules, not by this page alone.</p>
-<p id="status" role="status">Checking owner authorization…</p>
+<section class="admin-card" aria-label="Current authenticated account"><h2>Current signed-in identity</h2><div id="identity" role="status">Checking Firebase session…</div><button type="button" id="refreshIdentity">Refresh identity and permissions</button><p class="muted">Display names do not grant permissions. Tabs on the same site can share an authentication session.</p></section><p id="status" role="status">Checking owner authorization…</p>
 <section id="admin" hidden>
 <div class="admin-card">
 <h2>Community assignments</h2>
@@ -46,7 +46,43 @@ import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/fir
 import {collection,doc,getDocs,getDoc,setDoc,updateDoc,serverTimestamp,query,where,limit} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const $=id=>document.getElementById(id);
 const status=$('status'),area=$('community'),admin=$('admin'),list=$('assignments');
-let owner=null,busy=false;
+let owner=null,busy=false,identityVersion=0;
+const areas={study:'Bible Study & Investigation',projects:'Kingdom Projects',fellowship:'Personal Growth & Fellowship',prayer:'Prayer & Encouragement',discipleship:'Discipleship & Mentorship',family:'Marriage & Family'};
+function identityLine(target,key,value){const p=document.createElement('p');p.className='identity-line';const b=document.createElement('strong');b.textContent=key+': ';p.append(b,document.createTextNode(value));target.append(p);}
+async function verifyIdentity(user){
+ const version=++identityVersion,view=$('identity');view.textContent='Checking identity and permissions…';
+ if(!user){view.textContent='Not signed in.';return false;}
+ try{
+  const token=await user.getIdTokenResult(true);
+  if(version!==identityVersion||auth.currentUser?.uid!==user.uid)return false;
+  const isOwner=token.claims.homegroupsOwner===true;
+  view.replaceChildren();
+  identityLine(view,'Authentication name',user.displayName||'Not provided');
+  identityLine(view,'Email',user.email||'Not provided');
+  identityLine(view,'Firebase UID',user.uid);
+  identityLine(view,'Owner claim',isOwner?'YES':'NO');
+  const roles=[],errors=[];
+  for(const [key,name] of Object.entries(areas)){
+   try{const snap=await getDoc(doc(db,'commonsModeratorAssignments',key,'members',user.uid));
+    if(version!==identityVersion||auth.currentUser?.uid!==user.uid)return false;
+    if(snap.exists()&&snap.data().active===true)roles.push(name);
+   }catch(e){errors.push(name+': '+(e.code||'unavailable'));}
+  }
+  identityLine(view,'Active moderator communities',roles.length?roles.join('; '):'None');
+  if(errors.length)identityLine(view,'Assignment verification errors',errors.join('; '));
+  identityLine(view,'Administrator access',isOwner?'Owner authorized':'Not authorized');
+  return isOwner;
+ }catch(e){if(version===identityVersion)view.textContent='Identity check failed: '+(e.code||e.message);return false;}
+}
+async function refreshAccess(user){
+ owner=null;admin.hidden=true;
+ const authorized=await verifyIdentity(user);
+ if(!user){setStatus('Sign in to HomeGroups Messaging.');return;}
+ if(!authorized){setStatus('Access restricted to the HomeGroups owner account.');return;}
+ if(auth.currentUser?.uid!==user.uid)return;
+ owner=user;admin.hidden=false;setStatus('Owner verified. You can manage community moderator assignments.');await load();
+}
+
 const setStatus=message=>status.textContent=message;
 function dateText(value){return value?.toDate?.().toLocaleString()||'—';}
 async function load(){
@@ -155,14 +191,6 @@ $('loadReports').addEventListener('click',async()=>{
   }
 });
 area.addEventListener('change',load);$('reload').addEventListener('click',load);
-onAuthStateChanged(auth,async user=>{
-  owner=null;admin.hidden=true;
-  if(!user){setStatus('Sign in to HomeGroups Messaging with your owner account to manage moderators.');return;}
-  try{
-    const token=await user.getIdTokenResult(true);
-    if(token.claims.homegroupsOwner!==true){setStatus('Access restricted to the HomeGroups owner account.');return;}
-    owner=user;admin.hidden=false;setStatus('Owner verified. You can manage community moderator assignments.');
-    await load();
-  }catch(error){setStatus('Could not verify owner access: '+(error.code||error.message));}
-});
+$('refreshIdentity').addEventListener('click',()=>refreshAccess(auth.currentUser));
+onAuthStateChanged(auth,user=>{void refreshAccess(user);});
 </script></body></html>
