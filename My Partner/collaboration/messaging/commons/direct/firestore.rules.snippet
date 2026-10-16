@@ -1,0 +1,59 @@
+// HomeGroups Direct Messaging — merge INSIDE match /databases/{database}/documents.
+// Keep existing rules. Deploy only after emulator testing and privacy review.
+// The conversation ID is a canonical pair of Firebase UIDs, sorted lexicographically.
+// No owner or moderator read bypass exists in these app-facing rules.
+match /commonsDirectConversations/{conversationId} {
+  function participant() {
+    return signedIn() && request.auth.uid in resource.data.participants;
+  }
+  function validPair(d) {
+    return d.keys().hasOnly(['participants','requestedBy','status','createdAt','updatedAt'])
+      && d.keys().hasAll(['participants','requestedBy','status','createdAt','updatedAt'])
+      && d.participants is list && d.participants.size() == 2
+      && d.participants[0] is string && d.participants[1] is string
+      && d.participants[0] < d.participants[1]
+      && conversationId == d.participants[0] + '_' + d.participants[1]
+      && d.requestedBy in d.participants
+      && d.status in ['pending','accepted','declined']
+      && d.createdAt is timestamp && d.updatedAt is timestamp;
+  }
+  allow get, list: if participant();
+  allow create: if signedIn() && validPair(request.resource.data)
+    && request.resource.data.requestedBy == request.auth.uid
+    && request.resource.data.status == 'pending'
+    && request.resource.data.createdAt == request.time
+    && request.resource.data.updatedAt == request.time;
+  // Only the invited recipient may accept or decline. No reopening a declined request.
+  allow update: if participant()
+    && validPair(request.resource.data)
+    && resource.data.status == 'pending'
+    && request.auth.uid != resource.data.requestedBy
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt'])
+    && request.resource.data.status in ['accepted','declined']
+    && request.resource.data.updatedAt == request.time;
+  allow delete: if false;
+
+  match /messages/{messageId} {
+    function allowed() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/commonsDirectConversations/$(conversationId))
+        && request.auth.uid in get(/databases/$(database)/documents/commonsDirectConversations/$(conversationId)).data.participants
+        && get(/databases/$(database)/documents/commonsDirectConversations/$(conversationId)).data.status == 'accepted';
+    }
+    allow get, list: if allowed();
+    allow create: if allowed()
+      && request.resource.data.keys().hasOnly(['senderUid','body','createdAt'])
+      && request.resource.data.keys().hasAll(['senderUid','body','createdAt'])
+      && request.resource.data.senderUid == request.auth.uid
+      && request.resource.data.body is string
+      && request.resource.data.body.size() > 0
+      && request.resource.data.body.size() <= 2000
+      && request.resource.data.createdAt == request.time;
+    allow update, delete: if false;
+  }
+}
+// SECURITY: Firestore client rules do not restrict privileged Admin SDK or
+// project IAM access. Audit project IAM, service accounts, and backend logs.
+// Privacy policy must disclose storage, retention and lawful access.
+// Before broad rollout: add block controls, abuse protections/rate limiting,
+// evidence preservation/retention, notification policy, and rules tests.
