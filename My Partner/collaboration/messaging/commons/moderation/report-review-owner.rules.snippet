@@ -1,0 +1,20 @@
+// NEXT RULES PATCH — do not paste this as a standalone rules file.
+// In your existing match /commonsReports/{reportId}, replace exactly:
+//   allow get, list, update, delete: if false;
+// with:
+//   allow get, list: if hgOwner();
+//   allow update, delete: if false;
+//
+// Keep the existing allow create and all other rules unchanged.
+// hgOwner() is already defined in the deployed moderator rules.
+//
+// Owner can review submitted reports. Regular members and moderators
+// cannot read them. No client can change report status or delete reports.
+// Decisions and immutable audit records require a separate trusted workflow.
+//
+// Test in Firestore Rules Playground/emulator:
+// - owner get/list succeeds with refreshed custom claim
+// - ordinary member get/list fails, including their own reports
+// - appointed moderator get/list fails
+// - member report create still succeeds
+// - report update/delete fails for everyone through client SDK
