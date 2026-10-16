@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HomeGroups · Community Report Review</title>
+<link rel="stylesheet" href="../../messaging-shell.css?v=20261015-unified-1">
+<style>main{max-width:850px;margin:auto;padding:1rem}.panel{border:1px solid #64748b;border-radius:12px;padding:1rem;margin:1rem 0}.report{border-top:1px solid #64748b;padding:1rem 0;overflow-wrap:anywhere}.identity{overflow-wrap:anywhere}button{padding:.6rem 1rem;cursor:pointer}button:disabled{opacity:.5}.muted{opacity:.8}</style></head>
+<body><div class="page-heading"><h1>Community report review</h1><div>HomeGroups · Read-only moderator queue</div></div>
+<main>
+<section class="panel"><h2>Signed-in account</h2><div id="identity" class="identity" role="status">Checking authentication…</div><p id="status" role="status"></p></section>
+<section id="review" class="panel" hidden>
+<h2>Bible Study &amp; Investigation</h2>
+<p>Reports are private. Review only potential harmful behavior; theological disagreement is not a violation. This first moderator release is read-only and cannot alter reports, content, or decisions.</p>
+<button id="load" type="button">Load Bible Study reports</button>
+<div id="reports" aria-live="polite">No reports loaded.</div>
+</section>
+<p><a href="../">Owner administration</a> · <a href="../../conversations/">Conversations</a></p>
+</main>
+<script type="module">
+import {auth,db} from '../../../../../../js/firebase-init.js';
+import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {doc,getDoc,collection,getDocs,query,where,limit} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+const $=id=>document.getElementById(id);let authorizedUid=null,version=0;
+function addLine(parent,label,value){const p=document.createElement('p');const b=document.createElement('strong');b.textContent=label+': ';p.append(b,document.createTextNode(value));parent.append(p);}
+function timestamp(value){return value?.toDate?.().toLocaleString()||'Unknown';}
+async function authenticate(user){
+ const check=++version;authorizedUid=null;$('review').hidden=true;
+ const identity=$('identity');identity.textContent='Checking account…';$('status').textContent='';
+ if(!user){identity.textContent='Not signed in. Sign in through HomeGroups Messaging.';return;}
+ try{
+  const token=await user.getIdTokenResult(true);
+  const [profile,assignment]=await Promise.all([
+   getDoc(doc(db,'commonsMembers',user.uid)).catch(()=>null),
+   getDoc(doc(db,'commonsModeratorAssignments','study','members',user.uid)).catch(()=>null)
+  ]);
+  if(check!==version||auth.currentUser?.uid!==user.uid)return;
+  const owner=token.claims.homegroupsOwner===true;
+  const moderator=assignment?.exists()&&assignment.data().active===true;
+  identity.replaceChildren();
+  addLine(identity,'Messaging profile',profile?.exists()?(profile.data().displayName||'Not set'):'Not available');
+  addLine(identity,'Firebase email',user.email||'Not provided');
+  addLine(identity,'Firebase UID',user.uid);
+  addLine(identity,'Owner claim',owner?'YES':'NO');
+  addLine(identity,'Active Bible Study moderator',moderator?'YES':'NO');
+  if(owner||moderator){
+   authorizedUid=user.uid;$('review').hidden=false;
+   $('status').textContent=owner?'Owner access verified.':'Bible Study moderator assignment verified.';
+  }else{$('status').textContent='Access restricted: no active Bible Study moderator assignment.';}
+ }catch(error){if(check===version)$('status').textContent='Authorization check failed: '+(error.code||error.message);}
+}
+$('load').addEventListener('click',async()=>{
+ const uid=authorizedUid,check=version;if(!uid||auth.currentUser?.uid!==uid)return;
+ const view=$('reports');view.textContent='Loading Bible Study reports…';$('load').disabled=true;
+ try{
+  const results=await getDocs(query(collection(db,'commonsReports'),where('community','==','study'),limit(50)));
+  if(check!==version||auth.currentUser?.uid!==uid)return;
+  view.replaceChildren();
+  if(results.empty){view.textContent='No Bible Study reports found.';return;}
+  for(const report of results.docs){
+   const d=report.data(),item=document.createElement('article');item.className='report';
+   const heading=document.createElement('h3');heading.textContent='Report · '+(d.reason||'No reason');
+   item.append(heading);
+   addLine(item,'Reported',timestamp(d.createdAt));
+   addLine(item,'Community',d.community||'Unknown');
+   addLine(item,'Reporter UID',d.reporterUid||'Unknown');
+   addLine(item,'Post ID',d.postId||'Unknown');
+   if(d.replyId)addLine(item,'Reply ID',d.replyId);
+   addLine(item,'Details',d.details||'No additional context');
+   addLine(item,'Submitted status',d.status||'Unknown');
+   const note=document.createElement('p');note.className='muted';note.textContent='Read-only review. Final decisions remain with the owner.';item.append(note);
+   view.append(item);
+  }
+ }catch(error){
+  if(check===version)view.textContent=error.code==='permission-denied'
+   ? 'Firestore denied report access. The scoped moderator read rules may not be published yet, or this account is not authorized.'
+   : 'Could not load reports: '+(error.code||error.message);
+ }finally{if(check===version)$('load').disabled=false;}
+});
+onAuthStateChanged(auth,user=>{void authenticate(user);});
+</script></body></html>
