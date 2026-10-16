@@ -36,14 +36,14 @@ main{max-width:850px;margin:auto;padding:1rem} .admin-card{padding:1.1rem;margin
 <input id="memberUid" autocomplete="off" maxlength="128" pattern="[A-Za-z0-9]{20,128}" required>
 <button type="submit" id="appointButton">Appoint to selected community</button>
 </form>
-<div class="admin-card"><h2>Report review</h2><p>Reports remain private. A secure, audited moderator review service is the next phase; this page does not grant report-reading privileges.</p></div>
+<div class="admin-card"><h2>Private report queue</h2><p class="muted">Owner-only review. Reports remain inaccessible to ordinary members. Decisions and moderator review access will be activated only after audited server-side permissions are deployed.</p><button type="button" id="loadReports">Load pending reports</button><div id="reportQueue" role="status">Not loaded.</div></div>
 </section>
 <p><a href="../conversations/">Return to conversations</a></p>
 </main>
 <script type="module">
 import {auth,db} from '../../../../../js/firebase-init.js';
 import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import {collection,doc,getDocs,getDoc,setDoc,updateDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import {collection,doc,getDocs,getDoc,setDoc,updateDoc,serverTimestamp,query,where,limit} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const $=id=>document.getElementById(id);
 const status=$('status'),area=$('community'),admin=$('admin'),list=$('assignments');
 let owner=null,busy=false;
@@ -96,6 +96,28 @@ $('appoint').addEventListener('submit',async event=>{
     $('memberUid').value='';setStatus('Moderator appointed successfully.');await load();
   }catch(error){setStatus('Appointment failed: '+(error.code||error.message));}
   finally{busy=false;$('appointButton').disabled=false;}
+});
+$('loadReports').addEventListener('click',async()=>{
+  if(!owner)return;
+  const queue=$('reportQueue');queue.textContent='Loading private reports…';
+  try{
+    const snapshot=await getDocs(query(collection(db,'commonsReports'),where('status','==','pending'),limit(50)));
+    queue.replaceChildren();
+    if(snapshot.empty){queue.textContent='No pending reports.';return;}
+    for(const item of snapshot.docs){
+      const data=item.data(),card=document.createElement('div');card.className='assignment';
+      const heading=document.createElement('strong');heading.textContent=(data.community||'Unknown community')+' · '+(data.reason||'Unspecified reason');
+      const meta=document.createElement('p');meta.className='muted';
+      meta.textContent='Reported '+dateText(data.createdAt)+' · '+(data.replyId?'Reply':'Conversation')+' · Reporter '+(data.reporterUid||'unknown');
+      const detail=document.createElement('p');detail.textContent=data.details||'No additional context.';
+      const target=document.createElement('p');target.textContent='Post ID: '+(data.postId||'unknown')+(data.replyId?' · Reply ID: '+data.replyId:'');
+      card.append(heading,meta,detail,target);queue.append(card);
+    }
+  }catch(error){
+    queue.textContent=error?.code==='permission-denied'
+      ? 'Report access is not deployed yet. Current rules intentionally keep reports private.'
+      : 'Could not load reports: '+(error.code||error.message);
+  }
 });
 area.addEventListener('change',load);$('reload').addEventListener('click',load);
 onAuthStateChanged(auth,async user=>{
