@@ -18,7 +18,7 @@ match /commonsDirectConversations/{conversationId} {
       && d.createdAt is timestamp && d.updatedAt is timestamp;
   }
   allow get, list: if participant();
-  allow create: if signedIn() && validPair(request.resource.data)
+  allow create: if signedIn() && request.auth.uid in request.resource.data.participants && validPair(request.resource.data)
     && request.resource.data.requestedBy == request.auth.uid
     && request.resource.data.status == 'pending'
     && request.resource.data.createdAt == request.time
