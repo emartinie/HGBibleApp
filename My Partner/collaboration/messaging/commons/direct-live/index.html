@@ -4,7 +4,7 @@
 <script type="module">
 import {auth,db} from '../../../../../js/firebase-init.js';
 import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import {collection,doc,onSnapshot,setDoc,addDoc,updateDoc,serverTimestamp,query,where,orderBy,limit} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import {collection,doc,onSnapshot,setDoc,addDoc,updateDoc,serverTimestamp,query,where,orderBy,limit,getDoc} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const $=id=>document.getElementById(id);let user=null,current=null,epoch=0,stopInbox=null,stopConversation=null,stopMessages=null,conversations=[];
 function notice(s){$('notice').textContent=s}
 function stopThread(){if(stopConversation){stopConversation();stopConversation=null}if(stopMessages){stopMessages();stopMessages=null}}
@@ -16,9 +16,19 @@ function loadNames(){nameCache.clear();if(!user)return;try{const data=JSON.parse
 function rememberName(uid,name){if(!user||!/^[A-Za-z0-9]{15,128}$/.test(uid)||!name?.trim())return;nameCache.set(uid,name.trim().slice(0,80));try{localStorage.setItem(cacheKey(),JSON.stringify(Object.fromEntries(nameCache)))}catch{}renderList()}
 function displayName(uid){return nameCache.get(uid)||'HomeGroups member'}
 function editName(uid){const currentName=nameCache.get(uid)||'';const chosen=prompt('Name this conversation on this device:',currentName);if(chosen===null)return;const name=chosen.trim().slice(0,80);if(name)rememberName(uid,name);else{nameCache.delete(uid);try{localStorage.setItem(cacheKey(),JSON.stringify(Object.fromEntries(nameCache)))}catch{}renderList()}if(current){$('name').textContent=displayName(uid);$('avatar').textContent=avatar(displayName(uid))}}
+async function loadOwnMemberName(token){
+ if(!user)return;
+ const uid=user.uid;
+ try{
+  const snap=await getDoc(doc(db,'commonsMembers',uid));
+  if(token!==epoch||user?.uid!==uid)return;
+  const name=snap.exists()?snap.data()?.displayName:null;
+  if(typeof name==='string'&&name.trim())rememberName(uid,name);
+ }catch{/* Private membership may not yet be enabled. Keep locally saved names. */}
+}
 function avatar(name){return name.slice(0,1).toUpperCase()}
-function renderList(){const list=$('list');list.replaceChildren();if(!user){list.textContent='Sign in through HomeGroups first.';return}const filter=$('search').value.toLowerCase();const rows=conversations.filter(x=>displayName(other(x.data)).toLowerCase().includes(filter));if(!rows.length){list.textContent='No matching conversations yet.';return}for(const item of rows){const c=item.data,uid=other(c),name=displayName(uid),b=document.createElement('button');b.className='conversation'+(item.id===current?' active':'');const a=document.createElement('div');a.className='avatar';a.textContent=avatar(name);const details=document.createElement('div'),title=document.createElement('div'),status=document.createElement('div');title.className='who';title.textContent=name;status.className='preview';status.textContent=c.status==='accepted'?'Private conversation':c.status==='pending'?(c.requestedBy===user.uid?'Invitation sent':'Invitation received'):'Request declined';details.append(title,status);b.append(a,details);b.onclick=()=>open(item.id);list.append(b)}}
-onAuthStateChanged(auth,u=>{stopAll();user=u;epoch++;current=null;conversations=[];profileLinkHandled=false;loadNames();$('layout').classList.remove('open');$('composer').hidden=true;$('messages').textContent='Select a conversation to begin.';$('name').textContent='Choose a conversation';notice(u?'Signed in: '+(u.email||u.uid):'Sign in through HomeGroups first.');renderList();if(u)inbox()});
+function renderList(){const list=$('list');list.replaceChildren();if(!user){list.textContent='Sign in through HomeGroups first.';return}const filter=$('search').value.toLowerCase();const rows=conversations.filter(x=>{const peer=other(x.data);return displayName(peer).toLowerCase().includes(filter)||(requestedUid===peer&&requestedName.toLowerCase().includes(filter))});if(!rows.length){list.textContent='No matching conversations yet.';return}for(const item of rows){const c=item.data,uid=other(c),name=displayName(uid),b=document.createElement('button');b.className='conversation'+(item.id===current?' active':'');const a=document.createElement('div');a.className='avatar';a.textContent=avatar(name);const details=document.createElement('div'),title=document.createElement('div'),status=document.createElement('div');title.className='who';title.textContent=name;status.className='preview';status.textContent=c.status==='accepted'?'Private conversation':c.status==='pending'?(c.requestedBy===user.uid?'Invitation sent':'Invitation received'):'Request declined';details.append(title,status);b.append(a,details);b.onclick=()=>open(item.id);list.append(b)}}
+onAuthStateChanged(auth,u=>{stopAll();user=u;epoch++;current=null;conversations=[];profileLinkHandled=false;loadNames();$('layout').classList.remove('open');$('composer').hidden=true;$('messages').textContent='Select a conversation to begin.';$('name').textContent='Choose a conversation';notice(u?'Signed in: '+(u.email||u.uid):'Sign in through HomeGroups first.');renderList();if(u){inbox();loadOwnMemberName(epoch)}});
 function inbox(){if(!user)return;const token=epoch,uid=user.uid;stopInbox?.();stopInbox=onSnapshot(query(collection(db,'commonsDirectConversations'),where('participants','array-contains',uid),limit(50)),snap=>{if(token!==epoch)return;conversations=snap.docs.map(d=>({id:d.id,data:d.data()})).sort((a,b)=>(b.data.updatedAt?.seconds||0)-(a.data.updatedAt?.seconds||0));renderList();if(requestedUid&&!profileLinkHandled){profileLinkHandled=true;showProfileInvitation()}},e=>{if(token===epoch)notice('Inbox: '+(e.code||e.message))})}
 $('search').oninput=renderList;$('back').onclick=()=>$('layout').classList.remove('open');
 // New conversations are initiated by a member-profile tap, using an internal UID only.
