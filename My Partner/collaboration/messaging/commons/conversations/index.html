@@ -39,6 +39,22 @@ function restoreMessage(){message.value=draftRead(draftKey('post',area.value));t
 topic.addEventListener('change',()=>draftWrite(draftKey('topic',area.value),topic.value));
 discussionTitle.addEventListener('input',()=>draftWrite(draftKey('title',area.value),discussionTitle.value));
 message.addEventListener('input',()=>{draftWrite(draftKey('post',area.value),message.value);draftStatus.textContent=message.value?'Draft saved in this browser.':'Drafts are saved in this browser while you type.';});
+function messageMemberButton(data){
+ const uid=typeof data.uid==='string'?data.uid:'';
+ if(!/^[A-Za-z0-9]{15,128}$/.test(uid)||uid===auth.currentUser?.uid)return null;
+ const button=document.createElement('button');
+ button.type='button';button.textContent='✉ Message privately';
+ button.title='Request a private conversation with '+shownName(data);
+ button.style.cssText='margin-left:10px;border:1px solid #8a9e90;border-radius:8px;padding:5px 9px;background:#edf2e9;color:#285c48;cursor:pointer;font-size:12px';
+ button.addEventListener('click',()=>{
+   const url=new URL('../direct-live/',location.href);
+   url.searchParams.set('to',uid);
+   const display=typeof data.authorName==='string'?data.authorName.trim().slice(0,80):'';
+   if(display)url.searchParams.set('name',display);
+   location.href=url.href;
+ });
+ return button;
+}
 function shownName(data){return data.uid===auth.currentUser?.uid&&ownDisplayName?ownDisplayName:(typeof data.authorName==='string'&&data.authorName.trim()?data.authorName:'HomeGroups member');}
 function note(value){status.textContent=value}
 function node(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=value;return el;}
@@ -49,7 +65,7 @@ async function render(items,selected,v){
   if(v!==revision)return;
   const data=item.data(),parsed=parseTopic(data.body),article=node('article','post'),title=node('strong','',shownName(data));article.dataset.topic=parsed.topic;
   const stamp=node('small','',' · '+(data.createdAt?.toDate?.().toLocaleString()||'Recently'));article.id='post-'+item.id;
-  const head=node('div','post-head'),permalink=node('a','','Link to message');permalink.href='#'+article.id;permalink.addEventListener('click',()=>{viewMode='index';focusedPost=item.id;updateView();});permalink.title='Copy or share this message link';head.append(title,node('small','',' · Member '+(typeof data.uid==='string'?data.uid.slice(0,8):'unknown')+' · unverified display name'),stamp,permalink);article.append(head,node('span','topic-label',parsed.topic));attachReportControl(article,{community:selected,postId:item.id});if(parsed.title)article.append(node('h3','discussion-title',parsed.title));article.append(node('p','post-preview',parsed.body));
+  const head=node('div','post-head'),permalink=node('a','','Link to message');permalink.href='#'+article.id;permalink.addEventListener('click',()=>{viewMode='index';focusedPost=item.id;updateView();});permalink.title='Copy or share this message link';head.append(title,stamp,permalink);const messageLink=messageMemberButton(data);if(messageLink)head.append(messageLink);article.append(head,node('span','topic-label',parsed.topic));attachReportControl(article,{community:selected,postId:item.id});if(parsed.title)article.append(node('h3','discussion-title',parsed.title));article.append(node('p','post-preview',parsed.body));
   const replies=node('div','replies'),details=node('details'),heading=node('summary','','Replies · loading…');details.append(heading);replies.append(details);
   const form=node('form','replyform'),input=node('textarea');input.maxLength=1200;input.required=true;input.placeholder='Write a reply…';input.setAttribute('aria-label','Reply to '+title.textContent);
   const submit=node('button','','Post reply');submit.type='submit';const replyDraft=draftKey('reply',selected,item.id);input.value=draftRead(replyDraft);input.addEventListener('input',()=>draftWrite(replyDraft,input.value));form.append(input,submit);
@@ -74,7 +90,7 @@ async function render(items,selected,v){
     const constraints=[orderBy('createdAt','asc'),...(lastReply?[startAfter(lastReply)]:[]),limit(30)];
     const snap=await getDocs(query(base,...constraints));if(v!==revision)return;
     if(snap.empty&&replyCount===0)details.insertBefore(node('p','muted','No replies yet.'),moreReplies);
-    snap.forEach(reply=>{const d=reply.data(),el=node('div','reply');el.append(node('strong','',shownName(d)),node('small','',' · Member '+(typeof d.uid==='string'?d.uid.slice(0,8):'unknown')+' · unverified display name'),node('small','',' · '+(d.createdAt?.toDate?.().toLocaleString()||'Recently')),node('p','',typeof d.body==='string'?d.body:''));attachReportControl(el,{community:selected,postId:item.id,replyId:reply.id});details.insertBefore(el,moreReplies);});
+    snap.forEach(reply=>{const d=reply.data(),el=node('div','reply');el.append(node('strong','',shownName(d)),node('small','',' · '+(d.createdAt?.toDate?.().toLocaleString()||'Recently')));const messageLink=messageMemberButton(d);if(messageLink)el.append(messageLink);el.append(node('p','',typeof d.body==='string'?d.body:''));attachReportControl(el,{community:selected,postId:item.id,replyId:reply.id});details.insertBefore(el,moreReplies);});
     replyCount+=snap.size;lastReply=snap.docs[snap.docs.length-1]||lastReply;
     heading.textContent='Replies · '+replyCount+' loaded';moreReplies.hidden=snap.size<30;
     applyFilters();
