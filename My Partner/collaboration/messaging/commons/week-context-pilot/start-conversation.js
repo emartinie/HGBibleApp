@@ -16,7 +16,7 @@ function readDraft(key) {
 
 export function createConversationForm({ auth, db, area, displayName, context, isCurrent, onBack, onPosted }) {
   const uid = auth.currentUser?.uid;
-  if (!uid || !context || ![1, 2].includes(Number(context.week))) throw Error('Sign in and select Week 1 or Week 2 first.');
+  if (!uid || !context || ![1, 2, 3].includes(Number(context.week))) throw Error('Sign in and select Week 1, 2, or 3 first.');
   const week = Number(context.week);
   const key = 'hg-commons-starter:v1:' + JSON.stringify([uid, area, week]);
   const reading = new URL(ROOT);
