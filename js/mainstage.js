@@ -129,7 +129,7 @@ function resetMainStageInvitation(weekData) {
 
   mainStageTitle.textContent = weekData.english || "Weekly Study";
   if (mainStageWeekLabel) {
-    mainStageWeekLabel.textContent = "The Future of Bible Study Is Together.|You are here:";
+    mainStageWeekLabel.textContent = "The Future of Bible Study Is Together. You are here:";
   }
 
   if (mainStageWeekday) mainStageWeekday.textContent = `Today \u00B7 ${daily?.day_name || weekday}`;
