@@ -15,6 +15,13 @@ css.textContent = `
 #hg-commons-window iframe{border:0;flex:1;width:100%;min-height:0}
 #hg-commons-badge{display:inline-grid;place-items:center;min-width:20px;height:20px;margin-left:5px;padding:0 5px;border-radius:12px;background:#c52939;color:white;font:bold 12px system-ui}
 #hg-commons-badge[hidden]{display:none!important}
+#hg-commons-menu{position:fixed;right:12px;bottom:66px;z-index:10022;width:min(320px,calc(100vw - 24px));padding:12px;border:1px solid #85765d;border-radius:16px;background:#151d2a;color:#e8edf5;box-shadow:0 12px 36px #0009;font:14px system-ui}
+#hg-commons-menu[hidden]{display:none!important}
+#hg-commons-menu strong{display:block;margin:0 0 9px;font-size:16px}
+#hg-commons-menu a,#hg-commons-menu button{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:48px;padding:12px;margin:3px 0;border:1px solid #35465b;border-radius:10px;background:#22334a;color:#f1f5f9;font:600 14px system-ui;text-decoration:none;text-align:left;cursor:pointer}
+#hg-commons-menu a:hover,#hg-commons-menu button:hover,#hg-commons-menu a:focus-visible,#hg-commons-menu button:focus-visible{background:#34516c}
+#hg-commons-menu .count{background:#c52939;color:#fff;border-radius:12px;padding:2px 7px;font-size:12px}
+#hg-commons-menu .count[hidden]{display:none}
 #hg-commons-inbox{color:#29241d;font-weight:750;text-decoration:underline}
 @media(max-width:600px){
 #hg-commons-window{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-height:none!important;border:0;border-radius:0}
@@ -27,17 +34,35 @@ css.textContent = `
 `;
 document.head.append(css);
 const launch=document.createElement('button');launch.id='hg-commons-launch';launch.innerHTML='☏ Messaging <span id="hg-commons-badge" hidden aria-label="Unread messaging activity"></span>';launch.hidden=true;launch.type='button';document.body.append(launch);
+const menu=document.createElement('nav');menu.id='hg-commons-menu';menu.hidden=true;menu.setAttribute('aria-label','Messaging destinations');
+menu.innerHTML='<strong>Messaging</strong><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Conversation requests <span class="count" id="hg-commons-requests" hidden></span></a><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Private messages <span class="count" id="hg-commons-unread" hidden></span></a><button type="button" id="hg-commons-study">Bible Study discussions <span>›</span></button><a href="/find-users/">Find people <span>›</span></a>';
+document.body.append(menu);
+const requestsCount=menu.querySelector('#hg-commons-requests'),unreadCount=menu.querySelector('#hg-commons-unread');
+function menuVisible(value){menu.hidden=!value;launch.setAttribute('aria-expanded',String(value))}
+launch.setAttribute('aria-haspopup','menu');launch.setAttribute('aria-expanded','false');
+menu.querySelector('#hg-commons-study').addEventListener('click',()=>{menuVisible(false);open()});
+launch.addEventListener('click',()=>menuVisible(menu.hidden));
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+ let hoverExit;
+ const show=()=>{clearTimeout(hoverExit);if(!launch.hidden)menuVisible(true)};
+ const hide=()=>{clearTimeout(hoverExit);hoverExit=setTimeout(()=>{if(!menu.matches(':hover')&&!launch.matches(':hover'))menuVisible(false)},180)};
+ launch.addEventListener('mouseenter',show);menu.addEventListener('mouseenter',()=>clearTimeout(hoverExit));
+ launch.addEventListener('mouseleave',hide);menu.addEventListener('mouseleave',hide);
+}
+document.addEventListener('pointerdown',e=>{if(!menu.contains(e.target)&&!launch.contains(e.target))menuVisible(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')menuVisible(false)});
+
 box=document.createElement('section');box.id='hg-commons-window';box.hidden=true;box.setAttribute('aria-label','Messaging study companion');
 box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><a id="hg-commons-inbox" href="/My%20Partner/collaboration/messaging/commons/direct-live/">✉ Inbox</a> <button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
 const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-commons-label'),min=box.querySelector('#hg-commons-min');
 document.body.append(box);
 function validWeek(n){return n===1||n===2||n===3||n===4}
 function setWeek(n){if(!validWeek(n))return;week=n;launch.hidden=false;label.textContent='Messaging · Week '+week;if(frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
-function open(){if(!validWeek(week))return;collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=20261015-report-live-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week},location.origin)}}
+function open(){if(!validWeek(week))return;menuVisible(false);collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=20261015-report-live-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week},location.origin)}}
 function close(){box.hidden=true;launch.hidden=false;/* Preserve iframe and drafts for reopening. */ }
 function minimize(){if(matchMedia('(max-width:600px)').matches){close();return;}collapsed=!collapsed;box.classList.toggle('minimized',collapsed);min.textContent=collapsed?'+':'−';min.setAttribute('aria-label',collapsed?'Restore companion':'Minimize companion');requestAnimationFrame(clamp)}
 function clamp(){if(box.hidden||matchMedia('(max-width:600px)').matches){box.style.left='';box.style.top='';box.style.right='';box.style.bottom='';return;}const r=box.getBoundingClientRect();box.style.left=Math.max(8,Math.min(r.left,innerWidth-r.width-8))+'px';box.style.top=Math.max(8,Math.min(r.top,innerHeight-r.height-8))+'px';box.style.right='auto';box.style.bottom='auto'}
-launch.addEventListener('click',open);min.addEventListener('click',minimize);box.querySelector('#hg-commons-close').addEventListener('click',close);
+min.addEventListener('click',minimize);box.querySelector('#hg-commons-close').addEventListener('click',close);
 bar.addEventListener('pointerdown',e=>{if(matchMedia('(max-width:600px)').matches)return;if(e.target.closest('button')||e.button!==0)return;const r=box.getBoundingClientRect();dragging={id:e.pointerId,x:e.clientX,y:e.clientY,left:r.left,top:r.top,width:r.width,height:r.height};bar.setPointerCapture(e.pointerId);e.preventDefault()});
 bar.addEventListener('pointermove',e=>{if(!dragging||dragging.id!==e.pointerId)return;box.style.left=Math.max(8,Math.min(dragging.left+e.clientX-dragging.x,innerWidth-dragging.width-8))+'px';box.style.top=Math.max(8,Math.min(dragging.top+e.clientY-dragging.y,innerHeight-dragging.height-8))+'px';box.style.right='auto';box.style.bottom='auto'});
 for(const ev of ['pointerup','pointercancel'])bar.addEventListener(ev,e=>{if(dragging?.id===e.pointerId)dragging=null});
@@ -56,10 +81,10 @@ function refresh(){
    validWeek(globalWeek)?globalWeek:
    validWeek(loaded)?loaded:0;
  if(route?.card && route.card!=='mainstage'){
-   box.hidden=true;launch.hidden=true;return;
+   box.hidden=true;launch.hidden=true;menuVisible(false);return;
  }
  if(n){setWeek(n)}
- else{launch.hidden=true;box.hidden=true}
+ else{launch.hidden=true;box.hidden=true;menuVisible(false)}
 }
 refresh();
 document.addEventListener('weekChanged',()=>queueMicrotask(refresh));
@@ -90,6 +115,8 @@ window.addEventListener('message',event=>{
   function update(){
    const pending=items.filter(x=>x.data.status==='pending'&&x.data.requestedBy!==activeUid).length;
    const unread=items.filter(x=>x.data.status==='accepted'&&((lastMessages.get(x.id)?.senderUid!==activeUid)&&(lastMessages.get(x.id)?.timestamp||0)>marker(x.id))).length;
+   requestsCount.hidden=!pending;requestsCount.textContent=String(pending);
+   unreadCount.hidden=!unread;unreadCount.textContent=String(unread);
    const n=pending+unread;badge.hidden=!n;badge.textContent=n>99?'99+':String(n);
    launch.setAttribute('aria-label',n?'Messaging: '+n+' unread conversations or requests':'Messaging');
    launch.title=n?n+' new messaging conversations or requests':'Open Messaging';
