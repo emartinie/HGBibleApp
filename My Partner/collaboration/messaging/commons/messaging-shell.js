@@ -2,14 +2,14 @@
 const HOME = new URL('./', import.meta.url);
 const APP = new URL('../../../../', HOME);
 const params = new URLSearchParams(location.search);
-const week = ['1', '2'].includes(params.get('week')) ? params.get('week') : null;
+const week = ['1', '2', '3', '4'].includes(params.get('week')) ? params.get('week') : null;
 const areas = ['study', 'projects', 'fellowship', 'prayer', 'discipleship', 'family'];
 let area = areas.includes(params.get('area')) ? params.get('area') : week ? 'study' : null;
 const page = location.pathname.slice(HOME.pathname.length).split('/')[0] || 'preview';
 const preview = page === 'preview' || page === 'index.html';
-const tabs = [['conversations', 'Conversations'], ['activity', 'Activity'], ['directory', 'Communities'], ['member', 'Profile'], ['auth', 'Account']];
+const tabs = [['conversations', 'Conversations'], ['activity', 'Activity'], ['directory', 'Communities'], ['find-users', 'Find People'], ['direct-live', 'Private Messages'], ['member', 'Profile'], ['auth', 'Account']];
 function localURL(name) {
- const url = new URL(name + '/', HOME);
+ const url = name === 'find-users' ? new URL('find-users/', APP) : new URL(name + '/', HOME);
  if (week) url.searchParams.set('week', week);
  if (area) url.searchParams.set('area', area);
  return url;
