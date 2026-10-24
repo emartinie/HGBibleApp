@@ -13,6 +13,9 @@ css.textContent = `
 #hg-commons-bar{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 10px;background:#f4eee0;color:#29241d;font:600 12px system-ui;touch-action:none;user-select:none;cursor:grab}
 #hg-commons-bar button{border:0;background:transparent;color:inherit;font:600 17px system-ui;padding:0 6px;cursor:pointer}
 #hg-commons-window iframe{border:0;flex:1;width:100%;min-height:0}
+#hg-commons-badge{display:inline-grid;place-items:center;min-width:20px;height:20px;margin-left:5px;padding:0 5px;border-radius:12px;background:#c52939;color:white;font:bold 12px system-ui}
+#hg-commons-badge[hidden]{display:none!important}
+#hg-commons-inbox{color:#29241d;font-weight:750;text-decoration:underline}
 @media(max-width:600px){
 #hg-commons-window{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-height:none!important;border:0;border-radius:0}
 #hg-commons-window.minimized{display:none!important}
@@ -23,9 +26,9 @@ css.textContent = `
 }
 `;
 document.head.append(css);
-const launch=document.createElement('button');launch.id='hg-commons-launch';launch.textContent='☏ Messaging';launch.hidden=true;launch.type='button';document.body.append(launch);
+const launch=document.createElement('button');launch.id='hg-commons-launch';launch.innerHTML='☏ Messaging <span id="hg-commons-badge" hidden aria-label="Unread messaging activity"></span>';launch.hidden=true;launch.type='button';document.body.append(launch);
 box=document.createElement('section');box.id='hg-commons-window';box.hidden=true;box.setAttribute('aria-label','Messaging study companion');
-box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
+box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><a id="hg-commons-inbox" href="/My%20Partner/collaboration/messaging/commons/direct-live/">✉ Inbox</a> <button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
 const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-commons-label'),min=box.querySelector('#hg-commons-min');
 document.body.append(box);
 function validWeek(n){return n===1||n===2||n===3||n===4}
@@ -72,3 +75,45 @@ window.addEventListener('message',event=>{
  if(event.origin!==location.origin||event.source!==frame?.contentWindow||event.data?.messagingAction!=='returnToStudy')return;
  close();launch.focus();
 });
+
+
+// Live private messaging activity on the existing HomeGroups launch button.
+// Requests remain flagged until answered. Message reads are tracked per browser/account.
+(async()=>{
+ try{
+  const {auth,db}=await import(new URL('../../../../js/firebase-init.js',import.meta.url));
+  const {onAuthStateChanged}=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
+  const {collection,onSnapshot,query,where,orderBy,limit}=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+  const badge=document.getElementById('hg-commons-badge');
+  let stopInbox=null,stops=[],activeUid='',items=[],lastMessages=new Map();
+  function marker(id){try{return Number(localStorage.getItem('hg-direct-read-v1:'+activeUid+':'+id)||0)}catch{return 0}}
+  function update(){
+   const pending=items.filter(x=>x.data.status==='pending'&&x.data.requestedBy!==activeUid).length;
+   const unread=items.filter(x=>x.data.status==='accepted'&&((lastMessages.get(x.id)?.senderUid!==activeUid)&&(lastMessages.get(x.id)?.timestamp||0)>marker(x.id))).length;
+   const n=pending+unread;badge.hidden=!n;badge.textContent=n>99?'99+':String(n);
+   launch.setAttribute('aria-label',n?'Messaging: '+n+' unread conversations or requests':'Messaging');
+   launch.title=n?n+' new messaging conversations or requests':'Open Messaging';
+  }
+  function clear(){stopInbox?.();stopInbox=null;stops.forEach(fn=>fn());stops=[];items=[];lastMessages.clear();update()}
+  window.addEventListener('storage',e=>{if(e.key?.startsWith('hg-direct-read-v1:'))update()});
+  window.addEventListener('focus',update);
+  onAuthStateChanged(auth,u=>{
+   clear();activeUid=u?.uid||'';if(!activeUid)return;
+   const uid=activeUid;
+   stopInbox=onSnapshot(query(collection(db,'commonsDirectConversations'),where('participants','array-contains',uid),limit(50)),snap=>{
+    if(uid!==activeUid)return;
+    stops.forEach(fn=>fn());stops=[];lastMessages.clear();
+    items=snap.docs.map(d=>({id:d.id,data:d.data()}));update();
+    for(const item of items.filter(x=>x.data.status==='accepted')){
+     const stop=onSnapshot(query(collection(db,'commonsDirectConversations',item.id,'messages'),orderBy('createdAt','desc'),limit(1)),messages=>{
+      if(uid!==activeUid)return;
+      const latest=messages.docs[0]?.data();
+      lastMessages.set(item.id,latest?{senderUid:latest.senderUid,timestamp:latest.createdAt?.toMillis?.()||0}:null);
+      update();
+     },()=>{});
+     stops.push(stop);
+    }
+   },()=>{});
+  });
+ }catch(err){console.warn('Messaging badge unavailable',err)}
+})();
