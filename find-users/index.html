@@ -8,9 +8,11 @@
 <section><div class="topline"><strong id="count">Loading members…</strong><span id="status" role="status">Reading HomeGroups map records</span></div><div class="results" id="results"></div><div class="topline"><span id="pageLabel"></span><nav><button id="prev" type="button">Previous</button><button id="next" type="button">Next</button></nav></div></section></div>
 <p class="foot">The Messaging directory shows members who have opted in to being discoverable. Private email addresses and phone numbers are not published. Historical records are not automatically linked to Firebase accounts.</p>
 </main><script type="module">
-import {db} from '../js/firebase-init.js';
+import {auth,db} from '../js/firebase-init.js';
+import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import {collection,getDocs} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-const $=id=>document.getElementById(id),size=24;let records=[],page=0,legacyLoaded=false,liveLoaded=false,liveError='';
+const $=id=>document.getElementById(id),size=24;let records=[],page=0,legacyLoaded=false,liveLoaded=false,liveError='',viewerUid=null;
+onAuthStateChanged(auth,user=>{viewerUid=user?.uid||null;render()});
 $('peopleView').onclick=()=>{$('peoplePanel').hidden=false;$('mapPanel').hidden=true};
 $('mapView').onclick=()=>{$('peoplePanel').hidden=true;$('mapPanel').hidden=false;const f=$('mapPanel').querySelector('iframe');if(!f.getAttribute('src'))f.src=f.dataset.src};
 function render(){
@@ -25,7 +27,18 @@ function render(){
   const h=document.createElement('h2');h.textContent=r.name;
   const badge=document.createElement('span');badge.className='badge'+(r.status==='commons'?' active':'');badge.textContent=r.status==='commons'?'✓ Messaging member':'Legacy HomeGroups member';
   const p=document.createElement('p');p.className='detail';p.textContent=r.status==='commons'?(r.interest||'HomeGroups member'):'Historical HomeGroups map record';
-  card.append(h,badge,p);$('results').append(card);
+  card.append(h,badge,p);
+  if(r.status==='commons'){
+   const link=document.createElement('a');
+   const url=new URL('../My%20Partner/collaboration/messaging/commons/direct-live/',location.href);
+   url.searchParams.set('to',r.uid);url.searchParams.set('name',r.name);
+   link.href=url.href;link.textContent=r.uid===viewerUid?'Your Messaging profile':viewerUid?'✉ Request private conversation':'Sign in to message this member';
+   if(r.uid===viewerUid)link.href='../My%20Partner/collaboration/messaging/commons/member/';
+   if(!viewerUid)link.href='../My%20Partner/collaboration/messaging/commons/auth/?next='+encodeURIComponent(location.pathname);
+   link.style.cssText='display:block;margin-top:12px;padding:10px;border-radius:9px;background:#244a69;color:#fff;text-align:center;text-decoration:none';
+   card.append(link);
+  }
+  $('results').append(card);
  }
  if(!found.length){const p=document.createElement('p');p.textContent='No members match this search.';$('results').append(p)}
  $('pageLabel').textContent='Page '+(page+1)+' of '+pages;$('prev').disabled=page===0;$('next').disabled=page>=pages-1;
