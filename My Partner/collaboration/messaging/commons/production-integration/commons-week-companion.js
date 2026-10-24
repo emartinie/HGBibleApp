@@ -81,7 +81,7 @@ window.addEventListener('message',event=>{
 // Requests remain flagged until answered. Message reads are tracked per browser/account.
 (async()=>{
  try{
-  const {auth,db}=await import(new URL('../../../../js/firebase-init.js',import.meta.url));
+  const {auth,db}=await import(new URL('../../../../../js/firebase-init.js',import.meta.url));
   const {onAuthStateChanged}=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
   const {collection,onSnapshot,query,where,orderBy,limit}=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
   const badge=document.getElementById('hg-commons-badge');
