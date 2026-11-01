@@ -11,28 +11,27 @@ A self-contained HTML investigation following the existing navy/gold article des
 
 The page covers Hagar’s earlier encounter; Abraham’s visitors and Genesis 19:24; alternative readings; Philo, Justin, Sanhedrin and Chagigah; related biblical passages; and discussion questions. It links to the existing Son/Father investigation. No audio placeholder or uncreated media is presented.
 
-## Integration — pending Eddie’s explicit write-scope authorization
+## Production integration — November 1, 2026
 
-The existing `My Partner/AGENTS.md` limits Partner writes to `My Partner/`. No root application files or published manifest have been changed for this task.
+Eddie approved this introductory version, authorized publication, and lifted the former folder-only boundary. Root `AGENTS.md` now records task-scoped Partner authorization; nested rules and the workspace overview agree.
 
-After Eddie explicitly authorizes these two outside-folder changes:
+- Published page: `investigations/two-powers-in-heaven.html` (exact copy of the approved preview).
+- Registered #016 in `data/investigations/published-investigations.json`; all 16 earlier records preserved, bringing the total to 17.
+- Page commit: `7fd038ba1534a316fb588f9802fa291521a525a2`.
+- Manifest commit: `31e686ee7945c6ce64be593b1ba7a6ca0d88c42c`.
+- No loader change or additional theological material was added.
 
-1. Copy `two-powers-in-heaven.html` to root `investigations/two-powers-in-heaven.html`.
-2. Re-fetch `data/investigations/published-investigations.json` and append the object from `manifest-entry.json` to its `investigations` array. Preserve every existing record. Check the id, filename and order for conflicts before writing; #016 was the next available number in the inspected baseline.
+App route: https://homegroups.org/?card=investigations&id=two-powers-in-heaven
 
-No JavaScript loader modification is needed. The proposed published record has `reviewStatus: unreviewed`, matching the existing distinction between publication and editorial review. Relationship arrays are deliberately empty rather than inventing cross-module identifiers or schemas.
+Standalone route: https://homegroups.org/investigations/two-powers-in-heaven.html
 
-Expected app route after integration: `https://homegroups.org/?card=investigations&id=two-powers-in-heaven`.
-
-Expected standalone route after integration: `https://homegroups.org/investigations/two-powers-in-heaven.html`.
-
-The preview here is independently readable but is not yet registered in the live Investigations card.
+The record retains `reviewStatus: unreviewed`: Eddie approved the page for publication, but this is not a claim of an independent research review. Relationship arrays remain empty rather than inventing cross-module identifiers.
 
 ## Verification and limits
 
 Inspected baseline: `247c0e3c2590a68a0c7fe2731f68c9789ade6799`.
 
-Read the actual loader, card markup, published manifest, manifest schema, and two existing pages. The manifest contains 16 published records (#000–#015). Verified the proposed record’s required fields, allowed status values, filename/id syntax, relationship categories, and uniqueness. The existing manifest remains unchanged.
+Read the actual loader, card markup, published manifest, manifest schema, and two existing pages. The manifest contains 16 published records (#000–#015). Verified the proposed record’s required fields, allowed status values, filename/id syntax, relationship categories, and uniqueness. At preparation, the existing manifest was unchanged; publication subsequently appended only the new #016 record.
 
 HTML checks passed: balanced element nesting; unique element ids; valid heading-label targets; one article and main heading; nine matching details/summary pairs; 20 source/passage/related links; safe new-tab attributes; no scripts, event handlers, iframes, or placeholder media. All style selectors are scoped to the article or its standalone body. Responsive grid rules allow columns to shrink to the available width.
 
