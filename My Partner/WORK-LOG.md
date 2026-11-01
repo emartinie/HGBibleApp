@@ -1,7 +1,7 @@
 # Partner work and handoff log
 
 ## Authorization
-As of October 6, 2026, Eddie authorizes Partner creations and edits only in `My Partner/`, with read access throughout the repository. The intern's current assignment and uncommitted work are unknown.
+Updated November 1, 2026: Eddie lifted the former folder-only boundary. Partner may edit relevant repository files for Eddie’s requested work and publish when authorized by that work. Root AGENTS.md records the current scope. Earlier entries describe historical permissions. The intern's current assignment and uncommitted work remain unknown.
 
 ## Tasks
 
@@ -96,3 +96,11 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Checks: balanced HTML, unique ids, heading-label targets, matching details/summary pairs, link safety attributes, scoped CSS, and manifest fields/id/file/order uniqueness. 16 existing records preserved. Browser visual/runtime verification remains pending: Chromium installation failed.
 - Page commit: `a4e1eea15adaeaa4a12c165bfa079764b39934a4`; manifest proposal: `e9ea5f2207ce253e2b6969218dfd64218e65b2a2`; handoff: `d541ad71666aeb50a338bc24801347b8a0961697`.
 - Status: reviewable page prepared; no live Investigations-card registration. Eddie’s explicit expansion of write scope is needed for root `investigations/two-powers-in-heaven.html` and `data/investigations/published-investigations.json`. Re-fetch manifest before integration; no loader change proposed.
+
+
+## November 1, 2026 — Publish approved Two Powers investigation
+- Owner: Partner; Eddie explicitly approved the preview for production and requested updating the rules to remove the repeated folder-boundary snag.
+- Scope recorded repository-wide in new root AGENTS.md; updated nested AGENTS.md and workspace README. Authorization is for task-related changes, with existing preservation/privacy/verification safeguards retained.
+- Published the approved page unchanged at `investigations/two-powers-in-heaven.html`; appended its unique #016 entry in `data/investigations/published-investigations.json` after re-fetching the current manifest. All 16 prior records preserved; 17 total. No additional content or loader changes.
+- Page commit: `7fd038ba1534a316fb588f9802fa291521a525a2`; manifest commit: `31e686ee7945c6ce64be593b1ba7a6ca0d88c42c`.
+- Updated investigation handoff and project map. Local structural checks from preparation remain applicable because HTML is unchanged. Live delivery verification is being checked separately; no claim of rendered-browser testing.
