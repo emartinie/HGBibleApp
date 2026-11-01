@@ -43,7 +43,7 @@ No AGENTS.md files were found in the inspected snapshot. The root README contain
 4. Review actual offline coverage and update behavior on repeat visits.
 5. Reconcile findings with Eddie and the intern before assigning implementation.
 
-These are review tasks, not confirmed defects. Partner documentation stays in this directory; application edits require Eddie to expand the scope.
+These were initial review tasks, not confirmed defects. The November 1, 2026 authorization recorded in root AGENTS.md supersedes the original folder-only write boundary.
 
 ## Devotional companion — October 7, 2026
 [Week 1 pilot](devotionals/week-01.md) contains seven daily reflections and a weekly closing. [Editorial notes](devotionals/EDITORIAL-NOTES.md) record reading-list discrepancies and draft decisions. Content is awaiting Eddie's review; no app integration or additional weeks have been created.
@@ -70,4 +70,4 @@ The five live [conversation](collaboration/messaging/commons/conversations/), [a
 
 ## Two Powers investigation page — November 1, 2026
 
-[Prepared HTML investigation](investigations/two-powers/two-powers-in-heaven.html), [proposed manifest entry](investigations/two-powers/manifest-entry.json), and [integration/verification notes](investigations/two-powers/README.md). Uses the existing investigation design with article-scoped styles and native details sections. Source/structural checks passed; rendered browser verification remains pending. The inspected live loader reads `data/investigations/published-investigations.json` (16 existing records, #000–#015) and loads article HTML from root `investigations/`. Proposed #016 is staged inside My Partner/ and is not registered in the live card. Root integration awaits explicit write-scope authorization.
+[Production investigation](../investigations/two-powers-in-heaven.html) is registered as #016 in `data/investigations/published-investigations.json`; 17 total records. [Approved preview](investigations/two-powers/two-powers-in-heaven.html) and [integration/verification notes](investigations/two-powers/README.md) remain available. The approved HTML was copied unchanged and the existing loader was preserved. Structural checks passed; rendered browser verification remains pending. Eddie authorized publication and lifted the old folder-only write boundary; root [AGENTS.md](../AGENTS.md) records current task-scoped authorization.
