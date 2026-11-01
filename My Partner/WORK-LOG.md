@@ -104,3 +104,9 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Published the approved page unchanged at `investigations/two-powers-in-heaven.html`; appended its unique #016 entry in `data/investigations/published-investigations.json` after re-fetching the current manifest. All 16 prior records preserved; 17 total. No additional content or loader changes.
 - Page commit: `7fd038ba1534a316fb588f9802fa291521a525a2`; manifest commit: `31e686ee7945c6ce64be593b1ba7a6ca0d88c42c`.
 - Updated investigation handoff and project map. Local structural checks from preparation remain applicable because HTML is unchanged. Live delivery verification is being checked separately; no claim of rendered-browser testing.
+
+### Production delivery verification
+- GitHub Pages run `41346862778` for `5d2dfb383ce7feecc3c0bd3b2c3656eb7550a184` completed successfully: build, deploy, and report steps all passed.
+- Public `https://homegroups.org/investigations/two-powers-in-heaven.html` returned HTTP 200 with the expected article id; delivered SHA-256 `3d2d1467ce8ce19469a96d9544ec58f165537a9f73c760f4815a2ec969e3cb4f`.
+- Public published manifest returned HTTP 200 with 17 records and the exact #016 id/file/order registration. Repository readback matched the approved HTML and intended manifest.
+- This verifies deployment and public delivery. Browser-rendered interaction testing remains unperformed; Eddie reviewed and approved the page appearance before publication.
