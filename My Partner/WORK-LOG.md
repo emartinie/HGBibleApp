@@ -86,3 +86,13 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Week/community context follows links from the weekly pilot. Explicit destination communities are preserved. A verified same-origin message from the active iframe can close the floating window and restore reading without reloading; drag/minimize/close/reopen remain available. No Firebase paths, rules, account IDs, schemas or stored messages are migrated.
 - Verification: syntax checks and browser scenarios at desktop 1440px/mobile 390px, covering the five actual pages, posting/replies/search, enrollment, local drafts, profile update, sign-out and Google/email controls, unread deep links, week/community links, embedded return/sender validation and local-preview persistence. Existing Week 1/2 starter regressions also pass. SDK doubles are used; live signed-in Firebase delivery remains outside this environment’s reach.
 - Handoff: full-page conversations retain their existing community/topic browsing; the carried week is the originating study context, not a new corpus filter. Existing production data and local draft keys remain in place.
+
+
+## November 1, 2026 — Two Powers investigation page
+- Owner: Partner, at Eddie’s request to build the actual Investigations page using previous pages as the pattern.
+- Baseline inspected: `247c0e3c2590a68a0c7fe2731f68c9789ade6799`; current intern activity remains unknown.
+- Created within authorized boundary: `investigations/two-powers/two-powers-in-heaven.html`, `manifest-entry.json`, and `README.md` under My Partner/.
+- Prepared HTML page and proposed #016 manifest record. Inspected actual loader/card, manifest/schema, and Son/Father and Jewish-followers investigations. Article styles are scoped; native expandable sections require no script execution.
+- Checks: balanced HTML, unique ids, heading-label targets, matching details/summary pairs, link safety attributes, scoped CSS, and manifest fields/id/file/order uniqueness. 16 existing records preserved. Browser visual/runtime verification remains pending: Chromium installation failed.
+- Page commit: `a4e1eea15adaeaa4a12c165bfa079764b39934a4`; manifest proposal: `e9ea5f2207ce253e2b6969218dfd64218e65b2a2`; handoff: `d541ad71666aeb50a338bc24801347b8a0961697`.
+- Status: reviewable page prepared; no live Investigations-card registration. Eddie’s explicit expansion of write scope is needed for root `investigations/two-powers-in-heaven.html` and `data/investigations/published-investigations.json`. Re-fetch manifest before integration; no loader change proposed.
