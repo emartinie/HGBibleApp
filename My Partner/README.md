@@ -2,13 +2,13 @@
 
 A workspace for Eddie and his ChatGPT Partner within HGBibleApp.
 
-Eddie authorized reading across the repository and limited all Partner repository changes to this directory. This is our place for inspection notes, proposals, and coordination with the intern.
+On November 1, 2026, Eddie expanded Partner write scope to relevant files across the repository for requested work. This folder remains our workspace for inspection notes, proposals, and coordination with the intern. See the root [working rules](../AGENTS.md).
 
 - [Working rules](AGENTS.md)
 - [Initial project map](PROJECT-MAP.md)
 - [Work and handoff log](WORK-LOG.md)
 
-The map starts with verified repository observations, not a declaration that every feature works. Proposed application changes remain proposals until separately authorized.
+The map starts with verified repository observations, not a declaration that every feature works. Application work follows Eddie’s task authorization; the former folder-only restriction no longer requires a separate confirmation.
 
 ## Devotional pilot
 - [Week 1 — In the Beginning](devotionals/week-01.md)
