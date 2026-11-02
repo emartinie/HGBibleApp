@@ -21,16 +21,37 @@
       --accent: #ff3b00;
       --shadow: 0 0 0 4px #ffeb00;
     }
+    :root[data-hg-theme-preset="sapphire"] {
+      --bg-0: #060f24; --bg-1: #0c2040; --bg-2: #153258;
+      --panel: rgba(18,43,76,.88); --panel-2: rgba(28,60,98,.85);
+      --line: rgba(142,193,244,.26); --soft: rgba(133,180,233,.12);
+      --text: #f2f6ff; --muted: #b6c9e2;
+      --gold: #f1c779; --gold-2: #ffe1a1; --accent: #75c9ff;
+      --shadow: 0 18px 50px rgba(0,8,30,.58);
+    }
+    :root[data-hg-theme-preset="parchment"] {
+      color-scheme: light;
+      --bg-0: #e8dcc0; --bg-1: #f4e9d2; --bg-2: #e3d1ab;
+      --panel: rgba(255,250,237,.94); --panel-2: rgba(244,231,203,.95);
+      --line: rgba(93,65,37,.27); --soft: rgba(112,81,43,.10);
+      --text: #302519; --muted: #695541;
+      --gold: #80501e; --gold-2: #996124; --accent: #516d47;
+      --shadow: 0 14px 40px rgba(83,59,30,.18);
+    }
     #${BADGE_ID} {
       position: fixed; right: 12px; bottom: 12px; z-index: 2147483646;
       background: #121212; color: #fff; border: 2px solid #ffeb00;
       border-radius: 12px; padding: 10px 12px; font: 700 12px/1.4 system-ui,sans-serif;
       box-shadow: 0 4px 18px rgba(0,0,0,.5); display: flex;
-      align-items: center; gap: 10px;
+      align-items: center; gap: 8px; flex-wrap: wrap; max-width: calc(100vw - 24px);
     }
     #${BADGE_ID} button {
       background: #ffeb00; color: #111; border: 0; border-radius: 7px;
       padding: 6px 9px; font: inherit; cursor: pointer;
+    }
+    #${BADGE_ID} select {
+      background: #202020; color: white; border: 1px solid #777;
+      border-radius: 7px; padding: 6px; font: inherit; max-width: 155px;
     }
     #${BADGE_ID} .hg-diagnostic-close {
       background: transparent; color: #fff; border: 1px solid #777;
@@ -42,44 +63,67 @@
   style.textContent = css;
   document.head.appendChild(style);
 
-  function setDiagnostic(enabled) {
-    if (enabled) {
-      ROOT.setAttribute(ATTR, 'on');
-      if (!document.getElementById(BADGE_ID)) {
-        const badge = document.createElement('div');
-        badge.id = BADGE_ID;
-        badge.setAttribute('role', 'status');
-        const label = document.createElement('span');
-        badge.appendChild(label);
-        const reset = document.createElement('button');
-        reset.type = 'button';
-        reset.addEventListener('click', toggle);
-        badge.appendChild(reset);
-        const close = document.createElement('button');
-        close.type = 'button';
-        close.className = 'hg-diagnostic-close';
-        close.textContent = '×';
-        close.setAttribute('aria-label', 'Close diagnostic panel and restore Cosmic Glass');
-        close.addEventListener('click', () => {
-          ROOT.removeAttribute(ATTR);
-          badge.remove();
-        });
-        badge.appendChild(close);
-        document.body.appendChild(badge);
-      }
-    } else {
-      ROOT.removeAttribute(ATTR);
+  const PRESETS = ['cosmic', 'diagnostic', 'sapphire', 'parchment'];
+  function applyPreset(preset) {
+    if (!PRESETS.includes(preset)) return;
+    ROOT.removeAttribute(ATTR);
+    ROOT.removeAttribute('data-hg-theme-preset');
+    if (preset === 'diagnostic') ROOT.setAttribute(ATTR, 'on');
+    if (preset === 'sapphire' || preset === 'parchment') {
+      ROOT.setAttribute('data-hg-theme-preset', preset);
     }
-    const badge = document.getElementById(BADGE_ID);
-    if (badge) {
-      badge.querySelector('span').textContent = enabled ? '🔬 DIAGNOSTIC MODE' : '✨ COSMIC GLASS';
-      const button = badge.querySelector('button:not(.hg-diagnostic-close)');
-      button.textContent = enabled ? 'Normal Mode' : 'Diagnostic Mode';
-      button.setAttribute('aria-label', enabled ? 'Switch to normal Cosmic Glass theme' : 'Switch to diagnostic theme');
+    const panel = document.getElementById(BADGE_ID);
+    if (panel) {
+      panel.querySelector('select').value = preset;
+      panel.querySelector('span').textContent =
+        ({ cosmic: '✨ COSMIC GLASS', diagnostic: '🔬 DIAGNOSTIC', sapphire: '💎 SAPPHIRE', parchment: '📜 PARCHMENT' })[preset];
     }
   }
+  function openPanel() {
+    if (!document.getElementById(BADGE_ID)) {
+      const badge = document.createElement('div');
+      badge.id = BADGE_ID;
+      badge.setAttribute('role', 'group');
+      badge.setAttribute('aria-label', 'Local theme laboratory');
+      const label = document.createElement('span');
+      badge.appendChild(label);
+      const select = document.createElement('select');
+      select.setAttribute('aria-label', 'Preview theme');
+      [
+        ['cosmic', 'Cosmic Glass'],
+        ['diagnostic', 'Diagnostic'],
+        ['sapphire', 'Midnight Sapphire'],
+        ['parchment', 'Ancient Parchment']
+      ].forEach(([value, title]) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = title;
+        select.appendChild(option);
+      });
+      select.addEventListener('change', () => applyPreset(select.value));
+      badge.appendChild(select);
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.className = 'hg-diagnostic-close';
+      close.textContent = '×';
+      close.setAttribute('aria-label', 'Close theme laboratory and restore Cosmic Glass');
+      close.addEventListener('click', () => {
+        applyPreset('cosmic');
+        badge.remove();
+      });
+      badge.appendChild(close);
+      document.body.appendChild(badge);
+    }
+    applyPreset('diagnostic');
+  }
   function toggle() {
-    setDiagnostic(ROOT.getAttribute(ATTR) !== 'on');
+    const panel = document.getElementById(BADGE_ID);
+    if (panel) {
+      applyPreset('cosmic');
+      panel.remove();
+    } else {
+      openPanel();
+    }
   }
 
   // Secret trigger: tap/click the MainStage title five times within 3 seconds.
