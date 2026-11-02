@@ -45,18 +45,23 @@
         const badge = document.createElement('div');
         badge.id = BADGE_ID;
         badge.setAttribute('role', 'status');
-        badge.innerHTML = '<span>🔬 THEME DIAGNOSTIC ACTIVE</span>';
+        const label = document.createElement('span');
+        badge.appendChild(label);
         const reset = document.createElement('button');
         reset.type = 'button';
-        reset.textContent = 'Restore';
-        reset.setAttribute('aria-label', 'Restore Cosmic Glass theme');
-        reset.addEventListener('click', () => setDiagnostic(false));
+        reset.addEventListener('click', toggle);
         badge.appendChild(reset);
         document.body.appendChild(badge);
       }
     } else {
       ROOT.removeAttribute(ATTR);
-      document.getElementById(BADGE_ID)?.remove();
+    }
+    const badge = document.getElementById(BADGE_ID);
+    if (badge) {
+      badge.querySelector('span').textContent = enabled ? '🔬 DIAGNOSTIC MODE' : '✨ COSMIC GLASS';
+      const button = badge.querySelector('button');
+      button.textContent = enabled ? 'Normal Mode' : 'Diagnostic Mode';
+      button.setAttribute('aria-label', enabled ? 'Switch to normal Cosmic Glass theme' : 'Switch to diagnostic theme');
     }
   }
   function toggle() {
