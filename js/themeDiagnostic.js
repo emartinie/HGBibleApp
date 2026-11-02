@@ -32,6 +32,10 @@
       background: #ffeb00; color: #111; border: 0; border-radius: 7px;
       padding: 6px 9px; font: inherit; cursor: pointer;
     }
+    #${BADGE_ID} .hg-diagnostic-close {
+      background: transparent; color: #fff; border: 1px solid #777;
+      padding: 5px 9px; font-size: 16px; line-height: 1;
+    }
   `;
   const style = document.createElement('style');
   style.id = STYLE_ID;
@@ -51,6 +55,16 @@
         reset.type = 'button';
         reset.addEventListener('click', toggle);
         badge.appendChild(reset);
+        const close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'hg-diagnostic-close';
+        close.textContent = '×';
+        close.setAttribute('aria-label', 'Close diagnostic panel and restore Cosmic Glass');
+        close.addEventListener('click', () => {
+          ROOT.removeAttribute(ATTR);
+          badge.remove();
+        });
+        badge.appendChild(close);
         document.body.appendChild(badge);
       }
     } else {
@@ -59,7 +73,7 @@
     const badge = document.getElementById(BADGE_ID);
     if (badge) {
       badge.querySelector('span').textContent = enabled ? '🔬 DIAGNOSTIC MODE' : '✨ COSMIC GLASS';
-      const button = badge.querySelector('button');
+      const button = badge.querySelector('button:not(.hg-diagnostic-close)');
       button.textContent = enabled ? 'Normal Mode' : 'Diagnostic Mode';
       button.setAttribute('aria-label', enabled ? 'Switch to normal Cosmic Glass theme' : 'Switch to diagnostic theme');
     }
