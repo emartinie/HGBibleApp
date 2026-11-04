@@ -130,3 +130,8 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Verification: 58 client tests; 4 rendered DM scenarios; 14 loopback Firestore groups; five-screen desktop/mobile suite and Week 1/2 starter scenarios passed. Syntax/whitespace checks passed. Initial parallel browser timeouts resolved on sequential reruns; assertions retained.
 - Planning only: PHASE-2-PLAN.md prioritizes abuse controls, delivery/inbox pagination, ordering, request idempotency, unread state, identity clarity, navigation/offline and mobile accessibility. No Phase 2 code.
 - Readiness: code is reviewable; retain draft/hold unconditional merge pending active rules reconciliation, real-provider non-production verification and confirmation of main's publishing behavior. No merge, deployment, production configuration/data change, real message or authentication email.
+
+
+### Firebase installation access recheck — November 4, 2026
+- Firebase is now installed/enabled. No Firebase management tools appear in this session’s callable catalog; authenticated homegroups-app access is not established. The server configuration uses npx; local npx/firebase/gcloud and standard login/ADC files were absent. Server environment may differ, so this is not a confirmed startup root cause.
+- Updated SECURITY-PHASE-1.md with the narrower remaining connection/login prerequisite and administrator export alternative. No login, credential read, Rules API call, production change, or test/code change. Previous test results remain applicable.

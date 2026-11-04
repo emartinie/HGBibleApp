@@ -89,10 +89,16 @@ The public GitHub Pages settings request returned 404 and the connector could no
 
 ### Production Firebase access: unavailable in this session
 
-- No Firebase/Google Cloud management tool is connected. Discovery found the official Firebase integration available but not installed/connected; availability is not authorization.
+- Firebase installation is now confirmed (installed: true, enabled). However, no Firebase management tools are exposed in this session’s callable catalog, so authenticated project access has not been established. Installation alone does not verify a working server, login, project permission, or active rules release.
 - No firebase or gcloud executable was found on PATH. The standard Windows Firebase CLI login and Google application-default-credential file locations were absent. No configured FIREBASE_TOKEN or GOOGLE_APPLICATION_CREDENTIALS was found. Only existence/names were checked; no secret values were printed or added to the repository.
 - No authorized non-production cloud project or test-account configuration was supplied. The demo emulator project is local-only and is not a real staging Firebase project.
 - Consequently, no authenticated production Rules API call or production collection/data read was attempted. There is no exported active ruleset, and an exhaustive production-to-proposal difference list cannot honestly be produced. Every production-parity row below remains unknown.
+
+### Access recheck after Firebase installation
+
+The user installed Firebase after the verification report. The plugin files and skill package are present. Its local MCP configuration specifies npx -y firebase-tools@latest mcp --dir . . No npx, firebase or gcloud command is on the execution PATH checked here, and standard local login/ADC files remain absent. This is diagnostic evidence, not a confirmed server-log explanation for why management tools are not exposed; the app may launch its server with a different environment.
+
+No credential was read or exposed, no new login was initiated, and no production Rules API request was made. The current blocker is establishing a callable authenticated read-only session, rather than installing the plugin. Next action: verify/restart the Firebase server in the app, ensure its configured npx prerequisite is available to that server, and confirm a Firebase login with scoped project read permissions. Once tools appear, inspect the account/project context and retrieve the active release read-only. An administrator export remains an alternative. No test rerun was needed for this documentation-only access update.
 
 ### Exact administrator action required
 
