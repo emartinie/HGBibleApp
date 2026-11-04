@@ -110,3 +110,14 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Public `https://homegroups.org/investigations/two-powers-in-heaven.html` returned HTTP 200 with the expected article id; delivered SHA-256 `3d2d1467ce8ce19469a96d9544ec58f165537a9f73c760f4815a2ec969e3cb4f`.
 - Public published manifest returned HTTP 200 with 17 records and the exact #016 id/file/order registration. Repository readback matched the approved HTML and intended manifest.
 - This verifies deployment and public delivery. Browser-rendered interaction testing remains unperformed; Eddie reviewed and approved the page appearance before publication.
+
+
+## November 4, 2026 — Commons privacy and security Phase 1
+- Owner: Codex; explicitly authorized by Eddie. Baseline/main: 36e3516f4195a050e84b3d176e1e67b7220759bf.
+- Review branch: codex/commons-privacy-phase1. No merge, deployment, Firebase configuration change, real message/email, or production data write.
+- Prepared shared DM composer isolation for both live/legacy screens; account-scoped discovery consent and stale-callback guards; explicit email-link intent, auth-restoration and UID checks, collision handling and safe return navigation.
+- Prepared firebase/commons-phase1.rules.proposed with known root permissions, Commons membership/community, DM participant protection and scoped moderation. Root rules and production Firebase config remain unchanged. The actual deployed rules release has not been exported; production parity remains a release gate.
+- Added executable client, rendered DM and Firestore emulator authorization tests; updated existing browser fixtures for current SDK/navigation behavior and portable screenshot output.
+- Full scope, test commands, remaining risks and manual provider/rules verification: collaboration/messaging/commons/SECURITY-PHASE-1.md and root tests/commons-security/README.md.
+- Intern activity remains unknown; this branch does not overwrite another worker or publish to main.
+- Final checks: 29 client tests, 2 rendered DM tests, 14 Firestore emulator authorization groups, both existing screen-suite widths and both weekly-starter scenarios passed. Syntax and whitespace checks passed. Real providers/deployed rules/physical-device behavior remain unverified.

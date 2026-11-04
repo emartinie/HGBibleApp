@@ -2,14 +2,26 @@
 import {auth,db} from '../../../../../js/firebase-init.js';
 import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import {collection,doc,getDoc,getDocs,onSnapshot,setDoc,addDoc,updateDoc,serverTimestamp,query,where,orderBy,limit} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import {createDirectComposer} from '../direct-composer.js?v=20261104-privacy-1';
 const el=id=>document.getElementById(id);
 let user=null,current=null,epoch=0,stopInbox=null,stopConversation=null,stopMessages=null;
 const notice=s=>el('status').textContent=s;
+
+const composer = createDirectComposer({
+ input: el('body'), form: el('compose'),
+ send: async (uid, id, body) => {
+  if (auth.currentUser?.uid !== uid) throw Error('Your account changed. Please reopen the conversation.');
+  await addDoc(collection(db,'commonsDirectConversations',id,'messages'), {senderUid:uid,body,createdAt:serverTimestamp()});
+ },
+ onError: error => notice('Send failed: '+(error.code||error.message)),
+ onSent: () => notice('Message sent.')
+});
+
 function action(label,fn){const b=document.createElement('button');b.textContent=label;b.onclick=fn;return b;}
 function stopThread(){if(stopConversation){stopConversation();stopConversation=null;}if(stopMessages){stopMessages();stopMessages=null;}}
 function stopAll(){stopThread();if(stopInbox){stopInbox();stopInbox=null;}}
 onAuthStateChanged(auth,u=>{
-  stopAll();user=u;epoch++;current=null;
+  stopAll();composer.setAccount(u?.uid||null);composer.select(null);user=u;epoch++;current=null;el('actions').replaceChildren();el('heading').textContent='';
   el('thread').hidden=true;el('main').hidden=!u;el('inbox').replaceChildren();
   notice(u?'Signed in: '+u.email:'Sign in through HomeGroups first.');
   if(u)inbox();
@@ -43,13 +55,13 @@ el('invite').onclick=async()=>{
 };
 function open(id){
   if(!user)return;
-  stopThread();current=id;
+  stopThread();composer.select(id);current=id;
   const token=epoch,uid=user.uid,ref=doc(db,'commonsDirectConversations',id);
   el('thread').hidden=false;el('actions').replaceChildren();el('messages').textContent='Loading…';el('compose').hidden=true;
   stopConversation=onSnapshot(ref,snap=>{
     if(token!==epoch||current!==id)return;
     const c=snap.data();
-    if(!c||!c.participants.includes(uid)){notice('Conversation unavailable.');stopThread();return;}
+    if(!c||!c.participants.includes(uid)){notice('Conversation unavailable.');composer.select(null);stopThread();return;}
     el('heading').textContent='Conversation with '+c.participants.find(x=>x!==uid)+' ('+c.status+')';
     el('actions').replaceChildren();
     if(c.status==='pending'&&c.requestedBy!==uid){
@@ -58,7 +70,7 @@ function open(id){
         catch(e){notice('Response failed: '+(e.code||e.message));}
       }));
     }
-    el('compose').hidden=c.status!=='accepted';
+    composer.setAccepted(c.status==='accepted');
     if(c.status==='accepted'){
       if(!stopMessages){
         el('messages').textContent='Loading messages…';
@@ -79,13 +91,4 @@ function open(id){
     }
   },e=>{if(token===epoch&&current===id)notice('Conversation: '+(e.code||e.message));});
 }
-el('compose').onsubmit=async e=>{
-  e.preventDefault();if(!user||!current)return;
-  const body=el('body').value.trim();if(!body)return;
-  const conversationId=current,senderUid=user.uid;
-  try{
-    await addDoc(collection(db,'commonsDirectConversations',conversationId,'messages'),{senderUid,body,createdAt:serverTimestamp()});
-    if(current===conversationId&&user?.uid===senderUid)el('body').value='';
-  }catch(e){notice('Send failed: '+(e.code||e.message));}
-};
 </script></body></html>

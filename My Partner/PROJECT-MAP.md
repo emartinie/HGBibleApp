@@ -71,3 +71,8 @@ The five live [conversation](collaboration/messaging/commons/conversations/), [a
 ## Two Powers investigation page — November 1, 2026
 
 [Production investigation](../investigations/two-powers-in-heaven.html) is registered as #016 in `data/investigations/published-investigations.json`; 17 total records. [Approved preview](investigations/two-powers/two-powers-in-heaven.html) and [integration/verification notes](investigations/two-powers/README.md) remain available. The approved HTML was copied unchanged and the existing loader was preserved. Structural checks passed; rendered browser verification remains pending. Eddie authorized publication and lifted the old folder-only write boundary; root [AGENTS.md](../AGENTS.md) records current task-scoped authorization.
+
+
+## Commons privacy and security Phase 1 — November 4, 2026
+
+Review-only hardening on codex/commons-privacy-phase1: [scope and handoff](collaboration/messaging/commons/SECURITY-PHASE-1.md). Adds shared DM draft/account isolation, discovery consent reset, email-link identity checks, a consolidated rules proposal and local regression/emulator tests. Production rules/config remain unchanged; live Firebase release reconciliation and real-provider verification are required before deployment.
