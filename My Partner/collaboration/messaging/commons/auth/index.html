@@ -5,10 +5,14 @@
 <details><summary>About your account</summary><p class="muted"><small>HomeGroups uses Firebase, a Google-operated service, for authentication and community data. Keep your sign-in links private.</small></p></details></section></main>
 <script type="module">
 import {auth} from '../../../../../js/firebase-init.js';
-import {onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,linkWithPopup,linkWithCredential,EmailAuthProvider} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {onAuthStateChanged,beforeAuthStateChanged,GoogleAuthProvider,signInWithPopup,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,linkWithPopup,linkWithCredential,EmailAuthProvider} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 const $=id=>document.getElementById(id),status=$('status');
 const pendingKey='hg-commons-email-link-pending';
-let busy=false,finishing=isSignInWithEmailLink(auth,location.href);
+let busy=false,finishing=isSignInWithEmailLink(auth,location.href),authRevision=0,observedUid=auth.currentUser?.uid||null;
+function operationContext(){
+ const uid=auth.currentUser?.uid||null,revision=authRevision;
+ return ()=>revision===authRevision&&uid===(auth.currentUser?.uid||null);
+}
 function safeDestination(value){
  if(!value||!value.startsWith('/')||value.startsWith('//')||value.includes('\\'))return null;
  try{
@@ -22,6 +26,12 @@ function safeDestination(value){
 const params=new URLSearchParams(location.search),safeNext=safeDestination(params.get('next'));
 if(safeNext)$('continue').href=safeNext;
 function say(s){status.textContent=s;}
+async function guardedSignIn(active,authenticate){
+ const stop=beforeAuthStateChanged(auth,user=>{
+  if(user&&!active())throw Error('Your account changed while authentication was pending. Start sign-in again.');
+ });
+ try{return await authenticate();}finally{stop();}
+}
 function controls(){for(const id of ['google','linkGoogle','emailSend','linkEmailSend','signout'])$(id).disabled=busy||finishing;}
 function methods(user){return [...new Set(user.providerData.map(x=>x.providerId))].map(x=>x==='google.com'?'Google':x==='password'?'Email':x).join(', ')||'Email link or existing session';}
 function render(user){
@@ -37,15 +47,21 @@ function error(e){
 }
 function readPending(){try{return JSON.parse(sessionStorage.getItem(pendingKey)||'null');}catch{return null;}}
 function removePending(request){try{if(readPending()?.request===request)sessionStorage.removeItem(pendingKey);}catch{}}
-async function action(fn){if(busy||finishing)return;busy=true;controls();try{await auth.authStateReady();await fn();}catch(e){error(e);}finally{busy=false;controls();}}
-onAuthStateChanged(auth,user=>{render(user);if(!busy&&!finishing)say(user?'You are signed in to HomeGroups. Continue to Messaging when ready.':'Choose how you would like to sign in.');});
-$('google').onclick=()=>action(async()=>{if(auth.currentUser)throw Error('Sign out before signing in as another account.');await signInWithPopup(auth,new GoogleAuthProvider());say('Google sign-in complete.');});
-$('linkGoogle').onclick=()=>action(async()=>{
+async function action(fn){
+ if(busy||finishing)return;
+ const active=operationContext();busy=true;controls();
+ try{await auth.authStateReady();if(!active()){say('Your account changed. Please start this action again.');return;}await fn(active);}
+ catch(e){if(active())error(e);}
+ finally{busy=false;controls();}
+}
+onAuthStateChanged(auth,user=>{const uid=user?.uid||null,changed=uid!==observedUid;if(changed){observedUid=uid;authRevision++;$('email').value='';$('linkEmail').value='';}render(user);if(changed||(!busy&&!finishing))say(user?'You are signed in to HomeGroups. Continue to Messaging when ready.':'Choose how you would like to sign in.');});
+$('google').onclick=()=>action(async active=>{if(auth.currentUser)throw Error('Sign out before signing in as another account.');const result=await guardedSignIn(active,()=>signInWithPopup(auth,new GoogleAuthProvider()));if(active()||auth.currentUser?.uid===result?.user?.uid)say('Google sign-in complete.');});
+$('linkGoogle').onclick=()=>action(async active=>{
  const user=auth.currentUser;if(!user)throw Error('Sign in before linking another method.');
  await linkWithPopup(user,new GoogleAuthProvider());
- if(auth.currentUser?.uid===user.uid){render(user);say('Google linked to your existing member account.');}
+ if(active()){render(auth.currentUser);say('Google linked to your existing member account.');}
 });
-async function send(email,mode){
+async function send(email,mode,active){
  const user=auth.currentUser;
  if(mode==='link'&&!user)throw Error('Sign in before linking another method.');
  if(mode==='signin'&&user)throw Error('Sign out before signing in as another account.');
@@ -56,24 +72,25 @@ async function send(email,mode){
  sessionStorage.setItem(pendingKey,JSON.stringify({version:2,email,mode,uid:user?.uid||null,request,createdAt:Date.now()}));
  try{await sendSignInLinkToEmail(auth,email,{url:url.href,handleCodeInApp:true});}
  catch(e){removePending(request);throw e;}
- if((auth.currentUser?.uid||null)!==(user?.uid||null)){say('Your account changed. Request a fresh email link from the intended account.');return;}
+ if(!active()){say('Your account changed. Request a fresh email link from the intended account.');return;}
  say('Check '+email+' for your HomeGroups '+(mode==='link'?'account-linking':'sign-in')+' link. '+(mode==='link'?'Open it in this same tab while signed in.':'Open it to finish signing in.'));
 }
-$('emailForm').onsubmit=e=>{e.preventDefault();return action(()=>send($('email').value.trim(),'signin'));};
-$('linkEmailForm').onsubmit=e=>{e.preventDefault();return action(()=>send($('linkEmail').value.trim(),'link'));};
-$('signout').onclick=()=>action(async()=>{await signOut(auth);say('You are signed out.');});
+$('emailForm').onsubmit=e=>{e.preventDefault();const email=$('email').value.trim();return action(active=>send(email,'signin',active));};
+$('linkEmailForm').onsubmit=e=>{e.preventDefault();const email=$('linkEmail').value.trim();return action(active=>send(email,'link',active));};
+$('signout').onclick=()=>action(async()=>{await signOut(auth);if(!auth.currentUser)say('You are signed out.');});
 async function finishEmail(){
- if(!finishing)return;controls();
+ if(!finishing)return;controls();let active=null;
  try{
   await auth.authStateReady();
+  active=operationContext();
   const mode=params.get('emailMode'),request=params.get('emailRequest'),saved=readPending(),user=auth.currentUser;
   const matches=saved?.version===2&&saved.request===request&&saved.mode===mode&&typeof saved.email==='string'&&saved.email.trim()&&Number.isFinite(saved.createdAt)&&Date.now()>=saved.createdAt&&Date.now()-saved.createdAt<=30*60*1000;
   if(mode==='link'){
    if(!matches||!user||saved.uid!==user.uid){say('This linking request cannot be verified in this tab and account. Return to the original account and request a new linking email. No sign-in or account switch was attempted.');return;}
    if(!confirm('Link '+saved.email+' to the HomeGroups account '+(user.email||user.uid)+'?')){say('Email linking cancelled. Your account is unchanged.');return;}
-   if(auth.currentUser?.uid!==saved.uid)throw Error('Your account changed. Request a fresh linking email.');
+   if(!active())throw Error('Your account changed. Request a fresh linking email.');
    await linkWithCredential(user,EmailAuthProvider.credentialWithLink(saved.email,location.href));
-   if(auth.currentUser?.uid!==user.uid)throw Error('Your account changed. Check your account before continuing.');
+   if(!active())return;
    render(auth.currentUser);say('Email linked to your existing HomeGroups account.');
   }else if(mode==='signin'){
    if(user){say('An account is already signed in. Sign out explicitly before using this sign-in link, or request an account-linking email from Account. No account switch was attempted.');return;}
@@ -82,12 +99,14 @@ async function finishEmail(){
    if(!email?.trim()){say('Email confirmation is required to finish this sign-in.');return;}
    if(!confirm('Sign in to HomeGroups as '+email.trim()+'?')){say('Email sign-in cancelled.');return;}
    if(auth.currentUser)throw Error('An account signed in while this link was open. Sign out explicitly before switching.');
-   await signInWithEmailLink(auth,email.trim(),location.href);render(auth.currentUser);say('Email sign-in complete.');
+   const result=await guardedSignIn(active,()=>signInWithEmailLink(auth,email.trim(),location.href));
+   if(result?.user&&auth.currentUser?.uid!==result.user.uid)return;
+   render(auth.currentUser);say('Email sign-in complete.');
   }else{say('This older email link has no verifiable action. Request a fresh sign-in or linking email from Account.');return;}
   removePending(request);
   const clean=new URL(location.pathname,location.origin);if(safeNext)clean.searchParams.set('next',safeNext);
   history.replaceState(null,'',clean.pathname+clean.search);
- }catch(e){error(e);}finally{finishing=false;controls();}
+ }catch(e){if(!active||active())error(e);}finally{finishing=false;controls();}
 }
 finishEmail();
 </script></body></html>

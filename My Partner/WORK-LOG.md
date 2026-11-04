@@ -121,3 +121,12 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Full scope, test commands, remaining risks and manual provider/rules verification: collaboration/messaging/commons/SECURITY-PHASE-1.md and root tests/commons-security/README.md.
 - Intern activity remains unknown; this branch does not overwrite another worker or publish to main.
 - Final checks: 29 client tests, 2 rendered DM tests, 14 Firestore emulator authorization groups, both existing screen-suite widths and both weekly-starter scenarios passed. Syntax and whitespace checks passed. Real providers/deployed rules/physical-device behavior remain unverified.
+
+
+## November 4, 2026 — Phase 1 security verification follow-up
+- Owner: Codex; Eddie requested verification and necessary Phase 1 corrections on existing PR #29. Starting head: 1f1a96a7562483d06ef3748f92fac97dbbe7d1ba.
+- Access: official Firebase integration is available but unconnected; no usable local CLI login/ADC found. No authenticated production rules export or non-production cloud auth project was available. Exact read-only export/IAM/evidence requirements are recorded in SECURITY-PHASE-1.md. No secrets printed or requested for publication.
+- Corrected deferred auth account-generation races, delayed sign-in pre-transition protection, stale same-ID DM observers and invitation/acceptance callbacks, and legacy transcript/recipient cleanup on logout. Shared composer behavior was expanded-tested without changing its implementation in this follow-up.
+- Verification: 58 client tests; 4 rendered DM scenarios; 14 loopback Firestore groups; five-screen desktop/mobile suite and Week 1/2 starter scenarios passed. Syntax/whitespace checks passed. Initial parallel browser timeouts resolved on sequential reruns; assertions retained.
+- Planning only: PHASE-2-PLAN.md prioritizes abuse controls, delivery/inbox pagination, ordering, request idempotency, unread state, identity clarity, navigation/offline and mobile accessibility. No Phase 2 code.
+- Readiness: code is reviewable; retain draft/hold unconditional merge pending active rules reconciliation, real-provider non-production verification and confirmation of main's publishing behavior. No merge, deployment, production configuration/data change, real message or authentication email.

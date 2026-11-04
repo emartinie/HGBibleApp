@@ -36,7 +36,7 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
  const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
  try {
   for(const scenario of [{width:1440,height:1000,week:1},{width:390,height:844,week:2}]){
-   const context=await browser.newContext({viewport:{width:scenario.width,height:scenario.height},serviceWorkers:'block'});
+   const context=await browser.newContext({viewport:{width:scenario.width,height:scenario.height},hasTouch:scenario.width<=600,serviceWorkers:'block'});
    await context.route('**/*',async route=>{
     const url=new URL(route.request().url());
     if(url.hostname==='www.gstatic.com')return route.fulfill({contentType:'text/javascript',body:url.pathname.includes('firebase-auth')?sdkAuth:sdkStore});
@@ -48,7 +48,7 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
     try{return route.fulfill({contentType:name.endsWith('.js')?'text/javascript':name.endsWith('.json')?'application/json':'text/html',body:read(name)});}catch{return route.fulfill({status:404,body:'Missing fixture'});}
    });
    const page=await context.newPage(), errors=[];page.on('pageerror',error=>{errors.push(error.message);console.error('PAGE ERROR:',error.message);});
-   await page.goto('http://release.test/');await page.locator('#hg-commons-launch').focus();await page.locator('#hg-commons-launch').press('Enter');await page.getByRole('button',{name:/Bible Study discussions/}).click();
+   await page.goto('http://release.test/');await page.locator('#hg-commons-launch').focus();await page.locator('#hg-commons-launch').press('Enter');await page.getByRole('button',{name:/Bible Study discussions/}).press('Enter');
    const frame=page.frameLocator('#hg-commons-window iframe');
    await frame.locator('#context-label').filter({hasText:'Week '+scenario.week+' —'}).waitFor();
    await frame.getByRole('button',{name:'Start conversation',exact:true}).click();

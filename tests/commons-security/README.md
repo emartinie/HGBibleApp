@@ -63,3 +63,7 @@ For a sparse checkout missing study files, set HG_TEST_BASE to a checked-out com
 These existing suites cover desktop/mobile community discussions, posting/replies/search, membership enrollment, profile saves, Google/email controls, navigation, and weekly starter/draft recovery. Their Firebase SDK doubles have been updated for current auth restoration, report exports, and badge subscriptions; current menu/minimize behavior is tested. No live messages or emails are sent.
 
 See ../../My%20Partner/collaboration/messaging/commons/SECURITY-PHASE-1.md for review scope, rules provenance, production verification gates, and deferred concerns. Test results are not proof of production rules or real email-provider behavior.
+
+## Security verification follow-up
+
+The expanded suite covers 58 client cases, 4 rendered DM scenarios (both pages at desktop/mobile widths), and 14 Firestore authorization groups. Auth doubles model pre-transition hooks; this verifies the page control flow, not a real Google/email provider. Rendered checks allow 60 seconds per scenario for browser startup. Run the browser suites sequentially on resource-constrained machines. See SECURITY-PHASE-1.md for blocked production access, exact administrator actions, and the distinction between code review and deployment readiness.

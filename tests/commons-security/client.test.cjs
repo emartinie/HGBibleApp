@@ -12,12 +12,13 @@ function deferred(){let resolve,reject;const promise=new Promise((a,b)=>{resolve
 async function harness(page,{account=null,search='',pending=null,emailLink=false,ready=Promise.resolve(),confirm=true,prompt='alice@example.test',getDoc,addDoc,linkError,storageError=false}={}){
  const html=fs.readFileSync(path.join(root,commons,page+'/index.html'),'utf8');
  const dom=new JSDOM(html,{url:'https://homegroups.test/'+encodeURI(commons)+page+'/'+search,runScripts:'outside-only'});
- const w=dom.window,calls=[],listeners=[],subscriptions=[];
+ const w=dom.window,calls=[],listeners=[],subscriptions=[],authGuards=new Set();
  const auth={currentUser:account,authStateReady:()=>ready,app:{options:{authDomain:'test.invalid'}}};
  if(pending)w.sessionStorage.setItem('hg-commons-email-link-pending',JSON.stringify(pending));
  if(storageError)w.Storage.prototype.setItem=()=>{throw Error('Storage blocked')};
  w.confirm=()=>confirm;w.prompt=()=>prompt;
  const mock={auth,db:{},onAuthStateChanged:(a,fn)=>{listeners.push(fn);return()=>{}},
+  beforeAuthStateChanged:(a,fn)=>{authGuards.add(fn);return()=>authGuards.delete(fn);},
   doc:(...a)=>a.filter(x=>typeof x==='string').join('/'),collection:(...a)=>a.filter(x=>typeof x==='string').join('/'),
   query:(ref,...constraints)=>({ref,constraints}),where:(...args)=>({where:args}),orderBy:(...args)=>({orderBy:args}),limit:n=>({limit:n}),
   serverTimestamp:()=>({serverTimestamp:true}),
@@ -31,7 +32,7 @@ async function harness(page,{account=null,search='',pending=null,emailLink=false
   signOut:async()=>{calls.push(['signOut']);auth.currentUser=null;},
   sendSignInLinkToEmail:async(...args)=>{calls.push(['sendEmail',...args]);},
   isSignInWithEmailLink:()=>emailLink,
-  signInWithEmailLink:async(a,email)=>{calls.push(['signInEmail',email]);auth.currentUser=user('email-user');},
+  signInWithEmailLink:async(a,email)=>{calls.push(['signInEmail',email]);for(const fn of authGuards)await fn(user('email-user'));auth.currentUser=user('email-user');return {user:auth.currentUser};},
   linkWithCredential:async(a,c)=>{calls.push(['linkEmail',a.uid,c]);if(linkError)throw linkError;},
   EmailAuthProvider:{credentialWithLink:(email,url)=>({email,url})}
  };
@@ -41,7 +42,7 @@ async function harness(page,{account=null,search='',pending=null,emailLink=false
  const code=html.match(/<script type="module">([\s\S]*?)<\/script>/)[1].replace(/^import .*;\s*$/gm,'');
  const boot=w.eval(code);
  if(!emailLink)await tick();
- return {w,dom,calls,subscriptions,boot,el:id=>w.document.getElementById(id),async account(u){auth.currentUser=u;return Promise.all(listeners.map(fn=>fn(u)));},open(id,uid='alice',peer='bob',status='accepted'){
+ return {w,dom,calls,subscriptions,boot,authGuards,el:id=>w.document.getElementById(id),async account(u){for(const fn of authGuards)await fn(u);auth.currentUser=u;return Promise.all(listeners.map(fn=>fn(u)));},open(id,uid='alice',peer='bob',status='accepted'){
   w.eval('open('+JSON.stringify(id)+')');subscriptions.at(-1).ok(snap({participants:[uid,peer],status,requestedBy:peer}));
  }};
 }
@@ -108,4 +109,77 @@ test('rules proposal preserves every existing root rule and production config ta
 
 for(const page of ['direct-live','direct'])test(page+': retyped identical text is a new draft while send is pending',async t=>{
  const operation=deferred(),h=await harness(page,{addDoc:()=>operation.promise});t.after(()=>h.dom.window.close());await h.account(user());h.open('alice_bob');const input=page==='direct'?'body':'messageInput',form=page==='direct'?'compose':'composer';h.el(input).value='repeat';const send=h.el(form).onsubmit({preventDefault(){}});h.el(input).dispatchEvent(new h.w.Event('input'));operation.resolve();await send;assert.equal(h.el(input).value,'repeat');
+});
+
+test('legacy logout scrubs transcript and recipient from shared-browser DOM',async t=>{
+ const h=await harness('direct');t.after(()=>h.dom.window.close());await h.account(user());h.open('alice_bob');h.el('messages').textContent='Sensitive prior-account transcript';h.el('recipient').value='prior-recipient';await h.account(user('bob'));assert.equal(h.el('messages').textContent,'');assert.equal(h.el('recipient').value,'');
+});
+for(const page of ['direct-live','direct']){
+ test(page+': callback from a closed subscription cannot reauthorize a reopened thread',async t=>{
+  const h=await harness(page);t.after(()=>h.dom.window.close());await h.account(user());h.open('alice_bob');const old=h.subscriptions.find(s=>s.ref==='commonsDirectConversations/alice_bob');h.open('alice_bob','alice','bob','pending');old.ok(snap({participants:['alice','bob'],status:'accepted',requestedBy:'bob'}));assert.equal(h.el(page==='direct'?'compose':'composer').hidden,true);
+ });
+ test(page+': pending writes retain original destination and failure only restores matching draft',async t=>{
+  const a=deferred(),b=deferred(),h=await harness(page,{addDoc:ref=>ref.includes('alice_bob')?a.promise:b.promise});t.after(()=>h.dom.window.close());await h.account(user());const input=page==='direct'?'body':'messageInput',form=page==='direct'?'compose':'composer';h.open('alice_bob');h.el(input).value='for Bob';const first=h.el(form).onsubmit({preventDefault(){}});h.open('alice_carol','alice','carol');h.el(input).value='for Carol';const second=h.el(form).onsubmit({preventDefault(){}});
+  assert.deepEqual(h.calls.filter(c=>c[0]==='addDoc').map(c=>[c[1],c[2].senderUid,c[2].body]),[['commonsDirectConversations/alice_bob/messages','alice','for Bob'],['commonsDirectConversations/alice_carol/messages','alice','for Carol']]);
+  a.reject(Error('late Bob failure'));await first;assert.equal(h.el(input).value,'for Carol');b.resolve();await second;assert.equal(h.el(input).value,'');h.open('alice_bob');assert.equal(h.el(input).value,'for Bob');
+ });
+ test(page+': old account failure cannot unlock a newer pending send after A-B-A',async t=>{
+  const old=deferred(),fresh=deferred();let count=0;const h=await harness(page,{addDoc:()=>++count===1?old.promise:fresh.promise});t.after(()=>h.dom.window.close());await h.account(user());const input=page==='direct'?'body':'messageInput',form=page==='direct'?'compose':'composer';h.open('alice_bob');h.el(input).value='old';const first=h.el(form).onsubmit({preventDefault(){}});await h.account(user('carol'));await h.account(user());h.open('alice_bob');h.el(input).value='fresh';const second=h.el(form).onsubmit({preventDefault(){}});old.reject(Error('old failure'));await first;assert.equal(h.el(form).querySelector('button').disabled,true);assert.equal(h.el(input).value,'fresh');fresh.resolve();await second;
+ });
+ test(page+': SDK identity mismatch before auth callback prevents any write',async t=>{
+  const h=await harness(page);t.after(()=>h.dom.window.close());await h.account(user());h.open('alice_bob');const input=page==='direct'?'body':'messageInput',form=page==='direct'?'compose':'composer';h.el(input).value='private';h.w.auth.currentUser=user('bob');await h.el(form).onsubmit({preventDefault(){}});assert.equal(h.calls.length,0);assert.equal(h.el(input).value,'private');
+ });
+}
+for(const [name,control] of [['Google link','linkGoogle'],['email link','linkEmailForm']])test(name+': identity change during auth restoration cancels queued action',async t=>{
+ const gate=deferred(),h=await harness('auth',{account:user(),ready:gate.promise});t.after(()=>h.dom.window.close());h.el('linkEmail').value='new@example.test';const action=control==='linkGoogle'?h.el(control).onclick():h.el(control).onsubmit({preventDefault(){}});await h.account(user('bob'));gate.resolve();await action;assert.equal(h.calls.length,0);
+});
+test('auth inputs are scrubbed on identity transitions',async t=>{
+ const h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());await h.account(user());h.el('linkEmail').value='private@example.test';h.el('email').value='private@example.test';await h.account(user('bob'));assert.equal(h.el('linkEmail').value,'');assert.equal(h.el('email').value,'');
+});
+test('Google linking uses the original UID and never falls back to sign-in on collision',async t=>{
+ const h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());h.w.linkWithPopup=async u=>{h.calls.push(['linkGoogle',u.uid]);throw {code:'auth/credential-already-in-use'};};await h.el('linkGoogle').onclick();assert.deepEqual(h.calls,[['linkGoogle','alice']]);assert.match(h.el('status').textContent,/No accounts were merged/);
+});
+test('expired sign-in SDK response retains account and never auto-retries',async t=>{
+ const h=await harness('auth',{emailLink:true,search:actionSearch('signin')});t.after(()=>h.dom.window.close());h.w.signInWithEmailLink=async()=>{h.calls.push(['expired']);throw {code:'auth/expired-action-code'};};await h.boot;assert.deepEqual(h.calls,[['expired']]);assert.equal(h.w.auth.currentUser,null);assert.match(h.el('status').textContent,/expired-action-code/);
+});
+
+for(const method of ['Google','email'])test(method+': a delayed sign-in cannot replace an intervening account',async t=>{
+ const gate=deferred(),h=await harness('auth',{emailLink:method==='email',search:method==='email'?actionSearch('signin'):''});t.after(()=>h.dom.window.close());
+ const sdkSignIn=async()=>{h.calls.push(['pendingSignIn']);await gate.promise;const next=user('old-login');for(const fn of h.authGuards)await fn(next);h.w.auth.currentUser=next;return {user:next};};
+ if(method==='Google')h.w.signInWithPopup=sdkSignIn;else h.w.signInWithEmailLink=sdkSignIn;
+ const pending=method==='Google'?h.el('google').onclick():h.boot;await tick();await h.account(user('bob'));gate.resolve();await pending;assert.equal(h.w.auth.currentUser.uid,'bob');assert.equal(h.authGuards.size,0);
+});
+test('Google sign-in provider failure reports error and releases controls',async t=>{
+ const h=await harness('auth');t.after(()=>h.dom.window.close());h.w.signInWithPopup=async()=>{throw {code:'auth/popup-closed-by-user'};};await h.el('google').onclick();assert.match(h.el('status').textContent,/popup-closed-by-user/);assert.equal(h.el('google').disabled,false);assert.equal(h.authGuards.size,0);
+});
+test('Google linking succeeds for original UID with no sign-in fallback',async t=>{
+ const h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());h.w.linkWithPopup=async u=>{h.calls.push(['linked',u.uid]);return {user:u};};await h.el('linkGoogle').onclick();assert.deepEqual(h.calls,[['linked','alice']]);assert.equal(h.w.auth.currentUser.uid,'alice');assert.match(h.el('status').textContent,/Google linked/);
+});
+test('late linking failure never overwrites another account status',async t=>{
+ const gate=deferred(),h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());h.w.linkWithPopup=async()=>gate.promise;const action=h.el('linkGoogle').onclick();await tick();await h.account(user('bob'));const status=h.el('status').textContent;gate.reject({code:'auth/credential-already-in-use'});await action;assert.equal(h.el('status').textContent,status);assert.equal(h.w.auth.currentUser.uid,'bob');
+});
+
+for(const page of ['direct-live','direct']){
+ test(page+': send success while away clears only the original submitted draft',async t=>{
+  const gate=deferred(),h=await harness(page,{addDoc:()=>gate.promise});t.after(()=>h.dom.window.close());await h.account(user());const input=page==='direct'?'body':'messageInput',form=page==='direct'?'compose':'composer';h.open('alice_bob');h.el(input).value='submitted';const send=h.el(form).onsubmit({preventDefault(){}});h.open('alice_carol','alice','carol');h.el(input).value='new contact draft';gate.resolve();await send;assert.equal(h.el(input).value,'new contact draft');h.open('alice_bob');assert.equal(h.el(input).value,'');
+ });
+ test(page+': stale message observer cannot replace a reopened transcript',async t=>{
+  const h=await harness(page);t.after(()=>h.dom.window.close());await h.account(user());h.open('alice_bob');const old=h.subscriptions.find(s=>s.ref?.ref?.endsWith('/messages'));h.open('alice_bob');h.el('messages').textContent='Current transcript';old.ok({empty:false,forEach(fn){fn({data:()=>({senderUid:'bob',body:'obsolete transcript'})});}});assert.equal(h.el('messages').textContent,'Current transcript');
+ });
+ test(page+': delayed acceptance cannot change another conversation status',async t=>{
+  const gate=deferred(),h=await harness(page);t.after(()=>h.dom.window.close());await h.account(user());h.open('alice_bob','alice','bob','pending');h.w.updateDoc=async()=>gate.promise;const button=[...h.el('actions').querySelectorAll('button')].find(x=>x.textContent==='Accept');const action=button.onclick();h.open('alice_carol','alice','carol');const status=h.el(page==='direct'?'status':'notice').textContent;gate.resolve();await action;assert.equal(h.el(page==='direct'?'status':'notice').textContent,status);
+ });
+ test(page+': invitation completion after account change cannot reopen old identity',async t=>{
+  const target='BBBBBBBBBBBBBBBBBBBB',gate=deferred(),h=await harness(page,{search:'?to='+target+'&name=Bob'});t.after(()=>h.dom.window.close());await h.account(user('AAAAAAAAAAAAAAAAAAAA'));h.w.setDoc=async()=>gate.promise;
+  let action;if(page==='direct'){h.el('recipient').value=target;action=h.el('invite').onclick();}else{h.subscriptions.find(s=>s.ref?.ref==='commonsDirectConversations').ok({docs:[]});action=h.el('messages').querySelector('button').onclick();}
+  await h.account(user('CCCCCCCCCCCCCCCCCCCC'));const status=h.el(page==='direct'?'status':'notice').textContent;gate.resolve();await action;assert.equal(h.el(page==='direct'?'status':'notice').textContent,status);assert.equal(h.el(page==='direct'?'compose':'composer').hidden,true);if(page==='direct-live')assert.equal(h.el('layout').classList.contains('open'),false);
+ });
+}
+
+test('auth status cannot retain prior-account email while a link operation is pending',async t=>{
+ const gate=deferred(),h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());h.el('status').textContent='Check private-old@example.test for your email';h.w.linkWithPopup=async()=>gate.promise;const pending=h.el('linkGoogle').onclick();await tick();await h.account(user('bob'));assert.equal(h.el('status').textContent.includes('private-old@example.test'),false);gate.resolve();await pending;assert.equal(h.w.auth.currentUser.uid,'bob');
+});
+
+test('delayed sign-out completion cannot claim another account is signed out',async t=>{
+ const gate=deferred(),h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());h.w.signOut=async()=>gate.promise;const pending=h.el('signout').onclick();await tick();await h.account(user('bob'));const status=h.el('status').textContent;gate.resolve();await pending;assert.equal(h.w.auth.currentUser.uid,'bob');assert.equal(h.el('status').textContent,status);
 });

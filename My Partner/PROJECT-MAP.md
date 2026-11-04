@@ -76,3 +76,8 @@ The five live [conversation](collaboration/messaging/commons/conversations/), [a
 ## Commons privacy and security Phase 1 — November 4, 2026
 
 Review-only hardening on codex/commons-privacy-phase1: [scope and handoff](collaboration/messaging/commons/SECURITY-PHASE-1.md). Adds shared DM draft/account isolation, discovery consent reset, email-link identity checks, a consolidated rules proposal and local regression/emulator tests. Production rules/config remain unchanged; live Firebase release reconciliation and real-provider verification are required before deployment.
+
+
+## Commons Phase 1 verification follow-up — November 4, 2026
+
+PR #29 now includes additional deferred-auth/thread-generation privacy corrections and expanded regressions. [Readiness and exact administrator gates](collaboration/messaging/commons/SECURITY-PHASE-1.md) distinguish local passing tests from blocked live rules/provider verification. [Phase 2 priorities](collaboration/messaging/commons/PHASE-2-PLAN.md) are planning only; no rollout is authorized.

@@ -75,3 +75,104 @@ The initial full CLI dependency installation exhausted available disk space; the
 The audit's history limit (first 100 messages), 50-conversation limit, last-activity ordering, invitation idempotency, unread-count model, identity/alias trust, missing DM block/report/rate limits, and service-worker navigation caching remain separate work. Existing accepted-contact access is preserved; this proposal does not introduce a new membership/block policy or privileged DM access. Public discoverability exposes the opted-in display name, interest, and UID, not email/about fields; consent is enforced through owner-only directory writes but historical publication cannot be recalled.
 
 Production rules parity and real-provider authentication have not been verified. These are release gates. No deployment approval is requested by this change, and neither the draft PR nor passing emulator tests authorizes production publication.
+
+
+## Phase 1 security verification follow-up — November 4, 2026
+
+Reviewed PR #29 at 1f1a96a7562483d06ef3748f92fac97dbbe7d1ba on the existing branch. This section supersedes the initial test totals above. No merge, deployment, production Firebase settings/data change, actual message, or authentication email was performed. Phase 2 remains planning only.
+
+### Readiness decision
+
+**Ready for maintainer code/merge review, but not for an unconditional merge or deployment approval. Keep PR #29 draft until the release gates below are resolved or a maintainer explicitly establishes that a code-only merge cannot publish the site.** Known local Phase 1 defects have corrections and executable regressions. Production authorization parity and real-provider behavior remain unverified, not passed.
+
+The public GitHub Pages settings request returned 404 and the connector could not supply Pages settings. This is inconclusive, not evidence that publication is disabled. Existing project records show previous main changes were delivered through GitHub Pages. An administrator must confirm the publishing branch/workflow before treating merge as separate from deployment; no settings were changed here.
+
+### Production Firebase access: unavailable in this session
+
+- No Firebase/Google Cloud management tool is connected. Discovery found the official Firebase integration available but not installed/connected; availability is not authorization.
+- No firebase or gcloud executable was found on PATH. The standard Windows Firebase CLI login and Google application-default-credential file locations were absent. No configured FIREBASE_TOKEN or GOOGLE_APPLICATION_CREDENTIALS was found. Only existence/names were checked; no secret values were printed or added to the repository.
+- No authorized non-production cloud project or test-account configuration was supplied. The demo emulator project is local-only and is not a real staging Firebase project.
+- Consequently, no authenticated production Rules API call or production collection/data read was attempted. There is no exported active ruleset, and an exhaustive production-to-proposal difference list cannot honestly be produced. Every production-parity row below remains unknown.
+
+### Exact administrator action required
+
+Choose either an authenticated read-only connection for this task or an administrator-produced export. Do not send private keys, passwords, service-account JSON, or bearer tokens in chat or a public PR.
+
+1. Confirm project homegroups-app and database (default), plus whether any named Firestore databases are used. Provide the publishing branch/workflow for homegroups.org separately.
+2. For an approved connection, use the Firebase Rules Viewer role (roles/firebaserules.viewer) on this project, or a narrower custom role with firebaserules.releases.get and firebaserules.rulesets.get; include release-list permission only if discovery is necessary. This does not require Rules Admin/Editor or document-content access. The connection must actually support reading release metadata and ruleset source; installing a plugin alone does not establish that.
+3. Alternatively, an authorized administrator can perform only these read operations:
+   - GET https://firebaserules.googleapis.com/v1/projects/homegroups-app/releases/cloud.firestore for the default-database release. Confirm the actual release name against the database; list releases read-only if necessary.
+   - GET https://firebaserules.googleapis.com/v1/{rulesetName}, using the exact rulesetName returned by that release.
+   - Export all source.files entries and names, the release/ruleset IDs and update times, database identity, UTC retrieval time and SHA-256 of each raw source file. Keep the original export privately for comparison. Do not copy an unpublished editor buffer and call it the deployed release.
+4. Provide a collection-path inventory (names/purpose only, not user documents) for any backend/Admin-SDK paths absent from the exported rules. Rules source alone cannot enumerate every stored collection or establish IAM/privileged backend access.
+5. Once the export is available, compare every match/helper/allow condition and wildcard with the proposal, classify each difference as preserve/restrict/intentional change, obtain owner decisions for policy changes, add corresponding compatibility/denial tests, and rerun the emulator. Do not replace the live release with either repository file before that reconciliation.
+
+References: [Rules API release read](https://firebase.google.com/docs/reference/rules/rest/v1/projects.releases/get), [ruleset source read](https://firebase.google.com/docs/reference/rules/rest/v1/projects.rulesets/get), [Rules Viewer permissions](https://docs.cloud.google.com/iam/docs/roles-permissions/firebaserules).
+
+### Known repository comparison; production differences still unknown
+
+The proposal and production config were not modified during this follow-up. The root-rule prefix is preserved exactly apart from the added proposal header; regression coverage checks the complete prefix. None of the following is a statement about the deployed release.
+
+| Repository path/family | Known proposal behavior | Active-production comparison |
+| --- | --- | --- |
+| appConfig/main; users/{uid}/settings | Existing public config read/private owner settings unchanged | Unknown: export required |
+| prayers | Existing public reads, Google-provider creation, validated owner/location/body and denied updates/deletes retained. Older proposed rules allowed other providers and prayer acknowledgments; do not assume either policy is live | Unknown: verify provider and prayed-update behavior explicitly |
+| feasts | Existing public reads and authenticated validated creates retained | Unknown |
+| investigationBallots; investigationVotes; investigationSuggestionUsers | Existing ballot status, Google-provider/owner authorization, limits and withdrawal restrictions retained | Unknown |
+| commonsMembers; commonsDirectory | Private owner profile; public opt-in minimal display/interest directory; owner-only writes | Unknown |
+| commonsCommunityMembers; commonsCommunityPosts and replies | Owner enrollment and membership-scoped community access | Unknown |
+| commonsDiscussionReads | Private enrolled-user read markers | Unknown |
+| commonsDirectConversations and messages | Participant-only access, recipient-only terminal pending transitions, accepted-only messages, authenticated sender validation, server timestamps, immutable fields/messages. No owner/moderator DM bypass | Unknown: local emulator tests do not certify production enforcement |
+| commonsModeratorAssignments; commonsReports; commonsReportDecisions | Claim-scoped owner management, active study-moderator reads, immutable reports/owner decisions | Unknown |
+| Other match paths, recursive wildcards, custom claims, IAM/Admin-SDK paths or named databases | Not inferred from the repository; proposal ends in default deny | Unknown: active export and administrator path inventory required |
+
+### Confirmed follow-up corrections and evidence
+
+The initial 29 client tests passed, but new adversarial scenarios exposed six failing assertions across three defect families before corrections:
+
+- **Deferred authentication action used a changed account.** A Google/email linking click could wait for auth restoration, then use the later current account. Actions now capture the initiating account generation and cancel after any identity transition. Email form values are captured at submit time. Fields and status are scrubbed on account changes, including while another operation is pending. Credential collision failures have no sign-in/merge fallback.
+- **Closed DM observers could act on a reopened same-ID thread.** Auth epoch and conversation ID alone did not distinguish two openings of the same conversation. Both pages now use a separate thread generation plus current SDK UID to reject stale conversation/message callbacks and delayed invitation/acceptance completions. Snapshot errors hide the composer; unavailable conversations clear sensitive content. This does not change invitation state policy or implement Phase 2 idempotency.
+- **Legacy logout hid but retained the old transcript/recipient DOM.** Legacy direct/ now clears both on auth transitions, alongside draft/action cleanup. Both actual interfaces are tested in a rendered browser at desktop/mobile widths.
+
+A further pending-sign-in race review added Firebase beforeAuthStateChanged guards for Google and email sign-in. An intervening account may sign in, but a later result from the old pending sign-in cannot replace it. Guard cleanup and provider errors are tested. The production 10.12.2 SDK export was read-only checked for this API; SDK version/configuration were not changed. This uses the [documented pre-auth transition hook](https://firebase.google.com/docs/reference/js/auth#beforeauthstatechanged).
+
+### Asynchronous-send conclusion and limits
+
+The shared composer passed new two-conversation, success/failure, A-B-A account, duplicate-submit and edited/retyped-draft scenarios without needing a composer implementation change in this follow-up. Each dispatched write retains its original senderUid, conversation path and body. A UID mismatch before dispatch prevents the call; a pending-operation token cannot unlock a newer operation after returning to the same account. Failures retain only the matching draft, and successful writes clear only the submitted draft version. Old callbacks do not update the new account/thread UI.
+
+**Submitting is not cancellation:** once addDoc or a credential operation has been dispatched, signing out, closing, or changing context cannot guarantee that the server operation is cancelled. Tests verify payload/context isolation and stale UI suppression, not network cancellation or exactly-once delivery. The proposed Firestore sender/participant checks are the final protection if the SDK changes identity while a write is pending. Their actual production deployment remains a gate. Retrying an ambiguous failure and durable operation IDs remain a Phase 2 delivery design concern. No actual message was sent to test this.
+
+### Authentication verification matrix
+
+| Scenario | Evidence | Remaining limit |
+| --- | --- | --- |
+| Google sign-in, popup closure/failure, auth restoration | Actual page logic with SDK doubles; controls recover; explicit sign-out required for switching | No real Google/OAuth interaction |
+| Google and email credential linking | Calls use the original UID; success/collision/cancellation and no sign-in fallback are tested | No real credential/UID assertion against a cloud Auth service |
+| Email sign-in, new tab/device without local state | Explicit address and confirmation required; already-signed-in account is not replaced | No delivered email or physical-device action-link test |
+| Expired/malformed/mismatched linking state | Fail-closed local 30-minute expiry, nonce, UID and mode checks | Firebase server-side expiry tested as a mocked auth/expired-action-code response, not a real token |
+| Delayed sign-in after an intervening account | Pre-transition guard rejects stale completion and is removed after success/error | Real persistence/cross-tab SDK behavior needs non-production verification |
+| Shared browser consent and delayed reads/writes | Original consent gating tests plus stale auth/thread generations and DOM cleanup regressions pass | Physical iOS/Safari, browser back-forward cache and screen readers are not certified |
+
+Real-provider testing requires an explicitly designated non-production project, its public web app configuration, enabled Google/email-link providers, authorized test origins/action-handler domains, controlled test accounts, and an approved browser session. The current instruction also prohibits actual authentication emails; email-delivery testing would need separate explicit authorization or administrator-provided evidence. No production provider settings, test users, or cloud projects were created/changed. Local mocks and the Firestore emulator do not satisfy this gate.
+
+### Current verification results
+
+| Verification | Result | Evidence / limit |
+| --- | --- | --- |
+| Client regressions | **58 passed; 0 failed/skipped** | [Actual page-script tests](../../../../tests/commons-security/client.test.cjs), including both DM pages, deferred auth, provider failures, shared-browser cleanup and stale completions |
+| Rendered privacy regressions | **4 passed; 0 failed/skipped** | [Both actual DM modules](../../../../tests/commons-security/browser.test.cjs) at 1440px and 390px, all network traffic intercepted/blocked |
+| Firestore authorization | **14 groups passed; 0 failed/skipped** | [Proposal tests](../../../../tests/commons-security/rules.test.cjs), checksum-pinned loopback Firestore 1.19.8 and fixed demo project |
+| Existing five-screen browser suite | **Passed desktop and mobile** | Community reading/posting/replies/search, enrollment, profile, account controls, navigation and embedded return; SDK doubles |
+| Existing weekly starters | **Week 1 desktop and Week 2 mobile passed** | Existing payloads, drafts, membership, retry and account isolation; SDK doubles |
+| Changed JavaScript syntax and diff whitespace | **Passed** | Inline module parse checks plus Node checks and git diff --check |
+| Root rules / production config / Phase 2 code | **Unchanged / unchanged / not implemented** | Compared against 36e3516 and initial PR head |
+| Active production rules / real cloud authentication | **Blocked, not verified** | No connected authorized management session or designated non-production project |
+| Physical Safari/iOS / actual deployment coupling | **Not verified** | Requires administrator/device evidence |
+
+Reinstalled the unchanged dependency lockfile after finding broken local package links. An initial resource-contended parallel browser run timed out (one DM case and a mobile embedded-navigation wait). A later starter rerun also exposed a narrow-screen desktop-mouse hover race in the fixture. The fixtures now model touch at mobile widths and use keyboard menu activation. Sequential reruns passed every browser scenario with no assertions removed. The configured rendered-test timeout is 60 seconds to allow slow local browser startup. These reruns do not establish real-provider or production-rules behavior. Historical initial totals above remain as the earlier review record.
+
+### Remaining risks and recommended next action
+
+No newly uncovered Phase 1 client defect is knowingly left unresolved in the corrected/tested paths. This is a bounded code-review conclusion, not a certification of the deployed system. Production rules/IAM, real-provider configuration and persistence, physical mobile behavior, in-flight-operation cancellation and the original deferred audit findings remain unverified or intentionally out of scope.
+
+Recommended next action: keep the PR draft, review the Phase 1 corrections, and arrange the read-only rules export plus a non-production authentication verification session. Confirm whether merging publishes the site. Reconcile and retest before any merge that could publish, and before any deployment approval. For expansion work, use [the prioritized Phase 2 plan](PHASE-2-PLAN.md); it is planning only.

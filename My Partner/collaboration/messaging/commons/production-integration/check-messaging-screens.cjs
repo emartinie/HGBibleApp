@@ -19,6 +19,7 @@ const authSDK=`import {auth,state,save} from 'http://release.test/js/firebase-in
 const listeners=new Set();
 function change(user){auth.currentUser=user;sessionStorage.setItem('test-user',JSON.stringify(user));for(const fn of listeners)fn(user);}
 export function onAuthStateChanged(a,next){listeners.add(next);queueMicrotask(()=>next(a.currentUser));return ()=>listeners.delete(next);}
+export function beforeAuthStateChanged(){return()=>{};}
 export class GoogleAuthProvider{}
 export async function signOut(){change(null);}
 export async function signInWithPopup(){change({uid:'member-one',displayName:'A reader',providerData:[{providerId:'google.com'}]});return {user:auth.currentUser};}
@@ -44,7 +45,7 @@ export async function addDoc(ref,data){const s=state(),id='posted-'+(s.writes.le
  const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
  try{
  for(const width of [1440,390]){
-  const context=await browser.newContext({viewport:{width,height:width===390?844:1000},serviceWorkers:'block'});
+  const context=await browser.newContext({viewport:{width,height:width===390?844:1000},hasTouch:width<=600,serviceWorkers:'block'});
   await context.route('**/*',async route=>{
    const url=new URL(route.request().url());
    if(url.hostname==='www.gstatic.com')return route.fulfill({contentType:'text/javascript',body:url.pathname.includes('firebase-auth')?authSDK:storeSDK});
@@ -102,7 +103,7 @@ export async function addDoc(ref,data){const s=state(),id='posted-'+(s.writes.le
   assert.ok(writes.some(x=>x.ref==='commonsCommunityMembers/projects/members/member-one'));
   assert.ok(writes.some(x=>x.ref==='commonsMembers/member-one'&&x.options?.merge));
   // All live screens also fit inside the production floating iframe; back closes it without reloading study.
-  await page.goto('http://release.test/');await page.locator('#hg-commons-launch').focus();await page.locator('#hg-commons-launch').press('Enter');await page.getByRole('button',{name:/Bible Study discussions/}).click();
+  await page.goto('http://release.test/');await page.locator('#hg-commons-launch').focus();await page.locator('#hg-commons-launch').press('Enter');await page.getByRole('button',{name:/Bible Study discussions/}).press('Enter');
   const frame=page.frameLocator('#hg-commons-window iframe');await frame.getByRole('link',{name:'Open full Bible Study conversations',exact:true}).click();
   await frame.locator('.messaging-shell').waitFor();await frame.getByRole('link',{name:'Communities',exact:true}).click();await frame.locator('#directory .card').first().waitFor();
   await frame.getByRole('link',{name:'Profile',exact:true}).click();await frame.getByRole('heading',{name:'Your Messaging profile',exact:true}).waitFor();
