@@ -4,7 +4,8 @@
 <script type="module">
 import {auth,db} from '../../../../../js/firebase-init.js';
 import {doc,getDoc,setDoc,deleteDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-import {onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,signOut} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,signOut} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {onAuthStateChanged} from '../commons-lifecycle.js';
 const $=id=>document.getElementById(id);let activeUid=null,cloudMember=false;const join=$('join'),cloudStatus=$('cloudStatus');const profile=$('profile'),draftStatus=$('draftStatus');const status=$('status'),details=$('details'),signIn=$('signin'),signOutBtn=$('signout'),redirect=$('redirect'),diagnostic=$('diagnostic');
 function showError(err){const code=err?.code||'unknown';status.textContent='Google sign-in did not complete ('+code+').';diagnostic.hidden=false;diagnostic.textContent=code==='auth/unauthorized-domain'?'This website domain is not authorized in Firebase Authentication. An administrator must add homegroups.org under Firebase Console → Authentication → Settings → Authorized domains.':code==='auth/operation-not-allowed'?'Google sign-in is not enabled for this Firebase project. Check Firebase Authentication → Sign-in method.':code==='auth/popup-blocked'||code==='auth/popup-closed-by-user'||code==='auth/cancelled-popup-request'?'The sign-in popup was blocked or closed. Try full-page sign-in below. If it still fails, note the error shown.':'Firebase reported: '+(err?.message||code)+' | Page origin: '+location.origin+' | Auth domain: '+auth.app.options.authDomain;redirect.hidden=code==='auth/unauthorized-domain'||code==='auth/operation-not-allowed';signIn.disabled=false;}
 getRedirectResult(auth).catch(showError);

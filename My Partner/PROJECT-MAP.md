@@ -71,3 +71,7 @@ The five live [conversation](collaboration/messaging/commons/conversations/), [a
 ## Two Powers investigation page — November 1, 2026
 
 [Production investigation](../investigations/two-powers-in-heaven.html) is registered as #016 in `data/investigations/published-investigations.json`; 17 total records. [Approved preview](investigations/two-powers/two-powers-in-heaven.html) and [integration/verification notes](investigations/two-powers/README.md) remain available. The approved HTML was copied unchanged and the existing loader was preserved. Structural checks passed; rendered browser verification remains pending. Eddie authorized publication and lifted the old folder-only write boundary; root [AGENTS.md](../AGENTS.md) records current task-scoped authorization.
+
+## November 4, 2026 — Fellowship integration draft
+
+On `codex/fellowship-phase1`, based on main `36e3516`: [integration report](collaboration/messaging/commons/FELLOWSHIP-INTEGRATION.md), native `cards/fellowship.html` / `js/fellowship.js`, existing Prayer Map and Commons screen adapters, listener disposal and global-theme inheritance. No new Firestore model, migration, deployment or production mutation. Draft PR #29 remains a security release dependency; it has not been incorporated into this branch. Browser tests use mocked services and a focused HomeGroups host; live rules and provider/device verification remain open.

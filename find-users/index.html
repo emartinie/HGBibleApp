@@ -9,7 +9,7 @@
 <p class="foot">The Messaging directory shows members who have opted in to being discoverable. Private email addresses and phone numbers are not published. Historical records are not automatically linked to Firebase accounts.</p>
 </main><script type="module">
 import {auth,db} from '../js/firebase-init.js';
-import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {onAuthStateChanged} from '../My%20Partner/collaboration/messaging/commons/commons-lifecycle.js';
 import {collection,getDocs} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const $=id=>document.getElementById(id),size=24;let records=[],page=0,legacyLoaded=false,liveLoaded=false,liveError='',viewerUid=null;
 onAuthStateChanged(auth,user=>{viewerUid=user?.uid||null;render()});

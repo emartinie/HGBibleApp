@@ -5,7 +5,8 @@
 <details><summary>About your account</summary><p class="muted"><small>HomeGroups uses Firebase, a Google-operated service, for authentication and community data. Keep your sign-in links private.</small></p></details></section></main>
 <script type="module">
 import {auth} from '../../../../../js/firebase-init.js';
-import {onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,linkWithPopup,linkWithCredential,EmailAuthProvider,fetchSignInMethodsForEmail} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {GoogleAuthProvider,signInWithPopup,signOut,sendSignInLinkToEmail,isSignInWithEmailLink,signInWithEmailLink,linkWithPopup,linkWithCredential,EmailAuthProvider,fetchSignInMethodsForEmail} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {onAuthStateChanged} from '../commons-lifecycle.js';
 const $=id=>document.getElementById(id),status=$('status');let busy=false;
 const pendingKey='hg-commons-email-link-pending';const next=new URLSearchParams(location.search).get('next');const safeNext=next&&next.startsWith('/My%20Partner/collaboration/messaging/commons/')&&!next.startsWith('//')?next:null;if(safeNext)$('continue').href=safeNext;
 function say(s){status.textContent=s}
