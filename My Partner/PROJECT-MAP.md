@@ -101,3 +101,5 @@ Separate `codex/fellowship-controlled-testing` branch builds on PR #31, with pro
 ## Fellowship live-services candidate
 
 Separate codex/fellowship-live-integration from main 487a460 reuses existing Commons services through the native card; the owner-fixture route remains separate. New live pilot configuration is disabled without test UIDs or dates. [Reuse, conditional approved test plan and genuine release blockers](../FELLOWSHIP-LIVE-INTEGRATION.md) distinguish client/emulator coverage from unverified production rules/provider operations. No deployment or production mutation.
+
+November 5: single-account pilot follow-up keeps activation disabled, permits an allowlisted administrator without granting Firebase permissions, and clears the week dock on loading/denied screens. See FELLOWSHIP-LIVE-INTEGRATION.md.

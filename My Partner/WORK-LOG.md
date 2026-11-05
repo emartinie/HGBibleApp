@@ -182,3 +182,6 @@ Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 vi
 - Firebase plugin is installed but no management tools or standard CLI/ADC login are available. Stopped production verification before any live reads/writes. [Implementation and exact prerequisites](../FELLOWSHIP-LIVE-INTEGRATION.md). Final automated evidence recorded there before draft handoff.
 
 - Final evidence: all 62 Fellowship cases verified (one accurate permission-copy correction/targeted rerun); 75 client and 14 emulator groups passed; 4 DM rendered cases verified with one timeout-only rerun; both existing five-screen widths and Week 1/2 starter suites passed. Thirteen script/module sources parsed and whitespace/protected-file checks passed. Windows interruption was recovered; no production operations were executed.
+
+## November 5, 2026 — Single-account pilot and week overlap
+- Codex: scoped request on codex/fellowship-single-account from main 344e879. Allowlisted one supplied UID (including administrator), kept activation false and existing Firebase authorization unchanged. Reserved week-dock space for live loading/denied screens. Focused gate/mobile checks only; no broad suites, production operations, merge or deployment. Other contributors’ activity remains unknown.

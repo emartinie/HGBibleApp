@@ -5,7 +5,7 @@ let active;
 function clear(session){window.destroyFellowshipCard?.();session.mounted=false;session.host.replaceChildren();}
 function unavailable(session){
   clear(session);
-  const section=document.createElement('section');section.className='hg-panel';
+  const section=document.createElement('section');section.className='hg-panel';section.style.setProperty('padding-block-start','64px','important');
   const status=document.createElement('p');status.setAttribute('role','status');status.textContent='Live Fellowship is not enabled for this account.';
   const account=document.createElement('a'),url=new URL('/My%20Partner/collaboration/messaging/commons/auth/',location.origin);
   const back=new URL('/',location.origin);back.searchParams.set('card','fellowship-live');
