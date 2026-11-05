@@ -9,3 +9,7 @@ November 4, 2026 final run: **12 passed, 0 failed**, 91.7 seconds, headless inst
 ## Integrated security candidate
 
 The combined implementation passes all original 12 scenarios plus six integrated authentication/disposal cases (18 total, 159.0 seconds). SDK doubles now model auth restoration and before-auth transitions. New cases verify the hardened Account flow inside Fellowship, UID-preserving linking and collision handling, disposed popups, stale parent callbacks, profile-to-Account navigation and prohibition of independent Prayer Map sign-in. Actual providers and production authorization remain unverified. See [integration readiness](../../My%20Partner/collaboration/messaging/commons/FELLOWSHIP-SECURITY-INTEGRATION.md).
+
+## Controlled production-entry candidate
+
+Run `npm test` here for both the preserved 18-case PR #31 component suite and the new controlled-policy suite, sequentially. `npm run test:controlled` runs only the release checks. The component harness explicitly imports `component-entry.js` with SDK doubles; production HTML and legacy app entry both use `homegroups-entry.js` and cannot select that test harness through a URL flag. Production policy coverage is separate, uses actual index markup and mocks unrelated shell boot/services. See [release configuration and rollback](../../CONTROLLED-FELLOWSHIP-RELEASE.md).

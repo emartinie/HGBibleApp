@@ -93,3 +93,7 @@ On `codex/fellowship-phase1`, based on main `36e3516`: [integration report](coll
 ## Fellowship local visual preview
 
 [Local preview tooling and instructions](../tools/fellowship-preview/README.md) serve the integrated candidate through a loopback-only synthetic adapter. [Readiness](../tools/fellowship-preview/PREVIEW-READINESS.md) distinguishes mocked views and service behavior from production verification. No live hosted environment or Firebase resource was created; original historical data is untouched. A scoped embedded Messages CSS correction addresses the light-theme gradient and mobile layout revealed by preview screenshots.
+
+## Controlled Fellowship release candidate
+
+Separate `codex/fellowship-controlled-testing` branch builds on PR #31, with production entries installing an immutable UI release policy before the shared card runtime. Flag remains false; only bounded read-only fictional fixtures can be enabled for a trusted owner. Public Prayer Map routing/menu are restored. [Release configuration](../CONTROLLED-FELLOWSHIP-RELEASE.md) records public-static-asset limits, owner-confirmed main/root auto-publication, physical-device checks and rollback. No production change is applied.

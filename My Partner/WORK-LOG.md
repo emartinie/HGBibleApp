@@ -164,3 +164,12 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Prepared loopback-only synthetic preview under `tools/fellowship-preview/`, using actual card/screens with no production SDK/configuration or historical downloads served. No hosting/deployment or external resources created.
 - Visual review found embedded DM light-theme gradient/redundant branding/mobile spacing issues; corrected only Fellowship's embedded CSS, preserving auth/DM logic. Preview tests cover isolation and synthetic interactions; desktop/mobile dark/light screenshots captured.
 - [Readiness and limits](../tools/fellowship-preview/PREVIEW-READINESS.md); [approval-gated location correction proposal](../tools/fellowship-preview/PRIVACY-PROPOSAL.md). Original GeoJSON/data/rules/configuration remain unchanged. No real messages, emails, memberships or prayer writes.
+
+## Controlled production-testing candidate — November 4, 2026
+
+- Owner: Codex, authorized by Eddie to implement/verify only; final configuration approval is required before merge/deployment. Base PR #31 `fb357af`; separate branch `codex/fellowship-controlled-testing`. PR #31 remains unchanged. Other contributors' uncommitted work remains unknown.
+- Added off-by-default bounded owner-claim UI gate, actual production/compatibility entries, fixture-only native Fellowship rendering, disabled mutation/auth/location actions, late-callback/badge isolation, ordinary Prayer Map/menu compatibility and cache-safe offline denial. Touch themes and mobile week-dock/reading context are preserved.
+- Owner confirmed Pages source `main / (root)`: a main merge is a publication trigger. No merge, deployment, Firebase rule/config/claim/data change, real message/email/membership/prayer operation occurred. Static assets remain public; this is explicitly not server-authenticated HTTP delivery.
+- [Exact public exposure, test evidence, release checklist and rollback](../CONTROLLED-FELLOWSHIP-RELEASE.md). Physical iPhone testing, actual owner claim and live release gates remain unverified.
+
+Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 visible-week desktop/mobile checks passed. Earlier security/emulator/browser suites remain passing. Flag stays disabled; no merge/deploy or production writes. See CONTROLLED-FELLOWSHIP-RELEASE.md.

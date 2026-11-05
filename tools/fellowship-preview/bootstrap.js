@@ -8,6 +8,6 @@ document.getElementById('previewAccount').addEventListener('change',event=>simul
 document.getElementById('previewReset').onclick=async()=>{resetDemo();await simulateAccount('alice');document.getElementById('previewAccount').value='alice';await window.loadCard('fellowship',{fromRoute:true});};
 document.getElementById('openFellowship').onclick=()=>window.loadCard('fellowship');
 if(!new URLSearchParams(location.search).has('card'))window.HGRoute.write('fellowship',{view:'prayer',week:week.value},{replace:true,announce:false});
-await import('/js/app.js');
+await import('/__preview__/component-entry.js');
 // Read-only test diagnostics; no production configuration or credentials exist here.
 window.previewDiagnostics=()=>({account:store.user?.uid,authListeners:store.auth.size,snapshotListeners:store.snapshots.size,records:store.docs.size});

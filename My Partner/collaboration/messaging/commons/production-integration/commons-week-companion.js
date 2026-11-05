@@ -1,6 +1,7 @@
 // HomeGroups Week 1/2 Messaging production integration candidate.
 // Load from app shell as <script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js"></script>
 // This module changes no production source files. Uses same-origin Firebase Messaging iframe.
+const testingRouteActive=()=>window.HGFellowshipTestingRequested||['fellowship-test','fellowship'].includes(new URLSearchParams(location.search).get('card'));
 const PILOT = new URL('../week-context-pilot/', import.meta.url);
 let week = 0, box, frame, collapsed = false, dragging = null;
 const css = document.createElement('style');
@@ -35,7 +36,7 @@ css.textContent = `
 document.head.append(css);
 const launch=document.createElement('button');launch.id='hg-commons-launch';launch.innerHTML='☏ Messaging <span id="hg-commons-badge" hidden aria-label="Unread messaging activity"></span>';launch.hidden=true;launch.type='button';document.body.append(launch);
 const menu=document.createElement('nav');menu.id='hg-commons-menu';menu.hidden=true;menu.setAttribute('aria-label','Messaging destinations');
-menu.innerHTML='<strong>Messaging</strong><a href="/?card=fellowship&amp;view=messages">Conversation requests <span class="count" id="hg-commons-requests" hidden></span></a><a href="/?card=fellowship&amp;view=messages">Private messages <span class="count" id="hg-commons-unread" hidden></span></a><button type="button" id="hg-commons-study">Bible Study discussions <span>›</span></button><a href="/?card=fellowship&amp;view=explore&amp;section=people">Find people <span>›</span></a>';
+menu.innerHTML='<strong>Messaging</strong><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Conversation requests <span class="count" id="hg-commons-requests" hidden></span></a><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Private messages <span class="count" id="hg-commons-unread" hidden></span></a><button type="button" id="hg-commons-study">Bible Study discussions <span>›</span></button><a href="/find-users/">Find people <span>›</span></a>';
 document.body.append(menu);
 const requestsCount=menu.querySelector('#hg-commons-requests'),unreadCount=menu.querySelector('#hg-commons-unread');
 function menuVisible(value){menu.hidden=!value;launch.setAttribute('aria-expanded',String(value))}
@@ -53,7 +54,7 @@ document.addEventListener('pointerdown',e=>{if(!menu.contains(e.target)&&!launch
 document.addEventListener('keydown',e=>{if(e.key==='Escape')menuVisible(false)});
 
 box=document.createElement('section');box.id='hg-commons-window';box.hidden=true;box.setAttribute('aria-label','Messaging study companion');
-box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><a id="hg-commons-inbox" href="/?card=fellowship&amp;view=messages">✉ Inbox</a> <button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
+box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><a id="hg-commons-inbox" href="/My%20Partner/collaboration/messaging/commons/direct-live/">✉ Inbox</a> <button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
 const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-commons-label'),min=box.querySelector('#hg-commons-min');
 document.body.append(box);
 function validWeek(n){return n===1||n===2||n===3||n===4}
@@ -127,15 +128,15 @@ window.addEventListener('message',event=>{
   window.addEventListener('focus',update);
   function subscribeInbox(u){
    const token=++subscriptionEpoch;
-   clear();activeUid=u?.uid||'';if(!activeUid||window.HGFellowshipActive)return;
+   clear();activeUid=u?.uid||'';if(!activeUid||window.HGFellowshipActive||window.HGFellowshipTestingRequested||['fellowship-test','fellowship'].includes(new URLSearchParams(location.search).get('card')))return;
    const uid=activeUid;
    stopInbox=onSnapshot(query(collection(db,'commonsDirectConversations'),where('participants','array-contains',uid),limit(50)),snap=>{
-    if(uid!==activeUid||token!==subscriptionEpoch)return;
+    if(uid!==activeUid||token!==subscriptionEpoch||testingRouteActive())return;
     stops.forEach(fn=>fn());stops=[];lastMessages.clear();
     items=snap.docs.map(d=>({id:d.id,data:d.data()}));update();
     for(const item of items.filter(x=>x.data.status==='accepted')){
      const stop=onSnapshot(query(collection(db,'commonsDirectConversations',item.id,'messages'),orderBy('createdAt','desc'),limit(1)),messages=>{
-      if(uid!==activeUid||token!==subscriptionEpoch)return;
+      if(uid!==activeUid||token!==subscriptionEpoch||testingRouteActive())return;
       const latest=messages.docs[0]?.data();
       lastMessages.set(item.id,latest?{senderUid:latest.senderUid,timestamp:latest.createdAt?.toMillis?.()||0}:null);
       update();
@@ -146,5 +147,6 @@ window.addEventListener('message',event=>{
   }
   onAuthStateChanged(auth,subscribeInbox);
   window.addEventListener("hg:fellowship-active",()=>subscribeInbox(auth.currentUser));
+  window.addEventListener("hg:fellowship-testing-route",()=>subscribeInbox(auth.currentUser));
  }catch(err){console.warn('Messaging badge unavailable',err)}
 })();

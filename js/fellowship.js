@@ -1,6 +1,8 @@
 import { auth } from './firebase-init.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import './prayermap.js';
+import {renderReadOnlyFixtures} from './fellowship-test-fixtures.js';
+export const controlledFixturesVersion=1;
 
 const COMMONS = '/My%20Partner/collaboration/messaging/commons/';
 const VIEWS = new Set(['prayer','communities','explore','messages']);
@@ -83,7 +85,7 @@ function bridge(session, frame) {
   const mapHandler = event => { event.preventDefault();event.stopImmediatePropagation(); select(session,{view:'prayer',week:session.state.week}); };
   mapToggle?.addEventListener('click',mapHandler,true);
   const areaSelect=doc.getElementById('area');
-  const areaHandler=()=>{if(AREAS.has(areaSelect.value)){session.state.area=areaSelect.value;window.HGRoute?.write('fellowship',session.state,{announce:false});}};
+  const areaHandler=()=>{if(AREAS.has(areaSelect.value)){session.state.area=areaSelect.value;window.HGRoute?.write(session.routeCard,session.state,{announce:false});}};
   areaSelect?.addEventListener('change',areaHandler);
   doc.addEventListener('click',handler,true);
   session.bridgeCleanup = () => {areaSelect?.removeEventListener('change',areaHandler);doc.removeEventListener('click',handler,true);mapToggle?.removeEventListener('click',mapHandler,true);};
@@ -94,6 +96,12 @@ async function render(session) {
   session.root.querySelectorAll('[data-fellowship-view]').forEach(button => button.setAttribute('aria-current',button.dataset.fellowshipView === session.state.view ? 'page' : 'false'));
   session.root.querySelector('[data-fellowship-action=retry]').hidden=true;
   session.status.textContent='Loading…';session.content.setAttribute('aria-busy','true');
+  if (session.testing) {
+    renderReadOnlyFixtures(session.content,session.state,route=>select(session,route));
+    session.status.textContent='Read-only test: no live messaging, membership changes, sign-in shortcuts or location publication.';
+    session.content.setAttribute('aria-busy','false');
+    return;
+  }
   if (session.state.view === 'prayer' && !session.state.section) {
     session.abort = new AbortController();
     try {
@@ -137,17 +145,19 @@ function select(session, route, write = true) {
   return render(session);
 }
 function returnToStudy(session) {window.HGRoute?.navigate('mainstage',{week:session.state.week || document.getElementById('weekSelect')?.value});}
-window.initFellowshipCard = function(host) {
+window.initFellowshipCard = function(host,options={}) {
   window.destroyFellowshipCard();
   const root=host.querySelector('.fellowship');if(!root)return;
-  const session={root,content:root.querySelector('[data-fellowship-content]'),status:root.querySelector('[data-fellowship-status]'),generation:0,authReady:false,uid:undefined,state:stateFor(window.HGRoute?.read())};
+  const session={root,content:root.querySelector('[data-fellowship-content]'),status:root.querySelector('[data-fellowship-status]'),generation:0,testing:options.readOnlyFixtures===true,routeCard:options.readOnlyFixtures===true?'fellowship-test':'fellowship',authReady:false,uid:undefined,state:stateFor(window.HGRoute?.read())};
   active=session;
+  if(session.testing)root.querySelectorAll('[data-fellowship-action="account"],[data-fellowship-action="profile"],[data-fellowship-action="people"]').forEach(control=>{control.disabled=true;control.title="Unavailable during read-only testing";});
   window.HGFellowshipActive=true;
   window.dispatchEvent(new Event("hg:fellowship-active"));
   session.click = event => {
     const button=event.target.closest('button');if(!button)return;
     if (button.dataset.fellowshipView) select(session,{view:button.dataset.fellowshipView,week:session.state.week});
     const action=button.dataset.fellowshipAction;
+    if(session.testing&&['account','profile','people'].includes(action))return;
     if(action==='study')returnToStudy(session);
     if(action==='retry')render(session);
     if(action==='people')select(session,{view:'explore',section:'people',week:session.state.week});
@@ -170,7 +180,7 @@ window.initFellowshipCard = function(host) {
     root.querySelector("[data-fellowship-account]").textContent="Your account could not be checked. Use Account to try again.";
     render(session);
   });
-  session.unregister = window.HGRoute?.registerCard('fellowship',{getState:()=>session.state,restore:route=>{if(active===session && JSON.stringify(stateFor(route))!==JSON.stringify(session.state))return select(session,route,false);}});
+  session.unregister = window.HGRoute?.registerCard(session.routeCard,{getState:()=>session.state,restore:route=>{if(active===session && JSON.stringify(stateFor(route))!==JSON.stringify(session.state))return select(session,route,false);}});
   return render(session);
 };
 window.destroyFellowshipCard = function() {

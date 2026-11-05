@@ -3,7 +3,7 @@ const http=require('node:http'),fs=require('node:fs/promises'),path=require('nod
 const ROOT=path.resolve(__dirname,'../..');
 const COMMONS='My Partner/collaboration/messaging/commons/';
 const files=new Map([
- ...['app','share-routing','themeDiagnostic','fellowship','prayermap'].map(n=>['/js/'+n+'.js','js/'+n+'.js']),
+ ...['app','card-app-runtime','share-routing','themeDiagnostic','fellowship','fellowship-test-fixtures','prayermap'].map(n=>['/js/'+n+'.js','js/'+n+'.js']),
  ...['fellowship','prayermap'].map(n=>['/cards/'+n+'.html','cards/'+n+'.html']),
  ...['fellowship','fellowship-embedded'].map(n=>['/css/'+n+'.css','css/'+n+'.css']),
  ...['auth','member','directory','conversations','activity','direct-live','direct'].flatMap(n=>[['/'+COMMONS+n+'/',COMMONS+n+'/index.html'],['/'+COMMONS+n+'/index.html',COMMONS+n+'/index.html']]),
@@ -22,6 +22,7 @@ function createPreviewServer(){return http.createServer(async(req,res)=>{
  if(!['GET','HEAD'].includes(req.method))return send(405,'This preview accepts no server writes');
  try{const url=new URL(req.url,'http://'+host),name=decodeURIComponent(url.pathname);
   if(name==='/')return send(200,await shell(),'text/html');
+  if(name==='/__preview__/component-entry.js')return send(200,"import '/js/card-app-runtime.js';",'text/javascript');
   if(name==='/js/firebase-init.js')return send(200,"export {auth,db,app} from '/__preview__/fixture-sdk.js';",'text/javascript');
   if(name==='/js/timeStore.js')return send(200,'export const TimeStore={start(){}};','text/javascript');
   if(name==='/js/firebaseTimeLoader.js')return send(200,'export function initializeTimeSystem(){}','text/javascript');

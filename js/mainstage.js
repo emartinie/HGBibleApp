@@ -638,7 +638,7 @@ async function init() {
   populateWeekSelect();
 
   const initialRoute = window.HGRoute?.read?.();
-  const routedWeek = initialRoute?.card === "mainstage"
+  const routedWeek = ["mainstage", "fellowship-test", "fellowship"].includes(initialRoute?.card)
     ? parseInt(initialRoute.week, 10)
     : NaN;
   if (Number.isFinite(routedWeek) && routedWeek >= 1 && routedWeek <= TOTAL_WEEKS) {
