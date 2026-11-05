@@ -11,7 +11,7 @@
 <script type="module">
 import {attachReportControl} from '../moderation/report-control.js?v=20261015-report-live-1';
 import {auth,db} from '../../../../../js/firebase-init.js';
-import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {onAuthStateChanged} from '../commons-lifecycle.js';
 import {doc,getDoc,collection,getDocs,query,orderBy,limit,startAfter,addDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const ids=['projects','fellowship','prayer','study','discipleship','family'];
 const topics=['General discussion','Questions & answers','Ideas & projects','Resources & learning','Encouragement & testimony','Announcements'];

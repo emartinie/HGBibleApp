@@ -110,3 +110,66 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Public `https://homegroups.org/investigations/two-powers-in-heaven.html` returned HTTP 200 with the expected article id; delivered SHA-256 `3d2d1467ce8ce19469a96d9544ec58f165537a9f73c760f4815a2ec969e3cb4f`.
 - Public published manifest returned HTTP 200 with 17 records and the exact #016 id/file/order registration. Repository readback matched the approved HTML and intended manifest.
 - This verifies deployment and public delivery. Browser-rendered interaction testing remains unperformed; Eddie reviewed and approved the page appearance before publication.
+
+
+## November 4, 2026 — Commons privacy and security Phase 1
+- Owner: Codex; explicitly authorized by Eddie. Baseline/main: 36e3516f4195a050e84b3d176e1e67b7220759bf.
+- Review branch: codex/commons-privacy-phase1. No merge, deployment, Firebase configuration change, real message/email, or production data write.
+- Prepared shared DM composer isolation for both live/legacy screens; account-scoped discovery consent and stale-callback guards; explicit email-link intent, auth-restoration and UID checks, collision handling and safe return navigation.
+- Prepared firebase/commons-phase1.rules.proposed with known root permissions, Commons membership/community, DM participant protection and scoped moderation. Root rules and production Firebase config remain unchanged. The actual deployed rules release has not been exported; production parity remains a release gate.
+- Added executable client, rendered DM and Firestore emulator authorization tests; updated existing browser fixtures for current SDK/navigation behavior and portable screenshot output.
+- Full scope, test commands, remaining risks and manual provider/rules verification: collaboration/messaging/commons/SECURITY-PHASE-1.md and root tests/commons-security/README.md.
+- Intern activity remains unknown; this branch does not overwrite another worker or publish to main.
+- Final checks: 29 client tests, 2 rendered DM tests, 14 Firestore emulator authorization groups, both existing screen-suite widths and both weekly-starter scenarios passed. Syntax and whitespace checks passed. Real providers/deployed rules/physical-device behavior remain unverified.
+
+
+## November 4, 2026 — Phase 1 security verification follow-up
+- Owner: Codex; Eddie requested verification and necessary Phase 1 corrections on existing PR #29. Starting head: 1f1a96a7562483d06ef3748f92fac97dbbe7d1ba.
+- Access: official Firebase integration is available but unconnected; no usable local CLI login/ADC found. No authenticated production rules export or non-production cloud auth project was available. Exact read-only export/IAM/evidence requirements are recorded in SECURITY-PHASE-1.md. No secrets printed or requested for publication.
+- Corrected deferred auth account-generation races, delayed sign-in pre-transition protection, stale same-ID DM observers and invitation/acceptance callbacks, and legacy transcript/recipient cleanup on logout. Shared composer behavior was expanded-tested without changing its implementation in this follow-up.
+- Verification: 58 client tests; 4 rendered DM scenarios; 14 loopback Firestore groups; five-screen desktop/mobile suite and Week 1/2 starter scenarios passed. Syntax/whitespace checks passed. Initial parallel browser timeouts resolved on sequential reruns; assertions retained.
+- Planning only: PHASE-2-PLAN.md prioritizes abuse controls, delivery/inbox pagination, ordering, request idempotency, unread state, identity clarity, navigation/offline and mobile accessibility. No Phase 2 code.
+- Readiness: code is reviewable; retain draft/hold unconditional merge pending active rules reconciliation, real-provider non-production verification and confirmation of main's publishing behavior. No merge, deployment, production configuration/data change, real message or authentication email.
+
+
+### Firebase installation access recheck — November 4, 2026
+- Firebase is now installed/enabled. No Firebase management tools appear in this session’s callable catalog; authenticated homegroups-app access is not established. The server configuration uses npx; local npx/firebase/gcloud and standard login/ADC files were absent. Server environment may differ, so this is not a confirmed startup root cause.
+- Updated SECURITY-PHASE-1.md with the narrower remaining connection/login prerequisite and administrator export alternative. No login, credential read, Rules API call, production change, or test/code change. Previous test results remain applicable.
+
+
+### Authentication completion-side audit
+- Starting review head: a7a90fa. Eight newly tested stale-completion paths reproduced status/pending/navigation or stale-render failures before correction.
+- Bound completion effects to the initiating generation or its sole expected SDK identity transition. Guarded email-request cleanup, sign-out feedback, email-action restoration/success/cleanup, and stale auth observer renders. Preserved normal linking/sign-in cleanup with explicit controls.
+- Expanded client suite: 70 passed, 0 failed/skipped. Changed auth module parsed successfully; desktop/mobile screen compatibility rerun recorded in SECURITY-PHASE-1.md. DM/rules/config and Phase 2 code unchanged. No real emails, messages, production data/settings, merge or deployment.
+
+## November 4, 2026 — Fellowship Integration, Phase 1
+
+- Owner: Codex, authorized by Eddie; other workers' uncommitted activity remains unknown.
+- Base: main `36e3516f4195a050e84b3d176e1e67b7220759bf`; separate feature branch `codex/fellowship-phase1`. No security-branch merge.
+- Scope: native Fellowship card and route alias, reused Prayer Map and Commons directory/discussions/DM/account screens, explicit component listener cleanup, global theme bridge, membership filter, map callback/consent protections, integration browser tests.
+- Evidence and limitations: [integration report](collaboration/messaging/commons/FELLOWSHIP-INTEGRATION.md) and [test results](../tests/fellowship/README.md). Four public production assets matched the main baseline by read-only HTTP comparison. Firebase operations in tests are in-memory doubles. No production messages, emails, memberships, prayer changes, Firebase rules/configuration changes, merges or deployments.
+- Handoff: draft for architecture/security review. PR #29, authoritative live rules verification, historical location consent review, non-production provider checks and full-app/device checks remain release gates.
+
+## November 4, 2026 — Fellowship Phase 2 integration and verification
+
+- Owner: Codex, authorized by Eddie; other contributors' uncommitted work remains unknown. Base main `36e3516`; new branch `codex/fellowship-security-integration`. Source heads #29 `52e4ab2`, #30 `3ebd304` remain unchanged open drafts.
+- Resolved five textual conflicts deliberately: preserve #29 security logic and #30 subscription adapters, retain both coordination histories. Added lifecycle invalidation for pending auth/profile/DM work; routed profile/map sign-in through hardened Account.
+- Verification: original 70 + 5 new client cases, 4 DM browser cases, 14 emulator groups, original 12 + 6 integrated Fellowship browser cases, existing five-screen desktop/mobile and Week 1/2 starter checks pass. Synthetic/mock operations only.
+- Privacy: aggregate historical GeoJSON review found 2,000 coordinate pairs in each copy, 1,998 above two decimals; no repository consent fields. No individual records copied, migrated or deleted. Display rounding is not data minimization.
+- [Conflict, evidence and readiness report](collaboration/messaging/commons/FELLOWSHIP-SECURITY-INTEGRATION.md). Unresolved release gates include active rules, real non-production providers, historical consent, device/accessibility checks and administrator confirmation of main's publishing triggers. No merge/deployment, production Firebase configuration/rules/user-data change, actual message/email/membership/prayer write.
+
+## Fellowship isolated preview — November 4, 2026
+
+- Owner: Codex, authorized by Eddie. Starting PR #31 head `48da719`; existing integration review branch retained. Other contributors' uncommitted activity remains unknown.
+- Prepared loopback-only synthetic preview under `tools/fellowship-preview/`, using actual card/screens with no production SDK/configuration or historical downloads served. No hosting/deployment or external resources created.
+- Visual review found embedded DM light-theme gradient/redundant branding/mobile spacing issues; corrected only Fellowship's embedded CSS, preserving auth/DM logic. Preview tests cover isolation and synthetic interactions; desktop/mobile dark/light screenshots captured.
+- [Readiness and limits](../tools/fellowship-preview/PREVIEW-READINESS.md); [approval-gated location correction proposal](../tools/fellowship-preview/PRIVACY-PROPOSAL.md). Original GeoJSON/data/rules/configuration remain unchanged. No real messages, emails, memberships or prayer writes.
+
+## Controlled production-testing candidate — November 4, 2026
+
+- Owner: Codex, authorized by Eddie to implement/verify only; final configuration approval is required before merge/deployment. Base PR #31 `fb357af`; separate branch `codex/fellowship-controlled-testing`. PR #31 remains unchanged. Other contributors' uncommitted work remains unknown.
+- Added off-by-default bounded owner-claim UI gate, actual production/compatibility entries, fixture-only native Fellowship rendering, disabled mutation/auth/location actions, late-callback/badge isolation, ordinary Prayer Map/menu compatibility and cache-safe offline denial. Touch themes and mobile week-dock/reading context are preserved.
+- Owner confirmed Pages source `main / (root)`: a main merge is a publication trigger. No merge, deployment, Firebase rule/config/claim/data change, real message/email/membership/prayer operation occurred. Static assets remain public; this is explicitly not server-authenticated HTTP delivery.
+- [Exact public exposure, test evidence, release checklist and rollback](../CONTROLLED-FELLOWSHIP-RELEASE.md). Physical iPhone testing, actual owner claim and live release gates remain unverified.
+
+Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 visible-week desktop/mobile checks passed. Earlier security/emulator/browser suites remain passing. Flag stays disabled; no merge/deploy or production writes. See CONTROLLED-FELLOWSHIP-RELEASE.md.

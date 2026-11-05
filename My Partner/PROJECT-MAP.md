@@ -71,3 +71,29 @@ The five live [conversation](collaboration/messaging/commons/conversations/), [a
 ## Two Powers investigation page — November 1, 2026
 
 [Production investigation](../investigations/two-powers-in-heaven.html) is registered as #016 in `data/investigations/published-investigations.json`; 17 total records. [Approved preview](investigations/two-powers/two-powers-in-heaven.html) and [integration/verification notes](investigations/two-powers/README.md) remain available. The approved HTML was copied unchanged and the existing loader was preserved. Structural checks passed; rendered browser verification remains pending. Eddie authorized publication and lifted the old folder-only write boundary; root [AGENTS.md](../AGENTS.md) records current task-scoped authorization.
+
+
+## Commons privacy and security Phase 1 — November 4, 2026
+
+Review-only hardening on codex/commons-privacy-phase1: [scope and handoff](collaboration/messaging/commons/SECURITY-PHASE-1.md). Adds shared DM draft/account isolation, discovery consent reset, email-link identity checks, a consolidated rules proposal and local regression/emulator tests. Production rules/config remain unchanged; live Firebase release reconciliation and real-provider verification are required before deployment.
+
+
+## Commons Phase 1 verification follow-up — November 4, 2026
+
+PR #29 now includes additional deferred-auth/thread-generation privacy corrections and expanded regressions. [Readiness and exact administrator gates](collaboration/messaging/commons/SECURITY-PHASE-1.md) distinguish local passing tests from blocked live rules/provider verification. [Phase 2 priorities](collaboration/messaging/commons/PHASE-2-PLAN.md) are planning only; no rollout is authorized.
+
+## November 4, 2026 — Fellowship integration draft
+
+On `codex/fellowship-phase1`, based on main `36e3516`: [integration report](collaboration/messaging/commons/FELLOWSHIP-INTEGRATION.md), native `cards/fellowship.html` / `js/fellowship.js`, existing Prayer Map and Commons screen adapters, listener disposal and global-theme inheritance. No new Firestore model, migration, deployment or production mutation. Draft PR #29 remains a security release dependency; it has not been incorporated into this branch. Browser tests use mocked services and a focused HomeGroups host; live rules and provider/device verification remain open.
+
+## November 4, 2026 — Combined Fellowship/security candidate
+
+`codex/fellowship-security-integration` retains both PRs' code and adds explicit async disposal invalidation. [Integration report](collaboration/messaging/commons/FELLOWSHIP-SECURITY-INTEGRATION.md) documents five textual conflicts, semantic auth/lifecycle resolutions, 75 client / 4 DM / 14 emulator / 18 Fellowship results and existing weekly/screen checks. Source PRs stay unchanged drafts. Public location downloads and live-rules/provider/publishing verification remain release gates; no production mutation or deployment.
+
+## Fellowship local visual preview
+
+[Local preview tooling and instructions](../tools/fellowship-preview/README.md) serve the integrated candidate through a loopback-only synthetic adapter. [Readiness](../tools/fellowship-preview/PREVIEW-READINESS.md) distinguishes mocked views and service behavior from production verification. No live hosted environment or Firebase resource was created; original historical data is untouched. A scoped embedded Messages CSS correction addresses the light-theme gradient and mobile layout revealed by preview screenshots.
+
+## Controlled Fellowship release candidate
+
+Separate `codex/fellowship-controlled-testing` branch builds on PR #31, with production entries installing an immutable UI release policy before the shared card runtime. Flag remains false; only bounded read-only fictional fixtures can be enabled for a trusted owner. Public Prayer Map routing/menu are restored. [Release configuration](../CONTROLLED-FELLOWSHIP-RELEASE.md) records public-static-asset limits, owner-confirmed main/root auto-publication, physical-device checks and rollback. No production change is applied.

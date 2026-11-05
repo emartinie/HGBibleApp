@@ -1,6 +1,7 @@
 // HomeGroups Week 1/2 Messaging production integration candidate.
 // Load from app shell as <script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js"></script>
 // This module changes no production source files. Uses same-origin Firebase Messaging iframe.
+const testingRouteActive=()=>window.HGFellowshipTestingRequested||['fellowship-test','fellowship'].includes(new URLSearchParams(location.search).get('card'));
 const PILOT = new URL('../week-context-pilot/', import.meta.url);
 let week = 0, box, frame, collapsed = false, dragging = null;
 const css = document.createElement('style');
@@ -89,6 +90,7 @@ function refresh(){
 refresh();
 document.addEventListener('weekChanged',()=>queueMicrotask(refresh));
 window.addEventListener('popstate',()=>setTimeout(refresh,0));
+window.addEventListener('hg:fellowship-active',refresh);
 const studySelect=document.getElementById('weekSelect');
 studySelect?.addEventListener('change',refresh);
 let checks=0;
@@ -110,7 +112,7 @@ window.addEventListener('message',event=>{
   const {onAuthStateChanged}=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
   const {collection,onSnapshot,query,where,orderBy,limit}=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
   const badge=document.getElementById('hg-commons-badge');
-  let stopInbox=null,stops=[],activeUid='',items=[],lastMessages=new Map();
+  let stopInbox=null,stops=[],activeUid='',items=[],lastMessages=new Map(),subscriptionEpoch=0;
   function marker(id){try{return Number(localStorage.getItem('hg-direct-read-v1:'+activeUid+':'+id)||0)}catch{return 0}}
   function update(){
    const pending=items.filter(x=>x.data.status==='pending'&&x.data.requestedBy!==activeUid).length;
@@ -124,16 +126,17 @@ window.addEventListener('message',event=>{
   function clear(){stopInbox?.();stopInbox=null;stops.forEach(fn=>fn());stops=[];items=[];lastMessages.clear();update()}
   window.addEventListener('storage',e=>{if(e.key?.startsWith('hg-direct-read-v1:'))update()});
   window.addEventListener('focus',update);
-  onAuthStateChanged(auth,u=>{
-   clear();activeUid=u?.uid||'';if(!activeUid)return;
+  function subscribeInbox(u){
+   const token=++subscriptionEpoch;
+   clear();activeUid=u?.uid||'';if(!activeUid||window.HGFellowshipActive||window.HGFellowshipTestingRequested||['fellowship-test','fellowship'].includes(new URLSearchParams(location.search).get('card')))return;
    const uid=activeUid;
    stopInbox=onSnapshot(query(collection(db,'commonsDirectConversations'),where('participants','array-contains',uid),limit(50)),snap=>{
-    if(uid!==activeUid)return;
+    if(uid!==activeUid||token!==subscriptionEpoch||testingRouteActive())return;
     stops.forEach(fn=>fn());stops=[];lastMessages.clear();
     items=snap.docs.map(d=>({id:d.id,data:d.data()}));update();
     for(const item of items.filter(x=>x.data.status==='accepted')){
      const stop=onSnapshot(query(collection(db,'commonsDirectConversations',item.id,'messages'),orderBy('createdAt','desc'),limit(1)),messages=>{
-      if(uid!==activeUid)return;
+      if(uid!==activeUid||token!==subscriptionEpoch||testingRouteActive())return;
       const latest=messages.docs[0]?.data();
       lastMessages.set(item.id,latest?{senderUid:latest.senderUid,timestamp:latest.createdAt?.toMillis?.()||0}:null);
       update();
@@ -141,6 +144,9 @@ window.addEventListener('message',event=>{
      stops.push(stop);
     }
    },()=>{});
-  });
+  }
+  onAuthStateChanged(auth,subscribeInbox);
+  window.addEventListener("hg:fellowship-active",()=>subscribeInbox(auth.currentUser));
+  window.addEventListener("hg:fellowship-testing-route",()=>subscribeInbox(auth.currentUser));
  }catch(err){console.warn('Messaging badge unavailable',err)}
 })();

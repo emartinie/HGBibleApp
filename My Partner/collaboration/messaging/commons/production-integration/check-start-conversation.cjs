@@ -4,6 +4,7 @@ const path = require('node:path');
 const cp = require('node:child_process');
 const assert = require('node:assert/strict');
 const { chromium } = require('playwright');
+const outputDir=process.env.HG_TEST_OUTPUT_DIR||require('node:os').tmpdir();fs.mkdirSync(outputDir,{recursive:true});
 const root = path.resolve(__dirname, '../../../../../');
 const production = 'My Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js';
 function read(name) {
@@ -21,10 +22,13 @@ window.messagingTest={account:auth.currentUser,enrolled:true,fail:false,delay:0,
 };`;
 const sdkAuth = `export function onAuthStateChanged(auth,next){window.messagingTest.authCallback=next;queueMicrotask(()=>next(auth.currentUser));return ()=>{window.messagingTest.authCallback=null;};}`;
 const sdkStore = `
+export function startAfter(value){return value;}
+export async function getDocs(q){window.messagingTest.queries.push(q.ref);return window.messagingTest.snapshot();}
+export async function setDoc(ref,data){window.messagingTest.writes.push({ref,data});}
 export function collection(db,...parts){return parts.join('/');}export const doc=collection;
-export function query(ref,...args){return {ref,args};}export function orderBy(...args){return args;}export function limit(n){return n;}
+export function where(...args){return args;}export function query(ref,...args){return {ref,args};}export function orderBy(...args){return args;}export function limit(n){return n;}
 export async function getDoc(ref){const state=window.messagingTest;state.reads.push(ref);const uid=ref.split('/').at(-1);const area=ref.split('/')[1];const enrolled=state.enrolledByArea?.[area]??state.enrolledByUid?.[uid]??state.enrolled;await new Promise(r=>setTimeout(r,state.membershipDelays?.[uid]||0));return {exists:()=>ref.startsWith('commonsMembers/')||enrolled,data:()=>({displayName:'A reader'})};}
-export function onSnapshot(q,next,error){const state=window.messagingTest;state.queries.push(q.ref);if(q.ref.endsWith('/replies'))queueMicrotask(()=>next({docs:[],empty:true,size:0,forEach(){}}));else{state.postsCallback=next;queueMicrotask(()=>next(state.snapshot()));}return ()=>{if(state.postsCallback===next)state.postsCallback=null;};}
+export function onSnapshot(q,next,error){if(q.ref==='commonsDirectConversations'){queueMicrotask(()=>next({docs:[]}));return()=>{};}const state=window.messagingTest;state.queries.push(q.ref);if(q.ref.endsWith('/replies'))queueMicrotask(()=>next({docs:[],empty:true,size:0,forEach(){}}));else{state.postsCallback=next;queueMicrotask(()=>next(state.snapshot()));}return ()=>{if(state.postsCallback===next)state.postsCallback=null;};}
 export function serverTimestamp(){return {serverTimestamp:true};}
 export async function addDoc(ref,data){const state=window.messagingTest;await new Promise(r=>setTimeout(r,state.delay));if(state.fail)throw {code:state.fail};const post={id:'created-'+(state.writes.length+1),data};state.writes.push({ref,data});if(!ref.endsWith('/replies'))state.posts.unshift(post);state.refresh();return {id:post.id};}
 `;
@@ -32,7 +36,7 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
  const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
  try {
   for(const scenario of [{width:1440,height:1000,week:1},{width:390,height:844,week:2}]){
-   const context=await browser.newContext({viewport:{width:scenario.width,height:scenario.height},serviceWorkers:'block'});
+   const context=await browser.newContext({viewport:{width:scenario.width,height:scenario.height},hasTouch:scenario.width<=600,serviceWorkers:'block'});
    await context.route('**/*',async route=>{
     const url=new URL(route.request().url());
     if(url.hostname==='www.gstatic.com')return route.fulfill({contentType:'text/javascript',body:url.pathname.includes('firebase-auth')?sdkAuth:sdkStore});
@@ -43,8 +47,8 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
     if(name==='data/week1.json'&&scenario.week===2)await new Promise(r=>setTimeout(r,180));
     try{return route.fulfill({contentType:name.endsWith('.js')?'text/javascript':name.endsWith('.json')?'application/json':'text/html',body:read(name)});}catch{return route.fulfill({status:404,body:'Missing fixture'});}
    });
-   const page=await context.newPage(), errors=[];page.on('pageerror',error=>errors.push(error.message));
-   await page.goto('http://release.test/');await page.getByRole('button',{name:'☏ Messaging',exact:true}).click();
+   const page=await context.newPage(), errors=[];page.on('pageerror',error=>{errors.push(error.message);console.error('PAGE ERROR:',error.message);});
+   await page.goto('http://release.test/');await page.locator('#hg-commons-launch').focus();await page.locator('#hg-commons-launch').press('Enter');await page.getByRole('button',{name:/Bible Study discussions/}).press('Enter');
    const frame=page.frameLocator('#hg-commons-window iframe');
    await frame.locator('#context-label').filter({hasText:'Week '+scenario.week+' —'}).waitFor();
    await frame.getByRole('button',{name:'Start conversation',exact:true}).click();
@@ -110,8 +114,10 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
    await frame.getByRole('button',{name:'Start conversation',exact:true}).click();
    assert.equal(await body.inputValue(),'','Confirmed sends clear that week’s draft');
    await frame.getByRole('textbox',{name:'Conversation title',exact:true}).fill('Private draft');await body.fill('Keep this for member one');
-   await page.locator('#hg-commons-min').click();await page.locator('#hg-commons-min').click();
-   await page.locator('#hg-commons-close').click();await page.getByRole('button',{name:'☏ Messaging',exact:true}).click();
+   await page.locator('#hg-commons-min').click();
+   if(scenario.width<=600){assert.equal(await page.locator('#hg-commons-window').isVisible(),false);await page.locator('#hg-commons-launch').focus();await page.locator('#hg-commons-launch').press('Enter');await page.getByRole('button',{name:/Bible Study discussions/}).click();}
+   else{assert.ok((await page.locator('#hg-commons-window').getAttribute('class')).includes('minimized'));await page.locator('#hg-commons-min').click();}
+   await page.locator('#hg-commons-close').click();await page.locator('#hg-commons-launch').focus();await page.locator('#hg-commons-launch').press('Enter');await page.getByRole('button',{name:/Bible Study discussions/}).click();
    assert.equal(await body.inputValue(),'Keep this for member one');
    await body.evaluate(()=>window.messagingTest.setUser(null));
    await frame.getByText('You are not signed in to Messaging.',{exact:true}).waitFor();
@@ -122,7 +128,7 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
    await body.evaluate(()=>window.messagingTest.setUser({uid:'member-one',displayName:'A reader'}));
    await frame.getByRole('button',{name:'Start conversation',exact:true}).click();
    assert.equal(await body.inputValue(),'Keep this for member one');
-   await page.reload();await page.getByRole('button',{name:'☏ Messaging',exact:true}).click();
+   await page.reload();await page.locator('#hg-commons-launch').focus();await page.locator('#hg-commons-launch').press('Enter');await page.getByRole('button',{name:/Bible Study discussions/}).click();
    await frame.locator('#context-label').filter({hasText:'Week '+scenario.week+' —'}).waitFor();
    await frame.getByRole('button',{name:'Start conversation',exact:true}).click();
    assert.equal(await body.inputValue(),'Keep this for member one','Reload restores the owner’s draft');
@@ -132,7 +138,7 @@ export async function addDoc(ref,data){const state=window.messagingTest;await ne
    await frame.getByRole('button',{name:'Post conversation',exact:true}).click();
    await frame.getByRole('status').filter({hasText:'Enter a title of up to 90'}).waitFor();
    await frame.getByRole('textbox',{name:'Conversation title',exact:true}).fill('Private draft');
-   await page.screenshot({path:'/tmp/messaging-composer-'+scenario.width+'.png'});
+   await page.screenshot({path:path.join(outputDir,'messaging-composer-'+scenario.width+'.png')});
    const dimensions=await frame.locator('form.new-conversation').evaluate(el=>({scroll:el.scrollWidth,width:el.clientWidth}));
    assert.ok(dimensions.scroll<=dimensions.width,'Composer fits iframe width');
    await body.evaluate(()=>{window.messagingTest.enrolledByArea={study:false,projects:true};window.messagingTest.setUser({uid:'member-two'});});

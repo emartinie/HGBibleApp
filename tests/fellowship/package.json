@@ -1,0 +1,11 @@
+{
+  "name": "homegroups-fellowship-tests",
+  "private": true,
+  "scripts": {
+    "test": "node --test --test-concurrency=1 --test-timeout=60000 integration.test.cjs controlled.test.cjs",
+    "test:controlled": "node --test --test-timeout=60000 controlled.test.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
