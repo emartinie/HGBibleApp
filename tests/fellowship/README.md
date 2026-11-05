@@ -13,3 +13,9 @@ The combined implementation passes all original 12 scenarios plus six integrated
 ## Controlled production-entry candidate
 
 Run `npm test` here for both the preserved 18-case PR #31 component suite and the new controlled-policy suite, sequentially. `npm run test:controlled` runs only the release checks. The component harness explicitly imports `component-entry.js` with SDK doubles; production HTML and legacy app entry both use `homegroups-entry.js` and cannot select that test harness through a URL flag. Production policy coverage is separate, uses actual index markup and mocks unrelated shell boot/services. See [release configuration and rollback](../../CONTROLLED-FELLOWSHIP-RELEASE.md).
+
+## Live-services integration candidate
+
+Run `node --test --test-concurrency=1 --test-timeout=60000 tests/fellowship/live.test.cjs` from the repository root with the same NODE_PATH/browser prerequisites. The default suite includes preserved integration, controlled and live cases. `harness.cjs` shares the original SDK-double harness, with production-entry mode loading actual index/policy/loader and targeting the exact Fellowship iframe. Other study/audio boot is omitted; external styles/images and Firebase are fixtures.
+
+Live cases cover separate off-by-default test-account gating, real existing directory/membership/discussion/DM/account adapters, exact recipient and week routing, mobile dock geometry, themes, read-only map, duplicate joins, late work/disposal, account switching and stable-token refresh/drafts. No actual Firebase operation occurs. The existing read-only activation inherited from main is validated as bounded fixture mode rather than incorrectly requiring that already-approved activation to be false. [Prerequisites and production test plan](../../FELLOWSHIP-LIVE-INTEGRATION.md).

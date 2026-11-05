@@ -28,6 +28,7 @@ console.log("🗺️ prayermap.js loaded");
   let userLocationMarker = null;
   let userLocationCircle = null;
 
+  let readOnly = false;
   let addMode = null; // "prayer"
   let pendingLatLng = null;
 
@@ -314,6 +315,7 @@ function locateUser() {
   }
 
   async function savePrayer(lat, lng, name, message) {
+    if(readOnly)throw new Error("Prayer Map is read-only during verification.");
     const token = generation;
     const user = await ensureGoogleUser();
     if (token !== generation || !map || auth.currentUser?.uid !== user.uid) throw new Error("The map or account changed. Please submit again.");
@@ -349,6 +351,7 @@ function handleModalKeydown(event) {
   else if (!event.shiftKey && document.activeElement === last) { event.preventDefault();first?.focus(); }
 }
 function openPrayerModal(lat, lng) {
+  if(readOnly)return;
     console.log("OPENING MODAL");
   pendingLatLng = { lat, lng };
 
@@ -464,6 +467,7 @@ if (closeBtn) {
 }
 
 function openFeastModal(lat, lng) {
+  if(readOnly)return;
   const panel = document.getElementById("prayerPorchPanel");
   const message = document.getElementById("prayerPorchMessage");
   if (!panel || !message) return;
@@ -641,7 +645,7 @@ if (closeBtn) {
   // ======================
 
   function handleModeClick(e) {
-    if (e.target?.id === "prayerMapAddBtn") {
+    if (!readOnly && e.target?.id === "prayerMapAddBtn") {
       addMode = "prayer";
       alert("Click map to add your prayer");
     }
@@ -658,7 +662,7 @@ if (closeBtn) {
   // INIT
   // ======================
 
-  function init() {
+  function init(options={}) {
     if (window.prayerMapInitialized) {
       console.warn("prayermap already initialized");
       return;
@@ -672,6 +676,9 @@ if (closeBtn) {
     prayerSearchEl?.addEventListener("input", handlePrayerSearch);
     locateBtn?.addEventListener("click", locateUser);
 
+    readOnly=options.readOnly===true;
+    const addButton=document.getElementById("prayerMapAddBtn");
+    if(addButton){addButton.disabled=readOnly;if(readOnly)addButton.title="Location publication is disabled during verification.";}
     window.prayerMapInitialized = true;
     wireModeClick();
     document.addEventListener("keydown", handleModalKeydown);
@@ -712,6 +719,7 @@ if (closeBtn) {
     Object.keys(activeMarkers).forEach(id => delete activeMarkers[id]);
     Object.keys(activeFeasts).forEach(id => delete activeFeasts[id]);
 
+    readOnly = false;
     mapEl = null;
     prayerSearchEl = null;
     locateBtn = null;

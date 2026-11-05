@@ -2,7 +2,7 @@
 const HOME = new URL('./', import.meta.url);
 const APP = new URL('../../../../', HOME);
 const params = new URLSearchParams(location.search);
-const week = ['1', '2', '3', '4'].includes(params.get('week')) ? params.get('week') : null;
+const week = /^([1-9]|[1-4][0-9]|5[0-2])$/.test(params.get('week')||'') ? params.get('week') : null;
 const areas = ['study', 'projects', 'fellowship', 'prayer', 'discipleship', 'family'];
 let area = areas.includes(params.get('area')) ? params.get('area') : week ? 'study' : null;
 const page = location.pathname.slice(HOME.pathname.length).split('/')[0] || 'preview';

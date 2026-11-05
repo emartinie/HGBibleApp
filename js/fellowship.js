@@ -3,6 +3,7 @@ import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/f
 import './prayermap.js';
 import {renderReadOnlyFixtures} from './fellowship-test-fixtures.js';
 export const controlledFixturesVersion=1;
+export const liveIntegrationVersion=1;
 
 const COMMONS = '/My%20Partner/collaboration/messaging/commons/';
 const VIEWS = new Set(['prayer','communities','explore','messages']);
@@ -111,9 +112,9 @@ async function render(session) {
       if (active !== session || generation !== session.generation) return;
       session.content.innerHTML=html;
       session.content.querySelector('.card-topbar')?.remove();
-      window.initPrayerMapCard();
+      window.initPrayerMapCard({readOnly:session.prayerReadOnly});
       if (!window.currentMap) throw new Error('Map library unavailable');
-      session.status.textContent='Locations shown on the map are approximate. Location is optional for Fellowship.';
+      session.status.textContent=session.prayerReadOnly?'Prayer Map is read-only during verification. Displayed pins are approximate; historical downloads can contain more precise coordinates.':'Locations shown on the map are approximate. Location is optional for Fellowship.';
       session.content.setAttribute('aria-busy','false');
     } catch (error) { if (error.name !== 'AbortError') fail(session,generation,'Prayer Map could not load. Please try again.'); }
     return;
@@ -141,15 +142,19 @@ async function render(session) {
 function select(session, route, write = true) {
   if (active !== session) return;
   session.state=stateFor(route);
-  if (write) window.HGRoute?.write('fellowship',session.state,{announce:false,source:'fellowship'});
+  if (write) window.HGRoute?.write(session.routeCard,session.state,{announce:false,source:'fellowship'});
   return render(session);
 }
 function returnToStudy(session) {window.HGRoute?.navigate('mainstage',{week:session.state.week || document.getElementById('weekSelect')?.value});}
 window.initFellowshipCard = function(host,options={}) {
   window.destroyFellowshipCard();
   const root=host.querySelector('.fellowship');if(!root)return;
-  const session={root,content:root.querySelector('[data-fellowship-content]'),status:root.querySelector('[data-fellowship-status]'),generation:0,testing:options.readOnlyFixtures===true,routeCard:options.readOnlyFixtures===true?'fellowship-test':'fellowship',authReady:false,uid:undefined,state:stateFor(window.HGRoute?.read())};
+  const session={root,content:root.querySelector('[data-fellowship-content]'),status:root.querySelector('[data-fellowship-status]'),generation:0,testing:options.readOnlyFixtures===true,routeCard:options.readOnlyFixtures===true?'fellowship-test':options.routeCard==='fellowship-live'?'fellowship-live':'fellowship',prayerReadOnly:options.prayerReadOnly===true,authReady:false,uid:undefined,state:stateFor(window.HGRoute?.read())};
   active=session;
+  session.dock=document.getElementById("weekCardDock");
+  if(session.dock){session.dockParent=session.dock.parentNode;session.dockNext=session.dock.nextSibling;root.prepend(session.dock);}
+  session.weekChanged=()=>{if(active!==session||session.testing)return;const week=document.getElementById("weekSelect")?.value;if(week&&String(session.state.week)!==week)select(session,{...session.state,week});};
+  document.addEventListener("weekChanged",session.weekChanged);
   if(session.testing)root.querySelectorAll('[data-fellowship-action="account"],[data-fellowship-action="profile"],[data-fellowship-action="people"]').forEach(control=>{control.disabled=true;control.title="Unavailable during read-only testing";});
   window.HGFellowshipActive=true;
   window.dispatchEvent(new Event("hg:fellowship-active"));
@@ -188,6 +193,8 @@ window.destroyFellowshipCard = function() {
   const session=active;active=null;
   session.unregister?.();session.unsubscribe?.();session.theme.disconnect();session.root.removeEventListener('click',session.click);window.removeEventListener('message',session.message);
   teardownView(session);
+  document.removeEventListener("weekChanged",session.weekChanged);
+  if(session.dockParent)session.dockParent.insertBefore(session.dock,session.dockNext?.parentNode===session.dockParent?session.dockNext:null);
   window.HGFellowshipActive=false;
   window.dispatchEvent(new Event("hg:fellowship-active"));
 };

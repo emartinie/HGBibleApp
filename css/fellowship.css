@@ -4,4 +4,5 @@
 
 .fellowship-test-fixtures article,.fellowship-test-map,.fellowship-test-message{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--bg-1);color:var(--text);overflow-wrap:anywhere}.fellowship-test-map{min-height:240px;background:repeating-linear-gradient(90deg,var(--bg-1),var(--bg-1) 59px,var(--line) 60px)}.fellowship-test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:12px}.fellowship-test-fixtures button{margin:4px}.fellowship button:disabled{opacity:.6;cursor:not-allowed}.fellowship-test-fixtures input{display:block;width:100%;box-sizing:border-box;background:var(--bg-2);color:var(--muted);padding:12px}
 
-#cardsRow>.fellowship-testing-card{padding-top:58px}
+.fellowship>.week-card-dock{position:static;transform:none;margin:0 auto 16px;width:fit-content;max-width:100%;z-index:auto}
+.fellowship-actions{justify-content:flex-start}.fellowship-actions button{flex:0 1 auto}

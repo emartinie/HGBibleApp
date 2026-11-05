@@ -173,3 +173,12 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - [Exact public exposure, test evidence, release checklist and rollback](../CONTROLLED-FELLOWSHIP-RELEASE.md). Physical iPhone testing, actual owner claim and live release gates remain unverified.
 
 Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 visible-week desktop/mobile checks passed. Earlier security/emulator/browser suites remain passing. Flag stays disabled; no merge/deploy or production writes. See CONTROLLED-FELLOWSHIP-RELEASE.md.
+
+## November 4, 2026 — Fellowship live-services integration
+
+- Owner: Codex, requested by Eddie. Separate codex/fellowship-live-integration worktree from current main 487a460; existing controlled route/activation preserved. Other contributors’ uncommitted activity remains unknown.
+- Reuse: existing Commons directory/membership, discussions/replies, direct-live/shared composer, auth/profile and Prayer Map. No new Firebase model or privileged access. Added an independent disabled two-standard-test-account pilot entry, read-only map mode, exact route/week preservation, in-flow week dock and pending membership/disposal protections.
+- Eddie confirmed physical iPhone testing of the earlier controlled interface and approved preparation of a conditional two-account production verification plan. Exact accounts/community, deployed rules export, cleanup/retention and execution/release approval remain pending. No live operation, rule/config/claim/data change, email, merge or deployment occurred.
+- Firebase plugin is installed but no management tools or standard CLI/ADC login are available. Stopped production verification before any live reads/writes. [Implementation and exact prerequisites](../FELLOWSHIP-LIVE-INTEGRATION.md). Final automated evidence recorded there before draft handoff.
+
+- Final evidence: all 62 Fellowship cases verified (one accurate permission-copy correction/targeted rerun); 75 client and 14 emulator groups passed; 4 DM rendered cases verified with one timeout-only rerun; both existing five-screen widths and Week 1/2 starter suites passed. Thirteen script/module sources parsed and whitespace/protected-file checks passed. Windows interruption was recovered; no production operations were executed.

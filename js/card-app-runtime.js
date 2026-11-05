@@ -61,6 +61,7 @@ console.log("APP JS RUN ID:", Date.now());
     "prayermap",
     "fellowship",
     "fellowship-test",
+    "fellowship-live",
     "commentary",
     "investigations"
   ]);
@@ -81,6 +82,7 @@ console.log("APP JS RUN ID:", Date.now());
     nt: { forceReloadScript: true },
     scriptureapi: { forceReloadScript: true },
     scholars: { init: "initScholarsCard", cleanup: "destroyScholarsCard" },
+    "fellowship-live": { init: "initFellowshipLiveCard", cleanup: "destroyFellowshipLiveCard" },
     "fellowship-test": { init: "initFellowshipTestCard", cleanup: "destroyFellowshipTestCard" },
     fellowship: { init: "initFellowshipCard", cleanup: "destroyFellowshipCard" },
     prayermap: { init: "initPrayerMapCard", cleanup: "destroyPrayerMapCard" },
@@ -473,7 +475,7 @@ function cleanupActiveCard() {
     if (!loadedCardHost || !cardName) return;
 
     cardName = window.HGCardPolicy?.resolve(cardName) || cardName;
-    const testingRequest = cardName === "fellowship-test";
+    const testingRequest = ["fellowship-test", "fellowship-live"].includes(cardName);
     if (window.HGFellowshipTestingRequested !== testingRequest) {
       window.HGFellowshipTestingRequested = testingRequest;
       queueMicrotask(() => window.dispatchEvent(new Event("hg:fellowship-testing-route")));
@@ -485,7 +487,7 @@ function cleanupActiveCard() {
     const fromRoute = options.fromRoute === true;
 
     if (!fromRoute && window.HGRoute) {
-      const state = (cardName === "mainstage" || cardName === "fellowship")
+      const state = ["mainstage", "fellowship", "fellowship-test", "fellowship-live"].includes(cardName)
         ? { week: parseInt(document.getElementById("weekSelect")?.value, 10) || undefined }
         : {};
       window.HGRoute.write(cardName, state, {
