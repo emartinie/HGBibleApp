@@ -1,0 +1,428 @@
+// REVIEW PROPOSAL ONLY. Not the production CLI target. Reconcile with the live Firebase release before approval.
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function googleUser() {
+      return signedIn()
+        && request.auth.token.firebase.sign_in_provider == 'google.com';
+    }
+
+    function currentBallot() {
+      return get(/databases/$(database)/documents/investigationBallots/current).data;
+    }
+
+    function validVote(data) {
+      let ballot = currentBallot();
+      return googleUser()
+        && ballot.status == 'open'
+        && data.keys().hasOnly(['uid', 'ballotId', 'topicIds', 'updatedAt'])
+        && data.uid == request.auth.uid
+        && data.ballotId == ballot.ballotId
+        && data.topicIds is list
+        && data.topicIds.size() > 0
+        && data.topicIds.size() <= ballot.maxSelections
+        && data.topicIds.hasOnly(ballot.candidateTopicIds)
+        && data.updatedAt == request.time;
+    }
+
+    match /appConfig/main {
+      allow get: if true;
+      allow list, create, update, delete: if false;
+    }
+
+    match /users/{userId}/settings/{settingId} {
+      allow read, write: if signedIn() && request.auth.uid == userId;
+    }
+
+    match /prayers/{prayerId} {
+      allow read: if true;
+      allow create: if googleUser()
+        && request.resource.data.keys().hasOnly(['lat', 'lng', 'name', 'message', 'prayed', 'ownerUid', 'createdAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.lat is number
+        && request.resource.data.lng is number
+        && request.resource.data.lat >= -90 && request.resource.data.lat <= 90
+        && request.resource.data.lng >= -180 && request.resource.data.lng <= 180
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 1000
+        && request.resource.data.prayed == false
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    match /feasts/{feastId} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['name', 'feastType', 'lat', 'lng', 'ownerUid', 'createdAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.name is string && request.resource.data.name.size() <= 80
+        && request.resource.data.feastType in ['Shavuot', 'Sukkot']
+        && request.resource.data.lat is number
+        && request.resource.data.lng is number
+        && request.resource.data.lat >= -90 && request.resource.data.lat <= 90
+        && request.resource.data.lng >= -180 && request.resource.data.lng <= 180
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    match /investigationBallots/current {
+      allow get: if true;
+      allow list, create, update, delete: if false;
+    }
+
+    match /investigationVotes/{ballotId}/users/{userId} {
+      allow get: if googleUser() && request.auth.uid == userId;
+      allow list: if false;
+      allow create, update: if signedIn()
+        && request.auth.uid == userId
+        && ballotId == currentBallot().ballotId
+        && validVote(request.resource.data);
+      allow delete: if googleUser()
+        && request.auth.uid == userId
+        && ballotId == currentBallot().ballotId
+        && currentBallot().status == 'open';
+    }
+
+    match /investigationSuggestionUsers/{userId}/suggestions/{suggestionId} {
+      allow read: if googleUser() && request.auth.uid == userId;
+      allow create: if googleUser()
+        && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly([
+          'uid',
+          'topic',
+          'why',
+          'evidence',
+          'context',
+          'status',
+          'createdAt'
+        ])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.topic is string
+        && request.resource.data.topic.size() > 0
+        && request.resource.data.topic.size() <= 180
+        && request.resource.data.why is string
+        && request.resource.data.why.size() <= 1200
+        && request.resource.data.evidence is string
+        && request.resource.data.evidence.size() <= 1200
+        && request.resource.data.context is string
+        && request.resource.data.context.size() <= 1200
+        && request.resource.data.status == 'submitted'
+        && request.resource.data.createdAt == request.time;
+      allow update: if googleUser()
+        && request.auth.uid == userId
+        && resource.data.uid == request.auth.uid
+        && resource.data.status == 'submitted'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'withdrawnAt'])
+        && request.resource.data.status == 'withdrawn'
+        && request.resource.data.withdrawnAt == request.time;
+      allow delete: if false;
+    }
+
+    // Commons: provider-neutral authentication; all existing ownership, enrollment, and validation checks remain.
+    // Commons: opt-in private member profiles. Preserve live Prayer Map rules.
+    function validCommonsProfile(data) {
+      return data.keys().hasOnly(['displayName', 'about', 'interest', 'createdAt', 'updatedAt'])
+        && data.keys().hasAll(['displayName', 'about', 'interest', 'createdAt', 'updatedAt'])
+        && data.displayName is string && data.displayName.size() > 0 && data.displayName.size() <= 80
+        && data.about is string && data.about.size() <= 500
+        && data.interest in ['', 'Bible Study & Investigation', 'Personal Growth & Fellowship',
+          'Prayer & Encouragement', 'Discipleship & Mentorship', 'Kingdom Projects', 'Marriage & Family']
+        && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+
+    // Public, opt-in display-only directory. No emails, coordinates or private profiles.
+    match /commonsDirectory/{memberId} {
+      allow get, list: if true;
+      allow create, update: if signedIn() && request.auth.uid == memberId
+        && exists(/databases/$(database)/documents/commonsMembers/$(memberId))
+        && request.resource.data.keys().hasOnly(['displayName', 'interest', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() > 0
+        && request.resource.data.displayName.size() <= 80
+        && request.resource.data.interest is string
+        && request.resource.data.interest.size() <= 80
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if signedIn() && request.auth.uid == memberId;
+    }
+
+    match /commonsMembers/{memberId} {
+      allow get: if signedIn() && request.auth.uid == memberId;
+      allow list: if false;
+      allow create: if signedIn() && request.auth.uid == memberId
+        && validCommonsProfile(request.resource.data)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if signedIn() && request.auth.uid == memberId
+        && validCommonsProfile(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+
+    // Phase 3: individual opt-in enrollment in the six existing Commons areas.
+    // Private enrollment: only the owner may read/write their own record.
+    function validCommonsArea(id) {
+      return id in ['projects', 'fellowship', 'prayer', 'study', 'discipleship', 'family'];
+    }
+
+    match /commonsCommunityMembers/{communityId}/members/{memberId} {
+      allow get: if signedIn() && validCommonsArea(communityId)
+        && request.auth.uid == memberId;
+      allow list: if false;
+      allow create: if signedIn() && validCommonsArea(communityId)
+        && request.auth.uid == memberId
+        && exists(/databases/$(database)/documents/commonsMembers/$(memberId))
+        && request.resource.data.keys().hasOnly(['uid', 'communityId', 'joinedAt'])
+        && request.resource.data.keys().hasAll(['uid', 'communityId', 'joinedAt'])
+        && request.resource.data.uid == memberId
+        && request.resource.data.communityId == communityId
+        && request.resource.data.joinedAt == request.time;
+      allow update: if false;
+      allow delete: if signedIn() && validCommonsArea(communityId)
+        && request.auth.uid == memberId;
+    }
+
+    // Commons conversations: readable only by current community members.
+    function enrolledInCommonsArea(areaId) {
+      return signedIn() && validCommonsArea(areaId)
+        && exists(/databases/$(database)/documents/commonsCommunityMembers/$(areaId)/members/$(request.auth.uid));
+    }
+
+    // Proposed only: per-user discussion read markers, scoped to an enrolled community.
+    // Client writes serverTimestamp() as seenAt; other users cannot list or read markers.
+    match /commonsDiscussionReads/{userId}/communities/{communityId}/posts/{postId} {
+      allow get: if signedIn() && request.auth.uid == userId
+        && enrolledInCommonsArea(communityId);
+      allow list: if false;
+      allow create, update: if signedIn() && request.auth.uid == userId
+        && enrolledInCommonsArea(communityId)
+        && exists(/databases/$(database)/documents/commonsCommunityPosts/$(communityId)/posts/$(postId))
+        && request.resource.data.keys().hasOnly(['seenAt'])
+        && request.resource.data.keys().hasAll(['seenAt'])
+        && request.resource.data.seenAt == request.time;
+      allow delete: if false;
+    }
+
+    match /commonsCommunityPosts/{communityId}/posts/{postId} {
+      allow get, list: if enrolledInCommonsArea(communityId);
+      allow create: if enrolledInCommonsArea(communityId)
+        && request.resource.data.keys().hasOnly(['uid', 'authorName', 'body', 'createdAt'])
+        && request.resource.data.keys().hasAll(['uid', 'authorName', 'body', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.authorName is string
+        && request.resource.data.authorName.size() > 0
+        && request.resource.data.authorName.size() <= 80
+        && request.resource.data.body is string
+        && request.resource.data.body.size() > 0
+        && request.resource.data.body.size() <= 1200
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    // Replies belong to an existing community post and inherit membership access.
+    match /commonsCommunityPosts/{communityId}/posts/{postId}/replies/{replyId} {
+      allow get, list: if enrolledInCommonsArea(communityId)
+        && exists(/databases/$(database)/documents/commonsCommunityPosts/$(communityId)/posts/$(postId));
+      allow create: if enrolledInCommonsArea(communityId)
+        && exists(/databases/$(database)/documents/commonsCommunityPosts/$(communityId)/posts/$(postId))
+        && request.resource.data.keys().hasOnly(['uid', 'authorName', 'body', 'createdAt'])
+        && request.resource.data.keys().hasAll(['uid', 'authorName', 'body', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.authorName is string
+        && request.resource.data.authorName.size() > 0
+        && request.resource.data.authorName.size() <= 80
+        && request.resource.data.body is string
+        && request.resource.data.body.size() > 0
+        && request.resource.data.body.size() <= 1200
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+
+    // HomeGroups Direct Messaging — merge INSIDE match /databases/{database}/documents.
+    // Keep existing rules. Deploy only after emulator testing and privacy review.
+    // The conversation ID is a canonical pair of Firebase UIDs, sorted lexicographically.
+    // No owner or moderator read bypass exists in these app-facing rules.
+    match /commonsDirectConversations/{conversationId} {
+      function participant() {
+        return signedIn() && request.auth.uid in resource.data.participants;
+      }
+      function validPair(d) {
+        return d.keys().hasOnly(['participants','requestedBy','status','createdAt','updatedAt'])
+          && d.keys().hasAll(['participants','requestedBy','status','createdAt','updatedAt'])
+          && d.participants is list && d.participants.size() == 2
+          && d.participants[0] is string && d.participants[1] is string
+          && d.participants[0] < d.participants[1]
+          && conversationId == d.participants[0] + '_' + d.participants[1]
+          && d.requestedBy in d.participants
+          && d.status in ['pending','accepted','declined']
+          && d.createdAt is timestamp && d.updatedAt is timestamp;
+      }
+      allow get, list: if participant();
+      allow create: if signedIn() && request.auth.uid in request.resource.data.participants && validPair(request.resource.data)
+        && request.resource.data.requestedBy == request.auth.uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      // Only the invited recipient may accept or decline. No reopening a declined request.
+      allow update: if participant()
+        && validPair(request.resource.data)
+        && resource.data.status == 'pending'
+        && request.auth.uid != resource.data.requestedBy
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt'])
+        && request.resource.data.status in ['accepted','declined']
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        function allowed() {
+          return signedIn()
+            && exists(/databases/$(database)/documents/commonsDirectConversations/$(conversationId))
+            && request.auth.uid in get(/databases/$(database)/documents/commonsDirectConversations/$(conversationId)).data.participants
+            && get(/databases/$(database)/documents/commonsDirectConversations/$(conversationId)).data.status == 'accepted';
+        }
+        allow get, list: if allowed();
+        allow create: if allowed()
+          && request.resource.data.keys().hasOnly(['senderUid','body','createdAt'])
+          && request.resource.data.keys().hasAll(['senderUid','body','createdAt'])
+          && request.resource.data.senderUid == request.auth.uid
+          && request.resource.data.body is string
+          && request.resource.data.body.size() > 0
+          && request.resource.data.body.size() <= 2000
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+    }
+    // SECURITY: Firestore client rules do not restrict privileged Admin SDK or
+    // project IAM access. Audit project IAM, service accounts, and backend logs.
+    // Privacy policy must disclose storage, retention and lawful access.
+    // Before broad rollout: add block controls, abuse protections/rate limiting,
+    // evidence preservation/retention, notification policy, and rules tests.
+
+
+    // Add inside the existing Firestore database match, retaining ALL existing live rules.
+    // Owner bootstrap: set a Firebase Auth custom claim {homegroupsOwner:true} on the
+    // owner's verified UID using a trusted Admin SDK environment (never the browser).
+    // The owner can appoint/revoke moderators; moderators cannot change their own roles.
+    // Roles are per-community, never global by default.
+    function hgOwner() {
+      return request.auth != null && request.auth.token.get('homegroupsOwner', false) == true;
+    }
+    function validModeratorArea(area) {
+      return area in ['projects','fellowship','prayer','study','discipleship','family'];
+    }
+    function validModeratorAssignment(data, uid, area) {
+      return data.keys().hasOnly(['uid','community','active','appointedAt','appointedBy','updatedAt'])
+        && data.keys().hasAll(['uid','community','active','appointedAt','appointedBy','updatedAt'])
+        && data.uid == uid
+        && data.community == area
+        && data.active is bool
+        && data.appointedBy is string
+        && data.appointedBy.size() > 0
+        && data.appointedAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+    match /commonsModeratorAssignments/{area}/members/{uid} {
+      allow get: if hgOwner() || (request.auth != null && request.auth.uid == uid);
+      allow list: if hgOwner();
+      allow create: if hgOwner() && validModeratorArea(area)
+        && validModeratorAssignment(request.resource.data,uid,area)
+        && request.resource.data.active == true
+        && request.resource.data.appointedBy == request.auth.uid
+        && request.resource.data.appointedAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if hgOwner() && validModeratorArea(area)
+        && validModeratorAssignment(request.resource.data,uid,area)
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.community == resource.data.community
+        && request.resource.data.appointedAt == resource.data.appointedAt
+        && request.resource.data.appointedBy == resource.data.appointedBy
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['active','updatedAt'])
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+    // Report review intentionally remains private until a separate, audited
+    // moderator review service is deployed. Do not expose commonsReports reads.
+
+
+    // Add inside match /databases/{database}/documents in the CURRENT LIVE rules.
+    // Keep every existing rule intact. Requires the existing enrolledInCommonsArea() helper.
+    // Reports are write-once; reads are restricted to owner and the active study moderator below.
+    // Document ID is reporter UID + "_" + post ID + "_" + reply ID or "post".
+    // This ID prevents the same member reporting the same target repeatedly.
+    match /commonsReports/{reportId} {
+      allow get: if hgOwner() || studyReportModerator();
+      allow list: if hgOwner() || (studyReportModerator() && request.query.limit != null && request.query.limit <= 50);
+      allow update, delete: if false;
+      function studyReportModerator() {
+        return signedIn() && resource.data.community == 'study'
+          && exists(/databases/$(database)/documents/commonsModeratorAssignments/study/members/$(request.auth.uid))
+          && get(/databases/$(database)/documents/commonsModeratorAssignments/study/members/$(request.auth.uid)).data.active == true;
+      }
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly([
+          'reporterUid', 'community', 'postId', 'replyId',
+          'reason', 'details', 'status', 'createdAt'
+        ])
+        && request.resource.data.keys().hasAll([
+          'reporterUid', 'community', 'postId', 'replyId',
+          'reason', 'details', 'status', 'createdAt'
+        ])
+        && request.resource.data.reporterUid == request.auth.uid
+        && request.resource.data.community == 'study'
+        && enrolledInCommonsArea(request.resource.data.community)
+        && request.resource.data.postId is string
+        && request.resource.data.postId.size() > 0
+        && request.resource.data.postId.size() <= 150
+        && request.resource.data.replyId is string
+        && request.resource.data.replyId.size() <= 150
+        && request.resource.data.reason in [
+          'harassment', 'threats', 'spam', 'privacy', 'personal-attack', 'other'
+        ]
+        && request.resource.data.details is string
+        && request.resource.data.details.size() <= 500
+        && request.resource.data.status == 'pending'
+        && request.resource.data.createdAt == request.time
+        && reportId == request.auth.uid + '_' + request.resource.data.postId + '_' +
+           (request.resource.data.replyId == '' ? 'post' : request.resource.data.replyId)
+        && exists(/databases/$(database)/documents/commonsCommunityPosts/study/posts/$(request.resource.data.postId))
+        && (request.resource.data.replyId == '' ||
+          exists(/databases/$(database)/documents/commonsCommunityPosts/study/posts/$(request.resource.data.postId)/replies/$(request.resource.data.replyId)));
+    }
+    // No public or reporter read access; scoped reviewer reads are explicit above.
+
+
+    // MERGE inside match /databases/{database}/documents; do NOT replace existing rules.
+    // Each report receives at most one immutable owner decision, preserving the original report.
+    // Publish only after reviewing/testing these rules.
+    match /commonsReportDecisions/{reportId} {
+      allow get, list: if hgOwner();
+      allow create: if hgOwner()
+        && exists(/databases/$(database)/documents/commonsReports/$(reportId))
+        && get(/databases/$(database)/documents/commonsReports/$(reportId)).data.status == 'pending'
+        && request.resource.data.keys().hasOnly(['reportId','community','action','rationale','actorUid','decidedAt'])
+        && request.resource.data.keys().hasAll(['reportId','community','action','rationale','actorUid','decidedAt'])
+        && request.resource.data.reportId == reportId
+        && request.resource.data.community == get(/databases/$(database)/documents/commonsReports/$(reportId)).data.community
+        && request.resource.data.action in ['dismissed','resolved','escalated']
+        && request.resource.data.rationale is string
+        && request.resource.data.rationale.size() >= 5
+        && request.resource.data.rationale.size() <= 2000
+        && request.resource.data.actorUid == request.auth.uid
+        && request.resource.data.decidedAt == request.time;
+      allow update, delete: if false;
+    }
+    // Decisions are append-only by report ID. Original reports stay write-once.
+    // This records review outcome; it does NOT remove content, modify reports, or
+    // create a complete multi-event audit log. Trusted server workflows are required
+    // for subsequent actions, reassignment, or moderator decisions.
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}
