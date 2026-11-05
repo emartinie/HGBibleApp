@@ -2,51 +2,7 @@ const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs/promises');
 const path=require('node:path');
-const {chromium}=require('playwright');
-const repo=path.resolve(__dirname,'../..');
-const commons='/My%20Partner/collaboration/messaging/commons/';
-const sdk=String.raw`const S=top.__fixture;
-export const auth={get currentUser(){return S.user;},authStateReady:async()=>{if(S.authRestore)await S.authRestore;},app:{options:{authDomain:"test.invalid"}}};export const db={};export const app={};
-export function onAuthStateChanged(a,cb,err){const rec={cb,win:window};S.auth.add(rec);queueMicrotask(()=>{if(S.auth.has(rec))cb(S.user)});return ()=>{S.auth.delete(rec);S.authStops++}}
-export function onSnapshot(ref,cb,err){const rec={cb,err,path:ref.path,win:window};S.snaps.add(rec);S.maxSnaps=Math.max(S.maxSnaps,S.snaps.size);queueMicrotask(()=>{if(S.snaps.has(rec))cb({empty:true,docs:[],forEach(){},docChanges(){return []}})});return ()=>{S.snaps.delete(rec);S.snapStops++}}
-const ref=(base,...bits)=>({path:[base?.path,...bits].filter(Boolean).join('/')});export const doc=ref,collection=ref;
-export const query=(base,...args)=>base;export const where=(...args)=>args;export const orderBy=where,limit=where,startAfter=where;
-export const serverTimestamp=()=>123;
-export async function getDoc(ref){if(S.deny)throw Object.assign(new Error('denied'),{code:'permission-denied'});const uid=ref.path.split('/').pop();const value=ref.path.startsWith('commonsMembers/')?{displayName:'Member '+uid,interest:'Bible Study & Investigation'}:ref.path.startsWith('commonsCommunityMembers/')&&S.members.has(ref.path)?{uid}:undefined;return {exists:()=>!!value,data:()=>value}}
-export async function getDocs(ref){if(S.deny)throw Object.assign(new Error('denied'),{code:'permission-denied'});let docs=ref.path.includes('commonsCommunityPosts/')&&!ref.path.includes('replies')?[{id:'post1',data:()=>({uid:'bob1234567890123',authorName:'Bob',body:'[HG-TITLE:Praying together]\\nA community discussion',createdAt:{toDate:()=>new Date(0)}})}]:[];return {docs,empty:!docs.length,size:docs.length,forEach:fn=>docs.forEach(fn)}}
-export async function setDoc(ref,value){S.writes.push({kind:'set',path:ref.path,value});S.members.add(ref.path)}
-export async function deleteDoc(ref){S.writes.push({kind:'delete',path:ref.path});S.members.delete(ref.path)}
-export async function addDoc(ref,value){S.writes.push({kind:'add',path:ref.path,value});return {id:'test-only'}}
-export const updateDoc=setDoc;
-export function beforeAuthStateChanged(a,cb){S.guards.add(cb);return()=>S.guards.delete(cb)}
-async function transition(user){for(const guard of [...S.guards])await guard(user);S.user=user;for(const rec of [...S.auth])if(S.auth.has(rec))rec.cb(user);return {user};}
-export class GoogleAuthProvider{};
-export const signInWithPopup=async()=>{S.authCalls.push({kind:'google'});if(!S.allowProvider)throw new Error('Real authentication prohibited in test');if(S.holdProvider)await new Promise(resolve=>S.resolveProvider=resolve);return transition({uid:'signed-in-test',displayName:'Test member',providerData:[{providerId:'google.com'}]});};
-export const linkWithPopup=async(user)=>{S.authCalls.push({kind:'linkGoogle',uid:user.uid});if(!S.allowProvider)throw new Error('Real authentication prohibited in test');if(S.holdProvider)await new Promise(resolve=>S.resolveProvider=resolve);if(S.linkCollision)throw {code:'auth/credential-already-in-use'};user.providerData=[{providerId:'google.com'}];return {user};};
-export const signInWithRedirect=signInWithPopup,sendSignInLinkToEmail=signInWithPopup,signInWithEmailLink=signInWithPopup,linkWithCredential=signInWithPopup;
-export const signOut=async()=>transition(null);export const getRedirectResult=async()=>null;export const isSignInWithEmailLink=()=>false;export const fetchSignInMethodsForEmail=async()=>[];export const EmailAuthProvider={credentialWithLink:()=>({})};
-`;
-async function harness(t,{route='?card=fellowship&view=explore&week=12',mobile=false,signedOut=false,companion=false}={}){
- const browser=await chromium.launch({executablePath:process.env.BROWSER_PATH||'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',headless:true});t.after(()=>browser.close());
- const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1440,height:1000},isMobile:mobile,hasTouch:mobile,serviceWorkers:'block'});
- const page=await context.newPage();page.setDefaultTimeout(10000);const errors=[],external=[];page.on('pageerror',e=>errors.push(e.message));
- await page.addInitScript(({signedOut})=>{if(window!==top)return;window.__fixture={user:signedOut?null:{uid:'alice',displayName:'Alice',isAnonymous:false,providerData:[{providerId:'google.com'}]},auth:new Set(),snaps:new Set(),members:new Set(['commonsCommunityMembers/study/members/alice']),writes:[],authStops:0,snapStops:0,maxSnaps:0,deny:false,guards:new Set(),authCalls:[],markers:[],maps:0,mapStops:0};window.__switchUser=uid=>{const s=window.__fixture;s.user=uid?{uid,displayName:uid,providerData:[{providerId:'google.com'}]}:null;for(const rec of [...s.auth])if(s.auth.has(rec))rec.cb(s.user)};const marker=coords=>({coords,addTo(layer){layer.addLayer?.(this);return this},bindPopup(p){this.popup=p;return this},openPopup(){return this},setLatLng(){return this},setPopupContent(){return this}});window.L={map(){window.__fixture.maps++;return {setView(){return this},on(type,fn){if(type==='click')window.__fixture.mapClick=fn;return this},off(){return this},once(){return this},locate(){throw new Error('Unexpected geolocation')},stopLocate(){},remove(){window.__fixture.mapStops++},removeLayer(){},dragging:{enable(){},disable(){}},scrollWheelZoom:{enable(){},disable(){}}}},tileLayer(){return {addTo(){}}},layerGroup(){const entries=new Set();return {addTo(){return this},addLayer(m){entries.add(m)},removeLayer(m){entries.delete(m)},hasLayer(m){return entries.has(m)}}},control:{layers(){return {addTo(){}}}},circleMarker(coords){const m=marker(coords);window.__fixture.markers.push(m);return m},marker,circle:marker};},{signedOut});
- const index=await fs.readFile(path.join(repo,'index.html'),'utf8');const theme=index.match(/<style[^>]*>([\s\S]*?)<\/style>/)?.[1]||'';
- await context.route('**/*',async request=>{const url=new URL(request.request().url());if(url.origin==='https://www.gstatic.com')return request.fulfill({contentType:'text/javascript',body:sdk});if(url.origin!=='http://fellowship.test'){external.push(url.href);return request.abort();}
- const p=decodeURIComponent(url.pathname);
- if(p==='/')return request.fulfill({contentType:'text/html',body:'<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>'+theme+'</style></head><body><select id="cardSelector"><option value="">Study</option><option value="fellowship">Fellowship</option></select><select id="weekSelect"><option value="12" selected>Week 12</option></select><main id="viewport" style="height:100vh"><div id="cardsRow"><section class="card" id="mainStageCard"><p id="reading">Reading context preserved</p></section><section class="card" id="dynamicCard"><div id="loadedCardHost"></div></section></div></main><script src="/js/share-routing.js"></script><script src="/js/themeDiagnostic.js"></script><script type="module" src="/tests/fellowship/component-entry.js"></script>'+(companion?'<script type="module" src="'+commons+'production-integration/commons-week-companion.js"></script>':'')+'</body></html>'});
- if(p==='/js/firebase-init.js')return request.fulfill({contentType:'text/javascript',body:sdk});
- if(p==='/js/timeStore.js')return request.fulfill({contentType:'text/javascript',body:'export const TimeStore={start(){}}'});
- if(p==='/js/firebaseTimeLoader.js')return request.fulfill({contentType:'text/javascript',body:'export function initializeTimeSystem(){}'});
- if(p==='/data/HomeGroupsMap.geojson')return request.fulfill({contentType:'application/json',body:JSON.stringify({features:[{properties:{Name:'Historical group',Coordinates:'-87.456789,36.123456'}}]})});
- const target=path.resolve(repo,'.'+p);if(!target.startsWith(repo+path.sep))return request.abort();
- try{const file=p.endsWith('/')?path.join(target,'index.html'):target;const body=await fs.readFile(file);return request.fulfill({body,contentType:file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':'text/html'});}catch{return request.fulfill({status:404,body:'Missing fixture file: '+p})}
- });
- await page.goto('http://fellowship.test/'+route);if(route.includes('card=mainstage'))await page.waitForFunction(()=>typeof window.loadCard==='function');else await page.locator('.fellowship').waitFor();
- const frame=async()=>{await page.locator('.fellowship iframe').waitFor();await page.waitForFunction(()=>document.querySelector('.fellowship iframe')?.contentDocument?.querySelector('link[href="/css/fellowship-embedded.css"]'));return page.frames().find(f=>f!==page.mainFrame());};
- t.after(()=>{assert.deepEqual(errors,[],'Uncaught browser errors');assert.deepEqual(external,[],'No unmocked external network traffic')});
- return {page,frame,context,errors};
-}
+const {harness,repo}=require('./harness.cjs');
 test('native card loading, legacy map route, approximate pins and cleanup preserve reading context',async t=>{
  const {page}=await harness(t,{route:'?card=prayermap&week=12'});await page.locator('#prayerMap').waitFor();await page.waitForFunction(()=>__fixture.markers.length===1);
  assert.match(page.url(),/card=fellowship/);assert.match(page.url(),/view=prayer/);assert.match(page.url(),/week=12/);

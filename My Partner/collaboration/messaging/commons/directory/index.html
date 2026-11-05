@@ -24,11 +24,12 @@ $('#export').onclick=()=>{const blob=new Blob([JSON.stringify({version:1,groups:
 </script>
 <script type="module">
 import {auth,db} from '../../../../../js/firebase-init.js';
-import {onAuthStateChanged} from '../commons-lifecycle.js';
+import {onAuthStateChanged,onCommonsDispose} from '../commons-lifecycle.js';
 import {doc,getDoc} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const summary=document.getElementById('memberSummary');
 const names={'Bible Study & Investigation':'study','Personal Growth & Fellowship':'fellowship','Prayer & Encouragement':'prayer','Discipleship & Mentorship':'discipleship','Kingdom Projects':'projects','Marriage & Family':'family'};
 let generation=0;
+onCommonsDispose(()=>{generation++;});
 onAuthStateChanged(auth,async user=>{
  const request=++generation;summary.replaceChildren();summary.hidden=false;
  const link=(label)=>{const a=document.createElement('a');a.href='../member/';a.textContent=label;a.style.marginLeft='14px';summary.append(a);};
@@ -48,11 +49,13 @@ onAuthStateChanged(auth,async user=>{
 },()=>{summary.hidden=false;summary.textContent='Unable to read sign-in state. Local profile drafts remain on this device.';});
 </script><script type="module">
 import {auth,db} from '../../../../../js/firebase-init.js';
-import {onAuthStateChanged} from '../commons-lifecycle.js';
+import {onAuthStateChanged,onCommonsDispose} from '../commons-lifecycle.js';
 import {doc,getDoc,setDoc,deleteDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const ids=['projects','fellowship','prayer','study','discipleship','family'];
 const status=document.getElementById('enrollmentStatus');
-let user=null,member=false,enrolled=new Set(),enabled=false,revision=0;
+let user=null,member=false,enrolled=new Set(),enabled=false,revision=0,disposed=false;
+const pending=new Set();
+onCommonsDispose(()=>{disposed=true;revision++;pending.clear();window.removeEventListener("commons-render",buttons);});
 const embedded = new URLSearchParams(location.search).get('fellowship') === '1';
 const joinedOnly = embedded && new URLSearchParams(location.search).get('communityView') === 'joined';
 if(embedded){
@@ -68,36 +71,36 @@ function buttons(){
   if(embedded)b.hidden=true;
   card.hidden=joinedOnly && !enrolled.has(id);
   action.textContent=enrolled.has(id)?'Leave community':'Join community';
-  action.disabled=!enabled||!user||!member;
+  action.disabled=disposed||pending.has(id)||!enabled||!user||!member;
   action.onclick=()=>toggle(id,action);
  });
- const empty=document.getElementById("joinedEmpty");if(empty){empty.hidden=!joinedOnly||enrolled.size>0;empty.textContent=enabled?"You have not joined any communities yet. Open Explore to find a community.":"Sign in and create a member profile to see your communities.";}
+ const empty=document.getElementById("joinedEmpty");if(empty){empty.hidden=!joinedOnly||enrolled.size>0;empty.textContent=enabled?"You have not joined any communities yet. Open Explore to find a community.":status.textContent;}
 }
 async function refresh(){
- const version=++revision;user=auth.currentUser;member=false;enabled=false;enrolled=new Set();buttons();
- if(!user){status.textContent='Sign in to Messaging to join communities.';return;}
+ if(disposed)return;const version=++revision;pending.clear();user=auth.currentUser;member=false;enabled=false;enrolled=new Set();buttons();
+ if(!user||user.isAnonymous){status.textContent='Sign in to Messaging to join communities.';return;}
  status.textContent='Checking HomeGroups membership and community permissions…';
  try{
-  const profile=await getDoc(doc(db,'commonsMembers',user.uid));if(version!==revision)return;
+  const profile=await getDoc(doc(db,'commonsMembers',user.uid));if(disposed||version!==revision||auth.currentUser?.uid!==user?.uid)return;
   member=profile.exists();if(!member){status.textContent='Create your HomeGroups member profile first.';buttons();return;}
   const results=await Promise.all(ids.map(id=>getDoc(doc(db,'commonsCommunityMembers',id,'members',user.uid))));
-  if(version!==revision)return;
+  if(disposed||version!==revision||auth.currentUser?.uid!==user?.uid)return;
   enabled=true;results.forEach((snap,i)=>{if(snap.exists())enrolled.add(ids[i]);});
   status.textContent='Your community enrollments are available. Select Join community to participate.';
- }catch(err){if(version!==revision)return;status.textContent=err.code==='permission-denied'?'Community enrollment is prepared, but its Firestore permissions are not yet published.':'Could not load enrollments: '+(err.code||err.message);}
+ }catch(err){if(disposed||version!==revision||auth.currentUser?.uid!==user?.uid)return;status.textContent=err.code==='permission-denied'?'Community access was denied. Your membership or permissions could not be verified.':'Could not load enrollments: '+(err.code||err.message);}
  buttons();
 }
 async function toggle(id,button){
- if(!enabled||!member||!user||!ids.includes(id))return;
- const uid=user.uid,wasEnrolled=enrolled.has(id);button.disabled=true;status.textContent=wasEnrolled?'Leaving community…':'Joining community…';
+ if(disposed||!enabled||!member||!user||user.isAnonymous||auth.currentUser?.uid!==user.uid||pending.has(id)||!ids.includes(id))return;
+ const uid=user.uid,version=revision,wasEnrolled=enrolled.has(id);pending.add(id);button.disabled=true;status.textContent=wasEnrolled?'Leaving community…':'Joining community…';
  try{
   const ref=doc(db,'commonsCommunityMembers',id,'members',uid);
   if(wasEnrolled)await deleteDoc(ref);else await setDoc(ref,{uid,communityId:id,joinedAt:serverTimestamp()});
-  if(auth.currentUser?.uid!==uid)return;
+  if(disposed||version!==revision||auth.currentUser?.uid!==uid)return;
   if(wasEnrolled)enrolled.delete(id);else enrolled.add(id);
   status.textContent=(wasEnrolled?'Left ':'Joined ')+id+' successfully. Your membership is saved online.';
- }catch(err){if(auth.currentUser?.uid!==uid)return;status.textContent='Community enrollment was not saved: '+(err.code||err.message);}
- buttons();
+ }catch(err){if(disposed||version!==revision||auth.currentUser?.uid!==uid)return;status.textContent='Community enrollment was not saved: '+(err.code||err.message);}
+ if(disposed||version!==revision||auth.currentUser?.uid!==uid)return;pending.delete(id);buttons();
 }
 window.addEventListener('commons-render',buttons);
 onAuthStateChanged(auth,()=>refresh());

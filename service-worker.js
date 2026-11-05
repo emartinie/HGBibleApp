@@ -1,5 +1,5 @@
 // HG Bible App service worker — conservative Phase 1 shell caching.
-const CACHE_VERSION = "hg-bible-shell-v7-controlled";
+const CACHE_VERSION = "hg-bible-shell-v8-fellowship-live";
 const APP_SHELL_URL = new URL("./index.html", self.registration.scope).href;
 const OFFLINE_URL = new URL("./offline.html", self.registration.scope).href;
 
@@ -65,7 +65,7 @@ self.addEventListener("fetch", event => {
   if (url.origin !== self.location.origin) return;
 
   // Test access decisions fail closed offline; ordinary shell caching stays available.
-  const controlled = ['/data/fellowship-testing.json','/js/fellowship-test-access.js','/js/fellowship-test.js'];
+  const controlled = ['/data/fellowship-testing.json','/js/fellowship-test-access.js','/js/fellowship-test.js','/data/fellowship-live.json','/js/fellowship-live-access.js','/js/fellowship-live.js'];
   if (controlled.includes(url.pathname)) {
     event.respondWith(fetch(request, {cache:'no-store'}).catch(() => Response.error()));
     return;

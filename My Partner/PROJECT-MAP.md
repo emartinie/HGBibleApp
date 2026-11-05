@@ -97,3 +97,7 @@ On `codex/fellowship-phase1`, based on main `36e3516`: [integration report](coll
 ## Controlled Fellowship release candidate
 
 Separate `codex/fellowship-controlled-testing` branch builds on PR #31, with production entries installing an immutable UI release policy before the shared card runtime. Flag remains false; only bounded read-only fictional fixtures can be enabled for a trusted owner. Public Prayer Map routing/menu are restored. [Release configuration](../CONTROLLED-FELLOWSHIP-RELEASE.md) records public-static-asset limits, owner-confirmed main/root auto-publication, physical-device checks and rollback. No production change is applied.
+
+## Fellowship live-services candidate
+
+Separate codex/fellowship-live-integration from main 487a460 reuses existing Commons services through the native card; the owner-fixture route remains separate. New live pilot configuration is disabled without test UIDs or dates. [Reuse, conditional approved test plan and genuine release blockers](../FELLOWSHIP-LIVE-INTEGRATION.md) distinguish client/emulator coverage from unverified production rules/provider operations. No deployment or production mutation.

@@ -1,7 +1,7 @@
 // HomeGroups Week 1/2 Messaging production integration candidate.
 // Load from app shell as <script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js"></script>
 // This module changes no production source files. Uses same-origin Firebase Messaging iframe.
-const testingRouteActive=()=>window.HGFellowshipTestingRequested||['fellowship-test','fellowship'].includes(new URLSearchParams(location.search).get('card'));
+const testingRouteActive=()=>window.HGFellowshipTestingRequested||['fellowship-test','fellowship-live','fellowship'].includes(new URLSearchParams(location.search).get('card'));
 const PILOT = new URL('../week-context-pilot/', import.meta.url);
 let week = 0, box, frame, collapsed = false, dragging = null;
 const css = document.createElement('style');
@@ -128,7 +128,7 @@ window.addEventListener('message',event=>{
   window.addEventListener('focus',update);
   function subscribeInbox(u){
    const token=++subscriptionEpoch;
-   clear();activeUid=u?.uid||'';if(!activeUid||window.HGFellowshipActive||window.HGFellowshipTestingRequested||['fellowship-test','fellowship'].includes(new URLSearchParams(location.search).get('card')))return;
+   clear();activeUid=u?.uid||'';if(!activeUid||window.HGFellowshipActive||window.HGFellowshipTestingRequested||['fellowship-test','fellowship-live','fellowship'].includes(new URLSearchParams(location.search).get('card')))return;
    const uid=activeUid;
    stopInbox=onSnapshot(query(collection(db,'commonsDirectConversations'),where('participants','array-contains',uid),limit(50)),snap=>{
     if(uid!==activeUid||token!==subscriptionEpoch||testingRouteActive())return;

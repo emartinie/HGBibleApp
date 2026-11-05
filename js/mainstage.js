@@ -611,7 +611,9 @@ function syncMainStageRoute(week, options = {}) {
   const value = parseInt(week, 10);
   if (!Number.isFinite(value) || value < 1 || value > TOTAL_WEEKS) return;
 
-  window.HGRoute?.setCardState?.("mainstage", { week: value }, {
+  const currentCard=window.HGRoute?.read?.().card;
+  const card=["fellowship", "fellowship-live", "fellowship-test"].includes(currentCard)?currentCard:"mainstage";
+  window.HGRoute?.setCardState?.(card, { week: value }, {
     replace: options.replace === true,
     announce: false,
     source: "mainstage-week"
@@ -638,7 +640,7 @@ async function init() {
   populateWeekSelect();
 
   const initialRoute = window.HGRoute?.read?.();
-  const routedWeek = ["mainstage", "fellowship-test", "fellowship"].includes(initialRoute?.card)
+  const routedWeek = ["mainstage", "fellowship-test", "fellowship-live", "fellowship"].includes(initialRoute?.card)
     ? parseInt(initialRoute.week, 10)
     : NaN;
   if (Number.isFinite(routedWeek) && routedWeek >= 1 && routedWeek <= TOTAL_WEEKS) {

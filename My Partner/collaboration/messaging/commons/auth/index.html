@@ -30,6 +30,12 @@ function safeDestination(value){
  try{
   const url=new URL(value,location.origin),base='/My%20Partner/collaboration/messaging/commons/';
   if(url.origin!==location.origin)return null;
+  // Only the fixed pilot route may return to the app shell; discard arbitrary parameters.
+  if(url.pathname==='/'&&url.searchParams.get('card')==='fellowship-live'){
+    const destination=new URL('/',location.origin);destination.searchParams.set('card','fellowship-live');
+    const week=url.searchParams.get('week');if(/^([1-9]|[1-4][0-9]|5[0-2])$/.test(week||''))destination.searchParams.set('week',week);
+    return destination.pathname+destination.search;
+  }
   const allowed=['auth','member','directory','conversations','activity','direct','direct-live'];
   if(url.pathname!=='/find-users/'&&!allowed.some(page=>url.pathname===base+page+'/'||url.pathname===base+page+'/index.html'))return null;
   return url.pathname+url.search+url.hash;
