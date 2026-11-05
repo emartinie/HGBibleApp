@@ -35,7 +35,7 @@ css.textContent = `
 document.head.append(css);
 const launch=document.createElement('button');launch.id='hg-commons-launch';launch.innerHTML='☏ Messaging <span id="hg-commons-badge" hidden aria-label="Unread messaging activity"></span>';launch.hidden=true;launch.type='button';document.body.append(launch);
 const menu=document.createElement('nav');menu.id='hg-commons-menu';menu.hidden=true;menu.setAttribute('aria-label','Messaging destinations');
-menu.innerHTML='<strong>Messaging</strong><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Conversation requests <span class="count" id="hg-commons-requests" hidden></span></a><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Private messages <span class="count" id="hg-commons-unread" hidden></span></a><button type="button" id="hg-commons-study">Bible Study discussions <span>›</span></button><a href="/find-users/">Find people <span>›</span></a>';
+menu.innerHTML='<strong>Messaging</strong><a href="/?card=fellowship&amp;view=messages">Conversation requests <span class="count" id="hg-commons-requests" hidden></span></a><a href="/?card=fellowship&amp;view=messages">Private messages <span class="count" id="hg-commons-unread" hidden></span></a><button type="button" id="hg-commons-study">Bible Study discussions <span>›</span></button><a href="/?card=fellowship&amp;view=explore&amp;section=people">Find people <span>›</span></a>';
 document.body.append(menu);
 const requestsCount=menu.querySelector('#hg-commons-requests'),unreadCount=menu.querySelector('#hg-commons-unread');
 function menuVisible(value){menu.hidden=!value;launch.setAttribute('aria-expanded',String(value))}
@@ -53,7 +53,7 @@ document.addEventListener('pointerdown',e=>{if(!menu.contains(e.target)&&!launch
 document.addEventListener('keydown',e=>{if(e.key==='Escape')menuVisible(false)});
 
 box=document.createElement('section');box.id='hg-commons-window';box.hidden=true;box.setAttribute('aria-label','Messaging study companion');
-box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><a id="hg-commons-inbox" href="/My%20Partner/collaboration/messaging/commons/direct-live/">✉ Inbox</a> <button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
+box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><a id="hg-commons-inbox" href="/?card=fellowship&amp;view=messages">✉ Inbox</a> <button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
 const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-commons-label'),min=box.querySelector('#hg-commons-min');
 document.body.append(box);
 function validWeek(n){return n===1||n===2||n===3||n===4}
@@ -89,6 +89,7 @@ function refresh(){
 refresh();
 document.addEventListener('weekChanged',()=>queueMicrotask(refresh));
 window.addEventListener('popstate',()=>setTimeout(refresh,0));
+window.addEventListener('hg:fellowship-active',refresh);
 const studySelect=document.getElementById('weekSelect');
 studySelect?.addEventListener('change',refresh);
 let checks=0;
@@ -110,7 +111,7 @@ window.addEventListener('message',event=>{
   const {onAuthStateChanged}=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
   const {collection,onSnapshot,query,where,orderBy,limit}=await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
   const badge=document.getElementById('hg-commons-badge');
-  let stopInbox=null,stops=[],activeUid='',items=[],lastMessages=new Map();
+  let stopInbox=null,stops=[],activeUid='',items=[],lastMessages=new Map(),subscriptionEpoch=0;
   function marker(id){try{return Number(localStorage.getItem('hg-direct-read-v1:'+activeUid+':'+id)||0)}catch{return 0}}
   function update(){
    const pending=items.filter(x=>x.data.status==='pending'&&x.data.requestedBy!==activeUid).length;
@@ -124,16 +125,17 @@ window.addEventListener('message',event=>{
   function clear(){stopInbox?.();stopInbox=null;stops.forEach(fn=>fn());stops=[];items=[];lastMessages.clear();update()}
   window.addEventListener('storage',e=>{if(e.key?.startsWith('hg-direct-read-v1:'))update()});
   window.addEventListener('focus',update);
-  onAuthStateChanged(auth,u=>{
-   clear();activeUid=u?.uid||'';if(!activeUid)return;
+  function subscribeInbox(u){
+   const token=++subscriptionEpoch;
+   clear();activeUid=u?.uid||'';if(!activeUid||window.HGFellowshipActive)return;
    const uid=activeUid;
    stopInbox=onSnapshot(query(collection(db,'commonsDirectConversations'),where('participants','array-contains',uid),limit(50)),snap=>{
-    if(uid!==activeUid)return;
+    if(uid!==activeUid||token!==subscriptionEpoch)return;
     stops.forEach(fn=>fn());stops=[];lastMessages.clear();
     items=snap.docs.map(d=>({id:d.id,data:d.data()}));update();
     for(const item of items.filter(x=>x.data.status==='accepted')){
      const stop=onSnapshot(query(collection(db,'commonsDirectConversations',item.id,'messages'),orderBy('createdAt','desc'),limit(1)),messages=>{
-      if(uid!==activeUid)return;
+      if(uid!==activeUid||token!==subscriptionEpoch)return;
       const latest=messages.docs[0]?.data();
       lastMessages.set(item.id,latest?{senderUid:latest.senderUid,timestamp:latest.createdAt?.toMillis?.()||0}:null);
       update();
@@ -141,6 +143,8 @@ window.addEventListener('message',event=>{
      stops.push(stop);
     }
    },()=>{});
-  });
+  }
+  onAuthStateChanged(auth,subscribeInbox);
+  window.addEventListener("hg:fellowship-active",()=>subscribeInbox(auth.currentUser));
  }catch(err){console.warn('Messaging badge unavailable',err)}
 })();

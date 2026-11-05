@@ -9,6 +9,7 @@
     "book",
     "chapter",
     "view",
+    "area",
     "section",
     "ref",
     "from",

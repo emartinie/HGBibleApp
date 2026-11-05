@@ -110,3 +110,11 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Public `https://homegroups.org/investigations/two-powers-in-heaven.html` returned HTTP 200 with the expected article id; delivered SHA-256 `3d2d1467ce8ce19469a96d9544ec58f165537a9f73c760f4815a2ec969e3cb4f`.
 - Public published manifest returned HTTP 200 with 17 records and the exact #016 id/file/order registration. Repository readback matched the approved HTML and intended manifest.
 - This verifies deployment and public delivery. Browser-rendered interaction testing remains unperformed; Eddie reviewed and approved the page appearance before publication.
+
+## November 4, 2026 — Fellowship Integration, Phase 1
+
+- Owner: Codex, authorized by Eddie; other workers' uncommitted activity remains unknown.
+- Base: main `36e3516f4195a050e84b3d176e1e67b7220759bf`; separate feature branch `codex/fellowship-phase1`. No security-branch merge.
+- Scope: native Fellowship card and route alias, reused Prayer Map and Commons directory/discussions/DM/account screens, explicit component listener cleanup, global theme bridge, membership filter, map callback/consent protections, integration browser tests.
+- Evidence and limitations: [integration report](collaboration/messaging/commons/FELLOWSHIP-INTEGRATION.md) and [test results](../tests/fellowship/README.md). Four public production assets matched the main baseline by read-only HTTP comparison. Firebase operations in tests are in-memory doubles. No production messages, emails, memberships, prayer changes, Firebase rules/configuration changes, merges or deployments.
+- Handoff: draft for architecture/security review. PR #29, authoritative live rules verification, historical location consent review, non-production provider checks and full-app/device checks remain release gates.
