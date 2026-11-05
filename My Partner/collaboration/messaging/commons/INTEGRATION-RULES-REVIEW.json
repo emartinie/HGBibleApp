@@ -1,0 +1,24 @@
+{
+  "score": 3,
+  "summary": "Bounded review of the unchanged proposed rules only; live release unknown. Participant/identity/ownership and create/update protections pass 14 emulator groups. Public-location publication and abuse prevention remain release concerns.",
+  "findings": [
+    {
+      "check": "Privacy and business logic",
+      "severity": "moderate",
+      "issue": "Preserved prayer/feast rules allow public document reads and precise coordinates; publication consent and rounding are not server-enforced. The deployed rules and historical consent are unverified.",
+      "recommendation": "Obtain the active rules export, review historical consent/data, and design approved trusted minimization and auditable publication consent without assuming client display rounding is access control."
+    },
+    {
+      "check": "Resource exhaustion and business logic",
+      "severity": "moderate",
+      "issue": "Invitation creation/message writes have identity/schema checks but no per-user rate policy or blocking. Existing reporting is study-scoped. Community expansion could expose recipients to abuse.",
+      "recommendation": "Define backend-enforced rate/block/report controls as separately reviewed work before community expansion; retain participant-only private message access."
+    },
+    {
+      "check": "Authority source and authorization scope",
+      "severity": "minor",
+      "issue": "Client rules do not constrain privileged Admin SDK/IAM access; the actual project access policy and active rules release have not been inspected.",
+      "recommendation": "Require administrator release export, IAM/service-account review and retention/access policy evidence; do not infer production privacy from emulator success."
+    }
+  ]
+}

@@ -4,15 +4,93 @@
 <script type="module">
 import {auth,db} from '../../../../../js/firebase-init.js';
 import {doc,getDoc,setDoc,deleteDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-import {onAuthStateChanged,GoogleAuthProvider,signInWithPopup,signInWithRedirect,getRedirectResult,signOut} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-const $=id=>document.getElementById(id);let activeUid=null,cloudMember=false;const join=$('join'),cloudStatus=$('cloudStatus');const profile=$('profile'),draftStatus=$('draftStatus');const status=$('status'),details=$('details'),signIn=$('signin'),signOutBtn=$('signout'),redirect=$('redirect'),diagnostic=$('diagnostic');
-function showError(err){const code=err?.code||'unknown';status.textContent='Google sign-in did not complete ('+code+').';diagnostic.hidden=false;diagnostic.textContent=code==='auth/unauthorized-domain'?'This website domain is not authorized in Firebase Authentication. An administrator must add homegroups.org under Firebase Console → Authentication → Settings → Authorized domains.':code==='auth/operation-not-allowed'?'Google sign-in is not enabled for this Firebase project. Check Firebase Authentication → Sign-in method.':code==='auth/popup-blocked'||code==='auth/popup-closed-by-user'||code==='auth/cancelled-popup-request'?'The sign-in popup was blocked or closed. Try full-page sign-in below. If it still fails, note the error shown.':'Firebase reported: '+(err?.message||code)+' | Page origin: '+location.origin+' | Auth domain: '+auth.app.options.authDomain;redirect.hidden=code==='auth/unauthorized-domain'||code==='auth/operation-not-allowed';signIn.disabled=false;}
-getRedirectResult(auth).catch(showError);
-onAuthStateChanged(auth,async user=>{signIn.disabled=false;signIn.hidden=!!user;signOutBtn.hidden=!user;details.replaceChildren();activeUid=user?.uid||null;cloudMember=false;join.disabled=!user;cloudStatus.textContent='Checking membership…';profile.hidden=!user;if(user){const key='hg-commons-profile-draft-'+user.uid;let draft={};try{draft=JSON.parse(localStorage.getItem(key)||'{}')}catch{}$('displayName').value=draft.displayName??user.displayName??'';$('about').value=draft.about??'';$('interest').value=draft.interest??'';draftStatus.textContent=localStorage.getItem(key)?'A draft is saved in this browser.':'Not saved yet.';status.textContent='Signed in to HomeGroups.';const name=document.createElement('p');name.textContent='Account: '+(user.displayName||user.email||'Google member');details.append(name);const note=document.createElement('p');note.textContent='You are authenticated. Your Messaging profile is a local draft, not a registered community membership yet.';details.append(note);try{const snap=await getDoc(doc(db,'commonsMembers',user.uid));if(auth.currentUser?.uid!==user.uid)return;if(snap.exists()){cloudMember=true;const data=snap.data();$('displayName').value=data.displayName||$('displayName').value;$('about').value=data.about||'';$('interest').value=data.interest||'';cloudStatus.textContent='Your profile is saved online.';try{const publicSnap=await getDoc(doc(db,'commonsDirectory',user.uid));if(auth.currentUser?.uid===user.uid)$('discoverable').checked=publicSnap.exists();}catch{}join.textContent='Update Messaging profile';note.textContent='You are an active HomeGroups member.';}else{cloudStatus.textContent='No HomeGroups membership yet. Choose Join Messaging when ready.';join.textContent='Join Messaging';}}catch(err){cloudStatus.textContent=err.code==='permission-denied'?'Firestore membership permissions are not deployed yet. You can still save a local draft.':'Could not check membership: '+(err.code||err.message);join.disabled=err.code==='permission-denied';}}else{status.textContent='Sign in to create or update your Messaging profile.';}},err=>{status.textContent='Authentication state unavailable: '+(err.code||err.message);signIn.disabled=false;});
-signIn.onclick=async()=>{signIn.disabled=true;diagnostic.hidden=true;status.textContent='Opening Google sign-in…';try{await signInWithPopup(auth,new GoogleAuthProvider());}catch(err){showError(err);}};
-redirect.onclick=async()=>{redirect.disabled=true;status.textContent='Redirecting to Google sign-in…';try{await signInWithRedirect(auth,new GoogleAuthProvider());}catch(err){redirect.disabled=false;showError(err);}};
-$('saveDraft').onclick=()=>{if(!activeUid)return;const data={displayName:$('displayName').value.trim().slice(0,80),about:$('about').value.trim().slice(0,500),interest:$('interest').value};if(!data.displayName){draftStatus.textContent='Please enter a display name.';return;}try{localStorage.setItem('hg-commons-profile-draft-'+activeUid,JSON.stringify(data));draftStatus.textContent='Draft saved on this device.';}catch(e){draftStatus.textContent='Unable to save on this device: '+e.message;}};
-join.onclick=async()=>{const user=auth.currentUser;if(!user||user.uid!==activeUid)return;const data={displayName:$('displayName').value.trim(),about:$('about').value.trim(),interest:$('interest').value};if(!data.displayName||data.displayName.length>80||data.about.length>500){cloudStatus.textContent='Enter a display name (up to 80 characters) and introduction (up to 500 characters).';return;}join.disabled=true;cloudStatus.textContent='Saving your Messaging profile…';try{const ref=doc(db,'commonsMembers',user.uid);if(cloudMember){await setDoc(ref,{...data,updatedAt:serverTimestamp()},{merge:true});}else{await setDoc(ref,{...data,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});cloudMember=true;}const directoryRef=doc(db,'commonsDirectory',user.uid);if($('discoverable').checked){await setDoc(directoryRef,{displayName:data.displayName,interest:data.interest,updatedAt:serverTimestamp()});}else{await deleteDoc(directoryRef).catch(err=>{if(err.code!=='not-found')throw err});}cloudStatus.textContent='Profile saved. Your HomeGroups membership is active.';join.textContent='Update Messaging profile';}catch(err){cloudStatus.textContent=err.code==='permission-denied'?'Firestore rules do not yet permit Messaging profiles. No cloud profile was created.':'Could not save: '+(err.code||err.message);}finally{join.disabled=false;}};
-$('clearDraft').onclick=()=>{if(!activeUid)return;localStorage.removeItem('hg-commons-profile-draft-'+activeUid);$('about').value='';$('interest').value='';draftStatus.textContent='Local draft cleared.';};
+import {signOut} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {onAuthStateChanged,onCommonsDispose} from '../commons-lifecycle.js';
+const $=id=>document.getElementById(id);
+let activeUid=null,cloudMember=false,revision=0,ready=false,saving=false;
+const join=$('join'),cloudStatus=$('cloudStatus'),profile=$('profile'),draftStatus=$('draftStatus');
+const status=$('status'),details=$('details'),signIn=$('signin'),signOutBtn=$('signout'),redirect=$('redirect'),diagnostic=$('diagnostic');
+onCommonsDispose(()=>{
+ revision++;activeUid=null;ready=false;saving=false;
+ $('discoverable').checked=false;$('discoverable').disabled=true;join.disabled=true;
+ for(const id of ['displayName','about','interest'])$(id).value='';
+ details.replaceChildren();
+});
+function current(token,uid){return token===revision&&activeUid===uid&&auth.currentUser?.uid===uid;}
+function showError(err){
+ const code=err?.code||'unknown';status.textContent='Google sign-in did not complete ('+code+').';diagnostic.hidden=false;
+ diagnostic.textContent=code==='auth/unauthorized-domain'?'This website domain is not authorized in Firebase Authentication.':code==='auth/operation-not-allowed'?'Google sign-in is not enabled for this Firebase project.':'Firebase reported: '+(err?.message||code);
+ redirect.hidden=code==='auth/unauthorized-domain'||code==='auth/operation-not-allowed';signIn.disabled=false;
+}
+onAuthStateChanged(auth,async user=>{
+ const token=++revision;activeUid=user?.uid||null;cloudMember=false;ready=false;saving=false;
+ // Consent belongs only to the loaded account. Never restore it from drafts.
+ $('discoverable').checked=false;$('discoverable').disabled=true;join.disabled=true;
+ $('displayName').value='';$('about').value='';$('interest').value='';
+ join.textContent='Join Messaging';cloudStatus.textContent='Checking membership and directory privacy…';
+ details.replaceChildren();diagnostic.hidden=true;redirect.hidden=true;
+ signIn.disabled=false;signIn.hidden=!!user;signOutBtn.hidden=!user;profile.hidden=!user;
+ if(!user){status.textContent='Sign in to create or update your Messaging profile.';return;}
+ let draft=null;try{draft=JSON.parse(localStorage.getItem('hg-commons-profile-draft-'+user.uid)||'null');}catch{}
+ $('displayName').value=draft?.displayName??user.displayName??'';
+ $('about').value=draft?.about??'';$('interest').value=draft?.interest??'';
+ draftStatus.textContent=draft?'A draft is saved in this browser.':'Not saved yet.';
+ status.textContent='Signed in to HomeGroups.';
+ const name=document.createElement('p');name.textContent='Account: '+(user.displayName||user.email||'HomeGroups member');details.append(name);
+ const note=document.createElement('p');note.textContent='Checking your Messaging membership.';details.append(note);
+ try{
+  const [snap,publicSnap]=await Promise.all([
+   getDoc(doc(db,'commonsMembers',user.uid)),getDoc(doc(db,'commonsDirectory',user.uid))
+  ]);
+  if(!current(token,user.uid))return;
+  cloudMember=snap.exists();
+  if(cloudMember){
+   const data=snap.data();$('displayName').value=data.displayName||$('displayName').value;
+   $('about').value=data.about||'';$('interest').value=data.interest||'';
+   $('discoverable').checked=publicSnap.exists();
+   cloudStatus.textContent='Your profile is saved online.';join.textContent='Update Messaging profile';note.textContent='You are an active HomeGroups member.';
+  }else{
+   cloudStatus.textContent='No HomeGroups membership yet. Choose Join Messaging when ready.';
+   note.textContent='Your Messaging profile is a local draft until you join.';
+  }
+  ready=true;$('discoverable').disabled=false;join.disabled=false;
+ }catch(err){
+  if(!current(token,user.uid))return;
+  $('discoverable').checked=false;
+  cloudStatus.textContent='Could not verify membership and directory privacy ('+(err.code||err.message)+'). Reload before saving online. Local drafts remain available.';
+ }
+},err=>{status.textContent='Authentication state unavailable: '+(err.code||err.message);signIn.disabled=false;});
+// One hardened sign-in implementation: linking and switching stay in Account.
+signIn.textContent='Open HomeGroups Account';
+signIn.onclick=()=>{const url=new URL('../auth/',location.href);url.searchParams.set('next',location.pathname+location.search);location.assign(url.href);};
+redirect.hidden=true;
+$('saveDraft').onclick=()=>{
+ if(!activeUid)return;
+ const data={displayName:$('displayName').value.trim().slice(0,80),about:$('about').value.trim().slice(0,500),interest:$('interest').value};
+ if(!data.displayName){draftStatus.textContent='Please enter a display name.';return;}
+ try{localStorage.setItem('hg-commons-profile-draft-'+activeUid,JSON.stringify(data));draftStatus.textContent='Draft saved on this device.';}catch(e){draftStatus.textContent='Unable to save on this device: '+e.message;}
+};
+join.onclick=async()=>{
+ const user=auth.currentUser,token=revision;
+ if(!user||user.uid!==activeUid||!ready||saving)return;
+ const data={displayName:$('displayName').value.trim(),about:$('about').value.trim(),interest:$('interest').value};
+ const discoverable=$('discoverable').checked,wasMember=cloudMember;
+ if(!data.displayName||data.displayName.length>80||data.about.length>500){cloudStatus.textContent='Enter a display name (up to 80 characters) and introduction (up to 500 characters).';return;}
+ saving=true;join.disabled=true;$('discoverable').disabled=true;cloudStatus.textContent='Saving your Messaging profile…';
+ let profileSaved=false;
+ try{
+  const ref=doc(db,'commonsMembers',user.uid);
+  await setDoc(ref,wasMember?{...data,updatedAt:serverTimestamp()}:{...data,createdAt:serverTimestamp(),updatedAt:serverTimestamp()},...(wasMember?[{merge:true}]:[]));
+  profileSaved=true;if(!current(token,user.uid))return;cloudMember=true;
+  const directoryRef=doc(db,'commonsDirectory',user.uid);
+  if(discoverable)await setDoc(directoryRef,{displayName:data.displayName,interest:data.interest,updatedAt:serverTimestamp()});
+  else await deleteDoc(directoryRef);
+  if(!current(token,user.uid))return;
+  cloudStatus.textContent='Profile saved. Your HomeGroups membership is active.';join.textContent='Update Messaging profile';
+ }catch(err){
+  if(current(token,user.uid))cloudStatus.textContent=profileSaved?'Your profile was saved, but directory privacy could not be updated ('+(err.code||err.message)+'). Please retry.':'Could not save your profile: '+(err.code||err.message);
+ }finally{if(current(token,user.uid)){saving=false;join.disabled=!ready;$('discoverable').disabled=!ready;}}
+};
+$('clearDraft').onclick=()=>{if(!activeUid)return;try{localStorage.removeItem('hg-commons-profile-draft-'+activeUid);$('about').value='';$('interest').value='';draftStatus.textContent='Local draft cleared.';}catch(e){draftStatus.textContent='Unable to clear draft: '+e.message;}};
 signOutBtn.onclick=async()=>{try{await signOut(auth);}catch(err){status.textContent='Sign-out failed: '+(err.code||err.message);}};
 </script></body></html>

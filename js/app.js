@@ -32,6 +32,7 @@ console.log("APP JS RUN ID:", Date.now());
 
   let currentCardIndex = 0;
   let loadedScript = null;
+  const cardScriptLoads = new Map();
   let loadCardRequestId = 0;
   let cardLoadController = null;
   let scrollSyncBound = false;
@@ -58,6 +59,7 @@ console.log("APP JS RUN ID:", Date.now());
 
   const MODULE_CARDS = new Set([
     "prayermap",
+    "fellowship",
     "commentary",
     "investigations"
   ]);
@@ -78,6 +80,7 @@ console.log("APP JS RUN ID:", Date.now());
     nt: { forceReloadScript: true },
     scriptureapi: { forceReloadScript: true },
     scholars: { init: "initScholarsCard", cleanup: "destroyScholarsCard" },
+    fellowship: { init: "initFellowshipCard", cleanup: "destroyFellowshipCard" },
     prayermap: { init: "initPrayerMapCard", cleanup: "destroyPrayerMapCard" },
     prezis: { init: "initPrezis", cleanup: "destroyPrezis" },
     "pwa-health": { init: "initPwaHealthCard", cleanup: "destroyPwaHealthCard" },
@@ -315,10 +318,11 @@ async function loadCardScript(cardName) {
 
   if (existing) {
     console.log("[CARD] script already present", { cardName, src: existing.src });
+    await cardScriptLoads.get(cardName);
     return;
   }
 
-  await new Promise((resolve, reject) => {
+  const pending = new Promise((resolve, reject) => {
     const script = document.createElement("script");
     script.src = `js/${cardName}.js?v=${Date.now()}`;
     script.defer = true;
@@ -339,6 +343,10 @@ async function loadCardScript(cardName) {
     document.body.appendChild(script);
     console.log("[CARD] script injected", { cardName, src: script.src });
   });
+  cardScriptLoads.set(cardName, pending);
+  try { await pending; }
+  catch (error) { removeCardScript(cardName); throw error; }
+  finally { if (cardScriptLoads.get(cardName) === pending) cardScriptLoads.delete(cardName); }
 }
 
 async function runCardInit(cardName, requestId) {
@@ -462,10 +470,14 @@ function cleanupActiveCard() {
     refreshDomRefs();
     if (!loadedCardHost || !cardName) return;
 
+    if (cardName === "prayermap") {
+      cardName = "fellowship";
+      window.HGRoute?.write({ ...window.HGRoute.read(), card: "fellowship", view: "prayer" }, {}, { replace: true, announce: false });
+    }
     const fromRoute = options.fromRoute === true;
 
     if (!fromRoute && window.HGRoute) {
-      const state = cardName === "mainstage"
+      const state = (cardName === "mainstage" || cardName === "fellowship")
         ? { week: parseInt(document.getElementById("weekSelect")?.value, 10) || undefined }
         : {};
       window.HGRoute.write(cardName, state, {
@@ -475,6 +487,9 @@ function cleanupActiveCard() {
     }
 
     if (cardName === "mainstage") {
+      ++loadCardRequestId;
+      cardLoadController?.abort();
+      cardLoadController = null;
       cleanupActiveCard();
       if (cardSelector) cardSelector.value = "";
       activeCardName = null;
@@ -546,7 +561,9 @@ function cleanupActiveCard() {
       }
 
       await runCardInit(cardName, requestId);
+      if (requestId !== loadCardRequestId) return;
       await window.HGRoute?.restoreCard?.(cardName, loadedCardHost);
+      if (requestId !== loadCardRequestId) return;
   
 console.log("loadCard exists?", typeof window.loadCard);
       console.log("[CARD] render completion", { cardName, requestId });

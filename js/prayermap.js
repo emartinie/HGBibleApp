@@ -8,17 +8,13 @@ import {
   query,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import {
-  GoogleAuthProvider,
-  linkWithPopup,
-  signInWithPopup,
-  signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 console.log("🗺️ prayermap.js loaded");
 
 (function () {
 
+  let generation = 0;
+  let groupsController = null;
   let mapEl = null;
   let map;
   let prayerLayer;
@@ -113,15 +109,6 @@ function popupFor(feature, i) {
     description.style.marginTop = "6px";
     description.textContent = descriptionText;
     wrapper.append(description);
-  }
-
-  const coordinatesText = maskDescription(p.Coordinates || "");
-  if (coordinatesText) {
-    const coordinates = document.createElement("div");
-    coordinates.style.fontSize = ".8rem";
-    coordinates.style.opacity = ".7";
-    coordinates.textContent = coordinatesText;
-    wrapper.append(coordinates);
   }
 
   return wrapper;
@@ -285,6 +272,7 @@ function locateUser() {
   }
 
   function listenForPrayers() {
+    const token = generation;
     const recentPrayers = query(
       collection(db, "prayers"),
       orderBy("createdAt", "desc"),
@@ -294,6 +282,7 @@ function locateUser() {
     prayersUnsubscribe = onSnapshot(
       recentPrayers,
       snap => {
+        if (token !== generation || !map) return;
         snap.docChanges().forEach(change => {
           const id = change.doc.id;
           const data = change.doc.data();
@@ -310,6 +299,7 @@ function locateUser() {
         setPrayerMapStatus("");
       },
       error => {
+        if (token !== generation || !map) return;
         console.error("Prayer listener failed:", error);
         setPrayerMapStatus("Prayer requests could not be loaded. Please try again.");
       }
@@ -317,37 +307,16 @@ function locateUser() {
   }
 
   async function ensureGoogleUser() {
-    if (isGoogleUser(auth.currentUser)) return auth.currentUser;
-
-    const provider = new GoogleAuthProvider();
-
-    try {
-      if (auth.currentUser?.isAnonymous) {
-        await linkWithPopup(auth.currentUser, provider);
-      } else {
-        await signInWithPopup(auth, provider);
-      }
-    } catch (error) {
-      if (
-        error.code === "auth/credential-already-in-use" ||
-        error.code === "auth/email-already-in-use"
-      ) {
-        await signOut(auth);
-        await signInWithPopup(auth, provider);
-      } else {
-        throw error;
-      }
-    }
-
     if (!isGoogleUser(auth.currentUser)) {
-      throw new Error("Google sign-in is required to submit a prayer.");
+      throw new Error("Use Account to sign in or connect Google, then return to Prayer Map to submit. Your current account will stay signed in.");
     }
-
     return auth.currentUser;
   }
 
   async function savePrayer(lat, lng, name, message) {
+    const token = generation;
     const user = await ensureGoogleUser();
+    if (token !== generation || !map || auth.currentUser?.uid !== user.uid) throw new Error("The map or account changed. Please submit again.");
     const safeMessage = String(message || "").trim().slice(0, 1000);
     if (!safeMessage) throw new Error("Prayer request is required.");
 
@@ -369,6 +338,16 @@ function locateUser() {
 // MODALS
 // ======================
 
+function handleModalKeydown(event) {
+  const panel = document.getElementById('prayerPorchPanel');
+  if (!panel || panel.classList.contains('hidden')) return;
+  if (event.key === 'Escape') { event.preventDefault(); document.getElementById('prayerPorchCloseBtn')?.click(); }
+  if (event.key !== 'Tab') return;
+  const controls = [...panel.querySelectorAll('button:not(:disabled),input:not(:disabled),textarea:not(:disabled),select:not(:disabled)')];
+  const first=controls[0],last=controls[controls.length-1];
+  if (event.shiftKey && document.activeElement === first) { event.preventDefault();last?.focus(); }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault();first?.focus(); }
+}
 function openPrayerModal(lat, lng) {
     console.log("OPENING MODAL");
   pendingLatLng = { lat, lng };
@@ -382,6 +361,7 @@ function openPrayerModal(lat, lng) {
   <div class="flex flex-col gap-3">
     <input
       id="prayerNameInput"
+      aria-label="Name or short title (optional)"
       maxlength="80"
       placeholder="Name or short title (optional)"
       class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400"
@@ -389,12 +369,14 @@ function openPrayerModal(lat, lng) {
 
     <textarea
       id="prayerMessageInput"
+      aria-label="Prayer request"
       maxlength="1000"
       required
       placeholder="Prayer request"
       class="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-600 text-white placeholder:text-slate-400 min-h-[120px]"
     ></textarea>
 
+    <label><input id="prayerLocationConsent" type="checkbox"> I agree to publish this prayer and an approximate location (rounded to two decimal places). Do not include private details.</label>
     <p id="prayerFormStatus" class="text-sm text-amber-200" role="status" aria-live="polite"></p>
 
     <button
@@ -423,6 +405,7 @@ if (closeBtn) {
 
     pendingLatLng = null;
     addMode = null;
+    document.getElementById("prayerMapAddBtn")?.focus();
   };
 }
 
@@ -430,7 +413,10 @@ if (closeBtn) {
   map.dragging.disable();
   map.scrollWheelZoom.disable();
 
+  document.getElementById("prayerNameInput")?.focus();
+  const modalGeneration = generation;
   document.getElementById("prayerSaveBtn").onclick = async () => {
+    if (modalGeneration !== generation || !map) return;
     const nameInput = document.getElementById("prayerNameInput");
     const messageInput = document.getElementById("prayerMessageInput");
     const saveButton = document.getElementById("prayerSaveBtn");
@@ -438,6 +424,10 @@ if (closeBtn) {
     const name = String(nameInput?.value || "").trim();
     const text = String(messageInput?.value || "").trim();
 
+    if (!document.getElementById("prayerLocationConsent")?.checked) {
+      formStatus.textContent = "Please consent to sharing an approximate public location, or close this form to continue without posting.";
+      return;
+    }
     if (!text) {
       if (formStatus) formStatus.textContent = "Please enter a prayer request.";
       messageInput?.focus();
@@ -446,10 +436,11 @@ if (closeBtn) {
 
     saveButton.disabled = true;
     saveButton.textContent = "Submitting...";
-    if (formStatus) formStatus.textContent = "Google sign-in is required. Opening sign-in...";
+    if (formStatus) formStatus.textContent = "Checking your Google-linked HomeGroups account…";
 
     try {
       await savePrayer(lat, lng, name, text);
+      if (modalGeneration !== generation || !map) return;
       panel.classList.add("hidden");
       panel.classList.remove("flex");
       pendingLatLng = null;
@@ -457,6 +448,7 @@ if (closeBtn) {
       map.scrollWheelZoom.enable();
       setPrayerMapStatus("Your prayer was submitted with an approximate location.");
     } catch (error) {
+      if (modalGeneration !== generation || !map) return;
       console.error("Prayer submission failed:", error);
       if (formStatus) {
         formStatus.textContent = error?.code?.startsWith("auth/")
@@ -464,6 +456,7 @@ if (closeBtn) {
           : (error?.message || "Your prayer could not be submitted. Please try again.");
       }
     } finally {
+      if (modalGeneration !== generation || !map) return;
       saveButton.disabled = false;
       saveButton.textContent = "Save Prayer";
     }
@@ -550,8 +543,10 @@ if (closeBtn) {
   // ======================
 
   async function loadHomeGroups() {
+    const token = generation;
+    groupsController = new AbortController();
     try {
-      const res = await fetch("./data/HomeGroupsMap.geojson");
+      const res = await fetch("./data/HomeGroupsMap.geojson", {signal:groupsController.signal});
 
       if (!res.ok) {
         console.error("HomeGroups fetch failed:", res.status);
@@ -559,13 +554,14 @@ if (closeBtn) {
       }
 
       const data = await res.json();
+      if (token !== generation || !map) return;
       const features = data.features || [];
 
       features.forEach((feature, i) => {
   const latlng = getHomeGroupsLatLng(feature);
   if (!latlng) return;
 
-  const marker = L.circleMarker(latlng, {
+  const marker = L.circleMarker(latlng.map(value => Number(value.toFixed(2))), {
     radius: 6,
     fillColor: "#3b82f6",
     color: "#111",
@@ -581,6 +577,8 @@ if (closeBtn) {
       console.log("🏠 HomeGroups loaded:", features.length);
 
     } catch (err) {
+      if (token !== generation || err.name === "AbortError") return;
+      setPrayerMapStatus("HomeGroups locations could not be loaded. Please try again.");
       console.error("HomeGroups error:", err);
     }
   }
@@ -590,8 +588,8 @@ if (closeBtn) {
   // ======================
 
   function addFeastMarker(feast) {
-    const lat = Number(feast.lat);
-    const lng = Number(feast.lng);
+    const lat = Number(Number(feast.lat).toFixed(2));
+    const lng = Number(Number(feast.lng).toFixed(2));
     if (isNaN(lat) || isNaN(lng)) return;
 
     if (activeFeasts[feast.id]) {
@@ -619,7 +617,9 @@ if (closeBtn) {
   }
 
   function listenForFeasts() {
+    const token = generation;
     feastsUnsubscribe = onSnapshot(collection(db, "feasts"), snap => {
+      if (token !== generation || !map) return;
       snap.docChanges().forEach(change => {
         const id = change.doc.id;
         const data = change.doc.data();
@@ -633,7 +633,7 @@ if (closeBtn) {
           delete activeFeasts[id];
         }
       });
-    });
+    }, () => { if (token === generation && map) setPrayerMapStatus("Feast locations could not be loaded. Please try again."); });
   }
 
   // ======================
@@ -674,6 +674,7 @@ if (closeBtn) {
 
     window.prayerMapInitialized = true;
     wireModeClick();
+    document.addEventListener("keydown", handleModalKeydown);
     initMap();
     listenForPrayers();
     listenForFeasts();
@@ -681,6 +682,10 @@ if (closeBtn) {
   }
 
   function destroy() {
+    ++generation;
+    document.removeEventListener("keydown", handleModalKeydown);
+    groupsController?.abort();
+    groupsController = null;
     prayerSearchEl?.removeEventListener("input", handlePrayerSearch);
     locateBtn?.removeEventListener("click", locateUser);
 

@@ -9,7 +9,7 @@
 <h2>Unread community activity</h2><div id="results"></div></main>
 <script type="module">
 import {auth,db} from '../../../../../js/firebase-init.js';
-import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {onAuthStateChanged} from '../commons-lifecycle.js';
 import {doc,getDoc,collection,getDocs,query,orderBy,limit,startAfter} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const areas={projects:'Kingdom Projects',fellowship:'Personal Growth & Fellowship',prayer:'Prayer & Encouragement',study:'Bible Study & Investigation',discipleship:'Discipleship & Mentorship',family:'Marriage & Family'};
 const topics=['General discussion','Questions & answers','Ideas & projects','Resources & learning','Encouragement & testimony','Announcements'];
