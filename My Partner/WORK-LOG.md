@@ -157,3 +157,10 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 - Verification: original 70 + 5 new client cases, 4 DM browser cases, 14 emulator groups, original 12 + 6 integrated Fellowship browser cases, existing five-screen desktop/mobile and Week 1/2 starter checks pass. Synthetic/mock operations only.
 - Privacy: aggregate historical GeoJSON review found 2,000 coordinate pairs in each copy, 1,998 above two decimals; no repository consent fields. No individual records copied, migrated or deleted. Display rounding is not data minimization.
 - [Conflict, evidence and readiness report](collaboration/messaging/commons/FELLOWSHIP-SECURITY-INTEGRATION.md). Unresolved release gates include active rules, real non-production providers, historical consent, device/accessibility checks and administrator confirmation of main's publishing triggers. No merge/deployment, production Firebase configuration/rules/user-data change, actual message/email/membership/prayer write.
+
+## Fellowship isolated preview — November 4, 2026
+
+- Owner: Codex, authorized by Eddie. Starting PR #31 head `48da719`; existing integration review branch retained. Other contributors' uncommitted activity remains unknown.
+- Prepared loopback-only synthetic preview under `tools/fellowship-preview/`, using actual card/screens with no production SDK/configuration or historical downloads served. No hosting/deployment or external resources created.
+- Visual review found embedded DM light-theme gradient/redundant branding/mobile spacing issues; corrected only Fellowship's embedded CSS, preserving auth/DM logic. Preview tests cover isolation and synthetic interactions; desktop/mobile dark/light screenshots captured.
+- [Readiness and limits](../tools/fellowship-preview/PREVIEW-READINESS.md); [approval-gated location correction proposal](../tools/fellowship-preview/PRIVACY-PROPOSAL.md). Original GeoJSON/data/rules/configuration remain unchanged. No real messages, emails, memberships or prayer writes.

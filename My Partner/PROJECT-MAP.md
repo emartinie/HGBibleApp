@@ -89,3 +89,7 @@ On `codex/fellowship-phase1`, based on main `36e3516`: [integration report](coll
 ## November 4, 2026 — Combined Fellowship/security candidate
 
 `codex/fellowship-security-integration` retains both PRs' code and adds explicit async disposal invalidation. [Integration report](collaboration/messaging/commons/FELLOWSHIP-SECURITY-INTEGRATION.md) documents five textual conflicts, semantic auth/lifecycle resolutions, 75 client / 4 DM / 14 emulator / 18 Fellowship results and existing weekly/screen checks. Source PRs stay unchanged drafts. Public location downloads and live-rules/provider/publishing verification remain release gates; no production mutation or deployment.
+
+## Fellowship local visual preview
+
+[Local preview tooling and instructions](../tools/fellowship-preview/README.md) serve the integrated candidate through a loopback-only synthetic adapter. [Readiness](../tools/fellowship-preview/PREVIEW-READINESS.md) distinguishes mocked views and service behavior from production verification. No live hosted environment or Firebase resource was created; original historical data is untouched. A scoped embedded Messages CSS correction addresses the light-theme gradient and mobile layout revealed by preview screenshots.
