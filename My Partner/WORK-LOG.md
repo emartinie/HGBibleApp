@@ -135,3 +135,9 @@ Partner updated Commons index.html/app.js and documentation inside My Partner/. 
 ### Firebase installation access recheck — November 4, 2026
 - Firebase is now installed/enabled. No Firebase management tools appear in this session’s callable catalog; authenticated homegroups-app access is not established. The server configuration uses npx; local npx/firebase/gcloud and standard login/ADC files were absent. Server environment may differ, so this is not a confirmed startup root cause.
 - Updated SECURITY-PHASE-1.md with the narrower remaining connection/login prerequisite and administrator export alternative. No login, credential read, Rules API call, production change, or test/code change. Previous test results remain applicable.
+
+
+### Authentication completion-side audit
+- Starting review head: a7a90fa. Eight newly tested stale-completion paths reproduced status/pending/navigation or stale-render failures before correction.
+- Bound completion effects to the initiating generation or its sole expected SDK identity transition. Guarded email-request cleanup, sign-out feedback, email-action restoration/success/cleanup, and stale auth observer renders. Preserved normal linking/sign-in cleanup with explicit controls.
+- Expanded client suite: 70 passed, 0 failed/skipped. Changed auth module parsed successfully; desktop/mobile screen compatibility rerun recorded in SECURITY-PHASE-1.md. DM/rules/config and Phase 2 code unchanged. No real emails, messages, production data/settings, merge or deployment.

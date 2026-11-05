@@ -11,7 +11,16 @@ const pendingKey='hg-commons-email-link-pending';
 let busy=false,finishing=isSignInWithEmailLink(auth,location.href),authRevision=0,observedUid=auth.currentUser?.uid||null;
 function operationContext(){
  const uid=auth.currentUser?.uid||null,revision=authRevision;
- return ()=>revision===authRevision&&uid===(auth.currentUser?.uid||null);
+ const active=()=>revision===authRevision&&uid===(auth.currentUser?.uid||null);
+ // A sign-in/sign-out may make one expected transition. A later same-UID
+ // session is not the initiating session, even when its UID matches.
+ active.afterTransition=nextUid=>{
+  if((auth.currentUser?.uid||null)!==nextUid)return false;
+  if(uid===nextUid)return active();
+  return (authRevision===revision&&observedUid===uid)
+    ||(authRevision===revision+1&&observedUid===nextUid);
+ };
+ return active;
 }
 function safeDestination(value){
  if(!value||!value.startsWith('/')||value.startsWith('//')||value.includes('\\'))return null;
@@ -46,16 +55,16 @@ function error(e){
  say(collision?'This sign-in method belongs to another account. No accounts were merged. Sign in to that account separately, or contact HomeGroups for help.':'Authentication did not complete: '+(e?.code||e?.message||e));
 }
 function readPending(){try{return JSON.parse(sessionStorage.getItem(pendingKey)||'null');}catch{return null;}}
-function removePending(request){try{if(readPending()?.request===request)sessionStorage.removeItem(pendingKey);}catch{}}
+function removePending(request,active){if(!active())return;try{if(readPending()?.request===request&&active())sessionStorage.removeItem(pendingKey);}catch{}}
 async function action(fn){
  if(busy||finishing)return;
  const active=operationContext();busy=true;controls();
- try{await auth.authStateReady();if(!active()){say('Your account changed. Please start this action again.');return;}await fn(active);}
+ try{await auth.authStateReady();if(!active())return;await fn(active);}
  catch(e){if(active())error(e);}
  finally{busy=false;controls();}
 }
-onAuthStateChanged(auth,user=>{const uid=user?.uid||null,changed=uid!==observedUid;if(changed){observedUid=uid;authRevision++;$('email').value='';$('linkEmail').value='';}render(user);if(changed||(!busy&&!finishing))say(user?'You are signed in to HomeGroups. Continue to Messaging when ready.':'Choose how you would like to sign in.');});
-$('google').onclick=()=>action(async active=>{if(auth.currentUser)throw Error('Sign out before signing in as another account.');const result=await guardedSignIn(active,()=>signInWithPopup(auth,new GoogleAuthProvider()));if(active()||auth.currentUser?.uid===result?.user?.uid)say('Google sign-in complete.');});
+onAuthStateChanged(auth,user=>{if((user?.uid||null)!==(auth.currentUser?.uid||null))return;const uid=user?.uid||null,changed=uid!==observedUid;if(changed){observedUid=uid;authRevision++;$('email').value='';$('linkEmail').value='';}render(user);if(changed||(!busy&&!finishing))say(user?'You are signed in to HomeGroups. Continue to Messaging when ready.':'Choose how you would like to sign in.');});
+$('google').onclick=()=>action(async active=>{if(auth.currentUser)throw Error('Sign out before signing in as another account.');const result=await guardedSignIn(active,()=>signInWithPopup(auth,new GoogleAuthProvider()));if(result?.user&&active.afterTransition(result.user.uid)){const completed=operationContext();if(completed())say('Google sign-in complete.');}});
 $('linkGoogle').onclick=()=>action(async active=>{
  const user=auth.currentUser;if(!user)throw Error('Sign in before linking another method.');
  await linkWithPopup(user,new GoogleAuthProvider());
@@ -71,15 +80,15 @@ async function send(email,mode,active){
  // Save before sending so blocked storage cannot leave a linking email with no intent record.
  sessionStorage.setItem(pendingKey,JSON.stringify({version:2,email,mode,uid:user?.uid||null,request,createdAt:Date.now()}));
  try{await sendSignInLinkToEmail(auth,email,{url:url.href,handleCodeInApp:true});}
- catch(e){removePending(request);throw e;}
- if(!active()){say('Your account changed. Request a fresh email link from the intended account.');return;}
+ catch(e){if(active())removePending(request,active);throw e;}
+ if(!active())return;
  say('Check '+email+' for your HomeGroups '+(mode==='link'?'account-linking':'sign-in')+' link. '+(mode==='link'?'Open it in this same tab while signed in.':'Open it to finish signing in.'));
 }
 $('emailForm').onsubmit=e=>{e.preventDefault();const email=$('email').value.trim();return action(active=>send(email,'signin',active));};
 $('linkEmailForm').onsubmit=e=>{e.preventDefault();const email=$('linkEmail').value.trim();return action(active=>send(email,'link',active));};
-$('signout').onclick=()=>action(async()=>{await signOut(auth);if(!auth.currentUser)say('You are signed out.');});
+$('signout').onclick=()=>action(async active=>{await signOut(auth);if(active.afterTransition(null)){const completed=operationContext();if(completed())say('You are signed out.');}});
 async function finishEmail(){
- if(!finishing)return;controls();let active=null;
+ if(!finishing)return;controls();let active=operationContext();
  try{
   await auth.authStateReady();
   active=operationContext();
@@ -100,13 +109,16 @@ async function finishEmail(){
    if(!confirm('Sign in to HomeGroups as '+email.trim()+'?')){say('Email sign-in cancelled.');return;}
    if(auth.currentUser)throw Error('An account signed in while this link was open. Sign out explicitly before switching.');
    const result=await guardedSignIn(active,()=>signInWithEmailLink(auth,email.trim(),location.href));
-   if(result?.user&&auth.currentUser?.uid!==result.user.uid)return;
-   render(auth.currentUser);say('Email sign-in complete.');
+   if(!result?.user||!active.afterTransition(result.user.uid))return;
+   active=operationContext();
+   if(!active())return;render(auth.currentUser);if(!active())return;say('Email sign-in complete.');
   }else{say('This older email link has no verifiable action. Request a fresh sign-in or linking email from Account.');return;}
-  removePending(request);
+  if(!active())return;
+  removePending(request,active);
   const clean=new URL(location.pathname,location.origin);if(safeNext)clean.searchParams.set('next',safeNext);
+  if(!active())return;
   history.replaceState(null,'',clean.pathname+clean.search);
- }catch(e){if(!active||active())error(e);}finally{finishing=false;controls();}
+ }catch(e){if(active())error(e);}finally{finishing=false;controls();}
 }
 finishEmail();
 </script></body></html>

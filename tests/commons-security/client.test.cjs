@@ -42,7 +42,7 @@ async function harness(page,{account=null,search='',pending=null,emailLink=false
  const code=html.match(/<script type="module">([\s\S]*?)<\/script>/)[1].replace(/^import .*;\s*$/gm,'');
  const boot=w.eval(code);
  if(!emailLink)await tick();
- return {w,dom,calls,subscriptions,boot,authGuards,el:id=>w.document.getElementById(id),async account(u){for(const fn of authGuards)await fn(u);auth.currentUser=u;return Promise.all(listeners.map(fn=>fn(u)));},open(id,uid='alice',peer='bob',status='accepted'){
+ return {w,dom,calls,subscriptions,boot,authGuards,listeners,el:id=>w.document.getElementById(id),async account(u){for(const fn of authGuards)await fn(u);auth.currentUser=u;return Promise.all(listeners.map(fn=>fn(u)));},open(id,uid='alice',peer='bob',status='accepted'){
   w.eval('open('+JSON.stringify(id)+')');subscriptions.at(-1).ok(snap({participants:[uid,peer],status,requestedBy:peer}));
  }};
 }
@@ -182,4 +182,38 @@ test('auth status cannot retain prior-account email while a link operation is pe
 
 test('delayed sign-out completion cannot claim another account is signed out',async t=>{
  const gate=deferred(),h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());h.w.signOut=async()=>gate.promise;const pending=h.el('signout').onclick();await tick();await h.account(user('bob'));const status=h.el('status').textContent;gate.resolve();await pending;assert.equal(h.w.auth.currentUser.uid,'bob');assert.equal(h.el('status').textContent,status);
+});
+
+test('auth restoration cancellation never replaces the later account status',async t=>{
+ const gate=deferred(),h=await harness('auth',{account:user(),ready:gate.promise});t.after(()=>h.dom.window.close());const pending=h.el('linkGoogle').onclick();await h.account(user('bob'));h.el('status').textContent='Current Bob status';gate.resolve();await pending;assert.equal(h.el('status').textContent,'Current Bob status');
+});
+for(const outcome of ['success','failure'])test('email request '+outcome+' after identity change cannot change status or pending state',async t=>{
+ const gate=deferred(),h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());h.w.sendSignInLinkToEmail=async()=>gate.promise;h.el('linkEmail').value='alice-private@example.test';const action=h.el('linkEmailForm').onsubmit({preventDefault(){}});await tick();const pending=h.w.sessionStorage.getItem('hg-commons-email-link-pending');await h.account(user('bob'));h.el('status').textContent='Current Bob status';if(outcome==='success')gate.resolve();else gate.reject({code:'auth/network-request-failed'});await action;assert.equal(h.el('status').textContent,'Current Bob status');assert.equal(h.w.sessionStorage.getItem('hg-commons-email-link-pending'),pending);
+});
+test('email restoration failure never overwrites another account feedback',async t=>{
+ const gate=deferred(),h=await harness('auth',{account:user(),emailLink:true,search:actionSearch(),pending:intent(),ready:gate.promise});t.after(()=>h.dom.window.close());await h.account(user('bob'));h.el('status').textContent='Current Bob status';gate.reject({code:'auth/network-request-failed'});await h.boot;assert.equal(h.el('status').textContent,'Current Bob status');
+});
+test('sign-out completion after A-B-null cannot overwrite the newer signed-out state',async t=>{
+ const gate=deferred(),h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());h.w.signOut=async()=>gate.promise;const pending=h.el('signout').onclick();await tick();await h.account(user('bob'));await h.account(null);h.el('status').textContent='Current guest status';gate.resolve();await pending;assert.equal(h.el('status').textContent,'Current guest status');
+});
+for(const provider of ['Google','email'])test(provider+' completed sign-in must not accept an intervening same-UID generation',async t=>{
+ const gate=deferred(),h=await harness('auth',{ready:gate.promise,emailLink:provider==='email',search:provider==='email'?actionSearch('signin'):'',pending:provider==='email'?intent('signin'):null});t.after(()=>h.dom.window.close());
+ h.w.beforeAuthStateChanged=(a,fn)=>{h.authGuards.add(fn);return()=>{h.authGuards.delete(fn);void h.account(user('bob'));void h.account(user(provider==='email'?'email-user':'alice'));h.el('status').textContent='Newer session status';};};
+ h.w.signInWithPopup=async()=>{await h.account(user());return {user:h.w.auth.currentUser};};let navigations=0;h.w.history.replaceState=()=>{navigations++;};const initial=h.w.sessionStorage.getItem('hg-commons-email-link-pending');const pending=provider==='Google'?h.el('google').onclick():h.boot;gate.resolve();await pending;assert.equal(h.el('status').textContent,'Newer session status');assert.equal(h.w.sessionStorage.getItem('hg-commons-email-link-pending'),initial);assert.equal(navigations,0);
+});
+test('stale auth observer cannot render a prior account over current identity',async t=>{
+ const h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());await h.account(user('bob'));h.el('status').textContent='Current Bob status';await h.listeners[0](user());assert.match(h.el('account').textContent,/bob/);assert.equal(h.el('status').textContent,'Current Bob status');
+});
+
+test('normal email sign-in performs guarded pending cleanup and return navigation',async t=>{
+ const ready=deferred(),h=await harness('auth',{ready:ready.promise,emailLink:true,search:actionSearch('signin')+'&next=%2Ffind-users%2F',pending:intent('signin')});t.after(()=>h.dom.window.close());let navigation=null;h.w.history.replaceState=(state,title,url)=>{navigation=url;};ready.resolve();await h.boot;assert.equal(h.w.auth.currentUser.uid,'email-user');assert.equal(h.w.sessionStorage.getItem('hg-commons-email-link-pending'),null);assert.equal(navigation,'/'+encodeURI(commons)+'auth/?next=%2Ffind-users%2F');assert.match(h.el('status').textContent,/Email sign-in complete/);
+});
+test('normal Google sign-in completion accepts only its expected transition',async t=>{
+ const h=await harness('auth');t.after(()=>h.dom.window.close());h.w.signInWithPopup=async()=>{await h.account(user());return {user:h.w.auth.currentUser};};await h.el('google').onclick();assert.equal(h.w.auth.currentUser.uid,'alice');assert.match(h.el('status').textContent,/Google sign-in complete/);assert.equal(h.el('google').disabled,false);
+});
+test('normal sign-out completion preserves success feedback',async t=>{
+ const h=await harness('auth',{account:user()});t.after(()=>h.dom.window.close());h.w.signOut=async()=>{await h.account(null);};await h.el('signout').onclick();assert.equal(h.w.auth.currentUser,null);assert.equal(h.el('status').textContent,'You are signed out.');
+});
+test('late email linking success cannot render, clear pending state or navigate another account',async t=>{
+ const ready=deferred(),write=deferred(),h=await harness('auth',{ready:ready.promise,account:user(),emailLink:true,search:actionSearch(),pending:intent()});t.after(()=>h.dom.window.close());h.w.linkWithCredential=async()=>write.promise;let navigations=0;h.w.history.replaceState=()=>{navigations++;};const pending=h.w.sessionStorage.getItem('hg-commons-email-link-pending');ready.resolve();await tick();await h.account(user('bob'));h.el('status').textContent='Current Bob status';write.resolve();await h.boot;assert.match(h.el('account').textContent,/bob/);assert.equal(h.el('status').textContent,'Current Bob status');assert.equal(h.w.sessionStorage.getItem('hg-commons-email-link-pending'),pending);assert.equal(navigations,0);
 });

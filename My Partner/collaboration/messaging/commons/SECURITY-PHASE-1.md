@@ -165,7 +165,7 @@ Real-provider testing requires an explicitly designated non-production project, 
 
 | Verification | Result | Evidence / limit |
 | --- | --- | --- |
-| Client regressions | **58 passed; 0 failed/skipped** | [Actual page-script tests](../../../../tests/commons-security/client.test.cjs), including both DM pages, deferred auth, provider failures, shared-browser cleanup and stale completions |
+| Client regressions | **70 passed; 0 failed/skipped** | [Actual page-script tests](../../../../tests/commons-security/client.test.cjs), including both DM pages, deferred auth, provider failures, shared-browser cleanup and stale completions |
 | Rendered privacy regressions | **4 passed; 0 failed/skipped** | [Both actual DM modules](../../../../tests/commons-security/browser.test.cjs) at 1440px and 390px, all network traffic intercepted/blocked |
 | Firestore authorization | **14 groups passed; 0 failed/skipped** | [Proposal tests](../../../../tests/commons-security/rules.test.cjs), checksum-pinned loopback Firestore 1.19.8 and fixed demo project |
 | Existing five-screen browser suite | **Passed desktop and mobile** | Community reading/posting/replies/search, enrollment, profile, account controls, navigation and embedded return; SDK doubles |
@@ -182,3 +182,23 @@ Reinstalled the unchanged dependency lockfile after finding broken local package
 No newly uncovered Phase 1 client defect is knowingly left unresolved in the corrected/tested paths. This is a bounded code-review conclusion, not a certification of the deployed system. Production rules/IAM, real-provider configuration and persistence, physical mobile behavior, in-flight-operation cancellation and the original deferred audit findings remain unverified or intentionally out of scope.
 
 Recommended next action: keep the PR draft, review the Phase 1 corrections, and arrange the read-only rules export plus a non-production authentication verification session. Confirm whether merging publishes the site. Reconcile and retest before any merge that could publish, and before any deployment approval. For expansion work, use [the prioritized Phase 2 plan](PHASE-2-PLAN.md); it is planning only.
+
+
+## Authentication completion-side audit
+
+Reviewed the current auth/index.html async paths after a7a90fa. Eight added adversarial page-logic tests failed before the corrections below; the expanded suite now passes 70 tests, including four normal-flow/late-linking controls. These are isolated SDK-double interleavings, not evidence that a particular production SDK race has occurred.
+
+| Async path | Completion-side finding / correction |
+| --- | --- |
+| action() auth restoration | An inactive operation could still overwrite the newer account's status. It now returns silently after context invalidation; rejected restoration only reports into its original context. |
+| Google sign-in | UID equality alone could accept a newer same-UID session. The original generation now permits only the one expected SDK-owned transition; later transitions cannot produce success feedback. |
+| Google linking | Revalidated original context already guarded render/status. Existing collision and late-failure controls remain; no fallback to sign-in. |
+| Sending a sign-in/linking email | A stale successful request could overwrite status, and a stale failure could clear pending state. Both now skip those effects when the original context is invalid. Cleanup additionally checks the request ID and context. No actual email was sent. |
+| Sign-out | Testing currentUser == null alone could claim a later guest session was this operation's result. Completion feedback now requires the original generation or its sole expected sign-out transition. |
+| Completing an email action | Restoration failures now use a captured error context. Successful sign-in validates the expected transition, then captures the resulting session context. Render/status, pending removal, and URL cleanup revalidate before applying effects. Linking success requires the original session throughout. |
+| Auth observer | A stale observer callback could render a prior user's account data. The callback is ignored when its UID differs from the SDK's current identity. |
+| finally blocks | Busy/finishing state and controls are released without rendering identity, modifying pending state, or navigating. They do not authorize another identity or perform a credential operation. |
+
+Normal email sign-in still removes its matching pending record and preserves the safe return destination. Normal Google sign-in/sign-out retain success feedback. Late linking success cannot render, remove pending state or rewrite navigation in another account. Pending network operations cannot be promised cancelled; real provider/persistence verification is still blocked as documented above.
+
+Only auth-page completion guards, focused client regressions and review documentation changed in this pass. DM code, shared composer, all rules/configuration, provider settings and Phase 2 behavior are unchanged. Previously passing 4 rendered DM scenarios and 14 emulator authorization groups remain applicable to their unchanged source; the existing desktop/mobile screen suite was rerun for auth compatibility.
