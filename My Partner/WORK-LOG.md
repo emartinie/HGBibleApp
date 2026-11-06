@@ -185,3 +185,7 @@ Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 vi
 
 ## November 5, 2026 — Single-account pilot and week overlap
 - Codex: scoped request on codex/fellowship-single-account from main 344e879. Allowlisted one supplied UID (including administrator), kept activation false and existing Firebase authorization unchanged. Reserved week-dock space for live loading/denied screens. Focused gate/mobile checks only; no broad suites, production operations, merge or deployment. Other contributors’ activity remains unknown.
+
+## November 5, 2026 — Fellowship live map-first UI
+- Codex: requested presentation/navigation only, branch codex/fellowship-map-first from main 502fbfb. Reuses existing navigation/map nodes; one collapsed Menu, hidden/restored live-only week dock and larger map before introductory text. No service/data/pilot configuration changes, production operations, merge or deployment. Other contributors’ activity remains unknown. See FELLOWSHIP-LIVE-UI.md for verification and limits.
+- Verified 9 targeted cases (3 presentation, 4 read-only/ordinary-map compatibility, 2 existing live flows), two module parses and whitespace/protected-source comparisons. No broad suite rerun; Firebase/Leaflet were doubled. Manual physical-device/real-tile/provider checks remain.

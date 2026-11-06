@@ -5,7 +5,7 @@ let active;
 function clear(session){window.destroyFellowshipCard?.();session.mounted=false;session.host.replaceChildren();}
 function unavailable(session){
   clear(session);
-  const section=document.createElement('section');section.className='hg-panel';section.style.setProperty('padding-block-start','64px','important');
+  const section=document.createElement('section');section.className='hg-panel';
   const status=document.createElement('p');status.setAttribute('role','status');status.textContent='Live Fellowship is not enabled for this account.';
   const account=document.createElement('a'),url=new URL('/My%20Partner/collaboration/messaging/commons/auth/',location.origin);
   const back=new URL('/',location.origin);back.searchParams.set('card','fellowship-live');
@@ -24,7 +24,7 @@ async function check(session,forceRefresh){
     if(active!==session||revision!==session.revision)return;
     session.uid=grant.uid;
     if(!session.mounted){
-      const module=await import('./fellowship.js?v=live-integration-1');
+      const module=await import('./fellowship.js?v=live-map-ui-1');
       if(module.liveIntegrationVersion!==1)throw Error('Incompatible Fellowship module');
       const response=await fetch('cards/fellowship.html',{cache:'no-store',signal:session.abort.signal});
       if(!response.ok)throw Error('Fellowship unavailable');const html=await response.text();
@@ -41,6 +41,11 @@ async function check(session,forceRefresh){
 window.initFellowshipLiveCard=function(host){
   window.destroyFellowshipLiveCard();
   const session={host,revision:0,mounted:false,uid:undefined};active=session;
+  session.weekDock=document.getElementById('weekCardDock');
+  if(session.weekDock){
+    session.weekDockBefore={hidden:session.weekDock.hidden,display:session.weekDock.style.getPropertyValue('display'),priority:session.weekDock.style.getPropertyPriority('display')};
+    session.weekDock.hidden=true;session.weekDock.style.setProperty('display','none','important');
+  }
   session.unsubscribe=onIdTokenChanged(auth,user=>{if(active===session&&(user?.uid||null)===(auth.currentUser?.uid||null))void check(session,false);});
   session.visibility=()=>{if(active===session&&document.visibilityState==='visible')void check(session,true);};
   document.addEventListener('visibilitychange',session.visibility);
@@ -51,4 +56,9 @@ window.destroyFellowshipLiveCard=function(){
   if(!active)return;const session=active;active=null;++session.revision;
   session.abort?.abort();session.unsubscribe?.();clearInterval(session.timer);clearTimeout(session.expiryTimer);
   document.removeEventListener('visibilitychange',session.visibility);clear(session);
+  if(session.weekDock){
+    session.weekDock.hidden=session.weekDockBefore.hidden;
+    if(session.weekDockBefore.display)session.weekDock.style.setProperty('display',session.weekDockBefore.display,session.weekDockBefore.priority);
+    else session.weekDock.style.removeProperty('display');
+  }
 };

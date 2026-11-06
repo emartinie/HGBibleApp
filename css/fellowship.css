@@ -6,3 +6,15 @@
 
 .fellowship>.week-card-dock{position:static;transform:none;margin:0 auto 16px;width:fit-content;max-width:100%;z-index:auto}
 .fellowship-actions{justify-content:flex-start}.fellowship-actions button{flex:0 1 auto}
+
+/* The live card prioritizes the existing map; other Fellowship/cards retain their layout. */
+.fellowship-live>header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.fellowship-live>p{font-size:13px;line-height:1.35;margin:6px 0}
+.fellowship-live .fellowship-menu{position:relative;flex:0 0 auto}
+.fellowship-live .fellowship-menu summary{cursor:pointer;min-height:44px;box-sizing:border-box;display:list-item;padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg-2);color:var(--text);font:inherit}
+.fellowship-live .fellowship-menu nav{position:absolute;right:0;top:calc(100% + 8px);z-index:1200;width:min(280px,calc(100vw - 64px));display:grid;gap:4px;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:0 12px 32px var(--soft);max-height:70dvh;overflow:auto}
+.fellowship-live .fellowship-menu nav button{width:100%;text-align:left}
+.fellowship-live #prayerMap{height:clamp(360px,68dvh,900px);max-height:none}
+.fellowship-live .orientation-block{margin:8px 0!important;padding:8px!important}
+
+.fellowship-live #prayerMapSearch{width:100%;min-height:44px;box-sizing:border-box;padding:10px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px}
