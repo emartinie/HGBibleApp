@@ -10,6 +10,25 @@ const VIEWS = new Set(['prayer','communities','explore','messages']);
 const AREAS = new Set(['projects','fellowship','prayer','study','discipleship','family']);
 const THEME = ['--bg-0','--bg-1','--bg-2','--panel','--panel-2','--line','--soft','--text','--muted','--gold','--gold-2','--accent'];
 let active;
+// Live-only presentation: move the existing controls, retaining their handlers/routes.
+function compactLiveNavigation(root){
+  root.classList.add('fellowship-live');
+  const header=root.querySelector('header'),heading=root.querySelector('#fellowshipTitle');
+  const menu=document.createElement('details');menu.className='fellowship-menu';
+  const summary=document.createElement('summary');summary.textContent='Menu';
+  const navigation=document.createElement('nav');navigation.setAttribute('aria-label','Fellowship navigation');
+  const labels={explore:'Explore Communities',people:'Find People',profile:'My Profile',account:'Account / Sign In',study:'Return to Bible Study'};
+  for(const key of ['prayer','communities','explore','messages','people','profile','account','study']){
+    const button=root.querySelector('[data-fellowship-view="'+key+'"], [data-fellowship-action="'+key+'"]');
+    if(button){if(labels[key])button.textContent=labels[key];navigation.append(button);}
+  }
+  menu.append(summary,navigation);header.replaceChildren(heading,menu);
+  root.querySelector('.fellowship-tabs')?.remove();
+  root.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&menu.open){menu.open=false;summary.focus();event.preventDefault();}
+  });
+  return menu;
+}
 function stateFor(route = {}) {
   return { view: VIEWS.has(route.view) ? route.view : 'prayer',
     section: ['discussion','people','account','profile'].includes(route.section) ? route.section : undefined,
@@ -112,6 +131,11 @@ async function render(session) {
       if (active !== session || generation !== session.generation) return;
       session.content.innerHTML=html;
       session.content.querySelector('.card-topbar')?.remove();
+      if(session.routeCard==='fellowship-live'){
+        const mapCard=session.content.querySelector('.prayer-map-card');
+        // Keep the original search, status, map layers/controls and help; show the map before the introduction.
+        mapCard.prepend(mapCard.querySelector('#prayerMapSearch'),mapCard.querySelector('#prayerMapStatus'),mapCard.querySelector('#prayerMap').parentElement);
+      }
       window.initPrayerMapCard({readOnly:session.prayerReadOnly});
       if (!window.currentMap) throw new Error('Map library unavailable');
       session.status.textContent=session.prayerReadOnly?'Prayer Map is read-only during verification. Displayed pins are approximate; historical downloads can contain more precise coordinates.':'Locations shown on the map are approximate. Location is optional for Fellowship.';
@@ -151,6 +175,7 @@ window.initFellowshipCard = function(host,options={}) {
   const root=host.querySelector('.fellowship');if(!root)return;
   const session={root,content:root.querySelector('[data-fellowship-content]'),status:root.querySelector('[data-fellowship-status]'),generation:0,testing:options.readOnlyFixtures===true,routeCard:options.readOnlyFixtures===true?'fellowship-test':options.routeCard==='fellowship-live'?'fellowship-live':'fellowship',prayerReadOnly:options.prayerReadOnly===true,authReady:false,uid:undefined,state:stateFor(window.HGRoute?.read())};
   active=session;
+  if(session.routeCard==='fellowship-live')session.menu=compactLiveNavigation(root);
   session.dock=document.getElementById("weekCardDock");
   if(session.dock){session.dockParent=session.dock.parentNode;session.dockNext=session.dock.nextSibling;root.prepend(session.dock);}
   session.weekChanged=()=>{if(active!==session||session.testing)return;const week=document.getElementById("weekSelect")?.value;if(week&&String(session.state.week)!==week)select(session,{...session.state,week});};
@@ -160,6 +185,7 @@ window.initFellowshipCard = function(host,options={}) {
   window.dispatchEvent(new Event("hg:fellowship-active"));
   session.click = event => {
     const button=event.target.closest('button');if(!button)return;
+    if(session.menu?.contains(button)){session.menu.open=false;session.menu.querySelector('summary').focus();}
     if (button.dataset.fellowshipView) select(session,{view:button.dataset.fellowshipView,week:session.state.week});
     const action=button.dataset.fellowshipAction;
     if(session.testing&&['account','profile','people'].includes(action))return;
