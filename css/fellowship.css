@@ -18,3 +18,7 @@
 .fellowship-live .orientation-block{margin:8px 0!important;padding:8px!important}
 
 .fellowship-live #prayerMapSearch{width:100%;min-height:44px;box-sizing:border-box;padding:10px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px}
+
+.hg-reading-context{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0;color:var(--muted)}.hg-reading-context button{font:inherit;min-height:44px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg-2);color:var(--text)}.hg-reading-context button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.hg-reading-context{position:sticky;top:48px;z-index:20;padding:4px;border-radius:10px;background:var(--panel)}.hg-reading-context[hidden]{display:none!important}

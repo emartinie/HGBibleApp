@@ -20,7 +20,7 @@ for(const mobile of [false,true])test('map-first live presentation and existing 
  assert.equal(await page.locator('#prayerMapAddBtn').isDisabled(),true,'existing pilot map restriction remains');
  assert.equal(await page.locator('.fellowship').evaluate(el=>el.scrollWidth<=el.clientWidth+1),true);
  await page.locator('.fellowship-menu summary').click();
- assert.equal(await page.locator('.fellowship-menu nav button').count(),8);
+ assert.equal(await page.locator('.fellowship-menu nav button:visible').count(),8);
  const panel=await page.locator('.fellowship-menu nav').boundingBox();
  assert.ok(panel.x>=0&&panel.x+panel.width<=page.viewportSize().width+1,'menu stays within viewport');
  await page.locator('.fellowship-menu summary').press('Escape');

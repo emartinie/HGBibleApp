@@ -1,4 +1,5 @@
-(async function () {
+window.initScriptureApiCard=()=>window.scriptureApiReady;
+window.scriptureApiReady=(async function () {
   const API_BASE = "https://rest.api.bible";
   const API_KEY = "5sFfxuspfEX8TD9YAODX8";
 
@@ -24,6 +25,36 @@
     : [];
 
   if (!root || !versionSelect || !bookSelect || !chapterInput) return;
+
+  let disposed=false,requestRevision=0,requestController=null,unregister=null,loadedRef=null,loadedVersion=null;
+  const cleanups=[];
+  window.destroyScriptureApiCard=()=>{disposed=true;requestRevision++;requestController?.abort();unregister?.();for(const stop of cleanups)stop();};
+  const journey=await import('./fellowship-context.js');
+  if(disposed||!root.isConnected)return;
+  journey.ensureContext();
+  const scrollHost=root.closest('.card')||document.scrollingElement;
+  function verseOf(element){return element?.getAttribute('data-number')||element?.id?.match(/[.-](\d+)$/)?.[1]||null;}
+  function snapshot(){
+    if(disposed||!root.isConnected||!loadedRef)return null;
+    const top=scrollHost.getBoundingClientRect().top;
+    const verses=[...root.querySelectorAll('[data-number], [id]')].filter(el=>/^\d{1,3}$/.test(verseOf(el)||''));
+    const visible=verses.filter(el=>el.getBoundingClientRect().bottom>top&&el.getBoundingClientRect().top<innerHeight);
+    const anchor=visible.sort((a,b)=>Math.abs(a.getBoundingClientRect().top-top)-Math.abs(b.getBoundingClientRect().top-top))[0];
+    return {ref:loadedRef,version:loadedVersion,anchor:verseOf(anchor),offset:anchor?anchor.getBoundingClientRect().top-top:0,scrollTop:scrollHost.scrollTop};
+  }
+  function capture(){const value=snapshot();if(value)journey.rememberReading(value);}
+  window.addEventListener('pagehide',capture);cleanups.push(()=>window.removeEventListener('pagehide',capture));
+  const bar=document.createElement('nav');bar.className='hg-reading-context';bar.setAttribute('aria-label','Fellowship reading links');
+  const returnButton=document.createElement('button');returnButton.type='button';returnButton.dataset.discussionLink='';
+  const linkStatus=document.createElement('small');linkStatus.setAttribute('role','status');bar.append(returnButton,linkStatus);root.before(bar);
+  function updateLinks(){
+    if(disposed)return;const associated=journey.associatedDiscussion(loadedRef||selectedReference());const origin=journey.discussionReturn();
+    returnButton.hidden=!associated&&!origin;returnButton.textContent=origin?'Return to discussion':'Open linked discussion';
+    linkStatus.textContent=associated?'Explicit Scripture link for this visit.':origin?'Return to your previous discussion; no association is established for this passage.':'No linked discussion for this passage in this visit.';
+  }
+  returnButton.onclick=()=>{const target=journey.associatedDiscussion(loadedRef||selectedReference())||journey.discussionReturn();if(target){capture();window.HGRoute?.navigate('fellowship-live',target);}};
+  window.addEventListener('hg:fellowship-context',updateLinks);cleanups.push(()=>window.removeEventListener('hg:fellowship-context',updateLinks));
+  updateLinks();
 
   function setPostLoadControlsHidden(hidden) {
     postLoadControls.forEach(control => {
@@ -116,7 +147,7 @@
     const ref = String(reference || "").trim();
     if (!ref) return;
 
-    window.HGRoute?.setCardState?.("scriptureapi", { ref }, {
+    window.HGRoute?.setCardState?.("scriptureapi", { ref, version:versionSelect.value }, {
       replace: options.replace === true,
       announce: false,
       source: "scripture-reference"
@@ -236,78 +267,29 @@
   container.appendChild(wrapper);
 }
 
-async function loadChapter(book = "JHN", chapter = "1", verse = null) {
-  root.innerHTML = "Loading...";
-
-  try {
-    const bibleId = getSelectedBibleId();
-
-    const res = await fetch(
-      `${API_BASE}/v1/bibles/${bibleId}/chapters/${book}.${chapter}`,
-      {
-        method: "GET",
-        headers: {
-          "api-key": API_KEY,
-          "accept": "application/json"
-        }
-      }
-    );
-
-    const data = await res.json();
-    console.log("API RESPONSE:", data);
-
-    if (!res.ok) {
-      throw new Error(data?.message || `HTTP ${res.status}`);
-    }
-
-    if (!data?.data?.content) {
-      throw new Error("No scripture content returned");
-    }
-
-    setMeta(data, verse);
-
-    root.innerHTML = `
-      <div id="scriptureRendered" class="max-w-none">
-        ${data.data.content}
-      </div>
-    `;
-    
-    const rendered = document.getElementById("scriptureRendered");
-    beautifyScriptureContent(rendered);
-    setPostLoadControlsHidden(true);
-
-    if (verse) {
-      setTimeout(() => {
-        const el =
-          root.querySelector(`[data-number="${verse}"]`) ||
-          root.querySelector(`[id$=".${verse}"]`) ||
-          root.querySelector(`[id$="-${verse}"]`);
-
-        if (el) {
-          el.style.background = "rgba(250, 204, 21, 0.2)";
-          el.style.padding = "4px";
-          el.style.borderRadius = "6px";
-          el.scrollIntoView({ behavior: "smooth", block: "center" });
-        } else {
-          console.log("Verse element not found for", verse);
-        }
-      }, 50);
-    }
-
-  } catch (err) {
-    setPostLoadControlsHidden(false);
-    meta.textContent = "";
-    root.innerHTML = `
-      <div class="text-red-400">
-        Failed to load scripture: ${err.message}
-      </div>
-    `;
-    console.error(err);
-  }
+async function loadChapter(book='JHN',chapter='1',verse=null,view=null){
+ capture();loadedRef=null;loadedVersion=null;
+ const token=++requestRevision;requestController?.abort();requestController=new AbortController();root.setAttribute('aria-busy','true');root.textContent='Loading…';
+ const current=()=>!disposed&&root.isConnected&&token===requestRevision;
+ try{
+  const bibleId=getSelectedBibleId();
+  const res=await fetch(API_BASE+'/v1/bibles/'+bibleId+'/chapters/'+book+'.'+chapter,{method:'GET',headers:{'api-key':API_KEY,accept:'application/json'},signal:requestController.signal});
+  const data=await res.json();if(!current())return;
+  if(!res.ok||!data?.data?.content)throw Error(data?.message||'Scripture unavailable');
+  loadedRef=selectedReference(verse);loadedVersion=versionSelect.value;setMeta(data,verse);root.innerHTML='<div id="scriptureRendered" class="max-w-none">'+data.data.content+'</div>';
+  beautifyScriptureContent(root.querySelector('#scriptureRendered'));setPostLoadControlsHidden(true);updateLinks();
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));if(!current())return;
+  const target=view?.anchor||verse;
+  const element=target?[...root.querySelectorAll('[data-number], [id]')].find(el=>verseOf(el)===String(target)):null;
+  if(view){if(element)scrollHost.scrollTop+=element.getBoundingClientRect().top-scrollHost.getBoundingClientRect().top-view.offset;else scrollHost.scrollTop=view.scrollTop;}
+  else if(element)element.scrollIntoView({behavior:'auto',block:'center'});
+  root.setAttribute('aria-busy','false');
+ }catch(error){if(!current()||error.name==='AbortError')return;setPostLoadControlsHidden(false);meta.textContent='';const note=document.createElement('p');note.setAttribute('role','status');note.textContent='Failed to load Scripture: '+error.message;root.replaceChildren(note);root.setAttribute('aria-busy','false');}
 }
 
   function handleLoad() {
     const { book, chapter } = getRef();
+    if(searchInput)searchInput.value=selectedReference();
     syncScriptureRoute(selectedReference());
     loadChapter(book, chapter);
   }
@@ -344,7 +326,7 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
   nextBtn?.addEventListener("click", handleNext);
   searchBtn?.addEventListener("click", handleReferenceSearch);
 
-  versionSelect.addEventListener("change", handleLoad);
+  versionSelect.addEventListener("change", handleReferenceSearch);
 
   chapterInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") handleLoad();
@@ -388,23 +370,15 @@ async function loadChapter(book = "JHN", chapter = "1", verse = null) {
   window.loadCard?.("sefaria");
 });
 
-const route = window.HGRoute?.read?.();
-const routedReference = route?.card === "scriptureapi" ? route.ref : "";
-const savedSearch = localStorage.getItem("scriptureSearch");
-const initialReference = routedReference || savedSearch;
-
-if (initialReference) {
-  searchInput.value = initialReference;
-  if (savedSearch) localStorage.removeItem("scriptureSearch");
-  handleReferenceSearch();
-} else {
-  loadChapter(bookSelect.value, chapterInput.value);
+async function restoreReader(route={}){
+ const stored=journey.readingView(route),savedSearch=localStorage.getItem('scriptureSearch');
+ const ref=route.ref||stored?.ref||savedSearch||selectedReference();
+ versionSelect.value=BIBLE_IDS[route.version]?route.version:(stored?.version||'KJV');
+ const parsed=parseReference(ref);if(!parsed){root.textContent='Invalid Scripture reference.';return;}
+ bookSelect.value=parsed.code;chapterInput.value=parsed.chapter;searchInput.value=selectedReference(parsed.verse);
+ if(savedSearch)localStorage.removeItem('scriptureSearch');
+ return loadChapter(parsed.code,parsed.chapter,parsed.verse,stored);
 }
-
-window.HGRoute?.registerCard?.("scriptureapi", {
-  getState() {
-    const ref = String(searchInput?.value || selectedReference()).trim();
-    return ref ? { ref } : {};
-  }
-});
+if(window.HGRoute){unregister=window.HGRoute.registerCard('scriptureapi',{getState:()=>({ref:searchInput.value||selectedReference(),version:versionSelect.value}),capture,restore:restoreReader});}
+else await restoreReader();
 })();
