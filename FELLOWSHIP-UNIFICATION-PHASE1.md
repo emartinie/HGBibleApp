@@ -1,3 +1,5 @@
+> Final-hardening review and exact-SHA lock evidence: [release proofing](FELLOWSHIP-PHASE1-RELEASE-LOCK.md) and [PR #36](https://github.com/emartinie/HGBibleApp/pull/36). The 180-case results below describe the approved starting candidate; the final lock record includes the additional hardening cases.
+
 # Fellowship Unification Phase 1 — review candidate
 
 Branch: codex/fellowship-unification-phase1. Base: main 786550e69369ec41224a918f993ef40cc80b083b. Work and verification: November 6–7, 2026. No merge, deployment, production Firebase operation or configuration change.

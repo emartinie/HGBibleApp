@@ -130,7 +130,7 @@ function bridge(session, frame) {
   const mapHandler = event => { event.preventDefault();event.stopImmediatePropagation(); select(session,{view:'prayer',week:session.state.week}); };
   mapToggle?.addEventListener('click',mapHandler,true);
   const areaSelect=doc.getElementById('area');
-  const areaHandler=()=>{if(AREAS.has(areaSelect.value)){session.state.area=areaSelect.value;window.HGRoute?.write(session.routeCard,session.state,{announce:false});}};
+  const areaHandler=()=>{if(AREAS.has(areaSelect.value)){session.state.area=areaSelect.value;session.state.post=undefined;session.renderedState={...session.state};window.HGRoute?.write(session.routeCard,session.state,{announce:false});}};
   areaSelect?.addEventListener('change',areaHandler);
   const hashHandler=()=>{
     if(active!==session||session.frame!==frame)return;
