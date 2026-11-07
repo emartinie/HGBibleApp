@@ -11,7 +11,8 @@
 <script type="module">
 import {attachReportControl} from '../moderation/report-control.js?v=20261015-report-live-1';
 import {auth,db} from '../../../../../js/firebase-init.js';
-import {onAuthStateChanged} from '../commons-lifecycle.js';
+import {onAuthStateChanged,onCommonsDispose} from '../commons-lifecycle.js';
+import {explicitReadingLink} from '../../../../../js/fellowship-context.js';
 import {doc,getDoc,collection,getDocs,query,orderBy,limit,startAfter,addDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const ids=['projects','fellowship','prayer','study','discipleship','family'];
 const topics=['General discussion','Questions & answers','Ideas & projects','Resources & learning','Encouragement & testimony','Announcements'];
@@ -29,7 +30,10 @@ function encodeTopic(topic,title,body){return (topic===topics[0]?'':marker+topic
 const topic=document.getElementById('topic'),topicFilter=document.getElementById('topicFilter'),discussionTitle=document.getElementById('discussionTitle');
 const area=document.getElementById('area'),status=document.getElementById('status'),posts=document.getElementById('posts'),compose=document.getElementById('compose'),message=document.getElementById('message'),send=document.getElementById('send');
 const requested=new URLSearchParams(location.search).get('area');if(ids.includes(requested))area.value=requested;
+let disposed=false,authorizedUid=null,pendingView=null;
+const valid=(v,uid)=>!disposed&&v===revision&&auth.currentUser?.uid===uid;
 let ownDisplayName='',revision=0,allowed=false,loadedItems=[],loadedArea="",searchTerm="",lastPost=null,viewMode='index',focusedPost=null;
+onCommonsDispose(()=>{disposed=true;revision++;allowed=false;authorizedUid=null;window.HGDiscussionView=null;});
 const discussionIndex=document.getElementById('discussionIndex'),discussionFocus=document.getElementById('discussionFocus'),indexView=document.getElementById('indexView'),expandedView=document.getElementById('expandedView'),backToIndex=document.getElementById('backToIndex');const morePosts=document.getElementById("morePosts");const search=document.getElementById("search"),refresh=document.getElementById("refresh"),searchInfo=document.getElementById("searchInfo");
 function draftKey(kind,selected,postId=''){const uid=auth.currentUser?.uid;if(!uid)return null;return 'hg-commons-draft:v1:'+uid+':'+selected+':'+kind+':'+postId;}
 function draftRead(key){if(!key)return '';try{return sessionStorage.getItem(key)||'';}catch{return '';}}
@@ -43,7 +47,7 @@ function messageMemberButton(data){
  const uid=typeof data.uid==='string'?data.uid:'';
  if(!/^[A-Za-z0-9]{15,128}$/.test(uid)||uid===auth.currentUser?.uid)return null;
  const button=document.createElement('button');
- button.type='button';button.textContent='✉ Message privately';
+ button.type='button';button.dataset.privateMessage='';button.textContent='✉ Message privately';
  button.title='Request a private conversation with '+shownName(data);
  button.style.cssText='margin-left:10px;border:1px solid #8a9e90;border-radius:8px;padding:5px 9px;background:#edf2e9;color:#285c48;cursor:pointer;font-size:12px';
  button.addEventListener('click',()=>{
@@ -62,39 +66,40 @@ async function render(items,selected,v){
  posts.replaceChildren();
  if(!items.length){posts.append(node('p','muted','No messages yet. Your community can begin the conversation.'));return;}
  for(const item of items){
-  if(v!==revision)return;
+  if(!valid(v,authorizedUid))return;
   const data=item.data(),parsed=parseTopic(data.body),article=node('article','post'),title=node('strong','',shownName(data));article.dataset.topic=parsed.topic;
-  const stamp=node('small','',' · '+(data.createdAt?.toDate?.().toLocaleString()||'Recently'));article.id='post-'+item.id;
+  const stamp=node('small','',' · '+(data.createdAt?.toDate?.().toLocaleString()||'Recently'));article.id='post-'+item.id;article.tabIndex=-1;
   const head=node('div','post-head'),permalink=node('a','','Link to message');permalink.href='#'+article.id;permalink.addEventListener('click',()=>{viewMode='index';focusedPost=item.id;updateView();});permalink.title='Copy or share this message link';head.append(title,stamp,permalink);const messageLink=messageMemberButton(data);if(messageLink)head.append(messageLink);article.append(head,node('span','topic-label',parsed.topic));attachReportControl(article,{community:selected,postId:item.id});if(parsed.title)article.append(node('h3','discussion-title',parsed.title));article.append(node('p','post-preview',parsed.body));
+  const reading=explicitReadingLink(parsed.body);if(reading){const link=node('a','reading-link','Read '+reading.ref);link.href=location.origin+'/?card=scriptureapi&ref='+encodeURIComponent(reading.ref)+'&version='+reading.version;article.append(link);}
   const replies=node('div','replies'),details=node('details'),heading=node('summary','','Replies · loading…');details.append(heading);replies.append(details);
   const form=node('form','replyform'),input=node('textarea');input.maxLength=1200;input.required=true;input.placeholder='Write a reply…';input.setAttribute('aria-label','Reply to '+title.textContent);
   const submit=node('button','','Post reply');submit.type='submit';const replyDraft=draftKey('reply',selected,item.id);input.value=draftRead(replyDraft);input.addEventListener('input',()=>draftWrite(replyDraft,input.value));form.append(input,submit);
   form.onsubmit=async e=>{
    e.preventDefault();const user=auth.currentUser,body=input.value.trim();
-   if(!allowed||!user||!body||body.length>1200||area.value!==selected)return;
+   if(!allowed||!user||!body||body.length>1200||area.value!==selected||submit.disabled||!valid(v,user.uid))return;
    submit.disabled=true;
    try{
-    const profile=await getDoc(doc(db,'commonsMembers',user.uid));
+    const profile=await getDoc(doc(db,'commonsMembers',user.uid));if(!valid(v,user.uid))return;
     const authorName=profile.exists()&&typeof profile.data().displayName==='string'?profile.data().displayName:user.displayName||'HomeGroups member';
     await addDoc(collection(db,'commonsCommunityPosts',selected,'posts',item.id,'replies'),{uid:user.uid,authorName:authorName.slice(0,80),body,createdAt:serverTimestamp()});
-    input.value='';draftWrite(replyDraft,'');await load();note('Reply posted.');
-   }catch(err){note('Reply not saved: '+(err.code||err.message));}finally{submit.disabled=false;}
+    if(!valid(v,user.uid))return;input.value='';draftWrite(replyDraft,'');const refresh=load(),refreshedRevision=revision;await refresh;if(valid(refreshedRevision,user.uid))note('Reply posted.');
+   }catch(err){if(valid(v,user.uid))note('Reply not saved: '+(err.code||err.message));}finally{if(valid(v,user.uid))submit.disabled=false;}
   };
   details.append(form);article.append(replies);posts.append(article);
   let lastReply=null,replyCount=0,loadingReplies=false;
   const moreReplies=node('button','','Load more replies');moreReplies.type='button';moreReplies.hidden=true;details.insertBefore(moreReplies,form);
   async function fetchReplies(){
-   if(loadingReplies)return;loadingReplies=true;moreReplies.disabled=true;
+   const uid=authorizedUid;if(loadingReplies||!valid(v,uid))return;loadingReplies=true;moreReplies.disabled=true;
    try{
     const base=collection(db,'commonsCommunityPosts',selected,'posts',item.id,'replies');
     const constraints=[orderBy('createdAt','asc'),...(lastReply?[startAfter(lastReply)]:[]),limit(30)];
-    const snap=await getDocs(query(base,...constraints));if(v!==revision)return;
+    const snap=await getDocs(query(base,...constraints));if(!valid(v,uid))return;
     if(snap.empty&&replyCount===0)details.insertBefore(node('p','muted','No replies yet.'),moreReplies);
     snap.forEach(reply=>{const d=reply.data(),el=node('div','reply');el.append(node('strong','',shownName(d)),node('small','',' · '+(d.createdAt?.toDate?.().toLocaleString()||'Recently')));const messageLink=messageMemberButton(d);if(messageLink)el.append(messageLink);el.append(node('p','',typeof d.body==='string'?d.body:''));attachReportControl(el,{community:selected,postId:item.id,replyId:reply.id});details.insertBefore(el,moreReplies);});
     replyCount+=snap.size;lastReply=snap.docs[snap.docs.length-1]||lastReply;
     heading.textContent='Replies · '+replyCount+' loaded';moreReplies.hidden=snap.size<30;
     applyFilters();
-   }catch(err){heading.textContent='Replies unavailable';details.insertBefore(node('p','muted','Replies unavailable: '+(err.code||err.message)),moreReplies);form.hidden=true;moreReplies.hidden=true;}
+   }catch(err){if(!valid(v,uid))return;heading.textContent='Replies unavailable';details.insertBefore(node('p','muted','Replies unavailable: '+(err.code||err.message)),moreReplies);form.hidden=true;moreReplies.hidden=true;}
    finally{loadingReplies=false;moreReplies.disabled=false;}
   }
   details.addEventListener('toggle',()=>{if(details.open&&!lastReply)fetchReplies();});
@@ -126,38 +131,76 @@ function updateView(){
  for(const entry of discussionIndex.children)entry.hidden=!!((topicFilter.value&&entry.dataset.topic!==topicFilter.value)||(searchTerm&&!entry.textContent.toLocaleLowerCase().includes(searchTerm)));
  morePosts.hidden=viewMode==='index'&&single?true:morePosts.dataset.hasMore!=='true';
  updateSearchInfo();
+ if(allowed&&authorizedUid===auth.currentUser?.uid)window.dispatchEvent(new Event('hg:discussion-ready'));
 }
 indexView.onclick=()=>{viewMode='index';focusedPost=null;history.replaceState(null,'',location.pathname+location.search);updateView();};
 expandedView.onclick=()=>{viewMode='expanded';focusedPost=null;history.replaceState(null,'',location.pathname+location.search);updateView();};
 backToIndex.onclick=()=>{viewMode='index';focusedPost=null;history.replaceState(null,'',location.pathname+location.search);updateView();};
-window.addEventListener('hashchange',()=>{const match=location.hash.match(/^#post-(.+)$/);if(match){focusedPost=match[1];viewMode='index';updateView();}else if(focusedPost){focusedPost=null;updateView();}});
+window.addEventListener('hashchange',async()=>{
+ const hash=location.hash,match=hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/),v=revision,uid=authorizedUid;
+ if(!allowed||!valid(v,uid))return;
+ if(match&&!loadedItems.some(item=>item.id===match[1])){
+  try{const linked=await getDoc(doc(db,'commonsCommunityPosts',area.value,'posts',match[1]));if(!valid(v,uid)||location.hash!==hash)return;
+   if(!linked.exists()){focusedPost=match[1];viewMode='index';updateView();note('This discussion is unavailable.');return;}loadedItems.push(linked);await render(loadedItems,area.value,v);
+  }catch(error){if(valid(v,uid)&&location.hash===hash){focusedPost=match[1];viewMode='index';updateView();note('This discussion is unavailable.');}return;}
+ }
+ if(!valid(v,uid)||location.hash!==hash)return;
+ focusedPost=match?match[1]:null;viewMode='index';updateView();focusSelectedPost();window.dispatchEvent(new Event('hg:discussion-ready'));
+});
 function applyFilters(){updateView();}
 topicFilter.onchange=applyFilters;
 function updateSearchInfo(){const visible=[...discussionIndex.children].filter(el=>!el.hidden).length;searchInfo.textContent='Showing '+visible+' of '+loadedItems.length+' loaded discussions'+(topicFilter.value?' in '+topicFilter.value:'')+'. Search covers loaded content only.';}
 search.oninput=()=>{searchTerm=search.value.trim().toLocaleLowerCase();applyFilters();};
 refresh.onclick=()=>load();
+function focusSelectedPost(){
+ const current=document.activeElement;if(current!==document.body&&!current?.closest('#discussionIndex'))return;
+ document.getElementById('post-'+focusedPost)?.focus({preventScroll:true});
+}
+function applyPendingView(){
+ if(!pendingView||!allowed||disposed||authorizedUid!==auth.currentUser?.uid)return;
+ if(pendingView.owner!==authorizedUid){pendingView=null;return;}
+ const value=pendingView;pendingView=null;const v=revision,uid=authorizedUid;
+ topicFilter.value=topics.includes(value.topic)?value.topic:'';search.value=String(value.search||'').slice(0,200);searchTerm=search.value.toLocaleLowerCase();
+ if(value.post&&loadedItems.some(item=>item.id===value.post))focusedPost=value.post;
+ viewMode=value.mode==='expanded'?'expanded':'index';updateView();
+ requestAnimationFrame(()=>{if(valid(v,uid)){window.scrollTo(0,Math.max(0,Math.min(1e7,Number(value.scrollTop)||0)));focusSelectedPost();window.dispatchEvent(new Event('hg:discussion-ready'));}});
+}
+window.HGDiscussionView={
+ capture(selectedPost){if(!allowed||disposed||authorizedUid!==auth.currentUser?.uid)return null;const chosen=/^[A-Za-z0-9_-]{1,128}$/.test(selectedPost||'')?selectedPost:focusedPost;const post=loadedItems.find(item=>item.id===chosen);return {uid:authorizedUid,post:post?chosen:null,topic:topicFilter.value,search:search.value,mode:viewMode,scrollTop:window.scrollY,reading:post?explicitReadingLink(parseTopic(post.data().body).body):null};},
+ restore(value,uid){if(value&&typeof value==='object'){pendingView={...value,owner:uid};applyPendingView();}}
+};
 async function load(){
- const v=++revision;allowed=false;compose.hidden=true;posts.replaceChildren();discussionIndex.replaceChildren();loadedItems=[];lastPost=null;morePosts.hidden=true;morePosts.dataset.hasMore='false';const user=auth.currentUser;
+ if(disposed)return;const v=++revision;send.disabled=false;authorizedUid=null;allowed=false;message.value='';discussionTitle.value='';compose.hidden=true;posts.replaceChildren();discussionIndex.replaceChildren();loadedItems=[];lastPost=null;morePosts.hidden=true;morePosts.dataset.hasMore='false';const user=auth.currentUser;
  if(!user){note('Redirecting to HomeGroups sign-in…');const destination=new URL('../auth/',location.href);destination.searchParams.set('next',location.pathname+location.search);location.replace(destination.href);return;}
  note('Checking your community enrollment…');
  try{
- const enrollment=await getDoc(doc(db,'commonsCommunityMembers',area.value,'members',user.uid));if(v!==revision)return;
- try{const ownProfile=await getDoc(doc(db,'commonsMembers',user.uid));if(v!==revision)return;ownDisplayName=ownProfile.exists()&&typeof ownProfile.data().displayName==='string'?ownProfile.data().displayName.trim():'';}catch{ownDisplayName='';}
+ const enrollment=await getDoc(doc(db,'commonsCommunityMembers',area.value,'members',user.uid));if(!valid(v,user.uid))return;
+ try{const ownProfile=await getDoc(doc(db,'commonsMembers',user.uid));if(!valid(v,user.uid))return;ownDisplayName=ownProfile.exists()&&typeof ownProfile.data().displayName==='string'?ownProfile.data().displayName.trim():'';}catch{ownDisplayName='';}
  if(!enrollment.exists()){note('Join this community in the directory before reading or posting messages.');return;}
- const snap=await getDocs(query(collection(db,'commonsCommunityPosts',area.value,'posts'),orderBy('createdAt','desc'),limit(30)));if(v!==revision)return;
- allowed=true;compose.hidden=false;restoreMessage();loadedItems=snap.docs;lastPost=snap.docs[snap.docs.length-1]||null;morePosts.hidden=snap.size<30;morePosts.dataset.hasMore=String(snap.size===30);loadedArea=area.value;note('You are enrolled. Showing recent community messages.');await render(snap.docs,area.value,v);const target=location.hash.match(/^#post-(.+)$/);if(target){focusedPost=target[1];viewMode='index';updateView();document.getElementById('posts')?.scrollIntoView({block:'start'});}
- }catch(e){if(v!==revision)return;note(e.code==='permission-denied'?'Community conversations are prepared but their Firestore permissions are not yet active.':'Unable to load conversations: '+(e.code||e.message));}
+ const snap=await getDocs(query(collection(db,'commonsCommunityPosts',area.value,'posts'),orderBy('createdAt','desc'),limit(30)));if(!valid(v,user.uid))return;
+ loadedItems=[...snap.docs];lastPost=snap.docs[snap.docs.length-1]||null;morePosts.hidden=snap.size<30;morePosts.dataset.hasMore=String(snap.size===30);
+ const target=location.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/)?.[1];
+ if(target&&!loadedItems.some(item=>item.id===target)){
+   const linked=await getDoc(doc(db,'commonsCommunityPosts',area.value,'posts',target));if(!valid(v,user.uid))return;
+   if(!linked.exists()){note('This discussion is unavailable.');return;}
+   loadedItems.push(linked);
+ }
+ if(!valid(v,user.uid))return;allowed=true;authorizedUid=user.uid;compose.hidden=false;restoreMessage();loadedArea=area.value;
+ note('You are enrolled. Showing recent community messages.');await render(loadedItems,area.value,v);if(!valid(v,user.uid))return;
+ if(target){focusedPost=target;viewMode='index';updateView();document.getElementById('post-'+target)?.scrollIntoView({block:'start'});focusSelectedPost();}
+ applyPendingView();window.dispatchEvent(new Event('hg:discussion-ready'));
+ }catch(e){if(!valid(v,user.uid))return;note(e.code==='permission-denied'?'This discussion is unavailable.':'Unable to load conversations: '+(e.code||e.message));}
 }
-morePosts.onclick=async()=>{if(!allowed||!lastPost)return;const v=revision,selected=area.value;morePosts.disabled=true;
- try{const snap=await getDocs(query(collection(db,'commonsCommunityPosts',selected,'posts'),orderBy('createdAt','desc'),startAfter(lastPost),limit(30)));if(v!==revision)return;
+morePosts.onclick=async()=>{if(!allowed||!lastPost)return;const v=revision,selected=area.value,user=auth.currentUser;if(!user||!valid(v,user.uid))return;morePosts.disabled=true;
+ try{const snap=await getDocs(query(collection(db,'commonsCommunityPosts',selected,'posts'),orderBy('createdAt','desc'),startAfter(lastPost),limit(30)));if(!valid(v,user.uid))return;
  lastPost=snap.docs[snap.docs.length-1]||lastPost;morePosts.hidden=snap.size<30;morePosts.dataset.hasMore=String(snap.size===30);
- if(snap.size){loadedItems.push(...snap.docs);await render(loadedItems,selected,v);}
+ if(snap.size){loadedItems=[...new Map([...loadedItems,...snap.docs].map(item=>[item.id,item])).values()];await render(loadedItems,selected,v);}
  else note('All available messages are loaded.');
- }catch(err){note('Could not load older messages: '+(err.code||err.message));}finally{morePosts.disabled=false;}
+ }catch(err){if(valid(v,user.uid))note('Could not load older messages: '+(err.code||err.message));}finally{if(valid(v,user.uid))morePosts.disabled=false;}
 };
-area.onchange=()=>{message.value='';focusedPost=null;viewMode='index';const url=new URL(location.href);url.searchParams.set('area',area.value);history.replaceState(null,'',url);load();};onAuthStateChanged(auth,load);
-compose.onsubmit=async e=>{e.preventDefault();const user=auth.currentUser,plain=message.value.trim(),title=discussionTitle.value.trim(),selected=area.value,body=encodeTopic(topic.value,title,plain);if(!allowed||!user||!plain||!title||title.length>90||title.includes(']')||body.length>1200){if(plain&&body.length>1200)note('This topic and message exceed the 1,200-character storage limit. Shorten the message.');return;}send.disabled=true;note('Posting your message…');
-try{const profile=await getDoc(doc(db,'commonsMembers',user.uid));const authorName=profile.exists()&&typeof profile.data().displayName==='string'?profile.data().displayName:user.displayName||'HomeGroups member';
-await addDoc(collection(db,'commonsCommunityPosts',selected,'posts'),{uid:user.uid,authorName:authorName.slice(0,80),body,createdAt:serverTimestamp()});message.value='';discussionTitle.value='';draftWrite(draftKey('post',selected),'');draftWrite(draftKey('title',selected),'');await load();note('Conversation posted.');}
-catch(err){note('Message not saved: '+(err.code||err.message));}finally{send.disabled=false;}};
+area.onchange=()=>{message.value='';focusedPost=null;viewMode='index';const url=new URL(location.href);url.searchParams.set('area',area.value);url.hash='';history.replaceState(null,'',url);load();};onAuthStateChanged(auth,load);
+compose.onsubmit=async e=>{e.preventDefault();const user=auth.currentUser,plain=message.value.trim(),title=discussionTitle.value.trim(),selected=area.value,body=encodeTopic(topic.value,title,plain);if(!allowed||!user||!plain||!title||title.length>90||title.includes(']')||body.length>1200){if(plain&&body.length>1200)note('This topic and message exceed the 1,200-character storage limit. Shorten the message.');return;}if(disposed||send.disabled)return;const sendingRevision=revision;send.disabled=true;note('Posting your message…');
+try{const profile=await getDoc(doc(db,'commonsMembers',user.uid));if(!valid(sendingRevision,user.uid))return;const authorName=profile.exists()&&typeof profile.data().displayName==='string'?profile.data().displayName:user.displayName||'HomeGroups member';
+await addDoc(collection(db,'commonsCommunityPosts',selected,'posts'),{uid:user.uid,authorName:authorName.slice(0,80),body,createdAt:serverTimestamp()});if(!valid(sendingRevision,user.uid))return;message.value='';discussionTitle.value='';draftWrite(draftKey('post',selected),'');draftWrite(draftKey('title',selected),'');const refresh=load(),refreshedRevision=revision;await refresh;if(valid(refreshedRevision,user.uid))note('Conversation posted.');}
+catch(err){if(valid(sendingRevision,user.uid))note('Message not saved: '+(err.code||err.message));}finally{if(valid(sendingRevision,user.uid))send.disabled=false;}};
 </script></body></html>

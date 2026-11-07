@@ -683,6 +683,11 @@ if (closeBtn) {
     wireModeClick();
     document.addEventListener("keydown", handleModalKeydown);
     initMap();
+    const view=options.viewState;
+    if(view&&Array.isArray(view.center)&&view.center.length===2&&view.center.every(Number.isFinite)&&Math.abs(view.center[0])<=90&&Math.abs(view.center[1])<=180&&Number.isFinite(view.zoom)){
+      map.setView(view.center,Math.max(0,Math.min(22,view.zoom)));
+      for(const [name,layer]of Object.entries({'Prayers':prayerLayer,'Home Groups':homeGroupLayer,'Feasts':feastLayer}))if(!view.layers?.includes(name))map.removeLayer(layer);
+    }
     listenForPrayers();
     listenForFeasts();
     loadHomeGroups();
@@ -736,6 +741,10 @@ if (closeBtn) {
     modeClickBound = false;
   }
 
+  window.capturePrayerMapView = function(){
+    const center=map?.getCenter?.(),zoom=map?.getZoom?.();
+    return center&&Number.isFinite(zoom)?{center:[center.lat,center.lng],zoom,layers:Object.entries({'Prayers':prayerLayer,'Home Groups':homeGroupLayer,'Feasts':feastLayer}).filter(([,layer])=>map.hasLayer(layer)).map(([name])=>name)}:null;
+  };
   window.initPrayerMapCard = init;
   window.destroyPrayerMapCard = destroy;
 

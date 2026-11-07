@@ -105,3 +105,9 @@ Separate codex/fellowship-live-integration from main 487a460 reuses existing Com
 November 5: single-account pilot follow-up keeps activation disabled, permits an allowlisted administrator without granting Firebase permissions, and clears the week dock on loading/denied screens. See FELLOWSHIP-LIVE-INTEGRATION.md.
 
 Fellowship live map-first presentation: [UI scope and verification](../FELLOWSHIP-LIVE-UI.md). Existing services/access configuration retained; live-only Menu and temporary week-dock hiding.
+
+## Fellowship context integration
+
+[Unification Phase 1](../FELLOWSHIP-UNIFICATION-PHASE1.md) extends existing HGRoute/card adapters and same-origin Commons bridge. ScriptureAPI owns loaded ref/version/anchor; authorized discussions own post/filter/scroll; existing Leaflet owns map state; Firebase/DM owners retain authorization and private drafts. New js/fellowship-context.js holds only constrained reading preferences and account-scoped ephemeral view metadata, invalidated on identity transitions. No new collection, general Scripture association index or social participation requirement. Read [the approved inventory](collaboration/messaging/commons/FELLOWSHIP-CONTEXT-ACCEPTANCE.md) as historical evidence; current runtime results and release blockers live in the implementation report. No production release is authorized by the report.
+
+PR #36 final hardening: [release proofing and lock procedure](../FELLOWSHIP-PHASE1-RELEASE-LOCK.md) records existing-reader control isolation, request identity/error recovery, authorized focus restoration and clearing cross-community post targets. Exact SHA/test attestation stays on the draft PR; code completeness, external gate completeness and production approval are separate.
