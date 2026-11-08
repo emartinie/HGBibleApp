@@ -7,7 +7,7 @@ export const controlledFixturesVersion=1;
 export const liveIntegrationVersion=1;
 
 const COMMONS = '/My%20Partner/collaboration/messaging/commons/';
-const VIEWS = new Set(['prayer','communities','explore','messages']);
+const VIEWS = new Set(['home','prayer','communities','explore','messages']);
 const AREAS = new Set(['projects','fellowship','prayer','study','discipleship','family']);
 const THEME = ['--bg-0','--bg-1','--bg-2','--panel','--panel-2','--line','--soft','--text','--muted','--gold','--gold-2','--accent'];
 let active;
@@ -19,7 +19,7 @@ function compactLiveNavigation(root){
   const summary=document.createElement('summary');summary.textContent='Menu';
   const navigation=document.createElement('nav');navigation.setAttribute('aria-label','Fellowship navigation');
   const labels={explore:'Explore Communities',people:'Find People',profile:'My Profile',account:'Account / Sign In',study:'Return to Bible Study'};
-  for(const key of ['prayer','communities','explore','messages','people','profile','account','study']){
+  for(const key of ['home','prayer','communities','explore','messages','people','profile','account','study']){
     const button=root.querySelector('[data-fellowship-view="'+key+'"], [data-fellowship-action="'+key+'"]');
     if(button){if(labels[key])button.textContent=labels[key];navigation.append(button);}
   }
@@ -31,8 +31,8 @@ function compactLiveNavigation(root){
   });
   return menu;
 }
-function stateFor(route = {}) {
-  return { view: VIEWS.has(route.view) ? route.view : 'prayer',
+function stateFor(route = {},defaultView='prayer') {
+  return { view: VIEWS.has(route.view) ? route.view : defaultView,
     section: ['discussion','people','account','profile'].includes(route.section) ? route.section : undefined,
     area: AREAS.has(route.area) ? route.area : undefined,
     post:typeof route.post==='string'&&/^[a-zA-Z0-9_-]{1,128}$/.test(route.post)?route.post:undefined,
@@ -50,6 +50,7 @@ function childURL(state) {
   return url;
 }
 function captureView(session,post){
+  session.feedCleanup?.capture?.();
   if(session.routeCard!=='fellowship-live'||!journey.isCurrent(session.uid,session.contextEpoch))return null;
   const route=session.renderedState||session.state;
   if(route.view==='prayer'&&!route.section)journey.rememberMap(window.capturePrayerMapView?.(),session.uid);
@@ -65,6 +66,7 @@ function captureView(session,post){
 }
 function teardownView(session) {
   captureView(session);
+  session.feedCleanup?.();session.feedCleanup=null;
   ++session.generation;
   session.abort?.abort();
   clearTimeout(session.timer);
@@ -98,7 +100,7 @@ function navigateChild(session, url) {
   let patch;
   if (path === '/find-users') patch = {view:'explore',section:'people'};
   else if (path === base+'/directory') patch = {view:'explore'};
-  else if (path === base+'/conversations') patch = {view:session.state.view === 'communities'?'communities':'explore',section:'discussion',area:url.searchParams.get('area'),post:url.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/)?.[1]||url.searchParams.get('post')};
+  else if (path === base+'/conversations') patch = {view:['home','communities'].includes(session.state.view)?session.state.view:'explore',section:'discussion',area:url.searchParams.get('area'),post:url.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/)?.[1]||url.searchParams.get('post')};
   else if (path === base+'/direct-live') patch = {view:'messages',id:url.searchParams.get('to')};
   else if (path === base+'/auth') patch = {view:session.state.view,section:'account'};
   else if (path === base+'/member') patch = {view:session.state.view,section:'profile'};
@@ -158,6 +160,21 @@ async function render(session) {
     session.content.setAttribute('aria-busy','false');
     return;
   }
+  if(session.state.view==='home'&&!session.state.section){
+    if(!session.authReady){session.status.textContent='Checking your account…';return;}
+    try{
+      // Do not add feed dependencies or reads to the separate read-only fixture route.
+      const {mountFeed}=await import('./fellowship-feed.js');
+      if(active!==session||generation!==session.generation)return;
+      session.status.textContent='';session.content.setAttribute('aria-busy','false');
+      session.feedCleanup=mountFeed({host:session.content,uid:session.uid,
+        isCurrent:()=>active===session&&generation===session.generation&&(session.routeCard!=='fellowship-live'||!session.uid||journey.isCurrent(session.uid,session.contextEpoch)),
+        saved:session.routeCard==='fellowship-live'?journey.feedState(session.uid):session.feedPosition,
+        onPosition:position=>{session.feedPosition=position;if(session.routeCard==='fellowship-live')journey.rememberFeed(position,session.uid);},
+        open:item=>{session.composeRequested=item.compose===true;select(session,{view:'home',section:'discussion',area:item.area,post:item.id,week:session.state.week});}});
+    }catch{fail(session,generation,'Your feed could not load. Please try again.');}
+    return;
+  }
   if (session.state.view === 'prayer' && !session.state.section) {
     session.abort = new AbortController();
     try {
@@ -180,6 +197,10 @@ async function render(session) {
     return;
   }
   if (!session.authReady) { session.status.textContent='Checking your account…';return; }
+  if(session.state.view==='home'&&session.state.section==='discussion'){
+    const back=document.createElement('button');back.type='button';back.textContent='Back to feed';
+    back.onclick=()=>select(session,{view:'home',week:session.state.week});session.content.append(back);
+  }
   const frame = document.createElement('iframe');session.frame=frame;
   frame.title = session.state.section === 'account' ? 'HomeGroups account' : session.state.section === 'profile' ? 'HomeGroups member profile' : session.state.view === 'messages' ? 'Fellowship messages and requests' : 'Fellowship communities';
   frame.src=childURL(session.state).href;
@@ -192,7 +213,12 @@ async function render(session) {
       const selectors = {'directory':'#directory','conversations':'#posts','direct-live':'#layout','auth':'#guest','member':'#profile','find-users':'#results'};
       const segment = actual.pathname.split('/').filter(Boolean).filter(part=>part!=='index.html').pop();
       if (selectors[segment] && !frame.contentDocument.querySelector(selectors[segment])) throw new Error('Screen unavailable');
-      bridge(session,frame);session.status.textContent='';session.content.setAttribute('aria-busy','false');}
+      bridge(session,frame);session.status.textContent='';session.content.setAttribute('aria-busy','false');
+      if(session.composeRequested&&session.state.section==='discussion'){
+        session.composeRequested=false;
+        const focusComposer=()=>{if(active!==session||generation!==session.generation||session.frame!==frame)return;const input=frame.contentDocument?.getElementById('discussionTitle');if(input&&!input.closest('[hidden]')){input.scrollIntoView({block:'start'});input.focus();}};
+        frame.contentWindow.addEventListener('hg:discussion-ready',focusComposer,{once:true});focusComposer();
+      }}
     catch {fail(session,generation,'This view could not load. Please try again.');}
   });
   frame.addEventListener('error',()=>fail(session,generation,'This view could not load. Please try again.'));
@@ -202,7 +228,7 @@ async function render(session) {
 function select(session, route, write = true) {
   if (active !== session) return;
   const origin=captureView(session);if(origin&&route.section!=='discussion')journey.rememberReturn(origin,session.uid);
-  session.state=stateFor(route);
+  session.state=stateFor(route,session.routeCard==='fellowship-live'?'home':'prayer');
   if (write) window.HGRoute?.write(session.routeCard,session.state,{announce:false,source:'fellowship'});
   return render(session);
 }
@@ -213,6 +239,9 @@ window.initFellowshipCard = function(host,options={}) {
   const session={root,content:root.querySelector('[data-fellowship-content]'),status:root.querySelector('[data-fellowship-status]'),generation:0,testing:options.readOnlyFixtures===true,routeCard:options.readOnlyFixtures===true?'fellowship-test':options.routeCard==='fellowship-live'?'fellowship-live':'fellowship',prayerReadOnly:options.prayerReadOnly===true,authReady:false,uid:options.routeCard==='fellowship-live'?(auth.currentUser?.uid||null):undefined,state:stateFor(window.HGRoute?.read())};
   active=session;
   if(session.routeCard==='fellowship-live'){
+    session.state=stateFor(window.HGRoute?.read(),'home');
+    const home=document.createElement('button');home.type='button';home.textContent='Home feed';home.dataset.fellowshipView='home';root.querySelector('.fellowship-tabs').prepend(home);
+    root.querySelector('[data-fellowship-account]').hidden=true;
     journey.ensureContext();session.contextEpoch=journey.identity().epoch;session.menu=compactLiveNavigation(root);
     session.contextChanged=()=>{const button=root.querySelector('[data-fellowship-action="discussion-return"]'),origin=journey.discussionReturn();if(button)button.hidden=!origin||(session.state.section==='discussion'&&session.state.area===origin.area&&session.state.post===origin.post);};
     window.addEventListener('hg:fellowship-context',session.contextChanged);
@@ -245,6 +274,7 @@ window.initFellowshipCard = function(host,options={}) {
     if(active!==session||(user?.uid||null)!==(auth.currentUser?.uid||null))return;
     const context=session.routeCard==='fellowship-live'?journey.identity():null;
     const changed=session.authReady && (session.uid !== (user?.uid || null)||(context&&context.epoch!==session.contextEpoch));
+    if(changed){session.feedPosition=null;session.composeRequested=false;}
     if(context)session.contextEpoch=context.epoch;
     session.uid=user?.uid || null;session.authReady=true;
     root.querySelector('[data-fellowship-account]').textContent=user && !user.isAnonymous ? 'Signed in. Your existing HomeGroups account is in use.' : 'You can explore and pray here. Sign in through Account to join communities or use messages.';
@@ -252,10 +282,11 @@ window.initFellowshipCard = function(host,options={}) {
   },()=>{
     if(active!==session)return;
     session.authReady=true;
+    root.querySelector('[data-fellowship-account]').hidden=false;
     root.querySelector("[data-fellowship-account]").textContent="Your account could not be checked. Use Account to try again.";
     render(session);
   });
-  session.unregister = window.HGRoute?.registerCard(session.routeCard,{getState:()=>session.state,capture:()=>captureView(session),restore:route=>{if(active===session && JSON.stringify(stateFor(route))!==JSON.stringify(session.state))return select(session,route,false);}});
+  session.unregister = window.HGRoute?.registerCard(session.routeCard,{getState:()=>session.state,capture:()=>captureView(session),restore:route=>{if(active===session && JSON.stringify(stateFor(route,session.routeCard==='fellowship-live'?'home':'prayer'))!==JSON.stringify(session.state))return select(session,route,false);}});
   return render(session);
 };
 window.destroyFellowshipCard = function() {

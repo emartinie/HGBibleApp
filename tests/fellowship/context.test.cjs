@@ -15,4 +15,12 @@ test('private view state omits content/drafts and does not enter session storage
 test('map context is cloned, validated, local and cleared on sign-out',async()=>{const f=await fixture(),m=f.module;const original={center:[12.5,30.25],zoom:6,layers:['Prayers','Feasts','unknown']};m.rememberMap(original,'alice');original.center[0]=99;assert.deepEqual(m.mapState('alice'),{center:[12.5,30.25],zoom:6,layers:['Prayers','Feasts']});m.mapState('alice').center[0]=0;assert.equal(m.mapState('alice').center[0],12.5);assert.equal(f.store.size,0);f.switch(null);assert.equal(m.mapState('alice'),null)});
 test('identity subscriptions stay singleton and never block authentication',async()=>{const f=await fixture();for(let i=0;i<5;i++)f.module.ensureContext();assert.equal(f.callbacks.size,1);assert.equal(f.guards.size,1);assert.doesNotThrow(()=>f.switch('bob'));assert.doesNotThrow(()=>f.switch(null))});
 
+test('feed position and home discussion routes remain identity-scoped and content-free',async()=>{
+ const f=await fixture(),m=f.module;m.rememberFeed({count:60,scrollTop:420,windowY:80,body:'PRIVATE'},'alice');
+ assert.deepEqual(m.feedState('alice'),{count:60,scrollTop:420,windowY:80});assert.equal(m.feedState('bob'),null);
+ m.feedState('alice').count=1;assert.equal(m.feedState('alice').count,60);assert.equal(f.store.size,0);
+ m.rememberReturn({...route,view:'home'},'alice');assert.equal(m.discussionReturn().view,'home');
+ f.switch('bob');f.switch('alice');assert.equal(m.feedState('alice'),null);assert.equal(m.discussionReturn(),null);
+});
+
 test('anonymous/signed-out transitions clear private context while retaining account-independent reading preferences',async()=>{const f=await fixture(),m=f.module;m.rememberReading({ref:'John 1:5',version:'NASB',anchor:'5',offset:120,scrollTop:450});m.rememberReturn(route,'alice');const initial=m.identity();f.switch('alice',true);assert.equal(m.identity().uid,null);assert.equal(m.discussionReturn(),null);assert.equal(m.associatedDiscussion('John 1:5'),null);assert.equal(m.readingView().ref,'John 1:5');f.switch(null);f.switch('alice');assert.equal(m.isCurrent('alice',initial.epoch),false);assert.equal(m.discussionReturn(),null);assert.equal(m.readingView().version,'NASB')});
