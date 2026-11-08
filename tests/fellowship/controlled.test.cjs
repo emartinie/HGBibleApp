@@ -12,6 +12,7 @@ test('gate rejects stale token, aborted work and offline flag',async()=>{for(con
 test('production entry is policy-first; normal navigation remains Prayer Map',async()=>{const html=await fs.readFile(path.join(root,'index.html'),'utf8');assert.match(html,/src="js\/homegroups-entry\.js/);assert.match(html,/<option value="prayermap">🙏 Prayer Map/);assert.doesNotMatch(html,/<option value="fellowship">/);assert.match(await fs.readFile(path.join(root,'js/app.js'),'utf8'),/import '.\/homegroups-entry.js'/);const defaults=JSON.parse(await fs.readFile(path.join(root,'data/fellowship-testing.json')));assert.equal(defaults.mode,'readonly-fixtures');if(defaults.enabled)assert.ok(Date.parse(defaults.expiresAt)-Date.parse(defaults.startsAt)<=86400000);const source=await fs.readFile(path.join(root,'js/homegroups-entry.js'),'utf8');assert.ok(source.indexOf('Object.defineProperty')<source.indexOf("await import('./card-app-runtime.js')"));});
 const {chromium}=require('playwright');
 const sdk=String.raw`const S=top.testState;
+export function beforeAuthStateChanged(){return()=>{}}
 export const auth={get currentUser(){return S.user},authStateReady:async()=>{}};export const db={};
 export async function getIdTokenResult(){return {claims:{homegroupsOwner:S.owner},expirationTime:new Date(Date.now()+3600000).toISOString()};}
 export function onIdTokenChanged(a,cb){S.tokens.add(cb);queueMicrotask(()=>{if(S.tokens.has(cb))cb(S.user)});return()=>S.tokens.delete(cb)}

@@ -6,6 +6,8 @@
 
   const ROUTE_PARAMS = new Set([
     "week",
+    "post",
+    "version",
     "book",
     "chapter",
     "view",
@@ -41,6 +43,7 @@
       if (value !== null && value !== "") route[key] = value;
     });
 
+    if(route.section==='discussion'&&!route.post){const match=url.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/);if(match)route.post=match[1];}
     return route;
   }
 
@@ -131,6 +134,7 @@
     };
   }
 
+  function captureCard(card){try{adapters.get(card)?.capture?.();}catch(error){console.warn('[ROUTER] Context capture failed',card,error);}}
   async function restoreCard(card, root = document, route = getCurrentRoute()) {
     const adapter = adapters.get(card);
     if (!adapter || typeof adapter.restore !== "function") return;
@@ -156,7 +160,7 @@
   }
 
   async function applyCurrentRoute(source = "restore") {
-    if (handlingRoute) return;
+    // Allow the loader/generation guards to supersede an in-flight Back/Forward restore.
     const route = getCurrentRoute();
     handlingRoute = true;
 
@@ -270,8 +274,8 @@
         "padding:10px 14px",
         "border:1px solid rgba(120,216,232,.4)",
         "border-radius:999px",
-        "background:rgba(7,16,25,.96)",
-        "color:#e7eef7",
+        "background:var(--panel, #071019)",
+        "color:var(--text, #e7eef7)",
         "box-shadow:0 12px 35px rgba(0,0,0,.35)",
         "font:600 14px/1.2 system-ui,sans-serif",
         "opacity:0",
@@ -386,7 +390,7 @@
           padding: 6px;
           border: 1px solid rgba(148, 163, 184, .28);
           border-radius: 12px;
-          background: #071019;
+          background: var(--panel, #071019);
           box-shadow: 0 18px 48px rgba(0, 0, 0, .72);
         }
 
@@ -401,7 +405,7 @@
           border: 0;
           border-radius: 8px;
           background: transparent;
-          color: #e7eef7;
+          color: var(--text, #e7eef7);
           font: 600 .86rem/1.2 system-ui, sans-serif;
           text-align: left;
           white-space: nowrap;
@@ -409,7 +413,7 @@
 
         #hgMobileUtilityMenu button:hover,
         #hgMobileUtilityMenu button:focus-visible {
-          background: rgba(120, 216, 232, .14);
+          background: var(--soft, rgba(120, 216, 232, .14));
           outline: none;
         }
 
@@ -532,6 +536,7 @@
     setCardState,
     registerCard,
     restoreCard,
+    captureCard,
     restore: applyCurrentRoute,
     share: shareCurrentRoute
   });

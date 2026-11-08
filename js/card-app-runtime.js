@@ -80,7 +80,7 @@ console.log("APP JS RUN ID:", Date.now());
     listen: { init: "initListenCard", cleanup: "destroyListenCard" },
     missler: { init: "initMissler", cleanup: "destroyMissler" },
     nt: { forceReloadScript: true },
-    scriptureapi: { forceReloadScript: true },
+    scriptureapi: { forceReloadScript: true, init: "initScriptureApiCard", cleanup: "destroyScriptureApiCard" },
     scholars: { init: "initScholarsCard", cleanup: "destroyScholarsCard" },
     "fellowship-live": { init: "initFellowshipLiveCard", cleanup: "destroyFellowshipLiveCard" },
     "fellowship-test": { init: "initFellowshipTestCard", cleanup: "destroyFellowshipTestCard" },
@@ -372,6 +372,7 @@ function cleanupActiveCard() {
   if (!activeCardName) return;
 
   const lifecycle = getLifecycle(activeCardName);
+  window.HGRoute?.captureCard?.(activeCardName);
 
   loadedCardHost?.dispatchEvent(new CustomEvent("card:cleanup", {
     bubbles: true,
@@ -522,11 +523,11 @@ function cleanupActiveCard() {
     cardLoadController = null;
     let requestController = null;
     const cardScrollHost = loadedCardHost.closest(".card");
-    if (cardScrollHost) cardScrollHost.scrollTop = 0;
     console.log("[CARD] render entry", { cardName, requestId });
 
     try {
       cleanupActiveCard();
+      if (cardScrollHost) cardScrollHost.scrollTop = 0;
 
       if (isExternalCardValue(cardName)) {
         renderExternalCard(cardName, requestId);
