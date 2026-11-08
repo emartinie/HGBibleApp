@@ -27,4 +27,119 @@
 
 .hg-scripture-reference{min-width:0}.hg-scripture-reference label{color:var(--muted)}.hg-scripture-reference input,.hg-scripture-reference button{min-height:44px;box-sizing:border-box;border:1px solid var(--line);background:var(--bg-2);color:var(--text)}.hg-scripture-reference input{width:100%;min-width:0;padding:10px}.hg-scripture-reference>div:last-child{display:flex;gap:8px;flex-wrap:wrap}.hg-scripture-reference :focus-visible{outline:3px solid var(--accent);outline-offset:2px}.hg-reading-error{color:var(--text);background:var(--panel);padding:12px;border:1px solid var(--line);border-radius:10px}
 
-.fellowship-feed{display:grid;gap:12px;margin-top:12px;min-width:0}.fellowship-feed article{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--bg-1);overflow-wrap:anywhere}.fellowship-feed article>p:first-child{color:var(--muted);font-size:.9em}.fellowship-feed-body{white-space:pre-wrap}.fellowship-feed a{display:inline-block;color:var(--gold);padding:10px 0;min-height:44px;box-sizing:border-box}.fellowship-live>p[data-fellowship-status]:empty{display:none}.fellowship [data-fellowship-content]>form{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}.fellowship [data-fellowship-content]>form[hidden]{display:none}.fellowship select{font:inherit;min-height:44px;max-width:100%;color:var(--text);background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:8px}
+.fellowship-live>p[data-fellowship-status]:empty{display:none}
+
+/* The home feed alone: ink, paper, and a human byline. All color follows global tokens. */
+.fellowship-feed-home {
+  --feed-paper: var(--bg-1);
+  --feed-edge: color-mix(in srgb, var(--text) 24%, var(--bg-1));
+  margin: 16px -8px -8px;
+  padding: 18px 10px;
+  border-radius: 16px;
+  background: var(--bg-0);
+  box-sizing: border-box;
+}
+@supports (color: light-dark(white, black)) {
+  .fellowship-feed-home {
+    --feed-paper: light-dark(color-mix(in srgb, var(--bg-1) 20%, white), color-mix(in srgb, var(--bg-1) 88%, var(--text)));
+  }
+}
+.fellowship-feed-home .fellowship-feed-create {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--bg-0);
+  font-weight: 750;
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--gold) 35%, transparent);
+}
+.fellowship-feed-home .fellowship-feed-create span { font-size: 24px; line-height: 18px; font-weight: 400; }
+.fellowship-feed-home .fellowship-feed-create:hover { background: var(--gold); color: var(--bg-0); border-color: var(--text); }
+.fellowship-feed-home > p { font-size: 14px; line-height: 1.6; }
+.fellowship-feed-home > p:empty { display: none; }
+.fellowship-feed-home > form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  background: var(--feed-paper);
+  border: 1px solid var(--feed-edge);
+  border-radius: 14px;
+}
+.fellowship-feed-home > form[hidden] { display: none; }
+.fellowship-feed-home > form label { grid-column: 1 / -1; font-size: 14px; font-weight: 650; }
+.fellowship-feed-home select {
+  min-width: 0;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg-0);
+  border: 1px solid var(--feed-edge);
+  border-radius: 8px;
+}
+.fellowship-feed { display: grid; gap: 20px; margin-top: 22px; min-width: 0; }
+.fellowship-feed .fellowship-post {
+  padding: 22px;
+  margin: 0;
+  border: 1px solid var(--feed-edge);
+  border-radius: 18px;
+  background: var(--feed-paper);
+  color: var(--text);
+  box-shadow: 0 5px 14px color-mix(in srgb, var(--bg-0) 24%, transparent);
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.fellowship-post-header { display: flex; align-items: flex-start; gap: 12px; }
+.fellowship-post-avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--gold) 14%, var(--bg-0));
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, var(--bg-0));
+  color: var(--gold);
+  font: 600 17px/1 Georgia, 'Times New Roman', serif;
+}
+.fellowship-post-byline { display: grid; gap: 4px; min-width: 0; }
+.fellowship-post-author { font-size: 16px; font-weight: 750; line-height: 1.3; color: var(--text); }
+.fellowship-post-community { color: var(--gold); font-size: 12px; font-weight: 650; line-height: 1.4; }
+.fellowship-post-byline time { color: var(--muted); font-size: 12px; line-height: 1.5; }
+.fellowship-feed-body { margin-top: 20px; }
+.fellowship-feed-body h3 {
+  margin: 0 0 12px;
+  color: var(--text);
+  font: 600 clamp(23px, 4vw, 27px)/1.25 Georgia, 'Times New Roman', serif;
+  letter-spacing: -.025em;
+  text-wrap: pretty;
+}
+.fellowship .fellowship-feed-body p { margin: 0; color: var(--text); font-size: 16px; line-height: 1.75; white-space: pre-wrap; }
+.fellowship-feed a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px solid var(--feed-edge);
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.fellowship-feed a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.fellowship-feed a span { font-size: 22px; font-weight: 400; }
+.fellowship-feed-home > button:not(.fellowship-feed-create) { margin-top: 16px; }
+@media (max-width: 420px) {
+  .fellowship-feed-home { padding: 14px 8px; }
+  .fellowship-feed .fellowship-post { padding: 18px; }
+  .fellowship-feed-home > form { grid-template-columns: minmax(0, 1fr); }
+}

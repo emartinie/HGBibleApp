@@ -1,5 +1,9 @@
 # HomeGroups project map
 
+## Fellowship feed styling — November 7, 2026
+
+[Feed presentation review](../FELLOWSHIP-FEED-STYLING.md) adds theme-derived contrast, author bylines/initials and editorial typography only within the existing home feed. No changes to routing, Firebase operations, discussion screens or pilot settings. Screenshots use synthetic posts; physical-device verification remains separate.
+
 ## Fellowship home feed — November 7, 2026
 
 The review branch adds [a joined-community home feed](../FELLOWSHIP-HOME-FEED.md) to the existing Fellowship Live shell. It uses current memberships and per-community post queries, existing discussions/composer, global tokens and the UID-scoped context layer. The ordinary Prayer Map and separate read-only test route remain intact. Browser evidence is synthetic; active production authorization and physical-device verification are separate release checks. No production data/rules/pilot configuration or deployment change.

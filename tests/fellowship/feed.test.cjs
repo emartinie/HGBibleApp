@@ -17,14 +17,14 @@ for(const mobile of [false,true])test('default live feed merges authorized commu
  assert.deepEqual(await page.locator('.fellowship-feed article .fellowship-feed-body').allTextContents(),['study-new\nWhat encouraged you in John 1:5?','prayer-middle\nPraying for our community this week.','study-old\nLet us encourage one another.']);
  assert.equal(await page.locator('#prayerMap,.fellowship iframe').count(),0);assert.equal(await page.locator('#weekCardDock').isVisible(),false);assert.equal(await page.locator('.fellowship-menu').evaluate(el=>el.open),false);
  assert.equal(await page.getByRole('button',{name:'Create post',exact:true}).count(),1);
- assert.match(await page.locator('.fellowship-feed article').first().innerText(),/Test B · Bible Study & Investigation/);
+ assert.equal(await page.locator('.fellowship-post-author').first().textContent(),'Test B');assert.equal(await page.locator('.fellowship-post-community').first().textContent(),'Bible Study & Investigation');
  assert.equal(await page.locator('.fellowship-feed time').count(),3);
  assert.ok((await page.evaluate(()=>__fixture.feedReads)).every(x=>['study','prayer'].includes(x.path.split('/')[1])));
  assert.equal(await page.locator('.fellowship').evaluate(el=>el.scrollWidth<=el.clientWidth+1),true);
  await shot(page,'feed-'+(mobile?'mobile':'desktop')+'-dark');
  const bounds=await page.locator('.fellowship').boundingBox();assert.ok(bounds.x>=0&&bounds.x+bounds.width<=page.viewportSize().width+1,'settled card fits viewport');
  await page.evaluate(()=>document.documentElement.setAttribute('data-hg-theme-preset','parchment'));await shot(page,'feed-'+(mobile?'mobile':'desktop')+'-light');
- assert.equal(await page.locator('.fellowship-feed article').first().evaluate(el=>getComputedStyle(el).backgroundColor),await page.locator('html').evaluate(el=>{const probe=document.createElement('div');probe.style.background='var(--bg-1)';el.append(probe);const value=getComputedStyle(probe).backgroundColor;probe.remove();return value;}));
+ assert.equal(await page.locator('.fellowship-feed article').first().evaluate(el=>getComputedStyle(el).color),await page.locator('html').evaluate(el=>getComputedStyle(el).getPropertyValue('--text').trim()).then(value=>page.evaluate(value=>{const probe=document.createElement('span');probe.style.color=value;document.body.append(probe);const result=getComputedStyle(probe).color;probe.remove();return result;},value)));
  assert.equal(await page.evaluate(()=>__fixture.writes.length),0);
 });
 
