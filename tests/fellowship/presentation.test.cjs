@@ -7,8 +7,8 @@ async function choose(page,label){
  await page.getByRole('button',{name:label,exact:true}).click();
  if(label!=='Return to Bible Study')assert.equal(await page.locator('.fellowship-menu').evaluate(el=>el.open),false);
 }
-for(const mobile of [false,true])test('map-first live presentation and existing destinations '+(mobile?'mobile':'desktop'),async t=>{
- const {page,frame,context}=await harness(t,{production:true,mobile,route:'?card=fellowship-live&week=12'});
+for(const mobile of [false,true])test('explicit map view and existing destinations '+(mobile?'mobile':'desktop'),async t=>{
+ const {page,frame,context}=await harness(t,{production:true,mobile,route:'?card=fellowship-live&view=prayer&week=12'});
  await page.locator('#prayerMap').waitFor();await page.waitForFunction(()=>__fixture.maps>0);
  assert.equal(await page.locator('.fellowship-test-fixtures').count(),0);
  assert.equal(await page.locator('#weekCardDock').isVisible(),false);
@@ -20,7 +20,7 @@ for(const mobile of [false,true])test('map-first live presentation and existing 
  assert.equal(await page.locator('#prayerMapAddBtn').isDisabled(),true,'existing pilot map restriction remains');
  assert.equal(await page.locator('.fellowship').evaluate(el=>el.scrollWidth<=el.clientWidth+1),true);
  await page.locator('.fellowship-menu summary').click();
- assert.equal(await page.locator('.fellowship-menu nav button:visible').count(),8);
+ assert.equal(await page.locator('.fellowship-menu nav button:visible').count(),9);
  const panel=await page.locator('.fellowship-menu nav').boundingBox();
  assert.ok(panel.x>=0&&panel.x+panel.width<=page.viewportSize().width+1,'menu stays within viewport');
  await page.locator('.fellowship-menu summary').press('Escape');
@@ -54,7 +54,7 @@ for(const mobile of [false,true])test('map-first live presentation and existing 
  assert.equal(await page.locator('#weekCardDock').isVisible(),true,'ordinary Prayer Map keeps week controls');
 });
 test('denied live screen hides week controls and restores their previous state on exit',async t=>{
- const {page}=await harness(t,{production:true,mobile:true,liveEnabled:false,expectUnavailable:true,route:'?card=fellowship-live&week=12'});
+ const {page}=await harness(t,{production:true,mobile:true,liveEnabled:false,expectUnavailable:true,route:'?card=fellowship-live&view=prayer&week=12'});
  assert.equal(await page.locator('#weekCardDock').isVisible(),false);
  assert.equal(await page.locator('.fellowship-menu').count(),0);
  await page.getByRole('button',{name:'Return to study',exact:true}).click();

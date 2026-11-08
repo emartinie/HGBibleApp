@@ -1,5 +1,9 @@
 # HomeGroups project map
 
+## Fellowship home feed — November 7, 2026
+
+The review branch adds [a joined-community home feed](../FELLOWSHIP-HOME-FEED.md) to the existing Fellowship Live shell. It uses current memberships and per-community post queries, existing discussions/composer, global tokens and the UID-scoped context layer. The ordinary Prayer Map and separate read-only test route remain intact. Browser evidence is synthetic; active production authorization and physical-device verification are separate release checks. No production data/rules/pilot configuration or deployment change.
+
 Initial inspection: October 6, 2026 (America/New_York).
 Repository snapshot: `e8ec6ef8d3556b466373d24e0eb67af6a29e5f19` on main.
 Scope: recursive file inventory and source reads of index.html, js/app.js, js/weekEngine.js, service-worker.js, and manifest.json. No runtime tests performed.

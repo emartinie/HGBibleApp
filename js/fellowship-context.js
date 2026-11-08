@@ -3,12 +3,12 @@ import {auth} from './firebase-init.js';
 import {onAuthStateChanged,beforeAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 const readerKey='hg-reading-view-v1',areas=new Set(['projects','fellowship','prayer','study','discipleship','family']);
 const versions=new Set(['KJV','AMP','NASB']);
-let bound=false,owner=null,epoch=0,returnRoute=null,mapView=null,association=null;
+let bound=false,owner=null,epoch=0,returnRoute=null,mapView=null,feedView=null,association=null;
 const discussions=new Map();
 const id=value=>typeof value==='string'&&/^[A-Za-z0-9_-]{1,128}$/.test(value)?value:undefined;
 const number=(value,min,max)=>Number.isFinite(Number(value))?Math.max(min,Math.min(max,Number(value))):0;
 function announce(){window.dispatchEvent(new Event('hg:fellowship-context'));}
-function clearPrivate(){epoch++;returnRoute=null;mapView=null;association=null;discussions.clear();announce();}
+function clearPrivate(){epoch++;returnRoute=null;mapView=null;feedView=null;association=null;discussions.clear();announce();}
 function currentOwner(){return auth.currentUser&&!auth.currentUser.isAnonymous?auth.currentUser.uid:null;}
 function sync(){const uid=currentOwner();if(uid!==owner){owner=uid;clearPrivate();}return uid;}
 export function ensureContext(){
@@ -28,7 +28,7 @@ function reading(value){
 export function rememberReading(value){const result=reading(value);if(result)try{sessionStorage.setItem(readerKey,JSON.stringify(result));}catch{}return result;}
 export function readingView(route){let result;try{result=reading(JSON.parse(sessionStorage.getItem(readerKey)||'null'));}catch{}return result&&(!route?.ref||route.ref===result.ref)&&(!route?.version||route.version===result.version)?result:null;}
 export function returnToReading(week){const value=readingView();return value?window.HGRoute?.navigate('scriptureapi',{ref:value.ref,version:value.version,week}):window.HGRoute?.navigate('mainstage',{week});}
-function discussionRoute(route){return route&&areas.has(route.area)&&id(route.post)?{view:['communities','explore'].includes(route.view)?route.view:'communities',section:'discussion',area:route.area,post:route.post,week:route.week}:null;}
+function discussionRoute(route){return route&&areas.has(route.area)&&id(route.post)?{view:['home','communities','explore'].includes(route.view)?route.view:'communities',section:'discussion',area:route.area,post:route.post,week:route.week}:null;}
 export function rememberDiscussion(route,value,uid){
  if(!isCurrent(uid)||!areas.has(route.area)||!value)return;
  const snapshot={post:id(value.post),topic:typeof value.topic==='string'?value.topic.slice(0,80):'',search:typeof value.search==='string'?value.search.slice(0,200):'',mode:value.mode==='expanded'?'expanded':'index',scrollTop:number(value.scrollTop,0,1e7)};
@@ -44,6 +44,9 @@ export function rememberMap(value,uid){
  mapView={center:[...value.center],zoom:number(value.zoom,0,22),layers:['Prayers','Home Groups','Feasts'].filter(name=>Array.isArray(value.layers)&&value.layers.includes(name))};
 }
 export function mapState(uid){return isCurrent(uid)&&mapView?{...mapView,center:[...mapView.center],layers:[...mapView.layers]}:null;}
+// Position only, never posts, credentials or drafts; survives shell remounts for this identity.
+export function rememberFeed(value,uid){if(isCurrent(uid)&&value)feedView={count:number(value.count,0,10000),scrollTop:number(value.scrollTop,0,1e7),windowY:number(value.windowY,0,1e7)};}
+export function feedState(uid){return isCurrent(uid)&&feedView?{...feedView}:null;}
 export function explicitReadingLink(body){
  const match=typeof body==='string'&&body.match(/(?:^|\n)Reading: (https?:\/\/[^\s]+)\s*$/);if(!match)return null;
  try{const url=new URL(match[1]);const ref=url.searchParams.get('ref');
