@@ -10,10 +10,13 @@ function millis(item){const date=item.data.createdAt;return date?.toMillis?.()??
 function compare(a,b){return millis(b)-millis(a)||(a.area+'/'+a.id).localeCompare(b.area+'/'+b.id);}
 
 export function mountFeed({host,uid,isCurrent,open,saved,onPosition}){
+ host.classList.add('fellowship-feed-home');
  let closed=false,revision=0,subscriptionRun=0,busy=false,items=[],sources=[],membership=new Map(),stops=[];
  const current=()=>!closed&&(auth.currentUser?.uid||null)===uid&&isCurrent();
  const status=node('p','Loading your communities…');status.setAttribute('role','status');
  const create=node('button','Create post');create.type='button';create.disabled=true;
+ create.className='fellowship-feed-create';
+ const plus=node('span','+');plus.setAttribute('aria-hidden','true');create.prepend(plus);
  const picker=node('form');picker.id='fellowship-post-picker';picker.hidden=true;create.setAttribute('aria-controls',picker.id);create.setAttribute('aria-expanded','false');
  const label=node('label','Community'),select=node('select');select.id='fellowship-post-community';label.htmlFor=select.id;
  const proceed=node('button','Continue');proceed.type='submit';picker.append(label,select,proceed);
@@ -35,12 +38,23 @@ export function mountFeed({host,uid,isCurrent,open,saved,onPosition}){
  function draw(){
   list.replaceChildren();
   for(const item of items){
-   const article=node('article');article.className='hg-panel';
-   const meta=node('p',String(item.data.authorName||'HomeGroups member')+' · '+communities[item.area]);
-   const date=item.data.createdAt?.toDate?.(),time=node('time',date?date.toLocaleString():'Recently');if(date)time.dateTime=date.toISOString();meta.append(' · ',time);
-   const body=node('p',parsed(item.data.body));body.className='fellowship-feed-body';
+   const article=node('article');article.className='fellowship-post';
+   const author=String(item.data.authorName||'HomeGroups member');
+   const avatar=node('span',author.trim().split(/\s+/).slice(0,2).map(part=>Array.from(part)[0]||'').join('').toLocaleUpperCase()||'HG');avatar.className='fellowship-post-avatar';avatar.setAttribute('aria-hidden','true');
+   const meta=node('div');meta.className='fellowship-post-header';
+   const byline=node('div');byline.className='fellowship-post-byline';
+   const name=node('strong',author);name.className='fellowship-post-author';
+   const community=node('span',communities[item.area]);community.className='fellowship-post-community';
+   const date=item.data.createdAt?.toDate?.(),time=node('time',date?date.toLocaleString():'Recently');if(date)time.dateTime=date.toISOString();
+   byline.append(name,community,time);meta.append(avatar,byline);
+   const body=node('div');body.className='fellowship-feed-body';
+   const text=parsed(item.data.body),encoded=String(item.data.body||'').replace(/^\[HG-TOPIC:[^\]\n]+\]\n/,'');
+   const title=encoded.match(/^\[HG-TITLE:([^\]\n]+)\]\n/);
+   if(title)body.append(node('h3',title[1]),document.createTextNode('\n'),node('p',encoded.slice(title[0].length)));
+   else body.append(node('p',text));
    const link=node('a','Open discussion');const url=new URL(location.href);url.searchParams.set('view','home');url.searchParams.set('section','discussion');url.searchParams.set('area',item.area);url.searchParams.set('post',item.id);link.href=url.href;
    link.onclick=e=>{if(e.button||e.ctrlKey||e.metaKey||e.shiftKey)return;e.preventDefault();if(current()){remember();open(item);}};
+   const arrow=node('span','→');arrow.setAttribute('aria-hidden','true');link.append(arrow);
    article.append(meta,body,link);list.append(article);
   }
  }
@@ -94,6 +108,6 @@ export function mountFeed({host,uid,isCurrent,open,saved,onPosition}){
   },()=>{if(!current()||run!==subscriptionRun)return;++subscriptionRun;++revision;busy=false;items=[];sources=[];list.replaceChildren();more.hidden=true;create.disabled=true;picker.hidden=true;create.setAttribute('aria-expanded','false');status.textContent='Community access could not be verified.';retry.hidden=false;stops.forEach(stop=>stop());}));
  }
  subscribe();
- const dispose=()=>{remember();closed=true;++revision;stops.forEach(stop=>stop());host.replaceChildren();};
+ const dispose=()=>{remember();closed=true;++revision;stops.forEach(stop=>stop());host.replaceChildren();host.classList.remove('fellowship-feed-home');};
  dispose.capture=remember;return dispose;
 }
