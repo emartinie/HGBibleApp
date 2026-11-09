@@ -212,3 +212,7 @@ Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 vi
 - Scope: feed-only contrast, warm paper/slate surfaces, author initials/bylines, serif post titles, readable body text and existing action styling. No new actions, queries, profile/image fetches, dependencies or data fields. Discussion screens, global theme definitions, navigation and Firebase behavior remain unchanged.
 - [Design interpretation, screenshots and verification](../FELLOWSHIP-FEED-STYLING.md). Synthetic browser checks only; no production operations, pilot/rules/authentication changes, merge or deployment.
 - Final evidence: 20/20 focused cases and 3/3 final styling/screenshot confirmation passed. Sampled contrast minimum 6.56:1 dark / 5.00:1 light; hover remains readable. Four desktop/mobile light/dark screenshots inspected. Syntax, whitespace and protected-file comparisons passed. Physical iPhone/Safari and assistive-technology review remain unverified.
+
+## November 8, 2026 — Weekly study handoff to Fellowship
+- Codex prepared a focused review branch from main 39d27e5. The weekly companion opens the selected Commons discussion in Fellowship using the same post ID and the current study week.
+- URL checks and two synthetic browser routing regressions passed. The live two-member acceptance test remains pending.
