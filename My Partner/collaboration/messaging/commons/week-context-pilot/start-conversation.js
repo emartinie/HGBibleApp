@@ -1,5 +1,7 @@
 import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
+import { studyReadingUrl } from "../../../../../js/study-reference.js";
+
 const memoryDrafts = new Map();
 const ROOT = new URL('../../../../../', import.meta.url);
 
@@ -19,9 +21,9 @@ export function createConversationForm({ auth, db, area, displayName, context, i
   if (!uid || !context || ![1, 2, 3].includes(Number(context.week))) throw Error('Sign in and select Week 1, 2, or 3 first.');
   const week = Number(context.week);
   const key = 'hg-commons-starter:v1:' + JSON.stringify([uid, area, week]);
-  const reading = new URL(ROOT);
-  reading.searchParams.set('card', 'mainstage');
-  reading.searchParams.set('week', String(week));
+  const reading = studyReadingUrl(ROOT, week);
+
+
   const form = node('form');
   form.className = 'new-conversation';
   form.setAttribute('aria-label', 'Start conversation');

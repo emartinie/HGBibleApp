@@ -1,6 +1,8 @@
 // HomeGroups Week 1/2 Messaging production integration candidate.
 // Load from app shell as <script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js"></script>
 // This module changes no production source files. Uses same-origin Firebase Messaging iframe.
+import { studyForWeek } from "../../../../../js/study-reference.js";
+
 const testingRouteActive=()=>window.HGFellowshipTestingRequested||['fellowship-test','fellowship-live','fellowship'].includes(new URLSearchParams(location.search).get('card'));
 const PILOT = new URL('../week-context-pilot/', import.meta.url);
 let week = 0, box, frame, collapsed = false, dragging = null;
@@ -59,7 +61,7 @@ const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-comm
 document.body.append(box);
 function validWeek(n){return n===1||n===2||n===3||n===4}
 function setWeek(n){if(!validWeek(n))return;week=n;launch.hidden=false;label.textContent='Messaging · Week '+week;if(frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
-function open(){if(!validWeek(week))return;menuVisible(false);collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=20261015-report-live-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week},location.origin)}}
+function open(){if(!validWeek(week))return;menuVisible(false);collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=study-discussion-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week},location.origin)}}
 function close(){box.hidden=true;launch.hidden=false;/* Preserve iframe and drafts for reopening. */ }
 function minimize(){if(matchMedia('(max-width:600px)').matches){close();return;}collapsed=!collapsed;box.classList.toggle('minimized',collapsed);min.textContent=collapsed?'+':'−';min.setAttribute('aria-label',collapsed?'Restore companion':'Minimize companion');requestAnimationFrame(clamp)}
 function clamp(){if(box.hidden||matchMedia('(max-width:600px)').matches){box.style.left='';box.style.top='';box.style.right='';box.style.bottom='';return;}const r=box.getBoundingClientRect();box.style.left=Math.max(8,Math.min(r.left,innerWidth-r.width-8))+'px';box.style.top=Math.max(8,Math.min(r.top,innerHeight-r.height-8))+'px';box.style.right='auto';box.style.bottom='auto'}
@@ -92,6 +94,21 @@ document.addEventListener('weekChanged',()=>queueMicrotask(refresh));
 window.addEventListener('popstate',()=>setTimeout(refresh,0));
 window.addEventListener('hg:fellowship-active',refresh);
 const studySelect=document.getElementById('weekSelect');
+const discuss=document.getElementById('mainStageDiscussWeek');
+const status=document.getElementById('mainStageDiscussStatus');
+discuss?.addEventListener('click', () => {
+ const selected=Number(studySelect?.value);
+ status.hidden=Boolean(studyForWeek(selected));
+ if (!status.hidden) {
+   status.textContent='No linked discussion is available for this study yet.';
+   return;
+ }
+ setWeek(selected);
+ open();
+ frame?.contentWindow?.postMessage({commonsWeek:selected,showWeekDiscussions:true},location.origin);
+ box.querySelector('#hg-commons-close').focus();
+});
+document.addEventListener('weekChanged',()=>{if(status)status.hidden=true;});
 studySelect?.addEventListener('change',refresh);
 let checks=0;
 const startup=setInterval(()=>{refresh();if(++checks>=30)clearInterval(startup)},500);
