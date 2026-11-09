@@ -12,6 +12,7 @@
 import {attachReportControl} from '../moderation/report-control.js?v=20261015-report-live-1';
 import {auth,db} from '../../../../../js/firebase-init.js';
 import {onAuthStateChanged,onCommonsDispose} from '../commons-lifecycle.js';
+import {discussionReading} from '../../../../../js/study-reference.js';
 import {explicitReadingLink} from '../../../../../js/fellowship-context.js';
 import {doc,getDoc,collection,getDocs,query,orderBy,limit,startAfter,addDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 const ids=['projects','fellowship','prayer','study','discipleship','family'];
@@ -71,6 +72,8 @@ async function render(items,selected,v){
   const stamp=node('small','',' · '+(data.createdAt?.toDate?.().toLocaleString()||'Recently'));article.id='post-'+item.id;article.tabIndex=-1;
   const head=node('div','post-head'),permalink=node('a','','Link to message');permalink.href='#'+article.id;permalink.addEventListener('click',()=>{viewMode='index';focusedPost=item.id;updateView();});permalink.title='Copy or share this message link';head.append(title,stamp,permalink);const messageLink=messageMemberButton(data);if(messageLink)head.append(messageLink);article.append(head,node('span','topic-label',parsed.topic));attachReportControl(article,{community:selected,postId:item.id});if(parsed.title)article.append(node('h3','discussion-title',parsed.title));article.append(node('p','post-preview',parsed.body));
   const reading=explicitReadingLink(parsed.body);if(reading){const link=node('a','reading-link','Read '+reading.ref);link.href=location.origin+'/?card=scriptureapi&ref='+encodeURIComponent(reading.ref)+'&version='+reading.version;article.append(link);}
+  const study=discussionReading(parsed.body,new URL('../../../../../',location.href));
+  if(study){const link=node('a','reading-link','Open the original study');link.href=study.href;link.target='_top';article.append(link);}
   const replies=node('div','replies'),details=node('details'),heading=node('summary','','Replies · loading…');details.append(heading);replies.append(details);
   const form=node('form','replyform'),input=node('textarea');input.maxLength=1200;input.required=true;input.placeholder='Write a reply…';input.setAttribute('aria-label','Reply to '+title.textContent);
   const submit=node('button','','Post reply');submit.type='submit';const replyDraft=draftKey('reply',selected,item.id);input.value=draftRead(replyDraft);input.addEventListener('input',()=>draftWrite(replyDraft,input.value));form.append(input,submit);

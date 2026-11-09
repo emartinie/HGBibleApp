@@ -1680,6 +1680,11 @@
                 <a id="mainStageSefariaLink" class="mainstage-external-source-link" href="#" target="_blank" rel="noopener noreferrer">Read In Sefaria →</a>
                 <button id="mainStageListenBtn" class="ui-btn mainstage-listen-action" type="button" aria-expanded="false" aria-controls="floating-player-root">▶ Listen Instead</button>
                 <button id="beginMainStageBtn" class="ui-btn mainstage-widen-action" type="button" aria-expanded="false" aria-controls="mainStageContinuation">See how today fits inside this week ↓</button>
+                <div class="space-y-2">
+                  <button id="mainStageReadWeek" class="ui-btn block" type="button">Read This Week’s Scripture</button>
+                  <button id="mainStageDiscussWeek" class="ui-btn block" type="button" aria-describedby="mainStageDiscussStatus">Discuss This Week</button>
+                  <p id="mainStageDiscussStatus" role="status" hidden></p>
+                </div>
                 <div id="floating-player-root" class="weekly-player-dock" aria-label="Floating audio player" hidden></div>
                 <div class="mainstage-progress-wrap">
                   <div class="mainstage-progress-copy"><span id="mainStageProgressText">Day 1 of 7</span><span>This week completed</span></div>
@@ -1718,8 +1723,7 @@
             <div class="card-body">
 
               <section class="content-panel">
-  <div class="section-label" onclick="toggleSection(this)">What does Scripture say?</div>
-
+  <div class="section-label" id="mainStageScriptureSection" onclick="toggleSection(this)">Read This Week’s Scripture</div>
   <div class="mainstage-section-body space-y-3" hidden>
     <p class="mainstage-section-intro">Read the passages that shape this week’s journey.</p>
 
@@ -1918,8 +1922,8 @@
   </dialog>
 
     <!--<script src="js/cardloader.js"></script>-->
-  <script src="js/share-routing.js?v=release1.1-20260730-covenants" defer></script>
-  <script type="module" src="js/mainstage.js?v=20260723-1"></script>
+  <script src="js/share-routing.js?v=study-discussion-1" defer></script>
+  <script type="module" src="js/mainstage.js?v=study-discussion-1"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
   <script src="js/themeDiagnostic.js?v=2" defer></script>
@@ -1962,7 +1966,7 @@
     
   </div>
 </div>
-  <script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js?v=20261015-report-live-1"></script>
+  <script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js?v=study-discussion-1"></script>
 </body>
 </html>
 

@@ -216,3 +216,7 @@ Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 vi
 ## November 8, 2026 — Weekly study handoff to Fellowship
 - Codex prepared a focused review branch from main 39d27e5. The weekly companion opens the selected Commons discussion in Fellowship using the same post ID and the current study week.
 - URL checks and two synthetic browser routing regressions passed. The live two-member acceptance test remains pending.
+
+## November 8, 2026 — Main Stage discussion entry
+- The Main Stage exposes Discuss This Week beneath its Scripture action. It reuses the existing Bible Study & Investigation companion for the three supported studies and explains when no linked discussion is available.
+- Stable study links reuse the canonical app route and existing post-body link format. The community board and companion open the same stored discussions. Existing week-number links are recognized for the original pilot studies. No new collections or production operations.

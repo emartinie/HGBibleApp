@@ -7,6 +7,7 @@
 //   5. prev/next week logic reads weekSelect.value consistently â€” prevents off-by-one drift
 //   6. Scope clarified â€” audio.ended and DOMContentLoaded listeners explicitly outside init()
 
+import { weekForStudy } from "./study-reference.js";
 import { initWeeklyScriptureLoader } from "./weeklyScriptureLoader.js?v=20260706-2";
 import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
 import { loadDailyReadingSchedule } from "./dailyReadingSchedule.js?v=20260714-1";
@@ -188,7 +189,6 @@ function resetMainStageInvitation(weekData) {
   document.getElementById("mainStageCard")?.classList.remove("mainstage-started");
   if (mainStageSecondaryNav) mainStageSecondaryNav.hidden = true;
   prepareMainStageSections();
-
   if (beginMainStageBtn) {
     beginMainStageBtn.hidden = false;
     beginMainStageBtn.setAttribute("aria-expanded", "false");
@@ -622,7 +622,7 @@ function syncMainStageRoute(week, options = {}) {
 
 async function restoreMainStageRoute(route) {
   if (route?.card !== "mainstage") return;
-  const week = parseInt(route.week, 10);
+  const week = weekForStudy(route.study) ?? parseInt(route.week, 10);
   if (!Number.isFinite(week) || week < 1 || week > TOTAL_WEEKS) return;
 
   cacheDOM();
@@ -641,7 +641,7 @@ async function init() {
 
   const initialRoute = window.HGRoute?.read?.();
   const routedWeek = ["mainstage", "fellowship-test", "fellowship-live", "fellowship"].includes(initialRoute?.card)
-    ? parseInt(initialRoute.week, 10)
+    ? (weekForStudy(initialRoute.study) ?? parseInt(initialRoute.week, 10))
     : NaN;
   if (Number.isFinite(routedWeek) && routedWeek >= 1 && routedWeek <= TOTAL_WEEKS) {
     weekSelect.value = String(routedWeek);
@@ -649,6 +649,14 @@ async function init() {
 
   initWeeklyScriptureLoader();
   prepareMainStageSections();
+  document.getElementById("mainStageReadWeek")?.addEventListener("click", () => {
+    const continuation = document.getElementById("mainStageContinuation");
+    const scripture = document.getElementById("mainStageScriptureSection");
+    if (continuation?.hidden) document.getElementById("beginMainStageBtn")?.click();
+    if (scripture?.getAttribute("aria-expanded") === "false") window.toggleSection(scripture);
+    scripture?.focus();
+    scripture?.scrollIntoView({ block: "start" });
+  });
 
   try {
     dailySchedule = await loadDailyReadingSchedule();

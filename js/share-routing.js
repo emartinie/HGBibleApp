@@ -6,6 +6,7 @@
 
   const ROUTE_PARAMS = new Set([
     "week",
+    "study",
     "post",
     "version",
     "book",
