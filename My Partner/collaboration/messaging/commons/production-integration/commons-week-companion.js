@@ -60,8 +60,8 @@ box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging ·
 const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-commons-label'),min=box.querySelector('#hg-commons-min');
 document.body.append(box);
 function validWeek(n){return n===1||n===2||n===3||n===4}
-function setWeek(n){if(!validWeek(n))return;week=n;launch.hidden=false;label.textContent='Messaging · Week '+week;if(frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
-function open(){if(!validWeek(week))return;menuVisible(false);collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=study-discussion-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week},location.origin)}}
+function setWeek(n){if(!validWeek(n))return;const changed=week!==n;week=n;launch.hidden=!box.hidden;label.textContent='Messaging · Week '+week;if(changed&&frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
+function open(showWeekDiscussions=false){if(!validWeek(week))return;menuVisible(false);collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=study-discussion-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week,showWeekDiscussions},location.origin)}}
 function close(){box.hidden=true;launch.hidden=false;/* Preserve iframe and drafts for reopening. */ }
 function minimize(){if(matchMedia('(max-width:600px)').matches){close();return;}collapsed=!collapsed;box.classList.toggle('minimized',collapsed);min.textContent=collapsed?'+':'−';min.setAttribute('aria-label',collapsed?'Restore companion':'Minimize companion');requestAnimationFrame(clamp)}
 function clamp(){if(box.hidden||matchMedia('(max-width:600px)').matches){box.style.left='';box.style.top='';box.style.right='';box.style.bottom='';return;}const r=box.getBoundingClientRect();box.style.left=Math.max(8,Math.min(r.left,innerWidth-r.width-8))+'px';box.style.top=Math.max(8,Math.min(r.top,innerHeight-r.height-8))+'px';box.style.right='auto';box.style.bottom='auto'}
@@ -104,8 +104,7 @@ discuss?.addEventListener('click', () => {
    return;
  }
  setWeek(selected);
- open();
- frame?.contentWindow?.postMessage({commonsWeek:selected,showWeekDiscussions:true},location.origin);
+ open(true);
  box.querySelector('#hg-commons-close').focus();
 });
 document.addEventListener('weekChanged',()=>{if(status)status.hidden=true;});

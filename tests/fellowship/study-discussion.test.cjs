@@ -29,3 +29,41 @@ test('Main Stage exposes the discussion action and opens the selected pilot week
  await child.getByText('No matching conversations in the posts loaded so far.',{exact:false}).waitFor();
  assert.equal(await page.evaluate(()=>__fixture.writes.length),0);
 });
+
+test('populated mobile companion opens the right discussion on first click and after a week switch', async t => {
+ const records=[
+  {id:'genesis',area:'study',title:'Creation discussion',time:2,body:'Creation and rest\nReading: http://fellowship.test/?card=mainstage&week=1'},
+  {id:'abram',area:'study',title:'Abram discussion',time:1,body:'Leaving home\nReading: http://fellowship.test/?card=mainstage&study=lech-lecha'}
+ ];
+ const {page}=await harness(t,{production:true,route:'?card=mainstage',mobile:true,feed:{records}});
+ const choose=week=>page.locator('#weekSelect').evaluate((el,value)=>{el.value=value;el.dispatchEvent(new Event('change'));},week);
+ const discuss=page.getByRole('button',{name:'Discuss This Week',exact:true});
+ const child=page.frameLocator('#hg-commons-window iframe');
+ await choose('1');
+ await discuss.click();
+ await child.getByRole('button',{name:/Creation discussion/}).click();
+ await child.getByRole('heading',{name:'Creation discussion'}).waitFor();
+ await page.getByRole('button',{name:'Close companion',exact:true}).click();
+ await choose('3');
+ await discuss.click();
+ await child.getByRole('button',{name:/Abram discussion/}).click();
+ assert.equal(await child.getByRole('heading',{name:'Creation discussion'}).count(),0);
+ const link=child.getByRole('link',{name:'Open the original study'});
+ assert.match(await link.getAttribute('href'),/study=lech-lecha$/);
+ const reply=child.getByRole('textbox',{name:/Reply as/});
+ await reply.fill('Synthetic reply');
+ await child.getByRole('button',{name:'Post reply',exact:true}).click();
+ await child.getByText('Reply saved to Messaging.').waitFor();
+ assert.equal(await page.evaluate(()=>__fixture.writes[0].path),'commonsCommunityPosts/study/posts/abram/replies');
+ await link.click();
+ await page.waitForURL(/card=mainstage&study=lech-lecha/);
+});
+
+test('community board opens the same study association', async t => {
+ const {frame,page}=await harness(t,{production:true,route:'?card=fellowship-live&view=communities&section=discussion&area=study&post=abram&week=3',feed:{records:[
+  {id:'abram',area:'study',title:'Abram discussion',time:1,body:'Leaving home\nReading: http://fellowship.test/?card=mainstage&study=lech-lecha'}
+ ]}});
+ const child=await frame();
+ await child.locator('#post-abram').getByRole('link',{name:'Open the original study'}).click();
+ await page.waitForURL(/card=mainstage&study=lech-lecha/);
+});
