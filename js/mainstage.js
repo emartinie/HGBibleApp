@@ -7,9 +7,9 @@
 //   5. prev/next week logic reads weekSelect.value consistently â€” prevents off-by-one drift
 //   6. Scope clarified â€” audio.ended and DOMContentLoaded listeners explicitly outside init()
 
-import { weekForStudy } from "./study-reference.js";
-import { initWeeklyScriptureLoader } from "./weeklyScriptureLoader.js?v=20260706-2";
-import { getWeekNumber, TOTAL_WEEKS } from "./weekEngine.js";
+import { STUDY_COUNT, weekForStudy } from "./study-reference.js";
+import { initWeeklyScriptureLoader } from "./weeklyScriptureLoader.js?v=all-studies-1";
+import { getWeekNumber } from "./weekEngine.js";
 import { loadDailyReadingSchedule } from "./dailyReadingSchedule.js?v=20260714-1";
 
 // --- DOM Elements ---
@@ -235,7 +235,7 @@ function revealMainStageStudy() {
 // --- Populate week selector ---
 function populateWeekSelect() {
   weekSelect.innerHTML = "";
-  for (let i = 1; i <= TOTAL_WEEKS; i++) {
+  for (let i = 1; i <= STUDY_COUNT; i++) {
     const opt = document.createElement("option");
     opt.value = i;
     opt.textContent = `Week ${i}`;
@@ -609,7 +609,7 @@ function dispatchWeekChanged(week) {
 
 function syncMainStageRoute(week, options = {}) {
   const value = parseInt(week, 10);
-  if (!Number.isFinite(value) || value < 1 || value > TOTAL_WEEKS) return;
+  if (!Number.isFinite(value) || value < 1 || value > STUDY_COUNT) return;
 
   const currentCard=window.HGRoute?.read?.().card;
   const card=["fellowship", "fellowship-live", "fellowship-test"].includes(currentCard)?currentCard:"mainstage";
@@ -623,7 +623,7 @@ function syncMainStageRoute(week, options = {}) {
 async function restoreMainStageRoute(route) {
   if (route?.card !== "mainstage") return;
   const week = weekForStudy(route.study) ?? parseInt(route.week, 10);
-  if (!Number.isFinite(week) || week < 1 || week > TOTAL_WEEKS) return;
+  if (!Number.isFinite(week) || week < 1 || week > STUDY_COUNT) return;
 
   cacheDOM();
   if (!weekSelect || String(weekSelect.value) === String(week)) return;
@@ -643,7 +643,7 @@ async function init() {
   const routedWeek = ["mainstage", "fellowship-test", "fellowship-live", "fellowship"].includes(initialRoute?.card)
     ? (weekForStudy(initialRoute.study) ?? parseInt(initialRoute.week, 10))
     : NaN;
-  if (Number.isFinite(routedWeek) && routedWeek >= 1 && routedWeek <= TOTAL_WEEKS) {
+  if (Number.isFinite(routedWeek) && routedWeek >= 1 && routedWeek <= STUDY_COUNT) {
     weekSelect.value = String(routedWeek);
   }
 
@@ -694,7 +694,7 @@ async function init() {
 
   nextBtn?.addEventListener("click", () => {
     const val = parseInt(weekSelect.value, 10);
-    if (val >= TOTAL_WEEKS) return;
+    if (val >= STUDY_COUNT) return;
     const next = val + 1;
     weekSelect.value      = next;
     window.currentWeek    = next;

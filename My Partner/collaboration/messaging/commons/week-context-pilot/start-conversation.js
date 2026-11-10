@@ -18,10 +18,11 @@ function readDraft(key) {
 
 export function createConversationForm({ auth, db, area, displayName, context, isCurrent, onBack, onPosted }) {
   const uid = auth.currentUser?.uid;
-  if (!uid || !context || ![1, 2, 3].includes(Number(context.week))) throw Error('Sign in and select Week 1, 2, or 3 first.');
-  const week = Number(context.week);
+
+  const week = Number(context?.week);
   const key = 'hg-commons-starter:v1:' + JSON.stringify([uid, area, week]);
   const reading = studyReadingUrl(ROOT, week);
+  if (!uid || !reading) throw Error('Sign in and select a study first.');
 
 
   const form = node('form');
@@ -38,17 +39,16 @@ export function createConversationForm({ auth, db, area, displayName, context, i
   const message = node('textarea');
   message.id = 'new-conversation-message'; message.maxLength = 1200; message.required = true;
   message.placeholder = 'Ask a question or share what you’re noticing…'; messageLabel.htmlFor = message.id;
-  const sourceLabel = node('p', 'Linked to Week ' + week + '. The study link is included with your conversation.');
-  sourceLabel.className = 'context-hint';
+
   const counter = node('p'); counter.className = 'context-hint';
   const status = node('p'); status.className = 'context-hint'; status.setAttribute('role', 'status');
-  const privacy = node('p', 'Visible to members of Bible Study & Investigation. Sent conversations cannot be edited or deleted in this pilot.');
+  const privacy = node('p', 'Visible to members of Bible Study & Investigation.');
   privacy.className = 'context-hint';
   const actions = node('div'); actions.className = 'row';
   const back = node('button', 'Back to discussions'); back.type = 'button';
   const submit = node('button', 'Post conversation'); submit.type = 'submit'; submit.className = 'start-conversation';
   actions.append(back, submit);
-  form.append(heading, scope, titleLabel, title, messageLabel, message, sourceLabel, counter, status, privacy, actions);
+  form.append(heading, scope, titleLabel, title, messageLabel, message, counter, status, privacy, actions);
   const draft = readDraft(key);
   title.value = typeof draft?.title === 'string' ? draft.title : '';
   message.value = typeof draft?.message === 'string' ? draft.message : '';

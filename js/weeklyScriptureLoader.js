@@ -1,3 +1,6 @@
+import { STUDY_COUNT } from "./study-reference.js";
+import { TOTAL_WEEKS } from "./weekEngine.js";
+
 const LANGUAGE_LABELS = { english: "English", hebrew: "Hebrew", greek: "Greek" };
 
 function selectedWeek() {
@@ -57,7 +60,7 @@ export function initWeeklyScriptureLoader() {
   }
 
   async function load(nextWeek = week, nextLanguage = language) {
-    week = Math.max(1, Math.min(54, Number(nextWeek) || 1));
+    week = Math.max(1, Math.min(STUDY_COUNT, Number(nextWeek) || 1));
     language = nextLanguage;
     const thisRequest = ++requestId;
     updateControls();
@@ -65,6 +68,22 @@ export function initWeeklyScriptureLoader() {
     container.setAttribute("aria-busy", "true");
     container.innerHTML = '<p class="mainstage-loading">Opening this week’s Scripture…</p>';
     try {
+      if (week > TOTAL_WEEKS) {
+        const response = await fetch(`data/week${week}.json`);
+        if (!response.ok) throw new Error("Study reading references unavailable");
+        const { readings } = await response.json();
+        if (thisRequest !== requestId) return;
+        const heading = document.createElement("h3");
+        heading.textContent = "Reading references";
+        const list = document.createElement("ul");
+        for (const reading of readings) {
+          const item = document.createElement("li");
+          item.textContent = reading;
+          list.append(item);
+        }
+        container.replaceChildren(heading, list);
+        return;
+      }
       const result = await fetchFirstAvailable(weekCandidates(language, week));
       if (thisRequest !== requestId) return;
       container.innerHTML = extractStudy(result.html);

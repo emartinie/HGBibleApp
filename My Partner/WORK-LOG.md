@@ -220,3 +220,8 @@ Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 vi
 ## November 8, 2026 — Main Stage discussion entry
 - The Main Stage exposes Discuss This Week beneath its Scripture action. It reuses the existing Bible Study & Investigation companion for the three supported studies and explains when no linked discussion is available.
 - Stable study links reuse the canonical app route and existing post-body link format. The community board and companion open the same stored discussions. Existing week-number links are recognized for the original pilot studies. No new collections or production operations.
+
+## November 9, 2026 — Discussions for all weekly studies
+- Codex extended the existing study companion to 54 stable study IDs and used the checked-in reading schedule for Weeks 53–54. The 52-week automatic rollover remains unchanged. Those two manually selectable studies have reading references without dedicated multilingual pages.
+- The week controls now occupy a separate layout row, and the embedded mobile composer has a more compact header and form. Existing Commons membership and post paths remain in use.
+- Production verification still requires the owner and a second designated account on an authorized build. No production rules, data, or pilot settings changed.
