@@ -29,8 +29,8 @@ css.textContent = `
 @media(max-width:600px){
 #hg-commons-window{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-height:none!important;border:0;border-radius:0}
 #hg-commons-window.minimized{display:none!important}
-#hg-commons-bar{padding:calc(10px + env(safe-area-inset-top)) 14px 10px;cursor:default;touch-action:auto;font-size:15px}
-#hg-commons-bar button{min-width:44px;min-height:44px;font-size:23px}
+#hg-commons-bar{padding:env(safe-area-inset-top) 10px 0;cursor:default;touch-action:auto;font-size:15px}
+#hg-commons-bar button{min-width:44px;min-height:44px;font-size:20px}
 #hg-commons-window iframe{padding-bottom:env(safe-area-inset-bottom)}
 #hg-commons-launch{bottom:calc(15px + env(safe-area-inset-bottom))}
 }
@@ -59,9 +59,9 @@ box=document.createElement('section');box.id='hg-commons-window';box.hidden=true
 box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><a id="hg-commons-inbox" href="/My%20Partner/collaboration/messaging/commons/direct-live/">✉ Inbox</a> <button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
 const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-commons-label'),min=box.querySelector('#hg-commons-min');
 document.body.append(box);
-function validWeek(n){return n===1||n===2||n===3||n===4}
+function validWeek(n){return Boolean(studyForWeek(n))}
 function setWeek(n){if(!validWeek(n))return;const changed=week!==n;week=n;launch.hidden=!box.hidden;label.textContent='Messaging · Week '+week;if(changed&&frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
-function open(showWeekDiscussions=false){if(!validWeek(week))return;menuVisible(false);collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=study-discussion-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week,showWeekDiscussions},location.origin)}}
+function open(showWeekDiscussions=false){if(!validWeek(week))return;menuVisible(false);collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=all-studies-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week,showWeekDiscussions},location.origin)}}
 function close(){box.hidden=true;launch.hidden=false;/* Preserve iframe and drafts for reopening. */ }
 function minimize(){if(matchMedia('(max-width:600px)').matches){close();return;}collapsed=!collapsed;box.classList.toggle('minimized',collapsed);min.textContent=collapsed?'+':'−';min.setAttribute('aria-label',collapsed?'Restore companion':'Minimize companion');requestAnimationFrame(clamp)}
 function clamp(){if(box.hidden||matchMedia('(max-width:600px)').matches){box.style.left='';box.style.top='';box.style.right='';box.style.bottom='';return;}const r=box.getBoundingClientRect();box.style.left=Math.max(8,Math.min(r.left,innerWidth-r.width-8))+'px';box.style.top=Math.max(8,Math.min(r.top,innerHeight-r.height-8))+'px';box.style.right='auto';box.style.bottom='auto'}

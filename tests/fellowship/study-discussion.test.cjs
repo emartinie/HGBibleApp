@@ -3,8 +3,18 @@ const assert=require('node:assert/strict');
 const {harness}=require('./harness.cjs');
 
 test('stable study links resolve and legacy links retain their original study', async () => {
- const {discussionReading,studyReadingUrl,weekForStudy}=await import('../../js/study-reference.js');
+ const {discussionReading,studyReadingUrl,weekForStudy,STUDY_COUNT}=await import('../../js/study-reference.js');
  const root=new URL('https://homegroups.org/');
+ assert.equal(STUDY_COUNT,54);
+ const seen=new Set();
+ for(let week=1;week<=STUDY_COUNT;week++){
+  const reading=studyReadingUrl(root,week);
+  const id=reading.searchParams.get('study');
+  assert.equal(weekForStudy(id),week);
+  assert.equal(seen.has(id),false);
+  seen.add(id);
+  assert.equal(require('../../data/week'+week+'.json').week,week);
+ }
  const study=studyReadingUrl(root,3);
  assert.equal(study.searchParams.get('study'),'lech-lecha');
  assert.equal(weekForStudy(study.searchParams.get('study')),3);
@@ -14,20 +24,26 @@ test('stable study links resolve and legacy links retain their original study', 
  assert.equal(discussionReading('General discussion',root),null);
 });
 
-test('Main Stage exposes the discussion action and opens the selected pilot week', async t => {
+test('Main Stage exposes the discussion action and starts a discussion for the default study', async t => {
  const {page}=await harness(t,{production:true,route:'?card=mainstage',mobile:true});
  const discuss=page.getByRole('button',{name:'Discuss This Week',exact:true});
  const read=page.getByRole('button',{name:'Read This Week’s Scripture',exact:true});
  await read.waitFor();
  assert.equal(await discuss.evaluate(el=>el.previousElementSibling.id),'mainStageReadWeek');
  await discuss.click();
- await page.getByRole('status').filter({hasText:'No linked discussion is available'}).waitFor();
- await page.locator('#weekSelect').evaluate(el=>{el.value='3';el.dispatchEvent(new Event('change'));});
- await discuss.click();
  const child=page.frameLocator('#hg-commons-window iframe');
- await child.locator('#context-label').filter({hasText:'Week 3'}).waitFor();
- await child.getByText('No matching conversations in the posts loaded so far.',{exact:false}).waitFor();
- assert.equal(await page.evaluate(()=>__fixture.writes.length),0);
+ await child.locator('#context-label').filter({hasText:'Week 12'}).waitFor();
+ await child.getByRole('button',{name:'Start the discussion',exact:true}).click();
+ await child.getByLabel('Conversation title').fill('A question for this week');
+ await child.getByLabel('Opening message').fill('Synthetic opening message');
+ await child.getByRole('button',{name:'Post conversation',exact:true}).click();
+ const link=child.getByRole('link',{name:'Open the original study'});
+ await link.waitFor();
+ assert.match(await link.getAttribute('href'),/study=vayechi$/);
+ const writes=await page.evaluate(()=>__fixture.writes);
+ assert.equal(writes.length,1);
+ assert.equal(writes[0].path,'commonsCommunityPosts/study/posts');
+ assert.match(writes[0].value.body,/study=vayechi$/);
 });
 
 test('populated mobile companion opens the right discussion on first click and after a week switch', async t => {
@@ -66,4 +82,27 @@ test('community board opens the same study association', async t => {
  const child=await frame();
  await child.locator('#post-abram').getByRole('link',{name:'Open the original study'}).click();
  await page.waitForURL(/card=mainstage&study=lech-lecha/);
+});
+
+test('final study opens from the Main Stage and preserves membership boundaries', async t => {
+ const {page}=await harness(t,{production:true,route:'?card=mainstage',mobile:true,signedOut:true});
+ const dock=await page.locator('#weekCardDock').boundingBox();
+ const cards=await page.locator('#cardsRow').boundingBox();
+ assert.ok(dock.y+dock.height<=cards.y,'week controls occupy a separate row');
+ await page.locator('#weekSelect').evaluate(el=>{el.value='54';el.dispatchEvent(new Event('change'));});
+ await page.getByRole('button',{name:'Discuss This Week',exact:true}).click();
+ const child=page.frameLocator('#hg-commons-window iframe');
+ await child.locator('#context-label').filter({hasText:'Week 54'}).waitFor();
+ await child.getByRole('link',{name:/Sign in to Messaging/}).waitFor();
+ await page.evaluate(()=>__switchUser('bob'));
+ await child.getByRole('link',{name:/Join Bible Study/}).waitFor();
+ assert.equal(await child.getByRole('button',{name:'Start the discussion',exact:true}).count(),0);
+ await page.evaluate(()=>__switchUser('alice'));
+ await child.getByRole('button',{name:'Start the discussion',exact:true}).click();
+ await child.getByLabel('Conversation title').fill('A final study question');
+ await child.getByLabel('Opening message').fill('Synthetic opening message');
+ await child.getByRole('button',{name:'Post conversation',exact:true}).click();
+ const link=child.getByRole('link',{name:'Open the original study'});
+ await link.waitFor();
+ assert.match(await link.getAttribute('href'),/study=vezot-haberakhah$/);
 });

@@ -434,15 +434,14 @@
     }
 
     .week-card-dock {
-      position: absolute;
-      top: 2px;
-      left: 50%;
-      z-index: 40;
+      grid-row: 1;
+      justify-self: center;
+      margin: 2px 0;
       display: inline-grid;
       grid-template-columns: 34px auto 34px;
       align-items: center;
       gap: 4px;
-      transform: translateX(-50%);
+
       padding: 4px;
       border: 1px solid rgba(242, 198, 109, .34);
       border-radius: 999px;
@@ -474,9 +473,7 @@
       border-color: rgba(242, 198, 109, .24);
     }
 
-    #cardsRow > .card {
-      padding-top: 58px;
-    }
+
 
     .card-picker {
       width: auto;
@@ -874,6 +871,8 @@
     }
 
     #viewport {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
       position: relative;
       flex: 1;
       min-height: 0;
@@ -887,6 +886,8 @@
     }
 
     #cardsRow {
+      grid-row: 2;
+      min-width: 0;
       width: 100%;
       height: 100%;
       display: flex;
@@ -1922,8 +1923,8 @@
   </dialog>
 
     <!--<script src="js/cardloader.js"></script>-->
-  <script src="js/share-routing.js?v=study-discussion-1" defer></script>
-  <script type="module" src="js/mainstage.js?v=study-discussion-1"></script>
+  <script src="js/share-routing.js?v=all-studies-1" defer></script>
+  <script type="module" src="js/mainstage.js?v=all-studies-1"></script>
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
   <script src="js/themeDiagnostic.js?v=2" defer></script>
@@ -1966,7 +1967,7 @@
     
   </div>
 </div>
-  <script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js?v=study-discussion-1"></script>
+  <script type="module" src="My%20Partner/collaboration/messaging/commons/production-integration/commons-week-companion.js?v=all-studies-1"></script>
 </body>
 </html>
 

@@ -1,7 +1,19 @@
 // Keep these IDs fixed when moving studies to different weeks.
-const weeks = new Map([['bereshit', 1], ['noach', 2], ['lech-lecha', 3]]);
+const studyIds = [
+  'bereshit', 'noach', 'lech-lecha', 'vayera', 'chayei-sarah', 'toledot',
+  'vayetzei', 'vayishlach', 'vayeshev', 'miketz', 'vayigash', 'vayechi',
+  'shemot', 'vaera', 'bo', 'beshalach', 'yitro', 'mishpatim',
+  'terumah', 'tetzaveh', 'ki-tisa', 'vayakhel', 'pekudei', 'vayikra',
+  'tzav', 'shemini', 'tazria', 'metzora', 'acharei-mot', 'kedoshim',
+  'emor', 'behar', 'bechukotai', 'bamidbar', 'nasso', 'behaalotcha',
+  'shlach', 'korach', 'chukat', 'balak', 'pinchas', 'matot',
+  'masei', 'devarim', 'vaetchanan', 'eikev', 'reeh', 'shoftim',
+  'ki-teitzei', 'ki-tavo', 'nitzavim', 'vayelech', 'haazinu', 'vezot-haberakhah',
+];
+const weeks = new Map(studyIds.map((id, index) => [id, index + 1]));
+export const STUDY_COUNT = studyIds.length;
 export const weekForStudy = id => weeks.get(id);
-export const studyForWeek = week => [...weeks].find(([, number]) => number === week)?.[0];
+export const studyForWeek = week => Number.isInteger(week) ? studyIds[week - 1] : undefined;
 
 export function studyReadingUrl(root, week) {
   const id = studyForWeek(week);
