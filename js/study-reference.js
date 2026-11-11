@@ -1,5 +1,6 @@
 // Keep these IDs fixed when moving studies to different weeks.
 const weeks = new Map([['bereshit', 1], ['noach', 2], ['lech-lecha', 3]]);
+export const studyWeeks = Object.freeze([...weeks.values()]);
 export const weekForStudy = id => weeks.get(id);
 export const studyForWeek = week => [...weeks].find(([, number]) => number === week)?.[0];
 

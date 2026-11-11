@@ -1,5 +1,6 @@
-window.initScriptureApiCard=()=>window.scriptureApiReady;
-window.scriptureApiReady=(async function () {
+window.mountHomeGroupsScriptureReader = function mountReader(host = document, embeddedRoute) {
+  let dispose = () => {};
+  const ready = (async function () {
   const API_BASE = "https://rest.api.bible";
   const API_KEY = "5sFfxuspfEX8TD9YAODX8";
 
@@ -9,7 +10,7 @@ window.scriptureApiReady=(async function () {
     NASB: "b8ee27bcd1cae43a-01"
   };
 
-  const root = document.getElementById("scriptureContent");
+  const root = host.querySelector("#scriptureContent");
   const cardRoot = root?.closest(".hg-panel");
   // MainStage and the hidden legacy toolbar also contain these IDs. Bind only this card’s form controls.
   const control=id=>Array.from(cardRoot?.querySelectorAll('[id="'+id+'"]')||[]).at(-1);
@@ -32,11 +33,11 @@ window.scriptureApiReady=(async function () {
   const cleanups=[];
   root.setAttribute("role","region");root.setAttribute("aria-label","Scripture reading");root.tabIndex=-1;
   const readerStatus=document.createElement("p");readerStatus.className="hg-reading-status";readerStatus.setAttribute("role","status");readerStatus.setAttribute("aria-live","polite");readerStatus.setAttribute("aria-atomic","true");root.before(readerStatus);
-  window.destroyScriptureApiCard=()=>{disposed=true;requestRevision++;requestController?.abort();unregister?.();for(const stop of cleanups)stop();};
+  dispose=()=>{disposed=true;requestRevision++;requestController?.abort();unregister?.();for(const stop of cleanups)stop();};
   const journey=await import('./fellowship-context.js');
   if(disposed||!root.isConnected)return;
   journey.ensureContext();
-  const scrollHost=root.closest('.card')||document.scrollingElement;
+  const scrollHost=root.closest('dialog, .card')||document.scrollingElement;
   function verseOf(element){return element?.getAttribute('data-number')||element?.id?.match(/[.-](\d+)$/)?.[1]||null;}
   function snapshot(){
     if(disposed||!root.isConnected||!loadedRef)return null;
@@ -46,12 +47,13 @@ window.scriptureApiReady=(async function () {
     const anchor=visible.sort((a,b)=>Math.abs(a.getBoundingClientRect().top-top)-Math.abs(b.getBoundingClientRect().top-top))[0];
     return {ref:loadedRef,version:loadedVersion,anchor:verseOf(anchor),offset:anchor?anchor.getBoundingClientRect().top-top:0,scrollTop:scrollHost.scrollTop};
   }
-  function capture(){const value=snapshot();if(value)journey.rememberReading(value);}
+  function capture(){if(embeddedRoute)return;const value=snapshot();if(value)journey.rememberReading(value);}
   window.addEventListener('pagehide',capture);cleanups.push(()=>window.removeEventListener('pagehide',capture));
   const bar=document.createElement('nav');bar.className='hg-reading-context';bar.setAttribute('aria-label','Fellowship reading links');
   const returnButton=document.createElement('button');returnButton.type='button';returnButton.dataset.discussionLink='';
   const linkStatus=document.createElement('small');linkStatus.setAttribute('role','status');bar.append(returnButton,linkStatus);root.before(bar);
   function updateLinks(){
+    if(embeddedRoute){bar.hidden=true;return;}
     if(disposed)return;const associated=journey.associatedDiscussion(loadedRef||selectedReference());const origin=journey.discussionReturn();
     returnButton.hidden=!associated&&!origin;returnButton.textContent=origin?'Return to discussion':'Open linked discussion';
     linkStatus.textContent=associated?'Explicit Scripture link for this visit.':origin?'Return to your previous discussion; no association is established for this passage.':'No linked discussion for this passage in this visit.';
@@ -66,75 +68,8 @@ window.scriptureApiReady=(async function () {
     });
   }
 
-  const BOOK_MAP = {
-    matthew: "MAT",
-    mark: "MRK",
-    luke: "LUK",
-    john: "JHN",
-    acts: "ACT",
-    romans: "ROM",
-    "1 corinthians": "1CO",
-    "2 corinthians": "2CO",
-    galatians: "GAL",
-    ephesians: "EPH",
-    philippians: "PHP",
-    colossians: "COL",
-    "1 thessalonians": "1TH",
-    "2 thessalonians": "2TH",
-    "1 timothy": "1TI",
-    "2 timothy": "2TI",
-    titus: "TIT",
-    philemon: "PHM",
-    hebrews: "HEB",
-    james: "JAS",
-    "1 peter": "1PE",
-    "2 peter": "2PE",
-    "1 john": "1JN",
-    "2 john": "2JN",
-    "3 john": "3JN",
-    jude: "JUD",
-    revelation: "REV",
-    genesis: "GEN",
-    exodus: "EXO",
-    leviticus: "LEV",
-    numbers: "NUM",
-    deuteronomy: "DEU",
-    joshua: "JOS",
-    judges: "JDG",
-    ruth: "RUT",
-    "1 samuel": "1SA",
-    "2 samuel": "2SA",
-    "1 kings": "1KI",
-    "2 kings": "2KI",
-    "1 chronicles": "1CH",
-    "2 chronicles": "2CH",
-    ezra: "EZR",
-    nehemiah: "NEH",
-    esther: "EST",
-    job: "JOB",
-    psalm: "PSA",
-    psalms: "PSA",
-    proverbs: "PRO",
-    ecclesiastes: "ECC",
-    "song of solomon": "SNG",
-    isaiah: "ISA",
-    jeremiah: "JER",
-    lamentations: "LAM",
-    ezekiel: "EZK",
-    daniel: "DAN",
-    hosea: "HOS",
-    joel: "JOL",
-    amos: "AMO",
-    obadiah: "OBA",
-    jonah: "JON",
-    micah: "MIC",
-    nahum: "NAM",
-    habakkuk: "HAB",
-    zephaniah: "ZEP",
-    haggai: "HAG",
-    zechariah: "ZEC",
-    malachi: "MAL"
-  };
+  const { BOOK_MAP } = await import("./scripture-books.js");
+  if(disposed||!root.isConnected)return;
 
   const TOPIC_MAP = {
   "ROM 8": ["Isaiah 40", "Psalms 23"],
@@ -149,7 +84,7 @@ window.scriptureApiReady=(async function () {
 
   function syncScriptureRoute(reference, options = {}) {
     const ref = String(reference || "").trim();
-    if (!ref) return;
+    if (!ref || embeddedRoute) return;
 
     window.HGRoute?.setCardState?.("scriptureapi", { ref, version:versionSelect.value }, {
       replace: options.replace === true,
@@ -199,7 +134,7 @@ window.scriptureApiReady=(async function () {
   function scrollToVerse(verse) {
     if (!verse) return;
 
-    const contentEl = document.getElementById("scriptureContent");
+    const contentEl = root;
     if (!contentEl) return;
 
     const verseEl =
@@ -355,6 +290,12 @@ async function loadChapter(book='JHN',chapter='1',verse=null,view=null){
     handleLoad();
   });
 
+  if (embeddedRoute) {
+    for (const id of ['openBridgeBtn', 'openSefariaContextBtn']) {
+      const button = control(id);
+      if (button) button.hidden = true;
+    }
+  }
   control("openBridgeBtn")?.addEventListener("click", () => {
   const code = control("scriptureBook")?.value;
   const chapter = control("scriptureChapter")?.value;
@@ -367,8 +308,9 @@ async function loadChapter(book='JHN',chapter='1',verse=null,view=null){
     return;
   }
 
+  if (embeddedRoute) return;
   localStorage.setItem("sefariaBridge", JSON.stringify({ targets }));
-  window.loadCard?.("sefaria");
+  if(!embeddedRoute)window.loadCard?.("sefaria");
 });
 
   control("openSefariaContextBtn")?.addEventListener("click", () => {
@@ -378,6 +320,7 @@ async function loadChapter(book='JHN',chapter='1',verse=null,view=null){
   if (!book || !chapter) return;
 
   // Save context
+  if (embeddedRoute) return;
   localStorage.setItem("sefariaJump", JSON.stringify({ book, chapter }));
 
   // Jump to Sefaria card
@@ -385,7 +328,7 @@ async function loadChapter(book='JHN',chapter='1',verse=null,view=null){
 });
 
 async function restoreReader(route={}){
- const stored=journey.readingView(route);let savedSearch=null;try{savedSearch=localStorage.getItem('scriptureSearch');}catch{}
+ const stored=embeddedRoute?null:journey.readingView(route);let savedSearch=null;if(!embeddedRoute)try{savedSearch=localStorage.getItem('scriptureSearch');}catch{}
  const ref=route.ref||stored?.ref||savedSearch||selectedReference();
  versionSelect.value=BIBLE_IDS[route.version]?route.version:(stored?.version||'KJV');
  const parsed=parseReference(ref);if(!parsed){readerError('Invalid Scripture reference.');return;}
@@ -393,6 +336,15 @@ async function restoreReader(route={}){
  if(savedSearch)try{localStorage.removeItem('scriptureSearch');}catch{}
  return loadChapter(parsed.code,parsed.chapter,parsed.verse,stored);
 }
-if(window.HGRoute){unregister=window.HGRoute.registerCard('scriptureapi',{getState:()=>({ref:loadedRef||window.HGRoute.read()?.ref||selectedReference(),version:loadedVersion||versionSelect.value}),capture,restore:restoreReader});}
+if(embeddedRoute)await restoreReader(embeddedRoute);
+else if(window.HGRoute){unregister=window.HGRoute.registerCard('scriptureapi',{getState:()=>({ref:loadedRef||window.HGRoute.read()?.ref||selectedReference(),version:loadedVersion||versionSelect.value}),capture,restore:restoreReader});}
 else await restoreReader();
 })();
+  return {ready, dispose:()=>dispose()};
+};
+if (!document.currentScript?.hasAttribute("data-reader-only")) {
+  const reader = window.mountHomeGroupsScriptureReader();
+  window.scriptureApiReady = reader.ready;
+  window.initScriptureApiCard = () => reader.ready;
+  window.destroyScriptureApiCard = reader.dispose;
+}

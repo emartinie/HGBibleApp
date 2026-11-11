@@ -32,19 +32,20 @@ function extractStudy(html) {
   return study.innerHTML;
 }
 
-export function initWeeklyScriptureLoader() {
-  const container = document.getElementById("weeklyScriptureContainer");
-  const meta = document.getElementById("weeklyScriptureMeta");
+export function initWeeklyScriptureLoader({host=document, fixedWeek}={}) {
+  const find=id=>host.querySelector("#"+id);
+  const container = find("weeklyScriptureContainer");
+  const meta = find("weeklyScriptureMeta");
   if (!container || !meta || container.dataset.loaderReady === "true") return;
 
   container.dataset.loaderReady = "true";
   let language = "english";
-  let week = selectedWeek();
+  let week = fixedWeek ?? selectedWeek();
   let requestId = 0;
   const buttons = {
-    english: document.getElementById("langEnglishBtn"),
-    hebrew: document.getElementById("langHebrewBtn"),
-    greek: document.getElementById("langGreekBtn")
+    english: find("langEnglishBtn"),
+    hebrew: find("langHebrewBtn"),
+    greek: find("langGreekBtn")
   };
 
   function updateControls() {
@@ -79,7 +80,7 @@ export function initWeeklyScriptureLoader() {
   }
 
   Object.entries(buttons).forEach(([key, button]) => button?.addEventListener("click", () => load(week, key)));
-  document.getElementById("weeklyScriptureReloadBtn")?.addEventListener("click", () => load());
-  document.addEventListener("weekChanged", event => load(event.detail?.week || selectedWeek()));
+  find("weeklyScriptureReloadBtn")?.addEventListener("click", () => load());
+  if(!fixedWeek)document.addEventListener("weekChanged", event => load(event.detail?.week || selectedWeek()));
   load();
 }

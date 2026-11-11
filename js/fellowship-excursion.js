@@ -35,7 +35,7 @@ if (launch) {
     host.textContent = 'Checking your pilot access…';
     dialog.showModal();
     try {
-      await import('./fellowship-live.js?v=excursion-pilot-1');
+      await import('./fellowship-live.js?v=shared-content-1');
       if (!dialog.open || request !== opening) return;
       dispose = window.destroyFellowshipLiveCard;
       await window.initFellowshipLiveCard(host, {closeExcursion:close});

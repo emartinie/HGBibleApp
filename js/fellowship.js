@@ -2,6 +2,7 @@ import { auth } from './firebase-init.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import './prayermap.js';
 import * as journey from './fellowship-context.js';
+import {openSharedReader} from './fellowship-shared-reader.js';
 import {renderReadOnlyFixtures} from './fellowship-test-fixtures.js';
 export const controlledFixturesVersion=1;
 export const liveIntegrationVersion=1;
@@ -65,6 +66,8 @@ function captureView(session,post){
   return null;
 }
 function teardownView(session) {
+  session.closeSharedReader?.();
+  session.closeSharedReader = null;
   captureView(session);
   session.feedCleanup?.();session.feedCleanup=null;
   ++session.generation;
@@ -125,6 +128,12 @@ function bridge(session, frame) {
     if (!anchor || event.defaultPrevented || event.button > 0 || event.ctrlKey || event.metaKey || event.shiftKey || anchor.download) return;
     const url = new URL(anchor.href,frame.src);
     if (url.pathname === doc.location.pathname && url.search === doc.location.search && url.hash) return;
+    if (session.closeExcursion && anchor.hasAttribute('data-shared-reading') && url.origin === location.origin) {
+      event.preventDefault();
+      session.closeSharedReader?.();
+      session.closeSharedReader = openSharedReader(url, anchor, session.root);
+      return;
+    }
     if (navigateChild(session,url)) event.preventDefault();
     else if (url.origin !== location.origin) { anchor.target='_blank'; anchor.rel='noopener noreferrer'; }
   };
@@ -132,12 +141,12 @@ function bridge(session, frame) {
   const mapHandler = event => { event.preventDefault();event.stopImmediatePropagation(); select(session,{view:'prayer',week:session.state.week}); };
   mapToggle?.addEventListener('click',mapHandler,true);
   const areaSelect=doc.getElementById('area');
-  const areaHandler=()=>{if(AREAS.has(areaSelect.value)){session.state.area=areaSelect.value;session.state.post=undefined;session.renderedState={...session.state};window.HGRoute?.write(session.routeCard,session.state,{announce:false});}};
+  const areaHandler=()=>{if(AREAS.has(areaSelect.value)){session.state.area=areaSelect.value;session.state.post=undefined;session.renderedState={...session.state};if(!session.closeExcursion)window.HGRoute?.write(session.routeCard,session.state,{announce:false});}};
   areaSelect?.addEventListener('change',areaHandler);
   const hashHandler=()=>{
     if(active!==session||session.frame!==frame)return;
     const post=frame.contentWindow.location.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/)?.[1];
-    if(session.state.section==='discussion'&&session.state.post!==post){session.state.post=post;session.renderedState={...session.state};window.HGRoute?.write(session.routeCard,session.state,{replace:true,announce:false});}
+    if(session.state.section==='discussion'&&session.state.post!==post){session.state.post=post;session.renderedState={...session.state};if(!session.closeExcursion)window.HGRoute?.write(session.routeCard,session.state,{replace:true,announce:false});}
     captureView(session);
   };
   frame.contentWindow.addEventListener('hashchange',hashHandler);frame.contentWindow.addEventListener('hg:discussion-ready',hashHandler);
