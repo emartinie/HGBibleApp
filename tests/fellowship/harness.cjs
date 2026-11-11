@@ -40,7 +40,7 @@ async function harness(t,{route='?card=fellowship&view=explore&week=12',mobile=f
  const p=decodeURIComponent(url.pathname);
  if(p==='/data/fellowship-live.json')return request.fulfill({contentType:'application/json',body:JSON.stringify({version:1,enabled:liveEnabled,mode:'live-test-accounts',startsAt:new Date(Date.now()-1000).toISOString(),expiresAt:new Date(Date.now()+3600000).toISOString(),testAccountUids:['alice','bob']})});
  if(production&&p==='/'){
-  let html=index.replace(/<script\b([^>]*)>[\s\S]*?<\/script>/gi,(full,attributes)=>/src=["'](?:js\/(?:share-routing|themeDiagnostic|homegroups-entry)|My%20Partner\/collaboration\/messaging\/commons\/production-integration\/commons-week-companion)/.test(attributes)?full:'');
+  let html=index.replace(/<script\b([^>]*)>[\s\S]*?<\/script>/gi,(full,attributes)=>/src=["'](?:js\/(?:share-routing|themeDiagnostic|homegroups-entry|fellowship-excursion)|My%20Partner\/collaboration\/messaging\/commons\/production-integration\/commons-week-companion)/.test(attributes)?full:'');
   html=html.replace('</body>','<script>document.addEventListener("DOMContentLoaded",()=>{const s=document.getElementById("weekSelect");s.replaceChildren();for(let n=1;n<=52;n++){const o=document.createElement("option");o.value=n;o.textContent="Week "+n;s.append(o)}s.value=12;});</script></body>');
   return request.fulfill({contentType:'text/html',body:html});
  }

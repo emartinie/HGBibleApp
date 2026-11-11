@@ -220,3 +220,7 @@ Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 vi
 ## November 8, 2026 — Main Stage discussion entry
 - The Main Stage exposes Discuss This Week beneath its Scripture action. It reuses the existing Bible Study & Investigation companion for the three supported studies and explains when no linked discussion is available.
 - Stable study links reuse the canonical app route and existing post-body link format. The community board and companion open the same stored discussions. Existing week-number links are recognized for the original pilot studies. No new collections or production operations.
+
+## November 10, 2026 — Fellowship workspace pilot
+- Main Stage opens an Excursion over the study through a separate pilot button. The existing Fellowship workspace, joined-community feed, conversations, Firebase account and rollout checks are reused. The pilot feed expands posts in place and opens their existing discussion.
+- The checked-in live pilot window had expired at development time. Browser checks use synthetic data. Live verification requires an authorized build and a current owner-approved window.

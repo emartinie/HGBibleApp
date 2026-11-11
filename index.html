@@ -433,6 +433,44 @@
       }
     }
 
+    .fellowship-excursion {
+      margin: 0 0 0 auto;
+      padding: 0;
+      width: min(100%, 48rem);
+      height: 100dvh;
+      max-width: none;
+      max-height: none;
+      background: var(--bg-0);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .fellowship-excursion::backdrop { background: rgba(0, 0, 0, .35); }
+    .fellowship-excursion[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); }
+    .fellowship-excursion > header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: max(8px, env(safe-area-inset-top)) 12px 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .fellowship-excursion-content {
+      overflow: auto;
+      overscroll-behavior: contain;
+      padding: 8px 12px max(8px, env(safe-area-inset-bottom));
+    }
+    .fellowship-excursion-content:has(iframe) { overflow: hidden; }
+    .fellowship-excursion .fellowship:has(iframe),
+    .fellowship-excursion [data-fellowship-content]:has(iframe) {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      flex: 1;
+    }
+    .fellowship-excursion .fellowship:has(iframe) { height: 100%; }
+    .fellowship-excursion .fellowship iframe { height: auto; flex: 1; min-height: 0; }
+    @media (max-width: 720px) { .fellowship-excursion { width: 100%; border: 0; } }
+
     .week-card-dock {
       position: absolute;
       top: 2px;
@@ -1683,6 +1721,7 @@
                 <div class="space-y-2">
                   <button id="mainStageReadWeek" class="ui-btn block" type="button">Read This Week’s Scripture</button>
                   <button id="mainStageDiscussWeek" class="ui-btn block" type="button" aria-describedby="mainStageDiscussStatus">Discuss This Week</button>
+                  <button id="mainStageFellowshipPilot" class="ui-btn block" type="button" aria-haspopup="dialog">Fellowship workspace pilot</button>
                   <p id="mainStageDiscussStatus" role="status" hidden></p>
                 </div>
                 <div id="floating-player-root" class="weekly-player-dock" aria-label="Floating audio player" hidden></div>
@@ -1927,6 +1966,7 @@
   <!--<script src="js/scripture.js"></script>-->
   <script src="js/fullscreen.js"></script>
   <script src="js/themeDiagnostic.js?v=2" defer></script>
+  <script type="module" src="js/fellowship-excursion.js"></script>
   <script type="module" src="js/homegroups-entry.js?v=controlled-fellowship-1"></script>
   <script src="js/about.js?v=release1-20260718" defer></script>
   <script src="js/pwa.js?v=20260726-1" defer></script>

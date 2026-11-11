@@ -108,7 +108,7 @@ function navigateChild(session, url) {
   else if(path==='/'&&url.searchParams.has('card')){
     const source=captureView(session);if(source)journey.rememberReturn(source,session.uid);
     const route=window.HGRoute?.read(url);if(!route)return false;
-    window.HGRoute.navigate(route.card,window.HGRoute.getState(route));return true;
+    session.closeExcursion?.();window.HGRoute.navigate(route.card,window.HGRoute.getState(route));return true;
   }
   else if (path === '/') { returnToStudy(session); return true; }
   else return false;
@@ -167,7 +167,7 @@ async function render(session) {
       const {mountFeed}=await import('./fellowship-feed.js');
       if(active!==session||generation!==session.generation)return;
       session.status.textContent='';session.content.setAttribute('aria-busy','false');
-      session.feedCleanup=mountFeed({host:session.content,uid:session.uid,
+      session.feedCleanup=mountFeed({host:session.content,uid:session.uid,excursion:Boolean(session.closeExcursion),
         isCurrent:()=>active===session&&generation===session.generation&&(session.routeCard!=='fellowship-live'||!session.uid||journey.isCurrent(session.uid,session.contextEpoch)),
         saved:session.routeCard==='fellowship-live'?journey.feedState(session.uid):session.feedPosition,
         onPosition:position=>{session.feedPosition=position;if(session.routeCard==='fellowship-live')journey.rememberFeed(position,session.uid);},
@@ -229,24 +229,24 @@ function select(session, route, write = true) {
   if (active !== session) return;
   const origin=captureView(session);if(origin&&route.section!=='discussion')journey.rememberReturn(origin,session.uid);
   session.state=stateFor(route,session.routeCard==='fellowship-live'?'home':'prayer');
-  if (write) window.HGRoute?.write(session.routeCard,session.state,{announce:false,source:'fellowship'});
+  if (write && !session.closeExcursion) window.HGRoute?.write(session.routeCard,session.state,{announce:false,source:'fellowship'});
   return render(session);
 }
-function returnToStudy(session) {const week=session.state.week||document.getElementById('weekSelect')?.value;if(session.routeCard==='fellowship-live')journey.returnToReading(week);else window.HGRoute?.navigate('mainstage',{week});}
+function returnToStudy(session) {if(session.closeExcursion){session.closeExcursion();return;}const week=session.state.week||document.getElementById('weekSelect')?.value;if(session.routeCard==='fellowship-live')journey.returnToReading(week);else window.HGRoute?.navigate('mainstage',{week});}
 window.initFellowshipCard = function(host,options={}) {
   window.destroyFellowshipCard();
   const root=host.querySelector('.fellowship');if(!root)return;
   const session={root,content:root.querySelector('[data-fellowship-content]'),status:root.querySelector('[data-fellowship-status]'),generation:0,testing:options.readOnlyFixtures===true,routeCard:options.readOnlyFixtures===true?'fellowship-test':options.routeCard==='fellowship-live'?'fellowship-live':'fellowship',prayerReadOnly:options.prayerReadOnly===true,authReady:false,uid:options.routeCard==='fellowship-live'?(auth.currentUser?.uid||null):undefined,state:stateFor(window.HGRoute?.read())};
-  active=session;
+  session.closeExcursion=options.closeExcursion;active=session;
   if(session.routeCard==='fellowship-live'){
-    session.state=stateFor(window.HGRoute?.read(),'home');
+    session.state=stateFor(session.closeExcursion ? {week:document.getElementById('weekSelect')?.value} : window.HGRoute?.read(),'home');
     const home=document.createElement('button');home.type='button';home.textContent='Home feed';home.dataset.fellowshipView='home';root.querySelector('.fellowship-tabs').prepend(home);
     root.querySelector('[data-fellowship-account]').hidden=true;
     journey.ensureContext();session.contextEpoch=journey.identity().epoch;session.menu=compactLiveNavigation(root);
     session.contextChanged=()=>{const button=root.querySelector('[data-fellowship-action="discussion-return"]'),origin=journey.discussionReturn();if(button)button.hidden=!origin||(session.state.section==='discussion'&&session.state.area===origin.area&&session.state.post===origin.post);};
     window.addEventListener('hg:fellowship-context',session.contextChanged);
   }
-  session.dock=document.getElementById("weekCardDock");
+  session.dock=session.closeExcursion?null:document.getElementById("weekCardDock");
   if(session.dock){session.dockParent=session.dock.parentNode;session.dockNext=session.dock.nextSibling;root.prepend(session.dock);}
   session.weekChanged=()=>{if(active!==session||session.testing)return;const week=document.getElementById("weekSelect")?.value;if(week&&String(session.state.week)!==week)select(session,{...session.state,week});};
   document.addEventListener("weekChanged",session.weekChanged);
@@ -286,7 +286,7 @@ window.initFellowshipCard = function(host,options={}) {
     root.querySelector("[data-fellowship-account]").textContent="Your account could not be checked. Use Account to try again.";
     render(session);
   });
-  session.unregister = window.HGRoute?.registerCard(session.routeCard,{getState:()=>session.state,capture:()=>captureView(session),restore:route=>{if(active===session && JSON.stringify(stateFor(route,session.routeCard==='fellowship-live'?'home':'prayer'))!==JSON.stringify(session.state))return select(session,route,false);}});
+  if(!session.closeExcursion)session.unregister = window.HGRoute?.registerCard(session.routeCard,{getState:()=>session.state,capture:()=>captureView(session),restore:route=>{if(active===session && JSON.stringify(stateFor(route,session.routeCard==='fellowship-live'?'home':'prayer'))!==JSON.stringify(session.state))return select(session,route,false);}});
   return render(session);
 };
 window.destroyFellowshipCard = function() {
