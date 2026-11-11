@@ -143,3 +143,11 @@
   .fellowship-feed .fellowship-post { padding: 18px; }
   .fellowship-feed-home > form { grid-template-columns: minmax(0, 1fr); }
 }
+
+.fellowship-shared-reader{width:min(100%,46rem);max-width:none;max-height:100dvh;padding:12px;background:var(--bg-0);color:var(--text);border:1px solid var(--line);overscroll-behavior:contain}
+.fellowship-shared-reader::backdrop{background:rgba(0,0,0,.4)}
+.fellowship-shared-reader>button{position:sticky;top:0;z-index:1}
+@media(max-width:720px){.fellowship-shared-reader{margin:0;height:100dvh;border:0;padding-top:max(12px,env(safe-area-inset-top))}}
+
+.fellowship-shared-reader #scriptureContent,
+.fellowship-shared-reader #shared-weeklyScriptureContainer{max-height:none;overflow:visible}

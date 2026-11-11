@@ -102,7 +102,7 @@ test('embedded A-B-A replaces the old frame and rejects its private filter memen
 });
 
 test('disposed discussion cannot issue a reply after a delayed profile read',async t=>{
- const {page,frame}=await harness(t,{production:true,unification:true,route:discussion});const child=await loadedDiscussion(frame);await child.locator('#post-older-post details').filter({has:child.locator('.replyform')}).locator('summary').click();await child.locator('#post-older-post .replyform textarea').fill('SYNTHETIC DELAYED REPLY');await page.evaluate(()=>__fixture.holdProfile=true);
+ const {page,frame}=await harness(t,{production:true,unification:true,route:discussion});const child=await loadedDiscussion(frame);await child.locator('#post-older-post details').filter({has:child.locator('.replyform')}).locator(':scope > summary').click();await child.locator('#post-older-post .replyform textarea').fill('SYNTHETIC DELAYED REPLY');await page.evaluate(()=>__fixture.holdProfile=true);
  await child.locator('#post-older-post').getByRole('button',{name:'Post reply',exact:true}).click();await page.waitForFunction(()=>typeof __fixture.releaseProfile==='function');await menu(page,'Prayer Map');await page.locator('#prayerMap').waitFor();await page.evaluate(()=>{__fixture.holdProfile=false;__fixture.releaseProfile()});await page.waitForTimeout(100);
  assert.equal(await page.evaluate(()=>__fixture.writes.length),0);assert.equal(await page.locator('.fellowship iframe').count(),0);
 });

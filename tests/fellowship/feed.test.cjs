@@ -89,7 +89,7 @@ test('post selection uses existing composer/replies and restores feed position',
  const link=page.locator('.fellowship-feed article').nth(35).getByRole('link',{name:'Open discussion'});await link.scrollIntoViewIfNeeded();
  const before=await page.locator('.fellowship').evaluate(el=>({card:el.closest('.card').scrollTop,window:window.scrollY}));await link.click();let child=await frame();
  await child.locator('#post-post-035:visible').waitFor();assert.match(page.url(),/view=home.*section=discussion/);
- await child.locator('#post-post-035 details').locator('summary').click();await child.locator('#post-post-035 .replyform textarea').fill('Synthetic reply');await child.locator('#post-post-035 .replyform button').click();
+ await child.locator('#post-post-035 .replies > details > summary').click();await child.locator('#post-post-035 .replyform textarea').fill('Synthetic reply');await child.locator('#post-post-035 .replyform').getByRole('button',{name:'Post reply',exact:true}).click();
  await page.waitForFunction(()=>__fixture.writes.some(x=>x.path.endsWith('/post-035/replies')));
  await page.getByRole('button',{name:'Back to feed',exact:true}).click();await ready(page,40);await page.waitForTimeout(100);
  const after=await page.locator('.fellowship').evaluate(el=>({card:el.closest('.card').scrollTop,window:window.scrollY}));assert.ok(Math.abs(after.card-before.card)<40,JSON.stringify({before,after}));

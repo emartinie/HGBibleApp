@@ -24,7 +24,7 @@ async function check(session,forceRefresh){
     if(active!==session||revision!==session.revision)return;
     session.uid=grant.uid;
     if(!session.mounted){
-      const module=await import('./fellowship.js?v=excursion-pilot-1');
+      const module=await import('./fellowship.js?v=shared-content-1');
       if(module.liveIntegrationVersion!==1)throw Error('Incompatible Fellowship module');
       const response=await fetch('cards/fellowship.html',{cache:'no-store',signal:session.abort.signal});
       if(!response.ok)throw Error('Fellowship unavailable');const html=await response.text();
