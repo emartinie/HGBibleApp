@@ -1,3 +1,4 @@
+import {createConversation,createAccount} from './fellowship-surfaces.js';
 import { auth } from './firebase-init.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import './prayermap.js';
@@ -22,7 +23,7 @@ function compactLiveNavigation(root){
   const labels={explore:'Explore Communities',people:'Find People',profile:'My Profile',account:'Account / Sign In',study:'Return to Bible Study'};
   for(const key of ['home','prayer','communities','explore','messages','people','profile','account','study']){
     const button=root.querySelector('[data-fellowship-view="'+key+'"], [data-fellowship-action="'+key+'"]');
-    if(button){if(labels[key])button.textContent=labels[key];navigation.append(button);}
+    if(button){if(labels[key])button.textContent=labels[key];if(key==='account'){button.setAttribute('aria-label','Account / Sign In');button.textContent='Account';}navigation.append(button);}
   }
   const back=document.createElement('button');back.type='button';back.dataset.fellowshipAction='discussion-return';back.textContent='Return to discussion';back.hidden=!journey.discussionReturn();navigation.append(back);
   menu.append(summary,navigation);header.replaceChildren(heading,menu);
@@ -56,7 +57,7 @@ function captureView(session,post){
   const route=session.renderedState||session.state;
   if(route.view==='prayer'&&!route.section)journey.rememberMap(window.capturePrayerMapView?.(),session.uid);
   try{
-    const snapshot=session.frame?.contentWindow?.HGDiscussionView?.capture(post);
+    const snapshot=session.nativeView?.capture?.(post)||session.frame?.contentWindow?.HGDiscussionView?.capture(post);
     if(snapshot?.uid===session.uid&&route.section==='discussion'){
       const source={...route,post:snapshot.post};journey.rememberDiscussion(source,snapshot,session.uid);
       if(snapshot.post&&snapshot.reading)journey.rememberAssociation(source,snapshot.reading,session.uid);
@@ -69,6 +70,10 @@ function teardownView(session) {
   session.closeSharedReader?.();
   session.closeSharedReader = null;
   captureView(session);
+  session.nativeView?.dispose();session.nativeView=null;
+  session.nativeLinksCleanup?.();session.nativeLinksCleanup=null;
+  session.root.classList.remove('fellowship-native');
+  session.root.querySelector('.fellowship-back')?.remove();
   session.feedCleanup?.();session.feedCleanup=null;
   ++session.generation;
   session.abort?.abort();
@@ -128,7 +133,13 @@ function bridge(session, frame) {
     const anchor = event.target.closest?.('a[href]');
     if (!anchor || event.defaultPrevented || event.button > 0 || event.ctrlKey || event.metaKey || event.shiftKey || anchor.download) return;
     const url = new URL(anchor.href,frame.src);
-    if (url.pathname === doc.location.pathname && url.search === doc.location.search && url.hash) return;
+    if (url.pathname === doc.location.pathname && url.search === doc.location.search && url.hash) {
+      const target=url.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/)?.[1];
+      if(target&&session.routeCard==='fellowship-live'&&session.state.section==='discussion'){
+        event.preventDefault();select(session,{...session.state,post:target});
+      }
+      return;
+    }
     if ((session.closeExcursion || doc.documentElement.classList.contains('conversation-first')) && anchor.hasAttribute('data-shared-reading') && url.origin === location.origin) {
       event.preventDefault();
       session.closeSharedReader?.();
@@ -157,6 +168,24 @@ function bridge(session, frame) {
   doc.addEventListener('click',handler,true);
   session.bridgeCleanup = () => {try{frame.contentWindow.removeEventListener('hashchange',hashHandler);frame.contentWindow.removeEventListener('hg:discussion-ready',hashHandler);}catch{}areaSelect?.removeEventListener('change',areaHandler);doc.removeEventListener('click',handler,true);mapToggle?.removeEventListener('click',mapHandler,true);};
 }
+function bridgeNative(session){
+ session.content.setAttribute('data-fellowship-native-links','');
+ const handler=event=>{
+  const anchor=event.target.closest?.('a[href]');
+  if(!anchor||event.defaultPrevented||event.button>0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+  const url=new URL(anchor.href,location.href);
+  if(anchor.hasAttribute('data-shared-reading')&&url.origin===location.origin){
+    event.preventDefault();session.closeSharedReader?.();
+    session.closeSharedReader=openSharedReader(url,anchor,session.root);return;
+  }
+  if(anchor.hasAttribute('data-private-message')){
+    const source=captureView(session);if(source)journey.rememberReturn(source,session.uid);
+  }
+  if(navigateChild(session,url))event.preventDefault();
+ };
+ session.content.addEventListener('click',handler);
+ session.nativeLinksCleanup=()=>{session.content.removeEventListener('click',handler);session.content.removeAttribute('data-fellowship-native-links');};
+}
 async function render(session) {
   teardownView(session);
   session.renderedState={...session.state};
@@ -164,6 +193,11 @@ async function render(session) {
   const generation = session.generation;
   session.root.querySelectorAll('[data-fellowship-view]').forEach(button => button.setAttribute('aria-current',button.dataset.fellowshipView === session.state.view ? 'page' : 'false'));
   session.root.querySelector('[data-fellowship-action=retry]').hidden=true;
+  if(session.closeExcursion){
+    session.root.querySelector('[data-fellowship-action=study]').hidden=true;
+    const home=session.root.querySelector('[data-fellowship-view=home]');
+    if(home)home.hidden=session.state.view==='home'&&session.state.section==='discussion';
+  }
   session.status.textContent='Loading…';session.content.setAttribute('aria-busy','true');
   if (session.testing) {
     renderReadOnlyFixtures(session.content,session.state,route=>select(session,route));
@@ -209,8 +243,33 @@ async function render(session) {
   }
   if (!session.authReady) { session.status.textContent='Checking your account…';return; }
   if(session.state.view==='home'&&session.state.section==='discussion'){
-    const back=document.createElement('button');back.type='button';back.textContent='Back to feed';
-    back.onclick=()=>select(session,{view:'home',week:session.state.week});session.content.append(back);
+    const back=document.createElement('button');back.type='button';back.className='fellowship-back';
+    back.textContent='← Feed';back.setAttribute('aria-label','Back to feed');
+    back.onclick=()=>select(session,{view:'home',week:session.state.week});session.root.querySelector('header').prepend(back);
+  }
+  if(session.state.section==='discussion'&&session.state.post){
+    session.root.classList.add('fellowship-native');
+    const scrollHost=session.root.closest('.fellowship-excursion-content, .card')||session.content;
+    session.nativeView=createConversation(session.content,{
+      params:new URLSearchParams(Object.entries(session.state).filter(([,value])=>value!==undefined)),scrollHost,
+      onReady:()=>{if(active===session&&generation===session.generation)captureView(session);}
+    });
+    session.nativeView.restore(journey.discussionView(session.state,session.uid),session.uid);
+    bridgeNative(session);
+    session.status.textContent='';session.content.setAttribute('aria-busy','false');return;
+  }
+  if(session.routeCard==='fellowship-live'&&session.state.section==='account'){
+    session.root.classList.add('fellowship-native');
+    session.abort=new AbortController();
+    try{
+      const view=await createAccount(session.content,{signal:session.abort.signal,
+        isCurrent:()=>active===session&&generation===session.generation,
+        onContinue:()=>select(session,{view:'home',week:session.state.week})});
+      if(active!==session||generation!==session.generation){view?.dispose();return;}
+      session.nativeView=view;bridgeNative(session);
+      session.status.textContent='';session.content.setAttribute('aria-busy','false');
+    }catch(error){if(error.name!=='AbortError')fail(session,generation,'Your account could not load. Please try again.');}
+    return;
   }
   const frame = document.createElement('iframe');session.frame=frame;
   // Discussions are read in the surrounding Fellowship page. Size their same-origin
@@ -225,18 +284,7 @@ async function render(session) {
     frame.style.overflow='hidden';
   }
   frame.title = session.state.section === 'account' ? 'HomeGroups account' : session.state.section === 'profile' ? 'HomeGroups member profile' : session.state.view === 'messages' ? 'Fellowship messages and requests' : 'Fellowship communities';
-  // Existing threads use the conversation-first reader, not the legacy discussion index.
-  // Keep the legacy composer for new posts until its write flow is migrated.
-  const conversationFirst=session.state.section==='discussion'&&Boolean(session.state.post);
-  if(conversationFirst){
-    const url=new URL('/prototypes/fellowship-conversation-first/',location.origin);
-    url.searchParams.set('area',session.state.area);
-    url.searchParams.set('post',session.state.post);
-    url.searchParams.set('embedded','1');
-    if(session.state.week)url.searchParams.set('week',session.state.week);
-    frame.classList.add('fellowship-conversation-frame');
-    frame.src=url.href;
-  }else frame.src=childURL(session.state).href;
+  frame.src=childURL(session.state).href;
   frame.addEventListener('load',()=>{
     if (active !== session || generation !== session.generation) return;
     clearTimeout(session.timer);
@@ -247,7 +295,7 @@ async function render(session) {
       const segment = actual.pathname.split('/').filter(Boolean).filter(part=>part!=='index.html').pop();
       if (selectors[segment] && !frame.contentDocument.querySelector(selectors[segment])) throw new Error('Screen unavailable');
       bridge(session,frame);session.status.textContent='';session.content.setAttribute('aria-busy','false');
-      if(autoSizeDiscussion&&!conversationFirst){
+      if(autoSizeDiscussion){
         const doc=frame.contentDocument;
         const resize=()=>{
           if(active!==session||session.frame!==frame||!doc?.body)return;
@@ -324,7 +372,7 @@ window.initFellowshipCard = function(host,options={}) {
     if(context)session.contextEpoch=context.epoch;
     session.uid=user?.uid || null;session.authReady=true;
     root.querySelector('[data-fellowship-account]').textContent=user && !user.isAnonymous ? 'Signed in. Your existing HomeGroups account is in use.' : 'You can explore and pray here. Sign in through Account to join communities or use messages.';
-    if(changed || !session.frame)render(session);
+    if(changed || (!session.frame&&!session.nativeView))render(session);
   },()=>{
     if(active!==session)return;
     session.authReady=true;

@@ -5,7 +5,7 @@ const path = require('node:path');
 const {harness} = require('./harness.cjs');
 const target = {id:'thread-post',area:'study',title:'Read and reply',time:1,body:'A community opening.\n\n' + 'Conversation context. '.repeat(30)};
 const direct = '?card=fellowship-live&view=home&section=discussion&area=study&post=thread-post&week=12';
-const unavailable = 'Sign in to use Fellowship. Community and message permissions still apply.';
+const unavailable = 'Sign in to use Fellowship.';
 async function setup(t, {mobile=false, records=[target], prepare, open=true}={}) {
  const app = await harness(t,{production:true,mobile,unification:true,route:'?card=mainstage&week=12',feed:{records}});
  const {page} = app;
@@ -16,7 +16,7 @@ async function setup(t, {mobile=false, records=[target], prepare, open=true}={})
  if (prepare) await prepare(page);
  const openThread = async (index=0) => {
   await dialog.locator('.fellowship-feed article').nth(index).getByRole('button',{name:'Open discussion and replies'}).click();
-  const child = await app.frame();
+  const child = await app.conversation();
   await child.locator('#composer:not([hidden])').waitFor();
   // Wait for the first query to settle before exercising pagination or lifecycle races.
   await page.waitForFunction(()=>__fixture.feedReads?.some(r=>r.path.endsWith('/replies')));
@@ -61,7 +61,7 @@ for (const mobile of [false,true]) test('visible feed opens a single conversatio
  await host.evaluate(e=>e.scrollTop=1300);
  const before=await host.evaluate(e=>e.scrollTop), route=page.url();
  await dialog.locator('.fellowship-feed article').nth(5).getByRole('button',{name:'Open discussion and replies'}).evaluate(e=>e.click());
- await page.frameLocator('.fellowship iframe').locator('#composer:not([hidden])').waitFor();
+ await page.locator('.fellowship-conversation').locator('#composer:not([hidden])').waitFor();
  await dialog.getByRole('button',{name:'Back to feed'}).click();
  await dialog.locator('.fellowship-feed article').nth(44).waitFor();
  await page.waitForTimeout(100);
@@ -81,14 +81,15 @@ for (const mobile of [false,true]) test('thread, composer and attachment picker 
   await page.waitForTimeout(80);
   const bounds=await child.evaluate(()=>{
    const b=e=>{const r=e.getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right}};
-   return {width:innerWidth,height:innerHeight,app:b(document.querySelector('.app')),composer:b(document.querySelector('#composer')),input:b(document.querySelector('#message')),send:b(document.querySelector('.send')),overflow:document.documentElement.scrollWidth>innerWidth,thread:document.querySelector('#thread').clientHeight};
+   return {width:innerWidth,height:innerHeight,composer:b(document.querySelector('#composer')),input:b(document.querySelector('#message')),send:b(document.querySelector('.send')),overflow:document.documentElement.scrollWidth>innerWidth,thread:document.querySelector('#thread').clientHeight};
   });
-  for (const name of ['app','composer','input','send']) {
+  for (const name of ['composer','input','send']) {
    assert.ok(bounds[name].top>=-1 && bounds[name].bottom<=bounds.height+1,JSON.stringify({size,name,bounds}));
    assert.ok(bounds[name].left>=-1 && bounds[name].right<=bounds.width+1,JSON.stringify({size,name,bounds}));
   }
   assert.ok(bounds.thread>30,JSON.stringify(bounds));assert.equal(bounds.overflow,false);
-  assert.equal(await child.locator('header').isVisible(),false);
+  assert.equal(await child.locator('header').count(),0);
+  assert.equal(await page.locator('.fellowship iframe').count(),0);
   assert.equal(await dialog.locator('#fellowshipTitle').isVisible(),false);
   assert.equal(await dialog.locator('.fellowship-menu summary').count(),1);
  }
@@ -101,11 +102,12 @@ for (const mobile of [false,true]) test('thread, composer and attachment picker 
   await page.screenshot({path:path.join(process.env.ARTIFACT_DIR,'conversation-'+(mobile?'mobile':'desktop')+'.png')});
  }
 });
-for (const exit of ['close','dispose','navigate','switch','A-B-A']) test('pending reply cannot write after '+exit,async t=>{
+for (const exit of ['close','dispose','pagehide','navigate','switch','A-B-A']) test('pending reply cannot write after '+exit,async t=>{
  const {page,dialog,child}=await setup(t);
  await holdReply(page,child);
  if (exit==='close') await dialog.getByRole('button',{name:'Close Fellowship'}).click();
- if (exit==='dispose') await child.evaluate(()=>window.dispatchEvent(new Event('hg:fellowship-dispose')));
+ if (exit==='dispose') await child.evaluate(root=>root.dispatchEvent(new Event('hg:fellowship-dispose')));
+ if (exit==='pagehide') await page.evaluate(()=>window.dispatchEvent(new Event('pagehide')));
  if (exit==='navigate') await dialog.getByRole('button',{name:'Back to feed'}).click();
  if (exit==='switch'||exit==='A-B-A') await page.evaluate(aba=>{__switchUser('bob');if(aba)__switchUser('alice');},exit==='A-B-A');
  await releaseReply(page);
@@ -134,8 +136,8 @@ test('server membership recheck prevents a write before the revocation observer 
 });
 for(const denied of ['nonmember','cached','error']) test('unverified '+denied+' membership never reads the thread',async t=>{
  const feed={records:[target],...(denied==='nonmember'?{members:[]}:denied==='cached'?{cached:true}:{denyMembership:true})};
- const {page,frame}=await harness(t,{production:true,route:direct,feed});
- const child=await frame();
+ const {page,frame,conversation}=await harness(t,{production:true,route:direct,feed});
+ const child=await conversation();
  await child.getByText(denied==='nonmember'?'Join this community before viewing its conversations.':denied==='cached'?'Connect to verify your community access.':'Community access could not be verified.',{exact:true}).waitFor();
  assert.equal(await child.locator('#composer').isVisible(),false);
  assert.equal(await page.evaluate(()=>(__fixture.feedReads||[]).length),0);
@@ -151,7 +153,7 @@ test('account switches purge the previous draft and frame observers',async t=>{
  assert.equal(await page.evaluate(()=>[...__fixture.auth].filter(x=>x.win!==top).length),0);
  await page.evaluate(()=>__switchUser('alice'));
  await dialog.locator('.fellowship-feed article').getByRole('button',{name:'Open discussion and replies'}).click();
- const restored=page.frameLocator('.fellowship iframe');await restored.locator('#composer:not([hidden])').waitFor();
+ const restored=page.locator('.fellowship-conversation');await restored.locator('#composer:not([hidden])').waitFor();
  assert.equal(await restored.locator('#message').inputValue(),'');
 });
 for (const mobile of [false,true]) test('Scripture reply retries once and opens the shared reader in place '+(mobile?'mobile':'desktop'),async t=>{
@@ -206,8 +208,8 @@ test('editing a new draft during a send keeps the new draft',async t=>{
 });
 test('permission-aware private action opens existing request flow and returns to discussion',async t=>{
  const {page,dialog,child,frame}=await setup(t);
- await child.locator('#thread').evaluate(e=>e.scrollTop=40);
- const before=await child.locator('#thread').evaluate(e=>e.scrollTop);
+ await page.locator('.fellowship-excursion-content').evaluate(e=>e.scrollTop=40);
+ const before=await page.locator('.fellowship-excursion-content').evaluate(e=>e.scrollTop);
  await child.getByRole('link',{name:'Message privately',exact:true}).click();
  const dm=await frame();await dm.getByRole('button',{name:'Request conversation',exact:true}).waitFor();
  assert.match(dm.url(),/to=bob1234567890123/);
@@ -215,10 +217,10 @@ test('permission-aware private action opens existing request flow and returns to
  assert.equal(await page.evaluate(()=>__fixture.writes.length),0);
  await dialog.locator('.fellowship-menu summary').click();
  await dialog.getByRole('button',{name:'Return to discussion',exact:true}).click();
- const back=await frame();await back.locator('#composer:not([hidden])').waitFor();
+ const back=page.locator('.fellowship-conversation');await back.locator('#composer:not([hidden])').waitFor();
  await page.waitForTimeout(80);
- assert.match(back.url(),/post=thread-post/);
- assert.equal(await back.locator('#thread').evaluate(e=>e.scrollTop),before);
+ assert.equal(await back.getAttribute('data-post'),'thread-post');
+ assert.equal(await page.locator('.fellowship-excursion-content').evaluate(e=>e.scrollTop),before);
 });
 for (const uid of ['alice','invalid-user']) test('private messaging omits self or invalid author '+uid,async t=>{
  const {child}=await setup(t,{records:[{...target,uid}]});
@@ -226,14 +228,14 @@ for (const uid of ['alice','invalid-user']) test('private messaging omits self o
 });
 test('non-excursion attachments preserve the canonical discussion route',async t=>{
  const body='Scripture context.\nReading: http://fellowship.test/?card=scriptureapi&ref=John+1%3A5&version=KJV';
- const {page,frame}=await harness(t,{production:true,unification:true,route:direct,feed:{records:[{...target,body}]}});
- const child=await frame();await child.locator('#composer:not([hidden])').waitFor();
+ const {page,frame,conversation}=await harness(t,{production:true,unification:true,route:direct,feed:{records:[{...target,body}]}});
+ const child=await conversation();await child.locator('#composer:not([hidden])').waitFor();
  const route=page.url();await child.getByRole('link',{name:'Read John 1:5',exact:false}).click();
  const reader=page.getByRole('dialog',{name:'Shared reading'});await reader.getByText('Synthetic Scripture verse 5',{exact:false}).waitFor();
  assert.equal(page.url(),route);await reader.getByRole('button',{name:'Close reading'}).click();
  assert.equal(await child.locator('#composer').isVisible(),true);
- await page.reload();const restored=await frame();await restored.locator('#composer:not([hidden])').waitFor();
- assert.match(restored.url(),/post=thread-post/);
+ await page.reload();const restored=await conversation();await restored.locator('#composer:not([hidden])').waitFor();
+ assert.equal(await restored.getAttribute('data-post'),'thread-post');
 });
 
 for (const stage of ['existence','membership']) for (const exit of ['close','revoke','switch']) test('pending '+stage+' lookup cannot write after '+exit,async t=>{
@@ -254,14 +256,14 @@ test('private-message return restores earlier loaded replies and thread position
  await child.locator('#thread .message').nth(30).waitFor();
  await child.getByRole('button',{name:'Load earlier replies'}).click();
  await child.locator('#thread .message').nth(60).waitFor();
- await child.locator('#thread').evaluate(e=>e.scrollTop=1800);
- const before=await child.locator('#thread').evaluate(e=>e.scrollTop);
- await page.evaluate(()=>document.querySelector('.fellowship iframe').contentDocument.querySelectorAll('[data-private-message]')[10].click());
+ await page.locator('.fellowship-excursion-content').evaluate(e=>e.scrollTop=1800);
+ const before=await page.locator('.fellowship-excursion-content').evaluate(e=>e.scrollTop);
+ await page.evaluate(()=>document.querySelector('.fellowship-conversation').querySelectorAll('[data-private-message]')[10].click());
  const dm=await frame();await dm.getByRole('button',{name:'Request conversation',exact:true}).waitFor();
  await dialog.locator('.fellowship-menu summary').click();
  await dialog.getByRole('button',{name:'Return to discussion',exact:true}).click();
- const back=await frame();await back.locator('#thread .message').nth(60).waitFor();
- assert.equal(await back.locator('#thread').evaluate(e=>e.scrollTop),before);
+ const back=page.locator('.fellowship-conversation');await back.locator('#thread .message').nth(60).waitFor();
+ assert.equal(await page.locator('.fellowship-excursion-content').evaluate(e=>e.scrollTop),before);
 });
 test('a valid current author has no private-message action',async t=>{
  const uid='alice1234567890123';
@@ -280,7 +282,7 @@ for(const state of ['cached','error']) test('an open thread fails closed on memb
    else rec.err({code:'permission-denied'});
   }
  },state);
- await child.getByText(state==='cached'?'Connect to verify your community access.':'Community access could not be verified.',{exact:true}).waitFor();
+ await child.getByText(state==='cached'?'Checking community access…':'Community access could not be verified.',{exact:true}).waitFor();
  assert.equal(await child.locator('#thread').innerText(),'');assert.equal(await child.locator('#message').isDisabled(),true);
  // A snapshot stream terminates on an error; re-enter to establish a fresh listener.
  if(state==='error')return;
