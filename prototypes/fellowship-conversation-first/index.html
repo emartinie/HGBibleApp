@@ -3,25 +3,25 @@
 <title>HomeGroups · Conversation-first pilot</title>
 <style>
 :root{color-scheme:dark;--bg:#101722;--panel:#192432;--bubble:#243448;--text:#edf2f7;--muted:#a9bacb;--line:#34475d;--accent:#d5b36b}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,sans-serif}
 button,textarea,select,input{font:inherit;color:inherit}button{cursor:pointer;background:transparent;border:0}button:focus-visible,a:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-[hidden]{display:none!important}a{color:var(--accent)}.app{max-width:760px;margin:auto;min-height:100dvh;display:flex;flex-direction:column}
-header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:2}
-header a{font-size:14px;text-decoration:none}header h1{font-size:17px;margin:0;line-height:1.3}header small{display:block;color:var(--muted);font-size:12px}
-#notice{margin:0;padding:8px 16px;color:var(--muted);font-size:13px}#notice:empty{display:none}
-#thread{flex:1;padding:18px 12px 24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+[hidden]{display:none!important}a{color:var(--accent)}.app{max-width:760px;margin:auto;height:100vh;height:100dvh;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);flex:0 0 auto;min-width:0;background:var(--bg);z-index:2}
+header a{font-size:14px;text-decoration:none;white-space:nowrap}header>div{min-width:0;flex:1}header h1{font-size:16px;margin:0;line-height:1.3;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}header small{display:block;color:var(--muted);font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#notice{margin:0;padding:8px 16px;color:var(--muted);font-size:13px;flex:0 0 auto}#notice:empty{display:none}
+#thread{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:12px 12px 18px;display:flex;flex-direction:column;gap:12px;min-width:0}
 .message{display:flex;gap:9px;align-items:flex-start;min-width:0}.avatar{flex:0 0 32px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#314359;color:var(--text);font-size:14px}
 .message-content{max-width:min(100%,620px);min-width:0}.byline{font-size:12px;color:var(--muted);margin:0 0 4px}.bubble{background:var(--bubble);padding:12px 14px;border-radius:5px 16px 16px 16px;overflow-wrap:anywhere;white-space:pre-wrap}
 .message.mine{flex-direction:row-reverse}.message.mine .byline{text-align:right}.message.mine .bubble{border-radius:16px 5px 16px 16px;background:#30485c}
 .attachment{display:block;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);text-decoration:none;color:var(--text)}.attachment strong{display:block;font-size:14px}.attachment small{display:block;color:var(--accent)}
-#more{align-self:center;color:var(--accent);padding:10px}#composer{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:10px 12px max(12px,env(safe-area-inset-bottom));display:grid;gap:8px}
-#composer textarea{width:100%;min-height:70px;max-height:180px;resize:vertical;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:12px}
-.composer-actions{display:flex;align-items:center;gap:8px;justify-content:space-between}.action{border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-height:40px}.send{background:var(--accent);color:#161b20;font-weight:700}.send:disabled{opacity:.5}
-.add-content{margin:0}.add-content summary{list-style:none;cursor:pointer;padding:8px 12px;border:1px solid var(--line);border-radius:10px;min-height:40px}.add-content summary::-webkit-details-marker{display:none}
-.add-content-choices p{margin:8px 0}.add-content-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.add-content-row button{border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-height:38px}.add-content-row label{display:grid;gap:3px;flex:1 1 115px;font-size:13px}.add-content-row select,.add-content-row input{width:100%;min-width:0;padding:7px;border:1px solid var(--line);border-radius:8px;background:var(--panel);min-height:38px}
+#more{align-self:center;color:var(--accent);padding:8px;flex:0 0 auto}#composer{position:relative;flex:0 0 auto;background:var(--bg);border-top:1px solid var(--line);padding:8px 10px max(8px,env(safe-area-inset-bottom));display:flex;align-items:end;gap:8px;min-width:0}
+#composer textarea{flex:1 1 auto;min-width:0;width:auto;height:42px;min-height:42px;max-height:116px;resize:none;overflow-y:auto;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:9px 11px}
+.composer-actions{display:contents}.action{border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-height:42px;white-space:nowrap}.send{background:var(--accent);color:#161b20;font-weight:700}.send:disabled{opacity:.5}
+#attachment{order:-1;flex:0 0 auto}.add-content{margin:0;position:relative;flex:0 0 auto}.add-content summary{list-style:none;cursor:pointer;padding:8px 10px;border:1px solid var(--line);border-radius:10px;min-height:42px;white-space:nowrap}.add-content summary::-webkit-details-marker{display:none}
+.add-content[open]{z-index:5}.attachment-popover{display:none;position:absolute;bottom:calc(100% + 8px);left:0;width:min(350px,calc(100vw - 22px));max-height:min(65dvh,460px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:0 10px 35px #0009}.add-content[open] .attachment-popover{display:block}.add-content[open]{background:var(--panel)}.add-content-choices p{margin:8px 0}.add-content-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.add-content-row button{border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-height:38px}.add-content-row label{display:grid;gap:3px;flex:1 1 115px;font-size:13px}.add-content-row select,.add-content-row input{width:100%;min-width:0;padding:7px;border:1px solid var(--line);border-radius:8px;background:var(--panel);min-height:38px}
 .add-content [role=status]{font-size:13px;color:var(--muted);margin:6px 0}.add-content [role=status]:empty{display:none}
-.pilot-label{color:var(--muted);font-size:11px;padding:0 16px 4px}.inbox-item{display:grid;gap:4px;padding:15px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--text);background:var(--panel)}.inbox-item strong{font-size:15px}.inbox-item small{color:var(--accent)}.inbox-item span{color:var(--muted);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-@media(min-width:800px){.app{border-inline:1px solid var(--line)}}
+.pilot-label{color:var(--muted);font-size:11px;padding:0 16px 4px}.inbox-item{display:grid;gap:2px;padding:10px 12px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);min-width:0}.inbox-item strong{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.inbox-item small{color:var(--accent);font-size:12px}.inbox-item span{color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(min-width:800px){.app{border-inline:1px solid var(--line)}}@media(max-width:520px){header{padding:9px 10px;gap:8px}#composer{gap:5px;padding-inline:7px}.add-content summary{font-size:0;padding:8px 11px}.add-content summary::after{content:'＋';font-size:22px;line-height:24px}.send{font-size:0}.send::after{content:'➤';font-size:19px}}
 </style></head><body>
 <div class="app">
 <header><a href="./" aria-label="Return to conversations">← Back</a><div><h1 id="heading">Conversation</h1><small id="subheading">HomeGroups Fellowship</small></div></header>
@@ -29,7 +29,7 @@ header a{font-size:14px;text-decoration:none}header h1{font-size:17px;margin:0;l
 <p id="notice" role="status" aria-live="polite">Checking your account…</p>
 <main id="thread" aria-label="Conversation messages"></main>
 <button id="more" hidden type="button">Load earlier replies</button>
-<form id="composer" hidden><textarea id="message" maxlength="1200" required aria-label="Write a reply" placeholder="Write a message…"></textarea>
+<form id="composer" hidden><textarea id="message" rows="1" maxlength="1200" required aria-label="Write a reply" placeholder="Write a message…"></textarea>
 <div class="composer-actions"><div id="attachment"></div><button class="action send" type="submit">Send reply</button></div></form>
 </div>
 <script type="module">
@@ -65,7 +65,7 @@ say(entries.length?'':errors?'Some conversations could not be loaded.':accessibl
 
 async function loadReplies(v,uid,initial=false){if(busy||!still(v,uid))return;busy=true;more.disabled=true;
 try{const path=collection(db,'commonsCommunityPosts',area,'posts',postId,'replies');const q=query(path,orderBy('createdAt','asc'),...(cursor?[startAfter(cursor)]:[]),limit(30));const snap=await getDocs(q);if(!still(v,uid))return;
-cursor=snap.docs[snap.docs.length-1]||cursor;allReplies.push(...snap.docs.map(x=>x.data()));more.hidden=snap.size<30;render();if(initial)window.scrollTo(0,document.body.scrollHeight);
+cursor=snap.docs[snap.docs.length-1]||cursor;allReplies.push(...snap.docs.map(x=>x.data()));more.hidden=snap.size<30;render();if(initial)thread.scrollTop=thread.scrollHeight;
 }catch(e){if(still(v,uid))say('Unable to load replies: '+(e.code||e.message));}finally{busy=false;more.disabled=false;}}
 async function start(user){const v=++generation;activeUid=user?.uid||null;form.hidden=true;post=null;cursor=null;allReplies=[];thread.replaceChildren();more.hidden=true;
 if(!user||user.isAnonymous){say('Sign in with your HomeGroups account to view conversations.');return;}
@@ -78,8 +78,8 @@ post=snap.data();document.getElementById('heading').textContent=parseBody(post.b
 try{input.value=sessionStorage.getItem(draftKey())||'';}catch{input.value='';}
 form.hidden=false;say('');render();await loadReplies(v,user.uid,true);
 }catch(e){if(still(v,user.uid))say('Conversation unavailable: '+(e.code||e.message));}}
-input.addEventListener('input',()=>{try{const key=draftKey();if(key)sessionStorage.setItem(key,input.value);}catch{}});
-document.getElementById('attachment').append(addContentControl(input,params.get('week')));
+input.addEventListener('input',()=>{input.style.height='42px';input.style.height=Math.min(116,Math.max(42,input.scrollHeight))+'px';try{const key=draftKey();if(key)sessionStorage.setItem(key,input.value);}catch{}});
+const attachment=addContentControl(input,params.get('week'));const popover=el('div','attachment-popover');for(const child of [...attachment.children].slice(1))popover.append(child);attachment.append(popover);document.getElementById('attachment').append(attachment);
 more.onclick=()=>loadReplies(generation,activeUid);
 let pending=null;
 form.addEventListener('submit',async event=>{event.preventDefault();const uid=activeUid,v=generation,body=input.value.trim();if(!still(v,uid)||!post||!body||body.length>1200||busy)return;
