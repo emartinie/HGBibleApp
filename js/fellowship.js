@@ -223,14 +223,24 @@ async function render(session) {
     frame.style.overflow='hidden';
   }
   frame.title = session.state.section === 'account' ? 'HomeGroups account' : session.state.section === 'profile' ? 'HomeGroups member profile' : session.state.view === 'messages' ? 'Fellowship messages and requests' : 'Fellowship communities';
-  frame.src=childURL(session.state).href;
+  // Existing threads use the conversation-first reader, not the legacy discussion index.
+  // Keep the legacy composer for new posts until its write flow is migrated.
+  const conversationFirst=session.state.section==='discussion'&&Boolean(session.state.post);
+  if(conversationFirst){
+    const url=new URL('/prototypes/fellowship-conversation-first/',location.origin);
+    url.searchParams.set('area',session.state.area);
+    url.searchParams.set('post',session.state.post);
+    url.searchParams.set('embedded','1');
+    if(session.state.week)url.searchParams.set('week',session.state.week);
+    frame.src=url.href;
+  }else frame.src=childURL(session.state).href;
   frame.addEventListener('load',()=>{
     if (active !== session || generation !== session.generation) return;
     clearTimeout(session.timer);
     try {
       const actual = new URL(frame.contentWindow.location.href);
       if (actual.pathname !== new URL(frame.src).pathname && navigateChild(session,actual)) return;
-      const selectors = {'directory':'#directory','conversations':'#posts','direct-live':'#layout','auth':'#guest','member':'#profile','find-users':'#results'};
+      const selectors = {'fellowship-conversation-first':'#thread','directory':'#directory','conversations':'#posts','direct-live':'#layout','auth':'#guest','member':'#profile','find-users':'#results'};
       const segment = actual.pathname.split('/').filter(Boolean).filter(part=>part!=='index.html').pop();
       if (selectors[segment] && !frame.contentDocument.querySelector(selectors[segment])) throw new Error('Screen unavailable');
       bridge(session,frame);session.status.textContent='';session.content.setAttribute('aria-busy','false');
@@ -239,7 +249,7 @@ async function render(session) {
         const resize=()=>{
           if(active!==session||session.frame!==frame||!doc?.body)return;
           // Measure actual content, not the iframe viewport, to avoid a height feedback loop.
-          const height=Math.ceil(doc.body.scrollHeight+24);
+          const height=Math.ceil(Math.max(doc.body.scrollHeight,doc.documentElement.scrollHeight)+24);
           if(Number.isFinite(height)&&height>0)frame.style.height=Math.max(560,height)+'px';
         };
         const observer=new ResizeObserver(resize);
