@@ -44,8 +44,14 @@ const requestsCount=menu.querySelector('#hg-commons-requests'),unreadCount=menu.
 function menuVisible(value){menu.hidden=!value;launch.setAttribute('aria-expanded',String(value))}
 launch.setAttribute('aria-haspopup','menu');launch.setAttribute('aria-expanded','false');
 menu.querySelector('#hg-commons-study').addEventListener('click',()=>{menuVisible(false);open()});
-launch.addEventListener('click',()=>menuVisible(menu.hidden));
-if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+launch.addEventListener('click',()=>{
+  menuVisible(false);
+  const fellowship=document.getElementById('mainStageFellowshipPilot');
+  if(fellowship && !fellowship.disabled){fellowship.click();return;}
+  // Keep the existing destinations available if the main Fellowship entrance is absent.
+  menuVisible(true);
+});
+if(false && matchMedia('(hover:hover) and (pointer:fine)').matches){
  let hoverExit;
  const show=()=>{clearTimeout(hoverExit);if(!launch.hidden)menuVisible(true)};
  const hide=()=>{clearTimeout(hoverExit);hoverExit=setTimeout(()=>{if(!menu.matches(':hover')&&!launch.matches(':hover'))menuVisible(false)},180)};
