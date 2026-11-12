@@ -53,11 +53,12 @@ export function mountFeed({host,uid,isCurrent,open,saved,onPosition,excursion=fa
    if(title)body.append(node('h3',title[1]),document.createTextNode('\n'),node('p',encoded.slice(title[0].length)));
    else body.append(node('p',text));
    if(excursion){
-    const expand=node('details');
-    expand.append(node('summary',title?.[1]||'Read contribution'),node('p',title?encoded.slice(title[0].length):text));
-    const openDiscussion=node('button','Open discussion');openDiscussion.type='button';
+    // Keep the full contribution visible in the conversation-first feed.
+    // The former collapsed details repeated the post and required an extra tap.
+    const openDiscussion=node('button','Reply');openDiscussion.type='button';
+    openDiscussion.setAttribute('aria-label','Open discussion and replies');
     openDiscussion.onclick=()=>{if(current()){remember();open(item);}};
-    article.append(meta,expand,openDiscussion);list.append(article);
+    article.append(meta,body,openDiscussion);list.append(article);
     continue;
    }
    const link=node('a','Open discussion');const url=new URL(location.href);url.searchParams.set('view','home');url.searchParams.set('section','discussion');url.searchParams.set('area',item.area);url.searchParams.set('post',item.id);link.href=url.href;
