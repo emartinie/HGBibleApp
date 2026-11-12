@@ -34,7 +34,7 @@ async function check(session,forceRefresh){
     }
     if(active!==session||revision!==session.revision)return;
     clearTimeout(session.expiryTimer);
-    // Public access has no pilot expiry; token refresh still rechecks account identity.
+    // Public access has no time-limited expiry; token refresh still rechecks account identity.
   }catch(error){if(active===session&&revision===session.revision){clearTimeout(session.expiryTimer);unavailable(session);}}
 }
 window.initFellowshipLiveCard=function(host,{closeExcursion}={}){
