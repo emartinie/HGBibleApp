@@ -2,8 +2,8 @@
   "version": 1,
   "enabled": true,
   "mode": "live-test-accounts",
-  "startsAt": "2026-11-12T04:45:00Z",
-  "expiresAt": "2026-11-13T04:45:00Z",
+  "startsAt": "2026-11-12T04:00:00Z",
+  "expiresAt": "2026-11-13T04:00:00Z",
   "testAccountUids": [
     "Lpf8YTVZHnWnG99Q7lOzaxj0aG92",
     "rtl6of8jUBNh5KAQUeGwKS1NApm2"
