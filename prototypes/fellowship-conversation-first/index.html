@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HomeGroups · Conversation-first pilot</title>
+<style>
+:root{color-scheme:dark;--bg:#101722;--panel:#192432;--bubble:#243448;--text:#edf2f7;--muted:#a9bacb;--line:#34475d;--accent:#d5b36b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,sans-serif}
+button,textarea,select,input{font:inherit;color:inherit}button{cursor:pointer;background:transparent;border:0}button:focus-visible,a:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+[hidden]{display:none!important}a{color:var(--accent)}.app{max-width:760px;margin:auto;min-height:100dvh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:2}
+header a{font-size:14px;text-decoration:none}header h1{font-size:17px;margin:0;line-height:1.3}header small{display:block;color:var(--muted);font-size:12px}
+#notice{margin:0;padding:8px 16px;color:var(--muted);font-size:13px}#notice:empty{display:none}
+#thread{flex:1;padding:18px 12px 24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.message{display:flex;gap:9px;align-items:flex-start;min-width:0}.avatar{flex:0 0 32px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#314359;color:var(--text);font-size:14px}
+.message-content{max-width:min(100%,620px);min-width:0}.byline{font-size:12px;color:var(--muted);margin:0 0 4px}.bubble{background:var(--bubble);padding:12px 14px;border-radius:5px 16px 16px 16px;overflow-wrap:anywhere;white-space:pre-wrap}
+.message.mine{flex-direction:row-reverse}.message.mine .byline{text-align:right}.message.mine .bubble{border-radius:16px 5px 16px 16px;background:#30485c}
+.attachment{display:block;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);text-decoration:none;color:var(--text)}.attachment strong{display:block;font-size:14px}.attachment small{display:block;color:var(--accent)}
+#more{align-self:center;color:var(--accent);padding:10px}#composer{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:10px 12px max(12px,env(safe-area-inset-bottom));display:grid;gap:8px}
+#composer textarea{width:100%;min-height:70px;max-height:180px;resize:vertical;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:12px}
+.composer-actions{display:flex;align-items:center;gap:8px;justify-content:space-between}.action{border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-height:40px}.send{background:var(--accent);color:#161b20;font-weight:700}.send:disabled{opacity:.5}
+.add-content{margin:0}.add-content summary{list-style:none;cursor:pointer;padding:8px 12px;border:1px solid var(--line);border-radius:10px;min-height:40px}.add-content summary::-webkit-details-marker{display:none}
+.add-content-choices p{margin:8px 0}.add-content-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.add-content-row button{border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-height:38px}.add-content-row label{display:grid;gap:3px;flex:1 1 115px;font-size:13px}.add-content-row select,.add-content-row input{width:100%;min-width:0;padding:7px;border:1px solid var(--line);border-radius:8px;background:var(--panel);min-height:38px}
+.add-content [role=status]{font-size:13px;color:var(--muted);margin:6px 0}.add-content [role=status]:empty{display:none}
+.pilot-label{color:var(--muted);font-size:11px;padding:0 16px 4px}
+@media(min-width:800px){.app{border-inline:1px solid var(--line)}}
+</style></head><body>
+<div class="app">
+<header><a href="../../?card=fellowship-live" aria-label="Return to Fellowship">← Back</a><div><h1 id="heading">Conversation</h1><small id="subheading">HomeGroups Fellowship</small></div></header>
+<p class="pilot-label">Isolated conversation-first pilot · existing Commons data</p>
+<p id="notice" role="status" aria-live="polite">Checking your account…</p>
+<main id="thread" aria-label="Conversation messages"></main>
+<button id="more" hidden type="button">Load earlier replies</button>
+<form id="composer" hidden><textarea id="message" maxlength="1200" required aria-label="Write a reply" placeholder="Write a message…"></textarea>
+<div class="composer-actions"><div id="attachment"></div><button class="action send" type="submit">Send reply</button></div></form>
+</div>
+<script type="module">
+import {auth,db} from '../../js/firebase-init.js';
+import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {doc,getDoc,getDocFromServer,collection,getDocs,query,orderBy,limit,startAfter,setDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import {addContentControl,sharedReading} from '../../js/commons-content.js';
+const areas={projects:'Kingdom Projects',fellowship:'Personal Growth & Fellowship',prayer:'Prayer & Encouragement',study:'Bible Study & Investigation',discipleship:'Discipleship & Mentorship',family:'Marriage & Family'};
+const params=new URLSearchParams(location.search),area=params.get('area'),postId=params.get('post');
+const validPost=/^[a-zA-Z0-9_-]{1,128}$/.test(postId||'');
+const thread=document.getElementById('thread'),notice=document.getElementById('notice'),form=document.getElementById('composer'),input=document.getElementById('message'),more=document.getElementById('more');
+const draftKey=()=>auth.currentUser?.uid&&'hg-commons-draft:v1:'+auth.currentUser.uid+':'+area+':reply:'+postId;
+let generation=0,activeUid=null,post=null,cursor=null,busy=false,allReplies=[];
+function say(s){notice.textContent=s;}
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
+function parseBody(value){let body=String(value||''),title='';body=body.replace(/^\[HG-TOPIC:[^\]\n]+\]\n/,'');const m=body.match(/^\[HG-TITLE:([^\]\n]{1,90})\]\n/);if(m){title=m[1];body=body.slice(m[0].length);}return {title,body};}
+function renderMessage(data,opening=false){const article=el('article','message'+(data.uid===activeUid?' mine':'')),avatar=el('div','avatar',(data.authorName||'H').slice(0,1).toUpperCase()),content=el('div','message-content');
+const byline=el('p','byline',(data.authorName||'HomeGroups member')+' · '+(data.createdAt?.toDate?.().toLocaleString()||'Recently'));
+const parsed=opening?parseBody(data.body):{title:'',body:String(data.body||'')},reading=sharedReading(parsed.body);
+const bubble=el('div','bubble');if(parsed.title){const title=el('strong','',parsed.title);bubble.append(title,document.createElement('div'));}
+bubble.append(document.createTextNode(reading?.text??parsed.body));
+if(reading){const link=el('a','attachment');link.href=reading.url.href;link.target='_blank';link.rel='noopener';link.append(el('strong','',reading.label),el('small','','Open HomeGroups content ↗'));bubble.append(link);}
+content.append(byline,bubble);article.append(avatar,content);return article;}
+function render(){thread.replaceChildren();if(!post)return;thread.append(renderMessage(post,true));for(const item of allReplies)thread.append(renderMessage(item));}
+function still(v,uid){return generation===v&&auth.currentUser?.uid===uid&&activeUid===uid;}
+async function loadReplies(v,uid,initial=false){if(busy||!still(v,uid))return;busy=true;more.disabled=true;
+try{const path=collection(db,'commonsCommunityPosts',area,'posts',postId,'replies');const q=query(path,orderBy('createdAt','asc'),...(cursor?[startAfter(cursor)]:[]),limit(30));const snap=await getDocs(q);if(!still(v,uid))return;
+cursor=snap.docs[snap.docs.length-1]||cursor;allReplies.push(...snap.docs.map(x=>x.data()));more.hidden=snap.size<30;render();if(initial)window.scrollTo(0,document.body.scrollHeight);
+}catch(e){if(still(v,uid))say('Unable to load replies: '+(e.code||e.message));}finally{busy=false;more.disabled=false;}}
+async function start(user){const v=++generation;activeUid=user?.uid||null;form.hidden=true;post=null;cursor=null;allReplies=[];thread.replaceChildren();more.hidden=true;
+if(!validPost||!Object.hasOwn(areas,area)){say('Open a conversation with an area and post ID.');return;}
+document.getElementById('subheading').textContent=areas[area];
+if(!user||user.isAnonymous){say('Sign in with your HomeGroups account to view this conversation.');return;}
+say('Loading conversation…');
+try{const enrollment=await getDoc(doc(db,'commonsCommunityMembers',area,'members',user.uid));if(!still(v,user.uid))return;if(!enrollment.exists()){say('Join this community before viewing its conversations.');return;}
+const snap=await getDoc(doc(db,'commonsCommunityPosts',area,'posts',postId));if(!still(v,user.uid))return;if(!snap.exists()){say('Conversation unavailable.');return;}
+post=snap.data();document.getElementById('heading').textContent=parseBody(post.body).title||'Conversation';
+try{input.value=sessionStorage.getItem(draftKey())||'';}catch{input.value='';}
+form.hidden=false;say('');render();await loadReplies(v,user.uid,true);
+}catch(e){if(still(v,user.uid))say('Conversation unavailable: '+(e.code||e.message));}}
+input.addEventListener('input',()=>{try{const key=draftKey();if(key)sessionStorage.setItem(key,input.value);}catch{}});
+document.getElementById('attachment').append(addContentControl(input,params.get('week')));
+more.onclick=()=>loadReplies(generation,activeUid);
+let pending=null;
+form.addEventListener('submit',async event=>{event.preventDefault();const uid=activeUid,v=generation,body=input.value.trim();if(!still(v,uid)||!post||!body||body.length>1200||busy)return;
+const button=form.querySelector('[type=submit]');button.disabled=true;
+try{const profile=await getDoc(doc(db,'commonsMembers',uid));if(!still(v,uid))return;
+const name=(profile.exists()?profile.data().displayName:auth.currentUser?.displayName)||'HomeGroups member';
+const path=['commonsCommunityPosts',area,'posts',postId,'replies'];
+const key=JSON.stringify([uid,path,body]);
+if(!pending||pending.key!==key){const id=Array.from(crypto.getRandomValues(new Uint8Array(16)),b=>b.toString(16).padStart(2,'0')).join('');pending={key,ref:doc(db,...path,id)};}
+const existing=await getDocFromServer(pending.ref);if(!still(v,uid))return;
+if(existing.exists()){if(existing.data().uid!==uid||existing.data().body!==body)throw Error('Saved reply differs from the draft.');}
+else await setDoc(pending.ref,{uid,authorName:String(name).slice(0,80),body,createdAt:serverTimestamp()});
+if(!still(v,uid))return;pending=null;input.value='';try{sessionStorage.removeItem(draftKey());}catch{}
+say('Reply posted.');await start(auth.currentUser);
+}catch(e){if(still(v,uid))say('Reply not saved: '+(e.code||e.message));}finally{button.disabled=false;}});
+onAuthStateChanged(auth,start,()=>say('Unable to check your account.'));
+</script></body></html>
