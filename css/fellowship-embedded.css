@@ -5,3 +5,15 @@ h1,h2,h3{font-family:inherit!important;font-weight:600!important}input::placehol
 /* Fellowship already owns the heading; embedded messaging inherits its surfaces. */
 .shell>.top{display:none!important}.chat-body{background:var(--bg-1)!important}.sub,.preview,.time,.foot{color:var(--muted)!important}.avatar,.logo{background:var(--bg-2)!important;color:var(--text)!important}.conversation.active{background:var(--soft)!important}
 @media(max-width:600px){.shell .layout,.shell .sidebar,.shell .chat{min-height:0!important}.chat-body{min-height:240px;max-height:48vh}.chat-head,.composer{padding:12px}}
+
+/* Compact the shared-content picker only inside the Fellowship embedded view. */
+.add-content{margin:6px 0!important;font-size:14px}
+.add-content summary{display:list-item;min-height:36px!important;padding:6px 8px!important;width:fit-content}
+.add-content .add-content-choices p{margin:4px 0 8px!important}
+.add-content .add-content-row{gap:6px!important;align-items:end}
+.add-content .add-content-row button{padding:6px 10px!important;min-height:36px!important;font-size:14px!important}
+.add-content .add-content-actions{margin-top:8px!important}
+.add-content label{font-size:13px!important;gap:3px!important;flex:1 1 130px;min-width:0}
+.add-content select,.add-content input{width:100%!important;min-width:0;min-height:36px!important;padding:6px!important;font-size:14px!important}
+.add-content [role=status]:empty{display:none}
+@media(max-width:600px){.add-content .add-content-row button{flex:0 1 auto}.add-content label{flex-basis:110px}}
