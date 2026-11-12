@@ -73,6 +73,7 @@ function teardownView(session) {
   ++session.generation;
   session.abort?.abort();
   clearTimeout(session.timer);
+  session.discussionResizeCleanup?.();session.discussionResizeCleanup=null;
   session.bridgeCleanup?.(); session.bridgeCleanup = null;
   if (session.frame) {
     try { session.frame.contentWindow?.dispatchEvent(new Event('hg:fellowship-dispose')); } catch { /* A provider redirect may have left this origin. Removing the frame still releases its realm. */ }
@@ -211,6 +212,16 @@ async function render(session) {
     back.onclick=()=>select(session,{view:'home',week:session.state.week});session.content.append(back);
   }
   const frame = document.createElement('iframe');session.frame=frame;
+  // Discussions are read in the surrounding Fellowship page. Size their same-origin
+  // frame to its contents so members do not have to scroll inside a second viewport.
+  // Other embedded views retain their existing independent scrolling behavior.
+  const autoSizeDiscussion = session.state.section === 'discussion';
+  if(autoSizeDiscussion){
+    frame.classList.add('fellowship-discussion-frame');
+    frame.style.height='560px';
+    frame.style.maxHeight='none';
+    frame.style.overflow='hidden';
+  }
   frame.title = session.state.section === 'account' ? 'HomeGroups account' : session.state.section === 'profile' ? 'HomeGroups member profile' : session.state.view === 'messages' ? 'Fellowship messages and requests' : 'Fellowship communities';
   frame.src=childURL(session.state).href;
   frame.addEventListener('load',()=>{
@@ -223,6 +234,19 @@ async function render(session) {
       const segment = actual.pathname.split('/').filter(Boolean).filter(part=>part!=='index.html').pop();
       if (selectors[segment] && !frame.contentDocument.querySelector(selectors[segment])) throw new Error('Screen unavailable');
       bridge(session,frame);session.status.textContent='';session.content.setAttribute('aria-busy','false');
+      if(autoSizeDiscussion){
+        const doc=frame.contentDocument;
+        const resize=()=>{
+          if(active!==session||session.frame!==frame||!doc?.body)return;
+          // Measure actual content, not the iframe viewport, to avoid a height feedback loop.
+          const height=Math.ceil(doc.body.scrollHeight+24);
+          if(Number.isFinite(height)&&height>0)frame.style.height=Math.max(560,height)+'px';
+        };
+        const observer=new ResizeObserver(resize);
+        observer.observe(doc.body);
+        session.discussionResizeCleanup=()=>observer.disconnect();
+        resize();
+      }
       if(session.composeRequested&&session.state.section==='discussion'){
         session.composeRequested=false;
         const focusComposer=()=>{if(active!==session||generation!==session.generation||session.frame!==frame)return;const input=frame.contentDocument?.getElementById('discussionTitle');if(input&&!input.closest('[hidden]')){input.scrollIntoView({block:'start'});input.focus();}};
