@@ -218,7 +218,7 @@ async function render(session) {
   const autoSizeDiscussion = session.state.section === 'discussion';
   if(autoSizeDiscussion){
     frame.classList.add('fellowship-discussion-frame');
-    frame.style.height='560px';
+    frame.style.height='min(70dvh, 680px)';
     frame.style.maxHeight='none';
     frame.style.overflow='hidden';
   }
@@ -244,7 +244,7 @@ async function render(session) {
       const segment = actual.pathname.split('/').filter(Boolean).filter(part=>part!=='index.html').pop();
       if (selectors[segment] && !frame.contentDocument.querySelector(selectors[segment])) throw new Error('Screen unavailable');
       bridge(session,frame);session.status.textContent='';session.content.setAttribute('aria-busy','false');
-      if(autoSizeDiscussion){
+      if(autoSizeDiscussion&&!conversationFirst){
         const doc=frame.contentDocument;
         const resize=()=>{
           if(active!==session||session.frame!==frame||!doc?.body)return;
