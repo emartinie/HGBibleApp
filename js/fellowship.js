@@ -104,7 +104,7 @@ function navigateChild(session, url) {
   let patch;
   if (path === '/find-users') patch = {view:'explore',section:'people'};
   else if (path === base+'/directory') patch = {view:'explore'};
-  else if (path === base+'/conversations') patch = {view:['home','communities'].includes(session.state.view)?session.state.view:'explore',section:'discussion',area:url.searchParams.get('area'),post:url.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/)?.[1]||url.searchParams.get('post')};
+  else if (path === base+'/conversations' || path === '/prototypes/fellowship-conversation-first') patch = {view:['home','communities'].includes(session.state.view)?session.state.view:'explore',section:'discussion',area:url.searchParams.get('area'),post:url.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/)?.[1]||url.searchParams.get('post')};
   else if (path === base+'/direct-live') patch = {view:'messages',id:url.searchParams.get('to')};
   else if (path === base+'/auth') patch = {view:session.state.view,section:'account'};
   else if (path === base+'/member') patch = {view:session.state.view,section:'profile'};
@@ -129,7 +129,7 @@ function bridge(session, frame) {
     if (!anchor || event.defaultPrevented || event.button > 0 || event.ctrlKey || event.metaKey || event.shiftKey || anchor.download) return;
     const url = new URL(anchor.href,frame.src);
     if (url.pathname === doc.location.pathname && url.search === doc.location.search && url.hash) return;
-    if (session.closeExcursion && anchor.hasAttribute('data-shared-reading') && url.origin === location.origin) {
+    if ((session.closeExcursion || doc.documentElement.classList.contains('conversation-first')) && anchor.hasAttribute('data-shared-reading') && url.origin === location.origin) {
       event.preventDefault();
       session.closeSharedReader?.();
       session.closeSharedReader = openSharedReader(url, anchor, session.root);
@@ -146,7 +146,8 @@ function bridge(session, frame) {
   areaSelect?.addEventListener('change',areaHandler);
   const hashHandler=()=>{
     if(active!==session||session.frame!==frame)return;
-    const post=frame.contentWindow.location.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/)?.[1];
+    const child=new URL(frame.contentWindow.location.href);
+    const post=child.pathname.startsWith('/prototypes/fellowship-conversation-first/')?child.searchParams.get('post'):child.hash.match(/^#post-([A-Za-z0-9_-]{1,128})$/)?.[1];
     if(session.state.section==='discussion'&&session.state.post!==post){session.state.post=post;session.renderedState={...session.state};if(!session.closeExcursion)window.HGRoute?.write(session.routeCard,session.state,{replace:true,announce:false});}
     captureView(session);
   };
@@ -219,6 +220,7 @@ async function render(session) {
   if(autoSizeDiscussion){
     frame.classList.add('fellowship-discussion-frame');
     frame.style.height='min(70dvh, 680px)';
+    frame.style.minHeight='0';
     frame.style.maxHeight='none';
     frame.style.overflow='hidden';
   }
@@ -232,6 +234,7 @@ async function render(session) {
     url.searchParams.set('post',session.state.post);
     url.searchParams.set('embedded','1');
     if(session.state.week)url.searchParams.set('week',session.state.week);
+    frame.classList.add('fellowship-conversation-frame');
     frame.src=url.href;
   }else frame.src=childURL(session.state).href;
   frame.addEventListener('load',()=>{
@@ -249,7 +252,7 @@ async function render(session) {
         const resize=()=>{
           if(active!==session||session.frame!==frame||!doc?.body)return;
           // Measure actual content, not the iframe viewport, to avoid a height feedback loop.
-          const height=Math.ceil(Math.max(doc.body.scrollHeight,doc.documentElement.scrollHeight)+24);
+          const height=Math.ceil(doc.body.scrollHeight+24);
           if(Number.isFinite(height)&&height>0)frame.style.height=Math.max(560,height)+'px';
         };
         const observer=new ResizeObserver(resize);

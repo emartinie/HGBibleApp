@@ -80,6 +80,19 @@ test('community enrollment/post/reply behavior remains membership-scoped',async(
  await assertFails(setDoc(ref(db('alice'),'commonsCommunityMembers/invalid/members/alice'),member('alice','invalid')));
  await assertSucceeds(deleteDoc(ref(db('alice'),'commonsCommunityMembers/study/members/alice')));await assertFails(getDoc(ref(db('alice'),p)));
 });
+test('revoked community membership denies reply reads and delayed writes until re-enrollment',async()=>{
+ const enrollment='commonsCommunityMembers/study/members/alice',p='commonsCommunityPosts/study/posts/thread';
+ await seed({'commonsMembers/alice':{displayName:'Alice'},[enrollment]:{uid:'alice',communityId:'study'},[p]:{uid:'alice',authorName:'Alice',body:'Opening'}});
+ const alice=db('alice'),reply={uid:'alice',authorName:'Alice',body:'Reply with Scripture.\nReading: https://homegroups.org/?card=scriptureapi&ref=John+1%3A5&version=KJV',createdAt:timestamp()};
+ await assertSucceeds(setDoc(ref(alice,p+'/replies/before'),reply));
+ await assertSucceeds(deleteDoc(ref(alice,enrollment)));
+ await assertFails(getDoc(ref(alice,p+'/replies/before')));
+ await assertFails(getDocs(collection(alice,p+'/replies')));
+ await assertFails(setDoc(ref(alice,p+'/replies/delayed'),reply));
+ await assertFails(setDoc(ref(db('bob'),p+'/replies/switched'),reply));
+ await assertSucceeds(setDoc(ref(alice,enrollment),member()));
+ await assertSucceeds(setDoc(ref(alice,p+'/replies/rejoined'),reply));
+});
 test('existing app config, personal settings, prayers, feasts and ballot permissions are preserved',async()=>{
  await seed({'appConfig/main':{version:1},'investigationBallots/current':{status:'open',ballotId:'test-ballot',maxSelections:2,candidateTopicIds:['topic-a']}});
  await assertSucceeds(getDoc(ref(db(null),'appConfig/main')));await assertFails(setDoc(ref(db('alice'),'appConfig/main'),{version:2}));

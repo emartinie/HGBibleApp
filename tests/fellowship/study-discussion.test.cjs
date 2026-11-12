@@ -64,6 +64,7 @@ test('community board opens the same study association', async t => {
   {id:'abram',area:'study',title:'Abram discussion',time:1,body:'Leaving home\nReading: http://fellowship.test/?card=mainstage&study=lech-lecha'}
  ]}});
  const child=await frame();
- await child.locator('#post-abram').getByRole('link',{name:'Open the original study'}).click();
- await page.waitForURL(/card=mainstage&study=lech-lecha/);
+ const route=page.url();await child.getByRole('link',{name:'Open the original study'}).click();
+ const reader=page.getByRole('dialog',{name:'Shared reading'});await reader.locator('#shared-weeklyScriptureContainer[data-source][aria-busy="false"]').waitFor();
+ await reader.getByRole('button',{name:'Close reading'}).click();assert.equal(page.url(),route);
 });

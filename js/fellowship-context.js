@@ -32,6 +32,7 @@ function discussionRoute(route){return route&&areas.has(route.area)&&id(route.po
 export function rememberDiscussion(route,value,uid){
  if(!isCurrent(uid)||!areas.has(route.area)||!value)return;
  const snapshot={post:id(value.post),topic:typeof value.topic==='string'?value.topic.slice(0,80):'',search:typeof value.search==='string'?value.search.slice(0,200):'',mode:value.mode==='expanded'?'expanded':'index',scrollTop:number(value.scrollTop,0,1e7)};
+ if(value.replyCount!==undefined)snapshot.replyCount=number(value.replyCount,0,10000);
  discussions.set(route.area+':'+(snapshot.post||''),snapshot);if(discussions.size>32)discussions.delete(discussions.keys().next().value);
 }
 export function discussionView(route,uid){if(!isCurrent(uid))return null;return discussions.get(route.area+':'+(route.post||''))||null;}

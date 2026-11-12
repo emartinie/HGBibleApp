@@ -231,3 +231,11 @@ Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 vi
 
 ## November 11, 2026 — Add Content picker
 - Codex split the existing Commons picker into Scripture Passage and Weekly Study choices, with one Add to message action and draft-preserving Back and Cancel. Review branch starts from main bf16222, which includes PR #43.
+
+## November 12, 2026 — PR #50 validation corrections
+
+- Owner: Codex, requested by Eddie; continue the existing `codex/fellowship-feed-visible-posts` branch from `36ce68d`, against main `6aa1491`. Other contributors’ uncommitted activity remains unknown.
+- Scope: conversation-first controller lifecycle, live membership verification and composer disabling, shared-reader bridge, newest-page replies and immediate acknowledgements, embedded mobile sizing/single title, permission-aware private messaging and private return context. Existing Firebase permissions and data model remain unchanged.
+- Added browser regressions for each validation defect and a local-emulator revocation case; updated affected feed/excursion/study tests and the stale rollout fixture. [Review note and commands](../FELLOWSHIP-CONVERSATION-FIRST-FIXES.md). Final verification results are recorded below.
+- No real-account/provider/device verification, production writes, rule/configuration changes, merge or deployment.
+- Final evidence: 90/90 focused Fellowship cases, 79/79 Commons client/browser checks, and 15/15 local Firestore rules groups passed (184 total). Three affected modules parsed; whitespace checks passed. Desktop/mobile screenshots inspected, including an open attachment picker. The full historical aggregate was not certified; the focused command and limits are recorded in the review note.

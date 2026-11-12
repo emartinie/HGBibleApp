@@ -79,7 +79,7 @@ test('account switching clears feed and selector choices; listener counts do not
   await page.evaluate(()=>__switchUser('alice'));await ready(page,3);
   assert.equal(await page.evaluate(()=>[...__fixture.snaps].filter(s=>s.path.startsWith('commonsCommunityMembers/')).length),6);
  }
- await page.evaluate(()=>__switchUser(null));await page.getByText('Live Fellowship is not enabled for this account.',{exact:true}).waitFor();assert.equal(await page.locator('.fellowship-feed').count(),0);
+ await page.evaluate(()=>__switchUser(null));await page.getByText('Sign in to use Fellowship. Community and message permissions still apply.',{exact:true}).waitFor();assert.equal(await page.locator('.fellowship-feed').count(),0);
 });
 
 test('post selection uses existing composer/replies and restores feed position',async t=>{
@@ -88,9 +88,9 @@ test('post selection uses existing composer/replies and restores feed position',
  await page.getByRole('button',{name:'Load older posts'}).click();await ready(page,40);
  const link=page.locator('.fellowship-feed article').nth(35).getByRole('link',{name:'Open discussion'});await link.scrollIntoViewIfNeeded();
  const before=await page.locator('.fellowship').evaluate(el=>({card:el.closest('.card').scrollTop,window:window.scrollY}));await link.click();let child=await frame();
- await child.locator('#post-post-035:visible').waitFor();assert.match(page.url(),/view=home.*section=discussion/);
- await child.locator('#post-post-035 .replies > details > summary').click();await child.locator('#post-post-035 .replyform textarea').fill('Synthetic reply');await child.locator('#post-post-035 .replyform').getByRole('button',{name:'Post reply',exact:true}).click();
- await page.waitForFunction(()=>__fixture.writes.some(x=>x.path.endsWith('/post-035/replies')));
+ await child.locator('#thread .message').waitFor();assert.match(page.url(),/view=home.*section=discussion/);
+ await child.getByRole('textbox',{name:'Write a reply'}).fill('Synthetic reply');await child.getByRole('button',{name:'Send reply',exact:true}).click();
+ await page.waitForFunction(()=>__fixture.writes.some(x=>x.path.includes('/post-035/replies/')));
  await page.getByRole('button',{name:'Back to feed',exact:true}).click();await ready(page,40);await page.waitForTimeout(100);
  const after=await page.locator('.fellowship').evaluate(el=>({card:el.closest('.card').scrollTop,window:window.scrollY}));assert.ok(Math.abs(after.card-before.card)<40,JSON.stringify({before,after}));
  await page.getByRole('button',{name:'Create post',exact:true}).click();assert.deepEqual(await page.locator('#fellowship-post-community option').allTextContents(),['Bible Study & Investigation']);
@@ -123,10 +123,10 @@ test('new post targets the selected joined community through the existing compos
 test('Scripture association and browser Back return to the home discussion and feed',async t=>{
  const body='Light shines in the darkness.\nReading: http://fellowship.test/?card=scriptureapi&ref=John%201%3A5&version=NASB';
  const {page,frame}=await harness(t,{production:true,unification:true,route,feed:{members:[member('study')],records:[record('study','scripture-post',1000,body)]}});await ready(page,1);
- await page.getByRole('link',{name:'Open discussion',exact:true}).click();let child=await frame();await child.locator('#post-scripture-post:visible').waitFor();
- await page.goBack();await ready(page,1);await page.goForward();child=await frame();await child.locator('#post-scripture-post:visible').waitFor();
- await child.getByRole('link',{name:'Read John 1:5',exact:true}).click();await page.locator('#scriptureContent[aria-busy="false"]').waitFor();
- await page.locator('[data-discussion-link]').click();child=await frame();await child.locator('#post-scripture-post:visible').waitFor();assert.match(page.url(),/view=home/);
+ await page.getByRole('link',{name:'Open discussion',exact:true}).click();let child=await frame();await child.locator('#thread .message').waitFor();
+ await page.goBack();await ready(page,1);await page.goForward();child=await frame();await child.locator('#thread .message').waitFor();
+ const discussionRoute=page.url();await child.getByRole('link',{name:'Read John 1:5',exact:false}).click();const reader=page.getByRole('dialog',{name:'Shared reading'});await reader.locator('#scriptureContent[aria-busy="false"]').waitFor();
+ await reader.getByRole('button',{name:'Close reading'}).click();assert.equal(page.url(),discussionRoute);assert.match(page.url(),/view=home/);
  await page.getByRole('button',{name:'Back to feed',exact:true}).click();await ready(page,1);assert.equal(await page.evaluate(()=>__fixture.writes.length),0);
 });
 
