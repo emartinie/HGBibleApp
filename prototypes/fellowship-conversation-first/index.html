@@ -22,7 +22,13 @@ header a{font-size:14px;text-decoration:none;white-space:nowrap}header>div{min-w
 .add-content [role=status]{font-size:13px;color:var(--muted);margin:6px 0}.add-content [role=status]:empty{display:none}
 .pilot-label{color:var(--muted);font-size:11px;padding:0 16px 4px}.inbox-item{display:grid;gap:2px;padding:10px 12px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);min-width:0}.inbox-item strong{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.inbox-item small{color:var(--accent);font-size:12px}.inbox-item span{color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(min-width:800px){.app{border-inline:1px solid var(--line)}}@media(max-width:520px){header{padding:9px 10px;gap:8px}#composer{gap:5px;padding-inline:7px}.add-content summary{font-size:0;padding:8px 11px}.add-content summary::after{content:'＋';font-size:22px;line-height:24px}.send{font-size:0}.send::after{content:'➤';font-size:19px}}
-</style></head><body>
+/* Embedded discussion keeps one outer navigation and its own reply composer. */
+html.embedded .app{height:100vh;height:100dvh;max-width:none}
+html.embedded header{display:none}
+html.embedded .pilot-label{display:none}
+</style><script>
+if(new URLSearchParams(location.search).get('embedded')==='1')document.documentElement.classList.add('embedded');
+</script></head><body>
 <div class="app">
 <header><a href="./" aria-label="Return to conversations">← Back</a><div><h1 id="heading">Conversation</h1><small id="subheading">HomeGroups Fellowship</small></div></header>
 
