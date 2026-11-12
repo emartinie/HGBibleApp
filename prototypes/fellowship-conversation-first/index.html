@@ -20,12 +20,12 @@ header a{font-size:14px;text-decoration:none}header h1{font-size:17px;margin:0;l
 .add-content{margin:0}.add-content summary{list-style:none;cursor:pointer;padding:8px 12px;border:1px solid var(--line);border-radius:10px;min-height:40px}.add-content summary::-webkit-details-marker{display:none}
 .add-content-choices p{margin:8px 0}.add-content-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.add-content-row button{border:1px solid var(--line);border-radius:8px;padding:7px 9px;min-height:38px}.add-content-row label{display:grid;gap:3px;flex:1 1 115px;font-size:13px}.add-content-row select,.add-content-row input{width:100%;min-width:0;padding:7px;border:1px solid var(--line);border-radius:8px;background:var(--panel);min-height:38px}
 .add-content [role=status]{font-size:13px;color:var(--muted);margin:6px 0}.add-content [role=status]:empty{display:none}
-.pilot-label{color:var(--muted);font-size:11px;padding:0 16px 4px}
+.pilot-label{color:var(--muted);font-size:11px;padding:0 16px 4px}.inbox-item{display:grid;gap:4px;padding:15px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--text);background:var(--panel)}.inbox-item strong{font-size:15px}.inbox-item small{color:var(--accent)}.inbox-item span{color:var(--muted);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(min-width:800px){.app{border-inline:1px solid var(--line)}}
 </style></head><body>
 <div class="app">
-<header><a href="../../?card=fellowship-live" aria-label="Return to Fellowship">← Back</a><div><h1 id="heading">Conversation</h1><small id="subheading">HomeGroups Fellowship</small></div></header>
-<p class="pilot-label">Isolated conversation-first pilot · existing Commons data</p>
+<header><a href="./" aria-label="Return to conversations">← Back</a><div><h1 id="heading">Conversation</h1><small id="subheading">HomeGroups Fellowship</small></div></header>
+
 <p id="notice" role="status" aria-live="polite">Checking your account…</p>
 <main id="thread" aria-label="Conversation messages"></main>
 <button id="more" hidden type="button">Load earlier replies</button>
@@ -38,8 +38,8 @@ import {onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/fir
 import {doc,getDoc,getDocFromServer,collection,getDocs,query,orderBy,limit,startAfter,setDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import {addContentControl,sharedReading} from '../../js/commons-content.js';
 const areas={projects:'Kingdom Projects',fellowship:'Personal Growth & Fellowship',prayer:'Prayer & Encouragement',study:'Bible Study & Investigation',discipleship:'Discipleship & Mentorship',family:'Marriage & Family'};
-const params=new URLSearchParams(location.search),area=params.get('area'),postId=params.get('post');
-const validPost=/^[a-zA-Z0-9_-]{1,128}$/.test(postId||'');
+const params=new URLSearchParams(location.search);let area=params.get('area'),postId=params.get('post');
+const validPost=()=>/^[a-zA-Z0-9_-]{1,128}$/.test(postId||'');
 const thread=document.getElementById('thread'),notice=document.getElementById('notice'),form=document.getElementById('composer'),input=document.getElementById('message'),more=document.getElementById('more');
 const draftKey=()=>auth.currentUser?.uid&&'hg-commons-draft:v1:'+auth.currentUser.uid+':'+area+':reply:'+postId;
 let generation=0,activeUid=null,post=null,cursor=null,busy=false,allReplies=[];
@@ -55,14 +55,22 @@ if(reading){const link=el('a','attachment');link.href=reading.url.href;link.targ
 content.append(byline,bubble);article.append(avatar,content);return article;}
 function render(){thread.replaceChildren();if(!post)return;thread.append(renderMessage(post,true));for(const item of allReplies)thread.append(renderMessage(item));}
 function still(v,uid){return generation===v&&auth.currentUser?.uid===uid&&activeUid===uid;}
+async function showInbox(user,v){document.getElementById('heading').textContent='Conversations';document.getElementById('subheading').textContent='Your HomeGroups communities';say('Loading conversations…');const entries=[];let accessible=0,errors=0;
+for(const [key,label] of Object.entries(areas)){try{const member=await getDoc(doc(db,'commonsCommunityMembers',key,'members',user.uid));if(!still(v,user.uid))return;if(!member.exists())continue;accessible++;
+const snap=await getDocs(query(collection(db,'commonsCommunityPosts',key,'posts'),orderBy('createdAt','desc'),limit(12)));if(!still(v,user.uid))return;
+for(const item of snap.docs)entries.push({area:key,label,id:item.id,data:item.data()});}catch{errors++;}}
+if(!still(v,user.uid))return;entries.sort((a,b)=>(b.data.createdAt?.toMillis?.()||0)-(a.data.createdAt?.toMillis?.()||0));thread.replaceChildren();
+for(const item of entries){const link=el('a','inbox-item'),name=el('strong','',parseBody(item.data.body).title||item.label),preview=el('span','',parseBody(item.data.body).body.slice(0,125)||'Open conversation');link.href='?area='+encodeURIComponent(item.area)+'&post='+encodeURIComponent(item.id);link.append(name,el('small','',item.label),preview);thread.append(link);}
+say(entries.length?'':errors?'Some conversations could not be loaded.':accessible?'No conversations yet in your communities.':'Join a community to see its conversations.');}
+
 async function loadReplies(v,uid,initial=false){if(busy||!still(v,uid))return;busy=true;more.disabled=true;
 try{const path=collection(db,'commonsCommunityPosts',area,'posts',postId,'replies');const q=query(path,orderBy('createdAt','asc'),...(cursor?[startAfter(cursor)]:[]),limit(30));const snap=await getDocs(q);if(!still(v,uid))return;
 cursor=snap.docs[snap.docs.length-1]||cursor;allReplies.push(...snap.docs.map(x=>x.data()));more.hidden=snap.size<30;render();if(initial)window.scrollTo(0,document.body.scrollHeight);
 }catch(e){if(still(v,uid))say('Unable to load replies: '+(e.code||e.message));}finally{busy=false;more.disabled=false;}}
 async function start(user){const v=++generation;activeUid=user?.uid||null;form.hidden=true;post=null;cursor=null;allReplies=[];thread.replaceChildren();more.hidden=true;
-if(!validPost||!Object.hasOwn(areas,area)){say('Open a conversation with an area and post ID.');return;}
+if(!user||user.isAnonymous){say('Sign in with your HomeGroups account to view conversations.');return;}
+if(!validPost()||!Object.hasOwn(areas,area)){area=null;postId=null;await showInbox(user,v);return;}
 document.getElementById('subheading').textContent=areas[area];
-if(!user||user.isAnonymous){say('Sign in with your HomeGroups account to view this conversation.');return;}
 say('Loading conversation…');
 try{const enrollment=await getDoc(doc(db,'commonsCommunityMembers',area,'members',user.uid));if(!still(v,user.uid))return;if(!enrollment.exists()){say('Join this community before viewing its conversations.');return;}
 const snap=await getDoc(doc(db,'commonsCommunityPosts',area,'posts',postId));if(!still(v,user.uid))return;if(!snap.exists()){say('Conversation unavailable.');return;}
