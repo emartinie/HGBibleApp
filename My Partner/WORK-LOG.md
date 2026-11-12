@@ -228,3 +228,6 @@ Controlled candidate final verification: 43/43 combined checks; follow-up 3/3 vi
 ## November 11, 2026 — Fellowship content sharing
 - Existing Commons post and reply forms can add a canonical Scripture or supported weekly study link through Add Content. References live in the existing body field. The workspace opens either existing reader in a dialog, leaving the discussion and Main Stage mounted.
 - Changes are on codex/fellowship-content-sharing from main 494e341. Browser tests used synthetic accounts and writes. Production membership, active rules, real member exchange, and iPhone Safari still need live verification.
+
+## November 11, 2026 — Add Content picker
+- Codex split the existing Commons picker into Scripture Passage and Weekly Study choices, with one Add to message action and draft-preserving Back and Cancel. Review branch starts from main bf16222, which includes PR #43.
