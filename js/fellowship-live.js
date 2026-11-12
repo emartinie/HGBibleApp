@@ -1,19 +1,28 @@
+import {createAccount} from './fellowship-surfaces.js';
 import {auth} from './firebase-init.js';
 import {getIdTokenResult,onIdTokenChanged} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import {authorizeFellowshipLive} from './fellowship-live-access.js';
 let active;
-function clear(session){window.destroyFellowshipCard?.();session.mounted=false;session.host.replaceChildren();}
+function clear(session){session.accountDispose?.();session.accountDispose=null;window.destroyFellowshipCard?.();session.mounted=false;session.host.replaceChildren();}
 function unavailable(session){
+  if(session.accountDispose)return;
   clear(session);
-  const section=document.createElement('section');section.className='hg-panel';
-  const status=document.createElement('p');status.setAttribute('role','status');status.textContent='Sign in to use Fellowship. Community and message permissions still apply.';
-  const account=document.createElement('a'),url=new URL('/My%20Partner/collaboration/messaging/commons/auth/',location.origin);
-  const back=new URL('/',location.origin);back.searchParams.set('card',session.closeExcursion?'mainstage':'fellowship-live');
-  const week=window.HGRoute?.read().week;if(week)back.searchParams.set('week',week);
-  url.searchParams.set('next',back.pathname+back.search);if(week)url.searchParams.set('week',week);
-  account.href=url.href;account.className='ui-btn';account.textContent='Account / Sign in';
-  const study=document.createElement('button');study.type='button';study.className='ui-btn';study.textContent='Return to study';study.onclick=()=>session.closeExcursion?session.closeExcursion():window.HGRoute?.navigate('mainstage',{week});
-  section.append(status,account,study);session.host.append(section);
+  const section=document.createElement('section');section.className='fellowship-signin';
+  const status=document.createElement('p');status.setAttribute('role','status');status.textContent='Sign in to use Fellowship.';
+  const retry=document.createElement('button');retry.type='button';retry.className='ui-btn';retry.textContent='Try Fellowship again';retry.hidden=!auth.currentUser;
+  retry.onclick=()=>check(session,true);
+  section.append(status);session.host.append(section);
+  if(!session.closeExcursion){
+    const study=document.createElement('button');study.type='button';study.className='ui-btn';study.textContent='Return to study';
+    study.onclick=()=>window.HGRoute?.navigate('mainstage',{week:window.HGRoute?.read().week});section.append(study);
+  }
+  const revision=session.revision;
+  createAccount(section,{signal:session.abort.signal,isCurrent:()=>active===session&&session.revision===revision,
+    onContinue:()=>check(session,true)}).then(view=>{
+      if(active!==session||session.revision!==revision){view?.dispose();return;}
+      session.accountDispose=()=>view?.dispose();section.append(retry);
+    }).catch(error=>{if(active===session&&session.revision===revision&&error.name!=='AbortError')status.textContent='Your account is unavailable. Close Fellowship and try again.';});
+
 }
 async function check(session,forceRefresh){
   const revision=++session.revision;session.abort?.abort();session.abort=new AbortController();
@@ -29,13 +38,13 @@ async function check(session,forceRefresh){
       const response=await fetch('cards/fellowship.html',{cache:'no-store',signal:session.abort.signal});
       if(!response.ok)throw Error('Fellowship unavailable');const html=await response.text();
       if(active!==session||revision!==session.revision||auth.currentUser?.uid!==grant.uid)return;
-      session.host.innerHTML=html;session.mounted=true;
+      session.accountDispose?.();session.accountDispose=null;session.host.innerHTML=html;session.mounted=true;
       await window.initFellowshipCard(session.host,{routeCard:'fellowship-live',prayerReadOnly:true,closeExcursion:session.closeExcursion});
     }
     if(active!==session||revision!==session.revision)return;
     clearTimeout(session.expiryTimer);
     // Public access has no time-limited expiry; token refresh still rechecks account identity.
-  }catch(error){if(active===session&&revision===session.revision){clearTimeout(session.expiryTimer);unavailable(session);}}
+  }catch(error){if(active===session&&revision===session.revision){clearTimeout(session.expiryTimer);session.uid=auth.currentUser?.uid;unavailable(session);}}
 }
 window.initFellowshipLiveCard=function(host,{closeExcursion}={}){
   window.destroyFellowshipLiveCard();

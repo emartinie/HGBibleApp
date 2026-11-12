@@ -156,3 +156,67 @@
 .fellowship-excursion #fellowshipTitle{display:none}
 .fellowship-excursion .fellowship-live>header{justify-content:flex-end}
 .fellowship-excursion .fellowship iframe.fellowship-conversation-frame{height:0!important;flex:1 1 0;min-height:0}
+
+/* One scrolling Fellowship surface, using the existing HomeGroups palette. */
+.fellowship-excursion .fellowship{border:0;border-radius:0;padding:0;background:transparent}
+.fellowship-excursion .fellowship-excursion-content{padding:0 12px max(0px,env(safe-area-inset-bottom));scroll-padding-block:56px 110px}
+.fellowship-excursion .fellowship-live>header{position:sticky;top:0;z-index:5;background:var(--bg-0);margin:0;padding:4px 0;justify-content:space-between;flex-wrap:nowrap}
+.fellowship-excursion .fellowship-menu{margin-left:auto}
+.fellowship-live button.fellowship-back{width:auto;flex:0 0 auto;border:0;background:transparent;padding:6px 8px;min-height:44px}
+.fellowship-live .fellowship-menu summary{padding:6px 10px}
+.fellowship-excursion .fellowship-native [data-fellowship-content]{min-height:calc(var(--fellowship-viewport-height,100dvh) - 126px)}
+.fellowship-excursion .fellowship-feed-home{margin:0;padding:8px 0;border:0;border-radius:0}
+.fellowship-excursion .fellowship-post{padding:14px 4px;border-inline:0;border-radius:0;box-shadow:none}
+.fellowship-excursion .fellowship-feed-create{width:auto;display:inline-flex;padding:6px 10px}
+.fellowship-conversation{--bubble:var(--bg-2);display:flex;flex-direction:column;min-height:inherit;color:var(--text);background:var(--bg-0);font:16px/1.45 system-ui,-apple-system,sans-serif}
+.fellowship-conversation *{box-sizing:border-box}
+.fellowship-conversation [hidden],.fellowship-account [hidden],.fellowship-signin [hidden]{display:none!important}
+.fellowship-conversation #notice{margin:0;padding:8px 4px;font-size:13px;color:var(--muted)}
+.fellowship-conversation #notice:empty{display:none}
+.fellowship-conversation #thread{flex:1;overflow:visible;display:flex;flex-direction:column;gap:16px;padding:12px 0 20px;min-width:0}
+.fellowship-conversation .message{display:flex;gap:8px;align-items:flex-start;min-width:0;flex-shrink:0}
+.fellowship-conversation .avatar{flex:0 0 28px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--bg-2);font-size:13px}
+.fellowship-conversation .message-content{min-width:0;max-width:min(100%,680px)}
+.fellowship-conversation .byline{font-size:12px;line-height:1.5;margin:0 0 4px;color:var(--muted)}
+.fellowship-conversation .private-message{font-size:12px;white-space:nowrap}
+.fellowship-conversation .bubble{padding:10px 12px;background:var(--bubble);border-radius:5px 14px 14px 14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.fellowship-conversation .mine{flex-direction:row-reverse}
+.fellowship-conversation .mine .bubble{border-radius:14px 5px 14px 14px}
+.fellowship-conversation .attachment{display:block;margin-top:10px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;text-decoration:none;background:var(--bg-1);color:var(--text)}
+.fellowship-conversation .attachment strong,.fellowship-conversation .attachment small{display:block}
+.fellowship-conversation .attachment small{font-size:12px;color:var(--accent)}
+.fellowship-conversation #more{align-self:center;font-size:14px;padding:6px 10px}
+.fellowship-conversation #composer{position:sticky;bottom:0;z-index:4;display:flex;align-items:end;gap:7px;margin:0;padding:8px 0 max(8px,env(safe-area-inset-bottom));background:var(--bg-0);border-top:1px solid var(--line);min-width:0}
+.fellowship-conversation #message{flex:1;min-width:0;width:auto;height:42px;min-height:42px;max-height:116px;resize:none;overflow:auto;padding:9px 10px;border:1px solid var(--line);border-radius:12px;font:inherit;background:var(--bg-1);color:var(--text)}
+.fellowship-conversation .composer-actions{display:contents}
+.fellowship-conversation #attachment{order:-1;flex-shrink:0}
+.fellowship-conversation .send{width:auto;padding:8px 10px;min-height:44px;white-space:nowrap}
+.fellowship-conversation .add-content{position:relative;margin:0}
+.fellowship-conversation .add-content summary{list-style:none;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:9px;min-height:44px;line-height:24px}
+.fellowship-conversation .add-content summary::-webkit-details-marker{display:none}
+.fellowship-conversation .attachment-popover{position:absolute;bottom:calc(100% + 8px);left:0;width:min(350px,calc(100vw - 28px));max-height:min(55dvh,440px);overflow:auto;padding:12px;background:var(--bg-0);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px #0006}
+.fellowship-conversation .add-content:not([open]) .attachment-popover{display:none}
+.fellowship-conversation .add-content-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.fellowship-conversation .add-content-row label{display:grid;gap:4px;flex:1 1 120px;min-width:0;font-size:13px}
+.fellowship-conversation .add-content-row select,.fellowship-conversation .add-content-row input{width:100%;min-width:0;min-height:40px;padding:6px;background:var(--bg-1);color:var(--text);border:1px solid var(--line);border-radius:6px;font:inherit}
+.fellowship-conversation .add-content-row button{padding:7px 9px;font-size:14px}
+.fellowship-conversation .add-content [role=status]:empty{display:none}
+.fellowship-account{padding:8px 0 24px;color:var(--text)}
+.fellowship-account .account-panel{max-width:560px;margin:auto;border:0;padding:0;background:transparent}
+.fellowship-account h1{font:600 20px/1.3 system-ui;margin:8px 0}
+.fellowship-account h2{font:600 16px/1.4 system-ui;margin:16px 0 8px}
+.fellowship-account p,.fellowship-account details{font-size:14px;line-height:1.5}
+.fellowship-account input{display:block;width:100%;min-height:44px;margin:6px 0 10px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg-1);color:var(--text);font:inherit}
+.fellowship-account button{font:inherit;min-height:44px;margin:4px 0;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg-2);color:var(--text)}
+.fellowship-account #google{display:block;width:100%;background:var(--bg-2)}
+.fellowship-account a{color:var(--accent)}
+.fellowship-account .account-links a:not(#continue){display:none}
+.fellowship-account .account-links{font-size:0}
+.fellowship-account #continue{font-size:14px}
+.fellowship-signin{padding:8px 12px;color:var(--text)}
+@media(max-width:520px){.fellowship-conversation .send{font-size:0;width:44px;flex:0 0 44px;padding:8px}.fellowship-conversation .send::after{content:'➤';font-size:20px}.fellowship-conversation .add-content summary{font-size:0}.fellowship-conversation .add-content summary::after{content:'＋';font-size:22px}}
+
+.fellowship-excursion{position:fixed;top:var(--fellowship-viewport-top,0px);bottom:auto;height:var(--fellowship-viewport-height,100dvh)}
+.fellowship-excursion-content:has(.fellowship-conversation){padding-bottom:0}
+.fellowship-account .account-methods{margin:12px 0}.fellowship-account summary{cursor:pointer;min-height:44px;padding:10px 0}
+.fellowship-live .fellowship-menu nav button{font-size:14px;padding:8px 10px}

@@ -17,7 +17,7 @@ css.textContent = `
 #hg-commons-bar button{border:0;background:transparent;color:inherit;font:600 17px system-ui;padding:0 6px;cursor:pointer}
 #hg-commons-window iframe{border:0;flex:1;width:100%;min-height:0}
 #hg-commons-badge{display:inline-grid;place-items:center;min-width:20px;height:20px;margin-left:5px;padding:0 5px;border-radius:12px;background:#c52939;color:white;font:bold 12px system-ui}
-#hg-commons-badge[hidden]{display:none!important}
+#hg-commons-badge[hidden],#hg-commons-activity-summary[hidden]{display:none!important}
 #hg-commons-menu{position:fixed;right:12px;bottom:66px;z-index:10022;width:min(320px,calc(100vw - 24px));padding:12px;border:1px solid #85765d;border-radius:16px;background:#151d2a;color:#e8edf5;box-shadow:0 12px 36px #0009;font:14px system-ui}
 #hg-commons-menu[hidden]{display:none!important}
 #hg-commons-menu strong{display:block;margin:0 0 9px;font-size:16px}
@@ -37,6 +37,15 @@ css.textContent = `
 `;
 document.head.append(css);
 const launch=document.createElement('button');launch.id='hg-commons-launch';launch.innerHTML='☏ Fellowship <span id="hg-commons-badge" hidden aria-label="Unread messaging activity"></span>';launch.hidden=true;launch.type='button';document.body.append(launch);
+const primaryEntrance=document.getElementById('mainStageFellowshipPilot');
+const entrance=primaryEntrance||launch;
+let activitySummary;
+if(primaryEntrance){
+ primaryEntrance.append(launch.querySelector('#hg-commons-badge'));
+ activitySummary=document.createElement('small');activitySummary.id='hg-commons-activity-summary';activitySummary.hidden=true;
+ activitySummary.style.cssText='display:block;font-size:12px;color:var(--muted);line-height:1.4';
+ primaryEntrance.after(activitySummary);primaryEntrance.setAttribute('aria-describedby',activitySummary.id);
+}
 const menu=document.createElement('nav');menu.id='hg-commons-menu';menu.hidden=true;menu.setAttribute('aria-label','Fellowship destinations');
 menu.innerHTML='<strong>Fellowship</strong><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Conversation requests <span class="count" id="hg-commons-requests" hidden></span></a><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Private messages <span class="count" id="hg-commons-unread" hidden></span></a><button type="button" id="hg-commons-study">Bible Study discussions <span>›</span></button><a href="/find-users/">Find people <span>›</span></a>';
 document.body.append(menu);
@@ -66,9 +75,9 @@ box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging ·
 const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-commons-label'),min=box.querySelector('#hg-commons-min');
 document.body.append(box);
 function validWeek(n){return Number.isInteger(n)&&n>=1&&n<=54}
-function setWeek(n){if(!validWeek(n))return;const changed=week!==n;week=n;launch.hidden=!box.hidden;label.textContent='Messaging · Week '+week;if(changed&&frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
+function setWeek(n){if(!validWeek(n))return;const changed=week!==n;week=n;launch.hidden=!!primaryEntrance||!box.hidden;label.textContent='Messaging · Week '+week;if(changed&&frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
 function open(showWeekDiscussions=false){if(!validWeek(week))return;menuVisible(false);collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=study-discussion-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week,showWeekDiscussions},location.origin)}}
-function close(){box.hidden=true;launch.hidden=false;/* Preserve iframe and drafts for reopening. */ }
+function close(){box.hidden=true;launch.hidden=!!primaryEntrance;/* Preserve iframe and drafts for reopening. */ }
 function minimize(){if(matchMedia('(max-width:600px)').matches){close();return;}collapsed=!collapsed;box.classList.toggle('minimized',collapsed);min.textContent=collapsed?'+':'−';min.setAttribute('aria-label',collapsed?'Restore companion':'Minimize companion');requestAnimationFrame(clamp)}
 function clamp(){if(box.hidden||matchMedia('(max-width:600px)').matches){box.style.left='';box.style.top='';box.style.right='';box.style.bottom='';return;}const r=box.getBoundingClientRect();box.style.left=Math.max(8,Math.min(r.left,innerWidth-r.width-8))+'px';box.style.top=Math.max(8,Math.min(r.top,innerHeight-r.height-8))+'px';box.style.right='auto';box.style.bottom='auto'}
 min.addEventListener('click',minimize);box.querySelector('#hg-commons-close').addEventListener('click',close);
@@ -78,6 +87,7 @@ for(const ev of ['pointerup','pointercancel'])bar.addEventListener(ev,e=>{if(dra
 window.addEventListener('resize',()=>requestAnimationFrame(clamp));
 document.addEventListener('weekChanged',e=>setWeek(Number(e.detail?.week??e.detail?.weekNumber)));
 function refresh(){
+ if(window.HGFellowshipActive||document.querySelector('.fellowship-excursion[open]')){launch.hidden=true;menuVisible(false);return;}
  const route=window.HGRoute?.read?.();
  const select=document.getElementById('weekSelect');
  const selected=Number(select?.value);
@@ -142,8 +152,11 @@ window.addEventListener('message',event=>{
    requestsCount.hidden=!pending;requestsCount.textContent=String(pending);
    unreadCount.hidden=!unread;unreadCount.textContent=String(unread);
    const n=pending+unread;badge.hidden=!n;badge.textContent=n>99?'99+':String(n);
-   launch.setAttribute('aria-label',n?'Fellowship: '+n+' unread conversations or requests' :'Fellowship');
-   launch.title=n?n+' new messaging conversations or requests' :'Open Fellowship';
+   const detail=pending+' conversation request'+(pending===1?'':'s')+', '+unread+' conversation'+(unread===1?'':'s')+' with new messages';
+   badge.setAttribute('aria-label',detail);
+   if(activitySummary){activitySummary.hidden=!n;activitySummary.textContent=[pending?pending+' conversation request'+(pending===1?'':'s'):'',unread?unread+' conversation'+(unread===1?'':'s')+' with new messages':''].filter(Boolean).join(' · ');}
+   entrance.setAttribute('aria-label',n?'Fellowship: '+detail:'Fellowship');
+   entrance.title=n?detail:'Open Fellowship';
   }
   function clear(){stopInbox?.();stopInbox=null;stops.forEach(fn=>fn());stops=[];items=[];lastMessages.clear();update()}
   window.addEventListener('storage',e=>{if(e.key?.startsWith('hg-direct-read-v1:'))update()});

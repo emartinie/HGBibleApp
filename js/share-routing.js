@@ -217,6 +217,8 @@
 
       const link = event.target.closest?.("a[href]");
       if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+      // Native Fellowship owns shared-reader/account links within its mounted surface.
+      if (link.closest("[data-fellowship-native-links]")) return;
 
       const rawHref = link.getAttribute("href");
       if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:") || rawHref.startsWith("javascript:")) return;

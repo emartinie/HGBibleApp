@@ -40,9 +40,10 @@ async function harness(page,{account=null,search='',pending=null,emailLink=false
  // Execute the real lifecycle adapter around the same SDK doubles.
  w.subscribeAuth=mock.onAuthStateChanged;w.subscribeSnapshot=mock.onSnapshot;
  const lifecycle=fs.readFileSync(path.join(root,commons,'commons-lifecycle.js'),'utf8').replace(/^import .*;\s*$/gm,'').replace(/^export /gm,'');
- w.eval('(function(){'+lifecycle+';Object.assign(window,{onAuthStateChanged,onSnapshot});if(typeof onCommonsDispose==="function")window.onCommonsDispose=onCommonsDispose;})();');
+ w.eval('(function(){'+lifecycle+';Object.assign(window,{onAuthStateChanged,onSnapshot,createCommonsLifecycle});if(typeof onCommonsDispose==="function")window.onCommonsDispose=onCommonsDispose;})();');
  const composer=fs.readFileSync(path.join(root,commons,'direct-composer.js'),'utf8');
  w.eval(composer.replace('export function createDirectComposer','function createDirectComposer')+'\nwindow.createDirectComposer=createDirectComposer;');
+ if(page==='auth'){const source=fs.readFileSync(path.join(root,'js/fellowship-account.js'),'utf8').replace(/^import .*;\s*$/gm,'').replace('export function mountAccount','function mountAccount').replace('return {dispose,ready,safeDestination};','window.safeDestination=safeDestination;return {dispose,ready,safeDestination};');w.eval(source+'\nwindow.mountAccount=mountAccount;');}
  const code=html.match(/<script type="module">([\s\S]*?)<\/script>/)[1].replace(/^import .*;\s*$/gm,'');
  const boot=w.eval(code);
  if(!emailLink)await tick();
