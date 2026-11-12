@@ -36,16 +36,22 @@ css.textContent = `
 }
 `;
 document.head.append(css);
-const launch=document.createElement('button');launch.id='hg-commons-launch';launch.innerHTML='☏ Messaging <span id="hg-commons-badge" hidden aria-label="Unread messaging activity"></span>';launch.hidden=true;launch.type='button';document.body.append(launch);
-const menu=document.createElement('nav');menu.id='hg-commons-menu';menu.hidden=true;menu.setAttribute('aria-label','Messaging destinations');
-menu.innerHTML='<strong>Messaging</strong><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Conversation requests <span class="count" id="hg-commons-requests" hidden></span></a><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Private messages <span class="count" id="hg-commons-unread" hidden></span></a><button type="button" id="hg-commons-study">Bible Study discussions <span>›</span></button><a href="/find-users/">Find people <span>›</span></a>';
+const launch=document.createElement('button');launch.id='hg-commons-launch';launch.innerHTML='☏ Fellowship <span id="hg-commons-badge" hidden aria-label="Unread messaging activity"></span>';launch.hidden=true;launch.type='button';document.body.append(launch);
+const menu=document.createElement('nav');menu.id='hg-commons-menu';menu.hidden=true;menu.setAttribute('aria-label','Fellowship destinations');
+menu.innerHTML='<strong>Fellowship</strong><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Conversation requests <span class="count" id="hg-commons-requests" hidden></span></a><a href="/My%20Partner/collaboration/messaging/commons/direct-live/">Private messages <span class="count" id="hg-commons-unread" hidden></span></a><button type="button" id="hg-commons-study">Bible Study discussions <span>›</span></button><a href="/find-users/">Find people <span>›</span></a>';
 document.body.append(menu);
 const requestsCount=menu.querySelector('#hg-commons-requests'),unreadCount=menu.querySelector('#hg-commons-unread');
 function menuVisible(value){menu.hidden=!value;launch.setAttribute('aria-expanded',String(value))}
 launch.setAttribute('aria-haspopup','menu');launch.setAttribute('aria-expanded','false');
 menu.querySelector('#hg-commons-study').addEventListener('click',()=>{menuVisible(false);open()});
-launch.addEventListener('click',()=>menuVisible(menu.hidden));
-if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+launch.addEventListener('click',()=>{
+  menuVisible(false);
+  const fellowship=document.getElementById('mainStageFellowshipPilot');
+  if(fellowship && !fellowship.disabled){fellowship.click();return;}
+  // Keep the existing destinations available if the main Fellowship entrance is absent.
+  menuVisible(true);
+});
+if(false && matchMedia('(hover:hover) and (pointer:fine)').matches){
  let hoverExit;
  const show=()=>{clearTimeout(hoverExit);if(!launch.hidden)menuVisible(true)};
  const hide=()=>{clearTimeout(hoverExit);hoverExit=setTimeout(()=>{if(!menu.matches(':hover')&&!launch.matches(':hover'))menuVisible(false)},180)};
@@ -59,7 +65,7 @@ box=document.createElement('section');box.id='hg-commons-window';box.hidden=true
 box.innerHTML='<div id="hg-commons-bar"><span id="hg-commons-label">Messaging · Week 1</span><div><a id="hg-commons-inbox" href="/My%20Partner/collaboration/messaging/commons/direct-live/">✉ Inbox</a> <button type="button" id="hg-commons-min" aria-label="Minimize companion">−</button><button type="button" id="hg-commons-close" aria-label="Close companion">×</button></div></div>';
 const bar=box.querySelector('#hg-commons-bar'),label=box.querySelector('#hg-commons-label'),min=box.querySelector('#hg-commons-min');
 document.body.append(box);
-function validWeek(n){return n===1||n===2||n===3||n===4}
+function validWeek(n){return Number.isInteger(n)&&n>=1&&n<=54}
 function setWeek(n){if(!validWeek(n))return;const changed=week!==n;week=n;launch.hidden=!box.hidden;label.textContent='Messaging · Week '+week;if(changed&&frame?.contentWindow)frame.contentWindow.postMessage({commonsWeek:week},location.origin)}
 function open(showWeekDiscussions=false){if(!validWeek(week))return;menuVisible(false);collapsed=false;box.classList.remove('minimized');min.textContent='−';box.hidden=false;launch.hidden=true;if(!frame){frame=document.createElement('iframe');frame.title='Messaging discussions for Week '+week;frame.src=new URL('?embedded=1&week='+week+'&v=study-discussion-1',PILOT);box.append(frame)}else{frame.contentWindow?.postMessage({commonsWeek:week,showWeekDiscussions},location.origin)}}
 function close(){box.hidden=true;launch.hidden=false;/* Preserve iframe and drafts for reopening. */ }
@@ -136,8 +142,8 @@ window.addEventListener('message',event=>{
    requestsCount.hidden=!pending;requestsCount.textContent=String(pending);
    unreadCount.hidden=!unread;unreadCount.textContent=String(unread);
    const n=pending+unread;badge.hidden=!n;badge.textContent=n>99?'99+':String(n);
-   launch.setAttribute('aria-label',n?'Messaging: '+n+' unread conversations or requests':'Messaging');
-   launch.title=n?n+' new messaging conversations or requests':'Open Messaging';
+   launch.setAttribute('aria-label',n?'Fellowship: '+n+' unread conversations or requests' :'Fellowship');
+   launch.title=n?n+' new messaging conversations or requests' :'Open Fellowship';
   }
   function clear(){stopInbox?.();stopInbox=null;stops.forEach(fn=>fn());stops=[];items=[];lastMessages.clear();update()}
   window.addEventListener('storage',e=>{if(e.key?.startsWith('hg-direct-read-v1:'))update()});

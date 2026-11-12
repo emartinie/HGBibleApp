@@ -6,7 +6,7 @@ function clear(session){window.destroyFellowshipCard?.();session.mounted=false;s
 function unavailable(session){
   clear(session);
   const section=document.createElement('section');section.className='hg-panel';
-  const status=document.createElement('p');status.setAttribute('role','status');status.textContent='Live Fellowship is not enabled for this account.';
+  const status=document.createElement('p');status.setAttribute('role','status');status.textContent='Sign in to use Fellowship. Community and message permissions still apply.';
   const account=document.createElement('a'),url=new URL('/My%20Partner/collaboration/messaging/commons/auth/',location.origin);
   const back=new URL('/',location.origin);back.searchParams.set('card',session.closeExcursion?'mainstage':'fellowship-live');
   const week=window.HGRoute?.read().week;if(week)back.searchParams.set('week',week);
@@ -29,13 +29,12 @@ async function check(session,forceRefresh){
       const response=await fetch('cards/fellowship.html',{cache:'no-store',signal:session.abort.signal});
       if(!response.ok)throw Error('Fellowship unavailable');const html=await response.text();
       if(active!==session||revision!==session.revision||auth.currentUser?.uid!==grant.uid)return;
-      if(Date.now()>=grant.expiresAt)throw Error('Fellowship pilot expired');
       session.host.innerHTML=html;session.mounted=true;
       await window.initFellowshipCard(session.host,{routeCard:'fellowship-live',prayerReadOnly:true,closeExcursion:session.closeExcursion});
     }
     if(active!==session||revision!==session.revision)return;
     clearTimeout(session.expiryTimer);
-    session.expiryTimer=setTimeout(()=>{if(active===session){++session.revision;session.abort?.abort();unavailable(session);}},Math.max(0,grant.expiresAt-Date.now()));
+    // Public access has no time-limited expiry; token refresh still rechecks account identity.
   }catch(error){if(active===session&&revision===session.revision){clearTimeout(session.expiryTimer);unavailable(session);}}
 }
 window.initFellowshipLiveCard=function(host,{closeExcursion}={}){
