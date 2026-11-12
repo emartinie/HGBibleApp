@@ -24,3 +24,13 @@ test('feed position and home discussion routes remain identity-scoped and conten
 });
 
 test('anonymous/signed-out transitions clear private context while retaining account-independent reading preferences',async()=>{const f=await fixture(),m=f.module;m.rememberReading({ref:'John 1:5',version:'NASB',anchor:'5',offset:120,scrollTop:450});m.rememberReturn(route,'alice');const initial=m.identity();f.switch('alice',true);assert.equal(m.identity().uid,null);assert.equal(m.discussionReturn(),null);assert.equal(m.associatedDiscussion('John 1:5'),null);assert.equal(m.readingView().ref,'John 1:5');f.switch(null);f.switch('alice');assert.equal(m.isCurrent('alice',initial.epoch),false);assert.equal(m.discussionReturn(),null);assert.equal(m.readingView().version,'NASB')});
+
+test('conversation pagination mementos retain only a bounded count and remain identity-scoped',async()=>{
+ const f=await fixture(),m=f.module;
+ m.rememberDiscussion(route,{post:'test-post',scrollTop:1800,replyCount:65,replies:['PRIVATE']},'alice');
+ assert.equal(m.discussionView(route,'alice').replyCount,65);
+ assert.equal('replies' in m.discussionView(route,'alice'),false);
+ m.rememberDiscussion(route,{post:'test-post',replyCount:Infinity},'alice');
+ assert.equal(m.discussionView(route,'alice').replyCount,0);
+ f.switch('bob');assert.equal(m.discussionView(route,'alice'),null);assert.equal(f.store.size,0);
+});

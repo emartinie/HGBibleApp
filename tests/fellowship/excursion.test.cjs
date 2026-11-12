@@ -7,19 +7,18 @@ test('workspace pilot opens the existing feed over Main Stage and restores focus
   {id:'pilot-post',area:'study',title:'A real conversation fixture',time:1,body:'A sample reply topic'}
  ]}});
  const url=page.url();
- const launch=page.getByRole('button',{name:'Fellowship workspace pilot'});
+ const launch=page.locator('#mainStageFellowshipPilot');
  await launch.click();
- const dialog=page.getByRole('dialog',{name:'Fellowship workspace pilot'});
+ const dialog=page.getByRole('dialog',{name:'Fellowship',exact:true});
  await dialog.getByText('A real conversation fixture',{exact:true}).waitFor();
- await dialog.getByText('A real conversation fixture',{exact:true}).click();
  await dialog.getByText('A sample reply topic',{exact:true}).waitFor();
- await dialog.getByRole('button',{name:'Open discussion'}).click();
+ await dialog.getByRole('button',{name:'Open discussion and replies'}).click();
  const child=await frame();
- await child.locator('#post-pilot-post').waitFor();
+ await child.locator('#thread .message').waitFor();
  assert.equal(page.url(),url);
  assert.equal(await page.locator('#weekCardDock').isVisible(),true);
  await dialog.getByRole('button',{name:'Close Fellowship'}).click();
- assert.equal(await dialog.count(),0);
+ assert.equal(await dialog.isVisible(),false);
  assert.equal(await launch.evaluate(el=>el===document.activeElement),true);
  assert.equal(page.url(),url);
  assert.equal(await page.evaluate(()=>__fixture.writes.length),0);
@@ -27,9 +26,9 @@ test('workspace pilot opens the existing feed over Main Stage and restores focus
 
 test('workspace pilot denies access when the existing rollout is disabled', async t => {
  const {page}=await harness(t,{production:true,route:'?card=mainstage',liveEnabled:false});
- await page.getByRole('button',{name:'Fellowship workspace pilot'}).click();
- const dialog=page.getByRole('dialog',{name:'Fellowship workspace pilot'});
- await dialog.getByText('Live Fellowship is not enabled for this account.').waitFor();
+ await page.locator('#mainStageFellowshipPilot').click();
+ const dialog=page.getByRole('dialog',{name:'Fellowship',exact:true});
+ await dialog.getByText('Sign in to use Fellowship. Community and message permissions still apply.').waitFor();
  assert.equal(await dialog.locator('iframe').count(),0);
  assert.equal(await page.evaluate(()=>__fixture.writes.length),0);
 });
@@ -40,12 +39,11 @@ test('share real reader references from a reply and return to the same pilot dis
  ]}});
  page.setDefaultTimeout(25000);
  const url=page.url();
- await page.getByRole('button',{name:'Fellowship workspace pilot'}).click();
- await page.getByRole('button',{name:'Open discussion'}).click();
+ await page.locator('#mainStageFellowshipPilot').click();
+ await page.getByRole('button',{name:'Open discussion and replies'}).click();
  let child=await frame();
- const post=child.locator('#post-share-post');
- await post.locator('.replies > details > summary').click();
- const reply=post.getByRole('textbox',{name:/Reply to/});
+ const post=child.locator('#composer');
+ const reply=post.getByRole('textbox',{name:'Write a reply'});
  await reply.fill('Compare this with the opening verse.');
  await post.getByText('Add Content',{exact:false}).last().click();
  await post.getByRole('button',{name:'Cancel',exact:true}).click();
@@ -64,13 +62,12 @@ test('share real reader references from a reply and return to the same pilot dis
  await post.getByRole('button',{name:'Add to message'}).click();
  assert.match(await reply.inputValue(),/Reading: .*ref=John\+1%3A5/);
  await page.evaluate(()=>__fixture.failShareAck=true);
- await post.getByRole('button',{name:'Post reply'}).click();
+ await post.getByRole('button',{name:'Send reply'}).click();
  await child.getByText(/Reply not saved/).waitFor();
- await post.getByRole('button',{name:'Post reply'}).click();
+ await post.getByRole('button',{name:'Send reply'}).click();
  await child.getByText('Reply posted.',{exact:true}).waitFor();
  assert.equal(await page.evaluate(()=>__fixture.writes.length),1);
  child=await frame();
- await child.locator('#post-share-post .replies > details > summary').click();
  const link=child.getByRole('link',{name:'Read John 1:5'});
  await link.click();
  const reader=page.getByRole('dialog',{name:'Shared reading'});
@@ -78,7 +75,7 @@ test('share real reader references from a reply and return to the same pilot dis
  assert.equal(page.url(),url);
  await reader.getByRole('button',{name:'Close reading'}).click();
  assert.equal(await link.evaluate(el=>el===el.ownerDocument.activeElement),true);
- assert.equal(await child.locator('#post-share-post').isVisible(),true);
+ assert.equal(await child.locator('#thread .message').first().isVisible(),true);
  assert.equal(page.url(),url);
 });
 
@@ -87,21 +84,21 @@ test('pilot opens the actual weekly study reader above the discussion', async t 
   {id:'study-post',area:'study',title:'Read the weekly study',time:1,body:'Read together.\n\nReading: http://fellowship.test/?card=mainstage&study=lech-lecha'}
  ]}});
  const route=page.url();
- await page.getByRole('button',{name:'Fellowship workspace pilot'}).click();
- await page.getByRole('button',{name:'Open discussion'}).click();
+ await page.locator('#mainStageFellowshipPilot').click();
+ await page.getByRole('button',{name:'Open discussion and replies'}).click();
  const child=await frame();
  await child.getByRole('link',{name:'Open the original study'}).click();
  const reader=page.getByRole('dialog',{name:'Shared reading'});
  await reader.locator('#shared-weeklyScriptureContainer[data-source][aria-busy="false"]').waitFor();
  await reader.getByRole('button',{name:'Close reading'}).click();
  assert.equal(page.url(),route);
- assert.equal(await child.locator('#post-study-post').isVisible(),true);
+ assert.equal(await child.locator('#thread .message').first().isVisible(),true);
 });
 
 test('a new discussion can attach a weekly study using the existing post collection', async t => {
  const {page,frame}=await harness(t,{production:true,route:'?card=mainstage&week=3',feed:{records:[]}});
  page.setDefaultTimeout(25000);
- await page.getByRole('button',{name:'Fellowship workspace pilot'}).click();
+ await page.locator('#mainStageFellowshipPilot').click();
  await page.getByRole('button',{name:'Create post'}).click();
  await page.getByRole('button',{name:'Continue',exact:true}).click();
  const child=await frame();

@@ -1,5 +1,9 @@
 # HomeGroups project map
 
+## Conversation-first corrections — November 12, 2026
+
+[PR #50 corrections and validation](../FELLOWSHIP-CONVERSATION-FIRST-FIXES.md) documents lifecycle and membership guards, in-place shared reading, reply pagination, mobile sizing and the existing private-message request flow. Corrections remain on the existing `codex/fellowship-feed-visible-posts` branch. Browser data and rules tests are local/synthetic; no production permissions or records changed. No merge or deployment.
+
 ## Fellowship feed styling — November 7, 2026
 
 [Feed presentation review](../FELLOWSHIP-FEED-STYLING.md) adds theme-derived contrast, author bylines/initials and editorial typography only within the existing home feed. No changes to routing, Firebase operations, discussion screens or pilot settings. Screenshots use synthetic posts; physical-device verification remains separate.
