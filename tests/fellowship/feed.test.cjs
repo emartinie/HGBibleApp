@@ -79,15 +79,15 @@ test('account switching clears feed and selector choices; listener counts do not
   await page.evaluate(()=>__switchUser('alice'));await ready(page,3);
   assert.equal(await page.evaluate(()=>[...__fixture.snaps].filter(s=>s.path.startsWith('commonsCommunityMembers/')).length),6);
  }
- await page.evaluate(()=>__switchUser(null));await page.getByText('Sign in to use Fellowship. Community and message permissions still apply.',{exact:true}).waitFor();assert.equal(await page.locator('.fellowship-feed').count(),0);
+ await page.evaluate(()=>__switchUser(null));await page.getByText('Sign in to use Fellowship.',{exact:true}).waitFor();assert.equal(await page.locator('.fellowship-feed').count(),0);
 });
 
 test('post selection uses existing composer/replies and restores feed position',async t=>{
  const records=Array.from({length:40},(_,i)=>record('study','post-'+String(i).padStart(3,'0'),100000-i));
- const {page,frame}=await harness(t,{production:true,route,feed:{members:[member('study')],records}});await ready(page,30);
+ const {page,frame,conversation}=await harness(t,{production:true,route,feed:{members:[member('study')],records}});await ready(page,30);
  await page.getByRole('button',{name:'Load older posts'}).click();await ready(page,40);
  const link=page.locator('.fellowship-feed article').nth(35).getByRole('link',{name:'Open discussion'});await link.scrollIntoViewIfNeeded();
- const before=await page.locator('.fellowship').evaluate(el=>({card:el.closest('.card').scrollTop,window:window.scrollY}));await link.click();let child=await frame();
+ const before=await page.locator('.fellowship').evaluate(el=>({card:el.closest('.card').scrollTop,window:window.scrollY}));await link.click();let child=await conversation();
  await child.locator('#thread .message').waitFor();assert.match(page.url(),/view=home.*section=discussion/);
  await child.getByRole('textbox',{name:'Write a reply'}).fill('Synthetic reply');await child.getByRole('button',{name:'Send reply',exact:true}).click();
  await page.waitForFunction(()=>__fixture.writes.some(x=>x.path.includes('/post-035/replies/')));
@@ -105,13 +105,13 @@ test('Prayer Map and all existing menu destinations remain available from the fe
  await menu(page,'Prayer Map');await page.locator('#prayerMap').waitFor();assert.equal(await page.locator('#prayerMapAddBtn').isDisabled(),true);
  for(const [label,selector]of [['My Communities','#directory'],['Explore Communities','#directory'],['Messages','#layout'],['My Profile','#profile'],['Account / Sign In','#guest'],['Find People','#results']]){
   if(label==='Find People')await context.route('**/HomeGroupsMap.geojson',r=>r.fulfill({contentType:'application/json',body:'{"features":[]}'}));
-  await menu(page,label);const child=await frame();await child.locator(selector).waitFor({state:'attached'});
+  await menu(page,label);if(label==='Account / Sign In')await page.locator('.fellowship-account '+selector).waitFor({state:'attached'});else{const child=await frame();await child.locator(selector).waitFor({state:'attached'});}
  }
  await menu(page,'Home feed');await ready(page,3);await menu(page,'Return to Bible Study');await page.waitForURL(/card=mainstage/);assert.match(page.url(),/week=12/);
 });
 
 test('new post targets the selected joined community through the existing composer',async t=>{
- const {page,frame}=await harness(t,{production:true,route,feed:basic});await ready(page,3);
+ const {page,frame,conversation}=await harness(t,{production:true,route,feed:basic});await ready(page,3);
  await page.getByRole('button',{name:'Create post',exact:true}).click();assert.equal(await page.getByRole('button',{name:'Create post',exact:true}).getAttribute('aria-expanded'),'true');
  assert.deepEqual((await page.locator('#fellowship-post-community option').evaluateAll(options=>options.map(x=>x.value))).sort(),['prayer','study']);
  await page.locator('#fellowship-post-community').selectOption('prayer');await page.getByRole('button',{name:'Continue',exact:true}).click();
@@ -122,19 +122,19 @@ test('new post targets the selected joined community through the existing compos
 
 test('Scripture association and browser Back return to the home discussion and feed',async t=>{
  const body='Light shines in the darkness.\nReading: http://fellowship.test/?card=scriptureapi&ref=John%201%3A5&version=NASB';
- const {page,frame}=await harness(t,{production:true,unification:true,route,feed:{members:[member('study')],records:[record('study','scripture-post',1000,body)]}});await ready(page,1);
- await page.getByRole('link',{name:'Open discussion',exact:true}).click();let child=await frame();await child.locator('#thread .message').waitFor();
- await page.goBack();await ready(page,1);await page.goForward();child=await frame();await child.locator('#thread .message').waitFor();
+ const {page,frame,conversation}=await harness(t,{production:true,unification:true,route,feed:{members:[member('study')],records:[record('study','scripture-post',1000,body)]}});await ready(page,1);
+ await page.getByRole('link',{name:'Open discussion',exact:true}).click();let child=await conversation();await child.locator('#thread .message').waitFor();
+ await page.goBack();await ready(page,1);await page.goForward();child=await conversation();await child.locator('#thread .message').waitFor();
  const discussionRoute=page.url();await child.getByRole('link',{name:'Read John 1:5',exact:false}).click();const reader=page.getByRole('dialog',{name:'Shared reading'});await reader.locator('#scriptureContent[aria-busy="false"]').waitFor();
  await reader.getByRole('button',{name:'Close reading'}).click();assert.equal(page.url(),discussionRoute);assert.match(page.url(),/view=home/);
  await page.getByRole('button',{name:'Back to feed',exact:true}).click();await ready(page,1);assert.equal(await page.evaluate(()=>__fixture.writes.length),0);
 });
 
 test('a disposed composer cannot restore focus or issue writes after a delayed profile read',async t=>{
- const {page,frame}=await harness(t,{production:true,route,feed:basic});await ready(page,3);
+ const {page,frame,conversation}=await harness(t,{production:true,route,feed:basic});await ready(page,3);
  await page.getByRole('button',{name:'Create post',exact:true}).click();await page.evaluate(()=>__fixture.holdProfile=true);
  await page.getByRole('button',{name:'Continue',exact:true}).click();await frame();await page.waitForFunction(()=>typeof __fixture.releaseProfile==='function');
- await menu(page,'Home feed');await ready(page,3);await page.getByRole('button',{name:'Create post',exact:true}).focus();
+ await page.getByRole('button',{name:'Back to feed',exact:true}).click();await ready(page,3);await page.getByRole('button',{name:'Create post',exact:true}).focus();
  await page.evaluate(()=>{__fixture.holdProfile=false;__fixture.releaseProfile();});await page.waitForTimeout(100);
  assert.equal(await page.getByRole('button',{name:'Create post',exact:true}).evaluate(el=>document.activeElement===el),true);
  assert.equal(await page.locator('.fellowship iframe').count(),0);assert.equal(await page.evaluate(()=>__fixture.writes.length),0);

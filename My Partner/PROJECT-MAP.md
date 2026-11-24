@@ -1,5 +1,9 @@
 # HomeGroups project map
 
+## Unified iPhone Fellowship — November 12, 2026
+
+[Issue #51 implementation and verification](../FELLOWSHIP-IPHONE-UNIFICATION.md) documents the native conversation/account surfaces, one scroll host with an anchored composer, compact navigation, safe cache verification and the in-flow study entrance with a precise activity-count explanation. New branch starts at merged PR #50 (`1e31cc4`). Existing rules/services remain unchanged; physical iPhone and live-provider checks remain separate.
+
 ## Conversation-first corrections — November 12, 2026
 
 [PR #50 corrections and validation](../FELLOWSHIP-CONVERSATION-FIRST-FIXES.md) documents lifecycle and membership guards, in-place shared reading, reply pagination, mobile sizing and the existing private-message request flow. Corrections remain on the existing `codex/fellowship-feed-visible-posts` branch. Browser data and rules tests are local/synthetic; no production permissions or records changed. No merge or deployment.

@@ -60,10 +60,10 @@ test('populated mobile companion opens the right discussion on first click and a
 });
 
 test('community board opens the same study association', async t => {
- const {frame,page}=await harness(t,{production:true,route:'?card=fellowship-live&view=communities&section=discussion&area=study&post=abram&week=3',feed:{records:[
+ const {frame,page,conversation}=await harness(t,{production:true,route:'?card=fellowship-live&view=communities&section=discussion&area=study&post=abram&week=3',feed:{records:[
   {id:'abram',area:'study',title:'Abram discussion',time:1,body:'Leaving home\nReading: http://fellowship.test/?card=mainstage&study=lech-lecha'}
  ]}});
- const child=await frame();
+ const child=await conversation();
  const route=page.url();await child.getByRole('link',{name:'Open the original study'}).click();
  const reader=page.getByRole('dialog',{name:'Shared reading'});await reader.locator('#shared-weeklyScriptureContainer[data-source][aria-busy="false"]').waitFor();
  await reader.getByRole('button',{name:'Close reading'}).click();assert.equal(page.url(),route);
