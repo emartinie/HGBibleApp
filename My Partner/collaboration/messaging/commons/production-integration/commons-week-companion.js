@@ -90,10 +90,10 @@ function refresh(){
    validWeek(globalWeek)?globalWeek:
    validWeek(loaded)?loaded:0;
  if(route?.card && route.card!=='mainstage'){
-   box.hidden=true;launch.hidden=true;menuVisible(false);return;
+   box.hidden=true;launch.hidden=Boolean(window.HGFellowshipActive);menuVisible(false);return;
  }
  if(n){setWeek(n)}
- else{launch.hidden=true;box.hidden=true;menuVisible(false)}
+ else{launch.hidden=Boolean(window.HGFellowshipActive);box.hidden=true;menuVisible(false)}
 }
 refresh();
 document.addEventListener('weekChanged',()=>queueMicrotask(refresh));
